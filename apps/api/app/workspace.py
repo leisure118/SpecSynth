@@ -27,12 +27,13 @@ class SourceFile(BaseModel):
         path = PurePosixPath(self.path)
         if (path.is_absolute() or '\\' in self.path or ':' in self.path
                 or any(p in ('', '.', '..') for p in self.path.split('/'))
-                or path.suffix not in ('.c', '.h') or any(ord(c) < 32 for c in self.path)):
-            raise ValueError('Use a relative .c or .h path without traversal.')
+                or path.suffix not in ('.c', '.h', '.rs') or any(ord(c) < 32 for c in self.path)):
+            raise ValueError('Use a relative .c, .h or .rs path without traversal.')
         return self
 
 
 class ProjectBody(BaseModel):
+    language: Literal["C", "Rust"] = "C"
     name: str = Field(min_length=1, max_length=120)
     files: list[SourceFile] = Field(min_length=1, max_length=200)
 
@@ -41,8 +42,11 @@ class ProjectBody(BaseModel):
         self.name = self.name.strip()
         if not self.name or len({f.path for f in self.files}) != len(self.files):
             raise ValueError('Project name and unique file paths are required.')
-        if not any(f.path.endswith('.c') for f in self.files):
-            raise ValueError('A project needs at least one C source file.')
+        allowed = ('.rs',) if self.language == 'Rust' else ('.c', '.h')
+        if any(PurePosixPath(f.path).suffix not in allowed for f in self.files):
+            raise ValueError('文件扩展名必须与项目语言一致。')
+        if not any(f.path.endswith('.rs' if self.language == 'Rust' else '.c') for f in self.files):
+            raise ValueError('项目至少需要一个对应语言的源文件。')
         if sum(len(f.content.encode('utf-8')) for f in self.files) > 10_000_000:
             raise ValueError('Project source exceeds 10 MB.')
         return self
@@ -54,8 +58,12 @@ class ProjectSave(ProjectBody):
 
 class ProjectRun(BaseModel):
     revision: int = Field(ge=1)
-    mode: Literal['single', 'termination', 'inter-modular'] = 'single'
+    mode: Literal['single', 'termination', 'inter-modular', 'rust-verify', 'rust-generate'] = 'single'
     entry_path: str
+    description: str = Field(default='', max_length=16000)
+    function_signature: str = Field(default='', max_length=4000)
+    rag_enabled: bool = False
+    max_repair_rounds: int = Field(default=3, ge=0, le=3)
     model_name: str = 'qwen-turbo'
     timeout_sec: int = Field(default=120, ge=10, le=3600)
 
@@ -100,7 +108,7 @@ def create_workspace_router(manager, store):
     @router.post('', status_code=201)
     def create_project(body: ProjectBody):
         now = utcnow().isoformat()
-        project = body.model_dump() | {'id': uuid.uuid4().hex, 'language': 'C',
+        project = body.model_dump() | {'id': uuid.uuid4().hex,
                                       'revision': 1, 'created_at': now, 'updated_at': now, 'runs': []}
         with _LOCK:
             _write(project)
@@ -116,6 +124,8 @@ def create_workspace_router(manager, store):
             project = _read(project_id)
             if body.revision != project['revision']:
                 raise HTTPException(409, 'Project changed in another window. Reload before saving.')
+            if body.language != project.get('language', 'C'):
+                raise HTTPException(422, '项目创建后不能更换语言。')
             project.update(name=body.name, files=[f.model_dump() for f in body.files],
                            revision=project['revision'] + 1, updated_at=utcnow().isoformat())
             _write(project)
@@ -127,25 +137,43 @@ def create_workspace_router(manager, store):
             project = _read(project_id)
             if body.revision != project['revision']:
                 raise HTTPException(409, 'Save the current source revision before verification.')
-            if body.model_name not in get_available_models():
+            rust = project.get('language') == 'Rust'
+            if rust != body.mode.startswith('rust-'):
+                raise HTTPException(422, '验证模式与项目语言不匹配。')
+            if not rust and body.model_name not in get_available_models():
                 raise HTTPException(422, 'Unknown model.')
             entry = next((f for f in project['files'] if f['path'] == body.entry_path), None)
-            if not entry or not entry['path'].endswith('.c'):
-                raise HTTPException(422, 'Select a C source file as the entry.')
+            if not entry or not entry['path'].endswith('.rs' if rust else '.c'):
+                raise HTTPException(422, '请选择与项目语言匹配的源文件。')
             for prior in reversed(project['runs']):
                 if prior['mode'] == body.mode and (body.mode == 'inter-modular' or prior['entry_path'] == body.entry_path):
                     existing = store.read_task(prior['task_id'])
                     if existing and existing.status in ('queued', 'running'):
                         raise HTTPException(409, 'This file already has an active verification in this mode.')
+            workflow = None
+            if body.mode == 'rust-generate':
+                from engine.nl2verus.workflow_runs import WorkflowRunRequest
+                from .rust import validate_generation
+                try:
+                    workflow = WorkflowRunRequest(request_id=uuid.uuid4().hex,
+                        description=body.description, function_signature=body.function_signature,
+                        model_id=body.model_name, rag_enabled=body.rag_enabled,
+                        repair_enabled=body.max_repair_rounds > 0,
+                        max_repair_rounds=max(1, body.max_repair_rounds),
+                        timeout_seconds=min(60, body.timeout_sec)).model_dump()
+                    validate_generation(workflow)
+                except ValueError as exc:
+                    raise HTTPException(422, str(exc)) from None
             # Snapshot every submitted source; subsequent editor saves cannot change a running task.
-            if body.mode == 'inter-modular':
+            if body.mode == 'inter-modular' or rust:
                 upload = store.create_bundle_upload([
                     {'relative_path': f['path'], 'payload': f['content'].encode('utf-8')}
                     for f in project['files']])
             else:
                 upload = store.create_upload(PurePosixPath(entry['path']).name, entry['content'].encode('utf-8'))
             task = manager.submit(body.mode, RunRequest(file_id=upload['file_id'],
-                model_name=body.model_name, timeout_sec=body.timeout_sec))
+                model_name=body.model_name, timeout_sec=body.timeout_sec,
+                entry_path=body.entry_path, rust_workflow=workflow))
             project['runs'].append({'task_id': task.task_id, 'revision': project['revision'],
                                     'entry_path': body.entry_path, 'mode': body.mode,
                                     'created_at': utcnow().isoformat()})

@@ -8,8 +8,10 @@ import X509FunctionView from './views/X509FunctionView.js'
 
 import ProjectsView from './views/ProjectsView.js'
 import WorkspaceView from './views/WorkspaceView.js'
+import DatasetView from './views/DatasetView.js'
 
 const routes = [
+  { path: '/datasets/nl2vbench', component: DatasetView },
   { path: '/projects', component: ProjectsView },
   { path: '/projects/:id', component: WorkspaceView },
   { path: '/', component: HomeView },

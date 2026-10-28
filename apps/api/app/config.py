@@ -36,6 +36,8 @@ DEFAULT_MODEL = "qwen-turbo"
 APP_NAME = "ACSL AGENT"
 
 PHASE_LABELS = {
+    "rust-verify": [("verus", "Verus 验证")],
+    "rust-generate": [("generation", "生成与反馈修复"), ("verus", "Verus 验证")],
     "single": [
         ("static_analysis", "Static Analysis"),
         ("generate_specifications", "Generate Specifications"),

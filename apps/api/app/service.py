@@ -742,7 +742,7 @@ class RunManager:
             source_type=source_type,
             status="queued",
             engine=engine,
-            model_name=payload.model_name,
+            model_name=None if mode == "rust-verify" else payload.model_name,
             demo_case_id=payload.demo_case_id,
             file_id=payload.file_id,
             upstream_task_id=payload.upstream_task_id,
@@ -751,7 +751,7 @@ class RunManager:
             task_dir=project_relative_path(task_dir),
             phases=phases,
             capabilities=capabilities.as_dict(),
-            metadata={},
+            metadata={"worker_pid": os.getpid()},
         )
         self.store.create_task(task)
         worker = threading.Thread(target=self._execute, args=(task.task_id, payload), daemon=True)
@@ -763,6 +763,22 @@ class RunManager:
         if task is None:
             return None, None
         result = self.store.read_result(task_id)
+        if (task.mode.startswith("rust-") and task.status in {"queued", "running"}
+                and task.metadata.get("worker_pid") != os.getpid() and result is None):
+            # Never retry a model request after backend restart. Preserve any
+            # completed rounds and make the interrupted state explicit.
+            task.status = "unavailable"
+            task.message = "服务已重启，本次 Rust 验证中断；已完成的轮次保留，请手动重新提交。"
+            task.finished_at = utcnow()
+            self._fail_remaining_phases(task, task.message)
+            self.store.write_task(task)
+            snapshot = task.metadata.get("rust_workflow") or {}
+            attempts = snapshot.get("attempts", [])
+            result = self._build_result(task, status="Unavailable", summary=task.message,
+                source_code="", result_code=next((a.get("code", "") for a in reversed(attempts) if a.get("code")), ""),
+                command=None, logs={"raw": task.message}, specifications={},
+                engine_detail={"language": "Rust", "attempts": attempts, "workflow": snapshot})
+            self.store.write_result(task_id, result)
         if result is not None and task.status in {"queued", "running"}:
             self._sync_task_with_result(task, result)
             task = self.store.read_task(task_id)
@@ -1214,6 +1230,9 @@ class RunManager:
         )
 
     def _run_live(self, task: RunTask, payload: RunRequest) -> dict:
+        if task.mode.startswith("rust-"):
+            from .rust import execute_rust
+            return execute_rust(self, task, payload)
         capabilities = self.refresh_capabilities()
         task.capabilities = capabilities.as_dict()
         self.store.write_task(task)

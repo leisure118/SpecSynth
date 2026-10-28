@@ -3,7 +3,7 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const { compile } = require('@vue/compiler-dom');
 const root = path.resolve(__dirname, '../apps/web/src');
-for (const file of ['App.js','views/HomeView.js','views/ProjectsView.js','views/WorkspaceView.js','components/CodeCompare.js']) {
+for (const file of ['App.js','views/HomeView.js','views/ProjectsView.js','views/WorkspaceView.js','components/CodeCompare.js','components/ExampleCatalog.js','views/DatasetView.js']) {
   const source = fs.readFileSync(path.join(root, file), 'utf8');
   const start = source.indexOf('template:') + 'template:'.length;
   const template = Function('return ' + source.slice(start, source.lastIndexOf('`') + 1))();

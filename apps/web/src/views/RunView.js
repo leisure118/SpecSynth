@@ -46,6 +46,7 @@ export default defineComponent({
     var taskModel = computed(function () { return store.taskViewModel })
     var isSettling = computed(function () {
       if (!taskModel.value) return false
+      if (taskModel.value.mode.startsWith('rust-')) return false
       if (['fail', 'invalid'].indexOf(taskModel.value.status) === -1) return false
       if (!taskModel.value.finishedAt) return false
       return Date.now() - new Date(taskModel.value.finishedAt).getTime() <= TERMINAL_SETTLING_WINDOW_MS

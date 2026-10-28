@@ -8,7 +8,7 @@ function isTerminalStatus(status) {
 }
 
 function localizeMode(mode) {
-  return ({ single: '单函数分析', termination: '终止性验证', 'inter-modular': '多模块分析' })[mode] || mode
+  return ({ 'rust-verify': 'Rust / Verus 验证', 'rust-generate': 'Rust 生成与验证', single: '单函数分析', termination: '终止性验证', 'inter-modular': '多模块分析' })[mode] || mode
 }
 
 function localizeTitle(title, mode) {

@@ -108,3 +108,10 @@ export function createProject(payload) { return request('/projects', { method:'P
 export function getProject(id) { return request('/projects/' + encodeURIComponent(id)) }
 export function saveProject(id, payload) { return request('/projects/' + encodeURIComponent(id), { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) }) }
 export function runProject(id, payload) { return request('/projects/' + encodeURIComponent(id) + '/runs', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) }) }
+
+export function getRustStatus() { return request('/rust/status') }
+export function getRustExamples(q='', page=1) { return request('/rust/examples?q='+encodeURIComponent(q)+'&page='+page) }
+export function prepareRust(payload) { return request('/rust/prepare', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}) }
+export function getDatasetStats() { return request('/rust/dataset/stats') }
+export function getDatasetTasks(filters) { return request('/rust/dataset/tasks?'+new URLSearchParams(filters)) }
+export function getDatasetTask(id) { return request('/rust/dataset/tasks/'+encodeURIComponent(id)) }

@@ -6,7 +6,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, model_validator
 
 
-RunMode = Literal["single", "termination", "inter-modular", "batch"]
+RunMode = Literal["single", "termination", "inter-modular", "batch", "rust-verify", "rust-generate"]
 RunStatus = Literal["queued", "running", "pass", "fail", "invalid", "timeout", "unavailable"]
 PhaseStatus = Literal["pending", "running", "completed", "failed", "skipped"]
 ResultStatus = Literal["Pass", "Fail", "Invalid", "Timeout", "Unavailable"]
@@ -44,6 +44,8 @@ class RunRequest(BaseModel):
     demo_case_id: str | None = None
     upstream_task_id: str | None = None
     model_name: str = "qwen-turbo"
+    entry_path: str | None = None
+    rust_workflow: dict | None = None
     enable_mutation: bool = False
     timeout_sec: int | None = Field(default=None, ge=10, le=3600)
 

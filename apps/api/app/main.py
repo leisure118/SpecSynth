@@ -37,6 +37,7 @@ ensure_runtime_dirs()
 store = JsonStore()
 manager = RunManager(store)
 ARTIFACT_TEXT_EXTENSIONS = {
+    ".rs",
     ".c",
     ".h",
     ".i",
@@ -427,6 +428,8 @@ def get_visualization(task_id: str) -> dict:
 
 
 app.include_router(create_workspace_router(manager, store))
+from .rust import router as rust_router
+app.include_router(rust_router)
 
 
 if WEB_DIR.exists():

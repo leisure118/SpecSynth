@@ -236,7 +236,7 @@ export default defineComponent({
       open: function (art) { doLoad(art) },
       toggleDebug: function () { debugOpen.value = !showDebug.value },
       toggleCallGraph: function () { callGraphOpen.value = !callGraphOpen.value },
-      modeText: function (mode) { return ({ single: '单函数分析', termination: '终止性验证', 'inter-modular': '多模块分析' })[mode] || mode },
+      modeText: function (mode) { return ({ 'rust-verify': 'Rust / Verus 验证', 'rust-generate': 'Rust 生成与验证', single: '单函数分析', termination: '终止性验证', 'inter-modular': '多模块分析' })[mode] || mode },
     }
   },
 })

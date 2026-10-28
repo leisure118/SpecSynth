@@ -1,0 +1,224 @@
+# models_config.yaml
+# 多模型配置模板和映射文件
+
+# =================================================================
+# A. ConfigTemplates: 定义配置基础模板
+# 这些模板包含共享的平台信息、API URL和认证信息
+# =================================================================
+ConfigTemplates:
+  # ID 1: OpenAI 平台基础配置
+  OpenAI_Config:
+    platform: "OpenAI"
+    # 指定从哪个环境变量读取 API Key。请在运行环境设置此变量。
+    api_key_env: "OPENAI_API_KEY"
+    base_url: "https://api.openai-proxy.org/v1"
+    timeout: 300
+
+  # ID 2: 阿里云平台基础配置
+  aliyun_Config:
+    platform: "aliyun"
+    api_key_env: "aliyun_API_KEY"
+    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    timeout: 300
+    # timeout是指单次query拿到结果的最长等待时间，单位秒
+
+  # ID 3：火山平台基础配置
+  volcano_Config:
+    platform: "volcano"
+    api_key_env: "volcano_API_KEY"
+    base_url: "https://ark.cn-beijing.volces.com/api/v3"
+    timeout: 120
+
+  # ID 4: Deepseek平台基础配置
+  deepseek_Config:
+    platform: "deepseek"
+    api_key_env: "deepseek_API_KEY"
+    base_url: "https://api.deepseek.com"
+    timeout: 120
+
+  # Mac 本机运行时使用 SSH 转发端口；容器运行时可通过环境变量覆盖。
+  qwen35_4b_ft_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18001/v1"
+    base_url_env: "QWEN35_4B_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+  qwen35_9b_ft_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18002/v1"
+    base_url_env: "QWEN35_9B_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+  qwen35_9b_mix64_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18003/v1"
+    base_url_env: "QWEN35_9B_MIX64_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+  qwen35_4b_mix46_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18004/v1"
+    base_url_env: "QWEN35_4B_MIX46_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+  qwen35_4b_mix64_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18005/v1"
+    base_url_env: "QWEN35_4B_MIX64_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+  qwen35_9b_mix28_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18006/v1"
+    base_url_env: "QWEN35_9B_MIX28_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+  qwen35_9b_mix46_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18007/v1"
+    base_url_env: "QWEN35_9B_MIX46_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+  qwen35_9b_mix82_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18008/v1"
+    base_url_env: "QWEN35_9B_MIX82_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+  qwen35_9b_only1_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18009/v1"
+    base_url_env: "QWEN35_9B_ONLY1_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+  qwen35_9b_only2_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: "http://127.0.0.1:18010/v1"
+    base_url_env: "QWEN35_9B_ONLY2_API_BASE_URL"
+    timeout: 120
+    max_tokens: 1024
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false
+
+# =================================================================
+# B. ModelMap: 将用户传入的 model_name 映射到模板，并允许参数覆盖
+# =================================================================
+ModelMap:
+  "qwen35-4b-ft":
+    template_id: "qwen35_4b_ft_Config"
+
+  "qwen35-9b-ft":
+    template_id: "qwen35_9b_ft_Config"
+
+  "qwen35-9b-mix64":
+    template_id: "qwen35_9b_mix64_Config"
+
+  "qwen35-4b-mix46":
+    template_id: "qwen35_4b_mix46_Config"
+
+  "qwen35-4b-mix64":
+    template_id: "qwen35_4b_mix64_Config"
+
+  "qwen35-9b-mix28":
+    template_id: "qwen35_9b_mix28_Config"
+
+  "qwen35-9b-mix46":
+    template_id: "qwen35_9b_mix46_Config"
+
+  "qwen35-9b-mix82":
+    template_id: "qwen35_9b_mix82_Config"
+
+  "qwen35-9b-only1":
+    template_id: "qwen35_9b_only1_Config"
+
+  "qwen35-9b-only2":
+    template_id: "qwen35_9b_only2_Config"
+
+  "qwen-turbo":
+    template_id: "aliyun_Config"
+  
+  "qwen3-235b-a22b-instruct-2507":
+    template_id: "aliyun_Config"
+  
+  "qwen3-235b-a22b-thinking-2507":
+    template_id: "aliyun_Config"
+  
+  "deepseek-v3.1":
+    template_id: "aliyun_Config"
+
+  "deepseek-v3.2-exp":
+    template_id: "aliyun_Config"
+
+  "deepseek-r1-0528":
+    template_id: "aliyun_Config"
+  
+  "Moonshot-Kimi-K2-Instruct":
+    template_id: "aliyun_Config"
+
+  "deepseek-v3-1-terminus":
+    template_id: "volcano_Config"
+
+  "deepseek-chat":
+    template_id: "deepseek_Config"
+
+  "gpt-3.5-turbo":
+    template_id: "OpenAI_Config"
+  
+  "gpt-4o":
+    template_id: "OpenAI_Config"
+
+  "gemini-2.5-pro":
+    template_id: "OpenAI_Config"
+
+  "claude-3-7-sonnet-latest":
+    template_id: "OpenAI_Config"
+
+  "claude-sonnet-4-20250514":
+    template_id: "OpenAI_Config"

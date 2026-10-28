@@ -1,0 +1,29 @@
+services:
+  acsl-agent:
+    image: acslagent-unified:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.unified
+      args:
+        BASE_IMAGE: ${ACSL_AGENT_BASE_IMAGE:-python:3.13-slim}
+        APT_MIRROR: ${ACSL_AGENT_APT_MIRROR:-}
+        PIP_INDEX_URL: ${ACSL_AGENT_PIP_INDEX_URL:-}
+        PIP_EXTRA_INDEX_URL: ${ACSL_AGENT_PIP_EXTRA_INDEX_URL:-}
+        NPM_REGISTRY: ${ACSL_AGENT_NPM_REGISTRY:-}
+        HTTP_PROXY: ${ACSL_AGENT_HTTP_PROXY:-}
+        HTTPS_PROXY: ${ACSL_AGENT_HTTPS_PROXY:-}
+        NO_PROXY: ${ACSL_AGENT_NO_PROXY:-}
+    container_name: acsl-agent-unified
+    env_file:
+      - .env
+    environment:
+      ACSL_AGENT_LOCAL_TOOLCHAIN: "1"
+      ACSL_AGENT_ALLOWED_ORIGINS: ${ACSL_AGENT_ALLOWED_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
+      QWEN35_4B_API_BASE_URL: ${QWEN35_4B_DOCKER_BASE_URL:-http://host.docker.internal:18001/v1}
+      QWEN35_9B_API_BASE_URL: ${QWEN35_9B_DOCKER_BASE_URL:-http://host.docker.internal:18002/v1}
+      QWEN35_9B_MIX64_API_BASE_URL: ${QWEN35_9B_MIX64_DOCKER_BASE_URL:-http://host.docker.internal:18003/v1}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./runtime:/app/runtime
+    restart: unless-stopped

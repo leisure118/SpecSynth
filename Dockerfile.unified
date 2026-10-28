@@ -1,0 +1,62 @@
+ARG BASE_IMAGE=python:3.13-slim
+FROM ${BASE_IMAGE}
+
+ARG APT_MIRROR=
+ARG PIP_INDEX_URL=
+ARG PIP_EXTRA_INDEX_URL=
+ARG NPM_REGISTRY=
+ARG HTTP_PROXY=
+ARG HTTPS_PROXY=
+ARG NO_PROXY=
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    HTTP_PROXY=${HTTP_PROXY} \
+    HTTPS_PROXY=${HTTPS_PROXY} \
+    NO_PROXY=${NO_PROXY}
+
+RUN if [ -n "$APT_MIRROR" ]; then \
+        if [ -f /etc/apt/sources.list ]; then \
+            sed -i "s|http://deb.debian.org/debian|$APT_MIRROR|g" /etc/apt/sources.list; \
+            sed -i "s|http://security.debian.org/debian-security|$APT_MIRROR-security|g" /etc/apt/sources.list || true; \
+        fi; \
+        if [ -f /etc/apt/sources.list.d/debian.sources ]; then \
+            sed -i "s|http://deb.debian.org/debian|$APT_MIRROR|g" /etc/apt/sources.list.d/debian.sources; \
+            sed -i "s|http://security.debian.org/debian-security|$APT_MIRROR-security|g" /etc/apt/sources.list.d/debian.sources || true; \
+        fi; \
+    fi \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        bash \
+        gcc \
+        g++ \
+        make \
+        nodejs \
+        npm \
+        ca-certificates \
+        curl \
+    && (apt-get install -y --no-install-recommends frama-c || apt-get install -y --no-install-recommends frama-c-base) \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements.txt package.json package-lock.json ./
+RUN if [ -n "$PIP_INDEX_URL" ]; then python -m pip config set global.index-url "$PIP_INDEX_URL"; fi \
+    && if [ -n "$PIP_EXTRA_INDEX_URL" ]; then python -m pip config set global.extra-index-url "$PIP_EXTRA_INDEX_URL"; fi \
+    && python -m pip install -r requirements.txt
+RUN if [ -n "$NPM_REGISTRY" ]; then npm config set registry "$NPM_REGISTRY"; fi \
+    && npm ci --omit=optional --no-audit --no-fund
+
+COPY . .
+
+RUN npm run build:web
+
+ENV ACSL_AGENT_LOCAL_TOOLCHAIN=1
+ENV PATH="/app/third_party/autospec_llvm/bin:/opt/clang/bin:/root/.opam/default/bin:${PATH}"
+ENV VERI_LIB_PATH="/app/third_party/autospec_llvm"
+ENV LD_LIBRARY_PATH="/app/third_party/clang_llvm/lib:${LD_LIBRARY_PATH}"
+
+EXPOSE 8000
+
+CMD ["python", "scripts/run_api.py"]

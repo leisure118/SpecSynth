@@ -1,0 +1,363 @@
+[
+  {
+    "id": "manual_single_success_live",
+    "title": "手动测试 单函数成功",
+    "description": "用于手动回归 single 模块的稳定成功链路，回放简单计数器函数的验证闭合结果。",
+    "modes": [
+      "single"
+    ],
+    "execution_mode": "replay",
+    "recommended_model": "qwen-turbo",
+    "source_file": "resources/demo_cases/manual_tests/single_success_counter.c",
+    "single_result_file": "resources/demo_cases/manual_tests/single_success_counter_verified.c",
+    "paper_keywords": [
+      "manual regression",
+      "single-function verification"
+    ],
+    "highlights": [
+      "single success replay",
+      "function contract synthesis",
+      "loop invariant synthesis",
+      "verifier-approved"
+    ],
+    "result_summary": {
+      "single": "该样例回放了简单计数器函数的契约生成、循环不变式补全与最终验证通过结果。"
+    }
+  },
+  {
+    "id": "manual_single_fail_live",
+    "title": "手动测试 单函数失败",
+    "description": "用于手动回归 single 模块的失败链路，后置断言与程序行为冲突。",
+    "modes": [
+      "single"
+    ],
+    "execution_mode": "live",
+    "recommended_model": "qwen-turbo",
+    "source_file": "resources/demo_cases/manual_tests/single_fail_false_postcondition.c",
+    "paper_keywords": [
+      "manual regression",
+      "single-function verification"
+    ],
+    "highlights": [
+      "single failure path",
+      "false postcondition",
+      "proof failure"
+    ]
+  },
+  {
+    "id": "manual_termination_success_live",
+    "title": "手动测试 终止性成功",
+    "description": "用于手动回归 termination 模块的成功链路，输入已包含 loop invariant。",
+    "modes": [
+      "termination"
+    ],
+    "execution_mode": "live",
+    "recommended_model": "qwen-turbo",
+    "source_file": "resources/demo_cases/manual_tests/termination_success_verified.c",
+    "paper_keywords": [
+      "manual regression",
+      "termination verification"
+    ],
+    "highlights": [
+      "termination success path",
+      "loop variant synthesis",
+      "total correctness upgrade"
+    ]
+  },
+  {
+    "id": "manual_termination_fail_live",
+    "title": "手动测试 终止性失败",
+    "description": "用于手动回归 termination 模块的失败链路，循环语义上不终止。",
+    "modes": [
+      "termination"
+    ],
+    "execution_mode": "live",
+    "recommended_model": "qwen-turbo",
+    "source_file": "resources/demo_cases/manual_tests/termination_fail_non_terminating_verified.c",
+    "paper_keywords": [
+      "manual regression",
+      "termination verification"
+    ],
+    "highlights": [
+      "termination failure path",
+      "non-terminating loop",
+      "variant rejection"
+    ]
+  },
+  {
+    "id": "sum_loop_100000",
+    "title": "循环求和验证",
+    "description": "用于展示循环不变式生成与总正确性升级的紧凑单循环样例。",
+    "modes": [
+      "single",
+      "termination"
+    ],
+    "execution_mode": "replay",
+    "recommended_model": "qwen-turbo",
+    "source_file": "resources/datasets/autospec/case4test/1.c",
+    "single_result_file": "resources/demo_cases/termination/stage1_verified_files/1_verified.c",
+    "termination_stage2_file": "resources/demo_cases/termination/stage2_result_files/1.c",
+    "termination_result_file": "resources/demo_cases/termination/stage2_verified_files/1_verified.c",
+    "single_log_file": "archive/legacy_outputs/out/web_demo_runs/last_run_result.json",
+    "termination_log_file": "resources/demo_cases/termination/stage2_verified_files/verification_results.jsonl",
+    "single_command": "docker compose run --rm autospec ... python3 engine/autospec/main.py -f resources/datasets/autospec/case4test/1.c -m qwen-turbo -t 0 -o runtime/runs/<task_id>/legacy_single",
+    "termination_command": "python3 engine/termination/generate_variant.py -i runtime/runs/<task_id>/stage1 -o runtime/runs/<task_id>/stage2 && python3 engine/termination/call_framac.py -i runtime/runs/<task_id>/stage2 -o runtime/runs/<task_id>/verified",
+    "paper_keywords": [
+      "proof-aware decomposition",
+      "verifier-in-the-loop iterative repair",
+      "ranking function synthesis for total correctness"
+    ],
+    "highlights": [
+      "verifier-approved",
+      "partial correctness to total correctness",
+      "single-loop invariant and ranking function"
+    ],
+    "result_summary": {
+      "single": "该回放样例展示了单函数模式下的循环不变式生成、loop assigns 约束补全与最终证明闭合。",
+      "termination": "该回放样例展示了终止性模式下的循环变元注入，并将部分正确性提升为总正确性。"
+    }
+  },
+  {
+    "id": "arraymax_contract",
+    "title": "数组最大值函数契约",
+    "description": "用于展示 requires、ensures、assigns 与循环不变式协同生成的函数级样例。",
+    "modes": [
+      "single"
+    ],
+    "execution_mode": "replay",
+    "recommended_model": "qwen-turbo",
+    "source_file": "resources/datasets/autospec/AutoBench/frama-c-problem/181.c",
+    "single_result_file": "archive/legacy_outputs/out/input_0006/input_0002/input_merged.c",
+    "single_log_file": "archive/legacy_outputs/out/web_demo_runs/arraymax_run_result.json",
+    "paper_keywords": [
+      "proof-aware decomposition",
+      "verifier-in-the-loop iterative repair"
+    ],
+    "highlights": [
+      "function contract synthesis",
+      "loop invariant refinement",
+      "verifier-approved"
+    ],
+    "result_summary": {
+      "single": "该回放样例展示了数组最大值函数的契约生成、循环不变式修复与最终验证通过。"
+    },
+    "single_timing_stats": {
+      "wall_clock_ms": 54,
+      "llm_time_sec": 0.0,
+      "solve_time_sec": 0.0,
+      "avg_item_time_sec": 0.0,
+      "timeout_sec": null,
+      "iteration_count": 0,
+      "tokens_usage": 0
+    }
+  },
+  {
+    "id": "bubble_sort_total_correctness",
+    "title": "冒泡排序总正确性",
+    "description": "用于展示双层循环变元、排序后置条件与总正确性升级的终止性样例。",
+    "modes": [
+      "termination"
+    ],
+    "execution_mode": "replay",
+    "recommended_model": "qwen-turbo",
+    "source_file": "resources/datasets/autospec/AutoBench/frama-c-problem/222.c",
+    "single_result_file": "resources/demo_cases/termination/stage1_verified_files/222_verified.c",
+    "termination_stage2_file": "resources/demo_cases/termination/stage2_result_files/222.c",
+    "termination_result_file": "resources/demo_cases/termination/stage2_verified_files/222_verified.c",
+    "termination_log_file": "resources/demo_cases/termination/stage2_verified_files/verification_results.jsonl",
+    "paper_keywords": [
+      "proof-aware decomposition",
+      "verifier-in-the-loop iterative repair",
+      "ranking function synthesis for total correctness"
+    ],
+    "highlights": [
+      "nested-loop ranking functions",
+      "outer variant i",
+      "inner variant i - j",
+      "total correctness upgrade"
+    ],
+    "result_summary": {
+      "termination": "该回放样例展示了冒泡排序在双层循环场景下的变元注入与总正确性验证。"
+    },
+    "termination_timing_stats": {
+      "wall_clock_ms": 54,
+      "llm_time_sec": 0.0,
+      "solve_time_sec": 0.0,
+      "avg_item_time_sec": 0.0,
+      "timeout_sec": null,
+      "iteration_count": 0,
+      "tokens_usage": 0
+    }
+  },
+  {
+    "id": "x509_inter_modular_replay",
+    "title": "X509 多模块分析",
+    "description": "用于展示多文件工程的调用图摘要、合并翻译单元规约与模块级结果拆分。",
+    "modes": [
+      "inter-modular"
+    ],
+    "execution_mode": "replay",
+    "recommended_model": "qwen-turbo",
+    "source_file": "resources/demo_cases/inter_modular/x509_source_bundle.c",
+    "source_dir": "resources/datasets/autospec/inter-modular",
+    "inter_modular_result_file": "resources/demo_cases/inter_modular/x509_merged_verified.c",
+    "inter_modular_log_file": "resources/demo_cases/inter_modular/x509_replay.log",
+    "inter_modular_command": "replay://inter-modular/x509",
+    "inter_modular_evidence_summary": [
+      "调用合并顺序为 x509_utils.h -> x509_utils.c -> main.c",
+      "合并翻译单元中恢复了函数契约、循环不变式与断言。"
+    ],
+    "inter_modular_proof_stats": {
+      "proved_goals": 4,
+      "total_goals": 4
+    },
+    "inter_modular_call_graph_summary": {
+      "source_file_count": 2,
+      "header_file_count": 1,
+      "entry_files": [
+        "main.c"
+      ],
+      "merge_order": [
+        "x509_utils.h",
+        "x509_utils.c",
+        "main.c"
+      ],
+      "call_edge_count": 2,
+      "fan_out": {
+        "main.c": 1,
+        "x509_utils.c": 1
+      }
+    },
+    "inter_modular_module_results": [
+      {
+        "path": "resources/datasets/autospec/inter-modular/main.c",
+        "relative_path": "main.c",
+        "specifications": {
+          "contracts": [],
+          "loop_invariants": [],
+          "loop_variants": [],
+          "assertions": [
+            "//@ assert ret == 0 ==> \\forall integer i; 0 <= i < len ==> (buf[i] <= 0x7f);",
+            "//@ assert ret == -X509_FILE_LINE_NUM_ERR ==> \\exists integer i; 0 <= i < len && buf[i] > 0x7f;"
+          ]
+        },
+        "specification_counts": {
+          "assertions": 2
+        },
+        "has_contract_noise": false,
+        "noise_markers": []
+      },
+      {
+        "path": "resources/datasets/autospec/inter-modular/x509_utils.c",
+        "relative_path": "x509_utils.c",
+        "specifications": {
+          "contracts": [
+            "requires len > 0;",
+            "requires \\valid_read(buf + (0 .. len - 1));",
+            "assigns \\nothing;"
+          ],
+          "loop_invariants": [
+            "loop invariant 0 <= i <= len;",
+            "loop invariant ret == 0 ==> \\forall integer k; 0 <= k < i ==> buf[k] <= 0x7f;"
+          ],
+          "loop_variants": [
+            "loop variant len - i;"
+          ],
+          "assertions": []
+        },
+        "specification_counts": {
+          "contracts": 3,
+          "loop_invariants": 2,
+          "loop_variants": 1
+        },
+        "has_contract_noise": false,
+        "noise_markers": []
+      }
+    ],
+    "inter_modular_split_outputs": [
+      {
+        "path": "resources/datasets/autospec/inter-modular/main.c",
+        "relative_path": "main.c",
+        "specification_counts": {
+          "assertions": 2
+        }
+      },
+      {
+        "path": "resources/datasets/autospec/inter-modular/x509_utils.c",
+        "relative_path": "x509_utils.c",
+        "specification_counts": {
+          "contracts": 3,
+          "loop_invariants": 2,
+          "loop_variants": 1
+        }
+      }
+    ],
+    "paper_keywords": [
+      "extended call graph",
+      "inter-modular verification",
+      "proof-aware decomposition"
+    ],
+    "highlights": [
+      "multi-file workspace snapshot",
+      "merged translation unit",
+      "per-module split output"
+    ],
+    "result_summary": {
+      "inter-modular": "该回放样例展示了多模块分析模式下的调用图摘要、合并翻译单元规约恢复与模块级结果拆分。"
+    }
+  },
+  {
+    "id": "openharmony_circle_center_x",
+    "title": "OpenHarmony 圆心 X 坐标设置验证",
+    "description": "验证圆形形状选项的 centerX 字段更新，包含空指针保护及其他字段保持不变的断言。",
+    "modes": ["single"],
+    "execution_mode": "replay",
+    "recommended_model": "qwen-turbo",
+    "source_file": "../openharmony验证样例/01_circle_center_x.c",
+    "single_result_file": "resources/demo_cases/openharmony/01_circle_center_x_verified.c",
+    "single_command": "preset://openharmony/center-x",
+    "sample_file": "openharmony验证样例/01_circle_center_x.c",
+    "function_name": "OH_ArkUI_RenderNodeUtils_SetCircleShapeOptionCenterX",
+    "upstream_source": "interfaces/native/node/render_node.cpp:1364",
+    "paper_keywords": ["OpenHarmony", "single-function verification", "ArkUI"],
+    "highlights": ["pre-verified contract", "zero LLM calls", "null-pointer guard", "frame condition", "field update"],
+    "result_summary": {"single": "已载入预验证的 OpenHarmony 圆心 X 字段契约，无需调用大模型。"},
+    "single_timing_stats": {"wall_clock_ms": 0, "llm_time_sec": 0.0, "solve_time_sec": 0.0, "iteration_count": 0, "tokens_usage": 0}
+  },
+  {
+    "id": "openharmony_circle_radius",
+    "title": "OpenHarmony 圆形半径设置验证",
+    "description": "验证圆形形状选项的 radius 字段更新，包含空指针保护及圆心坐标保持不变的断言。",
+    "modes": ["single"],
+    "execution_mode": "replay",
+    "recommended_model": "qwen-turbo",
+    "source_file": "../openharmony验证样例/02_circle_radius.c",
+    "single_result_file": "resources/demo_cases/openharmony/02_circle_radius_verified.c",
+    "single_command": "preset://openharmony/radius",
+    "sample_file": "openharmony验证样例/02_circle_radius.c",
+    "function_name": "OH_ArkUI_RenderNodeUtils_SetCircleShapeOptionRadius",
+    "upstream_source": "interfaces/native/node/render_node.cpp:1376",
+    "paper_keywords": ["OpenHarmony", "single-function verification", "ArkUI"],
+    "highlights": ["pre-verified contract", "zero LLM calls", "null-pointer guard", "frame condition", "radius update"],
+    "result_summary": {"single": "已载入预验证的 OpenHarmony 半径字段契约，无需调用大模型。"},
+    "single_timing_stats": {"wall_clock_ms": 0, "llm_time_sec": 0.0, "solve_time_sec": 0.0, "iteration_count": 0, "tokens_usage": 0}
+  },
+  {
+    "id": "openharmony_rect_edges",
+    "title": "OpenHarmony 矩形边界设置验证",
+    "description": "验证矩形形状选项的 top、right、bottom 和 left 四个边界值更新与空指针保护。",
+    "modes": ["single"],
+    "execution_mode": "replay",
+    "recommended_model": "qwen-turbo",
+    "source_file": "../openharmony验证样例/03_rect_edges.c",
+    "single_result_file": "resources/demo_cases/openharmony/03_rect_edges_verified.c",
+    "single_command": "preset://openharmony/rect-edges",
+    "sample_file": "openharmony验证样例/03_rect_edges.c",
+    "function_name": "OH_ArkUI_RenderNodeUtils_SetRectShapeOptionEdgeValue",
+    "upstream_source": "interfaces/native/node/render_node.cpp:1169",
+    "paper_keywords": ["OpenHarmony", "single-function verification", "ArkUI"],
+    "highlights": ["pre-verified contract", "zero LLM calls", "null-pointer guard", "multi-field update", "edge-value assertions"],
+    "result_summary": {"single": "已载入预验证的 OpenHarmony 矩形边界契约，无需调用大模型。"},
+    "single_timing_stats": {"wall_clock_ms": 0, "llm_time_sec": 0.0, "solve_time_sec": 0.0, "iteration_count": 0, "tokens_usage": 0}
+  }
+]

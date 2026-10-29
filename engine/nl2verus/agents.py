@@ -84,7 +84,7 @@ def capabilities():
         rows.append({'id':key,'name':name,'available':installed,'message':message if installed else '平台 Agent SDK 尚未安装','models':models,'protocol':protocol})
     codex=next(a for a in rows if a['id']=='codex')
     preferred=next((m for m in codex['models'] if m['configured'] and m.get('is_default')),None)
-    return {'agents':rows,'skills':[{k:v for k,v in row.items() if k!='content'} for row in skills().values()],
+    return {'agents':rows,'skills':[{k:v for k,v in row.items() if k!='content'} for row in skills().values() if row['id'] not in SKILLS],
             'defaults':{'agent_id':'codex' if preferred and codex['available'] else 'direct',
                         'model_id':preferred['id'] if preferred else None,
                         'skill_ids':['local-verus-baseline'],

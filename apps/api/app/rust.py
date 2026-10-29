@@ -181,15 +181,18 @@ def execute_rust(manager, task, payload):
             runner = agents.make_runner(payload.rust_workflow, WorkflowRuns)
             try:
                 workflow = runner.submit(WorkflowRunRequest(**{k:v for k,v in payload.rust_workflow.items() if k in WorkflowRunRequest.model_fields}))
+                saved_revision = None
                 while True:
                     workflow = runner.get(workflow['id'])
-                    # Persist each revision so a restart retains all completed rounds.
-                    store.write_text_artifact(task.task_id, 'workflow', 'rounds.json', json.dumps(workflow, ensure_ascii=False, indent=2))
-                    workflow['selection']={k:v for k,v in payload.rust_workflow.items() if k in ('agent_id','skill_ids','skill_snapshot','model_profile','sample_id')}
-                    task.metadata['rust_workflow'] = workflow
-                    task.message = workflow['message']
-                    task.updated_at = utcnow()
-                    store.write_task(task)
+                    # Persist only changed revisions; polling must not rewrite large prompts repeatedly.
+                    if workflow['revision'] != saved_revision:
+                        workflow['selection']={k:v for k,v in payload.rust_workflow.items() if k in ('agent_id','skill_ids','skill_snapshot','model_profile','sample_id')}
+                        store.write_text_artifact(task.task_id, 'workflow', 'rounds.json', json.dumps(workflow, ensure_ascii=False, indent=2))
+                        task.metadata['rust_workflow'] = workflow
+                        task.message = workflow['message']
+                        task.updated_at = utcnow()
+                        store.write_task(task)
+                        saved_revision = workflow['revision']
                     if workflow['status'] in TERMINAL:
                         break
                     time.sleep(0.3)

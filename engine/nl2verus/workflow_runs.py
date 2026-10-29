@@ -149,7 +149,7 @@ class WorkflowRuns:
                    "mode": "automatic", "request": payload, "model_id": model_id,
                    "created_at": now, "updated_at": now, "finished_at": None,
                    "verus_version": VERUS_VERSION, "preparation": None, "prompt": "",
-                   "retrieval": None, "attempts": [], "provider_calls": 0,
+                   "retrieval": None, "attempts": [], "stages": [], "provider_calls": 0,
                    "repair_rounds": 0, "verified": False, "cancel_requested": False,
                    "message": "任务已接收；单次生成，失败后按设置追加修复。"}
             self._runs[run_id] = run
@@ -194,10 +194,23 @@ class WorkflowRuns:
             run = self._runs[run_id]
             run.update(**deepcopy(values), updated_at=_now(), revision=run["revision"] + 1)
 
+    def _stage(self, run_id: str, phase: str, message: str, round_number: int = 0) -> None:
+        with self._lock:
+            run = self._runs[run_id]
+            now = _now()
+            stages = run.setdefault('stages', [])
+            if stages and not stages[-1].get('finished_at'):
+                stages[-1].update(finished_at=now, status='completed')
+            stages.append({'phase': phase, 'round': round_number, 'started_at': now,
+                           'finished_at': None, 'status': 'running', 'message': message})
+            run.update(phase=phase, message=message, updated_at=now, revision=run['revision'] + 1)
+
     def _finish(self, run_id: str, outcome: str, message: str, *, verified: bool = False) -> None:
         with self._lock:
             run = self._runs[run_id]
             cancelled = run["cancel_requested"]
+            if run.get('stages') and not run['stages'][-1].get('finished_at'):
+                run['stages'][-1].update(finished_at=_now(), status='completed' if verified else 'failed', outcome=outcome)
             run.update(status="cancelled" if cancelled else ("completed" if outcome in {
                 "verified", "repair_limit", "verification_failed"} else "failed"),
                 phase="done", outcome="cancelled" if cancelled else outcome,
@@ -217,6 +230,7 @@ class WorkflowRuns:
     def _execute(self, run_id: str, request: WorkflowRunRequest, model_id: str, config) -> None:
         try:
             self._update(run_id, status="running")
+            self._stage(run_id, "preparing", "准备任务、Skill 与提示词")
             self._execute_steps(run_id, request, model_id, config)
         except Exception as error:
             phase = self.get(run_id)["phase"]
@@ -259,6 +273,8 @@ class WorkflowRuns:
                 run.update(phase="generating" if round_number == 0 else "repairing",
                            provider_calls=run["provider_calls"] + 1, repair_rounds=round_number,
                            updated_at=_now(), revision=run["revision"] + 1)
+            self._stage(run_id, 'generating' if round_number == 0 else 'repairing',
+                        '正在调用模型生成 Verus' if round_number == 0 else f'根据验证诊断修复 · 第 {round_number} 轮', round_number)
             try:
                 generated = self._generate(prompt, model_id, snapshot=config)
                 if not isinstance(generated, dict) or not isinstance(generated.get("code"), str):
@@ -287,7 +303,7 @@ class WorkflowRuns:
                     self._attempt_update(run_id, round_number, status="output_limit", finished_at=_now())
                     self._finish(run_id, "output_limit", "模型输出被长度上限截断，已保留；未运行验证或继续修复。")
                     return
-                self._update(run_id, phase="verifying")
+                self._stage(run_id, "verifying", "正在运行 Verus 验证" + (f" · 修复 {round_number} 后" if round_number else " · 首次候选"), round_number)
                 self._attempt_update(run_id, round_number, status="verifying")
             try:
                 verification = verify_b3_candidate(code, verify=lambda value: self._verify(value, request.timeout_seconds))
@@ -297,6 +313,8 @@ class WorkflowRuns:
                 self._finish(run_id, "tool_error", message)
                 return
             status = verification["status"]
+            with self._lock:
+                self._runs[run_id]['stages'][-1]['outcome'] = status
             self._attempt_update(run_id, round_number, verification=verification, status=status, finished_at=_now())
             if status == "verified":
                 self._finish(run_id, "verified", "Verus 验证通过；这不等于完整自然语言语义审核。", verified=True)

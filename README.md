@@ -141,3 +141,5 @@ Rust 项目中选择「Agent API 生成与验证」，再独立选择 Agent、�
 通过「＋ API 模型」添加多个服务配置；下拉框选择的配置决定实际 Base URL、Model ID、协议与认证方式。使用「编辑当前 API」可以修改当前配置；编辑时 API Key 留空保留原值，明确切换「无需认证」会清除原密钥。Base URL 可填 `/v1`，完整的 `/chat/completions` 或 `/responses` 地址也会规范化为 Base URL。私有配置保存在忽略提交的 `runtime/generation-models.json`。
 
 可将 Responses 配置设为默认模型，新 Rust 任务即默认使用 Codex 和该模型；已有任务保留之前的明确选择。默认英文 Skill 在 `skills/verus/verus-baseline/SKILL.md`，每次生成与修复都会加载其指令，并在运行记录中保存内容快照。RAG 仍需另行配置 embedding；生成结果由实际 Verus 验证器判断是否通过。
+
+Rust 工作台的右侧分为运行、配置、历史三个页签。生成提交后自动切换至运行页；时间线记录准备、生成、Verus 检查及每轮修复的实际起止时间。完成后自动打开结果代码，并展示验证项、错误数、退出码、验证耗时和可展开的诊断。旧记录没有阶段时间时显示「—」，不推算阶段耗时。Skill 使用单选列表，旧内置短提示词不再作为可选 Skill 展示。

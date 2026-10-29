@@ -33,8 +33,7 @@ test('Rust starts blank; offline ground truth creates a file without API generat
  await expect(page.getByLabel('空白代码编辑区')).toBeVisible();await expect(page.getByLabel('Verus 代码编辑器')).toHaveCount(0);
  await page.getByRole('button',{name:'选择数据集',exact:true}).click();await page.getByRole('button',{name:/^TEST-TASK Arithmetic/}).click();
  await page.getByRole('button',{name:'▷ 生成 Verus',exact:true}).click();
- await expect(page.getByRole('heading',{name:'Verus 文件已就绪'})).toBeVisible();await expect(page.getByLabel('空白代码编辑区')).toBeVisible();
- await page.getByRole('button',{name:'打开代码 →',exact:true}).click();await expect(page.getByLabel('Verus 代码编辑器')).toHaveValue(CODE);
+ await expect(page.getByRole('heading',{name:'Verus 文件已就绪'})).toBeVisible();await expect(page.getByLabel('Verus 代码编辑器')).toHaveValue(CODE);
  expect(await page.locator('.vf-verus-line.spec').count()).toBeGreaterThan(0);expect(await page.locator('.vf-verus-line.proof').count()).toBeGreaterThan(0);expect(await page.locator('.vf-verus-line.exec').count()).toBeGreaterThan(0);
  await page.getByRole('button',{name:'关闭当前文件',exact:true}).click();await expect(page.getByLabel('空白代码编辑区')).toBeVisible();
  await page.reload();await expect(page.getByLabel('空白代码编辑区')).toBeVisible();await expect(page.getByRole('button',{name:/RS TEST-TASK.rs Ground truth/})).toBeVisible();
@@ -45,8 +44,8 @@ test('verification requires an explicitly opened project file and preserves file
  const {project}=await mockApi(page,{existing:true});await page.goto('/#/projects/'+project.id);
  await page.getByLabel('验证模式').selectOption('rust-verify');await expect(page.getByRole('button',{name:'▷ 验证当前文件',exact:true})).toBeDisabled();
  await page.getByRole('button',{name:/^RS main.rs 未验证/}).click();await expect(page.getByLabel('Verus 代码编辑器')).toHaveValue(CODE);
- await page.getByRole('button',{name:'▷ 验证当前文件',exact:true}).click();await expect(page.locator('.vf-proof-summary')).toContainText('验证通过');
- await page.locator('.vf-file-row').filter({hasText:'other.rs'}).click();await expect(page.locator('.vf-proof-summary')).toHaveCount(0);
+ await page.getByRole('button',{name:'▷ 验证当前文件',exact:true}).click();await expect(page.getByRole('region',{name:'运行进度与验证结果'})).toContainText('Verus 验证通过');
+ await page.locator('.vf-file-row').filter({hasText:'other.rs'}).click();await expect(page.getByRole('region',{name:'运行进度与验证结果'})).toHaveCount(0);
 });
 
 test('independent skill library binds a pinned version to an agent',async({page})=>{

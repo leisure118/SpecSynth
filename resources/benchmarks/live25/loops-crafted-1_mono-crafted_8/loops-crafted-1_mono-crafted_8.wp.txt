@@ -1,0 +1,161 @@
+[kernel] Parsing output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             5
+  Alt-Ergo :       5 (6ms-12ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 7):
+Assume {
+  Type: is_uint32(x) /\ is_uint32(z).
+  (* Invariant *)
+  Have: x <= 10000000.
+  (* Invariant *)
+  Have: ((x <= 5000000) -> (z = 5000000)).
+  (* Invariant *)
+  Have: ((5000000 <= x) -> ((x + z) = 10000000)).
+  (* Then *)
+  Have: x <= 9999999.
+}
+Prove: to_uint32(1 + x) <= 10000000.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28361)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (36)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 8):
+Let x_1 = to_uint32(1 + x).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(z) /\ is_uint32(z_1) /\ is_uint32(z_2).
+  (* Goal *)
+  When: x_1 <= 5000000.
+  (* Invariant *)
+  Have: x <= 10000000.
+  (* Invariant *)
+  Have: ((x <= 5000000) -> (z_2 = 5000000)).
+  (* Invariant *)
+  Have: ((5000000 <= x) -> ((x + z_2) = 10000000)).
+  (* Then *)
+  Have: x <= 9999999.
+  If 5000000 <= x
+  Then { Have: z_2 = z_1. Have: to_uint32(z_1 - 1) = z. }
+  Else { Have: z_2 = z. }
+  (* Invariant *)
+  Have: x_1 <= 10000000.
+}
+Prove: z = 5000000.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (29480)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (12ms) (56)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (0.59ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 9):
+Let x_1 = to_uint32(1 + x).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(z) /\ is_uint32(z_1) /\ is_uint32(z_2).
+  (* Goal *)
+  When: 5000000 <= x_1.
+  (* Invariant *)
+  Have: x <= 10000000.
+  (* Invariant *)
+  Have: ((x <= 5000000) -> (z_2 = 5000000)).
+  (* Invariant *)
+  Have: ((5000000 <= x) -> ((x + z_2) = 10000000)).
+  (* Then *)
+  Have: x <= 9999999.
+  If 5000000 <= x
+  Then { Have: z_2 = z_1. Have: to_uint32(z_1 - 1) = z. }
+  Else { Have: z_2 = z. }
+  (* Invariant *)
+  Have: x_1 <= 10000000.
+  (* Invariant *)
+  Have: ((x_1 <= 5000000) -> (z = 5000000)).
+}
+Prove: (z + x_1) = 10000000.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (30308)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (111)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 18):
+Assume {
+  Type: is_uint32(x) /\ is_uint32(z).
+  (* Invariant *)
+  Have: x <= 10000000.
+  (* Invariant *)
+  Have: ((x <= 5000000) -> (z = 5000000)).
+  (* Invariant *)
+  Have: ((5000000 <= x) -> ((x + z) = 10000000)).
+  (* Else *)
+  Have: 10000000 <= x.
+}
+Prove: z = 0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28208)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (19)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 13):
+Let x_1 = to_uint32(1 + x).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(z) /\ is_uint32(z_1) /\ is_uint32(z_2).
+  (* Invariant *)
+  Have: x <= 10000000.
+  (* Invariant *)
+  Have: ((x <= 5000000) -> (z_2 = 5000000)).
+  (* Invariant *)
+  Have: ((5000000 <= x) -> ((x + z_2) = 10000000)).
+  (* Then *)
+  Have: x <= 9999999.
+  If 5000000 <= x
+  Then { Have: z_2 = z_1. Have: to_uint32(z_1 - 1) = z. }
+  Else { Have: z_2 = z. }
+  (* Invariant *)
+  Have: x_1 <= 10000000.
+  (* Invariant *)
+  Have: ((x_1 <= 5000000) -> (z = 5000000)).
+  (* Invariant *)
+  Have: ((5000000 <= x_1) -> ((z + x_1) = 10000000)).
+}
+Prove: x < x_1.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (30033)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (12ms) (76)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops-crafted-1_mono-crafted_8/loops-crafted-1_mono-crafted_8.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

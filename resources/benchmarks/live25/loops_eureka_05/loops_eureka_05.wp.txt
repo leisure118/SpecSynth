@@ -1,0 +1,326 @@
+[kernel] Parsing output/live25/loops_eureka_05/loops_eureka_05.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 36 goals scheduled
+[wp] Proved goals:   36 / 36
+  Qed:            32
+  Alt-Ergo :       4 (7ms-9ms-15ms)
+------------------------------------------------------------
+  Function SelectionSort
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (1.00ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 24):
+Let x = array_0[i_1].
+Let x_1 = array_0[rh_1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(lh_0) /\ is_sint32(rh_0) /\
+      is_sint32(rh_1) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(1 + i_1) /\ is_sint32(1 + lh_0).
+  (* Goal *)
+  When: (i <= i_1) /\ (lh_0 <= i).
+  (* Invariant *)
+  Have: (0 <= lh_0) /\ (lh_0 <= 5).
+  (* Then *)
+  Have: lh_0 <= 4.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((lh_0 <= i_2) -> ((i_2 <= lh_0) ->
+      (array_0[lh_0] <= array_0[i_2]))).
+  (* Invariant *)
+  Have: (lh_0 < i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: (lh_0 <= rh_1) /\ (rh_1 <= 4).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < i_1) -> ((lh_0 <= i_2) ->
+      (x_1 <= array_0[i_2]))).
+  (* Then *)
+  Have: i_1 <= 4.
+  If x < x_1
+  Then { Have: rh_0 = i_1. }
+  Else { Have: rh_1 = rh_0. }
+  (* Invariant *)
+  Have: (lh_0 <= rh_0) /\ (rh_0 <= 4).
+}
+Prove: array_0[rh_0] <= array_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (33154)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (15ms) (257)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 15) (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 15) (2/4):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 15) (3/4):
+Effect at line 31
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 15) (4/4):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 8) in 'SelectionSort' (1/2):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 8) in 'SelectionSort' (2/2):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (0.79ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 40):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i - 1).
+  (* Goal *)
+  When: (i <= i_1) /\ (i_1 <= 4).
+  (* Invariant *)
+  Have: ((-1) <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i < i_2) -> ((i_2 <= 4) -> (array_0[i_2] = i_2))).
+  (* Then *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: i <= 5.
+}
+Prove: array_0[i <- i][i_1] = i_1.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29205)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (64)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 50):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (i <= i_2) /\ (0 <= i).
+  (* Invariant *)
+  Have: ((-1) <= i_1) /\ (i_1 <= 4).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_1 < i_3) -> ((i_3 <= 4) ->
+      (array_0[i_3] = i_3))).
+  (* Else *)
+  Have: i_1 < 0.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] = i_3))).
+  (* Then *)
+  Have: i_2 <= 4.
+  (* Assertion *)
+  Have: array_0[i_2] = i_2.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: array_0[i] = i.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30072)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (49)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 55):
+Let x = array_0[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x).
+  (* Invariant *)
+  Have: ((-1) <= i_1) /\ (i_1 <= 4).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 < i_2) -> ((i_2 <= 4) ->
+      (array_0[i_2] = i_2))).
+  (* Else *)
+  Have: i_1 < 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (array_0[i_2] = i_2))).
+  (* Then *)
+  Have: i <= 4.
+}
+Prove: x = i.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29523)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (39)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid (0.78ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 6) in 'SelectionSort'' in 'main' at call 'SelectionSort' (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 46)
+:
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 7) in 'SelectionSort'' in 'main' at call 'SelectionSort' (file output/live25/loops_eureka_05/loops_eureka_05.acsl.c, line 46)
+:
+Prove: true.
+Prover Qed returns Valid (0.59ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops_eureka_05/loops_eureka_05.acsl.c:35: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

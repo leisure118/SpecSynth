@@ -1,0 +1,59 @@
+[kernel] Parsing output/live25/loops_n.c11/loops_n.c11.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loops_n.c11/loops_n.c11.acsl.c:15: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 5 goals scheduled
+[wp] Proved goals:    5 / 5
+  Qed:             4
+  Alt-Ergo :       1 (9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_n.c11/loops_n.c11.acsl.c, line 12):
+Assume {
+  Type: is_uint32(len_0) /\ is_sint32(tmp_0).
+  (* Residual *)
+  When: len_0 != 4.
+  (* Invariant *)
+  Have: len_0 <= 4.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: to_uint32(1 + len_0) <= 4.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (28096)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (9ms) (41)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_n.c11/loops_n.c11.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops_n.c11/loops_n.c11.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_n.c11/loops_n.c11.acsl.c, line 13) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_n.c11/loops_n.c11.acsl.c, line 13) (2/2):
+Call Result at line 15
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops_n.c11/loops_n.c11.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,280 @@
+[kernel] Parsing output/autobench_v2/175/175.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/autobench_v2/175/175.acsl.c:26: Warning: 
+  Calling function unknown1 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/175/175.acsl.c:4: Warning: 
+  Neither code nor specification for function unknown1, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 21 goals scheduled
+[wp] Proved goals:   21 / 21
+  Qed:            14
+  Alt-Ergo :       7 (6ms-15ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/175/175.acsl.c, line 15):
+Let x_1 = 1 + x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(flag_0) /\ is_sint32(tmp_0) /\
+      is_sint32(x) /\ is_sint32(x_1).
+  (* Goal *)
+  When: flag_0 != 0.
+  (* Invariant *)
+  Have: (a % 2) = 0.
+  (* Invariant *)
+  Have: (x % 2) = 1.
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: (x_1 % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (31098)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (12ms) (139)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/175/175.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/175/175.acsl.c, line 16):
+Let x = 2 + y.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(tmp_0) /\ is_sint32(y) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (a % 2) = 1.
+  (* Invariant *)
+  Have: (y % 2) = 1.
+  (* Invariant *)
+  Have: 0 < y.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: (x % 2) = 1.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (49955)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (15ms) (138)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/175/175.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/175/175.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/175/175.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (0.64ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/175/175.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/175/175.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/175/175.acsl.c, line 19):
+Let x_1 = x - 1.
+Let x_2 = 1 + x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(flag_0) /\ is_sint32(tmp_0) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2).
+  (* Goal *)
+  When: flag_0 != 0.
+  (* Invariant *)
+  Have: (a % 2) = 0.
+  (* Invariant *)
+  Have: (x_1 % 2) = 1.
+  (* Invariant *)
+  Have: 2 <= x.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: (x_2 % 2) = 1.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (32550)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (13ms) (186)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/175/175.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/175/175.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/175/175.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/175/175.acsl.c, line 21):
+Let x_1 = 1 + x.
+Let x_2 = x - 1.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(flag_0) /\ is_sint32(tmp_0) /\
+      is_sint32(x) /\ is_sint32(x_2) /\ is_sint32(x_1).
+  (* Residual *)
+  When: flag_0 != 0.
+  (* Invariant *)
+  Have: (a % 2) = 0.
+  (* Invariant *)
+  Have: (x_2 % 2) = 1.
+  (* Invariant *)
+  Have: 2 <= x.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: (x_1 % 2) = 1.
+}
+Prove: 0 <= x.
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (10ms) (29264)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (9ms) (24)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/175/175.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (0.50ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/175/175.acsl.c, line 22):
+Let x = 1 + y.
+Let x_1 = y - 1.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(tmp_0) /\ is_sint32(y) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Invariant *)
+  Have: (a % 2) = 1.
+  (* Invariant *)
+  Have: (x_1 % 2) = 1.
+  (* Invariant *)
+  Have: 2 <= y.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: (x % 2) = 1.
+}
+Prove: 0 <= y.
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (10ms) (28810)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (8ms) (19)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/175/175.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/175/175.acsl.c, line 23):
+Let x = 1 + y.
+Let x_1 = y - 1.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(tmp_0) /\ is_sint32(y) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Invariant *)
+  Have: (a % 2) = 1.
+  (* Invariant *)
+  Have: (x_1 % 2) = 1.
+  (* Invariant *)
+  Have: 2 <= y.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: (x % 2) = 1.
+  (* Invariant *)
+  Have: 0 <= y.
+}
+Prove: (-1) <= y.
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (10ms) (28912)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (6ms) (21)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/175/175.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/175/175.acsl.c, line 43):
+Let x_1 = 1 + a.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(flag_0) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Residual *)
+  When: flag_0 != 0.
+  (* Invariant *)
+  Have: (a % 2) = 0.
+  (* Invariant *)
+  Have: (x % 2) = 1.
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: 0 <= a.
+}
+Prove: (x_1 % 2) = 1.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (30781)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (13ms) (139)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/175/175.acsl.c, line 24) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/175/175.acsl.c, line 24) (2/2):
+Call Result at line 26
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/175/175.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'unknown1'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/175/175.acsl.c:4: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

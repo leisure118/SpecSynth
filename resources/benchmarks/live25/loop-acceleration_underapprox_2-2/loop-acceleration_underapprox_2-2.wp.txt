@@ -1,0 +1,68 @@
+[kernel] Parsing output/live25/loop-acceleration_underapprox_2-2/loop-acceleration_underapprox_2-2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             4
+  Alt-Ergo :       2 (7ms-9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_underapprox_2-2/loop-acceleration_underapprox_2-2.acsl.c, line 5):
+Assume {
+  Type: is_uint32(x).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 6).
+  (* Then *)
+  Have: x <= 5.
+}
+Prove: to_uint32(1 + x) <= 6.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (27671)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (7ms) (27)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_underapprox_2-2/loop-acceleration_underapprox_2-2.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-acceleration_underapprox_2-2/loop-acceleration_underapprox_2-2.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-acceleration_underapprox_2-2/loop-acceleration_underapprox_2-2.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-acceleration_underapprox_2-2/loop-acceleration_underapprox_2-2.acsl.c, line 9):
+Let x_1 = to_uint32(1 + x).
+Assume {
+  Type: is_uint32(x).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 6).
+  (* Then *)
+  Have: x <= 5.
+  (* Invariant *)
+  Have: x_1 <= 6.
+}
+Prove: x < x_1.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (27862)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (30)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-acceleration_underapprox_2-2/loop-acceleration_underapprox_2-2.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-acceleration_underapprox_2-2/loop-acceleration_underapprox_2-2.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

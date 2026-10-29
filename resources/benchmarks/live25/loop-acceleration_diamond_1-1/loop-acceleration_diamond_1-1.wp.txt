@@ -1,0 +1,149 @@
+[kernel] Parsing output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             6
+  Alt-Ergo :       4 (9ms-11ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 12):
+Let x_4 = y % 2.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(y).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= y) /\ (y <= 2147483646).
+  (* Admit *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (0 <= x_3) /\ (x_3 <= 100).
+  (* Invariant *)
+  Have: ((x_4 = 0) -> ((x_3 % 2) = 0)).
+  (* Then *)
+  Have: x_3 <= 98.
+  If x_4 = 0
+  Then { Have: x_3 = x_1. Have: (2 + x_1) = x. }
+  Else { Have: x_3 = x_2. Have: (1 + x_2) = x. }
+}
+Prove: (0 <= x) /\ (x <= 100).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (31564)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (10ms) (51)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 13):
+Let x_1 = 2 + x.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1).
+  (* Goal *)
+  When: (y % 2) = 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= y) /\ (y <= 2147483646).
+  (* Admit *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Then *)
+  Have: x <= 98.
+  (* Invariant *)
+  Have: (-2) <= x.
+}
+Prove: (x_1 % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (31723)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (150)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 14):
+Let x_1 = 1 + x.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1).
+  (* Goal *)
+  When: ((y % 2) != 0) /\ ((x_1 % 2) = 0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= y) /\ (y <= 2147483646).
+  (* Admit *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100).
+  (* Then *)
+  Have: x <= 98.
+  (* Invariant *)
+  Have: ((-1) <= x) /\ (x <= 99).
+}
+Prove: x <= 97.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30501)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (115)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 25):
+Let x_1 = y % 2.
+Let x_2 = x % 2.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= y) /\ (y <= 2147483646).
+  (* Admit *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100).
+  (* Invariant *)
+  Have: ((x_1 = 0) -> (x_2 = 0)).
+  (* Invariant *)
+  Have: ((x_1 != 0) -> (x_2 != 0)).
+  (* Else *)
+  Have: 99 <= x.
+}
+Prove: x_1 = x_2.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (30134)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (11ms) (182)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-acceleration_diamond_1-1/loop-acceleration_diamond_1-1.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,381 @@
+[kernel] Parsing output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 31 goals scheduled
+[wp] Proved goals:   31 / 31
+  Qed:            24
+  Alt-Ergo :       7 (9ms-14ms-18ms)
+------------------------------------------------------------
+  Function bufs_differ
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 21) in 'bufs_differ':
+Let x = Mint_0[shift_uint8(b2_0, i)].
+Let x_1 = Mint_0[shift_uint8(b1_0, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint8(x_1) /\ is_uint8(x).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Residual *)
+  When: i < n.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: x != x_1.
+}
+Prove: !P_bmatch(Mint_0, b1_0, b2_0, n).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (30ms) (203267)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (15ms) (127)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 22) in 'bufs_differ':
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(bufs_differ_0).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  If i < n
+  Then {
+    (* Then *)
+    Have: Mint_0[shift_uint8(b2_0, i)] != Mint_0[shift_uint8(b1_0, i)].
+    Have: bufs_differ_0 = 1.
+  }
+  Else { Have: bufs_differ_0 = 0. }
+}
+Prove: P_bdiffer(Mint_0, b1_0, b2_0, n) <-> (bufs_differ_0 = 1).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (13ms) (175)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 30):
+Let x = Mint_0[shift_uint8(b2_0, i)].
+Let x_1 = Mint_0[shift_uint8(b1_0, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint8(x_1) /\ is_uint8(x).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x = x_1.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (30ms) (204259)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (16ms) (98)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 31):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_uint8(b2_0, i)].
+Let x_2 = Mint_0[shift_uint8(b1_0, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint8(x_2) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: P_bmatch(Mint_0, b1_0, b2_0, x).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (18ms) (169)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 31):
+Assume {
+  Type: is_uint32(n).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: P_bmatch(Mint_0, b1_0, b2_0, 0).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (35014)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (9ms) (53)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (1/3):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (2/3):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (3/3):
+Effect at line 37
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 35):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_uint8(b2_0, i)].
+Let x_2 = Mint_0[shift_uint8(b1_0, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint8(x_2) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, x).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (30ms) (205376)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (15ms) (106)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 78):
+Prove: true.
+Prover Qed returns Valid (0.93ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 79):
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 45) in 'parse_null'' in 'main' at initialization of 'ret' (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 77)
+:
+Prove: true.
+Prover Qed returns Valid (0.66ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 46) in 'parse_null'' in 'main' at initialization of 'ret' (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 77)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 47) in 'parse_null'' in 'main' at initialization of 'ret' (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 77)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 48) in 'parse_null'' in 'main' at initialization of 'ret' (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 77)
+:
+Let a = global(L_b_1769).
+Let a_1 = shift_uint8(a, 0).
+Let a_2 = global(K_null_encoded_val_2484).
+Let a_3 = shift_uint8(a_2, 0).
+Assume {
+  (* Initializer *)
+  Init: Mint_0[a_3] = 5.
+  (* Initializer *)
+  Init: Mint_0[shift_uint8(a_2, 1)] = 0.
+  (* Initializer *)
+  Init: Mint_0[a_1] = 5.
+  (* Initializer *)
+  Init: Mint_0[shift_uint8(a, 1)] = 0.
+}
+Prove: P_bmatch(Mint_0, a_1, a_3, 2).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (30ms) (228987)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (15ms) (81)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function parse_null
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 50) in 'parse_null':
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 51) in 'parse_null':
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 49) in 'parse_null':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 49) in 'parse_null' (1/7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 49) in 'parse_null' (2/7):
+Effect at line 57
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 49) in 'parse_null' (3/7):
+Effect at line 61
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 49) in 'parse_null' (4/7):
+Call Result at line 64
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 49) in 'parse_null' (5/7):
+Effect at line 66
+Prove: true.
+Prover Qed returns Valid (0.97ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 49) in 'parse_null' (6/7):
+Effect at line 69
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 49) in 'parse_null' (7/7):
+Effect at line 70
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 18) in 'bufs_differ'' in 'parse_null' at call 'bufs_differ' (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 64)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 19) in 'bufs_differ'' in 'parse_null' at call 'bufs_differ' (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 64)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 20) in 'bufs_differ'' in 'parse_null' at call 'bufs_differ' (file output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c, line 64)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/X509-parser_parse_null/X509-parser_parse_null.acsl.c:74: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

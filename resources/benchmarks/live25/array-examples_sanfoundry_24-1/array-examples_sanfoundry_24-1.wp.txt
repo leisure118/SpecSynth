@@ -1,0 +1,159 @@
+[kernel] Parsing output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c:13: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] [Timeout] typed_main_assert (Qed 2ms) (Z3)
+[wp] [Timeout] typed_main_assert_2 (Qed 3ms) (Z3)
+[wp] Proved goals:   15 / 17
+  Qed:            15
+  Timeout:         2
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (0.67ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 31):
+Let x = array_0[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(num_0) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= num_0) /\ (num_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ ((num_0 < 0) \/ (i_1 <= num_0)).
+  (* Else *)
+  Have: num_0 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ ((num_0 < 0) \/ (i <= num_0)).
+  (* Then *)
+  Have: i < num_0.
+  (* Then *)
+  Have: (x % 2) = 0.
+}
+Prove: (i % 2) = 0.
+Prover Z3 4.15.4 returns Timeout (Qed:2ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:2ms) (15s)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 43):
+Let x = array_0[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i) /\
+      is_sint32(num_0) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= num_0) /\ (num_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ ((num_0 < 0) \/ (i_1 <= num_0)).
+  (* Else *)
+  Have: num_0 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ ((num_0 < 0) \/ (i_2 <= num_0)).
+  (* Else *)
+  Have: num_0 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ ((num_0 < 0) \/ (i <= num_0)).
+  (* Then *)
+  Have: i < num_0.
+  (* Then *)
+  Have: (x % 2) != 0.
+}
+Prove: (i % 2) != 0.
+Prover Z3 4.15.4 returns Timeout (Qed:3ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:3ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_sanfoundry_24-1/array-examples_sanfoundry_24-1.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

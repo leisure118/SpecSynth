@@ -1,0 +1,111 @@
+[kernel] Parsing output/live25/loop-zilu_benchmark47_linear/loop-zilu_benchmark47_linear.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-zilu_benchmark47_linear/loop-zilu_benchmark47_linear.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             3
+  Alt-Ergo :       3 (6ms-7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark47_linear/loop-zilu_benchmark47_linear.acsl.c, line 13):
+Assume {
+  Type: is_sint32(unknown_0) /\ is_sint32(unknown_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(y) /\
+      is_sint32(y_1) /\ is_sint32(y_2) /\ is_sint32(y_3).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_1) /\ (unknown_1 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+  (* Else *)
+  Have: unknown_1 < unknown_0.
+  (* Invariant *)
+  Have: unknown_1 <= (16 + unknown_0).
+  (* Invariant *)
+  Have: x_3 <= (16 + y_3).
+  (* Then *)
+  Have: x_3 < y_3.
+  If x_3 < 0
+  Then { Have: x_3 = x_1. Have: (7 + x_1) = x. }
+  Else { Have: x_3 = x_2. Have: (10 + x_2) = x. }
+  If y_3 < 0
+  Then { Have: y_3 = y_1. Have: (10 + y) = y_1. }
+  Else { Have: y_3 = y_2. Have: (3 + y_2) = y. }
+}
+Prove: x <= (16 + y).
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (32007)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (7ms) (52)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark47_linear/loop-zilu_benchmark47_linear.acsl.c, line 13):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= y) /\ (y <= 2147483646).
+  (* Else *)
+  Have: x < y.
+}
+Prove: x <= (16 + y).
+Prover Z3 4.15.4 returns Valid (Qed:0.58ms) (10ms) (27906)
+Prover Alt-Ergo  returns Valid (Qed:0.58ms) (6ms) (21)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-zilu_benchmark47_linear/loop-zilu_benchmark47_linear.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark47_linear/loop-zilu_benchmark47_linear.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-zilu_benchmark47_linear/loop-zilu_benchmark47_linear.acsl.c, line 17):
+Assume {
+  Type: is_sint32(unknown_0) /\ is_sint32(unknown_1) /\ is_sint32(x_1) /\
+      is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_1) /\ (unknown_1 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+  (* Else *)
+  Have: unknown_1 < unknown_0.
+  (* Invariant *)
+  Have: unknown_1 <= (16 + unknown_0).
+  (* Invariant *)
+  Have: x <= (16 + y_1).
+  (* Then *)
+  Have: x < y_1.
+  If x < 0
+  Then { Have: (7 + x) = x_1. }
+  Else { Have: (10 + x) = x_1. }
+  If y_1 < 0
+  Then { Have: (10 + y) = y_1. }
+  Else { Have: (3 + y_1) = y. }
+  (* Invariant *)
+  Have: x_1 <= (16 + y).
+}
+Prove: (x + y) < (x_1 + y_1).
+Prover Z3 4.15.4 returns Valid (Qed:22ms) (10ms) (30289)
+Prover Alt-Ergo  returns Valid (Qed:22ms) (7ms) (43)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-zilu_benchmark47_linear/loop-zilu_benchmark47_linear.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-zilu_benchmark47_linear/loop-zilu_benchmark47_linear.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

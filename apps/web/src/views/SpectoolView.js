@@ -21,59 +21,8 @@ import {
 export default defineComponent({
   name: 'SpectoolView',
   components: { CodePreview: CodePreview },
-  template: `
-    <div class="page-shell spectool-view">
-      <section class="spectool-hero">
-        <div class="spectool-hero-copy">
-          <span class="spectool-eyebrow"><i></i> SPECTRAL WORKBENCH</span>
-          <h1 aria-label="spectool 工具箱">从源码切片到<br>可验证规约。</h1>
-          <p>提取目标函数，生成并注入 ACSL 契约，再通过 admit 检查与容器 WP 完成可追溯验证。</p>
-          <div class="spectool-hero-tags"><span>函数提取</span><span>工程切片</span><span>ACSL 生成</span><span>WP 验证</span></div>
-        </div>
-        <div class="spectool-flow-card" aria-label="Spectral 验证流水线">
-          <div class="spectool-flow-head"><span>验证流水线</span><small>PIPELINE · 04 STAGES</small></div>
-          <div class="spectool-flow-track">
-            <div><b>01</b><span>提取<small>Extract</small></span></div><i>→</i>
-            <div><b>02</b><span>切片<small>Slice</small></span></div><i>→</i>
-            <div><b>03</b><span>规约<small>Specify</small></span></div><i>→</i>
-            <div><b>04</b><span>验证<small>Verify</small></span></div>
-          </div>
-          <div class="tool-status spectool-hero-status" v-if="capabilityModel">
-            <div class="status-cluster">
-              <span class="env-dot" :class="capabilityModel.deterministicReady ? 'ready' : 'off'"></span>
-              <span>{{ capabilityModel.deterministicReady ? '确定性工具可用' : 'spectool 不可用' }}</span>
-            </div>
-            <el-tag size="small" :type="verifyStateType">{{ verifyStateLabel }}</el-tag>
-            <el-tag size="small" effect="plain" v-if="capabilityModel.containerService">{{ capabilityModel.containerService }}</el-tag>
-          </div>
-        </div>
-      </section>
-
-      <section class="spectool-overview" v-if="capabilityModel">
-        <div class="overview-card accent-source">
-          <span><i>01</i> 输入</span>
-          <strong>{{ fileMeta ? fileMeta.filename : '未载入' }}</strong>
-          <small>{{ loadedFileCount }} 个文件</small>
-        </div>
-        <div class="overview-card accent-function">
-          <span><i>02</i> 函数</span>
-          <strong>{{ selectedFunctionName || '未选择' }}</strong>
-          <small>{{ functionCount }} 个候选</small>
-        </div>
-        <div class="overview-card accent-proof">
-          <span><i>03</i> 验证</span>
-          <strong>{{ verifyStateLabel }}</strong>
-          <small>{{ capabilityModel.containerService || '等待容器' }}</small>
-        </div>
-        <div class="overview-card accent-artifact">
-          <span><i>04</i> 工件</span>
-          <strong>{{ artifactCount }}</strong>
-          <small>{{ selectedArtifactId || '暂无预览' }}</small>
-        </div>
-      </section>
-
-      <section class="spectool-workbench" :class="{ 'sample-mode': uploadMode === 'sample' }">
-        <aside class="spectool-sidebar">
+  template: `<div class="spectool-view spectool-studio"><header class="vf-workspace-header"><router-link to="/projects" class="vf-back"><span class="xuanjian-brand compact"><img class="xuanjian-symbol" src="/brand/favicon.svg" alt=""><span class="xuanjian-name">AI赋能的可信软件智能验证</span></span></router-link><span class="vf-divider">/</span><h1 aria-label="spectool 工具箱">工具箱</h1><span class="vf-save-status">C / ACSL · 分步调试</span><router-link class="vf-button small" to="/projects">项目工作台 ↗</router-link></header><div class="spectool-studio-grid">
+        <aside class="spectool-sidebar" :class="{'mobile-active':toolPane==='files'}">
           <div class="tool-panel spectool-input-panel">
             <div class="panel-title-row">
               <div>
@@ -82,9 +31,9 @@ export default defineComponent({
               <el-button link size="small" @click="refreshCapabilities" :loading="runningOp === 'capabilities'">刷新</el-button>
             </div>
             <div class="source-tabs">
-              <div class="source-tab" :class="{ active: uploadMode === 'file' }" @click="uploadMode = 'file'">单文件</div>
-              <div class="source-tab" :class="{ active: uploadMode === 'bundle' }" @click="uploadMode = 'bundle'">工程</div>
-              <div class="source-tab" :class="{ active: uploadMode === 'sample' }" @click="uploadMode = 'sample'">示例用例</div>
+              <button type="button" class="source-tab" :class="{ active: uploadMode === 'file' }" :aria-pressed="uploadMode === 'file'" @click="uploadMode = 'file'">单文件</button>
+              <button type="button" class="source-tab" :class="{ active: uploadMode === 'bundle' }" :aria-pressed="uploadMode === 'bundle'" @click="uploadMode = 'bundle'">工程</button>
+              <button type="button" class="source-tab" :class="{ active: uploadMode === 'sample' }" :aria-pressed="uploadMode === 'sample'" @click="uploadMode = 'sample'">示例用例</button>
             </div>
             <div v-if="uploadMode === 'sample'" class="sample-case">
               <div class="sample-case-header">
@@ -94,7 +43,7 @@ export default defineComponent({
                 </div>
                 <a class="sample-open-link" :href="sampleUrl" target="_blank" rel="noopener">新窗口打开</a>
               </div>
-              <iframe class="sample-preview" :src="sampleUrl" title="x509-parser 验证结果" loading="lazy"></iframe>
+
             </div>
             <div v-if="uploadMode === 'file'" class="upload-zone compact-upload">
               <el-upload :auto-upload="false" :on-change="onFileSelect" :limit="1" accept=".c,.h" :show-file-list="true">
@@ -155,11 +104,20 @@ export default defineComponent({
           </div>
         </aside>
 
-        <div class="spectool-maincol" v-if="uploadMode !== 'sample'">
-          <div class="tool-panel spectool-pipeline-panel">
+<section class="spectool-studio-editor" :class="{'mobile-active':toolPane==='editor'}"><div class="spectool-studio-tabs"><button :class="{active:editorTab==='source'}" @click="editorTab='source'">{{selectedRelativePath||'源码预览'}}</button><button :class="{active:editorTab==='spec'}" @click="editorTab='spec'">规约编辑</button><button :class="{active:editorTab==='json'}" @click="editorTab='json'">JSON</button></div><template v-if="uploadMode==='sample'"><iframe class="spectool-studio-sample" :src="sampleUrl" title="x509-parser 验证结果" loading="lazy"></iframe></template><template v-else><div v-if="editorTab==='source'" class="spectool-studio-code"><CodePreview v-if="previewText" :code="previewText" maxHeight="100%"/><div v-else class="spectool-studio-empty"><span>⌘</span><h2>选择文件或函数</h2><p>在左侧上传源码，提取函数或切片后在这里预览。</p><small>右侧执行生成与验证，规约可在“规约编辑”中调整。</small></div></div><div v-if="editorTab==='json'" class="spectool-studio-code"><CodePreview v-if="jsonText" :code="jsonText" maxHeight="100%"/><div v-else class="spectool-studio-empty"><h2>暂无结构化输出</h2><p>操作产生的 JSON 会显示在这里。</p></div></div><div v-if="editorTab==='spec'" class="spectool-studio-spec">            <div class="tool-form spectool-contract-form">
+              <label class="spectool-editor-label">函数契约 <small>ACSL · 可手动调整</small></label>
+              <el-input v-model="contractText" type="textarea" :rows="5" placeholder="模型生成的 ACSL 函数契约，可人工微调" />
+              <label class="spectool-editor-label">循环规约 <small>JSON · 可手动调整</small></label>
+              <el-input v-model="loopSpecsText" type="textarea" :rows="4" placeholder='模型生成的循环规约 JSON，可人工微调' />
+              <div class="tool-actions tight end">
+                <el-button plain @click="resetEditors">清空</el-button>
+                <el-button plain @click="injectCurrent" :disabled="!canInject" :loading="runningOp === 'inject'">重新注入</el-button>
+              </div>
+            </div>
+</div></template><div class="vf-editor-status"><span>{{currentSourceLabel||'等待载入源码'}} · {{selectedFunctionName||'未选择函数'}}</span><span>C &nbsp; UTF-8</span></div></section><aside class="spectool-studio-results" :class="{'mobile-active':toolPane==='verify'}"><div class="spectool-studio-panel-heading"><strong>验证</strong><el-tag size="small" :type="verifyStateType">{{verifyStateLabel}}</el-tag></div><div class="spectool-studio-result-scroll"><template v-if="uploadMode!=='sample'"><div class="spectool-studio-model"><label>生成模型</label><el-select aria-label="工具箱生成模型" v-model="selectedModel" filterable placeholder="选择模型" :disabled="!modelList.length"><el-option v-for="m in modelList" :key="m" :label="m" :value="m"/></el-select></div>          <div class="tool-panel spectool-pipeline-panel">
             <div class="panel-title-row">
               <div>
-                <span class="panel-kicker">VERIFICATION FLOW</span><h2>流水线</h2>
+                <span class="panel-kicker">VERIFICATION FLOW</span><h2>分步操作</h2>
               </div>
               <el-tag size="small" :type="currentSource ? 'success' : 'info'">{{ currentSource ? currentSourceLabel : '等待输出' }}</el-tag>
             </div>
@@ -208,89 +166,11 @@ export default defineComponent({
               </div>
             </div>
 
-            <div class="tool-form spectool-contract-form">
-              <div class="model-row">
-                <el-select v-model="selectedModel" filterable placeholder="选择模型" style="width:260px" :disabled="!modelList.length">
-                  <el-option v-for="m in modelList" :key="m" :label="m" :value="m" />
-                </el-select>
-                <el-button type="primary" @click="generateCurrent" :disabled="!canGenerate" :loading="runningOp === 'generate'">大模型生成并注入</el-button>
-              </div>
-              <el-input v-model="contractText" type="textarea" :rows="5" placeholder="模型生成的 ACSL 函数契约，可人工微调" />
-              <el-input v-model="loopSpecsText" type="textarea" :rows="4" placeholder='模型生成的循环规约 JSON，可人工微调' />
-              <div class="tool-actions tight end">
-                <el-button plain @click="resetEditors">清空</el-button>
-                <el-button plain @click="injectCurrent" :disabled="!canInject" :loading="runningOp === 'inject'">重新注入</el-button>
-              </div>
-            </div>
           </div>
-
-          <div class="tool-grid two-col spectool-midgrid">
-            <div class="tool-panel">
-              <div class="panel-title-row">
-                <div>
-                  <span class="panel-kicker">SUMMARY</span><h2>结果摘要</h2>
-                </div>
-                <el-button link size="small" @click="locateCurrentFailures" :disabled="!canLocate" :loading="runningOp === 'locate'">定位失败</el-button>
-              </div>
-              <div class="spectool-result-list" v-if="summaryRows.length">
-                <div v-for="row in summaryRows" :key="row.key" class="spectool-result-row">
-                  <span>{{ row.label }}</span><strong>{{ row.value }}</strong>
-                </div>
-              </div>
-              <el-empty v-else description="暂无结果" />
-            </div>
-
-            <div class="tool-panel">
-              <div class="panel-title-row">
-                <div>
-                  <span class="panel-kicker">TIMELINE</span><h2>操作历史</h2>
-                </div>
-                <span class="count-pill">{{ history.length }}</span>
-              </div>
-              <div class="history-list" v-if="history.length">
-                <button v-for="item in history" :key="item.id" class="history-item" :class="{ active: activeHistoryId === item.id }" @click="activateHistory(item)">
-                  <span>{{ item.label }}</span>
-                  <small>{{ item.detail }}</small>
-                </button>
-              </div>
-              <el-empty v-else description="暂无历史" />
-            </div>
-          </div>
-
-          <div class="tool-panel" v-if="fileId">
-            <div class="panel-title-row">
-              <div>
-                <span class="panel-kicker">EVIDENCE</span><h2>输出工件</h2>
-              </div>
-              <el-button link size="small" @click="refreshArtifacts" :loading="runningOp === 'artifacts'">刷新</el-button>
-            </div>
-            <div class="artifact-strip" v-if="artifacts.length">
-              <button v-for="artifact in artifacts" :key="artifact.artifact_id" class="artifact-chip" :class="{ active: selectedArtifactId === artifact.artifact_id }" @click="previewArtifact(artifact)">
-                <span>{{ artifact.artifact_id }}</span>
-                <small>{{ formatSize(artifact.size) }}</small>
-              </button>
-            </div>
-            <el-empty v-else description="暂无工件" />
-          </div>
-        </div>
-      </section>
-
-      <section class="result-section" v-if="previewText || jsonText">
-        <div class="panel-title-row preview-title-row">
-          <div>
-            <span class="panel-kicker">INSPECT</span><h2>预览</h2>
-          </div>
-          <el-radio-group v-model="previewMode" size="small">
-            <el-radio-button label="source" :disabled="!previewText">源码</el-radio-button>
-            <el-radio-button label="json" :disabled="!jsonText">JSON</el-radio-button>
-          </el-radio-group>
-        </div>
-        <CodePreview v-if="previewMode === 'source'" :code="previewText" maxHeight="560px" />
-        <CodePreview v-else :code="jsonText" maxHeight="420px" />
-      </section>
-    </div>
-  `,
+<section class="tool-panel"><div class="panel-title-row"><h2>结果摘要</h2><el-button link size="small" @click="locateCurrentFailures" :disabled="!canLocate" :loading="runningOp==='locate'">定位失败</el-button></div><div v-if="summaryRows.length" class="spectool-result-list"><div v-for="row in summaryRows" :key="row.key" class="spectool-result-row"><span>{{row.label}}</span><strong>{{row.value}}</strong></div></div><el-empty v-else description="暂无结果"/></section><section class="tool-panel"><div class="panel-title-row"><h2>操作历史</h2><span class="count-pill">{{history.length}}</span></div><div v-if="history.length" class="history-list"><button v-for="item in history" :key="item.id" class="history-item" :class="{active:activeHistoryId===item.id}" @click="activateHistory(item);editorTab='source'"><span>{{item.label}}</span><small>{{item.detail}}</small></button></div><el-empty v-else description="暂无历史"/></section><section class="tool-panel" v-if="fileId"><div class="panel-title-row"><h2>输出工件</h2><el-button link size="small" @click="refreshArtifacts" :loading="runningOp==='artifacts'">刷新</el-button></div><div v-if="artifacts.length" class="artifact-strip"><button v-for="artifact in artifacts" :key="artifact.artifact_id" class="artifact-chip" :class="{active:selectedArtifactId===artifact.artifact_id}" @click="previewArtifact(artifact);editorTab='source'"><span>{{artifact.artifact_id}}</span><small>{{formatSize(artifact.size)}}</small></button></div><el-empty v-else description="暂无工件"/></section></template><div v-else class="spectool-studio-sample-info"><h2>X509 验证示例</h2><p>中间区域展示已有调用图及验证结果。</p><p>如需执行分步操作，请切换左侧“单文件”或“工程”。</p></div><details class="spectool-studio-environment"><summary>运行环境</summary><div v-for="tool in toolRows" :key="tool.key" class="env-row compact"><span class="env-dot" :class="tool.ready?'ready':'off'"></span><span>{{tool.label}}</span></div></details></div></aside></div><nav class="vf-mobile-nav"><button v-for="p in [['files','文件'],['editor','代码与规约'],['verify','验证']]" :key="p[0]" @click="toolPane=p[0]" :class="{selected:toolPane===p[0]}">{{p[1]}}</button></nav></div>`,
   setup: function () {
+    var toolPane=ref('editor'),editorTab=ref('source')
+    var sourceFiles=ref({})
     var uploadMode = ref('file')
     var sampleUrl = '/samples/x509-parser.html'
     var capabilities = ref(null)
@@ -513,12 +393,13 @@ export default defineComponent({
     async function onFileSelect(f) {
       if (!f || !f.raw) return
       setRunning('upload')
-      try { await loadFiles(await uploadSpectoolFile(f.raw)) } catch(e) { showError(e) } finally { clearRunning() }
+      try { sourceFiles.value={[f.raw.name]:await f.raw.text()};await loadFiles(await uploadSpectoolFile(f.raw)) } catch(e) { showError(e) } finally { clearRunning() }
     }
     async function onBundleSelect(event) {
       var files = Array.from((event && event.target && event.target.files) || [])
       if (event && event.target) event.target.value = ''
       if (!files.length) return
+      sourceFiles.value=Object.fromEntries(await Promise.all(files.map(async file=>[file.webkitRelativePath||file.name,await file.text()])))
       var rootDir = files[0].webkitRelativePath ? files[0].webkitRelativePath.split('/')[0] : ''
       var manifest = files.map(function (file) { return { relative_path: file.webkitRelativePath || file.name, size: file.size } })
       setRunning('upload')
@@ -531,7 +412,7 @@ export default defineComponent({
         var payload = await spectoolExtract(fileId.value, selectedRelativePath.value)
         functions.value = (payload.functions || []).map(function (fn) { return Object.assign({ relative_path: payload.relative_path }, fn) })
         selectedFunctionKey.value = functions.value.length ? fnKey(functions.value[0]) : ''
-        showResult(payload, '', '提取当前文件', 'extract-one')
+        showResult(payload, sourceFiles.value[selectedRelativePath.value]||'', '提取当前文件', 'extract-one')
       } catch(e) { showError(e, 'extract-one') } finally { clearRunning() }
     }
     async function listProject() {
@@ -631,6 +512,7 @@ export default defineComponent({
 
     return {
       uploadMode: uploadMode,
+      toolPane,editorTab,
       sampleUrl: sampleUrl,
       capabilities: capabilities,
       capabilityModel: capabilityModel,
@@ -663,6 +545,7 @@ export default defineComponent({
       runningOp: runningOp,
       history: history,
       activeHistoryId: activeHistoryId,
+      activateHistory: activateHistory,
       artifacts: artifacts,
       selectedArtifactId: selectedArtifactId,
       previewMode: previewMode,

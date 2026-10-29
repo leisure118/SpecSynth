@@ -1,0 +1,227 @@
+[kernel] Parsing output/autobench_v2/229/229.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 16 goals scheduled
+[wp] [Timeout] typed_order_3_ensures_2 (Qed 50ms) (Z3)
+[wp] [Timeout] typed_order_3_ensures (Qed 43ms) (Z3)
+[wp] [Timeout] typed_test_assert (Qed 7ms) (Z3)
+[wp] [Timeout] typed_test_assert_2 (Qed 11ms) (Z3)
+[wp] [Timeout] typed_test_assert_3 (Qed 9ms) (Z3)
+[wp] [Timeout] typed_test_assert_4 (Qed 9ms) (Z3)
+[wp] Proved goals:   10 / 16
+  Qed:            10
+  Timeout:         6
+------------------------------------------------------------
+  Function order_3
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/229/229.acsl.c, line 3) in 'order_3':
+Let x = Mint_3[c].
+Let x_1 = Mint_3[b].
+Let x_2 = Mint_5[c].
+Let x_3 = Mint_5[a].
+Let x_4 = Mint_1[b].
+Let x_5 = Mint_1[a].
+Let x_6 = Mint_0[a].
+Let x_7 = Mint_0[b].
+Let x_8 = Mint_0[c].
+Assume {
+  Type: is_sint32(x_6) /\ is_sint32(x_7) /\ is_sint32(x_8) /\
+      is_sint32(x_5) /\ is_sint32(x_4) /\ is_sint32(Mint_1[c]) /\
+      is_sint32(Mint_2[b]) /\ is_sint32(x_1) /\ is_sint32(x) /\
+      is_sint32(Mint_4[a]) /\ is_sint32(x_3) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+  If x_4 < x_5
+  Then { Have: Mint_1[b <- x_5][a <- x_5] = Mint_5. }
+  Else { Have: Mint_5 = Mint_1. }
+  If x_2 < x_3
+  Then {
+    Have: Mint_5 = Mint_4.
+    Have: Mint_4[a <- Mint_4[c]][c <- Mint_4[a]] = Mint_3.
+  }
+  Else { Have: Mint_5 = Mint_3. }
+  If x < x_1
+  Then {
+    Have: Mint_3 = Mint_2.
+    Have: Mint_2[b <- Mint_2[c]][c <- Mint_2[b]] = Mint_0.
+  }
+  Else { Have: Mint_3 = Mint_0. }
+}
+Prove: (x_6 <= x_7) /\ (x_7 <= x_8).
+Prover Z3 4.15.4 returns Timeout (Qed:43ms) (7.7s)
+Prover Alt-Ergo  returns Timeout (Qed:43ms) (15s)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/229/229.acsl.c, line 4) in 'order_3':
+Let x = Mint_3[c].
+Let x_1 = Mint_3[b].
+Let x_2 = Mint_5[c].
+Let x_3 = Mint_5[a].
+Let x_4 = Mint_0[b].
+Let x_5 = Mint_0[a].
+Let x_6 = Mint_1[a].
+Let x_7 = Mint_1[b].
+Let x_8 = Mint_1[c].
+Let x_9 = Mint_0[c].
+Assume {
+  Type: is_sint32(x_6) /\ is_sint32(x_7) /\ is_sint32(x_8) /\
+      is_sint32(x_5) /\ is_sint32(x_4) /\ is_sint32(x_9) /\
+      is_sint32(Mint_2[b]) /\ is_sint32(x_1) /\ is_sint32(x) /\
+      is_sint32(Mint_4[a]) /\ is_sint32(x_3) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+  If x_4 < x_5
+  Then { Have: Mint_0[b <- x_5][a <- x_5] = Mint_5. }
+  Else { Have: Mint_5 = Mint_0. }
+  If x_2 < x_3
+  Then {
+    Have: Mint_5 = Mint_4.
+    Have: Mint_4[a <- Mint_4[c]][c <- Mint_4[a]] = Mint_3.
+  }
+  Else { Have: Mint_5 = Mint_3. }
+  If x < x_1
+  Then {
+    Have: Mint_3 = Mint_2.
+    Have: Mint_2[b <- Mint_2[c]][c <- Mint_2[b]] = Mint_1.
+  }
+  Else { Have: Mint_3 = Mint_1. }
+}
+Prove: (x_5 + x_4 + x_9) = (x_6 + x_7 + x_8).
+Prover Z3 4.15.4 returns Timeout (Qed:50ms) (7.8s)
+Prover Alt-Ergo  returns Timeout (Qed:50ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/229/229.acsl.c, line 5) in 'order_3' (1/6):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/229/229.acsl.c, line 5) in 'order_3' (2/6):
+Effect at line 11
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/229/229.acsl.c, line 5) in 'order_3' (3/6):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/229/229.acsl.c, line 5) in 'order_3' (4/6):
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/229/229.acsl.c, line 5) in 'order_3' (5/6):
+Effect at line 20
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/229/229.acsl.c, line 5) in 'order_3' (6/6):
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function test
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/229/229.acsl.c, line 29):
+Assume {
+  Type: is_sint32(b1_0) /\ is_sint32(c1_0) /\ is_sint32(12 - b1_0 - c1_0).
+  (* Call 'order_3' *)
+  Have: (b1_0 <= c1_0) /\ (12 <= (c1_0 + (2 * b1_0))).
+}
+Prove: (b1_0 = 4) /\ (c1_0 = 5) /\ ((b1_0 + c1_0) = 9).
+Prover Z3 4.15.4 returns Timeout (Qed:7ms) (13.0s)
+Prover Alt-Ergo  returns Timeout (Qed:7ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/229/229.acsl.c, line 33):
+Assume {
+  Type: is_sint32(b2_0) /\ is_sint32(c2_0) /\ is_sint32(6 - b2_0 - c2_0).
+  (* Call 'order_3' *)
+  Have: (b2_0 <= c2_0) /\ (6 <= (c2_0 + (2 * b2_0))).
+}
+Prove: (b2_0 = 2) /\ (c2_0 = 2) /\ ((b2_0 + c2_0) = 4).
+Prover Z3 4.15.4 returns Timeout (Qed:11ms) (13.1s)
+Prover Alt-Ergo  returns Timeout (Qed:11ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/229/229.acsl.c, line 37):
+Assume {
+  Type: is_sint32(b3_0) /\ is_sint32(c3_0) /\ is_sint32(11 - b3_0 - c3_0).
+  (* Call 'order_3' *)
+  Have: (b3_0 <= c3_0) /\ (11 <= (c3_0 + (2 * b3_0))).
+}
+Prove: (b3_0 = 4) /\ (c3_0 = 4) /\ ((b3_0 + c3_0) = 8).
+Prover Z3 4.15.4 returns Timeout (Qed:9ms) (12.2s)
+Prover Alt-Ergo  returns Timeout (Qed:9ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/229/229.acsl.c, line 41):
+Assume {
+  Type: is_sint32(b4_0) /\ is_sint32(c4_0) /\ is_sint32(13 - b4_0 - c4_0).
+  (* Call 'order_3' *)
+  Have: (b4_0 <= c4_0) /\ (13 <= (c4_0 + (2 * b4_0))).
+}
+Prove: (b4_0 = 4) /\ (c4_0 = 5) /\ ((b4_0 + c4_0) = 9).
+Prover Z3 4.15.4 returns Timeout (Qed:9ms) (12.4s)
+Prover Alt-Ergo  returns Timeout (Qed:9ms) (15s)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/229/229.acsl.c, line 2) in 'order_3'' in 'test' at call 'order_3' (file output/autobench_v2/229/229.acsl.c, line 28)
+:
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/229/229.acsl.c, line 2) in 'order_3'' in 'test' at call 'order_3' (file output/autobench_v2/229/229.acsl.c, line 32)
+:
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/229/229.acsl.c, line 2) in 'order_3'' in 'test' at call 'order_3' (file output/autobench_v2/229/229.acsl.c, line 36)
+:
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/229/229.acsl.c, line 2) in 'order_3'' in 'test' at call 'order_3' (file output/autobench_v2/229/229.acsl.c, line 40)
+:
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/229/229.acsl.c:25: Warning: 
+  No 'assigns' specification for function 'test'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,122 @@
+[kernel] Parsing output/autobench_v2/153/153.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/autobench_v2/153/153.acsl.c:30: Warning: 
+  Calling function unknown1 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/153/153.acsl.c:12: Warning: 
+  Neither code nor specification for function unknown1, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:            12
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/153/153.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/153/153.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/153/153.acsl.c, line 17):
+Let x_2 = x + y.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(y_1) /\ is_sint32(y) /\
+      is_sint32(1 + j) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= n).
+  (* Invariant *)
+  Have: (0 <= m) /\ (m < n).
+  (* Then *)
+  Have: j < n.
+  If j = i
+  Then { Have: (1 + x) = x_1. Have: (1 + y_1) = y. }
+  Else { Have: (1 + y) = y_1. Have: (1 + x_1) = x. }
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: x_2 = (x_1 + y_1).
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (31102)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (7ms) (48)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/153/153.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/153/153.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/153/153.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/153/153.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/153/153.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/153/153.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/153/153.acsl.c, line 19) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/153/153.acsl.c, line 19) (2/2):
+Call Result at line 30
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/153/153.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/153/153.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/153/153.acsl.c:3: Warning: 
+  No 'assigns' specification for function 'unknown1'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/153/153.acsl.c:12: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

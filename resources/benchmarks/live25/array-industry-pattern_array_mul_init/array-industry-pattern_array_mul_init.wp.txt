@@ -1,0 +1,424 @@
+[kernel] Parsing output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c:39: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 27 goals scheduled
+[wp] Proved goals:   27 / 27
+  Qed:            19
+  Alt-Ergo :       8 (6ms-12ms-23ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 18):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (a[i_2] = i_2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (b[i_2] = i_2))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a[i <- i][i_1] = i_1.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29730)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (63)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 19):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (a[i_2] = i_2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (b[i_2] = i_2))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((0 <= i_2) ->
+      (a[i <- i][i_2] = i_2))).
+}
+Prove: b[i <- i][i_1] = i_1.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (30401)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (63)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 30):
+Let x = b[i].
+Let x_1 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(k) /\
+      is_sint32(tmp_0) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_2).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = i_3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (b_1[i_3] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      ((a_1[i_3] = i_3) /\ (b_1[i_3] = i_3)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_2 = b_2[i_3] in let x_3 = a_2[i_3] in
+      ((0 <= i_3) -> ((i_3 < i_2) -> ((x_2 = x_3) \/ (x_2 = (x_3 * x_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_2 <= i_3) -> ((i_3 <= 99999) ->
+      ((a_2[i_3] = i_3) /\ (b_2[i_3] = i_3)))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  If tmp_0 != 0
+  Then {
+    Have: (a_2 = a_3) /\ (b_2 = b_3).
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= k) /\ (k <= 2147483646).
+    Have: a_3[i_2 <- k] = a.
+    Have: b_3[i_2 <- k * k] = b.
+  }
+  Else { Have: (a_2 = a) /\ (b_2 = b). }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: (x = x_1) \/ (x = (x_1 * x_1)).
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (44697)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (19ms) (481)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 31):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(k) /\
+      is_sint32(tmp_0) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (i_2 < i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = i_3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (b_1[i_3] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      ((a_1[i_3] = i_3) /\ (b_1[i_3] = i_3)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let x = b_2[i_3] in let x_1 = a_2[i_3] in
+      ((0 <= i_3) -> ((i_3 < i_2) -> ((x = x_1) \/ (x = (x_1 * x_1))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_2 <= i_3) -> ((i_3 <= 99999) ->
+      ((a_2[i_3] = i_3) /\ (b_2[i_3] = i_3)))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  If tmp_0 != 0
+  Then {
+    Have: (a_2 = a_3) /\ (b_2 = b_3).
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= k) /\ (k <= 2147483646).
+    Have: a_3[i_2 <- k] = a.
+    Have: b_3[i_2 <- k * k] = b.
+  }
+  Else { Have: (a_2 = a) /\ (b_2 = b). }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x = b[i_3] in let x_1 = a[i_3] in
+      ((i_3 <= i_2) -> ((0 <= i_3) -> ((x = x_1) \/ (x = (x_1 * x_1))))).
+}
+Prove: (a[i] = i) /\ (b[i] = i).
+Prover Z3 4.15.4 returns Valid (Qed:21ms) (10ms) (35610)
+Prover Alt-Ergo  returns Valid (Qed:21ms) (23ms) (526)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 31):
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (a[i_2] = i_2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (b[i_2] = i_2))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: (a[i] = i) /\ (b[i] = i).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (29256)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (6ms) (32)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 46):
+Let x = b[i_3].
+Let x_1 = a[i_3].
+Let x_2 = b[i].
+Let x_3 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) -> (a_1[i_4] = i_4))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) -> (b_1[i_4] = i_4))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) ->
+      ((a_1[i_4] = i_4) /\ (b_1[i_4] = i_4)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. let x_4 = b[i_4] in let x_5 = a[i_4] in
+      ((0 <= i_4) -> ((i_4 < i_2) -> ((x_4 = x_5) \/ (x_4 = (x_5 * x_5))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_2 <= i_4) -> ((i_4 <= 99999) ->
+      ((a[i_4] = i_4) /\ (b[i_4] = i_4)))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. let x_4 = b[i_4] in let x_5 = a[i_4] in
+      ((0 <= i_4) -> ((i_4 <= 99999) ->
+      ((x_4 = x_5) \/ (x_4 = (x_5 * x_5))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Assertion *)
+  Have: (x = x_1) \/ (x = (x_1 * x_1)).
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: (x_2 = x_3) \/ (x_2 = (x_3 * x_3)).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (34678)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (246)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 46):
+Let x = b[i].
+Let x_1 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = i_3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (b_1[i_3] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      ((a_1[i_3] = i_3) /\ (b_1[i_3] = i_3)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_2 = b[i_3] in let x_3 = a[i_3] in
+      ((0 <= i_3) -> ((i_3 < i_2) -> ((x_2 = x_3) \/ (x_2 = (x_3 * x_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_2 <= i_3) -> ((i_3 <= 99999) ->
+      ((a[i_3] = i_3) /\ (b[i_3] = i_3)))).
+  (* Else *)
+  Have: 100000 <= i_2.
+}
+Prove: (x = x_1) \/ (x = (x_1 * x_1)).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (32179)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (8ms) (82)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 52):
+Let x = a[i].
+Let x_1 = b[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = i_3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (b_1[i_3] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      ((a_1[i_3] = i_3) /\ (b_1[i_3] = i_3)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_2 = b[i_3] in let x_3 = a[i_3] in
+      ((0 <= i_3) -> ((i_3 < i_2) -> ((x_2 = x_3) \/ (x_2 = (x_3 * x_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_2 <= i_3) -> ((i_3 <= 99999) ->
+      ((a[i_3] = i_3) /\ (b[i_3] = i_3)))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_2 = b[i_3] in let x_3 = a[i_3] in
+      ((0 <= i_3) -> ((i_3 <= 99999) ->
+      ((x_2 = x_3) \/ (x_2 = (x_3 * x_3))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+}
+Prove: (x_1 = x) \/ (x_1 = (x * x)).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (33612)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (14ms) (107)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 32) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 32) (2/2):
+Call Result at line 37
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_mul_init/array-industry-pattern_array_mul_init.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

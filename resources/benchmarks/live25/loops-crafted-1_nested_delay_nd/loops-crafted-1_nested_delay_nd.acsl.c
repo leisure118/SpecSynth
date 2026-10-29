@@ -1,0 +1,52 @@
+#include<limits.h>
+/*@
+assigns \nothing;
+ensures INT_MIN <= \result < INT_MAX;
+*/
+int unknown();
+int last ;
+int SIZE = 200000;
+int main()
+{
+	last = unknown();
+	/*@
+	  admit last > 0;
+	*/
+	//@ assert(last > 0);
+	int a=0,b=0,c=0,st=0,d=0;
+	/*@
+	  loop invariant a == b;
+	  loop invariant d == 0;
+	  loop assigns st, c, a, b, d;
+	*/
+	while(1) {
+		st=1;
+		/*@
+		  loop invariant 0 <= c <= SIZE;
+		  loop invariant (st == 1) ==> (c <= last);
+		  loop invariant (st == 0) ==> (c > last);
+		  loop assigns c, st;
+		  loop variant SIZE - c;
+		*/
+		for(c=0;c<SIZE;c++) {
+			if (c>=last)  { st = 0; }
+		}
+		//@ assert (st == 0) ==> (last < SIZE);
+		//@ assert (st == 1) ==> (last >= SIZE);
+		if(st==0 && c==last+1){
+			a+=3; b+=3;}
+		else { a+=2; b+=2; }
+		if(c==last && st==0) {
+			a = a+1;
+		}
+		else if(st==1 && last<SIZE) {
+			d++;
+		}
+		if(d == SIZE) {
+			a = 0;
+			b = 1;
+		}
+		//@ assert(a==b && c==SIZE);
+	}
+	return 0;
+}

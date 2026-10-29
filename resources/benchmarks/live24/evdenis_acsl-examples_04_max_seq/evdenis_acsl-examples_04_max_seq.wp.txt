@@ -1,0 +1,430 @@
+[kernel] Parsing output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 31 goals scheduled
+[wp] Proved goals:   31 / 31
+  Qed:            22
+  Alt-Ergo :       9 (7ms-12ms-20ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 52):
+Let x = a[i].
+Assume {
+  Type: is_sint32(x).
+  (* Initializer *)
+  Init: a[0] = 1.
+  (* Initializer *)
+  Init: a[1] = 2.
+  (* Initializer *)
+  Init: a[2] = 3.
+  (* Initializer *)
+  Init: a[3] = 4.
+  (* Initializer *)
+  Init: a[4] = 5.
+  (* Call 'max_seq' *)
+  Have: (0 <= i) /\ (i <= 4) /\
+      (forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 4) -> (a[i_1] <= x)))).
+}
+Prove: x = 5.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30134)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (67)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 37) in 'max_seq'' in 'main' at initialization of 'max_value' (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 51)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 38) in 'max_seq'' in 'main' at initialization of 'max_value' (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 51)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max_element
+------------------------------------------------------------
+
+Goal Complete behaviors 'empty', 'not_empty':
+Assume {
+  Type: is_sint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+}
+Prove: (n = 0) \/ (0 < n).
+Prover Z3 4.15.4 returns Valid (Qed:0.70ms) (10ms) (58594)
+Prover Alt-Ergo  returns Valid (Qed:0.70ms) (7ms) (22)
+
+------------------------------------------------------------
+
+Goal Disjoint behaviors 'empty', 'not_empty':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 22):
+Assume {
+  Type: is_sint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Else *)
+  Have: n != 0.
+}
+Prove: 0 < n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (58598)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (24)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (0.97ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 24):
+Let x = Mint_0[shift_sint32(a, max_1)].
+Let x_1 = Mint_0[shift_sint32(a, i_1)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(max_0) /\ is_sint32(max_1) /\
+      is_sint32(n) /\ is_sint32(1 + i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Else *)
+  Have: n != 0.
+  (* Invariant *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < max_1) ->
+      (Mint_0[shift_sint32(a, i_2)] < x))).
+  (* Then *)
+  Have: i_1 < n.
+  If x < x_1
+  Then { Have: max_0 = i_1. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+}
+Prove: Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, max_0)].
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (130ms) (1510153)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (20ms) (166)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (0.51ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 25):
+Let x = Mint_0[shift_sint32(a, max_0)].
+Let x_1 = Mint_0[shift_sint32(a, max_1)].
+Let x_2 = Mint_0[shift_sint32(a, i_1)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(max_0) /\ is_sint32(max_1) /\
+      is_sint32(n) /\ is_sint32(1 + i_1) /\ is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < max_0).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Else *)
+  Have: n != 0.
+  (* Invariant *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x_1))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < max_1) ->
+      (Mint_0[shift_sint32(a, i_2)] < x_1))).
+  (* Then *)
+  Have: i_1 < n.
+  If x_1 < x_2
+  Then { Have: max_0 = i_1. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i_1) -> ((0 <= i_2) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x))).
+}
+Prove: Mint_0[shift_sint32(a, i)] < x.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (50ms) (368438)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (15ms) (172)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_element' (1/3):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_element' (2/3):
+Effect at line 29
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_element' (3/3):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max_element with behavior empty
+------------------------------------------------------------
+
+Goal Post-condition for 'empty' (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 6) in 'max_element':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max_element with behavior not_empty
+------------------------------------------------------------
+
+Goal Post-condition for 'not_empty' (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 9) in 'max_element':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Post-condition for 'not_empty' (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 10) in 'max_element':
+Let x = Mint_0[shift_sint32(a, max_element_0)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(max_element_0) /\ is_sint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition for 'not_empty' *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= max_element_0) /\ (max_element_0 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < max_element_0) ->
+      (Mint_0[shift_sint32(a, i_2)] < x))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: Mint_0[shift_sint32(a, i)] <= x.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (126005)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (9ms) (59)
+
+------------------------------------------------------------
+
+Goal Post-condition for 'not_empty' (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 11) in 'max_element':
+Let x = Mint_0[shift_sint32(a, max_element_0)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(max_element_0) /\ is_sint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < max_element_0).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition for 'not_empty' *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= max_element_0) /\ (max_element_0 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < max_element_0) ->
+      (Mint_0[shift_sint32(a, i_2)] < x))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: Mint_0[shift_sint32(a, i)] < x.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (20ms) (125668)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (11ms) (58)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max_seq
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 40) in 'max_seq':
+Let x = Mint_0[shift_sint32(p, max_element_0)].
+Assume {
+  Type: is_sint32(max_element_0) /\ is_sint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(p.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(p, 0), n).
+  (* Call 'max_element' *)
+  Have: (0 <= max_element_0) /\ (max_element_0 < n) /\
+      (forall i_1 : Z. ((0 <= i_1) -> ((i_1 < max_element_0) ->
+       (Mint_0[shift_sint32(p, i_1)] < x)))) /\
+      (forall i_1 : Z. ((0 <= i_1) -> ((i_1 < n) ->
+       (Mint_0[shift_sint32(p, i_1)] <= x)))).
+}
+Prove: Mint_0[shift_sint32(p, i)] <= x.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (125175)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (17ms) (48)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 41) in 'max_seq':
+Let x = Mint_0[shift_sint32(p, max_element_0)].
+Assume {
+  Type: is_sint32(max_element_0) /\ is_sint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(p.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(p, 0), n).
+  (* Call 'max_element' *)
+  Have: (0 <= max_element_0) /\ (max_element_0 < n) /\
+      (forall i : Z. ((0 <= i) -> ((i < max_element_0) ->
+       (Mint_0[shift_sint32(p, i)] < x)))) /\
+      (forall i : Z. ((0 <= i) -> ((i < n) ->
+       (Mint_0[shift_sint32(p, i)] <= x)))).
+}
+Prove: exists i : Z. (Mint_0[shift_sint32(p, i)] = x) /\ (0 <= i) /\ (i < n).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (95622)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (11ms) (44)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_seq':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_seq' (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_seq' (2/3):
+Call Result at line 45
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_seq' (3/3):
+Effect at line 45
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 1) in 'max_element'' in 'max_seq' at call 'max_element' (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 45)
+:
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 2) in 'max_element'' in 'max_seq' at call 'max_element' (file output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c, line 45)
+:
+Prove: true.
+Prover Qed returns Valid (0.51ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/evdenis_acsl-examples_04_max_seq/evdenis_acsl-examples_04_max_seq.acsl.c:47: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

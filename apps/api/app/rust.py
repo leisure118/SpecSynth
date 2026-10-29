@@ -64,10 +64,19 @@ def dataset_task(sample_id: str):
     raise HTTPException(404, '数据集任务不存在。')
 
 
+from .assistants import AssistantConfig, compose_description
+
+class PrepareRequest(WorkflowRequest):
+    assistant: AssistantConfig | None = None
+
+
 @router.post('/prepare')
-def prepare(request: WorkflowRequest):
+def prepare(request: PrepareRequest):
     try:
-        return prepare_workflow(request)
+        body = request.model_dump(exclude={'assistant'})
+        from .skill_library import resolve_assistant
+        body['description'] = compose_description(request.description, resolve_assistant(request.assistant))
+        return prepare_workflow(WorkflowRequest(**body))
     except (ValueError, OSError):
         raise HTTPException(422, '无法准备提示词，请检查任务与本地知识库。') from None
 

@@ -1,0 +1,284 @@
+[kernel] Parsing output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:             8
+  Alt-Ergo :       9 (7ms-8ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 9):
+Assume {
+  Type: is_uint32(index_0) /\ is_uint32(2 * index_0).
+  (* Invariant *)
+  Have: (0 <= index_0) /\ (index_0 <= 10000).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < index_0) ->
+      (array_0[i] = (2 * i)))).
+  (* Then *)
+  Have: index_0 <= 9999.
+}
+Prove: to_uint32(1 + index_0) <= 10000.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28632)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (29)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 10):
+Let x = to_uint32(1 + index_0).
+Let x_1 = 2 * index_0.
+Assume {
+  Type: is_uint32(index_0) /\ is_uint32(x_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Invariant *)
+  Have: (0 <= index_0) /\ (index_0 <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < index_0) ->
+      (array_0[i_1] = (2 * i_1)))).
+  (* Then *)
+  Have: index_0 <= 9999.
+  (* Invariant *)
+  Have: x <= 10000.
+}
+Prove: array_0[index_0 <- x_1][i] = (2 * i).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29957)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (81)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 11):
+Let x = to_uint32(1 + index_0).
+Let x_1 = 2 * index_0.
+Assume {
+  Type: is_uint32(index_0) /\ is_uint32(x_1).
+  (* Invariant *)
+  Have: (0 <= index_0) /\ (index_0 <= 10000).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < index_0) ->
+      (array_0[i] = (2 * i)))).
+  (* Then *)
+  Have: index_0 <= 9999.
+  (* Invariant *)
+  Have: x <= 10000.
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < x) ->
+      (array_0[index_0 <- x_1][i] = (2 * i)))).
+}
+Prove: (2 * x) = to_uint32(2 + x_1).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (30277)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (42)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 21):
+Let x = array_0[index_0].
+Assume {
+  Type: is_uint32(index_1) /\ is_uint32(index_0) /\ is_uint32(2 * index_1) /\
+      is_uint32(x).
+  (* Invariant *)
+  Have: (0 <= index_1) /\ (index_1 <= 10000).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < index_1) ->
+      (array_0[i] = (2 * i)))).
+  (* Else *)
+  Have: 10000 <= index_1.
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 9999) -> (array_0[i] = (2 * i)))).
+  (* Invariant *)
+  Have: (0 <= index_0) /\ (index_0 <= 10000).
+  (* Then *)
+  Have: index_0 <= 9999.
+  (* Assertion *)
+  Have: (x = 0) \/ (x = (2 * index_0)).
+}
+Prove: to_uint32(1 + index_0) <= 10000.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (30348)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (56)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 22):
+Let x = array_0[index_1].
+Assume {
+  Type: is_uint32(index_0) /\ is_uint32(index_1) /\ is_uint32(2 * index_0) /\
+      is_uint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: (0 <= index_0) /\ (index_0 <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < index_0) ->
+      (array_0[i_1] = (2 * i_1)))).
+  (* Else *)
+  Have: 10000 <= index_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 9999) ->
+      (array_0[i_1] = (2 * i_1)))).
+  (* Invariant *)
+  Have: (0 <= index_1) /\ (index_1 <= 10000).
+  (* Then *)
+  Have: index_1 <= 9999.
+  (* Assertion *)
+  Have: (x = 0) \/ (x = (2 * index_1)).
+  (* Invariant *)
+  Have: to_uint32(1 + index_1) <= 10000.
+}
+Prove: array_0[i] = (2 * i).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30856)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (64)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 22):
+Assume {
+  Type: is_uint32(index_0) /\ is_uint32(2 * index_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: (0 <= index_0) /\ (index_0 <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < index_0) ->
+      (array_0[i_1] = (2 * i_1)))).
+  (* Else *)
+  Have: 10000 <= index_0.
+}
+Prove: array_0[i] = (2 * i).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (28884)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (7ms) (35)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 27):
+Let x = array_0[index_0].
+Assume {
+  Type: is_uint32(index_1) /\ is_uint32(index_0) /\ is_uint32(2 * index_1) /\
+      is_uint32(x).
+  (* Invariant *)
+  Have: (0 <= index_1) /\ (index_1 <= 10000).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < index_1) ->
+      (array_0[i] = (2 * i)))).
+  (* Else *)
+  Have: 10000 <= index_1.
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 9999) -> (array_0[i] = (2 * i)))).
+  (* Invariant *)
+  Have: (0 <= index_0) /\ (index_0 <= 10000).
+  (* Then *)
+  Have: index_0 <= 9999.
+}
+Prove: (x = 0) \/ (x = (2 * index_0)).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30051)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (45)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 15):
+Let x = to_uint32(1 + index_0).
+Let x_1 = 2 * index_0.
+Let x_2 = 2 * x.
+Assume {
+  Type: is_uint32(index_0) /\ is_uint32(x_1) /\ is_uint32(x_2).
+  (* Invariant *)
+  Have: (0 <= index_0) /\ (index_0 <= 10000).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < index_0) ->
+      (array_0[i] = (2 * i)))).
+  (* Then *)
+  Have: index_0 <= 9999.
+  Have: x_2 = to_uint32(2 + x_1).
+  (* Invariant *)
+  Have: x <= 10000.
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < x) ->
+      (array_0[index_0 <- x_1][i] = (2 * i)))).
+}
+Prove: index_0 < x.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30617)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (51)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (1.00ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 26):
+Let x = to_uint32(1 + index_0).
+Let x_1 = array_0[index_0].
+Assume {
+  Type: is_uint32(index_1) /\ is_uint32(index_0) /\ is_uint32(2 * index_1) /\
+      is_uint32(x_1).
+  (* Invariant *)
+  Have: (0 <= index_1) /\ (index_1 <= 10000).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < index_1) ->
+      (array_0[i] = (2 * i)))).
+  (* Else *)
+  Have: 10000 <= index_1.
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 9999) -> (array_0[i] = (2 * i)))).
+  (* Invariant *)
+  Have: (0 <= index_0) /\ (index_0 <= 10000).
+  (* Then *)
+  Have: index_0 <= 9999.
+  (* Assertion *)
+  Have: (x_1 = 0) \/ (x_1 = (2 * index_0)).
+  (* Invariant *)
+  Have: x <= 10000.
+}
+Prove: index_0 < x.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30515)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (56)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-crafted_simple_array_index_value_3/loop-crafted_simple_array_index_value_3.acsl.c:3: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

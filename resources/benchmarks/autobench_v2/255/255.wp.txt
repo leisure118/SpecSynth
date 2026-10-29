@@ -1,0 +1,394 @@
+[kernel] Parsing output/autobench_v2/255/255.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 30 goals scheduled
+[wp] Proved goals:   30 / 30
+  Qed:            23
+  Alt-Ergo :       7 (6ms-11ms)
+------------------------------------------------------------
+  Function bufs_differ
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/255/255.acsl.c, line 23) in 'bufs_differ':
+Let x = Mint_0[shift_uint8(b2_0, i)].
+Let x_1 = Mint_0[shift_uint8(b1_0, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint8(x_1) /\ is_uint8(x).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Residual *)
+  When: i < n.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_uint8(b2_0, i_1)] = Mint_0[shift_uint8(b1_0, i_1)]))).
+  (* Then *)
+  Have: x != x_1.
+}
+Prove: exists i_1 : Z.
+    (Mint_0[shift_uint8(b2_0, i_1)] != Mint_0[shift_uint8(b1_0, i_1)]) /\
+    (0 <= i_1) /\ (i_1 < n).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (20ms) (203088)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (54)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/255/255.acsl.c, line 31):
+Let x = Mint_0[shift_uint8(b2_0, i)].
+Let x_1 = Mint_0[shift_uint8(b1_0, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint8(x_1) /\ is_uint8(x).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_uint8(b2_0, i_1)] = Mint_0[shift_uint8(b1_0, i_1)]))).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x = x_1.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (30ms) (203829)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (11ms) (93)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/255/255.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/255/255.acsl.c, line 32):
+Let x = to_uint32(1 + i_1).
+Let x_1 = Mint_0[shift_uint8(b2_0, i_1)].
+Let x_2 = Mint_0[shift_uint8(b1_0, i_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(n) /\ is_uint8(x_2) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_uint8(b2_0, i_2)] = Mint_0[shift_uint8(b1_0, i_2)]))).
+  (* Then *)
+  Have: i_1 < n.
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: Mint_0[shift_uint8(b2_0, i)] = Mint_0[shift_uint8(b1_0, i)].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (60ms) (612117)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (11ms) (110)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/255/255.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/255/255.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/255/255.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/255/255.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (1/3):
+Effect at line 37
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (2/3):
+Effect at line 37
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (3/3):
+Effect at line 39
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/255/255.acsl.c, line 37):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_uint8(b2_0, i)].
+Let x_2 = Mint_0[shift_uint8(b1_0, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint8(x_2) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_uint8(b2_0, i_1)] = Mint_0[shift_uint8(b1_0, i_1)]))).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_uint8(b2_0, i_1)] = Mint_0[shift_uint8(b1_0, i_1)]))).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (30ms) (205178)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (99)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/255/255.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/255/255.acsl.c, line 93):
+Assume {
+  Type: is_uint32(parsed_0) /\ is_sint32(parse_null_0).
+  (* Heap *)
+  Type: IsArray_uint8(null_encoded_val_0).
+  (* Initializer *)
+  Init: null_encoded_val_0[0] = 5.
+  (* Initializer *)
+  Init: null_encoded_val_0[1] = 0.
+  (* Initializer *)
+  Init: b[0] = 5.
+  (* Initializer *)
+  Init: b[1] = 0.
+  (* Call 'parse_null' *)
+  Have: ((forall i : Z. ((0 <= i) -> ((i <= 1) ->
+          (null_encoded_val_0[i] = b[i])))) <-> (parse_null_0 = 0)) /\
+      (((parse_null_0 = 0) -> (parsed_0 = 2))).
+}
+Prove: parsed_0 = 2.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29440)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (6ms) (52)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/255/255.acsl.c, line 94):
+Assume {
+  Type: is_sint32(ret_0).
+  (* Heap *)
+  Type: IsArray_uint8(null_encoded_val_0).
+  (* Initializer *)
+  Init: null_encoded_val_0[0] = 5.
+  (* Initializer *)
+  Init: null_encoded_val_0[1] = 0.
+  (* Initializer *)
+  Init: b[0] = 5.
+  (* Initializer *)
+  Init: b[1] = 0.
+  (* Call 'parse_null' *)
+  Have: (forall i : Z. ((0 <= i) -> ((i <= 1) ->
+         (null_encoded_val_0[i] = b[i])))) <-> (ret_0 = 0).
+}
+Prove: ret_0 = 0.
+Prover Z3 4.15.4 returns Valid (Qed:0.91ms) (10ms) (29120)
+Prover Alt-Ergo  returns Valid (Qed:0.91ms) (7ms) (44)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/255/255.acsl.c, line 51) in 'parse_null'' in 'main' at initialization of 'ret' (file output/autobench_v2/255/255.acsl.c, line 92)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/255/255.acsl.c, line 52) in 'parse_null'' in 'main' at initialization of 'ret' (file output/autobench_v2/255/255.acsl.c, line 92)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/255/255.acsl.c, line 53) in 'parse_null'' in 'main' at initialization of 'ret' (file output/autobench_v2/255/255.acsl.c, line 92)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function parse_null
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/255/255.acsl.c, line 55) in 'parse_null':
+Assume {
+  Type: is_sint32(bufs_differ_0) /\ is_sint32(parse_null_0).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ (region(parsed_0.base) <= 0) /\
+      IsArray_uint8(null_encoded_val_0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: null != parsed_0.
+  (* Residual *)
+  When: null != buf_0.
+  (* Initializer *)
+  Init: null_encoded_val_0[0] = 5.
+  (* Initializer *)
+  Init: null_encoded_val_0[1] = 0.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, parsed_0, 1).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), 2).
+  (* Call 'bufs_differ' *)
+  Have: (forall i : Z. ((0 <= i) -> ((i <= 1) ->
+         (Mint_0[shift_uint8(buf_0, i)] = null_encoded_val_0[i])))) <->
+      (bufs_differ_0 = 0).
+  If bufs_differ_0 != 0
+  Then { Have: parse_null_0 = (-76). }
+  Else { Have: parse_null_0 = 0. }
+}
+Prove: (forall i : Z. ((0 <= i) -> ((i <= 1) ->
+        (Mint_0[shift_uint8(buf_0, i)] = null_encoded_val_0[i])))) <->
+    (parse_null_0 = 0).
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (20ms) (148153)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (11ms) (193)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/255/255.acsl.c, line 56) in 'parse_null':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/255/255.acsl.c, line 54) in 'parse_null':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/255/255.acsl.c, line 54) in 'parse_null' (1/7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/255/255.acsl.c, line 54) in 'parse_null' (2/7):
+Effect at line 63
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/255/255.acsl.c, line 54) in 'parse_null' (3/7):
+Effect at line 69
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/255/255.acsl.c, line 54) in 'parse_null' (4/7):
+Call Result at line 74
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/255/255.acsl.c, line 54) in 'parse_null' (5/7):
+Effect at line 76
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/255/255.acsl.c, line 54) in 'parse_null' (6/7):
+Effect at line 81
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/255/255.acsl.c, line 54) in 'parse_null' (7/7):
+Effect at line 82
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/255/255.acsl.c, line 20) in 'bufs_differ'' in 'parse_null' at call 'bufs_differ' (file output/autobench_v2/255/255.acsl.c, line 74)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/255/255.acsl.c, line 21) in 'bufs_differ'' in 'parse_null' at call 'bufs_differ' (file output/autobench_v2/255/255.acsl.c, line 74)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp] output/autobench_v2/255/255.acsl.c:58: Warning: 
+  Memory model hypotheses for function 'parse_null':
+  /*@
+     behavior wp_typed:
+       requires \separated(buf + (..), (u8 const *)null_encoded_val + (..));
+       requires \separated(parsed + (..), (u8 const *)null_encoded_val + (..));
+       requires \separated(parsed, (u8 const *)null_encoded_val + (..));
+     */
+  int parse_null(u8 const *buf, u32 len, u32 *parsed);
+[wp:pedantic-assigns] output/autobench_v2/255/255.acsl.c:88: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

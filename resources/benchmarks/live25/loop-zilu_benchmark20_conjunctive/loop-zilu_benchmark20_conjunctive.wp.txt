@@ -1,0 +1,99 @@
+[kernel] Parsing output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Alt-Ergo :       1 (8ms)
+  Z3 4.15.4:       1 (20ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c, line 15):
+Let x = 1 + i.
+Let x_1 = (i * (i - 1)) / 2.
+Let x_2 = i + x_1.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Then *)
+  Have: n <= 100.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: ((i * x) / 2) = x_2.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (64841)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.97ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c, line 23):
+Let x = i * (i - 1).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(x / 2).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Then *)
+  Have: n <= 100.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: (-1) <= x.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (33177)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (8ms) (87)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-zilu_benchmark20_conjunctive/loop-zilu_benchmark20_conjunctive.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

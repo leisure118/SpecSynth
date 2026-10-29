@@ -1,0 +1,823 @@
+[kernel] Parsing output/live24/minmax_element/minmax_element.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 56 goals scheduled
+[wp] Proved goals:   56 / 56
+  Qed:            45
+  Alt-Ergo :      11 (8ms-19ms)
+------------------------------------------------------------
+  Function make_pair
+------------------------------------------------------------
+
+Goal Post-condition 'result' in 'make_pair':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Post-condition 'result' in 'make_pair':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'make_pair' (1/2):
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid (0.86ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'make_pair' (2/2):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function minmax_element
+------------------------------------------------------------
+
+Goal Post-condition 'result' in 'minmax_element':
+Let x = minmax_element_0.F1_size_type_pair_first.
+Assume {
+  Type: IsS1_size_type_pair(minmax_element_0) /\ is_uint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: x <= 0.
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), x).
+  (* Call 'make_pair' *)
+  Have: (minmax_element_0.F1_size_type_pair_second) = x.
+}
+Prove: 0 <= x.
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (10ms) (59124)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (8ms) (38)
+
+------------------------------------------------------------
+
+Goal Post-condition 'result' in 'minmax_element':
+Let x = minmax_element_0.F1_size_type_pair_second.
+Let x_1 = minmax_element_0.F1_size_type_pair_first.
+Assume {
+  Type: IsS1_size_type_pair(minmax_element_0) /\ is_uint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: x_1 <= 0.
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), x_1).
+  (* Call 'make_pair' *)
+  Have: x = x_1.
+}
+Prove: (x <= x_1) /\ (0 <= x).
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (59551)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (10ms) (41)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 98):
+Let x = Mint_0[shift_sint32(a, max_0)].
+Let x_1 = Mint_0[shift_sint32(a, min_0)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(min_0) /\
+      is_uint32(n) /\ is_sint32(Mint_0[shift_sint32(a, i)]) /\
+      is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= min_0) /\ (min_0 < n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (x_1 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < min_0) ->
+      (x_1 < Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < i) -> ((max_0 < i_1) ->
+      (Mint_0[shift_sint32(a, i_1)] < x))).
+  (* Then *)
+  Have: i < n.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (175879)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (11ms) (115)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 98):
+Prove: true.
+Prover Qed returns Valid (0.95ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 99):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 99):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 100):
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 100):
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 101):
+Let x = to_uint32(1 + i_1).
+Let x_1 = Mint_0[shift_sint32(a, i_1)].
+Let x_2 = Mint_0[shift_sint32(a, min_1)].
+Let x_3 = Mint_0[shift_sint32(a, max_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(min_0) /\ is_uint32(min_1) /\ is_uint32(n) /\
+      is_sint32(x_1) /\ is_sint32(x_3) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= min_1) /\ (min_1 < n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (x_2 <= Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x_3))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < min_1) ->
+      (x_2 < Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < i_1) -> ((max_1 < i_2) ->
+      (Mint_0[shift_sint32(a, i_2)] < x_3))).
+  (* Then *)
+  Have: i_1 < n.
+  If x_3 <= x_1
+  Then { Have: max_0 = i_1. }
+  Else { Have: max_1 = max_0. }
+  If x_1 < x_2
+  Then { Have: min_0 = i_1. }
+  Else { Have: min_1 = min_0. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= min_0) /\ (min_0 < n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+}
+Prove: Mint_0[shift_sint32(a, min_0)] <= Mint_0[shift_sint32(a, i)].
+Prover Alt-Ergo  returns Valid (Qed:25ms) (15ms) (208)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 101):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 102):
+Let x = to_uint32(1 + i_1).
+Let x_1 = Mint_0[shift_sint32(a, i_1)].
+Let x_2 = Mint_0[shift_sint32(a, min_1)].
+Let x_3 = Mint_0[shift_sint32(a, max_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(min_0) /\ is_uint32(min_1) /\ is_uint32(n) /\
+      is_sint32(x_1) /\ is_sint32(x_3) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= min_1) /\ (min_1 < n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (x_2 <= Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x_3))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < min_1) ->
+      (x_2 < Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < i_1) -> ((max_1 < i_2) ->
+      (Mint_0[shift_sint32(a, i_2)] < x_3))).
+  (* Then *)
+  Have: i_1 < n.
+  If x_3 <= x_1
+  Then { Have: max_0 = i_1. }
+  Else { Have: max_1 = max_0. }
+  If x_1 < x_2
+  Then { Have: min_0 = i_1. }
+  Else { Have: min_1 = min_0. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= min_0) /\ (min_0 < n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (Mint_0[shift_sint32(a, min_0)] <= Mint_0[shift_sint32(a, i_2)]))).
+}
+Prove: Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, max_0)].
+Prover Alt-Ergo  returns Valid (Qed:29ms) (16ms) (235)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 102):
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 103):
+Let x = to_uint32(1 + i_1).
+Let x_1 = Mint_0[shift_sint32(a, min_0)].
+Let x_2 = Mint_0[shift_sint32(a, i_1)].
+Let x_3 = Mint_0[shift_sint32(a, min_1)].
+Let x_4 = Mint_0[shift_sint32(a, max_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(min_0) /\ is_uint32(min_1) /\ is_uint32(n) /\
+      is_sint32(x_2) /\ is_sint32(x_4) /\ is_sint32(x_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < min_0).
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= min_1) /\ (min_1 < n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (x_3 <= Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x_4))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < min_1) ->
+      (x_3 < Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < i_1) -> ((max_1 < i_2) ->
+      (Mint_0[shift_sint32(a, i_2)] < x_4))).
+  (* Then *)
+  Have: i_1 < n.
+  If x_4 <= x_2
+  Then { Have: max_0 = i_1. }
+  Else { Have: max_1 = max_0. }
+  If x_2 < x_3
+  Then { Have: min_0 = i_1. }
+  Else { Have: min_1 = min_0. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= min_0) /\ (min_0 < n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (x_1 <= Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, max_0)]))).
+}
+Prove: x_1 < Mint_0[shift_sint32(a, i)].
+Prover Z3 4.15.4 returns Valid (Qed:27ms) (130ms) (1743886)
+Prover Alt-Ergo  returns Valid (Qed:27ms) (18ms) (250)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 103):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 104):
+Let x = Mint_0[shift_sint32(a, min_0)].
+Let x_1 = to_uint32(1 + i_1).
+Let x_2 = Mint_0[shift_sint32(a, max_0)].
+Let x_3 = Mint_0[shift_sint32(a, i_1)].
+Let x_4 = Mint_0[shift_sint32(a, min_1)].
+Let x_5 = Mint_0[shift_sint32(a, max_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(min_0) /\ is_uint32(min_1) /\ is_uint32(n) /\
+      is_sint32(x_3) /\ is_sint32(x_5) /\ is_sint32(x_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (max_0 < i) /\ (i < x_1).
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= min_1) /\ (min_1 < n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (x_4 <= Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x_5))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < min_1) ->
+      (x_4 < Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < i_1) -> ((max_1 < i_2) ->
+      (Mint_0[shift_sint32(a, i_2)] < x_5))).
+  (* Then *)
+  Have: i_1 < n.
+  If x_5 <= x_3
+  Then { Have: max_0 = i_1. }
+  Else { Have: max_1 = max_0. }
+  If x_3 < x_4
+  Then { Have: min_0 = i_1. }
+  Else { Have: min_1 = min_0. }
+  (* Invariant *)
+  Have: x_1 <= n.
+  (* Invariant *)
+  Have: (0 <= min_0) /\ (min_0 < n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (x <= Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x_2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < min_0) ->
+      (x < Mint_0[shift_sint32(a, i_2)]))).
+}
+Prove: Mint_0[shift_sint32(a, i)] < x_2.
+Prover Z3 4.15.4 returns Valid (Qed:28ms) (110ms) (1458337)
+Prover Alt-Ergo  returns Valid (Qed:28ms) (19ms) (273)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/minmax_element/minmax_element.acsl.c, line 104):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/minmax_element/minmax_element.acsl.c, line 116):
+Let x = Mint_0[shift_sint32(a, max_0)].
+Let x_1 = Mint_0[shift_sint32(a, min_0)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(min_0) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= min_0) /\ (min_0 < n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (x_1 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < min_0) ->
+      (x_1 < Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < i) -> ((max_0 < i_1) ->
+      (Mint_0[shift_sint32(a, i_1)] < x))).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_MaxElement(Mint_0, a, i, max_0) /\
+    P_MinElement(Mint_0, a, i, min_0).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (17ms) (282)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/minmax_element/minmax_element.acsl.c, line 105):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'minmax_element' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'minmax_element' (2/2):
+Effect at line 108
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'minmax_element' (1/6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'minmax_element' (2/6):
+Effect at line 108
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'minmax_element' (3/6):
+Call Result at line 117
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'minmax_element' (4/6):
+Effect at line 117
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'minmax_element' (5/6):
+Call Result at line 119
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'minmax_element' (6/6):
+Effect at line 119
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/minmax_element/minmax_element.acsl.c, line 108):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, max_0)].
+Let x_2 = Mint_0[shift_sint32(a, min_0)].
+Let x_3 = Mint_0[shift_sint32(a, i)].
+Let x_4 = Mint_0[shift_sint32(a, min_1)].
+Let x_5 = Mint_0[shift_sint32(a, max_1)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(min_0) /\ is_uint32(min_1) /\ is_uint32(n) /\
+      is_sint32(x_3) /\ is_sint32(x_5) /\ is_sint32(x_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= min_1) /\ (min_1 < n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (x_4 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x_5))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < min_1) ->
+      (x_4 < Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < i) -> ((max_1 < i_1) ->
+      (Mint_0[shift_sint32(a, i_1)] < x_5))).
+  (* Then *)
+  Have: i < n.
+  If x_5 <= x_3
+  Then { Have: max_0 = i. }
+  Else { Have: max_1 = max_0. }
+  If x_3 < x_4
+  Then { Have: min_0 = i. }
+  Else { Have: min_1 = min_0. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= min_0) /\ (min_0 < n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (x_2 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x_1))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < min_0) ->
+      (x_2 < Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((max_0 < i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_sint32(a, i_1)] < x_1))).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:31ms) (40ms) (384834)
+Prover Alt-Ergo  returns Valid (Qed:31ms) (13ms) (181)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/minmax_element/minmax_element.acsl.c, line 108):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function minmax_element with behavior empty
+------------------------------------------------------------
+
+Goal Post-condition for 'empty' 'result' in 'minmax_element':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Post-condition for 'empty' 'result' in 'minmax_element':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns for 'empty' nothing in 'minmax_element' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns for 'empty' nothing in 'minmax_element' (2/2):
+Effect at line 108
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns for 'empty' nothing in 'minmax_element' (1/6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns for 'empty' nothing in 'minmax_element' (2/6):
+Effect at line 108
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns for 'empty' nothing in 'minmax_element' (3/6):
+Call Result at line 117
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns for 'empty' nothing in 'minmax_element' (4/6):
+Effect at line 117
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns for 'empty' nothing in 'minmax_element' (5/6):
+Call Result at line 119
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+
+Goal Assigns for 'empty' nothing in 'minmax_element' (6/6):
+Effect at line 119
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function minmax_element with behavior not_empty
+------------------------------------------------------------
+
+Goal Post-condition for 'not_empty' 'result' in 'minmax_element':
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Post-condition for 'not_empty' 'result' in 'minmax_element':
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Post-condition for 'not_empty' 'min' in 'minmax_element':
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Post-condition for 'not_empty' 'first' in 'minmax_element':
+Let x = minmax_element_0.F1_size_type_pair_second.
+Let x_1 = minmax_element_0.F1_size_type_pair_first.
+Let x_2 = Mint_0[shift_sint32(a, x)].
+Let x_3 = Mint_0[shift_sint32(a, x_1)].
+Assume {
+  Type: IsS1_size_type_pair(minmax_element_0) /\ is_uint32(i) /\
+      is_uint32(n) /\ is_uint32(x_1) /\ is_uint32(x) /\ is_sint32(x_3) /\
+      is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition for 'not_empty' *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= x_1) /\ (x_1 < n).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x < n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (x_3 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x_2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x_1) ->
+      (x_3 < Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < i) -> ((x < i_1) ->
+      (Mint_0[shift_sint32(a, i_1)] < x_2))).
+  (* Else *)
+  Have: n <= i.
+  (* Assertion *)
+  Have: P_MaxElement(Mint_0, a, i, x) /\ P_MinElement(Mint_0, a, i, x_1).
+}
+Prove: P_StrictLowerBound_2_(Mint_0, a, x_1, x_3).
+Prover Alt-Ergo  returns Valid (Qed:23ms) (13ms) (155)
+
+------------------------------------------------------------
+
+Goal Post-condition for 'not_empty' 'max' in 'minmax_element':
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Post-condition for 'not_empty' 'last' in 'minmax_element':
+Let x = minmax_element_0.F1_size_type_pair_second.
+Let x_1 = minmax_element_0.F1_size_type_pair_first.
+Let x_2 = Mint_0[shift_sint32(a, x)].
+Let x_3 = Mint_0[shift_sint32(a, x_1)].
+Assume {
+  Type: IsS1_size_type_pair(minmax_element_0) /\ is_uint32(i) /\
+      is_uint32(n) /\ is_uint32(x_1) /\ is_uint32(x) /\ is_sint32(x_3) /\
+      is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition 'valid' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition for 'not_empty' *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= x_1) /\ (x_1 < n).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x < n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (x_3 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x_2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x_1) ->
+      (x_3 < Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < i) -> ((x < i_1) ->
+      (Mint_0[shift_sint32(a, i_1)] < x_2))).
+  (* Else *)
+  Have: n <= i.
+  (* Assertion *)
+  Have: P_MaxElement(Mint_0, a, i, x) /\ P_MinElement(Mint_0, a, i, x_1).
+}
+Prove: P_StrictUpperBound_1_(Mint_0, a, 1 + x, i, x_2).
+Prover Alt-Ergo  returns Valid (Qed:10ms) (13ms) (161)
+
+------------------------------------------------------------
+
+Goal Assigns for 'not_empty' nothing in 'minmax_element' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns for 'not_empty' nothing in 'minmax_element' (2/2):
+Effect at line 108
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns for 'not_empty' nothing in 'minmax_element' (1/6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns for 'not_empty' nothing in 'minmax_element' (2/6):
+Effect at line 108
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns for 'not_empty' nothing in 'minmax_element' (3/6):
+Call Result at line 117
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns for 'not_empty' nothing in 'minmax_element' (4/6):
+Effect at line 117
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns for 'not_empty' nothing in 'minmax_element' (5/6):
+Call Result at line 119
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns for 'not_empty' nothing in 'minmax_element' (6/6):
+Effect at line 119
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------

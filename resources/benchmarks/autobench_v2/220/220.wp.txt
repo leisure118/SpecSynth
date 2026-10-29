@@ -1,0 +1,412 @@
+[kernel] Parsing output/autobench_v2/220/220.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 21 goals scheduled
+[wp] Proved goals:   21 / 21
+  Qed:            14
+  Alt-Ergo :       7 (10ms-26ms-60ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/220/220.acsl.c, line 33):
+Let x = arr_0[4].
+Assume {
+  Type: is_sint32(x).
+  (* Initializer *)
+  Init: arr_1[0] = 1.
+  (* Initializer *)
+  Init: arr_1[1] = 2.
+  (* Initializer *)
+  Init: arr_1[2] = 3.
+  (* Initializer *)
+  Init: arr_1[3] = 4.
+  (* Initializer *)
+  Init: arr_1[4] = 5.
+  (* Call 'reverse' *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 4) -> (arr_1[4 - i] = arr_0[i]))).
+}
+Prove: x = 1.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (28855)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (37)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/220/220.acsl.c, line 2) in 'reverse'' in 'main' at call 'reverse' (file output/autobench_v2/220/220.acsl.c, line 32)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/220/220.acsl.c, line 3) in 'reverse'' in 'main' at call 'reverse' (file output/autobench_v2/220/220.acsl.c, line 32)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function reverse
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/220/220.acsl.c, line 5) in 'reverse':
+Let x = n / 2.
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Assume {
+  Type: is_sint32(j) /\ is_sint32(n) /\ is_sint32(n - 1) /\
+      is_sint32(n - 1 - j).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (-1) <= n.
+  (* Invariant *)
+  Have: (j < n) /\ (n <= (1 + j + x)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + j + i_1) <= n) ->
+      (a_2[shift_sint32(a, i_1)] = Mint_0[shift_sint32(a, n - 1 - i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + j + i_1) <= n) ->
+      (a_2[shift_sint32(a, n - 1 - i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_3 = shift_sint32(a, i_1) in ((i_1 <= j) ->
+      ((n <= (1 + j + i_1)) -> (a_2[a_3] = Mint_0[a_3]))).
+  (* Else *)
+  Have: (j + x) < n.
+}
+Prove: a_2[shift_sint32(a, i)] = Mint_0[shift_sint32(a, n - 1 - i)].
+Prover Alt-Ergo  returns Valid (Qed:5ms) (14ms) (182)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/220/220.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/220/220.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/220/220.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/220/220.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/220/220.acsl.c, line 14):
+Let x = n / 2.
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let x_1 = -j.
+Let x_2 = n - 1 - j.
+Let a_3 = shift_sint32(a, x_2).
+Let a_4 = a_2[a_3].
+Let a_5 = shift_sint32(a, j).
+Assume {
+  Type: is_sint32(j) /\ is_sint32(n) /\ is_sint32(j - 1) /\
+      is_sint32(n - 1) /\ is_sint32(n - j) /\ is_sint32(x_2) /\
+      is_sint32(a_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ ((i + j) < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (-1) <= n.
+  (* Invariant *)
+  Have: (j < n) /\ (n <= (1 + j + x)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + j + i_1) <= n) ->
+      (a_2[shift_sint32(a, i_1)] = Mint_0[shift_sint32(a, n - 1 - i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + j + i_1) <= n) ->
+      (a_2[shift_sint32(a, n - 1 - i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_6 = shift_sint32(a, i_1) in ((i_1 <= j) ->
+      ((n <= (1 + j + i_1)) -> (a_2[a_6] = Mint_0[a_6]))).
+  (* Then *)
+  Have: n <= (j + x).
+}
+Prove: a_2[a_3 <- a_2[a_5]][a_5 <- a_4][shift_sint32(a, i)] =
+    Mint_0[shift_sint32(a, n - 1 - i)].
+Prover Alt-Ergo  returns Valid (Qed:9ms) (35ms) (634)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/220/220.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/220/220.acsl.c, line 15):
+Let a_1 = shift_sint32(a, 0).
+Let x = 1 + i + j.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, i).
+Let a_4 = shift_sint32(a, j).
+Let a_5 = a_2[a_3].
+Let a_6 = a_2[a_3 <- a_2[a_4]][a_4 <- a_5].
+Let x_1 = x / 2.
+Let x_2 = i + j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(j - 1) /\
+      is_sint32(1 + i) /\ is_sint32(x_2) /\ is_sint32(x) /\ is_sint32(a_5).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: (-1) <= x_2.
+  (* Invariant *)
+  Have: (-2) <= x_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= x_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint32(a, i_2)] = Mint_0[shift_sint32(a, i + j - i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint32(a, i + j - i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((i <= i_2) ->
+      ((i_2 <= j) -> (a_2[a_7] = Mint_0[a_7]))).
+  (* Then *)
+  Have: i < x_1.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((0 <= i_2) ->
+      (a_6[shift_sint32(a, i_2)] = Mint_0[shift_sint32(a, i + j - i_2)]))).
+}
+Prove: a_6[shift_sint32(a, i + j - i_1)] = Mint_0[shift_sint32(a, i_1)].
+Prover Alt-Ergo  returns Valid (Qed:7ms) (60ms) (842)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/220/220.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/220/220.acsl.c, line 16):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let x = -j.
+Let x_1 = n - 1 - j.
+Let a_3 = shift_sint32(a, x_1).
+Let a_4 = shift_sint32(a, j).
+Let a_5 = a_2[a_3].
+Let a_6 = a_2[a_3 <- a_2[a_4]][a_4 <- a_5].
+Let x_2 = n / 2.
+Let a_7 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32(j) /\ is_sint32(n) /\ is_sint32(j - 1) /\
+      is_sint32(n - 1) /\ is_sint32(n - j) /\ is_sint32(x_1) /\
+      is_sint32(a_5).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i < j) /\ (n <= (i + j)).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (-1) <= n.
+  (* Invariant *)
+  Have: (j < n) /\ (n <= (1 + j + x_2)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + j + i_1) <= n) ->
+      (a_2[shift_sint32(a, i_1)] = Mint_0[shift_sint32(a, n - 1 - i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + j + i_1) <= n) ->
+      (a_2[shift_sint32(a, n - 1 - i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_8 = shift_sint32(a, i_1) in ((i_1 <= j) ->
+      ((n <= (1 + j + i_1)) -> (a_2[a_8] = Mint_0[a_8]))).
+  (* Then *)
+  Have: n <= (j + x_2).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((j + i_1) < n) ->
+      (a_6[shift_sint32(a, i_1)] = Mint_0[shift_sint32(a, n - 1 - i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((j + i_1) < n) ->
+      (a_6[shift_sint32(a, n - 1 - i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+}
+Prove: a_6[a_7] = Mint_0[a_7].
+Prover Alt-Ergo  returns Valid (Qed:13ms) (22ms) (284)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/220/220.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/220/220.acsl.c, line 17) (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/220/220.acsl.c, line 17) (2/4):
+Effect at line 20
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/220/220.acsl.c, line 17) (3/4):
+Effect at line 22
+Let a_1 = shift_sint32(a, 0).
+Let x = i + j.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = i - 1.
+Let a_3 = shift_sint32(a, x_1).
+Let a_4 = shift_sint32(a, j).
+Let a_5 = a_2[a_3].
+Let a_6 = a_2[a_3 <- a_2[a_4]][a_4 <- a_5].
+Let x_2 = x / 2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(x_1) /\ is_sint32(j - 1) /\
+      is_sint32(x) /\ is_sint32(i + j - 1) /\ is_sint32(a_5).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: (-1) <= x.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + x_2)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (Mint_0[shift_sint32(a, i + j - 1 - i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint32(a, i + j - 1 - i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_7 = shift_sint32(a, i_1) in ((i_1 <= j) ->
+      ((i <= (1 + i_1)) -> (a_2[a_7] = Mint_0[a_7]))).
+  (* Then *)
+  Have: i <= x_2.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_6[shift_sint32(a, i_1)] = Mint_0[shift_sint32(a, i + j - 1 - i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_6[shift_sint32(a, i + j - 1 - i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_7 = shift_sint32(a, i_1) in ((i <= i_1) ->
+      ((i_1 < j) -> (a_6[a_7] = Mint_0[a_7]))).
+}
+Prove: included(a_3, 1, a_1, x).
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (20ms) (105023)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (22ms) (397)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/220/220.acsl.c, line 17) (4/4):
+Effect at line 23
+Let a_1 = shift_sint32(a, 0).
+Let x = 2 + i + j.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, i).
+Let x_1 = 1 + j.
+Let a_4 = shift_sint32(a, x_1).
+Let a_5 = a_2[a_3].
+Let a_6 = a_2[a_3 <- a_2[a_4]][a_4 <- a_5].
+Let x_2 = x / 2.
+Let x_3 = i + j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + i) /\ is_sint32(x_1) /\
+      is_sint32(1 + i + j) /\ is_sint32(x) /\ is_sint32(a_5).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_4, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: (-2) <= x_3.
+  (* Invariant *)
+  Have: (-3) <= x_3.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= x_2).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(a, i_1)] = Mint_0[shift_sint32(a, 1 + i + j - i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(a, 1 + i + j - i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_7 = shift_sint32(a, i_1) in ((i <= i_1) ->
+      ((i_1 <= x_1) -> (a_2[a_7] = Mint_0[a_7]))).
+  (* Then *)
+  Have: i < x_2.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      (a_6[shift_sint32(a, i_1)] = Mint_0[shift_sint32(a, 1 + i + j - i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      (a_6[shift_sint32(a, 1 + i + j - i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_7 = shift_sint32(a, i_1) in ((i < i_1) ->
+      ((i_1 <= j) -> (a_6[a_7] = Mint_0[a_7]))).
+}
+Prove: included(a_4, 1, a_1, x).
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (20ms) (105517)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (20ms) (389)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/220/220.acsl.c, line 4) in 'reverse':
+Effect at line 20
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/220/220.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/220/220.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/220/220.acsl.c:30: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

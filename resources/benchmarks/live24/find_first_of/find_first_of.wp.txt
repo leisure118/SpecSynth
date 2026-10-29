@@ -1,0 +1,276 @@
+[kernel] Parsing output/live24/find_first_of/find_first_of.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 20 goals scheduled
+[wp] Proved goals:   20 / 20
+  Qed:            13
+  Alt-Ergo :       7 (9ms-15ms-19ms)
+------------------------------------------------------------
+  Axiomatic 'SomeNone'
+------------------------------------------------------------
+
+Lemma NoneEqual_NotSomeEqual:
+Assume: 'NotSomeEqual_NoneEqual'
+Prove: (is_sint32 v_0) -> (P_NoneEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+       -> (not (P_SomeEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+Prover Alt-Ergo  returns Valid (9ms) (51)
+
+------------------------------------------------------------
+
+Lemma NotSomeEqual_NoneEqual:
+Prove: (is_sint32 v_0) -> (not (P_SomeEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+       -> (P_NoneEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+Prover Alt-Ergo  returns Valid (16ms) (51)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function find_first_of
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/find_first_of/find_first_of.acsl.c, line 72):
+Let x = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(find2_0) /\ is_uint32(i) /\ is_uint32(m) /\ is_uint32(n) /\
+      is_sint32(x) /\ is_sint32(Mint_0[shift_sint32(b, find2_0)]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), m).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: !P_HasValueOf(Mint_0, a, 0, b, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= m).
+  (* Invariant *)
+  Have: !P_HasValueOf(Mint_0, a, i, b, n).
+  (* Then *)
+  Have: i < m.
+  (* Call 'find2' *)
+  Have: (0 <= find2_0) /\ (find2_0 <= n) /\
+      (!P_SomeEqual_2_(Mint_0, b, n, x)) /\
+      ((P_NoneEqual_2_(Mint_0, b, n, x) -> (n = find2_0))).
+  (* Else *)
+  Have: n <= find2_0.
+}
+Prove: to_uint32(1 + i) <= m.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (50ms) (288713)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (15ms) (136)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/find_first_of/find_first_of.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/find_first_of/find_first_of.acsl.c, line 73):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(find2_0) /\ is_uint32(i) /\ is_uint32(m) /\ is_uint32(n) /\
+      is_sint32(x_1) /\ is_sint32(Mint_0[shift_sint32(b, find2_0)]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), m).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: !P_HasValueOf(Mint_0, a, 0, b, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= m).
+  (* Invariant *)
+  Have: !P_HasValueOf(Mint_0, a, i, b, n).
+  (* Then *)
+  Have: i < m.
+  (* Call 'find2' *)
+  Have: (0 <= find2_0) /\ (find2_0 <= n) /\
+      (!P_SomeEqual_2_(Mint_0, b, n, x_1)) /\
+      ((P_NoneEqual_2_(Mint_0, b, n, x_1) -> (n = find2_0))).
+  (* Else *)
+  Have: n <= find2_0.
+  (* Invariant *)
+  Have: x <= m.
+}
+Prove: !P_HasValueOf(Mint_0, a, x, b, find2_0).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (18ms) (204)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/find_first_of/find_first_of.acsl.c, line 73):
+Assume {
+  Type: is_uint32(m) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), m).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= m.
+}
+Prove: !P_HasValueOf(Mint_0, a, 0, b, n).
+Prover Z3 4.15.4 returns Valid (Qed:0.86ms) (10ms) (37459)
+Prover Alt-Ergo  returns Valid (Qed:0.86ms) (19ms) (55)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/find_first_of/find_first_of.acsl.c, line 79):
+Let x = Mint_0[shift_sint32(a, i)].
+Let x_1 = Mint_0[shift_sint32(b, find2_0)].
+Assume {
+  Type: is_uint32(find2_0) /\ is_uint32(i) /\ is_uint32(m) /\ is_uint32(n) /\
+      is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), m).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: !P_HasValueOf(Mint_0, a, 0, b, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= m).
+  (* Invariant *)
+  Have: !P_HasValueOf(Mint_0, a, i, b, n).
+  (* Then *)
+  Have: i < m.
+  (* Call 'find2' *)
+  Have: (0 <= find2_0) /\ (find2_0 <= n) /\
+      ((P_NoneEqual_2_(Mint_0, b, n, x) -> (n = find2_0))) /\
+      ((P_SomeEqual_2_(Mint_0, b, n, x) -> (x_1 = x))) /\
+      ((P_SomeEqual_2_(Mint_0, b, n, x) ->
+       P_NoneEqual_2_(Mint_0, b, find2_0, x))).
+  (* Then *)
+  Have: find2_0 < n.
+}
+Prove: P_HasValueOf(Mint_0, a, 1 + i, b, n).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (18ms) (168)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/find_first_of/find_first_of.acsl.c, line 83):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/find_first_of/find_first_of.acsl.c, line 74) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/find_first_of/find_first_of.acsl.c, line 74) (2/2):
+Call Result at line 78
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_first_of' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_first_of' (2/2):
+Effect at line 77
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_first_of' (1/5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_first_of' (2/5):
+Effect at line 77
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_first_of' (3/5):
+Call Result at line 78
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_first_of' (4/5):
+Effect at line 80
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_first_of' (5/5):
+Effect at line 84
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/find_first_of/find_first_of.acsl.c, line 77):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(find2_0) /\ is_uint32(i) /\ is_uint32(m) /\ is_uint32(n) /\
+      is_sint32(x_1) /\ is_sint32(Mint_0[shift_sint32(b, find2_0)]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), m).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: !P_HasValueOf(Mint_0, a, 0, b, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= m).
+  (* Invariant *)
+  Have: !P_HasValueOf(Mint_0, a, i, b, n).
+  (* Then *)
+  Have: i < m.
+  (* Call 'find2' *)
+  Have: (0 <= find2_0) /\ (find2_0 <= n) /\
+      (!P_SomeEqual_2_(Mint_0, b, n, x_1)) /\
+      ((P_NoneEqual_2_(Mint_0, b, n, x_1) -> (n = find2_0))).
+  (* Else *)
+  Have: n <= find2_0.
+  (* Invariant *)
+  Have: x <= m.
+  (* Invariant *)
+  Have: !P_HasValueOf(Mint_0, a, x, b, find2_0).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (50ms) (290247)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (13ms) (145)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/find_first_of/find_first_of.acsl.c, line 77):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'find2'' in 'find_first_of' at call 'find2' (file output/live24/find_first_of/find_first_of.acsl.c, line 78)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------

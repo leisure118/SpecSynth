@@ -1,0 +1,140 @@
+[kernel] Parsing output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             7
+  Alt-Ergo :       3 (10ms-13ms)
+------------------------------------------------------------
+  Function array_max_advanced
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c, line 5) in 'array_max_advanced':
+Let a = shift_sint32(arr_0, 0).
+Assume {
+  Type: is_sint32(array_max_advanced_0) /\ is_sint32(i_1) /\ is_sint32(n) /\
+      is_sint32(Mint_0[a]).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(arr_0, i_2)] <= array_max_advanced_0))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: Mint_0[shift_sint32(arr_0, i)] <= array_max_advanced_0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (94479)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (51)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c, line 11):
+Let x = Mint_0[shift_sint32(arr_0, i_1)].
+Let a = shift_sint32(arr_0, 0).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(max_1) /\ is_sint32(n) /\
+      is_sint32(1 + i_1) /\ is_sint32(Mint_0[a]) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(arr_0, i_2)] <= max_1))).
+  (* Then *)
+  Have: i_1 < n.
+  If max_1 < x
+  Then { Have: x = max_0. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: Mint_0[shift_sint32(arr_0, i)] <= max_0.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (30ms) (196679)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (12ms) (122)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c, line 20):
+Let a = shift_sint32(arr_0, 0).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(max_0) /\ is_sint32(n) /\
+      is_sint32(Mint_0[a]).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(arr_0, i_2)] <= max_0))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: Mint_0[shift_sint32(arr_0, i)] <= max_0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (94488)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (13ms) (51)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'array_max_advanced':
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/miscellaneous_array_max_advanced/miscellaneous_array_max_advanced.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------

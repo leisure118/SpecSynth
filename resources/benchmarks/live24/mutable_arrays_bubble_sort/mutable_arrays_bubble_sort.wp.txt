@@ -1,0 +1,696 @@
+[kernel] Parsing output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 31 goals scheduled
+[wp] Proved goals:   31 / 31
+  Qed:            19
+  Alt-Ergo :      12 (7ms-17ms-32ms)
+------------------------------------------------------------
+  Function bubbleSort
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 6) in 'bubbleSort':
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(n) /\ is_sint32(n - 1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ ((2 + i) <= n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((n <= i_3) -> ((i_3 <= i_2) -> ((i_2 < n) ->
+      (Mint_0[shift_sint32(a, i_3)] <= Mint_0[shift_sint32(a, i_2)])))).
+  (* Invariant *)
+  Have: (i_1 < n) /\ ((-1) <= i_1).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((i_1 < i_3) -> ((i_3 <= i_2) -> ((i_2 < n) ->
+      (a_2[shift_sint32(a, i_3)] <= a_2[shift_sint32(a, i_2)])))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((i_3 <= i_1) -> ((i_1 < i_2) -> ((0 <= i_3) ->
+      ((i_2 < n) ->
+      (a_2[shift_sint32(a, i_3)] <= a_2[shift_sint32(a, i_2)]))))).
+  (* Else *)
+  Have: i_1 <= 0.
+}
+Prove: a_2[shift_sint32(a, i)] <= a_2[shift_sint32(a, 1 + i)].
+Prover Alt-Ergo  returns Valid (Qed:12ms) (15ms) (80)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 15):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, n).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(n) /\
+      is_sint32(i_2 - 1) /\ is_sint32(n - 1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i_2 <= i) /\ (i <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((n <= i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (Mint_0[shift_sint32(a, i_4)] <= Mint_0[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: (i_2 < n) /\ ((-1) <= i_2).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_3[shift_sint32(a, i_4)] <= a_3[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_3[shift_sint32(a, i_4)] <= a_3[shift_sint32(a, i_3)]))))).
+  (* Then *)
+  Have: 0 < i_2.
+  (* Invariant *)
+  Have: (j <= i_2) /\ (0 <= j).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= j) ->
+      (a_2[shift_sint32(a, i_3)] <= a_2[shift_sint32(a, j)]))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_2[shift_sint32(a, i_4)] <= a_2[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_2[shift_sint32(a, i_4)] <= a_2[shift_sint32(a, i_3)]))))).
+  (* Else *)
+  Have: i_2 <= j.
+}
+Prove: a_2[shift_sint32(a, i)] <= a_2[shift_sint32(a, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (40ms) (275925)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (17ms) (140)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 15):
+Assume {
+  Type: is_sint32(n) /\ is_sint32(n - 1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (n <= i) /\ (i <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+}
+Prove: Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, i_1)].
+Prover Alt-Ergo  returns Valid (Qed:1ms) (7ms) (18)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 16):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, n).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(n) /\
+      is_sint32(i_2 - 1) /\ is_sint32(n - 1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < i_2) /\ (i_2 <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((n <= i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (Mint_0[shift_sint32(a, i_4)] <= Mint_0[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: (i_2 < n) /\ ((-1) <= i_2).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_3[shift_sint32(a, i_4)] <= a_3[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_3[shift_sint32(a, i_4)] <= a_3[shift_sint32(a, i_3)]))))).
+  (* Then *)
+  Have: 0 < i_2.
+  (* Invariant *)
+  Have: (j <= i_2) /\ (0 <= j).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= j) ->
+      (a_2[shift_sint32(a, i_3)] <= a_2[shift_sint32(a, j)]))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_2[shift_sint32(a, i_4)] <= a_2[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_2[shift_sint32(a, i_4)] <= a_2[shift_sint32(a, i_3)]))))).
+  (* Else *)
+  Have: i_2 <= j.
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 <= i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_2[shift_sint32(a, i_4)] <= a_2[shift_sint32(a, i_3)])))).
+}
+Prove: a_2[shift_sint32(a, i)] <= a_2[shift_sint32(a, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:23ms) (40ms) (202801)
+Prover Alt-Ergo  returns Valid (Qed:23ms) (18ms) (112)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (20ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 23):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_1, a_1, n).
+Let x = 1 + j.
+Let a_3 = shift_sint32(a, x).
+Let a_4 = a_2[a_3].
+Let a_5 = a_2[shift_sint32(a, j)].
+Let a_6 = havoc(Mint_undef_1, Mint_1, a_1, n).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(n) /\ is_sint32(n - 1) /\
+      is_sint32(x) /\ is_sint32(a_5) /\ is_sint32(a_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= x).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((n <= i_3) -> ((i_3 <= i_2) -> ((i_2 < n) ->
+      (Mint_1[shift_sint32(a, i_3)] <= Mint_1[shift_sint32(a, i_2)])))).
+  (* Invariant *)
+  Have: (i_1 < n) /\ ((-1) <= i_1).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((i_1 < i_3) -> ((i_3 <= i_2) -> ((i_2 < n) ->
+      (a_6[shift_sint32(a, i_3)] <= a_6[shift_sint32(a, i_2)])))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((i_3 <= i_1) -> ((i_1 < i_2) -> ((0 <= i_3) ->
+      ((i_2 < n) ->
+      (a_6[shift_sint32(a, i_3)] <= a_6[shift_sint32(a, i_2)]))))).
+  (* Then *)
+  Have: 0 < i_1.
+  (* Invariant *)
+  Have: (j <= i_1) /\ (0 <= j).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= j) ->
+      (a_2[shift_sint32(a, i_2)] <= a_5))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((i_1 < i_3) -> ((i_3 <= i_2) -> ((i_2 < n) ->
+      (a_2[shift_sint32(a, i_3)] <= a_2[shift_sint32(a, i_2)])))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((i_3 <= i_1) -> ((i_1 < i_2) -> ((0 <= i_3) ->
+      ((i_2 < n) ->
+      (a_2[shift_sint32(a, i_3)] <= a_2[shift_sint32(a, i_2)]))))).
+  (* Then *)
+  Have: j < i_1.
+  If a_4 < a_5
+  Then { Have: a_2[shift_sint32(a, j) <- a_4][a_3 <- a_5] = Mint_0. }
+  Else { Have: a_2 = Mint_0. }
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: Mint_0[shift_sint32(a, i)] <= Mint_0[a_3].
+Prover Z3 4.15.4 returns Valid (Qed:40ms) (40ms) (276809)
+Prover Alt-Ergo  returns Valid (Qed:40ms) (32ms) (349)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 24):
+Let x = 1 + j.
+Let a_1 = shift_sint32(a, x).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_1, a_2, n).
+Let a_4 = a_3[a_1].
+Let a_5 = a_3[shift_sint32(a, j)].
+Let a_6 = havoc(Mint_undef_1, Mint_1, a_2, n).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(n) /\ is_sint32(n - 1) /\
+      is_sint32(x) /\ is_sint32(a_5) /\ is_sint32(a_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i_2 < i) /\ (i <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((n <= i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (Mint_1[shift_sint32(a, i_4)] <= Mint_1[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: (i_2 < n) /\ ((-1) <= i_2).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_6[shift_sint32(a, i_4)] <= a_6[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_6[shift_sint32(a, i_4)] <= a_6[shift_sint32(a, i_3)]))))).
+  (* Then *)
+  Have: 0 < i_2.
+  (* Invariant *)
+  Have: (j <= i_2) /\ (0 <= j).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= j) ->
+      (a_3[shift_sint32(a, i_3)] <= a_5))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_3[shift_sint32(a, i_4)] <= a_3[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_3[shift_sint32(a, i_4)] <= a_3[shift_sint32(a, i_3)]))))).
+  (* Then *)
+  Have: j < i_2.
+  If a_4 < a_5
+  Then { Have: a_3[shift_sint32(a, j) <- a_4][a_1 <- a_5] = Mint_0. }
+  Else { Have: a_3 = Mint_0. }
+  (* Invariant *)
+  Have: (-1) <= j.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= x) ->
+      (Mint_0[shift_sint32(a, i_3)] <= Mint_0[a_1]))).
+}
+Prove: Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:40ms) (50ms) (394996)
+Prover Alt-Ergo  returns Valid (Qed:40ms) (22ms) (328)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 24):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(n) /\ is_sint32(n - 1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i_2 < i) /\ (i <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((n <= i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (Mint_0[shift_sint32(a, i_4)] <= Mint_0[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: (i_2 < n) /\ ((-1) <= i_2).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_2[shift_sint32(a, i_4)] <= a_2[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_2[shift_sint32(a, i_4)] <= a_2[shift_sint32(a, i_3)]))))).
+  (* Then *)
+  Have: 0 < i_2.
+}
+Prove: a_2[shift_sint32(a, i)] <= a_2[shift_sint32(a, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (30ms) (128168)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (10ms) (63)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 25):
+Let x = 1 + j.
+Let a_1 = shift_sint32(a, x).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_1, a_2, n).
+Let a_4 = a_3[a_1].
+Let a_5 = a_3[shift_sint32(a, j)].
+Let a_6 = havoc(Mint_undef_1, Mint_1, a_2, n).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(n) /\ is_sint32(n - 1) /\
+      is_sint32(x) /\ is_sint32(a_5) /\ is_sint32(a_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_2) /\ (i_2 < i_1) /\ (0 <= i) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((n <= i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (Mint_1[shift_sint32(a, i_4)] <= Mint_1[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: (i_2 < n) /\ ((-1) <= i_2).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_6[shift_sint32(a, i_4)] <= a_6[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_6[shift_sint32(a, i_4)] <= a_6[shift_sint32(a, i_3)]))))).
+  (* Then *)
+  Have: 0 < i_2.
+  (* Invariant *)
+  Have: (j <= i_2) /\ (0 <= j).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= j) ->
+      (a_3[shift_sint32(a, i_3)] <= a_5))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_3[shift_sint32(a, i_4)] <= a_3[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_3[shift_sint32(a, i_4)] <= a_3[shift_sint32(a, i_3)]))))).
+  (* Then *)
+  Have: j < i_2.
+  If a_4 < a_5
+  Then { Have: a_3[shift_sint32(a, j) <- a_4][a_1 <- a_5] = Mint_0. }
+  Else { Have: a_3 = Mint_0. }
+  (* Invariant *)
+  Have: (-1) <= j.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= x) ->
+      (Mint_0[shift_sint32(a, i_3)] <= Mint_0[a_1]))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (Mint_0[shift_sint32(a, i_4)] <= Mint_0[shift_sint32(a, i_3)])))).
+}
+Prove: Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:43ms) (60ms) (395986)
+Prover Alt-Ergo  returns Valid (Qed:43ms) (26ms) (353)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 25):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(n) /\ is_sint32(n - 1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_2) /\ (i_2 < i_1) /\ (0 <= i) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((n <= i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (Mint_0[shift_sint32(a, i_4)] <= Mint_0[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: (i_2 < n) /\ ((-1) <= i_2).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_2 < i_4) -> ((i_4 <= i_3) -> ((i_3 < n) ->
+      (a_2[shift_sint32(a, i_4)] <= a_2[shift_sint32(a, i_3)])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i_2) -> ((i_2 < i_3) -> ((0 <= i_4) ->
+      ((i_3 < n) ->
+      (a_2[shift_sint32(a, i_4)] <= a_2[shift_sint32(a, i_3)]))))).
+  (* Then *)
+  Have: 0 < i_2.
+}
+Prove: a_2[shift_sint32(a, i)] <= a_2[shift_sint32(a, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (20ms) (128240)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (10ms) (63)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 17) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 17) (2/3):
+Effect at line 20
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 17) (3/3):
+Effect at line 29
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 26) (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 26) (2/4):
+Effect at line 29
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 26) (3/4):
+Effect at line 32
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let x = j - 1.
+Let a_3 = shift_sint32(a, x).
+Let a_4 = shift_sint32(a, j).
+Let a_5 = a_2[a_4].
+Let a_6 = a_2[a_3].
+Let a_7 = a_2[a_3 <- a_5][a_4 <- a_6].
+Let a_8 = havoc(Mint_undef_1, Mint_0, a_1, n).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(n) /\ is_sint32(x) /\
+      is_sint32(n - 1) /\ is_sint32(a_5) /\ is_sint32(a_6).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((n <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: (i < n) /\ ((-1) <= i).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i < i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (a_8[shift_sint32(a, i_2)] <= a_8[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i_2 <= i) -> ((i < i_1) -> ((0 <= i_2) ->
+      ((i_1 < n) ->
+      (a_8[shift_sint32(a, i_2)] <= a_8[shift_sint32(a, i_1)]))))).
+  (* Then *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: (0 < j) /\ (j <= (1 + i)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < j) ->
+      (a_2[shift_sint32(a, i_1)] <= a_6))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i < i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (a_2[shift_sint32(a, i_2)] <= a_2[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i_2 <= i) -> ((i < i_1) -> ((0 <= i_2) ->
+      ((i_1 < n) ->
+      (a_2[shift_sint32(a, i_2)] <= a_2[shift_sint32(a, i_1)]))))).
+  (* Then *)
+  Have: j <= i.
+  (* Then *)
+  Have: a_5 < a_6.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= j) ->
+      (a_7[shift_sint32(a, i_1)] <= a_6))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i < i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (a_7[shift_sint32(a, i_2)] <= a_7[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i_2 <= i) -> ((i < i_1) -> ((0 <= i_2) ->
+      ((i_1 < n) ->
+      (a_7[shift_sint32(a, i_2)] <= a_7[shift_sint32(a, i_1)]))))).
+}
+Prove: included(a_3, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:26ms) (30ms) (139416)
+Prover Alt-Ergo  returns Valid (Qed:26ms) (24ms) (261)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 26) (4/4):
+Effect at line 33
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let x = j - 1.
+Let a_3 = shift_sint32(a, x).
+Let a_4 = shift_sint32(a, j).
+Let a_5 = a_2[a_4].
+Let a_6 = a_2[a_3].
+Let a_7 = a_2[a_3 <- a_5][a_4 <- a_6].
+Let a_8 = havoc(Mint_undef_1, Mint_0, a_1, n).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(n) /\ is_sint32(x) /\
+      is_sint32(n - 1) /\ is_sint32(a_5) /\ is_sint32(a_6).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_4, 1).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((n <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: (i < n) /\ ((-1) <= i).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i < i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (a_8[shift_sint32(a, i_2)] <= a_8[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i_2 <= i) -> ((i < i_1) -> ((0 <= i_2) ->
+      ((i_1 < n) ->
+      (a_8[shift_sint32(a, i_2)] <= a_8[shift_sint32(a, i_1)]))))).
+  (* Then *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: (0 < j) /\ (j <= (1 + i)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < j) ->
+      (a_2[shift_sint32(a, i_1)] <= a_6))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i < i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (a_2[shift_sint32(a, i_2)] <= a_2[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i_2 <= i) -> ((i < i_1) -> ((0 <= i_2) ->
+      ((i_1 < n) ->
+      (a_2[shift_sint32(a, i_2)] <= a_2[shift_sint32(a, i_1)]))))).
+  (* Then *)
+  Have: j <= i.
+  (* Then *)
+  Have: a_5 < a_6.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= j) ->
+      (a_7[shift_sint32(a, i_1)] <= a_6))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i < i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (a_7[shift_sint32(a, i_2)] <= a_7[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: forall i_2,i_1 : Z. ((i_2 <= i) -> ((i < i_1) -> ((0 <= i_2) ->
+      ((i_1 < n) ->
+      (a_7[shift_sint32(a, i_2)] <= a_7[shift_sint32(a, i_1)]))))).
+}
+Prove: included(a_4, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:26ms) (20ms) (139395)
+Prover Alt-Ergo  returns Valid (Qed:26ms) (21ms) (261)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 5) in 'bubbleSort' (1/2):
+Effect at line 20
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 5) in 'bubbleSort' (2/2):
+Effect at line 20
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 41):
+Assume {
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 3).
+  (* Call 'bubbleSort' *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 3) ->
+      (arr_0[i_1] <= arr_0[1 + i_1]))).
+}
+Prove: arr_0[i] <= arr_0[1 + i].
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (19302)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (16)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 3) in 'bubbleSort'' in 'main' at call 'bubbleSort' (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 40)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 4) in 'bubbleSort'' in 'main' at call 'bubbleSort' (file output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c, line 40)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/mutable_arrays_bubble_sort/mutable_arrays_bubble_sort.acsl.c:38: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

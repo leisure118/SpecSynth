@@ -1,0 +1,108 @@
+[kernel] Parsing output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Alt-Ergo :       1 (8ms)
+  Z3 4.15.4:       1 (10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 14):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= i) /\ (i <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= j) /\ (j <= 2147483646).
+  (* Admit *)
+  Have: (0 < i) /\ (0 < j).
+  (* Else *)
+  Have: (i * i) < (j * j).
+}
+Prove: i <= j.
+Prover Z3 4.15.4 returns Valid (Qed:0.86ms) (10ms) (28879)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.88ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (18ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 19):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j_1) /\
+      is_sint32(j_2) /\ is_sint32(j_3) /\ is_sint32(j_4) /\ is_sint32(j) /\
+      is_sint32(j_5) /\ is_sint32(j - j_4).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= i_2) /\ (i_2 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= j_5) /\ (j_5 <= 2147483646).
+  (* Admit *)
+  Have: (0 < i_2) /\ (0 < j_5).
+  (* Else *)
+  Have: (i_2 * i_2) < (j_5 * j_5).
+  (* Invariant *)
+  Have: i_2 <= j_5.
+  (* Invariant *)
+  Have: 0 <= j_4.
+  (* Invariant *)
+  Have: j_4 < j.
+  (* Then *)
+  Have: 0 < j_4.
+  If (2 * j_4) < j
+  Then {
+    Have: (j_3 = i) /\ (j_4 = j_3) /\ (j = j_2) /\ ((i_1 + j_3) = j_2) /\
+        ((j_1 + j_3) = j_2).
+  }
+  Else { Have: (j_4 = j_1) /\ ((i + j_4) = j). }
+  (* Invariant *)
+  Have: i <= j_1.
+  (* Invariant *)
+  Have: 0 < i.
+}
+Prove: 0 <= j.
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (10ms) (31925)
+Prover Alt-Ergo  returns Valid (Qed:20ms) (8ms) (50)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

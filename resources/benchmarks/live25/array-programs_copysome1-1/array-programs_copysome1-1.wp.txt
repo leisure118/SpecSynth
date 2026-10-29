@@ -1,0 +1,231 @@
+[kernel] Parsing output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c:22: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 20 goals scheduled
+[wp] Proved goals:   20 / 20
+  Qed:            16
+  Alt-Ergo :       4 (7ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 27):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (i != 150000) /\ (i <= i_2) /\ (0 <= i).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 200000).
+  (* Else *)
+  Have: 200000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 200000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 != 150000) -> ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a2_1[i_3] = a1_0[i_3])))).
+  (* Then *)
+  Have: i_2 <= 199999.
+  If i_2 != 150000
+  Then { Have: a2_1 = a2_2. Have: a2_2[i_2 <- a1_0[i_2]] = a2_0. }
+  Else { Have: a2_1 = a2_0. }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a2_0[i] = a1_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (10ms) (30588)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (10ms) (109)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (0.68ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 38):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(x) /\
+      is_sint32(a1_0[x]) /\ is_sint32(a2_0[x]) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (i != 150000) /\ (0 <= i) /\ (i <= 199999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 200000).
+  (* Else *)
+  Have: 200000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 200000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 != 150000) -> ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a2_0[i_3] = a1_0[i_3])))).
+  (* Else *)
+  Have: 200000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 200000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 != 150000) -> ((0 <= i_3) ->
+      ((i_3 <= 199999) -> (a2_0[i_3] = a1_0[i_3])))).
+  (* Then *)
+  Have: x <= 199999.
+  If x != 150000
+  Then { (* Assertion *) Have: a2_0[x] = a1_0[x]. }
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: a2_0[i] = a1_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (10ms) (31423)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (8ms) (76)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 38):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (i != 150000) /\ (0 <= i) /\ (i <= 199999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 200000).
+  (* Else *)
+  Have: 200000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 200000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 != 150000) -> ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a2_0[i_3] = a1_0[i_3])))).
+  (* Else *)
+  Have: 200000 <= i_2.
+}
+Prove: a2_0[i] = a1_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (29249)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (7ms) (47)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 44):
+Let x_1 = a1_0[x].
+Let x_2 = a2_0[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 200000).
+  (* Else *)
+  Have: 200000 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 200000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 != 150000) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a2_0[i_2] = a1_0[i_2])))).
+  (* Else *)
+  Have: 200000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 200000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 != 150000) -> ((0 <= i_2) ->
+      ((i_2 <= 199999) -> (a2_0[i_2] = a1_0[i_2])))).
+  (* Then *)
+  Have: x <= 199999.
+  (* Then *)
+  Have: x != 150000.
+}
+Prove: x_2 = x_1.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (30550)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (7ms) (55)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-programs_copysome1-1/array-programs_copysome1-1.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,346 @@
+[kernel] Parsing output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:11: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 22 goals scheduled
+[wp] Proved goals:   22 / 22
+  Qed:            17
+  Alt-Ergo :       5 (8ms-11ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 18):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 18):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.97ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 19):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 19):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 20):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 20):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 21):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), N).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 0 < N.
+  (* Assertion 'alloca_bounds' *)
+  Have: N <= 4611686018427387903.
+  (* Invariant *)
+  Have: (i <= N) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_1[shift_sint32(a, i_2)] = i_2))).
+  (* Then *)
+  Have: i < N.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_1[shift_sint32(a, i) <- i][shift_sint32(a, i_1)] = i_1.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (20ms) (116525)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (11ms) (99)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 21):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 32):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 32):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 33):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), N).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(1 + i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 0 < N.
+  (* Assertion 'alloca_bounds' *)
+  Have: N <= 4611686018427387903.
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_1[shift_sint32(a, i_3)] = i_3))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_1[shift_sint32(a, i_3)] = i_3))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Then *)
+  Have: i_2 < N.
+  (* Assertion *)
+  Have: a_1[shift_sint32(a, i_2)] = i_2.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a_1[shift_sint32(a, i)] = i.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (20ms) (126864)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (10ms) (68)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 33):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), N).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 0 < N.
+  (* Assertion 'alloca_bounds' *)
+  Have: N <= 4611686018427387903.
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint32(a, i_2)] = i_2))).
+  (* Else *)
+  Have: N <= i_1.
+}
+Prove: a_1[shift_sint32(a, i)] = i.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (95158)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (50)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 38):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), N).
+Let a_2 = a_1[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(a_2).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 0 < N.
+  (* Assertion 'alloca_bounds' *)
+  Have: N <= 4611686018427387903.
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint32(a, i_2)] = i_2))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < N) ->
+      (a_1[shift_sint32(a, i_2)] = i_2))).
+  (* Invariant *)
+  Have: (i <= N) /\ (0 <= i).
+  (* Then *)
+  Have: i < N.
+}
+Prove: a_2 = i.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (96605)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (58)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 22) (1/3):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 22) (2/3):
+Effect at line 25
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 22) (3/3):
+Effect at line 26
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, N).
+Let a_3 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 0 < N.
+  (* Assertion 'alloca_bounds' *)
+  Have: N <= 4611686018427387903.
+  (* Invariant *)
+  Have: (i <= N) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(a, i_1)] = i_1))).
+  (* Then *)
+  Have: i < N.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      (a_2[a_3 <- i][shift_sint32(a, i_1)] = i_1))).
+}
+Prove: included(a_3, 1, a_1, N).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (78438)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (10ms) (103)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 34):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 25):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 25):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 37):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c, line 37):
+output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_shadowinit/array-industry-pattern_array_shadowinit.acsl.c:10: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

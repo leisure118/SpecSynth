@@ -1,0 +1,181 @@
+[kernel] Parsing output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:            12
+  Alt-Ergo :       3 (9ms-11ms)
+------------------------------------------------------------
+  Function firstSubset
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 5) in 'firstSubset':
+Let a = shift_sint32(s, 0).
+Assume {
+  Type: is_sint32(k) /\ is_sint32(n).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < k) ->
+      (havoc(Mint_undef_0, Mint_0, a, n)[shift_sint32(s, i_1)] = 0))).
+  (* Else *)
+  Have: n <= k.
+}
+Prove: havoc(Mint_undef_0, Mint_0, a, k)[shift_sint32(s, i)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (94159)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (57)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 11):
+Let a = shift_sint32(s, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, n).
+Assume {
+  Type: is_sint32(k) /\ is_sint32(n) /\ is_sint32(1 + k).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= k).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < k) ->
+      (a_1[shift_sint32(s, i_1)] = 0))).
+  (* Then *)
+  Have: k < n.
+  (* Invariant *)
+  Have: (-1) <= k.
+}
+Prove: a_1[shift_sint32(s, k) <- 0][shift_sint32(s, i)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (94427)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (11ms) (112)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 12) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 12) (2/3):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 12) (3/3):
+Effect at line 16
+Let a = shift_sint32(s, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, n).
+Let x = k - 1.
+Let a_2 = shift_sint32(s, x).
+Assume {
+  Type: is_sint32(k) /\ is_sint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 < k) /\ (k <= (1 + n)).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> (((2 + i) <= k) ->
+      (a_1[shift_sint32(s, i)] = 0))).
+  (* Then *)
+  Have: k <= n.
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < k) ->
+      (a_1[a_2 <- 0][shift_sint32(s, i)] = 0))).
+}
+Prove: included(a_2, 1, a, n).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (68143)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (114)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 4) in 'firstSubset' (1/2):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 4) in 'firstSubset' (2/2):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (0.61ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 2) in 'firstSubset'' in 'main' at call 'firstSubset' (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 21)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 3) in 'firstSubset'' in 'main' at call 'firstSubset' (file output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c, line 21)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/gpetiot_Frama-C-StaDy_first_subset/gpetiot_Frama-C-StaDy_first_subset.acsl.c:19: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

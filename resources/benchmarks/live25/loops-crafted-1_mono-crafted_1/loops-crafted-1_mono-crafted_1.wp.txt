@@ -1,0 +1,154 @@
+[kernel] Parsing output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:            11
+  Alt-Ergo :       4 (6ms-8ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 6):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(y).
+  (* Invariant *)
+  Have: (0 <= x_3) /\ (x_3 <= 1000000).
+  (* Invariant *)
+  Have: (((x_3 <= 50000) -> (y = 50000))) /\ (((50000 <= x_3) -> (y = x_3))).
+  (* Then *)
+  Have: x_3 <= 999999.
+  If x_3 <= 49999
+  Then { Have: x_3 = x_1. Have: (1 + x_1) = x. }
+  Else { Have: x_3 = x_2. Have: (1 + x_2) = x. }
+}
+Prove: (0 <= x) /\ (x <= 1000000).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (29989)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (36)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 7):
+Let x_1 = 1 + x.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1).
+  (* Residual *)
+  When: x <= 49999.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 1000000).
+  (* Invariant *)
+  Have: ((x <= 50000) -> (y = 50000)).
+  (* Then *)
+  Have: x <= 999999.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: (y = 50000) /\ (((49999 <= x) -> (x_1 = y))).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (28756)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (6ms) (26)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 20):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 1000000).
+  (* Invariant *)
+  Have: (((x <= 50000) -> (y = 50000))) /\ (((50000 <= x) -> (y = x))).
+  (* Else *)
+  Have: 1000000 <= x.
+}
+Prove: 0 <= y.
+Prover Z3 4.15.4 returns Valid (Qed:0.94ms) (10ms) (28238)
+Prover Alt-Ergo  returns Valid (Qed:0.94ms) (8ms) (21)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 21):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 1000000).
+  (* Invariant *)
+  Have: (((x <= 50000) -> (y = 50000))) /\ (((50000 <= x) -> (y = x))).
+  (* Else *)
+  Have: 1000000 <= x.
+  (* Invariant *)
+  Have: 0 <= y.
+}
+Prove: y = 1000000.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28337)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (23)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops-crafted-1_mono-crafted_1/loops-crafted-1_mono-crafted_1.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

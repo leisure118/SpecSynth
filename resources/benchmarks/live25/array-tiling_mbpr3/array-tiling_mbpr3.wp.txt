@@ -1,0 +1,2182 @@
+[kernel] Parsing output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:10: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 59 goals scheduled
+[wp] Proved goals:   59 / 59
+  Qed:            30
+  Alt-Ergo :      29 (8ms-27ms-193ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 15):
+Assume {
+  Type: is_sint32(CELLCOUNT_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+}
+Prove: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (27635)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (16)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 20):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 22):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 22):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 23):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = havoc(Mint_undef_0, Mint_0, shift_sint32(volArray_0, 0), CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + x)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i) ->
+      (a[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Then *)
+  Have: i <= x.
+}
+Prove: a[shift_sint32(volArray_0, (3 * i) - 3) <- 7]
+         [shift_sint32(volArray_0, 3 * i_1)] = 7.
+Prover Z3 4.15.4 returns Valid (Qed:27ms) (20ms) (97115)
+Prover Alt-Ergo  returns Valid (Qed:27ms) (18ms) (221)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 23):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 41):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (19ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 41):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 42):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let x_2 = 3 * i.
+Let a_3 = shift_sint32(volArray_0, x_2 - 3).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_2) /\ is_sint32(i) /\
+      is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_2) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= x_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Then *)
+  Have: i <= x.
+}
+Prove: a_1[shift_sint32(volArray_0, x_2 - 2) <- 3][a_3 <- a_1[a_3]]
+         [shift_sint32(volArray_0, 3 * i_1)] = 7.
+Prover Alt-Ergo  returns Valid (Qed:41ms) (29ms) (265)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 42):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = havoc(Mint_undef_0, Mint_0, shift_sint32(volArray_0, 0), CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= (1 + x)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i_1) ->
+      (a[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Else *)
+  Have: x < i_1.
+}
+Prove: a[shift_sint32(volArray_0, 3 * i)] = 7.
+Prover Z3 4.15.4 returns Valid (Qed:21ms) (20ms) (96478)
+Prover Alt-Ergo  returns Valid (Qed:21ms) (16ms) (114)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 43):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 3 * i.
+Let a_2 = a_1[shift_sint32(volArray_0, x_1 - 2) <- 3].
+Let a_3 = shift_sint32(volArray_0, x_1 - 3).
+Let x_2 = 1 + x.
+Let a_4 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_2) /\ is_sint32(i) /\
+      is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_2) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= x_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Then *)
+  Have: i <= x.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_2[a_3 <- a_1[a_3]][shift_sint32(volArray_0, 3 * i_3)] = 7))).
+}
+Prove: a_2[shift_sint32(volArray_0, 1 + (3 * i_1))] = 3.
+Prover Z3 4.15.4 returns Valid (Qed:46ms) (20ms) (102457)
+Prover Alt-Ergo  returns Valid (Qed:46ms) (16ms) (259)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 43):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 61):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 61):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 62):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let x_2 = 3 * i.
+Let a_4 = shift_sint32(volArray_0, x_2 - 2).
+Let a_5 = shift_sint32(volArray_0, x_2 - 3).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x < i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Then *)
+  Have: i <= x.
+}
+Prove: a_1[shift_sint32(volArray_0, x_2 - 1) <- 0][a_4 <- a_1[a_4]][a_5
+         <- a_1[a_5]][shift_sint32(volArray_0, 3 * i_1)] = 7.
+Prover Alt-Ergo  returns Valid (Qed:59ms) (22ms) (373)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 62):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_1) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_2) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Else *)
+  Have: x < i_2.
+}
+Prove: a_1[shift_sint32(volArray_0, 3 * i)] = 7.
+Prover Z3 4.15.4 returns Valid (Qed:33ms) (20ms) (99958)
+Prover Alt-Ergo  returns Valid (Qed:33ms) (22ms) (132)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 63):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 3 * i.
+Let a_2 = shift_sint32(volArray_0, x_1 - 2).
+Let a_3 = a_1[shift_sint32(volArray_0, x_1 - 1) <- 0][a_2 <- a_1[a_2]].
+Let a_4 = shift_sint32(volArray_0, x_1 - 3).
+Let x_2 = 1 + x.
+Let a_5 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_6 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_6[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_6[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_5[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_5[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x < i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_5[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= x_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Then *)
+  Have: i <= x.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_3[a_4 <- a_1[a_4]][shift_sint32(volArray_0, 3 * i_4)] = 7))).
+}
+Prove: a_3[shift_sint32(volArray_0, 1 + (3 * i_1))] = 3.
+Prover Alt-Ergo  returns Valid (Qed:60ms) (23ms) (294)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 63):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_1) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_2) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Else *)
+  Have: x < i_2.
+}
+Prove: a_1[shift_sint32(volArray_0, 1 + (3 * i))] = 3.
+Prover Alt-Ergo  returns Valid (Qed:28ms) (12ms) (131)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 64):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 3 * i.
+Let a_2 = a_1[shift_sint32(volArray_0, x_1 - 1) <- 0].
+Let a_3 = shift_sint32(volArray_0, x_1 - 2).
+Let a_4 = a_2[a_3 <- a_1[a_3]].
+Let a_5 = shift_sint32(volArray_0, x_1 - 3).
+Let x_2 = 1 + x.
+Let a_6 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_7 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_7[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_7[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_6[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_6[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x < i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_6[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= x_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Then *)
+  Have: i <= x.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_4[a_5 <- a_1[a_5]][shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_4[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+}
+Prove: a_2[shift_sint32(volArray_0, 2 + (3 * i_1))] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:66ms) (20ms) (109151)
+Prover Alt-Ergo  returns Valid (Qed:66ms) (24ms) (335)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 64):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 82):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (37ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 82):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (20ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 83):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let a_2 = a_1[shift_sint32(volArray_0, i_4)].
+Let x = i_4 % 3.
+Let x_1 = CELLCOUNT_0 / 3.
+Let x_2 = 1 + x_1.
+Let a_3 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_4 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(1 + i_4) /\
+      is_sint32(a_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> (((2 + i_5) <= i_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> (((2 + i_5) <= i_2) ->
+      (a_3[shift_sint32(volArray_0, 1 + (3 * i_5))] = 3))).
+  (* Else *)
+  Have: x_1 < i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_3[shift_sint32(volArray_0, 1 + (3 * i_5))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_5))] = 3))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> (((2 + i_5) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_5))] = 0))).
+  (* Else *)
+  Have: x_1 < i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_5))] = 0))).
+  (* Invariant *)
+  Have: (i_4 <= CELLCOUNT_0) /\ (0 <= i_4).
+  (* Then *)
+  Have: i_4 < CELLCOUNT_0.
+  (* Assertion *)
+  Have: ((x = 0) -> (a_2 = 7)).
+  (* Assertion *)
+  Have: ((x = 1) -> (a_2 = 3)).
+  (* Assertion *)
+  Have: ((x = 2) -> (a_2 = 0)).
+  (* Assertion *)
+  Have: (a_2 = 0) \/ (2 <= a_2).
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: a_1[shift_sint32(volArray_0, 3 * i)] = 7.
+Prover Z3 4.15.4 returns Valid (Qed:51ms) (20ms) (138647)
+Prover Alt-Ergo  returns Valid (Qed:51ms) (14ms) (207)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 83):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Else *)
+  Have: x < i_3.
+}
+Prove: a_1[shift_sint32(volArray_0, 3 * i)] = 7.
+Prover Z3 4.15.4 returns Valid (Qed:39ms) (20ms) (104741)
+Prover Alt-Ergo  returns Valid (Qed:39ms) (22ms) (147)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 84):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let a_2 = a_1[shift_sint32(volArray_0, i_4)].
+Let x = i_4 % 3.
+Let x_1 = CELLCOUNT_0 / 3.
+Let x_2 = 1 + x_1.
+Let a_3 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_4 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(1 + i_4) /\
+      is_sint32(a_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> (((2 + i_5) <= i_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> (((2 + i_5) <= i_2) ->
+      (a_3[shift_sint32(volArray_0, 1 + (3 * i_5))] = 3))).
+  (* Else *)
+  Have: x_1 < i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_3[shift_sint32(volArray_0, 1 + (3 * i_5))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_5))] = 3))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> (((2 + i_5) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_5))] = 0))).
+  (* Else *)
+  Have: x_1 < i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_5))] = 0))).
+  (* Invariant *)
+  Have: (i_4 <= CELLCOUNT_0) /\ (0 <= i_4).
+  (* Then *)
+  Have: i_4 < CELLCOUNT_0.
+  (* Assertion *)
+  Have: ((x = 0) -> (a_2 = 7)).
+  (* Assertion *)
+  Have: ((x = 1) -> (a_2 = 3)).
+  (* Assertion *)
+  Have: ((x = 2) -> (a_2 = 0)).
+  (* Assertion *)
+  Have: (a_2 = 0) \/ (2 <= a_2).
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: a_1[shift_sint32(volArray_0, 1 + (3 * i))] = 3.
+Prover Z3 4.15.4 returns Valid (Qed:53ms) (20ms) (138429)
+Prover Alt-Ergo  returns Valid (Qed:53ms) (15ms) (207)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 84):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Else *)
+  Have: x < i_3.
+}
+Prove: a_1[shift_sint32(volArray_0, 1 + (3 * i))] = 3.
+Prover Z3 4.15.4 returns Valid (Qed:38ms) (20ms) (104682)
+Prover Alt-Ergo  returns Valid (Qed:38ms) (17ms) (147)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 85):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let a_2 = a_1[shift_sint32(volArray_0, i_4)].
+Let x = i_4 % 3.
+Let x_1 = CELLCOUNT_0 / 3.
+Let x_2 = 1 + x_1.
+Let a_3 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_4 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(1 + i_4) /\
+      is_sint32(a_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> (((2 + i_5) <= i_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> (((2 + i_5) <= i_2) ->
+      (a_3[shift_sint32(volArray_0, 1 + (3 * i_5))] = 3))).
+  (* Else *)
+  Have: x_1 < i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_3[shift_sint32(volArray_0, 1 + (3 * i_5))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_5)] = 7))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_5))] = 3))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> (((2 + i_5) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_5))] = 0))).
+  (* Else *)
+  Have: x_1 < i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_5))] = 0))).
+  (* Invariant *)
+  Have: (i_4 <= CELLCOUNT_0) /\ (0 <= i_4).
+  (* Then *)
+  Have: i_4 < CELLCOUNT_0.
+  (* Assertion *)
+  Have: ((x = 0) -> (a_2 = 7)).
+  (* Assertion *)
+  Have: ((x = 1) -> (a_2 = 3)).
+  (* Assertion *)
+  Have: ((x = 2) -> (a_2 = 0)).
+  (* Assertion *)
+  Have: (a_2 = 0) \/ (2 <= a_2).
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: a_1[shift_sint32(volArray_0, 2 + (3 * i))] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:57ms) (20ms) (138429)
+Prover Alt-Ergo  returns Valid (Qed:57ms) (20ms) (206)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 85):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Else *)
+  Have: x < i_3.
+}
+Prove: a_1[shift_sint32(volArray_0, 2 + (3 * i))] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:42ms) (20ms) (104908)
+Prover Alt-Ergo  returns Valid (Qed:42ms) (12ms) (146)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 91):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let a_4 = a_1[shift_sint32(volArray_0, i)].
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(a_4).
+  (* Goal *)
+  When: (i % 3) = 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Else *)
+  Have: x < i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Invariant *)
+  Have: (i <= CELLCOUNT_0) /\ (0 <= i).
+  (* Then *)
+  Have: i < CELLCOUNT_0.
+}
+Prove: a_4 = 7.
+Prover Alt-Ergo  returns Valid (Qed:57ms) (28ms) (667)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 92):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let a_4 = a_1[shift_sint32(volArray_0, i)].
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(a_4).
+  (* Goal *)
+  When: (i % 3) = 1.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Else *)
+  Have: x < i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Invariant *)
+  Have: (i <= CELLCOUNT_0) /\ (0 <= i).
+  (* Then *)
+  Have: i < CELLCOUNT_0.
+}
+Prove: a_4 = 3.
+Prover Z3 4.15.4 returns Valid (Qed:36ms) (130ms) (866715)
+Prover Alt-Ergo  returns Valid (Qed:36ms) (193ms) (13101)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 93):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = CELLCOUNT_0 / 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x_1 = 1 + x.
+Let a_2 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let a_4 = a_1[shift_sint32(volArray_0, i)].
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(a_4).
+  (* Goal *)
+  When: (i % 3) = 2.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Else *)
+  Have: x < i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Invariant *)
+  Have: (i <= CELLCOUNT_0) /\ (0 <= i).
+  (* Then *)
+  Have: i < CELLCOUNT_0.
+}
+Prove: a_4 = 0.
+Prover Alt-Ergo  returns Valid (Qed:41ms) (101ms) (3500)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 94):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = i % 3.
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let a_2 = a_1[shift_sint32(volArray_0, i)].
+Let x_1 = CELLCOUNT_0 / 3.
+Let x_2 = 1 + x_1.
+Let a_3 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let a_4 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(a_2).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x_1) ->
+      (a_3[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_2) ->
+      (a_3[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Else *)
+  Have: x_1 < i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x_1) ->
+      (a_3[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: (0 < i_3) /\ (i_3 <= x_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_4)] = 7))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_4))] = 3))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> (((2 + i_4) <= i_3) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Else *)
+  Have: x_1 < i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_4))] = 0))).
+  (* Invariant *)
+  Have: (i <= CELLCOUNT_0) /\ (0 <= i).
+  (* Then *)
+  Have: i < CELLCOUNT_0.
+  (* Assertion *)
+  Have: ((x = 0) -> (a_2 = 7)).
+  (* Assertion *)
+  Have: ((x = 1) -> (a_2 = 3)).
+  (* Assertion *)
+  Have: ((x = 2) -> (a_2 = 0)).
+}
+Prove: (a_2 = 0) \/ (2 <= a_2).
+Prover Z3 4.15.4 returns Valid (Qed:52ms) (120ms) (748789)
+Prover Alt-Ergo  returns Valid (Qed:52ms) (19ms) (254)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 24) (1/6):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 24) (2/6):
+Effect at line 27
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 24) (3/6):
+Effect at line 31
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let a_2 = shift_sint32(volArray_0, (3 * i) - 6).
+Let x = CELLCOUNT_0 / 3.
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i) /\ is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((3 + i_1) <= i) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_1)] = 7))).
+  (* Then *)
+  Have: i <= (1 + x).
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_1[a_2 <- 7][shift_sint32(volArray_0, 3 * i_1)] = 7))).
+}
+Prove: included(a_2, 1, a, CELLCOUNT_0).
+Prover Z3 4.15.4 returns Valid (Qed:25ms) (10ms) (80236)
+Prover Alt-Ergo  returns Valid (Qed:25ms) (20ms) (158)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 24) (4/6):
+Effect at line 35
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 24) (5/6):
+Effect at line 37
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x = 3 * i.
+Let x_1 = CELLCOUNT_0 / 3.
+Let a_2 = shift_sint32(volArray_0, x - 5).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i) /\ is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((3 + i_1) <= i) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_1)] = 7))).
+  (* Then *)
+  Have: i <= (1 + x_1).
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_1[shift_sint32(volArray_0, x - 6) <- 7]
+         [shift_sint32(volArray_0, 3 * i_1)] = 7))).
+}
+Prove: included(a_2, 1, a, CELLCOUNT_0).
+Prover Z3 4.15.4 returns Valid (Qed:26ms) (10ms) (80236)
+Prover Alt-Ergo  returns Valid (Qed:26ms) (14ms) (160)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 24) (6/6):
+Effect at line 38
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let x = 3 * i.
+Let x_1 = CELLCOUNT_0 / 3.
+Let a_2 = shift_sint32(volArray_0, x - 4).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i) /\ is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((3 + i_1) <= i) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_1)] = 7))).
+  (* Then *)
+  Have: i <= (1 + x_1).
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_1[shift_sint32(volArray_0, x - 6) <- 7]
+         [shift_sint32(volArray_0, 3 * i_1)] = 7))).
+}
+Prove: included(a_2, 1, a, CELLCOUNT_0).
+Prover Z3 4.15.4 returns Valid (Qed:44ms) (10ms) (80307)
+Prover Alt-Ergo  returns Valid (Qed:44ms) (12ms) (160)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 44) (1/6):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 44) (2/6):
+Effect at line 47
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 44) (3/6):
+Effect at line 51
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let x = 3 * i.
+Let a_2 = shift_sint32(volArray_0, x - 5).
+Let a_3 = a_1[a_2 <- 3].
+Let x_1 = CELLCOUNT_0 / 3.
+Let a_4 = shift_sint32(volArray_0, x - 6).
+Let x_2 = 1 + x_1.
+Let a_5 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i_1) ->
+      (a_5[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (a_5[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((3 + i_2) <= i) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_2))] = 3))).
+  (* Then *)
+  Have: i <= x_2.
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (a_3[a_4 <- a_1[a_4]][shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i) ->
+      (a_3[shift_sint32(volArray_0, 1 + (3 * i_2))] = 3))).
+}
+Prove: included(a_2, 1, a, CELLCOUNT_0).
+Prover Z3 4.15.4 returns Valid (Qed:38ms) (30ms) (226608)
+Prover Alt-Ergo  returns Valid (Qed:38ms) (19ms) (192)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 44) (4/6):
+Effect at line 55
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 44) (5/6):
+Effect at line 57
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let x = 3 * i.
+Let a_2 = a_1[shift_sint32(volArray_0, x - 5) <- 3].
+Let x_1 = CELLCOUNT_0 / 3.
+Let a_3 = shift_sint32(volArray_0, x - 6).
+Let x_2 = 1 + x_1.
+Let a_4 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((3 + i_2) <= i) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_2))] = 3))).
+  (* Then *)
+  Have: i <= x_2.
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (a_2[a_3 <- a_1[a_3]][shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_2))] = 3))).
+}
+Prove: included(a_3, 1, a, CELLCOUNT_0).
+Prover Z3 4.15.4 returns Valid (Qed:45ms) (30ms) (226608)
+Prover Alt-Ergo  returns Valid (Qed:45ms) (15ms) (191)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 44) (6/6):
+Effect at line 58
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let x = 3 * i.
+Let a_2 = a_1[shift_sint32(volArray_0, x - 5) <- 3].
+Let x_1 = CELLCOUNT_0 / 3.
+Let a_3 = shift_sint32(volArray_0, x - 6).
+Let x_2 = 1 + x_1.
+Let a_4 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Let a_5 = shift_sint32(volArray_0, x - 4).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_5, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (a_4[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((3 + i_2) <= i) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_2))] = 3))).
+  (* Then *)
+  Have: i <= x_2.
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x_1) ->
+      (a_2[a_3 <- a_1[a_3]][shift_sint32(volArray_0, 3 * i_2)] = 7))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i) ->
+      (a_2[shift_sint32(volArray_0, 1 + (3 * i_2))] = 3))).
+}
+Prove: included(a_5, 1, a, CELLCOUNT_0).
+Prover Z3 4.15.4 returns Valid (Qed:44ms) (40ms) (227152)
+Prover Alt-Ergo  returns Valid (Qed:44ms) (18ms) (195)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 65) (1/6):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 65) (2/6):
+Effect at line 68
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 65) (3/6):
+Effect at line 72
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 65) (4/6):
+Effect at line 76
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let x = 3 * i.
+Let a_2 = shift_sint32(volArray_0, x - 4).
+Let a_3 = a_1[a_2 <- 0].
+Let x_1 = CELLCOUNT_0 / 3.
+Let a_4 = shift_sint32(volArray_0, x - 5).
+Let a_5 = a_3[a_4 <- a_1[a_4]].
+Let a_6 = shift_sint32(volArray_0, x - 6).
+Let x_2 = 1 + x_1.
+Let a_7 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let a_8 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i) /\ is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_1) ->
+      (a_8[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_8[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_7[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_2) ->
+      (a_7[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Else *)
+  Have: x_1 < i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_7[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((3 + i_3) <= i) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_3))] = 0))).
+  (* Then *)
+  Have: i <= x_2.
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_5[a_6 <- a_1[a_6]][shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_5[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i) ->
+      (a_3[shift_sint32(volArray_0, 2 + (3 * i_3))] = 0))).
+}
+Prove: included(a_2, 1, a, CELLCOUNT_0).
+Prover Z3 4.15.4 returns Valid (Qed:54ms) (70ms) (429634)
+Prover Alt-Ergo  returns Valid (Qed:54ms) (15ms) (267)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 65) (5/6):
+Effect at line 78
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let x = 3 * i.
+Let a_2 = a_1[shift_sint32(volArray_0, x - 4) <- 0].
+Let x_1 = CELLCOUNT_0 / 3.
+Let a_3 = shift_sint32(volArray_0, x - 5).
+Let a_4 = a_2[a_3 <- a_1[a_3]].
+Let a_5 = shift_sint32(volArray_0, x - 6).
+Let x_2 = 1 + x_1.
+Let a_6 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let a_7 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i) /\ is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_1) ->
+      (a_7[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_7[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_6[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_2) ->
+      (a_6[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Else *)
+  Have: x_1 < i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_6[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((3 + i_3) <= i) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_3))] = 0))).
+  (* Then *)
+  Have: i <= x_2.
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_4[a_5 <- a_1[a_5]][shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_4[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i) ->
+      (a_2[shift_sint32(volArray_0, 2 + (3 * i_3))] = 0))).
+}
+Prove: included(a_3, 1, a, CELLCOUNT_0).
+Prover Z3 4.15.4 returns Valid (Qed:80ms) (60ms) (428322)
+Prover Alt-Ergo  returns Valid (Qed:80ms) (21ms) (265)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 65) (6/6):
+Effect at line 79
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(volArray_0, 0).
+Let a_1 = havoc(Mint_undef_2, Mint_0, a, CELLCOUNT_0).
+Let x = 3 * i.
+Let a_2 = a_1[shift_sint32(volArray_0, x - 4) <- 0].
+Let x_1 = CELLCOUNT_0 / 3.
+Let a_3 = shift_sint32(volArray_0, x - 5).
+Let a_4 = a_2[a_3 <- a_1[a_3]].
+Let a_5 = shift_sint32(volArray_0, x - 6).
+Let x_2 = 1 + x_1.
+Let a_6 = havoc(Mint_undef_1, Mint_0, a, CELLCOUNT_0).
+Let a_7 = havoc(Mint_undef_0, Mint_0, a, CELLCOUNT_0).
+Assume {
+  Type: is_sint32(CELLCOUNT_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(i) /\ is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_5, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= CELLCOUNT_0) /\ (CELLCOUNT_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= CELLCOUNT_0.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < CELLCOUNT_0) /\ (CELLCOUNT_0 <= 4611686018427387903).
+  (* Else *)
+  Have: (CELLCOUNT_0 % 3) = 0.
+  (* Invariant *)
+  Have: (-2) <= CELLCOUNT_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_1) ->
+      (a_7[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Else *)
+  Have: x_1 < i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_7[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= x_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_6[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i_2) ->
+      (a_6[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Else *)
+  Have: x_1 < i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_6[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_1[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((3 + i_3) <= i) ->
+      (a_1[shift_sint32(volArray_0, 2 + (3 * i_3))] = 0))).
+  (* Then *)
+  Have: i <= x_2.
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_4[a_5 <- a_1[a_5]][shift_sint32(volArray_0, 3 * i_3)] = 7))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x_1) ->
+      (a_4[shift_sint32(volArray_0, 1 + (3 * i_3))] = 3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i) ->
+      (a_2[shift_sint32(volArray_0, 2 + (3 * i_3))] = 0))).
+}
+Prove: included(a_5, 1, a, CELLCOUNT_0).
+Prover Z3 4.15.4 returns Valid (Qed:64ms) (60ms) (428322)
+Prover Alt-Ergo  returns Valid (Qed:64ms) (23ms) (265)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 86):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 27):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 27):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 47):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 47):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 68):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 68):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 89):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c, line 89):
+output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-tiling_mbpr3/array-tiling_mbpr3.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

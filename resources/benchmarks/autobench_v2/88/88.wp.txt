@@ -1,0 +1,107 @@
+[kernel] Parsing output/autobench_v2/88/88.acsl.c (with preprocessing)
+[kernel:typing:implicit-function-declaration] output/autobench_v2/88/88.acsl.c:12: Warning: 
+  Calling undeclared function unknown. Old style K&R code?
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/88/88.acsl.c:1: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             7
+  Alt-Ergo :       2 (7ms-7ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/88/88.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/88/88.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/88/88.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/88/88.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/88/88.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/88/88.acsl.c, line 8) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/88/88.acsl.c, line 8) (2/2):
+Call Result at line 12
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/88/88.acsl.c, line 11):
+Assume {
+  Type: is_sint32(lock_0) /\ is_sint32(tmp_0) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(y).
+  (* Invariant *)
+  Have: x <= x_1.
+  (* Then *)
+  Have: x_1 != x.
+  If tmp_0 != 0
+  Then { Have: y = x_1. Have: lock_0 = 1. }
+  Else { Have: (1 + x_1) = y. Have: lock_0 = 0. }
+  (* Invariant *)
+  Have: x_1 <= y.
+  (* Invariant *)
+  Have: ((y = x_1) -> (lock_0 = 1)).
+}
+Prove: x < x_1.
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (29129)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (7ms) (24)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/88/88.acsl.c, line 11):
+Assume {
+  Type: is_sint32(lock_0) /\ is_sint32(tmp_0) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(y).
+  (* Invariant *)
+  Have: x <= x_1.
+  (* Then *)
+  Have: x_1 != x.
+  If tmp_0 != 0
+  Then { Have: y = x_1. Have: lock_0 = 1. }
+  Else { Have: (1 + x_1) = y. Have: lock_0 = 0. }
+  (* Invariant *)
+  Have: x_1 <= y.
+  (* Invariant *)
+  Have: ((y = x_1) -> (lock_0 = 1)).
+}
+Prove: x <= 2147483647.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (29116)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (7ms) (36)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/88/88.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/88/88.acsl.c:12: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.

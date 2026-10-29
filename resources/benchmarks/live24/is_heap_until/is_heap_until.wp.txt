@@ -1,0 +1,315 @@
+[kernel] Parsing output/live24/is_heap_until/is_heap_until.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 22 goals scheduled
+[wp] Proved goals:   22 / 22
+  Qed:             4
+  Alt-Ergo :      18 (6ms-26ms-258ms)
+------------------------------------------------------------
+  Axiomatic 'ArrayUpdate'
+------------------------------------------------------------
+
+Lemma ArrayUpdate_Shrink:
+Prove: (0<=i_0) -> ((2+i_0)<=n_0) -> (is_sint32 v_0)
+       -> (P_ArrayUpdate Mint_0 Mint_1 a_0 n_0 i_0 v_0)
+       -> (P_ArrayUpdate Mint_0 Mint_1 a_0 (n_0-1) i_0 v_0)
+Prover Alt-Ergo  returns Valid (10ms) (88)
+
+------------------------------------------------------------
+
+Lemma ArrayUpdate_UpperBound:
+Assume: 'ArrayUpdate_Shrink'
+Prove: (v_0<=w_0) -> (is_sint32 v_0) -> (is_sint32 w_0)
+       -> (P_UpperBound_2_ Mint_1 a_0 n_0 w_0)
+       -> (P_ArrayUpdate Mint_0 Mint_1 a_0 n_0 i_0 v_0)
+       -> (P_UpperBound_2_ Mint_0 a_0 n_0 w_0)
+Prover Alt-Ergo  returns Valid (23ms) (163)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Axiomatic 'Heap'
+------------------------------------------------------------
+
+Lemma HeapCompatible_Update:
+Assume: 'Heap_Unchanged' 'Heap_Shrink'
+Prove: (0<=m_0) -> (m_0<n_0) -> (is_sint32 v_0) -> (P_Heap Mint_1 a_0 n_0)
+       -> (P_HeapCompatible Mint_1 a_0 n_0 m_0 v_0)
+       -> (P_ArrayUpdate Mint_0 Mint_1 a_0 n_0 m_0 v_0)
+       -> (P_Heap Mint_0 a_0 n_0)
+Prover Alt-Ergo  returns Valid (258ms) (6864)
+
+------------------------------------------------------------
+
+Lemma Heap_Shrink:
+Prove: (0<=m_0) -> (m_0<=n_0) -> (P_Heap Mint_0 a_0 n_0)
+       -> (P_Heap Mint_0 a_0 m_0)
+Prover Z3 4.15.4 returns Valid (10ms) (120025)
+Prover Alt-Ergo  returns Valid (10ms) (83)
+
+------------------------------------------------------------
+
+Lemma Heap_Unchanged:
+Assume: 'Heap_Shrink'
+Prove: (0<=n_0) -> (P_Heap Mint_1 a_0 n_0)
+       -> (P_Unchanged_2_ Mint_0 Mint_1 a_0 n_0) -> (P_Heap Mint_0 a_0 n_0)
+Prover Alt-Ergo  returns Valid (11ms) (145)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Axiomatic 'HeapNodes'
+------------------------------------------------------------
+
+Lemma HeapParent_Zero:
+Prove: (L_HeapParent 0)=0
+Prover Z3 4.15.4 returns Valid (10ms) (18809)
+Prover Alt-Ergo  returns Valid (6ms) (37)
+
+------------------------------------------------------------
+
+Lemma Heap_ChildBounds:
+Assume: 'Heap_ParentBounds' 'Heap_Childs' 'Heap_ParentChild'
+  'Heap_ParentRight' 'Heap_ParentLeft' 'HeapParent_Zero'
+Prove: let x_0 = (L_HeapLeft p_0) in
+       (0<=p_0) -> ((p_0<x_0) /\ (x_0<(L_HeapRight p_0)))
+Prover Z3 4.15.4 returns Valid (10ms) (21715)
+Prover Alt-Ergo  returns Valid (6ms) (38)
+
+------------------------------------------------------------
+
+Lemma Heap_Childs:
+Assume: 'Heap_ParentChild' 'Heap_ParentRight' 'Heap_ParentLeft'
+  'HeapParent_Zero'
+Prove: ((L_HeapParent b_0)=(L_HeapParent a_0)) -> (0<a_0) -> (0<b_0)
+       -> ((b_0=a_0) \/ ((1+a_0)=b_0) \/ ((1+b_0)=a_0))
+Prover Z3 4.15.4 returns Valid (10ms) (29256)
+Prover Alt-Ergo  returns Valid (9ms) (159)
+
+------------------------------------------------------------
+
+Lemma Heap_ParentBounds:
+Assume: 'Heap_Childs' 'Heap_ParentChild' 'Heap_ParentRight' 'Heap_ParentLeft'
+  'HeapParent_Zero'
+Prove: let x_0 = (L_HeapParent c_0) in (0<c_0) -> ((0<=x_0) /\ (x_0<c_0))
+Prover Z3 4.15.4 returns Valid (10ms) (24353)
+Prover Alt-Ergo  returns Valid (8ms) (88)
+
+------------------------------------------------------------
+
+Lemma Heap_ParentChild:
+Assume: 'Heap_ParentRight' 'Heap_ParentLeft' 'HeapParent_Zero'
+Prove: ((L_HeapParent c_0)=p_0) -> (0<c_0)
+       -> (((L_HeapLeft p_0)=c_0) \/ ((L_HeapRight p_0)=c_0))
+Prover Z3 4.15.4 returns Valid (10ms) (25941)
+Prover Alt-Ergo  returns Valid (8ms) (93)
+
+------------------------------------------------------------
+
+Lemma Heap_ParentLeft:
+Assume: 'HeapParent_Zero'
+Prove: (0<=p_0) -> ((L_HeapParent (L_HeapLeft p_0))=p_0)
+Prover Z3 4.15.4 returns Valid (20222)
+Prover Alt-Ergo  returns Valid (8ms) (100)
+
+------------------------------------------------------------
+
+Lemma Heap_ParentRight:
+Assume: 'Heap_ParentLeft' 'HeapParent_Zero'
+Prove: (0<=p_0) -> ((L_HeapParent (L_HeapRight p_0))=p_0)
+Prover Z3 4.15.4 returns Valid (10ms) (25757)
+Prover Alt-Ergo  returns Valid (7ms) (104)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function is_heap_until
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/is_heap_until/is_heap_until.acsl.c, line 149):
+Let x = Mint_0[shift_sint32(a, child_0)].
+Let x_1 = L_HeapParent(child_0).
+Let x_2 = Mint_0[shift_sint32(a, x_1)].
+Assume {
+  Type: is_uint32(child_0) /\ is_uint32(n) /\ is_uint32(x_1) /\
+      is_sint32(x) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: L_HeapParent(1) = 0.
+  (* Invariant *)
+  Have: 0 < child_0.
+  (* Invariant *)
+  Have: forall i : Z. ((0 < i) -> ((i < child_0) ->
+      (Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, L_HeapParent(i))]))).
+  (* Then *)
+  Have: child_0 < n.
+  (* Else *)
+  Have: x <= x_2.
+}
+Prove: 0 < to_uint32(1 + child_0).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (204303)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (11ms) (119)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/is_heap_until/is_heap_until.acsl.c, line 149):
+Prove: true.
+Prover Qed returns Valid (0.61ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/is_heap_until/is_heap_until.acsl.c, line 150):
+Let x = to_uint32(1 + child_0).
+Let x_1 = Mint_0[shift_sint32(a, child_0)].
+Let x_2 = L_HeapParent(child_0).
+Let x_3 = Mint_0[shift_sint32(a, x_2)].
+Assume {
+  Type: is_uint32(child_0) /\ is_uint32(n) /\ is_uint32(x_2) /\
+      is_sint32(x_1) /\ is_sint32(x_3).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Goal *)
+  When: (0 < i) /\ (i < x).
+  (* Invariant *)
+  Have: L_HeapParent(1) = 0.
+  (* Invariant *)
+  Have: 0 < child_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 < i_1) -> ((i_1 < child_0) ->
+      (Mint_0[shift_sint32(a, i_1)]
+         <= Mint_0[shift_sint32(a, L_HeapParent(i_1))]))).
+  (* Then *)
+  Have: child_0 < n.
+  (* Else *)
+  Have: x_1 <= x_3.
+  (* Invariant *)
+  Have: 0 < x.
+}
+Prove: Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, L_HeapParent(i))].
+Prover Alt-Ergo  returns Valid (Qed:3ms) (12ms) (136)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/is_heap_until/is_heap_until.acsl.c, line 150):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/is_heap_until/is_heap_until.acsl.c, line 151):
+Let x = to_uint32(1 + child_0).
+Let x_1 = Mint_0[shift_sint32(a, child_0)].
+Let x_2 = L_HeapParent(child_0).
+Let x_3 = Mint_0[shift_sint32(a, x_2)].
+Assume {
+  Type: is_uint32(child_0) /\ is_uint32(n) /\ is_uint32(parent_0) /\
+      is_uint32(parent_1) /\ is_uint32(x_2) /\ is_sint32(x_1) /\
+      is_sint32(x_3).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: L_HeapParent(1) = 0.
+  (* Invariant *)
+  Have: 0 < child_0.
+  (* Invariant *)
+  Have: forall i : Z. ((0 < i) -> ((i < child_0) ->
+      (Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, L_HeapParent(i))]))).
+  (* Then *)
+  Have: child_0 < n.
+  (* Else *)
+  Have: x_1 <= x_3.
+  If to_uint32(child_0 % 2) = 0
+  Then { Have: x_2 = parent_1. Have: to_uint32(1 + parent_1) = parent_0. }
+  Else { Have: x_2 = parent_0. }
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: forall i : Z. ((0 < i) -> ((i < x) ->
+      (Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, L_HeapParent(i))]))).
+}
+Prove: L_HeapParent(x) = parent_0.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (120ms) (979051)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (42ms) (1296)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/is_heap_until/is_heap_until.acsl.c, line 151):
+Prove: L_HeapParent(1) = 0.
+Prover Alt-Ergo  returns Valid (6ms) (26)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/is_heap_until/is_heap_until.acsl.c, line 163):
+Assume {
+  Type: is_uint32(child_0) /\ is_uint32(n) /\
+      is_uint32(L_HeapParent(child_0)).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: L_HeapParent(1) = 0.
+  (* Invariant *)
+  Have: 0 < child_0.
+  (* Invariant *)
+  Have: forall i : Z. ((0 < i) -> ((i < child_0) ->
+      (Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, L_HeapParent(i))]))).
+  (* Else *)
+  Have: n <= child_0.
+}
+Prove: P_Heap(Mint_0, a, n).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (153858)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (14ms) (172)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/is_heap_until/is_heap_until.acsl.c, line 152):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/is_heap_until/is_heap_until.acsl.c, line 155):
+Let x = to_uint32(1 + child_0).
+Let x_1 = Mint_0[shift_sint32(a, child_0)].
+Let x_2 = L_HeapParent(child_0).
+Let x_3 = Mint_0[shift_sint32(a, x_2)].
+Assume {
+  Type: is_uint32(child_0) /\ is_uint32(n) /\ is_uint32(parent_0) /\
+      is_uint32(x_2) /\ is_sint32(x_1) /\ is_sint32(x_3) /\
+      is_uint32(L_HeapParent(x)).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: L_HeapParent(1) = 0.
+  (* Invariant *)
+  Have: 0 < child_0.
+  (* Invariant *)
+  Have: forall i : Z. ((0 < i) -> ((i < child_0) ->
+      (Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, L_HeapParent(i))]))).
+  (* Then *)
+  Have: child_0 < n.
+  (* Else *)
+  Have: x_1 <= x_3.
+  If to_uint32(child_0 % 2) = 0
+  Then {
+    Have: x_2 = parent_0.
+    Have: L_HeapParent(x) = to_uint32(1 + parent_0).
+  }
+  Else { Have: L_HeapParent(x) = x_2. }
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: forall i : Z. ((0 < i) -> ((i < x) ->
+      (Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, L_HeapParent(i))]))).
+}
+Prove: child_0 < x.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (30ms) (297187)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (13ms) (193)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/is_heap_until/is_heap_until.acsl.c, line 155):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/is_heap_until/is_heap_until.acsl.c:145: Warning: 
+  No 'assigns' specification for function 'is_heap_until'.
+  Callers assumptions might be imprecise.

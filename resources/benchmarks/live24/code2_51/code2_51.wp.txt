@@ -1,0 +1,80 @@
+[kernel] Parsing output/live24/code2_51/code2_51.acsl.c (with preprocessing)
+[kernel:typing:implicit-function-declaration] output/live24/code2_51/code2_51.acsl.c:8: Warning: 
+  Calling undeclared function unknown. Old style K&R code?
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/live24/code2_51/code2_51.acsl.c:1: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             5
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_51/code2_51.acsl.c, line 4):
+Assume {
+  Type: is_sint32(c) /\ is_sint32(c_1) /\ is_sint32(c_2) /\ is_sint32(c_3) /\
+      is_sint32(c_4) /\ is_sint32(tmp_0) /\ is_sint32(tmp_0_0).
+  (* Invariant *)
+  Have: (0 <= c_4) /\ (c_4 <= 4).
+  (* Then *)
+  Have: tmp_0_0 != 0.
+  If tmp_0 != 0
+  Then {
+    Have: c_4 = c_2.
+    If c_2 != 4
+    Then { Have: c_2 = c_1. Have: (1 + c_1) = c. }
+    Else { Have: c = 4. }
+  }
+  Else {
+    Have: c_4 = c_3.
+    If c_3 = 4
+    Then { Have: c = 1. }
+    Else { Have: c_3 = c. }
+  }
+}
+Prove: (0 <= c) /\ (c <= 4).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (30492)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (7ms) (73)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_51/code2_51.acsl.c, line 4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/code2_51/code2_51.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_51/code2_51.acsl.c, line 5) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_51/code2_51.acsl.c, line 5) (2/3):
+Call Result at line 7
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_51/code2_51.acsl.c, line 5) (3/3):
+Call Result at line 8
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/code2_51/code2_51.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/live24/code2_51/code2_51.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.

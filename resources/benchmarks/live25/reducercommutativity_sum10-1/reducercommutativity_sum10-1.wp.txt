@@ -1,0 +1,488 @@
+[kernel] Parsing output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c:52: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 31 goals scheduled
+[wp] Proved goals:   31 / 31
+  Qed:            25
+  Alt-Ergo :       6 (8ms-367ms-2s)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (49ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 62):
+Let a = global(L_x_53).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_2].
+Let x_1 = Mint_undef_1[a_1].
+Let a_3 = havoc(Mint_undef_0,
+            havoc(Mint_undef_1, Mint_0, a_1, 10)[a_1 <- x][a_2 <- x_1], a_1,
+            9).
+Let x_2 = Mint_undef_1[shift_sint32(a, 2)].
+Let x_3 = Mint_undef_1[shift_sint32(a, 3)].
+Let x_4 = Mint_undef_1[shift_sint32(a, 4)].
+Let x_5 = Mint_undef_1[shift_sint32(a, 5)].
+Let x_6 = Mint_undef_1[shift_sint32(a, 6)].
+Let x_7 = Mint_undef_1[shift_sint32(a, 7)].
+Let x_8 = Mint_undef_1[shift_sint32(a, 8)].
+Let x_9 = Mint_undef_1[shift_sint32(a, 9)].
+Let x_10 = 1 + i.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_10) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(x_4) /\ is_sint32(x_5) /\ is_sint32(x_6) /\ is_sint32(x_7) /\
+      is_sint32(x_8) /\ is_sint32(x_9).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10).
+  (* Else *)
+  Have: 10 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_3[shift_sint32(a, i_3)] =
+       (if (i_3 = 0) then x_1
+        else (if (i_3 = 1) then x_2
+              else (if (i_3 = 2) then x_3
+                    else (if (i_3 = 3) then x_4
+                          else (if (i_3 = 4) then x_5
+                                else (if (i_3 = 5) then x_6
+                                      else (if (i_3 = 6) then x_7
+                                            else (if (i_3 = 7) then x_8
+                                                  else x_9))))))))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 9) ->
+      (a_3[shift_sint32(a, i_3)] =
+       (if (i_3 = 0) then x
+        else (if (i_3 = 1) then x_1
+              else (if (i_3 = 2) then x_2
+                    else (if (i_3 = 3) then x_3
+                          else (if (i_3 = 4) then x_4
+                                else (if (i_3 = 5) then x_5
+                                      else (if (i_3 = 6) then x_6
+                                            else (if (i_3 = 7) then x_7
+                                                  else (if (i_3 = 8) then x_8
+                                                        else x_9)))))))))))).
+  (* Then *)
+  Have: i <= 8.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_3[shift_sint32(a, i) <- a_3[shift_sint32(a, x_10)]]
+         [shift_sint32(a, i_1)] =
+    (if (i_1 = 0) then x_1
+     else (if (i_1 = 1) then x_2
+           else (if (i_1 = 2) then x_3
+                 else (if (i_1 = 3) then x_4
+                       else (if (i_1 = 4) then x_5
+                             else (if (i_1 = 5) then x_6
+                                   else (if (i_1 = 6) then x_7
+                                         else (if (i_1 = 7) then x_8 else x_9)))))))).
+Prover Z3 4.15.4 returns Valid (Qed:65ms) (170ms) (1466204)
+Prover Alt-Ergo  returns Valid (Qed:65ms) (85ms) (2693)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 65):
+Let a = global(L_x_53).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_2].
+Let x_1 = Mint_undef_1[a_1].
+Let a_3 = havoc(Mint_undef_0,
+            havoc(Mint_undef_1, Mint_0, a_1, 10)[a_1 <- x][a_2 <- x_1], a_1,
+            9).
+Let x_2 = 1 + i.
+Let a_4 = a_3[shift_sint32(a, i) <- a_3[shift_sint32(a, x_2)]].
+Let x_3 = Mint_undef_1[shift_sint32(a, 2)].
+Let x_4 = Mint_undef_1[shift_sint32(a, 3)].
+Let x_5 = Mint_undef_1[shift_sint32(a, 4)].
+Let x_6 = Mint_undef_1[shift_sint32(a, 5)].
+Let x_7 = Mint_undef_1[shift_sint32(a, 6)].
+Let x_8 = Mint_undef_1[shift_sint32(a, 7)].
+Let x_9 = Mint_undef_1[shift_sint32(a, 8)].
+Let x_10 = Mint_undef_1[shift_sint32(a, 9)].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_2) /\ is_sint32(x_1) /\
+      is_sint32(x) /\ is_sint32(x_3) /\ is_sint32(x_4) /\ is_sint32(x_5) /\
+      is_sint32(x_6) /\ is_sint32(x_7) /\ is_sint32(x_8) /\ is_sint32(x_9) /\
+      is_sint32(x_10).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 9).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10).
+  (* Else *)
+  Have: 10 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_3[shift_sint32(a, i_3)] =
+       (if (i_3 = 0) then x_1
+        else (if (i_3 = 1) then x_3
+              else (if (i_3 = 2) then x_4
+                    else (if (i_3 = 3) then x_5
+                          else (if (i_3 = 4) then x_6
+                                else (if (i_3 = 5) then x_7
+                                      else (if (i_3 = 6) then x_8
+                                            else (if (i_3 = 7) then x_9
+                                                  else x_10))))))))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 9) ->
+      (a_3[shift_sint32(a, i_3)] =
+       (if (i_3 = 0) then x
+        else (if (i_3 = 1) then x_1
+              else (if (i_3 = 2) then x_3
+                    else (if (i_3 = 3) then x_4
+                          else (if (i_3 = 4) then x_5
+                                else (if (i_3 = 5) then x_6
+                                      else (if (i_3 = 6) then x_7
+                                            else (if (i_3 = 7) then x_8
+                                                  else (if (i_3 = 8) then x_9
+                                                        else x_10)))))))))))).
+  (* Then *)
+  Have: i <= 8.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (a_4[shift_sint32(a, i_3)] =
+       (if (i_3 = 0) then x_1
+        else (if (i_3 = 1) then x_3
+              else (if (i_3 = 2) then x_4
+                    else (if (i_3 = 3) then x_5
+                          else (if (i_3 = 4) then x_6
+                                else (if (i_3 = 5) then x_7
+                                      else (if (i_3 = 6) then x_8
+                                            else (if (i_3 = 7) then x_9
+                                                  else x_10))))))))))).
+}
+Prove: a_4[shift_sint32(a, i_1)] =
+    (if (i_1 = 0) then x
+     else (if (i_1 = 1) then x_1
+           else (if (i_1 = 2) then x_3
+                 else (if (i_1 = 3) then x_4
+                       else (if (i_1 = 4) then x_5
+                             else (if (i_1 = 5) then x_6
+                                   else (if (i_1 = 6) then x_7
+                                         else (if (i_1 = 7) then x_8
+                                               else (if (i_1 = 8) then x_9
+                                                     else x_10))))))))).
+Prover Z3 4.15.4 returns Valid (Qed:54ms) (160ms) (1469054)
+Prover Alt-Ergo  returns Valid (Qed:54ms) (50ms) (1606)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 65):
+Let a = global(L_x_53).
+Let a_1 = shift_sint32(a, 0).
+Let x = Mint_undef_0[a_1].
+Let a_2 = shift_sint32(a, 1).
+Let x_1 = Mint_undef_0[a_2].
+Let x_2 = Mint_undef_0[shift_sint32(a, 2)].
+Let x_3 = Mint_undef_0[shift_sint32(a, 3)].
+Let x_4 = Mint_undef_0[shift_sint32(a, 4)].
+Let x_5 = Mint_undef_0[shift_sint32(a, 5)].
+Let x_6 = Mint_undef_0[shift_sint32(a, 6)].
+Let x_7 = Mint_undef_0[shift_sint32(a, 7)].
+Let x_8 = Mint_undef_0[shift_sint32(a, 8)].
+Let x_9 = Mint_undef_0[shift_sint32(a, 9)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(x_3) /\ is_sint32(x_4) /\ is_sint32(x_5) /\ is_sint32(x_6) /\
+      is_sint32(x_7) /\ is_sint32(x_8) /\ is_sint32(x_9).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10).
+  (* Else *)
+  Have: 10 <= i_1.
+}
+Prove: havoc(Mint_undef_0, Mint_0, a_1, 10)[a_1 <- x_1][a_2 <- x]
+         [shift_sint32(a, i)] =
+    (if (i = 0) then x_1
+     else (if (i = 1) then x
+           else (if (i = 2) then x_2
+                 else (if (i = 3) then x_3
+                       else (if (i = 4) then x_4
+                             else (if (i = 5) then x_5
+                                   else (if (i = 6) then x_6
+                                         else (if (i = 7) then x_7
+                                               else (if (i = 8) then x_8
+                                                     else x_9))))))))).
+Prover Z3 4.15.4 returns Valid (Qed:29ms) (90ms) (921529)
+Prover Alt-Ergo  returns Valid (Qed:29ms) (28ms) (877)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 76):
+Let a = global(L_x_53).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_1, a_4, a_1, 9).
+Let x_2 = Mint_undef_0[shift_sint32(a, 2)].
+Let x_3 = Mint_undef_0[shift_sint32(a, 3)].
+Let x_4 = Mint_undef_0[shift_sint32(a, 4)].
+Let x_5 = Mint_undef_0[shift_sint32(a, 5)].
+Let x_6 = Mint_undef_0[shift_sint32(a, 6)].
+Let x_7 = Mint_undef_0[shift_sint32(a, 7)].
+Let x_8 = Mint_undef_0[shift_sint32(a, 8)].
+Let a_6 = shift_sint32(a, 9).
+Let x_9 = Mint_undef_0[a_6].
+Let x_10 = to_sint32(L_sum(a_2, a_1, 10)).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x) /\
+      is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(x_4) /\ is_sint32(x_5) /\
+      is_sint32(x_6) /\ is_sint32(x_7) /\ is_sint32(x_8) /\ is_sint32(x_9).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10).
+  (* Else *)
+  Have: 10 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_5[shift_sint32(a, i_2)] =
+       (if (i_2 = 0) then x_1
+        else (if (i_2 = 1) then x_2
+              else (if (i_2 = 2) then x_3
+                    else (if (i_2 = 3) then x_4
+                          else (if (i_2 = 4) then x_5
+                                else (if (i_2 = 5) then x_6
+                                      else (if (i_2 = 6) then x_7
+                                            else (if (i_2 = 7) then x_8
+                                                  else x_9))))))))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 <= i_2) -> ((i_2 <= 9) ->
+      (a_5[shift_sint32(a, i_2)] =
+       (if (i_2 = 0) then x
+        else (if (i_2 = 1) then x_1
+              else (if (i_2 = 2) then x_2
+                    else (if (i_2 = 3) then x_3
+                          else (if (i_2 = 4) then x_4
+                                else (if (i_2 = 5) then x_5
+                                      else (if (i_2 = 6) then x_6
+                                            else (if (i_2 = 7) then x_7
+                                                  else (if (i_2 = 8) then x_8
+                                                        else x_9)))))))))))).
+  (* Else *)
+  Have: 9 <= i_1.
+}
+Prove: (to_sint32(L_sum(a_4, a_1, 10)) = x_10) /\
+    (to_sint32(L_sum(a_5[a_6 <- x], a_1, 10)) = x_10).
+Prover Alt-Ergo  returns Valid (Qed:49ms) (2s) (27615)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 68) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 68) (2/2):
+Effect at line 72
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 71):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 71):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 19) in 'sum'' in 'main' at call 'sum' (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 54)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 19) in 'sum'' in 'main' at call 'sum' (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 56)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 19) in 'sum'' in 'main' at call 'sum' (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 75)
+:
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function sum
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 20) in 'sum':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 30):
+Let x_1 = 1 + i.
+Let x_2 = Mint_0[shift_sint32(x, i)].
+Let x_3 = L_sum(Mint_0, x, i).
+Let x_4 = x_3 + x_2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint64(x_3) /\
+      is_sint64(x_4).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10).
+  (* Invariant *)
+  Have: L_sum(Mint_0, x, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10).
+  (* Then *)
+  Have: i <= 9.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x_4 = L_sum(Mint_0, x, x_1).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (140524)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (12ms) (148)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 30):
+Assume {
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10).
+}
+Prove: L_sum(Mint_0, x, 0) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:0.85ms) (10ms) (64969)
+Prover Alt-Ergo  returns Valid (Qed:0.85ms) (8ms) (73)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sum' (1/4):
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid (0.75ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sum' (2/4):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sum' (3/4):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sum' (4/4):
+Effect at line 37
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c:39: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

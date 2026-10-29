@@ -40,12 +40,19 @@ class UploadResponse(BaseModel):
 
 
 class RunRequest(BaseModel):
+    verification_only: bool = False
+    benchmark_context: dict | None = None
     file_id: str | None = None
     demo_case_id: str | None = None
     upstream_task_id: str | None = None
     model_name: str = "qwen-turbo"
     entry_path: str | None = None
     rust_workflow: dict | None = None
+    agent_instructions: str = Field(default="", max_length=80000)
+    assistant: dict | None = None
+    description: str = Field(default="", max_length=16000)
+    function_signature: str = Field(default="", max_length=4000)
+    max_repair_rounds: int = Field(default=3, ge=0, le=3)
     enable_mutation: bool = False
     timeout_sec: int | None = Field(default=None, ge=10, le=3600)
 
@@ -53,6 +60,10 @@ class RunRequest(BaseModel):
     def validate_source(self) -> "RunRequest":
         if not any([self.file_id, self.demo_case_id, self.upstream_task_id]):
             raise ValueError("One of file_id, demo_case_id, or upstream_task_id is required.")
+        if self.assistant is not None:
+            from .assistants import AssistantConfig
+            from .skill_library import resolve_assistant
+            self.assistant = resolve_assistant(AssistantConfig(**self.assistant)).model_dump()
         return self
 
 

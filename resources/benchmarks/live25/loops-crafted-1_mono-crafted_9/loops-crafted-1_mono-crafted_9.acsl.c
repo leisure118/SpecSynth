@@ -1,0 +1,22 @@
+int main()
+{
+	int x = 0;
+	int y = 500000;
+	/*@
+	  loop invariant 0 <= x <= 1000000;
+	  loop invariant (x <= 500000 ==> y == 500000);
+	  loop invariant (x >= 500000 ==> y == x);
+	  loop assigns x, y;
+	  loop variant 1000000 - x;
+	*/
+	while(x < 1000000) {
+		if (x < 500000) {
+			x = x + 1;
+		} else {
+			x = x + 1;
+			y = y + 1;
+		}
+	}
+	//@ assert(y==x);
+	return 0;
+}

@@ -1,0 +1,101 @@
+[kernel] Parsing output/autobench_v2/249/249.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] Proved goals:   12 / 12
+  Qed:            11
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/249/249.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/249/249.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/249/249.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/249/249.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/249/249.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/249/249.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (0.55ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/249/249.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/249/249.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/249/249.acsl.c, line 19):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(sn_0).
+  (* Invariant *)
+  Have: ((0 < n) -> (0 <= n)).
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: ((0 < n) -> (i <= (1 + n))).
+  (* Invariant *)
+  Have: ((0 < n) -> ((2 + sn_0) = (2 * i))).
+  (* Invariant *)
+  Have: ((n <= 0) -> ((i = 1) /\ (sn_0 = 0))).
+  (* Else *)
+  Have: n < i.
+}
+Prove: (sn_0 = 0) \/ ((2 * n) = sn_0).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29137)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (6ms) (24)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/249/249.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/249/249.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/249/249.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/249/249.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

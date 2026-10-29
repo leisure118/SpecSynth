@@ -1,0 +1,110 @@
+[kernel] Parsing output/autobench_v2/183/183.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:            12
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/183/183.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/183/183.acsl.c, line 4) in 'test'' in 'main' at initialization of 'num' (file output/autobench_v2/183/183.acsl.c, line 27)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function test
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/183/183.acsl.c, line 5) in 'test':
+Prove: true.
+Prover Qed returns Valid (0.86ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/183/183.acsl.c, line 13):
+Let x = -y.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(y) /\ is_sint32(a - y) /\
+      is_sint32(a - 1 - y).
+  (* Pre-condition *)
+  Have: 0 <= a.
+  (* Invariant *)
+  Have: y <= a.
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Then *)
+  Have: y != a.
+}
+Prove: y < a.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (28300)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (14)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/183/183.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/183/183.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/183/183.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.62ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/183/183.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/183/183.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/183/183.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'test':
+Effect at line 19
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/183/183.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/183/183.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/183/183.acsl.c:26: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

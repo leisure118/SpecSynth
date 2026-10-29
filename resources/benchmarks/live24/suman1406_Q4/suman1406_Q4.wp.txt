@@ -1,0 +1,103 @@
+[kernel] Parsing output/live24/suman1406_Q4/suman1406_Q4.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live24/suman1406_Q4/suman1406_Q4.acsl.c:17: Warning: 
+  Calling function unknown2 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/live24/suman1406_Q4/suman1406_Q4.acsl.c:6: Warning: 
+  Neither code nor specification for function unknown2, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             8
+  Alt-Ergo :       1 (10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 14):
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(w) /\ is_sint32(x) /\ is_sint32(y) /\
+      is_sint32(y_1) /\ is_sint32(y_2) /\ is_sint32(z) /\ is_sint32(z_1) /\
+      is_sint32(z_2) /\ is_sint32(1 + w) /\ is_sint32(1 + x).
+  (* Residual *)
+  When: (w % 2) = 1.
+  (* Invariant *)
+  Have: ((x = 0) -> ((w = 1) /\ (y_2 = 0) /\ (z_2 = 0))).
+  (* Invariant *)
+  Have: ((x = 1) -> ((w = 2) /\ (y_2 = 1) /\ (z_2 = 1))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 1).
+  (* Then *)
+  Have: tmp_0 != 0.
+  If (z_2 % 2) = 0
+  Then {
+    Have: (y_2 = y_1) /\ (z_2 = z_1).
+    Have: (1 + y_1) = y.
+    Have: (1 + z_1) = z.
+  }
+  Else { Have: (y_2 = y) /\ (z_2 = z). }
+  (* Invariant *)
+  Have: ((x = (-1)) -> ((w = 0) /\ (y = 0) /\ (z = 0))).
+  (* Invariant *)
+  Have: ((x = 0) -> ((w = 1) /\ (y = 1) /\ (z = 1))).
+}
+Prove: (x <= 0) /\ ((-1) <= x).
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (33610)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (10ms) (170)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 15) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 15) (2/2):
+Call Result at line 17
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/suman1406_Q4/suman1406_Q4.acsl.c:3: Warning: 
+  No 'assigns' specification for function 'unknown2'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/live24/suman1406_Q4/suman1406_Q4.acsl.c:6: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

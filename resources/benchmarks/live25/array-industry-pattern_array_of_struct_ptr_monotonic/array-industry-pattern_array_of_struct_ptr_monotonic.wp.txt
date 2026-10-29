@@ -1,0 +1,1215 @@
+[kernel] Parsing output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:43: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:29: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: S*)
+[wp] output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 37 goals scheduled
+[wp] [Timeout] typed_main_loop_assigns_2_part2 (Qed 26ms) (Z3)
+[wp] [Timeout] typed_main_loop_assigns_part2 (Qed 6ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_2_part3 (Qed 44ms) (Z3)
+[wp] [Timeout] typed_main_loop_assigns_2_part4 (Qed 21ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_2_part5 (Qed 17ms) (Z3) (Stronger, 2 warnings)
+[wp] Proved goals:   32 / 37
+  Qed:            17
+  Alt-Ergo :      15 (10ms-22ms-40ms)
+  Timeout:         5
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 21):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Assume {
+  Type: is_sint32(i) /\ is_sint32(2 + i).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. (((i_1 % 2) = 0) -> ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, a[i_1], 2)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[i <- v] = Init_a_0.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, v_1, 2).
+}
+Prove: ((-2) <= i) /\ (i <= 99998).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (72800)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (20ms) (81)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 22):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Let x = 2 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. (((i_1 % 2) = 0) -> ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, a[i_1], 2)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[i <- v] = Init_a_0.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, v_1, 2).
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+}
+Prove: (x % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (73831)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (16ms) (131)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 23):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Let x = 2 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: ((i_1 % 2) = 0) /\ (0 <= i_1) /\ (i_1 <= (1 + i)).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[i <- v_1] = Init_a_0.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, v, 2).
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: valid_rw(Malloc_0, a[i <- v][i_1], 2).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (50ms) (352163)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (25ms) (426)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 34):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(v) /\ is_sint32(2 + i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 <= 99999) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[shiftfield_F4_S_t(a_1) <- v_1][shiftfield_F4_S_t(a_2)] = 10) ->
+      ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_1) <- v_2][shiftfield_F4_S_p1(a_2)], 1))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 10
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+    (* Admit *)
+    Have: valid_rw(Malloc_0, v_3, 1).
+  }
+}
+Prove: ((-2) <= i) /\ (i <= 99998).
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (30ms) (198762)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (13ms) (146)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 35):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = a[i].
+Let x = 2 + i.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 <= 99999) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[shiftfield_F4_S_t(a_1) <- v_1][shiftfield_F4_S_t(a_2)] = 10) ->
+      ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_1) <- v_2][shiftfield_F4_S_p1(a_2)], 1))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 10
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+    (* Admit *)
+    Have: valid_rw(Malloc_0, v_3, 1).
+  }
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+}
+Prove: (x % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (40ms) (201226)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (18ms) (179)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 36):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 + i_2.
+Let a_1 = a[i_2].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: ((i % 2) = 0) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_2 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((Mint_0[shiftfield_F4_S_t(a_1) <- v_1][shiftfield_F4_S_t(a_2)] = 10) ->
+      ((0 <= i_3) -> ((i_3 < i_2) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_1) <- v_2][shiftfield_F4_S_p1(a_2)], 1))))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 10
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+    (* Admit *)
+    Have: valid_rw(Malloc_0, v_3, 1).
+  }
+  (* Invariant *)
+  Have: ((-2) <= i_2) /\ (i_2 <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: valid_rw(Malloc_0, a[i], 2).
+Prover Z3 4.15.4 returns Valid (Qed:25ms) (10ms) (82954)
+Prover Alt-Ergo  returns Valid (Qed:25ms) (16ms) (214)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 36):
+Assume {
+  Type: is_sint32(i_1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: ((i % 2) = 0) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: valid_rw(Malloc_0, a[i], 2).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (61991)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (96)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 37):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 + i_2.
+Let a_1 = a[i_2].
+Let a_2 = shiftfield_F4_S_t(a_1).
+Let a_3 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_1) /\ linked(Malloc_0).
+  (* Goal *)
+  When: ((i % 2) = 0) /\ (Mint_0[a_2 <- v][shiftfield_F4_S_t(a_3)] = 10) /\
+      (0 <= i) /\ (i <= (1 + i_2)).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_4 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((Mint_0[a_2 <- v_1][shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_3) ->
+      ((i_3 < i_2) ->
+      valid_rw(Malloc_0,
+        Mptr_1[shiftfield_F4_S_p1(a_1) <- v_2][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 10
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+    (* Return Effects *)
+    Have: Mptr_1[shiftfield_F4_S_p1(a_1) <- v_3] = Mptr_0.
+    (* Admit *)
+    Have: valid_rw(Malloc_0, v_3, 1).
+  }
+  Else { Have: Mptr_1[shiftfield_F4_S_p1(a_1) <- v_2] = Mptr_0. }
+  (* Invariant *)
+  Have: ((-2) <= i_2) /\ (i_2 <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: valid_rw(Malloc_0, Mptr_0[shiftfield_F4_S_p1(a_3)], 1).
+Prover Alt-Ergo  returns Valid (Qed:32ms) (37ms) (894)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 51):
+Let a_1 = a[100000].
+Let m = Mint_0[shiftfield_F4_S_t(a_1) <- v].
+Let a_2 = shiftfield_F4_S_t(a[i]).
+Let a_3 = a[i_2].
+Let m_1 = Mint_0[shiftfield_F4_S_t(a_3) <- v].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i) /\
+      is_sint32(2 + i) /\ is_sint32(m_1[a_2]).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_4 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((m_1[shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_3) -> ((i_3 < i_2) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_3) <- v_1][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_4 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((m[shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_1) <- v_1][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Then *)
+  Have: i <= 99999.
+  If m[a_2] = 10
+  Then {
+    (* Assertion *)
+    Have: Mptr_0[shiftfield_F4_S_p1(a_1) <- v_1][shiftfield_F4_S_p1(a[i])] !=
+        null.
+  }
+}
+Prove: ((-2) <= i) /\ (i <= 99998).
+Prover Z3 4.15.4 returns Valid (Qed:22ms) (150ms) (1169683)
+Prover Alt-Ergo  returns Valid (Qed:22ms) (24ms) (268)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 52):
+Let a_1 = a[100000].
+Let m = Mint_0[shiftfield_F4_S_t(a_1) <- v].
+Let a_2 = shiftfield_F4_S_t(a[i]).
+Let a_3 = a[i_2].
+Let m_1 = Mint_0[shiftfield_F4_S_t(a_3) <- v].
+Let x = 2 + i.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(m_1[a_2]).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_4 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((m_1[shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_3) -> ((i_3 < i_2) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_3) <- v_1][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_4 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((m[shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_1) <- v_1][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Then *)
+  Have: i <= 99999.
+  If m[a_2] = 10
+  Then {
+    (* Assertion *)
+    Have: Mptr_0[shiftfield_F4_S_p1(a_1) <- v_1][shiftfield_F4_S_p1(a[i])] !=
+        null.
+  }
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+}
+Prove: (x % 2) = 0.
+Prover Alt-Ergo  returns Valid (Qed:24ms) (21ms) (308)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 53):
+Let x = 2 + i_3.
+Let a_1 = a[100000].
+Let m = Mint_0[shiftfield_F4_S_t(a_1) <- v].
+Let a_2 = shiftfield_F4_S_t(a[i_3]).
+Let a_3 = a[i_2].
+Let m_1 = Mint_0[shiftfield_F4_S_t(a_3) <- v].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(x) /\
+      is_sint32(m_1[a_2]).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: ((i % 2) = 0) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_4 : Z. (((i_4 % 2) = 0) -> ((0 <= i_4) -> ((i_4 < i_1) ->
+      valid_rw(Malloc_0, a[i_4], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. (((i_4 % 2) = 0) -> ((0 <= i_4) -> ((i_4 <= 99999) ->
+      valid_rw(Malloc_0, a[i_4], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_4 : Z. let a_4 = a[i_4] in (((i_4 % 2) = 0) ->
+      ((m_1[shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_4) -> ((i_4 < i_2) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_3) <- v_1][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. let a_4 = a[i_4] in (((i_4 % 2) = 0) ->
+      ((m[shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_4) -> ((i_4 <= 99999) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_1) <- v_1][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: (i_3 % 2) = 0.
+  (* Then *)
+  Have: i_3 <= 99999.
+  If m[a_2] = 10
+  Then {
+    (* Assertion *)
+    Have: Mptr_0[shiftfield_F4_S_p1(a_1) <- v_1][shiftfield_F4_S_p1(a[i_3])] !=
+        null.
+  }
+  (* Invariant *)
+  Have: ((-2) <= i_3) /\ (i_3 <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: valid_rw(Malloc_0, a[i], 2).
+Prover Z3 4.15.4 returns Valid (Qed:30ms) (70ms) (552089)
+Prover Alt-Ergo  returns Valid (Qed:30ms) (21ms) (331)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 53):
+Let a_1 = a[i_2].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: ((i % 2) = 0) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_2 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((Mint_0[shiftfield_F4_S_t(a_1) <- v][shiftfield_F4_S_t(a_2)] = 10) ->
+      ((0 <= i_3) -> ((i_3 < i_2) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_1) <- v_1][shiftfield_F4_S_p1(a_2)], 1))))).
+  (* Else *)
+  Have: 100000 <= i_2.
+}
+Prove: valid_rw(Malloc_0, a[i], 2).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (22ms) (138)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 54):
+Let x = 2 + i_3.
+Let a_1 = a[100000].
+Let m = Mint_0[shiftfield_F4_S_t(a_1) <- v_1].
+Let a_2 = shiftfield_F4_S_t(a[i_3]).
+Let m_1 = Mptr_0[shiftfield_F4_S_p1(a_1) <- v].
+Let a_3 = a[i_2].
+Let m_2 = Mint_0[shiftfield_F4_S_t(a_3) <- v_1].
+Let a_4 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(x) /\
+      is_sint32(m_2[a_2]).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: ((i % 2) = 0) /\ (m_2[shiftfield_F4_S_t(a_4)] = 10) /\ (0 <= i) /\
+      (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_4 : Z. (((i_4 % 2) = 0) -> ((0 <= i_4) -> ((i_4 < i_1) ->
+      valid_rw(Malloc_0, a[i_4], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. (((i_4 % 2) = 0) -> ((0 <= i_4) -> ((i_4 <= 99999) ->
+      valid_rw(Malloc_0, a[i_4], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_4 : Z. let a_5 = a[i_4] in (((i_4 % 2) = 0) ->
+      ((m_2[shiftfield_F4_S_t(a_5)] = 10) -> ((0 <= i_4) -> ((i_4 < i_2) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_3) <- v][shiftfield_F4_S_p1(a_5)], 1))))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. let a_5 = a[i_4] in (((i_4 % 2) = 0) ->
+      ((m[shiftfield_F4_S_t(a_5)] = 10) -> ((0 <= i_4) -> ((i_4 <= 99999) ->
+      valid_rw(Malloc_0, m_1[shiftfield_F4_S_p1(a_5)], 1))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: (i_3 % 2) = 0.
+  (* Then *)
+  Have: i_3 <= 99999.
+  If m[a_2] = 10
+  Then { (* Assertion *) Have: m_1[shiftfield_F4_S_p1(a[i_3])] != null. }
+  (* Invariant *)
+  Have: ((-2) <= i_3) /\ (i_3 <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: valid_rw(Malloc_0, m_1[shiftfield_F4_S_p1(a_4)], 1).
+Prover Alt-Ergo  returns Valid (Qed:24ms) (30ms) (824)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 54):
+Let a_1 = a[i_2].
+Let m = Mint_0[shiftfield_F4_S_t(a_1) <- v_1].
+Let a_2 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: ((i % 2) = 0) /\ (m[shiftfield_F4_S_t(a_2)] = 10) /\ (0 <= i) /\
+      (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_3 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((m[shiftfield_F4_S_t(a_3)] = 10) -> ((0 <= i_3) -> ((i_3 < i_2) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_1) <- v][shiftfield_F4_S_p1(a_3)], 1))))).
+  (* Else *)
+  Have: 100000 <= i_2.
+}
+Prove: valid_rw(Malloc_0,
+         Mptr_0[shiftfield_F4_S_p1(a[100000]) <- v][shiftfield_F4_S_p1(a_2)],
+         1).
+Prover Alt-Ergo  returns Valid (Qed:10ms) (20ms) (285)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 63):
+Let a_1 = a[100000].
+Let m = Mint_0[shiftfield_F4_S_t(a_1) <- v_1].
+Let a_2 = a[i].
+Let m_1 = Mptr_0[shiftfield_F4_S_p1(a_1) <- v].
+Let a_3 = a[i_2].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. (((i_3 % 2) = 0) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, a[i_3], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_4 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((Mint_0[shiftfield_F4_S_t(a_3) <- v_1][shiftfield_F4_S_t(a_4)] = 10) ->
+      ((0 <= i_3) -> ((i_3 < i_2) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_3) <- v][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_4 = a[i_3] in (((i_3 % 2) = 0) ->
+      ((m[shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, m_1[shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Then *)
+  Have: i <= 99999.
+  (* Then *)
+  Have: m[shiftfield_F4_S_t(a_2)] = 10.
+}
+Prove: m_1[shiftfield_F4_S_p1(a_2)] != null.
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (70ms) (495309)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (40ms) (927)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 24) (1/2):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 24) (2/2):
+Call Effect at line 29
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Let x = 2 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. (((i_1 % 2) = 0) -> ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, a[i_1], 2)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[i <- v] = Init_a_0.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, v_1, 2).
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. (((i_1 % 2) = 0) -> ((0 <= i_1) ->
+      ((i_1 <= (1 + i)) -> valid_rw(Malloc_0, a[i <- v_1][i_1], 2)))).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (Qed:6ms) (25.3s)
+Prover Alt-Ergo  returns Timeout (Qed:6ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 38) (1/5):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 38) (2/5):
+Effect at line 41
+Let a_1 = a[i].
+Let a_2 = shiftfield_F4_S_t(a_1).
+Let x = 2 + i.
+Let a_3 = shiftfield_F4_S_p1(a_1).
+Let a_4 = a[x].
+Let a_5 = shiftfield_F4_S_p1(a_4).
+Let a_6 = shiftfield_F4_S_t(a_4).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 <= 99999) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[a_2 <- v_1][shiftfield_F4_S_t(a_7)] = 10) -> ((0 <= i_2) ->
+      ((i_2 < i) ->
+      valid_rw(Malloc_0, Mptr_0[a_3 <- v_2][shiftfield_F4_S_p1(a_7)], 1))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 10
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+    (* Return Effects *)
+    Have: Mptr_0[a_3 <- v_3] = Mptr_1.
+    (* Admit *)
+    Have: valid_rw(Malloc_0, v_3, 1).
+  }
+  Else { Have: Mptr_0[a_3 <- v_2] = Mptr_1. }
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[a_2 <- v][shiftfield_F4_S_t(a_7)] = 10) -> ((0 <= i_2) ->
+      ((i_2 <= (1 + i)) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p1(a_7)], 1))))).
+}
+Prove: (((!invalid(Malloc_0, a_3, 1)) -> ((a_5 = a_3) \/ (a_6 = a_3)))) /\
+    (((!invalid(Malloc_0, a_2, 1)) -> ((a_5 = a_2) \/ (a_6 = a_2)))).
+Prover Z3 4.15.4 returns Timeout (Qed:26ms) (25.2s)
+Prover Alt-Ergo  returns Timeout (Qed:26ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 38) (3/5):
+Call Result at line 43
+Let a_1 = a[i].
+Let a_2 = shiftfield_F4_S_t(a_1).
+Let x = 2 + i.
+Let a_3 = a[x].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 <= 99999) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_4 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[a_2 <- v_1][shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_2) ->
+      ((i_2 < i) ->
+      valid_rw(Malloc_0,
+        Mptr_0[shiftfield_F4_S_p1(a_1) <- v_2][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 10
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+    (* Return Effects *)
+    Have: Mptr_0[shiftfield_F4_S_p1(a_1) <- v_3] = Mptr_1.
+    (* Admit *)
+    Have: valid_rw(Malloc_0, v_3, 1).
+  }
+  Else { Have: Mptr_0[shiftfield_F4_S_p1(a_1) <- v_2] = Mptr_1. }
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_4 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[a_2 <- v][shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_2) ->
+      ((i_2 <= (1 + i)) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p1(a_4)], 1))))).
+}
+Prove: (shiftfield_F4_S_p1(a_3) = a_2) \/ (shiftfield_F4_S_t(a_3) = a_2).
+Prover Z3 4.15.4 returns Timeout (Qed:44ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:44ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 38) (4/5):
+Call Effect at line 45
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = a[i_1].
+Let a_2 = shiftfield_F4_S_t(a_1).
+Let a_3 = shiftfield_F4_S_p1(a_1).
+Let x = 2 + i_1.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 <= 99999) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_4 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[a_2 <- v][shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_2) ->
+      ((i_2 < i_1) ->
+      valid_rw(Malloc_0, Mptr_0[a_3 <- v_1][shiftfield_F4_S_p1(a_4)], 1))))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, v_2, 1).
+  (* Invariant *)
+  Have: ((-2) <= i_1) /\ (i_1 <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_4 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[a_2 <- 10][shiftfield_F4_S_t(a_4)] = 10) -> ((0 <= i_2) ->
+      ((i_2 <= (1 + i_1)) ->
+      valid_rw(Malloc_0, Mptr_0[a_3 <- v_2][shiftfield_F4_S_p1(a_4)], 1))))).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (Qed:21ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:21ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 38) (5/5):
+Call Result at line 45
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = a[i].
+Let a_2 = shiftfield_F4_S_t(a_1).
+Let a_3 = shiftfield_F4_S_p1(a_1).
+Let x = 2 + i.
+Let a_4 = a[x].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. (((i_2 % 2) = 0) -> ((0 <= i_2) -> ((i_2 <= 99999) ->
+      valid_rw(Malloc_0, a[i_2], 2)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[a_2 <- v][shiftfield_F4_S_t(a_5)] = 10) -> ((0 <= i_2) ->
+      ((i_2 < i) ->
+      valid_rw(Malloc_0, Mptr_0[a_3 <- v_1][shiftfield_F4_S_p1(a_5)], 1))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, v_2, 1).
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a[i_2] in (((i_2 % 2) = 0) ->
+      ((Mint_0[a_2 <- 10][shiftfield_F4_S_t(a_5)] = 10) -> ((0 <= i_2) ->
+      ((i_2 <= (1 + i)) ->
+      valid_rw(Malloc_0, Mptr_0[a_3 <- v_2][shiftfield_F4_S_p1(a_5)], 1))))).
+}
+Prove: (shiftfield_F4_S_p1(a_4) = a_3) \/ (shiftfield_F4_S_t(a_4) = a_3).
+Prover Z3 4.15.4 returns Timeout (Qed:17ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:17ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 27):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 27):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 41):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 41):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:45: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:16: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

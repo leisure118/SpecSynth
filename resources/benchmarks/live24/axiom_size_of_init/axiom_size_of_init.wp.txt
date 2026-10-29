@@ -1,0 +1,152 @@
+[kernel] Parsing output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 16 goals scheduled
+[wp] Proved goals:   16 / 16
+  Qed:            12
+  Alt-Ergo :       4 (8ms-11ms)
+------------------------------------------------------------
+  Axiomatic 'StackEquality'
+------------------------------------------------------------
+
+Lemma StackEqual_Reflexive:
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_0 Mint_0 Mint_1 s_0 s_0)
+Prover Z3 4.15.4 returns Valid (10ms) (31834)
+Prover Alt-Ergo  returns Valid (8ms) (37)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Symmetric:
+Assume: 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_1 Mint_2 Mint_3 Mptr_0 Mint_0 Mint_1 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 t_0 s_0)
+Prover Alt-Ergo  returns Valid (11ms) (73)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Transitive:
+Assume: 'StackEqual_Symmetric' 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_2 Mint_4 Mint_5 t_0 u_0)
+       -> (P_StackEqual Mptr_2 Mint_4 Mint_5 Mptr_1 Mint_2 Mint_3 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 s_0 u_0)
+Prover Alt-Ergo  returns Valid (9ms) (94)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function axiom_size_of_init
+------------------------------------------------------------
+
+Goal Post-condition 'result' in 'axiom_size_of_init':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Post-condition 'empty' in 'axiom_size_of_init':
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 137):
+Let m = Mint_0[shiftfield_F1_Stack_size(s) <- v]
+          [shiftfield_F1_Stack_capacity(s) <- v_1].
+Let m_1 = Mptr_0[shiftfield_F1_Stack_obj(s) <- v_2].
+Let a = L_StackStorage(m_1, s).
+Let a_1 = shift_sint32(a, 0).
+Let x = L_StackCapacity(m, s).
+Assume {
+  Type: is_uint32(x).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(a.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition 'valid' *)
+  Have: valid_rw(Malloc_0, s, 3).
+  (* Pre-condition 'capacity' *)
+  Have: 0 < x.
+  (* Pre-condition 'storage' *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition 'sep' *)
+  Have: separated(s, 3, a_1, x).
+  (* Call 'stack_init' *)
+  Have: P_StackEmpty(m, s) /\ P_StackInvariant(Malloc_0, m_1, m, s).
+}
+Prove: L_StackSize(m, s) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (40088)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (75)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 129) in 'axiom_size_of_init' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 129) in 'axiom_size_of_init' (2/2):
+Call Effect at line 136
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 129) in 'axiom_size_of_init' (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 129) in 'axiom_size_of_init' (2/3):
+Call Effect at line 136
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 129) in 'axiom_size_of_init' (3/3):
+Call Result at line 138
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_init'' in 'axiom_size_of_init' at call 'stack_init' (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 136)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'capacity' in 'stack_init'' in 'axiom_size_of_init' at call 'stack_init' (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 136)
+:
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'storage' in 'stack_init'' in 'axiom_size_of_init' at call 'stack_init' (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 136)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'sep' in 'stack_init'' in 'axiom_size_of_init' at call 'stack_init' (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 136)
+:
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_size'' in 'axiom_size_of_init' at call 'stack_size' (file output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c, line 138)
+:
+Prove: true.
+Prover Qed returns Valid (0.89ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c:108: Warning: 
+  No \from specification for assigned pointer 's->obj'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/live24/axiom_size_of_init/axiom_size_of_init.acsl.c:129: Warning: 
+  No \from specification for assigned pointer 's->obj'.
+  Callers assumptions might be imprecise.

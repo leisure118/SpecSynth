@@ -1,0 +1,133 @@
+[kernel] Parsing output/autobench_v2/12/12.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/12/12.acsl.c:7: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:            11
+  Alt-Ergo :       2 (6ms-6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/12/12.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/12/12.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/12/12.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/12/12.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/12/12.acsl.c, line 17):
+Let x_1 = x + y.
+Let x_2 = 10 + y_1.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(10 + x) /\ is_sint32(x_2) /\ is_sint32(x + y - y_1).
+  (* Pre-condition *)
+  Have: (y_1 <= x_1) /\ (x_1 <= x_2).
+  (* Pre-condition *)
+  Have: (0 <= y) /\ (y <= 10).
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: 0 <= y_1.
+  (* Invariant *)
+  Have: y <= y_1.
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: (-10) <= x.
+  (* Invariant *)
+  Have: (-10) <= y_1.
+}
+Prove: y <= x_2.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29563)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (20)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/12/12.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/12/12.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.91ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/12/12.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/12/12.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/12/12.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/12/12.acsl.c, line 28):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1).
+  (* Pre-condition *)
+  Have: (0 <= x_1) /\ (x_1 <= 10).
+  (* Pre-condition *)
+  Have: (0 <= y) /\ (y <= 10).
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: y <= 0.
+}
+Prove: x != 20.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (27775)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (13)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/12/12.acsl.c, line 20) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/12/12.acsl.c, line 20) (2/2):
+Call Result at line 22
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/12/12.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/12/12.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

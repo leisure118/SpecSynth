@@ -1,0 +1,90 @@
+[kernel] Parsing output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:            10
+  Alt-Ergo :       1 (9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 6):
+Let x = 2 + v.
+Assume {
+  Type: is_sint32(v) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 < v) /\ (v <= 52).
+  (* Invariant *)
+  Have: (v % 2) = 1.
+  (* Then *)
+  Have: v <= 50.
+}
+Prove: (x % 2) = 1.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (29734)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (9ms) (105)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.61ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-lit_mine2017-ex4.10/loop-lit_mine2017-ex4.10.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

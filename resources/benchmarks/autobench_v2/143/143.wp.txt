@@ -1,0 +1,104 @@
+[kernel] Parsing output/autobench_v2/143/143.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/autobench_v2/143/143.acsl.c:22: Warning: 
+  Calling function unknown2 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/143/143.acsl.c:7: Warning: 
+  Neither code nor specification for function unknown2, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:            10
+  Alt-Ergo :       1 (9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/143/143.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/143/143.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/143/143.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/143/143.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/143/143.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/143/143.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/143/143.acsl.c, line 19):
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(w) /\ is_sint32(z).
+  (* Residual *)
+  When: z != 0.
+  (* Residual *)
+  When: w != 0.
+  (* Invariant *)
+  Have: (0 <= w) /\ (w <= 1).
+  (* Invariant *)
+  Have: (0 <= z) /\ (z <= 1).
+  (* Invariant *)
+  Have: z != w.
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: false.
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (10ms) (28340)
+Prover Alt-Ergo  returns Valid (Qed:20ms) (9ms) (26)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/143/143.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/143/143.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/143/143.acsl.c, line 20) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/143/143.acsl.c, line 20) (2/2):
+Call Result at line 22
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/143/143.acsl.c:3: Warning: 
+  No 'assigns' specification for function 'unknown2'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/143/143.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

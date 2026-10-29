@@ -1,0 +1,80 @@
+[kernel] Parsing output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 7 goals scheduled
+[wp] Proved goals:    7 / 7
+  Qed:             6
+  Alt-Ergo :       1 (8ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 2) in 'reset_1st_if_2nd_is_true'' in 'main' at call 'reset_1st_if_2nd_is_true' (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 16)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 3) in 'reset_1st_if_2nd_is_true'' in 'main' at call 'reset_1st_if_2nd_is_true' (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 16)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 4) in 'reset_1st_if_2nd_is_true'' in 'main' at call 'reset_1st_if_2nd_is_true' (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 16)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function reset_1st_if_2nd_is_true
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 6) in 'reset_1st_if_2nd_is_true':
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 7) in 'reset_1st_if_2nd_is_true':
+Let x = Mint_0[b].
+Let x_1 = Mint_0[a].
+Assume {
+  Type: is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: x != 0.
+  (* Goal *)
+  When: Mint_0[a <- 0][b] = 0.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, b, 1).
+  (* Pre-condition *)
+  Have: b != a.
+}
+Prove: x_1 = 0.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (107506)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (8ms) (25)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c, line 5) in 'reset_1st_if_2nd_is_true':
+Effect at line 11
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/frama-c-wp-tutorial-en_7/frama-c-wp-tutorial-en_7.acsl.c:13: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

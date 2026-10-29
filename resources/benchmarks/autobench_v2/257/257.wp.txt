@@ -1,0 +1,140 @@
+[kernel] Parsing output/autobench_v2/257/257.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:            12
+  Alt-Ergo :       3 (6ms-9ms-13ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/257/257.acsl.c, line 79):
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/257/257.acsl.c, line 83):
+Assume {
+  Type: is_sint32(result_0).
+  (* Call 'verify_correct_time_use' *)
+  Have: result_0 <= 0.
+}
+Prove: (result_0 = 0) \/ (result_0 < 0).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (27342)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (12)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function verify_correct_time_use
+------------------------------------------------------------
+
+Goal Complete behaviors 'default', 'normal':
+Assume { Type: is_uint8(time_type_0). }
+Prove: (time_type_0 = 23) \/ (time_type_0 = 24) \/
+    ((time_type_0 != 23) /\ (time_type_0 != 24)).
+Prover Z3 4.15.4 returns Valid (10ms) (27249)
+Prover Alt-Ergo  returns Valid (6ms) (10)
+
+------------------------------------------------------------
+
+Goal Disjoint behaviors 'default', 'normal':
+Assume { Type: is_uint8(time_type_0). }
+Prove: (time_type_0 = 23) \/ (time_type_0 = 24) \/
+    ((time_type_0 != 23) /\ (time_type_0 != 24)).
+Prover Z3 4.15.4 returns Valid (10ms) (27249)
+Prover Alt-Ergo  returns Valid (13ms) (10)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'verify_correct_time_use' (1/5):
+Effect at line 59
+Tags: Case 23.
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'verify_correct_time_use' (2/5):
+Effect at line 59
+Tags: Case 23.
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'verify_correct_time_use' (3/5):
+Effect at line 62
+Tags: Case 24.
+Prove: true.
+Prover Qed returns Valid (0.78ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'verify_correct_time_use' (4/5):
+Effect at line 62
+Tags: Case 24.
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'verify_correct_time_use' (5/5):
+Effect at line 65
+Tags: Default.
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function verify_correct_time_use with behavior default
+------------------------------------------------------------
+
+Goal Post-condition for 'default' (file output/autobench_v2/257/257.acsl.c, line 49) in 'verify_correct_time_use' (1/3):
+Tags: Default.
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Post-condition for 'default' (file output/autobench_v2/257/257.acsl.c, line 49) in 'verify_correct_time_use' (2/3):
+Tags: Case 24.
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Post-condition for 'default' (file output/autobench_v2/257/257.acsl.c, line 49) in 'verify_correct_time_use' (3/3):
+Tags: Case 23.
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function verify_correct_time_use with behavior normal
+------------------------------------------------------------
+
+Goal Post-condition for 'normal' (file output/autobench_v2/257/257.acsl.c, line 46) in 'verify_correct_time_use' (1/3):
+Tags: Default.
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Post-condition for 'normal' (file output/autobench_v2/257/257.acsl.c, line 46) in 'verify_correct_time_use' (2/3):
+Tags: Case 24.
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Post-condition for 'normal' (file output/autobench_v2/257/257.acsl.c, line 46) in 'verify_correct_time_use' (3/3):
+Tags: Case 23.
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/257/257.acsl.c:74: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

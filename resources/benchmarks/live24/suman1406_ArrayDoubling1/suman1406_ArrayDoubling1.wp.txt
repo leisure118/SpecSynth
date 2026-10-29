@@ -1,0 +1,283 @@
+[kernel] Parsing output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:            11
+  Alt-Ergo :       6 (6ms-16ms-29ms)
+------------------------------------------------------------
+  Function arraydouble
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 5) in 'arraydouble':
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32(n) /\ is_sint32(p).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (p <= n) /\ (0 <= p).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_4 = shift_sint32(a, i_1) in ((0 <= i_1) ->
+      ((i_1 < p) -> (a_2[a_4] = (2 * Mint_0[a_4])))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_4 = shift_sint32(a, i_1) in ((i_1 < n) ->
+      ((p <= i_1) -> (a_2[a_4] = Mint_0[a_4]))).
+  (* Else *)
+  Have: n <= p.
+}
+Prove: a_2[a_3] = (2 * Mint_0[a_3]).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (95282)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (12ms) (63)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 11):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(a, p).
+Let a_4 = a_2[a_3].
+Let a_5 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32(n) /\ is_sint32(p) /\ is_sint32(1 + p) /\ is_sint32(a_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= p).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (p <= n) /\ (0 <= p).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_6 = shift_sint32(a, i_1) in ((0 <= i_1) ->
+      ((i_1 < p) -> (a_2[a_6] = (2 * Mint_0[a_6])))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_6 = shift_sint32(a, i_1) in ((i_1 < n) ->
+      ((p <= i_1) -> (a_2[a_6] = Mint_0[a_6]))).
+  (* Then *)
+  Have: p < n.
+  (* Invariant *)
+  Have: (-1) <= p.
+}
+Prove: a_2[a_3 <- 2 * a_4][a_5] = (2 * Mint_0[a_5]).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (40ms) (265193)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (17ms) (158)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 12):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(a, p).
+Let a_4 = a_2[a_3].
+Let a_5 = a_2[a_3 <- 2 * a_4].
+Let a_6 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32(n) /\ is_sint32(p) /\ is_sint32(1 + p) /\ is_sint32(a_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i < n) /\ (p < i).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (p <= n) /\ (0 <= p).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_7 = shift_sint32(a, i_1) in ((0 <= i_1) ->
+      ((i_1 < p) -> (a_2[a_7] = (2 * Mint_0[a_7])))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_7 = shift_sint32(a, i_1) in ((i_1 < n) ->
+      ((p <= i_1) -> (a_2[a_7] = Mint_0[a_7]))).
+  (* Then *)
+  Have: p < n.
+  (* Invariant *)
+  Have: (-1) <= p.
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_7 = shift_sint32(a, i_1) in ((0 <= i_1) ->
+      ((i_1 <= p) -> (a_5[a_7] = (2 * Mint_0[a_7])))).
+}
+Prove: a_5[a_6] = Mint_0[a_6].
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (128498)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (15ms) (160)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 13) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 13) (2/3):
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 13) (3/3):
+Effect at line 18
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let x = p - 1.
+Let a_3 = shift_sint32(a, x).
+Let a_4 = a_2[a_3].
+Let a_5 = a_2[a_3 <- 2 * a_4].
+Assume {
+  Type: is_sint32(n) /\ is_sint32(p) /\ is_sint32(x) /\ is_sint32(a_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 < p) /\ (p <= (1 + n)).
+  (* Invariant *)
+  Have: forall i : Z. let a_6 = shift_sint32(a, i) in ((0 <= i) ->
+      (((2 + i) <= p) -> (a_2[a_6] = (2 * Mint_0[a_6])))).
+  (* Invariant *)
+  Have: forall i : Z. let a_6 = shift_sint32(a, i) in ((i < n) ->
+      ((p <= (1 + i)) -> (a_2[a_6] = Mint_0[a_6]))).
+  (* Then *)
+  Have: p <= n.
+  (* Invariant *)
+  Have: forall i : Z. let a_6 = shift_sint32(a, i) in ((0 <= i) ->
+      ((i < p) -> (a_5[a_6] = (2 * Mint_0[a_6])))).
+  (* Invariant *)
+  Have: forall i : Z. let a_6 = shift_sint32(a, i) in ((i < n) ->
+      ((p <= i) -> (a_5[a_6] = Mint_0[a_6]))).
+}
+Prove: included(a_3, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (71564)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (29ms) (177)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 4) in 'arraydouble':
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 24):
+Assume {
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Initializer *)
+  Init: a[0] = 0.
+  (* Initializer *)
+  Init: a[1] = 1.
+  (* Initializer *)
+  Init: a[2] = 2.
+  (* Initializer *)
+  Init: a[3] = 3.
+  (* Initializer *)
+  Init: a[4] = 4.
+}
+Prove: a[i] = i.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (19353)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (29)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 26):
+Let x = a[0].
+Let x_1 = a[1].
+Let x_2 = a[2].
+Let x_3 = a[3].
+Let x_4 = a[4].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(x_4).
+  (* Initializer *)
+  Init: a_1[0] = 0.
+  (* Initializer *)
+  Init: a_1[1] = 1.
+  (* Initializer *)
+  Init: a_1[2] = 2.
+  (* Initializer *)
+  Init: a_1[3] = 3.
+  (* Initializer *)
+  Init: a_1[4] = 4.
+  (* Assertion *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 4) -> (a_1[i] = i))).
+  (* Call 'arraydouble' *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 4) -> (a[i] = (2 * a_1[i])))).
+}
+Prove: (x = 0) /\ (x_1 = 2) /\ (x_2 = 4) /\ (x_3 = 6) /\ (x_4 = 8).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (31060)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (15ms) (117)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 2) in 'arraydouble'' in 'main' at call 'arraydouble' (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 25)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 3) in 'arraydouble'' in 'main' at call 'arraydouble' (file output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c, line 25)
+:
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/suman1406_ArrayDoubling1/suman1406_ArrayDoubling1.acsl.c:21: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

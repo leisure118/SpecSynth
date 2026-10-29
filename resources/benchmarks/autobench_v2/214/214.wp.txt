@@ -1,0 +1,263 @@
+[kernel] Parsing output/autobench_v2/214/214.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 16 goals scheduled
+[wp] Proved goals:   16 / 16
+  Qed:             9
+  Alt-Ergo :       7 (7ms-8ms-11ms)
+------------------------------------------------------------
+  Function array_max_advanced
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/214/214.acsl.c, line 8) in 'array_max_advanced':
+Let a = shift_sint32(arr_0, 0).
+Assume {
+  Type: is_sint32(array_max_advanced_0) /\ is_sint32(i_1) /\ is_sint32(n) /\
+      is_sint32(Mint_0[a]).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(arr_0, i_2)] <= array_max_advanced_0))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: Mint_0[shift_sint32(arr_0, i)] <= array_max_advanced_0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (94479)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (51)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/214/214.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/214/214.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/214/214.acsl.c, line 15):
+Let x = Mint_0[shift_sint32(arr_0, i_1)].
+Let a = shift_sint32(arr_0, 0).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(max_1) /\ is_sint32(n) /\
+      is_sint32(1 + i_1) /\ is_sint32(Mint_0[a]) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(arr_0, i_2)] <= max_1))).
+  (* Then *)
+  Have: i_1 < n.
+  If max_1 < x
+  Then { Have: x = max_0. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: Mint_0[shift_sint32(arr_0, i)] <= max_0.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (20ms) (196679)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (11ms) (122)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/214/214.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/214/214.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'array_max_advanced':
+Effect at line 19
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/214/214.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/214/214.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/214/214.acsl.c, line 31):
+Assume {
+  Type: is_sint32(max_0).
+  (* Initializer *)
+  Init: arr_0[0] = 1.
+  (* Initializer *)
+  Init: arr_0[1] = 2.
+  (* Initializer *)
+  Init: arr_0[2] = 3.
+  (* Initializer *)
+  Init: arr_0[3] = 4.
+  (* Initializer *)
+  Init: arr_0[4] = 5.
+  (* Call 'array_max_advanced' *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 4) -> (arr_0[i] <= max_0))).
+}
+Prove: 0 < max_0.
+Prover Z3 4.15.4 returns Valid (Qed:0.67ms) (10ms) (28964)
+Prover Alt-Ergo  returns Valid (Qed:0.67ms) (7ms) (33)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/214/214.acsl.c, line 32):
+Assume {
+  Type: is_sint32(max_0).
+  (* Initializer *)
+  Init: arr_0[0] = 1.
+  (* Initializer *)
+  Init: arr_0[1] = 2.
+  (* Initializer *)
+  Init: arr_0[2] = 3.
+  (* Initializer *)
+  Init: arr_0[3] = 4.
+  (* Initializer *)
+  Init: arr_0[4] = 5.
+  (* Call 'array_max_advanced' *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 4) -> (arr_0[i] <= max_0))).
+  (* Assertion *)
+  Have: 0 < max_0.
+}
+Prove: 2 <= max_0.
+Prover Z3 4.15.4 returns Valid (Qed:0.96ms) (10ms) (29064)
+Prover Alt-Ergo  returns Valid (Qed:0.96ms) (7ms) (38)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/214/214.acsl.c, line 33):
+Assume {
+  Type: is_sint32(max_0).
+  (* Initializer *)
+  Init: arr_0[0] = 1.
+  (* Initializer *)
+  Init: arr_0[1] = 2.
+  (* Initializer *)
+  Init: arr_0[2] = 3.
+  (* Initializer *)
+  Init: arr_0[3] = 4.
+  (* Initializer *)
+  Init: arr_0[4] = 5.
+  (* Call 'array_max_advanced' *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 4) -> (arr_0[i] <= max_0))).
+  (* Assertion *)
+  Have: 0 < max_0.
+  (* Assertion *)
+  Have: 2 <= max_0.
+}
+Prove: 3 <= max_0.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (29160)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (7ms) (41)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/214/214.acsl.c, line 34):
+Assume {
+  Type: is_sint32(max_0).
+  (* Initializer *)
+  Init: arr_0[0] = 1.
+  (* Initializer *)
+  Init: arr_0[1] = 2.
+  (* Initializer *)
+  Init: arr_0[2] = 3.
+  (* Initializer *)
+  Init: arr_0[3] = 4.
+  (* Initializer *)
+  Init: arr_0[4] = 5.
+  (* Call 'array_max_advanced' *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 4) -> (arr_0[i] <= max_0))).
+  (* Assertion *)
+  Have: 0 < max_0.
+  (* Assertion *)
+  Have: 2 <= max_0.
+  (* Assertion *)
+  Have: 3 <= max_0.
+}
+Prove: 4 <= max_0.
+Prover Z3 4.15.4 returns Valid (Qed:0.79ms) (10ms) (29257)
+Prover Alt-Ergo  returns Valid (Qed:0.79ms) (7ms) (39)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/214/214.acsl.c, line 35):
+Assume {
+  Type: is_sint32(max_0).
+  (* Initializer *)
+  Init: arr_0[0] = 1.
+  (* Initializer *)
+  Init: arr_0[1] = 2.
+  (* Initializer *)
+  Init: arr_0[2] = 3.
+  (* Initializer *)
+  Init: arr_0[3] = 4.
+  (* Initializer *)
+  Init: arr_0[4] = 5.
+  (* Call 'array_max_advanced' *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= 4) -> (arr_0[i] <= max_0))).
+  (* Assertion *)
+  Have: 0 < max_0.
+  (* Assertion *)
+  Have: 2 <= max_0.
+  (* Assertion *)
+  Have: 3 <= max_0.
+  (* Assertion *)
+  Have: 4 <= max_0.
+}
+Prove: 5 <= max_0.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (29354)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (7ms) (40)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/214/214.acsl.c, line 6) in 'array_max_advanced'' in 'main' at initialization of 'max' (file output/autobench_v2/214/214.acsl.c, line 30)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/214/214.acsl.c, line 7) in 'array_max_advanced'' in 'main' at initialization of 'max' (file output/autobench_v2/214/214.acsl.c, line 30)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/214/214.acsl.c:28: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

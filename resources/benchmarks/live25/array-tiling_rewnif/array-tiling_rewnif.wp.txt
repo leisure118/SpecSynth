@@ -1,0 +1,482 @@
+[kernel] Parsing output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:12: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 18 goals scheduled
+[wp] Proved goals:   18 / 18
+  Qed:            12
+  Alt-Ergo :       6 (10ms-12ms-16ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.88ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 20):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, SIZE_0).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (havoc(Mint_undef_0, Mint_1, a_1, SIZE_0)[shift_sint32(a, i_2)] = i_2))).
+  (* Then *)
+  Have: i < SIZE_0.
+  If (2 + i) <= SIZE_0
+  Then {
+    Have: havoc(Mint_undef_0, Mint_1, a_1, SIZE_0)[shift_sint32(a, 1 + i)
+            <- i] = Mint_0.
+  }
+  Else { Have: havoc(Mint_undef_0, Mint_1, a_1, 1 + i) = Mint_0. }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: Mint_0[shift_sint32(a, i) <- i][shift_sint32(a, i_1)] = i_1.
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (40ms) (374710)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (16ms) (270)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 20):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 33):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 33):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 34):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let a_3 = a_2[shift_sint32(a, i_2)].
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(1 + i_2) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, SIZE_0).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_2[shift_sint32(a, i_3)] = i_3))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < SIZE_0) ->
+      (a_2[shift_sint32(a, i_3)] = i_3))).
+  (* Invariant *)
+  Have: (i_2 <= SIZE_0) /\ (0 <= i_2).
+  (* Then *)
+  Have: i_2 < SIZE_0.
+  (* Assertion *)
+  Have: i_2 <= a_3.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a_2[shift_sint32(a, i)] = i.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (20ms) (127302)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (100)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 34):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, SIZE_0).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_2[shift_sint32(a, i_2)] = i_2))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+}
+Prove: a_2[shift_sint32(a, i)] = i.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (95174)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (71)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 40):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let a_3 = a_2[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, SIZE_0).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_2[shift_sint32(a, i_2)] = i_2))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_2[shift_sint32(a, i_2)] = i_2))).
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Then *)
+  Have: i < SIZE_0.
+}
+Prove: i <= a_3.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (96754)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (90)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 21) (1/4):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 21) (2/4):
+Effect at line 24
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 21) (3/4):
+Effect at line 28
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let a_3 = shift_sint32(a, i).
+Let x = i - 1.
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, SIZE_0).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + SIZE_0)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint32(a, i_1)] = i_1))).
+  (* Then *)
+  Have: i <= SIZE_0.
+  (* Then *)
+  Have: i < SIZE_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[a_3 <- x][shift_sint32(a, x) <- x][shift_sint32(a, i_1)] = i_1))).
+}
+Prove: included(a_3, 1, a_1, SIZE_0).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (80435)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (12ms) (170)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 21) (4/4):
+Effect at line 30
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = i - 1.
+Let a_1 = shift_sint32(a, x).
+Let a_2 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_1, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_2, SIZE_0).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + SIZE_0)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (havoc(Mint_undef_0, Mint_0, a_2, SIZE_0)[shift_sint32(a, i_1)] = i_1))).
+  (* Then *)
+  Have: i <= SIZE_0.
+  If i < SIZE_0
+  Then {
+    Have: havoc(Mint_undef_0, Mint_0, a_2, SIZE_0)[shift_sint32(a, i) <- x] =
+        Mint_1.
+  }
+  Else { Have: havoc(Mint_undef_0, Mint_0, a_2, SIZE_0) = Mint_1. }
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_1[a_1 <- x][shift_sint32(a, i_1)] = i_1))).
+}
+Prove: included(a_1, 1, a_2, SIZE_0).
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (69999)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (12ms) (189)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 35):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 24):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 24):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 38):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c, line 38):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-tiling_rewnif/array-tiling_rewnif.acsl.c:10: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

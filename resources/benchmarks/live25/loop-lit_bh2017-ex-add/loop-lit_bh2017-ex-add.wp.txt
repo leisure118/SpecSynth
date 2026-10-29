@@ -1,0 +1,167 @@
+[kernel] Parsing output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c:20: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:            11
+  Alt-Ergo :       2 (10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 12):
+Assume {
+  Type: is_sint32(m) /\ is_sint32(n) /\ is_sint32(n_1) /\ is_sint32(tmp_0) /\
+      is_sint32(tmp_0_0) /\ is_sint32(tmp_1_0) /\ is_sint32(tmp_2_0) /\
+      is_sint32(1 + m).
+  (* Residual *)
+  When: m <= 59.
+  (* Residual *)
+  When: tmp_0_0 != 0.
+  (* Residual *)
+  When: tmp_0 != 0.
+  (* Invariant *)
+  Have: (0 <= m) /\ (m <= 60).
+  (* Invariant *)
+  Have: (0 <= n_1) /\ (n_1 <= 60).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_2_0) /\ (tmp_2_0 <= 2147483646).
+  If tmp_2_0 != 0
+  Then {
+    Have: n_1 = n_2.
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+    If tmp_1_0 != 0
+    Then { Have: n_2 = n. If n <= 59 Else { Have: n = 60. } }
+  }
+}
+Prove: (-1) <= m.
+Prover Z3 4.15.4 returns Valid (Qed:52ms) (10ms) (30744)
+Prover Alt-Ergo  returns Valid (Qed:52ms) (10ms) (49)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 13):
+Assume {
+  Type: is_sint32(m) /\ is_sint32(m_1) /\ is_sint32(m_2) /\ is_sint32(m_3) /\
+      is_sint32(n) /\ is_sint32(tmp_0) /\ is_sint32(tmp_0_0) /\
+      is_sint32(tmp_1_0) /\ is_sint32(tmp_2_0) /\ is_sint32(1 + n).
+  (* Residual *)
+  When: n <= 59.
+  (* Residual *)
+  When: tmp_2_0 != 0.
+  (* Residual *)
+  When: tmp_1_0 != 0.
+  (* Invariant *)
+  Have: (0 <= m_3) /\ (m_3 <= 60).
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= 60).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483646).
+  If tmp_0_0 != 0
+  Then {
+    Have: m_3 = m_4.
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+    If tmp_0 != 0
+    Then {
+      Have: m_4 = m_2.
+      If m_2 <= 59
+      Then { Have: m_2 = m_1. Have: (1 + m_1) = m. }
+      Else { Have: m_2 = 60. Have: m = 0. }
+    }
+    Else { Have: m_4 = m. }
+  }
+  Else { Have: m_3 = m. }
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_2_0) /\ (tmp_2_0 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= m) /\ (m <= 60).
+}
+Prove: (-1) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:61ms) (10ms) (31949)
+Prover Alt-Ergo  returns Valid (Qed:61ms) (10ms) (57)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 14) (1/5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 14) (2/5):
+Call Result at line 19
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 14) (3/5):
+Call Result at line 20
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 14) (4/5):
+Call Result at line 30
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c, line 14) (5/5):
+Call Result at line 31
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-lit_bh2017-ex-add/loop-lit_bh2017-ex-add.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

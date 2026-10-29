@@ -1,0 +1,399 @@
+[kernel] Parsing output/autobench_v2/198/198.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 20 goals scheduled
+[wp] Proved goals:   20 / 20
+  Qed:            12
+  Alt-Ergo :       6 (6ms-28ms)
+  Z3 4.15.4:       2 (20ms-40ms)
+------------------------------------------------------------
+  Function binarysearch
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/198/198.acsl.c, line 6) in 'binarysearch':
+Let x = high_0 + low_0.
+Let x_1 = x / 2.
+Let x_2 = Mint_0[shift_sint32(a, x_1)].
+Assume {
+  Type: is_sint32(high_0) /\ is_sint32(high_1) /\ is_sint32(low_0) /\
+      is_sint32(x_1) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: (2 + low_0) <= high_0.
+  (* Pre-condition *)
+  Have: 0 <= high_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), high_1).
+  (* Pre-condition *)
+  Have: forall i : Z. ((0 <= i) -> (((2 + i) <= high_1) ->
+      (Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, 1 + i)]))).
+  (* Admit *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i < high_1) -> ((i_1 <= i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: (high_0 <= high_1) /\ (low_0 < high_0) /\ ((-1) <= low_0).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= low_0) ->
+      (Mint_0[shift_sint32(a, i)] < x_2))).
+  (* Invariant *)
+  Have: forall i : Z. ((high_0 <= i) -> ((i < high_1) ->
+      (x_2 < Mint_0[shift_sint32(a, i)]))).
+}
+Prove: (x_1 < high_1) /\ ((-3) <= x).
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (20ms) (99965)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (19ms) (128)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/198/198.acsl.c, line 7) in 'binarysearch':
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/198/198.acsl.c, line 8) in 'binarysearch':
+Assume {
+  Type: is_sint32(high_0) /\ is_sint32(high_1) /\ is_sint32(low_0) /\
+      is_sint32(x) /\ is_sint32(Mint_0[shift_sint32(a, -1)]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < high_1).
+  (* Pre-condition *)
+  Have: 0 <= high_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), high_1).
+  (* Pre-condition *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= high_1) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, 1 + i_1)]))).
+  (* Admit *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_1 < high_1) ->
+      ((i_2 <= i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: (high_0 <= high_1) /\ (low_0 < high_0) /\ ((-1) <= low_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= low_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < x))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((high_0 <= i_1) -> ((i_1 < high_1) ->
+      (x < Mint_0[shift_sint32(a, i_1)]))).
+  If (2 + low_0) <= high_0
+  Then {
+    Have: ((high_0 + low_0) / 2) = (-1).
+    (* Then *)
+    Have: Mint_0[shift_sint32(a, -1)] = x.
+  }
+}
+Prove: Mint_0[shift_sint32(a, i)] != x.
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (40ms) (193234)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/198/198.acsl.c, line 18):
+Let x_1 = (high_1 + low_1) / 2.
+Let x_2 = Mint_0[shift_sint32(a, x_1)].
+Assume {
+  Type: is_sint32(high_1) /\ is_sint32(high_0) /\ is_sint32(low_1) /\
+      is_sint32(low_0) /\ is_sint32(n) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i : Z. ((0 <= i) -> (((2 + i) <= n) ->
+      (Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, 1 + i)]))).
+  (* Admit *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 <= i) -> ((i < n) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: (low_1 < high_1) /\ (high_1 <= n) /\ ((-1) <= low_1).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= low_1) ->
+      (Mint_0[shift_sint32(a, i)] < x))).
+  (* Invariant *)
+  Have: forall i : Z. ((high_1 <= i) -> ((i < n) ->
+      (x < Mint_0[shift_sint32(a, i)]))).
+  (* Then *)
+  Have: (2 + low_1) <= high_1.
+  (* Else *)
+  Have: x_2 != x.
+  If x_2 < x
+  Then { Have: (high_0 = high_1) /\ (((high_0 + low_1) / 2) = low_0). }
+  Else { Have: (low_0 = low_1) /\ (x_1 = high_0). }
+}
+Prove: (low_0 < high_0) /\ (high_0 <= n) /\ ((-1) <= low_0).
+Prover Z3 4.15.4 returns Valid (Qed:25ms) (20ms) (102379)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/198/198.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/198/198.acsl.c, line 19):
+Let x_1 = (high_0 + low_0) / 2.
+Let x_2 = Mint_0[shift_sint32(a, x_1)].
+Assume {
+  Type: is_sint32(high_0) /\ is_sint32(high_1) /\ is_sint32(high_2) /\
+      is_sint32(low_0) /\ is_sint32(low_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= low_1).
+  (* Pre-condition *)
+  Have: 0 <= high_2.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), high_2).
+  (* Pre-condition *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= high_2) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, 1 + i_1)]))).
+  (* Admit *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_1 < high_2) ->
+      ((i_2 <= i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: (high_0 <= high_2) /\ (low_0 < high_0) /\ ((-1) <= low_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= low_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < x))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((high_0 <= i_1) -> ((i_1 < high_2) ->
+      (x < Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: (2 + low_0) <= high_0.
+  (* Else *)
+  Have: x_2 != x.
+  If x_2 < x
+  Then { Have: (high_1 = high_0) /\ (((high_1 + low_0) / 2) = low_1). }
+  Else { Have: (low_1 = low_0) /\ (x_1 = high_1). }
+  (* Invariant *)
+  Have: (high_1 <= high_2) /\ (low_1 < high_1) /\ ((-1) <= low_1).
+}
+Prove: Mint_0[shift_sint32(a, i)] < x.
+Prover Alt-Ergo  returns Valid (Qed:43ms) (28ms) (311)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/198/198.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/198/198.acsl.c, line 20):
+Let x_1 = (high_0 + low_0) / 2.
+Let x_2 = Mint_0[shift_sint32(a, x_1)].
+Assume {
+  Type: is_sint32(high_0) /\ is_sint32(high_1) /\ is_sint32(high_2) /\
+      is_sint32(low_0) /\ is_sint32(low_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (high_1 <= i) /\ (i < high_2).
+  (* Pre-condition *)
+  Have: 0 <= high_2.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), high_2).
+  (* Pre-condition *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= high_2) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, 1 + i_1)]))).
+  (* Admit *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_1 < high_2) ->
+      ((i_2 <= i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: (high_0 <= high_2) /\ (low_0 < high_0) /\ ((-1) <= low_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= low_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < x))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((high_0 <= i_1) -> ((i_1 < high_2) ->
+      (x < Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: (2 + low_0) <= high_0.
+  (* Else *)
+  Have: x_2 != x.
+  If x_2 < x
+  Then { Have: (high_1 = high_0) /\ (((high_1 + low_0) / 2) = low_1). }
+  Else { Have: (low_1 = low_0) /\ (x_1 = high_1). }
+  (* Invariant *)
+  Have: (high_1 <= high_2) /\ (low_1 < high_1) /\ ((-1) <= low_1).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= low_1) ->
+      (Mint_0[shift_sint32(a, i_1)] < x))).
+}
+Prove: x < Mint_0[shift_sint32(a, i)].
+Prover Alt-Ergo  returns Valid (Qed:43ms) (24ms) (318)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/198/198.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/198/198.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'binarysearch' (1/4):
+Effect at line 24
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'binarysearch' (2/4):
+Effect at line 25
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'binarysearch' (3/4):
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'binarysearch' (4/4):
+Effect at line 33
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/198/198.acsl.c, line 24):
+Let x_1 = (high_1 + low_0) / 2.
+Let x_2 = Mint_0[shift_sint32(a, x_1)].
+Assume {
+  Type: is_sint32(high_1) /\ is_sint32(high_0) /\ is_sint32(high_2) /\
+      is_sint32(low_0) /\ is_sint32(low_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 <= high_2.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), high_2).
+  (* Pre-condition *)
+  Have: forall i : Z. ((0 <= i) -> (((2 + i) <= high_2) ->
+      (Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, 1 + i)]))).
+  (* Admit *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i < high_2) -> ((i_1 <= i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: (high_1 <= high_2) /\ (low_0 < high_1) /\ ((-1) <= low_0).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= low_0) ->
+      (Mint_0[shift_sint32(a, i)] < x))).
+  (* Invariant *)
+  Have: forall i : Z. ((high_1 <= i) -> ((i < high_2) ->
+      (x < Mint_0[shift_sint32(a, i)]))).
+  (* Then *)
+  Have: (2 + low_0) <= high_1.
+  (* Else *)
+  Have: x_2 != x.
+  If x_2 < x
+  Then { Have: (high_0 = high_1) /\ (x_1 = low_1). }
+  Else { Have: (low_1 = low_0) /\ (x_1 = high_0). }
+  (* Invariant *)
+  Have: (high_0 <= high_2) /\ (low_1 < high_0) /\ ((-1) <= low_1).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i <= low_1) ->
+      (Mint_0[shift_sint32(a, i)] < x))).
+  (* Invariant *)
+  Have: forall i : Z. ((high_0 <= i) -> ((i < high_2) ->
+      (x < Mint_0[shift_sint32(a, i)]))).
+}
+Prove: (high_0 + low_0) < (high_1 + low_1).
+Prover Z3 4.15.4 returns Valid (Qed:45ms) (30ms) (103645)
+Prover Alt-Ergo  returns Valid (Qed:45ms) (23ms) (171)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/198/198.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/198/198.acsl.c, line 40):
+Let x = arr_0[sum_0].
+Assume {
+  Type: is_sint32(sum_0) /\ is_sint32(x).
+  (* Initializer *)
+  Init: arr_0[0] = 1.
+  (* Initializer *)
+  Init: arr_0[1] = 2.
+  (* Initializer *)
+  Init: arr_0[2] = 3.
+  (* Initializer *)
+  Init: arr_0[3] = 4.
+  (* Initializer *)
+  Init: arr_0[4] = 5.
+  (* Call 'binarysearch' *)
+  Have: ((-1) <= sum_0) /\ (sum_0 <= 4) /\ (((0 <= sum_0) -> (x = 3))) /\
+      (((sum_0 = (-1)) ->
+       (forall i : Z. ((0 <= i) -> ((i <= 4) -> (arr_0[i] != 3)))))).
+}
+Prove: x = 3.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (29416)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (8ms) (47)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/198/198.acsl.c, line 2) in 'binarysearch'' in 'main' at initialization of 'sum' (file output/autobench_v2/198/198.acsl.c, line 39)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/198/198.acsl.c, line 3) in 'binarysearch'' in 'main' at initialization of 'sum' (file output/autobench_v2/198/198.acsl.c, line 39)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/198/198.acsl.c, line 4) in 'binarysearch'' in 'main' at initialization of 'sum' (file output/autobench_v2/198/198.acsl.c, line 39)
+:
+Assume {
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 3).
+  (* Initializer *)
+  Init: arr_0[0] = 1.
+  (* Initializer *)
+  Init: arr_0[1] = 2.
+  (* Initializer *)
+  Init: arr_0[2] = 3.
+  (* Initializer *)
+  Init: arr_0[3] = 4.
+  (* Initializer *)
+  Init: arr_0[4] = 5.
+}
+Prove: arr_0[i] <= arr_0[1 + i].
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (20556)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (6ms) (36)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/198/198.acsl.c:37: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

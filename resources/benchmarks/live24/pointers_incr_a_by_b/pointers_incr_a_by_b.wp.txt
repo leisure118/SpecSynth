@@ -1,0 +1,88 @@
+[kernel] Parsing output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             8
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function incr_a_by_b
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 5) in 'incr_a_by_b':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 6) in 'incr_a_by_b':
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 7) in 'incr_a_by_b':
+Let x = Mint_0[a].
+Let x_1 = Mint_0[b].
+Let x_2 = x + x_1.
+Let x_3 = Mint_0[a <- x_2][b].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1).
+  (* Pre-condition *)
+  Have: b != a.
+}
+Prove: x_3 = x_1.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (107805)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (25)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 4) in 'incr_a_by_b' (1/2):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 4) in 'incr_a_by_b' (2/2):
+Effect at line 11
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 2) in 'incr_a_by_b'' in 'main' at call 'incr_a_by_b' (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 16)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 3) in 'incr_a_by_b'' in 'main' at call 'incr_a_by_b' (file output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c, line 16)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/pointers_incr_a_by_b/pointers_incr_a_by_b.acsl.c:13: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

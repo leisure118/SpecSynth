@@ -1,0 +1,258 @@
+[kernel] Parsing output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:            11
+  Alt-Ergo :       6 (5ms-8ms-10ms)
+------------------------------------------------------------
+  Function check_ia5_string
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 13) in 'check_ia5_string':
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(len_0).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < len_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  Have: null != buf_0.
+  Have: len_0 != 0.
+  (* Invariant *)
+  Have: 0 <= len_0.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= len_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_uint8(buf_0, i_2)] <= 127))).
+  Have: len_0 <= i_1.
+}
+Prove: Mint_0[shift_uint8(buf_0, i)] <= 127.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (93789)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (45)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 14) in 'check_ia5_string':
+Assume {
+  Type: is_uint32(i) /\ is_uint32(len_0).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: len_0 != 0.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  If null = buf_0
+  Else {
+    (* Invariant *)
+    Have: 0 <= len_0.
+    (* Invariant *)
+    Have: (0 <= i) /\ (i <= len_0).
+    (* Invariant *)
+    Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+        (Mint_0[shift_uint8(buf_0, i_1)] <= 127))).
+    Have: i < len_0.
+    (* Then *)
+    Have: 128 <= Mint_0[shift_uint8(buf_0, i)].
+  }
+}
+Prove: exists i_1 : Z. (0 <= i_1) /\ (i_1 < len_0) /\
+    (128 <= Mint_0[shift_uint8(buf_0, i_1)]).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (94608)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (8ms) (71)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 25):
+Let x = Mint_0[shift_uint8(buf_0, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(len_0) /\ is_uint8(x).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  (* Else *)
+  Have: null != buf_0.
+  (* Else *)
+  Have: len_0 != 0.
+  (* Invariant *)
+  Have: 0 <= len_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= len_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_uint8(buf_0, i_1)] <= 127))).
+  (* Then *)
+  Have: i < len_0.
+  (* Else *)
+  Have: x <= 127.
+}
+Prove: to_uint32(1 + i) <= len_0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (94356)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (74)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 26):
+Let x = to_uint32(1 + i_1).
+Let x_1 = Mint_0[shift_uint8(buf_0, i_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(len_0) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  (* Else *)
+  Have: null != buf_0.
+  (* Else *)
+  Have: len_0 != 0.
+  (* Invariant *)
+  Have: 0 <= len_0.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= len_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_uint8(buf_0, i_2)] <= 127))).
+  (* Then *)
+  Have: i_1 < len_0.
+  (* Else *)
+  Have: x_1 <= 127.
+  (* Invariant *)
+  Have: x <= len_0.
+}
+Prove: Mint_0[shift_uint8(buf_0, i)] <= 127.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (50ms) (535086)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (92)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (1/5):
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid (0.60ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (2/5):
+Effect at line 30
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (3/5):
+Effect at line 30
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (4/5):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (5/5):
+Effect at line 36
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 30):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_uint8(buf_0, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(len_0) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  (* Else *)
+  Have: null != buf_0.
+  (* Else *)
+  Have: len_0 != 0.
+  (* Invariant *)
+  Have: 0 <= len_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= len_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_uint8(buf_0, i_1)] <= 127))).
+  (* Then *)
+  Have: i < len_0.
+  (* Else *)
+  Have: x_1 <= 127.
+  (* Invariant *)
+  Have: x <= len_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_uint8(buf_0, i_1)] <= 127))).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (95445)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (80)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 45):
+Assume {
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Call 'check_ia5_string' *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 4) -> (buf_0[i_1] <= 127))).
+}
+Prove: buf_0[i] <= 127.
+Prover Z3 4.15.4 returns Valid (Qed:0.64ms) (18892)
+Prover Alt-Ergo  returns Valid (Qed:0.64ms) (5ms) (15)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 11) in 'check_ia5_string'' in 'main' at initialization of 'ret' (file output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c, line 43)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/X509-parser_check_ia5_string/X509-parser_check_ia5_string.acsl.c:40: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,49 @@
+[kernel] Parsing output/live24/evdenis_small-examples_divmult/evdenis_small-examples_divmult.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 4 goals scheduled
+[wp] Proved goals:    4 / 4
+  Qed:             3
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function divmult
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/evdenis_small-examples_divmult/evdenis_small-examples_divmult.acsl.c, line 3) in 'divmult':
+Let x = (a % b) + (b * (a / b)).
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b) /\ is_sint32(x).
+  (* Pre-condition *)
+  Have: b != 0.
+}
+Prove: x = a.
+Prover Z3 4.15.4 returns Valid (Qed:0.89ms) (10ms) (28476)
+Prover Alt-Ergo  returns Valid (Qed:0.89ms) (7ms) (151)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'divmult':
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/evdenis_small-examples_divmult/evdenis_small-examples_divmult.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/evdenis_small-examples_divmult/evdenis_small-examples_divmult.acsl.c, line 2) in 'divmult'' in 'main' at initialization of 'c' (file output/live24/evdenis_small-examples_divmult/evdenis_small-examples_divmult.acsl.c, line 13)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/evdenis_small-examples_divmult/evdenis_small-examples_divmult.acsl.c:10: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

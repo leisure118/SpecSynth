@@ -1,0 +1,255 @@
+[kernel] Parsing output/live24/iota/iota.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 16 goals scheduled
+[wp] Proved goals:   16 / 16
+  Qed:            10
+  Alt-Ergo :       6 (7ms-13ms-18ms)
+------------------------------------------------------------
+  Function iota
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/iota/iota.acsl.c, line 23) in 'iota':
+Let a_1 = shift_sint32(a, 0).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(v - i).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      ((i + havoc(Mint_undef_0, Mint_0, a_1, n)[shift_sint32(a, i_2)]) =
+       (v + i_2)))).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: (i + havoc(Mint_undef_0, Mint_0, a_1, i)[shift_sint32(a, i_1)]) =
+    (i_1 + v).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (94917)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (67)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/iota/iota.acsl.c, line 29):
+Let x = n + v_1.
+Let a_1 = shift_sint32(a, 0).
+Let x_1 = -v_1.
+Assume {
+  Type: is_uint32(n) /\ is_sint32(v_1) /\ is_sint32(v) /\ is_uint32(v - v_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (v_1 <= v) /\ (v <= x).
+  (* Invariant *)
+  Have: forall i : Z. let x_2 = v_1 + i in ((0 <= i) -> ((x_2 < v) ->
+      (havoc(Mint_undef_0, Mint_0, a_1, n)[shift_sint32(a, i)] = x_2))).
+  (* Then *)
+  Have: v < x.
+}
+Prove: to_uint32(1 + v - v_1) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (76993)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (17ms) (82)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/iota/iota.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/iota/iota.acsl.c, line 30):
+Let x = -v.
+Let x_1 = to_uint32(1 + tmp_0 - v).
+Let x_2 = n + v.
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let x_3 = tmp_0 - v.
+Assume {
+  Type: is_uint32(n) /\ is_sint32(tmp_0) /\ is_sint32(v) /\
+      is_sint32(1 + tmp_0) /\ is_uint32(x_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x_1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (v <= tmp_0) /\ (tmp_0 <= x_2).
+  (* Invariant *)
+  Have: forall i_1 : Z. let x_4 = v + i_1 in ((0 <= i_1) -> ((x_4 < tmp_0) ->
+      (a_2[shift_sint32(a, i_1)] = x_4))).
+  (* Then *)
+  Have: tmp_0 < x_2.
+  (* Invariant *)
+  Have: x_1 <= n.
+}
+Prove: (x_1 + a_2[shift_sint32(a, x_3) <- tmp_0][shift_sint32(a, i)]) =
+    (1 + i + tmp_0).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (20ms) (96362)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (17ms) (159)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/iota/iota.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/iota/iota.acsl.c, line 31):
+Let x = 1 + i.
+Let x_1 = to_uint32(x).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(tmp_0) /\
+      is_sint32(1 + tmp_0) /\ is_sint32(tmp_0 - i).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      ((i + a_2[shift_sint32(a, i_1)]) = (tmp_0 + i_1)))).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x_1 <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x_1) ->
+      ((x_1 + a_2[shift_sint32(a, i) <- tmp_0][shift_sint32(a, i_1)]) =
+       (1 + tmp_0 + i_1)))).
+}
+Prove: x = x_1.
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (78771)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (10ms) (66)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/iota/iota.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (0.68ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/iota/iota.acsl.c, line 32) (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/iota/iota.acsl.c, line 32) (2/4):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/iota/iota.acsl.c, line 32) (3/4):
+Effect at line 36
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/iota/iota.acsl.c, line 32) (4/4):
+Effect at line 36
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let x = -v.
+Let x_1 = tmp_0 - v.
+Let a_3 = shift_sint32(a, x_1).
+Let x_2 = 1 + tmp_0.
+Let x_3 = n + v.
+Assume {
+  Type: is_uint32(n) /\ is_sint32(tmp_0) /\ is_sint32(v) /\ is_sint32(x_2) /\
+      is_uint32(x_1) /\ is_uint32(1 + tmp_0 - v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (v <= tmp_0) /\ (tmp_0 <= x_3).
+  (* Invariant *)
+  Have: forall i : Z. let x_4 = v + i in ((0 <= i) -> ((x_4 < tmp_0) ->
+      (a_2[shift_sint32(a, i)] = x_4))).
+  (* Then *)
+  Have: tmp_0 < x_3.
+  (* Invariant *)
+  Have: v <= x_2.
+  (* Invariant *)
+  Have: forall i : Z. let x_4 = v + i in ((0 <= i) -> ((x_4 <= tmp_0) ->
+      (a_2[a_3 <- tmp_0][shift_sint32(a, i)] = x_4))).
+}
+Prove: included(a_3, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (69228)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (18ms) (162)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/iota/iota.acsl.c, line 22) in 'iota':
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/iota/iota.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/iota/iota.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/iota/iota.acsl.c, line 42):
+Assume {
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9).
+  (* Call 'iota' *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 9) -> (a[i_1] = (1 + i_1)))).
+}
+Prove: a[i] = (1 + i).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (19074)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (16)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/iota/iota.acsl.c, line 21) in 'iota'' in 'main' at call 'iota' (file output/live24/iota/iota.acsl.c, line 41)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/iota/iota.acsl.c:39: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

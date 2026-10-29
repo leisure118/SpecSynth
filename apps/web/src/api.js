@@ -16,27 +16,6 @@ export function getModels() { return request('/models') }
 export function getDemoCases() { return request('/demo-cases') }
 export function getOverview() { return request('/overview') }
 
-export function uploadFile(file) {
-  var fd = new FormData(); fd.append('file', file)
-  return request('/files/upload', { method: 'POST', body: fd })
-}
-
-export function uploadBundle(files, manifest, rootDir) {
-  var fd = new FormData()
-  files.forEach(function(f){ fd.append('files', f) })
-  fd.append('manifest', JSON.stringify(manifest))
-  if (rootDir) fd.append('root_dir', rootDir)
-  return request('/files/upload-bundle', { method: 'POST', body: fd })
-}
-
-export function submitRun(mode, payload) {
-  return request('/runs/' + mode, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  })
-}
-
 export function listRuns(limit) { return request('/runs?limit=' + (limit || 20)) }
 export function getRun(id) { return request('/runs/' + id) }
 export function getRunResult(id) { return request('/runs/' + id + '/result') }
@@ -115,3 +94,29 @@ export function prepareRust(payload) { return request('/rust/prepare', {method:'
 export function getDatasetStats() { return request('/rust/dataset/stats') }
 export function getDatasetTasks(filters) { return request('/rust/dataset/tasks?'+new URLSearchParams(filters)) }
 export function getDatasetTask(id) { return request('/rust/dataset/tasks/'+encodeURIComponent(id)) }
+export function importExample(payload) { return request('/projects/from-demo', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}) }
+
+export function saveAssistant(id, config) { return request('/projects/' + id + '/assistant', {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(config)}) }
+
+export function getAgents() { return request('/agents') }
+export function listSkills() { return request('/skills') }
+export function createSkill(body) { return request('/skills',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}) }
+export function updateSkill(id,body) { return request('/skills/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}) }
+export function archiveSkill(id) { return request('/skills/'+id,{method:'DELETE'}) }
+
+export function importGithub(body) { return request('/projects/from-github',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}) }
+export function renameProject(id,body) { return request('/projects/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}) }
+export function duplicateProject(id) { return request('/projects/'+id+'/duplicate',{method:'POST'}) }
+export function archiveProject(id) { return request('/projects/'+id,{method:'DELETE'}) }
+export function runProjectBatch(id,body) { return request('/projects/'+id+'/batch-runs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}) }
+
+export function prepareAgent(id,body) { return request('/projects/'+id+'/agent-prompt',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}) }
+
+export function getSkill(id,version) { return request('/skills/'+id+'?version='+version) }
+
+export function listBenchmarks(){return request("/benchmarks")}
+export function getBenchmark(id){return request("/benchmarks/"+encodeURIComponent(id))}
+export function getBenchmarkFile(id,file){return request("/benchmarks/"+encodeURIComponent(id)+"/file?file="+encodeURIComponent(file))}
+
+export function getBenchmarkRuns(id,file){return request('/benchmarks/'+encodeURIComponent(id)+'/runs?file='+encodeURIComponent(file))}
+export function submitBenchmarkRun(id,body){return request('/benchmarks/'+encodeURIComponent(id)+'/runs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})}

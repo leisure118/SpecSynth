@@ -1,0 +1,971 @@
+[kernel] Parsing output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c:35: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 27 goals scheduled
+[wp] [Timeout] typed_main_loop_assigns_part2 (Qed 31ms) (Z3)
+[wp] Proved goals:   26 / 27
+  Qed:            13
+  Alt-Ergo :      13 (9ms-12ms-21ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 26):
+Let a_1 = global(G_pool_1120).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (Mint_0[shift_sint32(global(G_p_pool_1121), i_2)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_2 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_2]) != a_2)))) ->
+       (Mint_0[a_2] = Mint_1[a_2]))) /\
+      (forall a_2 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_2]) != a_2)))) ->
+       (Mptr_0[a_2] = Mptr_1[a_2]))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a[i_2] = shift_S4_S(a_1, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in
+      ((Mint_1[shiftfield_F4_S_n(a_2)] = 0) -> ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_2)], 1)))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a[i <- shift_S4_S(a_1, i)][i_1] = shift_S4_S(a_1, i_1).
+Prover Alt-Ergo  returns Valid (Qed:8ms) (10ms) (116)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 27):
+Let a_1 = global(G_pool_1120).
+Let m = a[i <- shift_S4_S(a_1, i)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (Mint_0[shift_sint32(global(G_p_pool_1121), i_2)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_2 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_2]) != a_2)))) ->
+       (Mint_0[a_2] = Mint_1[a_2]))) /\
+      (forall a_2 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_2]) != a_2)))) ->
+       (Mptr_0[a_2] = Mptr_1[a_2]))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a[i_2] = shift_S4_S(a_1, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in
+      ((Mint_1[shiftfield_F4_S_n(a_2)] = 0) -> ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_2)], 1)))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((0 <= i_2) ->
+      (m[i_2] = shift_S4_S(a_1, i_2)))).
+}
+Prove: valid_rw(Malloc_0, m[i_1], 2).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (70ms) (660796)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (14ms) (261)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 28):
+Let a_1 = global(G_pool_1120).
+Let a_2 = shift_S4_S(a_1, i).
+Let m = a[i <- a_2].
+Let a_3 = m[i_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: framed(Mptr_1) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (Mint_0[shiftfield_F4_S_n(a_2) <- v][shiftfield_F4_S_n(a_3)] = 0) /\
+      (0 <= i_1) /\ (i_1 <= i).
+  (* Initializer *)
+  Init: forall i_2 : Z. let a_4 = shift_S4_S(a_1, i_2) in ((0 <= i_2) ->
+      ((i_2 <= 999999) ->
+      ((Mint_1[shiftfield_F4_S_n(a_4)] = 0) /\
+       (Mptr_1[shiftfield_F4_S_p(a_4)] = null)))).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (Mint_1[shift_sint32(global(G_p_pool_1121), i_2)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_4 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_2]) != a_4)))) ->
+       (Mint_1[a_4] = Mint_0[a_4]))) /\
+      (forall a_4 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_2]) != a_4)))) ->
+       (Mptr_1[a_4] = Mptr_2[a_4]))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a[i_2] = shift_S4_S(a_1, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_4 = a[i_2] in
+      ((Mint_0[shiftfield_F4_S_n(a_4)] = 0) -> ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0, Mptr_2[shiftfield_F4_S_p(a_4)], 1)))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 0
+  Then {
+    Have: Mptr_2 = Mptr_3.
+    Have: Mptr_3[shiftfield_F4_S_p(a_2)
+            <- shift_sint32(global(G_p_pool_1121), i)] = Mptr_0.
+  }
+  Else {
+    Have: Mptr_2 = Mptr_4.
+    Have: Mptr_4[shiftfield_F4_S_p(a_2) <- null] = Mptr_0.
+  }
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((0 <= i_2) ->
+      (m[i_2] = shift_S4_S(a_1, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((0 <= i_2) ->
+      valid_rw(Malloc_0, m[i_2], 2))).
+}
+Prove: valid_rw(Malloc_0, Mptr_0[shiftfield_F4_S_p(a_3)], 1).
+Prover Alt-Ergo  returns Valid (Qed:27ms) (21ms) (471)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 47):
+Let x = Mint_0[shiftfield_F4_S_n(a[i_2])].
+Let a_1 = global(G_pool_1120).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 999999).
+  (* Initializer *)
+  Init: forall i_3 : Z. let a_2 = shift_S4_S(a_1, i_3) in ((0 <= i_3) ->
+      ((i_3 <= 999999) ->
+      ((Mint_1[shiftfield_F4_S_n(a_2)] = 0) /\
+       (Mptr_0[shiftfield_F4_S_p(a_2)] = null)))).
+  (* Initializer *)
+  Init: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (Mint_1[shift_sint32(global(G_p_pool_1121), i_3)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_2 : addr.
+       ((forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_3]) != a_2)))) ->
+       (Mint_1[a_2] = Mint_0[a_2]))) /\
+      (forall a_2 : addr.
+       ((forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_3]) != a_2)))) ->
+       (Mptr_0[a_2] = Mptr_1[a_2]))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a[i_3] = shift_S4_S(a_1, i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_2 = a[i_3] in
+      ((Mint_0[shiftfield_F4_S_n(a_2)] = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_2)], 1)))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (a[i_3] = shift_S4_S(a_1, i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_2 = a[i_3] in
+      ((Mint_0[shiftfield_F4_S_n(a_2)] = 0) -> ((0 <= i_3) ->
+      ((i_3 <= 999999) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_2)], 1)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Then *)
+  Have: i_2 <= 999999.
+  If x = 0
+  Then { (* Assertion *) Have: Mptr_1[shiftfield_F4_S_p(a[i_2])] != null. }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a[i] = shift_S4_S(a_1, i).
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (20ms) (230939)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (9ms) (85)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 47):
+Let a_1 = global(G_pool_1120).
+Assume {
+  Type: is_sint32(i_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 999999).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (Mint_0[shift_sint32(global(G_p_pool_1121), i_2)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_2 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_2]) != a_2)))) ->
+       (Mint_0[a_2] = Mint_1[a_2]))) /\
+      (forall a_2 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_2]) != a_2)))) ->
+       (Mptr_0[a_2] = Mptr_1[a_2]))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a[i_2] = shift_S4_S(a_1, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in
+      ((Mint_1[shiftfield_F4_S_n(a_2)] = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_2)], 1)))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+}
+Prove: a[i] = shift_S4_S(a_1, i).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (118448)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (57)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 48):
+Let x = Mint_0[shiftfield_F4_S_n(a[i_2])].
+Let a_1 = global(G_pool_1120).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 999999).
+  (* Initializer *)
+  Init: forall i_3 : Z. let a_2 = shift_S4_S(a_1, i_3) in ((0 <= i_3) ->
+      ((i_3 <= 999999) ->
+      ((Mint_1[shiftfield_F4_S_n(a_2)] = 0) /\
+       (Mptr_0[shiftfield_F4_S_p(a_2)] = null)))).
+  (* Initializer *)
+  Init: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (Mint_1[shift_sint32(global(G_p_pool_1121), i_3)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_2 : addr.
+       ((forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_3]) != a_2)))) ->
+       (Mint_1[a_2] = Mint_0[a_2]))) /\
+      (forall a_2 : addr.
+       ((forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_3]) != a_2)))) ->
+       (Mptr_0[a_2] = Mptr_1[a_2]))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a[i_3] = shift_S4_S(a_1, i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_2 = a[i_3] in
+      ((Mint_0[shiftfield_F4_S_n(a_2)] = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_2)], 1)))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (a[i_3] = shift_S4_S(a_1, i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_2 = a[i_3] in
+      ((Mint_0[shiftfield_F4_S_n(a_2)] = 0) -> ((0 <= i_3) ->
+      ((i_3 <= 999999) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_2)], 1)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Then *)
+  Have: i_2 <= 999999.
+  If x = 0
+  Then { (* Assertion *) Have: Mptr_1[shiftfield_F4_S_p(a[i_2])] != null. }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: valid_rw(Malloc_0, a[i], 2).
+Prover Alt-Ergo  returns Valid (Qed:16ms) (10ms) (86)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 48):
+Let a_1 = global(G_pool_1120).
+Assume {
+  Type: is_sint32(i_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 999999).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (Mint_0[shift_sint32(global(G_p_pool_1121), i_2)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_2 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_2]) != a_2)))) ->
+       (Mint_0[a_2] = Mint_1[a_2]))) /\
+      (forall a_2 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_2]) != a_2)))) ->
+       (Mptr_0[a_2] = Mptr_1[a_2]))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a[i_2] = shift_S4_S(a_1, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in
+      ((Mint_1[shiftfield_F4_S_n(a_2)] = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_2)], 1)))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (a[i_2] = shift_S4_S(a_1, i_2)))).
+}
+Prove: valid_rw(Malloc_0, a[i], 2).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (126925)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (59)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 49):
+Let x = Mint_0[shiftfield_F4_S_n(a[i_2])].
+Let a_1 = global(G_pool_1120).
+Let a_2 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_1) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (Mint_0[shiftfield_F4_S_n(a_2)] = 0) /\ (0 <= i) /\ (i <= 999999).
+  (* Initializer *)
+  Init: forall i_3 : Z. let a_3 = shift_S4_S(a_1, i_3) in ((0 <= i_3) ->
+      ((i_3 <= 999999) ->
+      ((Mint_1[shiftfield_F4_S_n(a_3)] = 0) /\
+       (Mptr_1[shiftfield_F4_S_p(a_3)] = null)))).
+  (* Initializer *)
+  Init: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (Mint_1[shift_sint32(global(G_p_pool_1121), i_3)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_3 : addr.
+       ((forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_3]) != a_3)))) ->
+       (Mint_1[a_3] = Mint_0[a_3]))) /\
+      (forall a_3 : addr.
+       ((forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_3]) != a_3)))) ->
+       (Mptr_1[a_3] = Mptr_0[a_3]))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a[i_3] = shift_S4_S(a_1, i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_3 = a[i_3] in
+      ((Mint_0[shiftfield_F4_S_n(a_3)] = 0) -> ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, Mptr_0[shiftfield_F4_S_p(a_3)], 1)))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (a[i_3] = shift_S4_S(a_1, i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_3 = a[i_3] in
+      ((Mint_0[shiftfield_F4_S_n(a_3)] = 0) -> ((0 <= i_3) ->
+      ((i_3 <= 999999) ->
+      valid_rw(Malloc_0, Mptr_0[shiftfield_F4_S_p(a_3)], 1)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Then *)
+  Have: i_2 <= 999999.
+  If x = 0
+  Then { (* Assertion *) Have: Mptr_0[shiftfield_F4_S_p(a[i_2])] != null. }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: valid_rw(Malloc_0, Mptr_0[shiftfield_F4_S_p(a_2)], 1).
+Prover Z3 4.15.4 returns Valid (Qed:18ms) (20ms) (235702)
+Prover Alt-Ergo  returns Valid (Qed:18ms) (10ms) (100)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 49):
+Let a_1 = global(G_pool_1120).
+Let a_2 = a[i].
+Assume {
+  Type: is_sint32(i_1).
+  (* Heap *)
+  Type: framed(Mptr_1) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (Mint_0[shiftfield_F4_S_n(a_2)] = 0) /\ (0 <= i) /\ (i <= 999999).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (Mint_1[shift_sint32(global(G_p_pool_1121), i_2)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_3 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_2]) != a_3)))) ->
+       (Mint_1[a_3] = Mint_0[a_3]))) /\
+      (forall a_3 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_2]) != a_3)))) ->
+       (Mptr_1[a_3] = Mptr_0[a_3]))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a[i_2] = shift_S4_S(a_1, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_3 = a[i_2] in
+      ((Mint_0[shiftfield_F4_S_n(a_3)] = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, Mptr_0[shiftfield_F4_S_p(a_3)], 1)))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (a[i_2] = shift_S4_S(a_1, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+}
+Prove: valid_rw(Malloc_0, Mptr_0[shiftfield_F4_S_p(a_2)], 1).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (20ms) (122579)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (9ms) (67)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 58):
+Let a_1 = a[i].
+Let a_2 = global(G_pool_1120).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i).
+  (* Heap *)
+  Type: framed(Mptr_1) /\ linked(Malloc_0).
+  (* Initializer *)
+  Init: forall i_2 : Z. let a_3 = shift_S4_S(a_2, i_2) in ((0 <= i_2) ->
+      ((i_2 <= 999999) ->
+      ((Mint_0[shiftfield_F4_S_n(a_3)] = 0) /\
+       (Mptr_1[shiftfield_F4_S_p(a_3)] = null)))).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (Mint_0[shift_sint32(global(G_p_pool_1121), i_2)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_3 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_2]) != a_3)))) ->
+       (Mint_0[a_3] = Mint_1[a_3]))) /\
+      (forall a_3 : addr.
+       ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_2]) != a_3)))) ->
+       (Mptr_1[a_3] = Mptr_0[a_3]))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a[i_2] = shift_S4_S(a_2, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_3 = a[i_2] in
+      ((Mint_1[shiftfield_F4_S_n(a_3)] = 0) -> ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, Mptr_0[shiftfield_F4_S_p(a_3)], 1)))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (a[i_2] = shift_S4_S(a_2, i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_3 = a[i_2] in
+      ((Mint_1[shiftfield_F4_S_n(a_3)] = 0) -> ((0 <= i_2) ->
+      ((i_2 <= 999999) ->
+      valid_rw(Malloc_0, Mptr_0[shiftfield_F4_S_p(a_3)], 1)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+  (* Then *)
+  Have: Mint_1[shiftfield_F4_S_n(a_1)] = 0.
+}
+Prove: Mptr_0[shiftfield_F4_S_p(a_1)] != null.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (20ms) (161817)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (11ms) (154)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 29) (1/5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 29) (2/5):
+Effect at line 32
+Let a_1 = global(G_pool_1120).
+Let a_2 = shift_S4_S(a_1, i).
+Let m = a[i <- a_2].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Initializer *)
+  Init: forall i_1 : Z. let a_3 = shift_S4_S(a_1, i_1) in ((0 <= i_1) ->
+      ((i_1 <= 999999) ->
+      ((Mint_0[shiftfield_F4_S_n(a_3)] = 0) /\
+       (Mptr_0[shiftfield_F4_S_p(a_3)] = null)))).
+  (* Initializer *)
+  Init: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      (Mint_0[shift_sint32(global(G_p_pool_1121), i_1)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_3 : addr.
+       ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_1]) != a_3)))) ->
+       (Mint_0[a_3] = Mint_1[a_3]))) /\
+      (forall a_3 : addr.
+       ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_1]) != a_3)))) ->
+       (Mptr_0[a_3] = Mptr_1[a_3]))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a[i_1] = shift_S4_S(a_1, i_1)))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, a[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_3 = a[i_1] in
+      ((Mint_1[shiftfield_F4_S_n(a_3)] = 0) -> ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_3)], 1)))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 0
+  Then {
+    Have: Mptr_1 = Mptr_2.
+    Have: Mptr_2[shiftfield_F4_S_p(a_2)
+            <- shift_sint32(global(G_p_pool_1121), i)] = Mptr_3.
+  }
+  Else {
+    Have: Mptr_1 = Mptr_4.
+    Have: Mptr_4[shiftfield_F4_S_p(a_2) <- null] = Mptr_3.
+  }
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      (m[i_1] = shift_S4_S(a_1, i_1)))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      valid_rw(Malloc_0, m[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_3 = m[i_1] in
+      ((Mint_1[shiftfield_F4_S_n(a_2) <- v][shiftfield_F4_S_n(a_3)] = 0) ->
+      ((i_1 <= i) -> ((0 <= i_1) ->
+      valid_rw(Malloc_0, Mptr_3[shiftfield_F4_S_p(a_3)], 1)))).
+}
+Prove: (((exists i_1 : Z. (0 <= i_1) /\ (i_1 <= 999999) /\
+          (!invalid(Malloc_0, shiftfield_F4_S_n(a[i_1]), 1))) ->
+        ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) -> false))) \/
+         (forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+          (exists i_2 : Z.
+           (shiftfield_F4_S_n(m[i_2]) = shiftfield_F4_S_n(a[i_1])) /\
+           (0 <= i_2) /\ (i_2 <= 999999))))) \/
+         (forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+          (exists i_2 : Z.
+           (shiftfield_F4_S_p(m[i_2]) = shiftfield_F4_S_n(a[i_1])) /\
+           (0 <= i_2) /\ (i_2 <= 999999)))))))) /\
+    (((exists i_1 : Z. (0 <= i_1) /\ (i_1 <= 999999) /\
+       (!invalid(Malloc_0, shiftfield_F4_S_p(a[i_1]), 1))) ->
+     ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) -> false))) \/
+      (forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+       (exists i_2 : Z.
+        (shiftfield_F4_S_n(m[i_2]) = shiftfield_F4_S_p(a[i_1])) /\
+        (0 <= i_2) /\ (i_2 <= 999999))))) \/
+      (forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+       (exists i_2 : Z.
+        (shiftfield_F4_S_p(m[i_2]) = shiftfield_F4_S_p(a[i_1])) /\
+        (0 <= i_2) /\ (i_2 <= 999999)))))))).
+Prover Z3 4.15.4 returns Timeout (Qed:31ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:31ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 29) (3/5):
+Call Result at line 35
+Let a_1 = global(G_pool_1120).
+Let x = i - 1.
+Let a_2 = shift_S4_S(a_1, x).
+Let a_3 = shiftfield_F4_S_n(a_2).
+Let m = a[x <- a_2].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Initializer *)
+  Init: forall i_1 : Z. let a_4 = shift_S4_S(a_1, i_1) in ((0 <= i_1) ->
+      ((i_1 <= 999999) ->
+      ((Mint_0[shiftfield_F4_S_n(a_4)] = 0) /\
+       (Mptr_0[shiftfield_F4_S_p(a_4)] = null)))).
+  (* Initializer *)
+  Init: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      (Mint_0[shift_sint32(global(G_p_pool_1121), i_1)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_4 : addr.
+       ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_1]) != a_4)))) ->
+       (Mint_0[a_4] = Mint_1[a_4]))) /\
+      (forall a_4 : addr.
+       ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_1]) != a_4)))) ->
+       (Mptr_0[a_4] = Mptr_1[a_4]))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= 1000001).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a[i_1] = shift_S4_S(a_1, i_1)))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      valid_rw(Malloc_0, a[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_4 = a[i_1] in
+      ((Mint_1[shiftfield_F4_S_n(a_4)] = 0) -> ((0 <= i_1) ->
+      (((2 + i_1) <= i) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_4)], 1)))).
+  (* Then *)
+  Have: i <= 1000000.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 0
+  Then {
+    Have: Mptr_1 = Mptr_2.
+    Have: Mptr_2[shiftfield_F4_S_p(a_2)
+            <- shift_sint32(global(G_p_pool_1121), x)] = Mptr_3.
+  }
+  Else {
+    Have: Mptr_1 = Mptr_4.
+    Have: Mptr_4[shiftfield_F4_S_p(a_2) <- null] = Mptr_3.
+  }
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (m[i_1] = shift_S4_S(a_1, i_1)))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, m[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_4 = m[i_1] in
+      ((Mint_1[a_3 <- v][shiftfield_F4_S_n(a_4)] = 0) -> ((0 <= i_1) ->
+      ((i_1 < i) -> valid_rw(Malloc_0, Mptr_3[shiftfield_F4_S_p(a_4)], 1)))).
+}
+Prove: (exists i_1 : Z. (shiftfield_F4_S_n(m[i_1]) = a_3) /\ (0 <= i_1) /\
+        (i_1 <= 999999)) \/
+    (exists i_1 : Z. (shiftfield_F4_S_p(m[i_1]) = a_3) /\ (0 <= i_1) /\
+     (i_1 <= 999999)).
+Prover Z3 4.15.4 returns Valid (Qed:27ms) (20ms) (139496)
+Prover Alt-Ergo  returns Valid (Qed:27ms) (16ms) (227)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 29) (4/5):
+Effect at line 38
+Let a_1 = global(G_pool_1120).
+Let x = i - 1.
+Let a_2 = shift_S4_S(a_1, x).
+Let m = a[x <- a_2].
+Let a_3 = shiftfield_F4_S_p(a_2).
+Let a_4 = global(G_p_pool_1121).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Initializer *)
+  Init: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      (Mint_0[shift_sint32(a_4, i_1)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_5 : addr.
+       ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_1]) != a_5)))) ->
+       (Mint_0[a_5] = Mint_1[a_5]))) /\
+      (forall a_5 : addr.
+       ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_1]) != a_5)))) ->
+       (Mptr_0[a_5] = Mptr_1[a_5]))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= 1000001).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a[i_1] = shift_S4_S(a_1, i_1)))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      valid_rw(Malloc_0, a[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a[i_1] in
+      ((Mint_1[shiftfield_F4_S_n(a_5)] = 0) -> ((0 <= i_1) ->
+      (((2 + i_1) <= i) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_5)], 1)))).
+  (* Then *)
+  Have: i <= 1000000.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (m[i_1] = shift_S4_S(a_1, i_1)))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, m[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = m[i_1] in
+      ((Mint_1[shiftfield_F4_S_n(a_2) <- 0][shiftfield_F4_S_n(a_5)] = 0) ->
+      ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0,
+        Mptr_1[a_3 <- shift_sint32(a_4, x)][shiftfield_F4_S_p(a_5)], 1)))).
+}
+Prove: (exists i_1 : Z. (shiftfield_F4_S_n(m[i_1]) = a_3) /\ (0 <= i_1) /\
+        (i_1 <= 999999)) \/
+    (exists i_1 : Z. (shiftfield_F4_S_p(m[i_1]) = a_3) /\ (0 <= i_1) /\
+     (i_1 <= 999999)).
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (106812)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (12ms) (158)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 29) (5/5):
+Effect at line 42
+Let a_1 = global(G_pool_1120).
+Let x = i - 1.
+Let a_2 = shift_S4_S(a_1, x).
+Let m = a[x <- a_2].
+Let a_3 = shiftfield_F4_S_p(a_2).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Initializer *)
+  Init: forall i_1 : Z. let a_4 = shift_S4_S(a_1, i_1) in ((0 <= i_1) ->
+      ((i_1 <= 999999) ->
+      ((Mint_0[shiftfield_F4_S_n(a_4)] = 0) /\
+       (Mptr_0[shiftfield_F4_S_p(a_4)] = null)))).
+  (* Initializer *)
+  Init: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      (Mint_0[shift_sint32(global(G_p_pool_1121), i_1)] = 0))).
+  (* Loop assigns ... *)
+  Have: cinits(Init_0) /\
+      (forall a_4 : addr.
+       ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+         (shiftfield_F4_S_n(a[i_1]) != a_4)))) ->
+       (Mint_0[a_4] = Mint_1[a_4]))) /\
+      (forall a_4 : addr.
+       ((forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+         (shiftfield_F4_S_p(a[i_1]) != a_4)))) ->
+       (Mptr_0[a_4] = Mptr_1[a_4]))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= 1000001).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a[i_1] = shift_S4_S(a_1, i_1)))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      valid_rw(Malloc_0, a[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_4 = a[i_1] in
+      ((Mint_1[shiftfield_F4_S_n(a_4)] = 0) -> ((0 <= i_1) ->
+      (((2 + i_1) <= i) ->
+      valid_rw(Malloc_0, Mptr_1[shiftfield_F4_S_p(a_4)], 1)))).
+  (* Then *)
+  Have: i <= 1000000.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  (* Else *)
+  Have: v != 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (m[i_1] = shift_S4_S(a_1, i_1)))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, m[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_4 = m[i_1] in
+      ((Mint_1[shiftfield_F4_S_n(a_2) <- v][shiftfield_F4_S_n(a_4)] = 0) ->
+      ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, Mptr_1[a_3 <- null][shiftfield_F4_S_p(a_4)], 1)))).
+}
+Prove: (exists i_1 : Z. (shiftfield_F4_S_n(m[i_1]) = a_3) /\ (0 <= i_1) /\
+        (i_1 <= 999999)) \/
+    (exists i_1 : Z. (shiftfield_F4_S_p(m[i_1]) = a_3) /\ (0 <= i_1) /\
+     (i_1 <= 999999)).
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (108617)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (13ms) (183)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c:18: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

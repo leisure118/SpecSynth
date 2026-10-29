@@ -1,0 +1,586 @@
+[kernel] Parsing output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c:49: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 82 goals scheduled
+[wp] Proved goals:   82 / 82
+  Qed:            79
+  Alt-Ergo :       3 (8ms-9ms)
+------------------------------------------------------------
+  Function elem_exists
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 21) in 'elem_exists':
+Let x = Mint_0[shift_sint32(set_0, i)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(size_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: region(set_0.base) <= 0.
+  (* Residual *)
+  When: i < size_0.
+  (* Invariant *)
+  Have: 0 <= size_0.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(set_0, i_1)] != x))).
+}
+Prove: exists i_1 : Z. (Mint_0[shift_sint32(set_0, i_1)] = x) /\
+    (0 <= i_1) /\ (i_1 < size_0).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (95736)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (35)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 22) in 'elem_exists':
+Let x = Mint_0[shift_sint32(set_0, i)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(size_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: region(set_0.base) <= 0.
+  (* Residual *)
+  When: i < size_0.
+  (* Invariant *)
+  Have: 0 <= size_0.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(set_0, i_1)] != x))).
+}
+Prove: exists i_1 : Z. (Mint_0[shift_sint32(set_0, i_1)] = x) /\
+    (0 <= i_1) /\ (i_1 < size_0).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (95736)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (35)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 28):
+Let x = Mint_0[shift_sint32(set_0, i_1)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(size_0) /\ is_sint32(value_0) /\
+      is_sint32(1 + i_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: region(set_0.base) <= 0.
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Invariant *)
+  Have: 0 <= size_0.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= size_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(set_0, i_2)] != value_0))).
+  (* Then *)
+  Have: i_1 < size_0.
+  (* Else *)
+  Have: x != value_0.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: Mint_0[shift_sint32(set_0, i)] != value_0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (30ms) (263385)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (60)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'elem_exists' (1/4):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'elem_exists' (2/4):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid (0.73ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'elem_exists' (3/4):
+Effect at line 33
+Prove: true.
+Prover Qed returns Valid (0.75ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'elem_exists' (4/4):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function insert
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 11) in 'insert':
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 12) in 'insert':
+Prove: true.
+Prover Qed returns Valid (0.60ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 10) in 'insert' (1/2):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 10) in 'insert' (2/2):
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (0.53ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 70):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 70):
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 79):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 79):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 80):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 80):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 89):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 89):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 90):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 90):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 96):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 96):
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 101):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 106):
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 106):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 107):
+Prove: true.
+Prover Qed returns Valid (0.66ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 107):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 113):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 113):
+Prove: true.
+Prover Qed returns Valid (0.75ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 118):
+Prove: true.
+Prover Qed returns Valid (0.65ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 54) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 54) (2/3):
+Effect at line 63
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 54) (3/3):
+Effect at line 63
+Prove: true.
+Prover Qed returns Valid (0.51ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 71):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 81) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 81) (2/3):
+Call Result at line 85
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 81) (3/3):
+Call Effect at line 86
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 91) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 91) (2/3):
+Effect at line 100
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 91) (3/3):
+Effect at line 100
+Prove: true.
+Prover Qed returns Valid (0.78ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 97):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 108) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 108) (2/3):
+Effect at line 117
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 108) (3/3):
+Effect at line 117
+Prove: true.
+Prover Qed returns Valid (0.62ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 114):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 74):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 74):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 84):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 84):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 94):
+Prove: true.
+Prover Qed returns Valid (0.88ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 94):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 100):
+Prove: true.
+Prover Qed returns Valid (1.00ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 100):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 111):
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 111):
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 117):
+Prove: true.
+Prover Qed returns Valid (0.67ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 117):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 19) in 'elem_exists'' in 'main' at call 'elem_exists' (file output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c, line 85)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_data_structures_set_multi_proc_trivial_ground/array-examples_data_structures_set_multi_proc_trivial_ground.acsl.c:37: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

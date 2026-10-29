@@ -1,0 +1,549 @@
+[kernel] Parsing output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 24 goals scheduled
+[wp] Proved goals:   24 / 24
+  Qed:            16
+  Alt-Ergo :       8 (6ms-16ms-38ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 13):
+Assume {
+  Type: is_sint32(S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+}
+Prove: 0 < to_sint32(2 * S).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (27597)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (23)
+
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 14):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 17):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 17):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 18):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = x - 1 - i.
+Let a_3 = a_2[shift_sint32(acopy_0, x_1) <- a_2[shift_sint32(a, x_1)]].
+Let a_4 = a_3[shift_sint32(acopy_0, i) <- a_3[shift_sint32(a, i)]].
+Assume {
+  Type: is_sint32(S) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Admit *)
+  Have: separated(shift_sint32(a, 0), x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < x) -> ((x <= (i + i_2)) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Then *)
+  Have: i < S.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_4[shift_sint32(acopy_0, i_1)] = a_4[shift_sint32(a, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (120ms) (1033725)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (26ms) (536)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 18):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 19):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(acopy_0, 0).
+Let x = 2 * S.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = x - 1 - i.
+Let a_3 = a_2[shift_sint32(acopy_0, x_1) <- a_2[shift_sint32(a, x_1)]].
+Let a_4 = a_3[shift_sint32(acopy_0, i) <- a_3[shift_sint32(a, i)]].
+Assume {
+  Type: is_sint32(S) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (i_1 < x) /\ (x <= (1 + i_1 + i)).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Admit *)
+  Have: separated(shift_sint32(a, 0), x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < x) -> ((x <= (i + i_2)) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Then *)
+  Have: i < S.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((0 <= i_2) ->
+      (a_4[shift_sint32(acopy_0, i_2)] = a_4[shift_sint32(a, i_2)]))).
+}
+Prove: a_4[shift_sint32(acopy_0, i_1)] = a_4[shift_sint32(a, i_1)].
+Prover Alt-Ergo  returns Valid (Qed:10ms) (38ms) (884)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 19):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 28):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 28):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 29):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(acopy_0, 0).
+Let x = 2 * S.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = a_2[shift_sint32(acopy_0, i_2)].
+Let a_4 = a_2[shift_sint32(a, i_2)].
+Assume {
+  Type: is_sint32(S) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(1 + i_2) /\ is_sint32(a_4) /\ is_sint32(a_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Admit *)
+  Have: separated(shift_sint32(a, 0), x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_2[shift_sint32(acopy_0, i_3)] = a_2[shift_sint32(a, i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < x) -> ((x <= (i_1 + i_3)) ->
+      (a_2[shift_sint32(acopy_0, i_3)] = a_2[shift_sint32(a, i_3)]))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_2[shift_sint32(acopy_0, i_3)] = a_2[shift_sint32(a, i_3)]))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= x).
+  (* Then *)
+  Have: i_2 < x.
+  (* Assertion *)
+  Have: a_3 = a_4.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a_2[shift_sint32(acopy_0, i)] = a_2[shift_sint32(a, i)].
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (40ms) (387421)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (10ms) (100)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 29):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Assume {
+  Type: is_sint32(S) /\ is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Admit *)
+  Have: separated(shift_sint32(a, 0), x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < x) -> ((x <= (i_1 + i_2)) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Else *)
+  Have: S <= i_1.
+}
+Prove: a_2[shift_sint32(acopy_0, i)] = a_2[shift_sint32(a, i)].
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (20ms) (205914)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (86)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 34):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = a_2[shift_sint32(a, i)].
+Let a_4 = a_2[shift_sint32(acopy_0, i)].
+Assume {
+  Type: is_sint32(S) /\ is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(a_3) /\
+      is_sint32(a_4).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Admit *)
+  Have: separated(shift_sint32(a, 0), x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < x) -> ((x <= (i_1 + i_2)) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= x).
+  (* Then *)
+  Have: i < x.
+}
+Prove: a_4 = a_3.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (207318)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (80)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 20) (1/4):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 20) (2/4):
+Effect at line 23
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 20) (3/4):
+Effect at line 24
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = x - i.
+Let a_3 = shift_sint32(acopy_0, x_1).
+Let a_4 = a_2[a_3 <- a_2[shift_sint32(a, x_1)]].
+Let x_2 = i - 1.
+Let a_5 = a_4[shift_sint32(acopy_0, x_2) <- a_4[shift_sint32(a, x_2)]].
+Assume {
+  Type: is_sint32(S) /\ is_sint32(i) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Admit *)
+  Have: separated(shift_sint32(a, 0), x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + S)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x < (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i <= S.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_5[shift_sint32(acopy_0, i_1)] = a_5[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x <= (i + i_1)) ->
+      (a_5[shift_sint32(acopy_0, i_1)] = a_5[shift_sint32(a, i_1)]))).
+}
+Prove: included(a_3, 1, a_1, x).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (83743)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (14ms) (216)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 20) (4/4):
+Effect at line 25
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = x - i.
+Let a_3 = a_2[shift_sint32(acopy_0, x_1) <- a_2[shift_sint32(a, x_1)]].
+Let x_2 = i - 1.
+Let a_4 = shift_sint32(acopy_0, x_2).
+Let a_5 = a_3[a_4 <- a_3[shift_sint32(a, x_2)]].
+Assume {
+  Type: is_sint32(S) /\ is_sint32(i) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_4, 1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Admit *)
+  Have: separated(shift_sint32(a, 0), x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + S)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x < (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i <= S.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_5[shift_sint32(acopy_0, i_1)] = a_5[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x <= (i + i_1)) ->
+      (a_5[shift_sint32(acopy_0, i_1)] = a_5[shift_sint32(a, i_1)]))).
+}
+Prove: included(a_4, 1, a_1, x).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (83904)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (14ms) (209)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 30):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 23):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 23):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 33):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c, line 33):
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-cav19_array_tiling_tcpy/array-cav19_array_tiling_tcpy.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

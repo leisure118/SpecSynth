@@ -1,0 +1,118 @@
+[kernel] Parsing output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c:11: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:            12
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 26):
+Let x = a[pos_0].
+Let x_1 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(pos_0) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(1 + i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= pos_0) /\ (pos_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Then *)
+  Have: 0 <= pos_0.
+  (* Then *)
+  Have: pos_0 <= 99999.
+  Have: a_1[pos_0 <- x] = a.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= pos_0).
+  (* Then *)
+  Have: x != x_1.
+}
+Prove: (i < pos_0) /\ ((-1) <= i).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (30382)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (7ms) (54)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_standard_sentinel-2/array-examples_standard_sentinel-2.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

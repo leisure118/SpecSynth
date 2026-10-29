@@ -1,0 +1,137 @@
+[kernel] Parsing output/autobench_v2/189/189.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:            12
+  Alt-Ergo :       2 (8ms-10ms)
+------------------------------------------------------------
+  Function gcd
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/189/189.acsl.c, line 14) in 'gcd':
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b) /\ is_sint32(gcd_0).
+  (* Pre-condition *)
+  Have: (0 <= a) /\ (0 <= b).
+  If a = 0
+  Then { Have: gcd_0 = b. }
+  Else {
+    If b = 0
+    Then { Have: gcd_0 = a. }
+    Else {
+      If b = a
+      Then { Have: gcd_0 = a. }
+      Else {
+        If b < a
+        Then {
+          Have: (ta_tmp_0=false).
+          (* Call 'gcd' *)
+          Have: L_gcd(a - b, b) = gcd_0.
+        }
+        Else { (* Call 'gcd' *) Have: L_gcd(a, b - a) = gcd_0. }
+      }
+    }
+  }
+}
+Prove: L_gcd(a, b) = gcd_0.
+Prover Z3 4.15.4 returns Valid (Qed:27ms) (10ms) (31021)
+Prover Alt-Ergo  returns Valid (Qed:27ms) (10ms) (116)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (1/8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (2/8):
+Effect at line 19
+Prove: true.
+Prover Qed returns Valid (0.53ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (3/8):
+Effect at line 22
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (4/8):
+Effect at line 25
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (5/8):
+Call Result at line 28
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (6/8):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (7/8):
+Call Result at line 29
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (8/8):
+Effect at line 29
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/189/189.acsl.c, line 13) in 'gcd'' in 'gcd' at call 'gcd' (file output/autobench_v2/189/189.acsl.c, line 28)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/189/189.acsl.c, line 13) in 'gcd'' in 'gcd' at call 'gcd' (file output/autobench_v2/189/189.acsl.c, line 29)
+:
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/189/189.acsl.c, line 36):
+Let x = L_gcd(98, 56). Assume { Type: is_sint32(x). }
+Prove: x = 14.
+Prover Z3 4.15.4 returns Valid (Qed:0.72ms) (10ms) (28835)
+Prover Alt-Ergo  returns Valid (Qed:0.72ms) (8ms) (96)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/189/189.acsl.c, line 13) in 'gcd'' in 'main' at initialization of 'c' (file output/autobench_v2/189/189.acsl.c, line 35)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/189/189.acsl.c:32: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

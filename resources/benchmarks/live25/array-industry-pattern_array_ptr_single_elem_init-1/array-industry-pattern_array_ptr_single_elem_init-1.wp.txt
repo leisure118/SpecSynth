@@ -1,0 +1,377 @@
+[kernel] Parsing output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:22: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:33: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: S*)
+[wp] output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:42: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: S*)
+[wp] 18 goals scheduled
+[wp] [Timeout] typed_main_loop_assigns_part3 (Qed 7ms) (Alt-Ergo) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part5 (Qed 8ms) (Alt-Ergo) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part6 (Qed 6ms) (Alt-Ergo) (Stronger, 3 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part7 (Qed 6ms) (Alt-Ergo) (Stronger, 3 warnings)
+[wp] Proved goals:   14 / 18
+  Qed:            13
+  Alt-Ergo :       1 (9ms)
+  Timeout:         4
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:33: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 44):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:42: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 44):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:42: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 50):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:42: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Let m = a[3 <- v].
+Let a_1 = m[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[3 <- v_1] = Init_a_0.
+  (* Admit *)
+  Have: forall i_2 : Z. let a_2 = m[i_2] in ((i_2 != 3) -> ((a_2 != null) ->
+      ((Mint_0[shiftfield_F4_S_n(a_2)] = 0) -> ((0 <= i_2) ->
+      ((i_2 <= 99999) -> (Mptr_0[shiftfield_F4_S_p(a_2)] != null)))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+  (* Then *)
+  Have: i != 3.
+  (* Then *)
+  Have: a_1 != null.
+  (* Then *)
+  Have: Mint_0[shiftfield_F4_S_n(a_1)] = 0.
+}
+Prove: Mptr_0[shiftfield_F4_S_p(a_1)] != null.
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (67)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19) (1/8):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:33: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19) (2/8):
+Call Result at line 22
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19) (3/8):
+Call Effect at line 26
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  If null != s
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: false.
+Prover Z3 4.15.4 returns Unknown (Qed:7ms)
+Prover Alt-Ergo  returns Timeout (Qed:7ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19) (4/8):
+Call Result at line 26
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19) (5/8):
+Effect at line 27
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Residual *)
+  When: null != s.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: invalid(Malloc_0, shiftfield_F4_S_n(s), 1).
+Prover Z3 4.15.4 returns Unknown (Qed:8ms)
+Prover Alt-Ergo  returns Timeout (Qed:8ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19) (6/8):
+Call Effect at line 33
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:33: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Then *)
+  Have: null != s.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: false.
+Prover Z3 4.15.4 returns Unknown (Qed:6ms)
+Prover Alt-Ergo  returns Timeout (Qed:6ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19) (7/8):
+Call Result at line 33
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:33: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Then *)
+  Have: null != s.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: invalid(Malloc_0, shiftfield_F4_S_p(s), 1).
+Prover Z3 4.15.4 returns Unknown (Qed:6ms)
+Prover Alt-Ergo  returns Timeout (Qed:6ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 19) (8/8):
+Effect at line 37
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 44):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:42: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 20):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:33: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 20):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:33: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 45):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:42: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c, line 45):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:42: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_ptr_single_elem_init-1/array-industry-pattern_array_ptr_single_elem_init-1.acsl.c:16: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

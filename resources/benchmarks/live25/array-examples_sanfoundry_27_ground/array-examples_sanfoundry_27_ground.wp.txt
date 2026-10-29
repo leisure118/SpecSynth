@@ -1,0 +1,273 @@
+[kernel] Parsing output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c:22: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 22 goals scheduled
+[wp] Proved goals:   22 / 22
+  Qed:            17
+  Alt-Ergo :       5 (8ms-11ms-16ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 16):
+Let x = array_0[i <- v][i_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_1 = array_0[i_2] in ((0 <= i_2) ->
+      ((i_2 < i) -> (((-2147483648) <= x_1) /\ (x_1 <= 2147483646)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: ((-2147483648) <= x) /\ (x <= 2147483646).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (30108)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (96)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 27):
+Let x = array_0[i_2].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(largest_1) /\
+      is_sint32(array_0[0]) /\ is_sint32(x) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (i <= i_2) /\ (0 <= i).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_1 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 < i_1) -> (((-2147483648) <= x_1) /\ (x_1 <= 2147483646)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] <= largest_1))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  If largest_1 < x
+  Then { Have: x = largest_0. }
+  Else { Have: largest_1 = largest_0. }
+}
+Prove: array_0[i] <= largest_0.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (31958)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (16ms) (171)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 39):
+Let x_1 = array_0[x].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(largest_0) /\
+      is_sint32(x) /\ is_sint32(array_0[0]) /\ is_sint32(x_1) /\
+      is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_2 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 < i_1) -> (((-2147483648) <= x_2) /\ (x_2 <= 2147483646)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] <= largest_0))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      (array_0[i_3] <= largest_0))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Assertion *)
+  Have: x_1 <= largest_0.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: array_0[i] <= largest_0.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (32341)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (8ms) (71)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 39):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(largest_0) /\
+      is_sint32(array_0[0]).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let x = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 < i_1) -> (((-2147483648) <= x) /\ (x <= 2147483646)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 < i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] <= largest_0))).
+  (* Else *)
+  Have: 100000 <= i_2.
+}
+Prove: array_0[i] <= largest_0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30411)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (53)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 44):
+Let x_1 = array_0[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(largest_0) /\
+      is_sint32(x) /\ is_sint32(array_0[0]) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_2 = array_0[i_2] in ((0 <= i_2) ->
+      ((i_2 < i) -> (((-2147483648) <= x_2) /\ (x_2 <= 2147483646)))).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (array_0[i_2] <= largest_0))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      (array_0[i_2] <= largest_0))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+}
+Prove: x_1 <= largest_0.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (31497)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (14ms) (57)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_sanfoundry_27_ground/array-examples_sanfoundry_27_ground.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

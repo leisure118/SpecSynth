@@ -1,0 +1,166 @@
+[kernel] Parsing output/autobench_v2/165/165.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] Proved goals:   12 / 12
+  Qed:             8
+  Alt-Ergo :       4 (8ms-11ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/165/165.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/165/165.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/165/165.acsl.c, line 16):
+Let x = n % 2.
+Let x_1 = 1 + n.
+Assume {
+  Type: is_sint32(b) /\ is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(j) /\ is_sint32(j_1) /\ is_sint32(j_2) /\ is_sint32(n) /\
+      is_sint32(x_1).
+  (* Goal *)
+  When: (x_1 % 2) = 0.
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= 200).
+  (* Invariant *)
+  Have: ((x = 0) -> (j_2 = i_2)).
+  (* Invariant *)
+  Have: ((b != 0) -> ((x = 1) -> ((1 + i_2) = j_2))).
+  (* Invariant *)
+  Have: ((b = 0) -> ((x = 1) -> ((1 + j_2) = i_2))).
+  (* Then *)
+  Have: n <= 199.
+  If b != 0
+  Then { Have: (i_2 = i_1) /\ (j_2 = j). Have: (1 + i_1) = i. }
+  Else { Have: (i_2 = i) /\ (j_2 = j_1). Have: (1 + j_1) = j. }
+  (* Invariant *)
+  Have: (-1) <= n.
+}
+Prove: j = i.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (33977)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (11ms) (194)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/165/165.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/165/165.acsl.c, line 17):
+Let x = n % 2.
+Let x_1 = 1 + j.
+Let x_2 = 1 + n.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(n) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Goal *)
+  When: (x_2 % 2) = 1.
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= 200).
+  (* Invariant *)
+  Have: ((x = 0) -> (j = i)).
+  (* Invariant *)
+  Have: ((x = 1) -> (x_1 = i)).
+  (* Then *)
+  Have: n <= 199.
+  (* Invariant *)
+  Have: (-1) <= n.
+}
+Prove: j = i.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30655)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (120)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/165/165.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/165/165.acsl.c, line 18):
+Let x = n % 2.
+Let x_1 = 1 + i.
+Let x_2 = 1 + n.
+Assume {
+  Type: is_sint32(b) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(n) /\
+      is_sint32(x_1) /\ is_sint32(x_2).
+  (* Goal *)
+  When: (x_2 % 2) = 1.
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= 200).
+  (* Invariant *)
+  Have: ((x = 0) -> (j = i)).
+  (* Invariant *)
+  Have: ((x = 1) -> (x_1 = j)).
+  (* Then *)
+  Have: n <= 199.
+  Have: b != 0.
+  (* Invariant *)
+  Have: (-1) <= n.
+}
+Prove: j = i.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30959)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (130)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/165/165.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/165/165.acsl.c, line 30):
+Let x = n % 2.
+Assume {
+  Type: is_sint32(b) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(n).
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= 200).
+  (* Invariant *)
+  Have: ((x = 0) -> (j = i)).
+  (* Invariant *)
+  Have: ((b != 0) -> ((x = 1) -> ((1 + i) = j))).
+  (* Invariant *)
+  Have: ((b = 0) -> ((x = 1) -> ((1 + j) = i))).
+  (* Else *)
+  Have: 200 <= n.
+}
+Prove: j = i.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29842)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (76)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/165/165.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/165/165.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/165/165.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/165/165.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

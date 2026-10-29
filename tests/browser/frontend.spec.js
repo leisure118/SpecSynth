@@ -8,56 +8,51 @@ async function submitReplay(request, mode, demoCaseId) {
   return await response.json();
 }
 
-test("首页与单函数回放链路可在浏览器中完成", async ({ page }) => {
-  await page.goto("/#/", { waitUntil: "domcontentloaded" });
-  await expect(page.getByRole("heading", { name: "玄鉴——AI赋能的可信软件智能验证平台" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "模式比较" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "最近证据" })).toBeVisible();
+async function openExample(page, demo='sum_loop_100000', mode='single') {
+  await page.goto('/#/projects?demo='+demo+'&mode='+mode);
+  await expect(page.getByLabel('源代码编辑器')).toBeVisible();
+}
+async function replayAndOpenResult(page) {
+  await openExample(page);
+  const created=page.waitForResponse(r=>/\/projects\/[^/]+\/runs$/.test(new URL(r.url()).pathname)&&r.request().method()==='POST'&&r.status()===201);
+  await page.getByRole('button',{name:'▷ 回放案例',exact:true}).click();
+  const id=(await (await created).json()).task_id;
+  await expect(page.locator('.vf-run-id')).toContainText(id);
+  await expect(page.locator('.vf-proof-summary')).toBeVisible({timeout:30000});
+  await page.getByRole('link',{name:'完整结果与证据 ↗'}).click();
+  await page.waitForURL(/#\/result\//);
+}
 
-  await page.goto("/#/upload", { waitUntil: "domcontentloaded" });
-  await expect(page.getByRole("heading", { name: "统一任务启动台" })).toBeVisible();
-  await page.locator(".source-tab").getByText("示例用例").click();
-  await page.getByRole("button", { name: "提交运行" }).click();
-
-  await page.waitForURL(/#\/run\//, { timeout: 30000 });
-  await expect(page.getByRole("heading", { name: "运行状态" })).toBeVisible();
-  await expect(page.locator(".run-meta-grid").getByText(/^单函数分析$/)).toBeVisible();
-
-  await page.getByRole("link", { name: "查看结果" }).click();
-  await page.waitForURL(/#\/result\//, { timeout: 30000 });
-  await expect(page.getByRole("heading", { name: "证据链" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "规约摘要" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "工件列表" })).toBeVisible();
-  await expect(page.locator(".status-chip")).toHaveText(/通过/);
+test('首页案例通过项目工作台完成回放',async({page})=>{
+  await page.goto('/#/');
+  await expect(page.locator('.vf-hero h1')).toContainText('可信软件智能验证');
+  await expect(page.getByRole('navigation',{name:'主导航'}).getByText('任务启动')).toHaveCount(0);
+  await replayAndOpenResult(page);
+  await expect(page.getByRole('heading',{name:'证据链',exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'规约摘要',exact:true})).toBeVisible();
+  await expect(page.locator('.status-chip').first()).toHaveText(/通过/);
 });
 
-test("启动页只展示三个主模块", async ({ page }) => {
-  await page.goto("/#/upload", { waitUntil: "domcontentloaded" });
-  const modeGrid = page.locator(".mode-grid");
-  await expect(modeGrid.getByRole("button", { name: /单函数分析/ })).toBeVisible();
-  await expect(modeGrid.getByRole("button", { name: /终止性验证/ })).toBeVisible();
-  await expect(modeGrid.getByRole("button", { name: /多模块分析/ })).toBeVisible();
-  await expect(modeGrid.getByRole("button", { name: /batch/i })).toHaveCount(0);
-
-  await modeGrid.getByRole("button", { name: /多模块分析/ }).click();
-  await expect(page.getByText("工程上传")).toBeVisible();
-  const sections = await page.locator(".launcher-config-grid").evaluate((grid) => {
-    const input = grid.querySelector(".launcher-input-section").getBoundingClientRect();
-    const model = grid.querySelector(".launcher-model-section").getBoundingClientRect();
-    return { inputBottom: input.bottom, modelTop: model.top, widthDelta: Math.abs(input.width - model.width) };
-  });
-  expect(sections.modelTop).toBeGreaterThanOrEqual(sections.inputBottom);
-  expect(sections.widthDelta).toBeLessThanOrEqual(2);
+test('旧任务启动链接迁移到项目和新建对话框',async({page})=>{
+  await page.goto('/#/upload');
+  await page.waitForURL(/#\/projects\?new=1/);
+  await expect(page.getByRole('dialog',{name:'新建项目'})).toBeVisible();
+  await page.goto('/#/upload?demo=sum_loop_100000&mode=termination');
+  await expect(page.getByLabel('验证模式')).toHaveValue('termination');
+  await expect(page.locator('.vf-editor-toolbar option')).toHaveCount(3);
+  await expect(page.getByRole('button',{name:'▷ 回放案例',exact:true})).toBeVisible();
 });
 
 test("多模块示例页展示 X.509 解析器验证图谱", async ({ page }) => {
-  await page.goto("/#/upload?mode=inter-modular&demo=x509_inter_modular_replay", { waitUntil: "domcontentloaded" });
+  await openExample(page,'x509_inter_modular_replay','inter-modular');
+  await page.getByRole('button',{name:'验证图谱',exact:true}).click();
   await expect(page.getByText("X.509 解析器验证图谱")).toBeVisible();
   const frame = page.frameLocator(".x509-showcase-frame");
   await expect(frame.locator(".info-bar")).toContainText("212 functions");
   const node = frame.locator("circle").first();
   await expect(node).toBeVisible();
   await node.click();
+  await frame.getByRole('button',{name:'查看函数规约与源码'}).click();
   await page.waitForURL(/#\/x509-function\//);
   await expect(page.locator(".x509-function-page")).toBeVisible();
   await expect(page.locator(".x509-function-pane")).toHaveCount(2);
@@ -65,15 +60,12 @@ test("多模块示例页展示 X.509 解析器验证图谱", async ({ page }) =>
   await expect(page.getByRole("heading", { name: "带 ACSL 规约的函数" })).toBeVisible();
   await expect(page.locator(".x509-function-pane").first()).toContainText("原始函数源码");
   await expect(page.locator(".x509-function-pane").last()).toContainText("带 ACSL 规约的函数");
+  await page.getByRole('button',{name:'← 返回验证图谱'}).click();
+  await expect(page.locator('.vf-workspace-graph')).toBeVisible();
 });
 
 test("结果页在调试视图中支持工件预览", async ({ page }) => {
-  await page.goto("/#/upload", { waitUntil: "domcontentloaded" });
-  await page.locator(".source-tab").getByText("示例用例").click();
-  await page.getByRole("button", { name: "提交运行" }).click();
-  await page.waitForURL(/#\/run\//, { timeout: 30000 });
-  await page.getByRole("link", { name: "查看结果" }).click();
-  await page.waitForURL(/#\/result\//, { timeout: 30000 });
+  await replayAndOpenResult(page);
   await page.getByRole("button", { name: "展开调试视图" }).click();
   const preview = page.locator(".artifact-grid .code-block");
   const before = await preview.textContent();
@@ -82,12 +74,7 @@ test("结果页在调试视图中支持工件预览", async ({ page }) => {
 });
 
 test("结果页不会引入横向溢出", async ({ page }) => {
-  await page.goto("/#/upload", { waitUntil: "domcontentloaded" });
-  await page.locator(".source-tab").getByText("示例用例").click();
-  await page.getByRole("button", { name: "提交运行" }).click();
-  await page.waitForURL(/#\/run\//, { timeout: 30000 });
-  await page.getByRole("link", { name: "查看结果" }).click();
-  await page.waitForURL(/#\/result\//, { timeout: 30000 });
+  await replayAndOpenResult(page);
   const overflow = await page.evaluate(() => {
     const root = document.documentElement;
     return {
@@ -98,19 +85,15 @@ test("结果页不会引入横向溢出", async ({ page }) => {
   expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.clientWidth + 2);
 });
 
-test("宽屏结果页能利用可用视口宽度", async ({ page }) => {
+test("宽屏结果页遵循当前居中布局", async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
-  await page.goto("/#/upload", { waitUntil: "domcontentloaded" });
-  await page.locator(".source-tab").getByText("示例用例").click();
-  await page.getByRole("button", { name: "提交运行" }).click();
-  await page.waitForURL(/#\/run\//, { timeout: 30000 });
-  await page.getByRole("link", { name: "查看结果" }).click();
-  await page.waitForURL(/#\/result\//, { timeout: 30000 });
+  await replayAndOpenResult(page);
   const metrics = await page.locator(".page-shell").evaluate((node) => {
     const rect = node.getBoundingClientRect();
     return { width: rect.width, left: rect.left, rightGap: window.innerWidth - rect.right };
   });
-  expect(metrics.width).toBeGreaterThan(1500);
+  expect(metrics.width).toBeGreaterThanOrEqual(1280);
+  expect(metrics.width).toBeLessThanOrEqual(1360);
   expect(Math.abs(metrics.left - metrics.rightGap)).toBeLessThanOrEqual(24);
 });
 

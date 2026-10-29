@@ -55,7 +55,7 @@ export default defineComponent({
     }
 
     function backToGraph() {
-      router.push({ path: '/upload', query: { mode: 'inter-modular', demo: 'x509_inter_modular_replay' } })
+      router.push(route.query.project ? {path:'/projects/'+route.query.project,query:{pane:'graph'}} : {path:'/projects',query:{mode:'inter-modular',demo:'x509_inter_modular_replay',pane:'graph'}})
     }
 
     onMounted(loadFunction)

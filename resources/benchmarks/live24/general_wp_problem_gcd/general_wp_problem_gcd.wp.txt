@@ -1,0 +1,137 @@
+[kernel] Parsing output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:            12
+  Alt-Ergo :       2 (8ms-34ms)
+------------------------------------------------------------
+  Function gcd
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c, line 11) in 'gcd':
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b) /\ is_sint32(gcd_0).
+  (* Pre-condition *)
+  Have: (0 <= a) /\ (0 <= b).
+  If a = 0
+  Then { Have: gcd_0 = b. }
+  Else {
+    If b = 0
+    Then { Have: gcd_0 = a. }
+    Else {
+      If b = a
+      Then { Have: gcd_0 = a. }
+      Else {
+        If b < a
+        Then {
+          Have: (ta_tmp_0=false).
+          (* Call 'gcd' *)
+          Have: L_gcd(a - b, b) = gcd_0.
+        }
+        Else { (* Call 'gcd' *) Have: L_gcd(a, b - a) = gcd_0. }
+      }
+    }
+  }
+}
+Prove: L_gcd(a, b) = gcd_0.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (30547)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (8ms) (80)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (1/8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (2/8):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (3/8):
+Effect at line 17
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (4/8):
+Effect at line 19
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (5/8):
+Call Result at line 21
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (6/8):
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (7/8):
+Call Result at line 22
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (8/8):
+Effect at line 22
+Prove: true.
+Prover Qed returns Valid (0.62ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c, line 9) in 'gcd'' in 'gcd' at call 'gcd' (file output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c, line 21)
+:
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c, line 9) in 'gcd'' in 'gcd' at call 'gcd' (file output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c, line 22)
+:
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c, line 28):
+Let x = L_gcd(98, 56). Assume { Type: is_sint32(x). }
+Prove: x = 14.
+Prover Z3 4.15.4 returns Valid (Qed:0.77ms) (10ms) (28553)
+Prover Alt-Ergo  returns Valid (Qed:0.77ms) (34ms) (1027)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c, line 9) in 'gcd'' in 'main' at initialization of 'c' (file output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c, line 27)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/general_wp_problem_gcd/general_wp_problem_gcd.acsl.c:24: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,545 @@
+[kernel] Parsing output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c:28: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 43 goals scheduled
+[wp] Proved goals:   43 / 43
+  Qed:            36
+  Alt-Ergo :       2 (10ms-14ms)
+  Z3 4.15.4:       5 (10ms-44ms-60ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.60ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 37):
+Let m = A[i_3].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(j) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_1) /\ (i <= i_3) /\ (i_1 <= 1499).
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 1499) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1500 <= i_4)) ->
+      (B_1[i_5][i_4] = B[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 1499) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1500 <= i_4)) ->
+      (A_1[i_5][i_4] = A_2[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((0 <= i_4) ->
+      ((i_4 <= 1499) -> (B[999 - i_5][1499 - i_4] = A_2[i_5][i_4]))))).
+  (* Then *)
+  Have: i_3 <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_4 : Z. ((i_4 != i_3) -> (A_2[i_4] = A[i_4]))) /\
+      (forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 1499) ->
+       (((i_4 < 0) \/ (1500 <= i_4)) -> (A_2[i_3][i_4] = m[i_4]))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1500).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < j) ->
+      (B[999 - i_3][1499 - i_4] = m[i_4]))).
+  (* Else *)
+  Have: 1500 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: B[999 - i][1499 - i_1] = A[i][i_1].
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (35736)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (0.53ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 45):
+Let m = B[999 - i].
+Let m_1 = A[i].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= j).
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 1499) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1500 <= i_3)) ->
+      (B_1[i_4][i_3] = B[i_4][i_3])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 1499) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1500 <= i_3)) ->
+      (A_1[i_4][i_3] = A_2[i_4][i_3])))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_4 < i) -> ((0 <= i_3) ->
+      ((i_3 <= 1499) -> (B[999 - i_4][1499 - i_3] = A_2[i_4][i_3]))))).
+  (* Then *)
+  Have: i <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_3 : Z. ((i_3 != i) -> (A_2[i_3] = A[i_3]))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 1499) ->
+       (((i_3 < 0) \/ (1500 <= i_3)) -> (A_2[i][i_3] = m_1[i_3]))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1500).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j) ->
+      (m[1499 - i_3] = m_1[i_3]))).
+  (* Then *)
+  Have: j <= 1499.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: m_1[j <- m[1499 - j]][i_1] = m[1499 - i_1].
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (36006)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (10ms) (109)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 70):
+Let x = A[i][j].
+Let x_1 = B[999 - i][1499 - j].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(j) /\
+      is_sint32(x) /\ is_sint32(x_1).
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 1499) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1500 <= i_3)) ->
+      (B_1[i_4][i_3] = B[i_4][i_3])))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 1499) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1500 <= i_3)) ->
+      (A_1[i_4][i_3] = A[i_4][i_3])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> ((0 <= i_3) ->
+      ((i_3 <= 1499) -> (B[999 - i_4][1499 - i_3] = A[i_4][i_3]))))).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000).
+  (* Then *)
+  Have: i <= 999.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1500).
+  (* Then *)
+  Have: j <= 1499.
+}
+Prove: x_1 = x.
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (33585)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (14ms) (68)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 17) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 17) (2/3):
+Effect at line 20
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (0 <= i_3) /\ (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\ (0 <= i) /\
+      (0 <= i_1) /\ (i_3 <= 999) /\ (i_5 <= 999) /\ (i <= 999) /\
+      (i_4 <= 1499) /\ (i_6 <= 1499) /\ (i_1 <= 1499).
+  (* Loop assigns ... *)
+  Have: forall i_8,i_7 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((i_8 <= 999) ->
+      ((i_7 <= 1499) ->
+      (((i_8 < 0) \/ (i_7 < 0) \/ (1000 <= i_8) \/ (1500 <= i_7)) ->
+      (B[i_8][i_7] = B_1[i_8][i_7])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Then *)
+  Have: i_2 <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_7 : Z. ((i_7 != i_2) -> (B_1[i_7] = B_2[i_7]))) /\
+      (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 1499) ->
+       (((i_7 < 0) \/ (1500 <= i_7)) -> (B_1[i_2][i_7] = B_2[i_2][i_7]))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1500).
+  (* Else *)
+  Have: 1500 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: exists i_8,i_7 : Z. (i_8 <= i) /\ (i_7 <= i_1) /\ (0 <= i_8) /\
+    (i <= i_8) /\ (0 <= i_7) /\ (i_1 <= i_7) /\ (i_8 <= 999) /\
+    (i_7 <= 1499).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (50ms) (218636)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 17) (3/3):
+Effect at line 27
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_1) /\ (i <= 999) /\ (i_1 <= 1499).
+  (* Loop assigns ... *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((0 <= i_2) -> ((i_3 <= 999) ->
+      ((i_2 <= 1499) ->
+      (((i_3 < 0) \/ (i_2 < 0) \/ (1000 <= i_3) \/ (1500 <= i_2)) ->
+      (B[i_3][i_2] = B_1[i_3][i_2])))))).
+  (* Invariant *)
+  Have: i <= 1000.
+  (* Loop assigns ... *)
+  Have: (forall i_2 : Z. ((i_2 != i) -> (B_1[i_2] = B_2[i_2]))) /\
+      (forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 1499) ->
+       (((i_2 < 0) \/ (1500 <= i_2)) -> (B_1[i][i_2] = B_2[i][i_2]))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1500).
+  (* Else *)
+  Have: 1500 <= j.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: exists i_3,i_2 : Z. (i_3 <= i) /\ (i_2 <= i_1) /\ (0 <= i_3) /\
+    (i <= i_3) /\ (0 <= i_2) /\ (i_1 <= i_2) /\ (i_3 <= 999) /\
+    (i_2 <= 1499).
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (40ms) (190221)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 24) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 24) (2/3):
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 24) (3/3):
+Call Result at line 28
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 38) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 38) (2/3):
+Effect at line 41
+Let m = A_2[i_3].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(j) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\ (0 <= i_7) /\ (0 <= i) /\
+      (0 <= i_1) /\ (i_4 <= 999) /\ (i_6 <= 999) /\ (i <= 999) /\
+      (i_5 <= 1499) /\ (i_7 <= 1499) /\ (i_1 <= 1499).
+  (* Loop assigns ... *)
+  Have: forall i_9,i_8 : Z. ((0 <= i_9) -> ((0 <= i_8) -> ((i_9 <= 999) ->
+      ((i_8 <= 1499) ->
+      (((i_9 < 0) \/ (i_8 < 0) \/ (1000 <= i_9) \/ (1500 <= i_8)) ->
+      (B[i_9][i_8] = B_1[i_9][i_8])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_9,i_8 : Z. ((0 <= i_9) -> ((0 <= i_8) -> ((i_9 <= 999) ->
+      ((i_8 <= 1499) ->
+      (((i_9 < 0) \/ (i_8 < 0) \/ (1000 <= i_9) \/ (1500 <= i_8)) ->
+      (A[i_9][i_8] = A_1[i_9][i_8])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_9,i_8 : Z. ((0 <= i_9) -> ((i_9 < i_3) -> ((0 <= i_8) ->
+      ((i_8 <= 1499) -> (B_1[999 - i_9][1499 - i_8] = A_1[i_9][i_8]))))).
+  (* Then *)
+  Have: i_3 <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_8 : Z. ((i_8 != i_3) -> (A_1[i_8] = A_2[i_8]))) /\
+      (forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= 1499) ->
+       (((i_8 < 0) \/ (1500 <= i_8)) -> (A_1[i_3][i_8] = m[i_8]))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1500).
+  (* Invariant *)
+  Have: forall i_8 : Z. ((0 <= i_8) -> ((i_8 < j) ->
+      (B_1[999 - i_3][1499 - i_8] = m[i_8]))).
+  (* Else *)
+  Have: 1500 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+  (* Invariant *)
+  Have: forall i_9,i_8 : Z. ((i_9 <= i_3) -> ((0 <= i_9) -> ((0 <= i_8) ->
+      ((i_8 <= 1499) -> (B_1[999 - i_9][1499 - i_8] = A_2[i_9][i_8]))))).
+}
+Prove: exists i_9,i_8 : Z. (i_9 <= i) /\ (i_8 <= i_1) /\ (0 <= i_9) /\
+    (i <= i_9) /\ (0 <= i_8) /\ (i_1 <= i_8) /\ (i_9 <= 999) /\
+    (i_8 <= 1499).
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (60ms) (173897)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 38) (3/3):
+Effect at line 49
+Let m = A_2[i].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_1) /\ (i <= 999) /\ (i_1 <= 1499).
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 1499) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1500 <= i_3)) ->
+      (B[i_4][i_3] = B_1[i_4][i_3])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 1499) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1500 <= i_3)) ->
+      (A[i_4][i_3] = A_1[i_4][i_3])))))).
+  (* Invariant *)
+  Have: i <= 1000.
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_4 < i) -> ((0 <= i_3) ->
+      ((i_3 <= 1499) -> (B_1[999 - i_4][1499 - i_3] = A_1[i_4][i_3]))))).
+  (* Loop assigns ... *)
+  Have: (forall i_3 : Z. ((i_3 != i) -> (A_1[i_3] = A_2[i_3]))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 1499) ->
+       (((i_3 < 0) \/ (1500 <= i_3)) -> (A_1[i][i_3] = m[i_3]))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1500).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j) ->
+      (B_1[999 - i][1499 - i_3] = m[i_3]))).
+  (* Else *)
+  Have: 1500 <= j.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((i_4 <= i) -> ((0 <= i_4) -> ((0 <= i_3) ->
+      ((i_3 <= 1499) -> (B_1[999 - i_4][1499 - i_3] = A_2[i_4][i_3]))))).
+}
+Prove: exists i_4,i_3 : Z. (i_4 <= i) /\ (i_3 <= i_1) /\ (0 <= i_4) /\
+    (i <= i_4) /\ (0 <= i_3) /\ (i_1 <= i_3) /\ (i_4 <= 999) /\
+    (i_3 <= 1499).
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (60ms) (229934)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 46) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 46) (2/3):
+Effect at line 49
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 46) (3/3):
+Effect at line 50
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 49):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 49):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 69):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c, line 69):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-multidimensional_rev-2-n-u/array-multidimensional_rev-2-n-u.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

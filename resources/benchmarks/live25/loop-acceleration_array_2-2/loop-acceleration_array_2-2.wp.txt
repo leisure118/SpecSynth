@@ -1,0 +1,128 @@
+[kernel] Parsing output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c:20: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:            11
+  Alt-Ergo :       2 (7ms-8ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 25):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 2048).
+  (* Else *)
+  Have: 2048 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 2048).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) -> (B[i_3] = A[i_3]))).
+  (* Then *)
+  Have: i <= 2047.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: B[i <- A[i]][i_1] = A[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29889)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (77)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 33):
+Let x = A[1024].
+Let x_1 = B[1024].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 2048).
+  (* Else *)
+  Have: 2048 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 2048).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (B[i_2] = A[i_2]))).
+  (* Else *)
+  Have: 2048 <= i_1.
+}
+Prove: x_1 = x.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29255)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (42)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-acceleration_array_2-2/loop-acceleration_array_2-2.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

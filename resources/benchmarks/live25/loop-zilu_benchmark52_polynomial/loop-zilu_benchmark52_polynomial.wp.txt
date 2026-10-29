@@ -1,0 +1,142 @@
+[kernel] Parsing output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             4
+  Alt-Ergo :       4 (6ms-8ms-15ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c, line 12):
+Let x = i * i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(1 + i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= i_1) /\ (i_1 <= 2147483646).
+  (* Then *)
+  Have: i_1 <= 9.
+  (* Then *)
+  Have: (-9) <= i_1.
+  (* Invariant *)
+  Have: i_1 <= 10.
+  (* Invariant *)
+  Have: (i_1 * i_1) <= 100.
+  (* Invariant *)
+  Have: ((-9) <= i) /\ (i <= 10).
+  (* Invariant *)
+  Have: x <= 100.
+  (* Then *)
+  Have: x <= 99.
+}
+Prove: ((-10) <= i) /\ (i <= 9).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28887)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (15ms) (68)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c, line 13):
+Let x = i * i.
+Let x_1 = 1 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= i_1) /\ (i_1 <= 2147483646).
+  (* Then *)
+  Have: i_1 <= 9.
+  (* Then *)
+  Have: (-9) <= i_1.
+  (* Invariant *)
+  Have: i_1 <= 10.
+  (* Invariant *)
+  Have: (i_1 * i_1) <= 100.
+  (* Invariant *)
+  Have: ((-9) <= i) /\ (i <= 10).
+  (* Invariant *)
+  Have: x <= 100.
+  (* Then *)
+  Have: x <= 99.
+  (* Invariant *)
+  Have: ((-10) <= i) /\ (i <= 9).
+}
+Prove: (x_1 * x_1) <= 100.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29088)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (42)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c, line 13):
+Assume {
+  Type: is_sint32(i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= i) /\ (i <= 2147483646).
+  (* Then *)
+  Have: i <= 9.
+  (* Then *)
+  Have: (-9) <= i.
+  (* Invariant *)
+  Have: i <= 10.
+}
+Prove: (i * i) <= 100.
+Prover Z3 4.15.4 returns Valid (Qed:0.67ms) (10ms) (27762)
+Prover Alt-Ergo  returns Valid (Qed:0.67ms) (6ms) (18)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c, line 20):
+Let x = i * i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= i_1) /\ (i_1 <= 2147483646).
+  (* Then *)
+  Have: i_1 <= 9.
+  (* Then *)
+  Have: (-9) <= i_1.
+  (* Invariant *)
+  Have: i_1 <= 10.
+  (* Invariant *)
+  Have: (i_1 * i_1) <= 100.
+  (* Invariant *)
+  Have: ((-9) <= i) /\ (i <= 10).
+  (* Invariant *)
+  Have: x <= 100.
+  (* Else *)
+  Have: 100 <= x.
+}
+Prove: i = 10.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (28541)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (31)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-zilu_benchmark52_polynomial/loop-zilu_benchmark52_polynomial.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

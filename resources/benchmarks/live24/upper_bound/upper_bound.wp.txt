@@ -1,0 +1,254 @@
+[kernel] Parsing output/live24/upper_bound/upper_bound.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] Proved goals:   12 / 12
+  Qed:             6
+  Alt-Ergo :       6 (8ms-21ms-30ms)
+------------------------------------------------------------
+  Function upper_bound
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/upper_bound/upper_bound.acsl.c, line 65) in 'upper_bound':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/upper_bound/upper_bound.acsl.c, line 73):
+Let x = Mint_0
+          [shift_sint32(a,
+             to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)))].
+Assume {
+  Type: is_uint32(left_1) /\ is_uint32(left_0) /\ is_uint32(middle_0) /\
+      is_uint32(n) /\ is_uint32(right_0) /\ is_uint32(right_1) /\
+      is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, 0, v).
+  (* Invariant *)
+  Have: P_StrictLowerBound_1_(Mint_0, a, n, n, v).
+  (* Invariant *)
+  Have: (0 <= left_1) /\ (right_1 <= n) /\ (left_1 <= right_1).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, left_1, v).
+  (* Invariant *)
+  Have: P_StrictLowerBound_1_(Mint_0, a, right_1, n, v).
+  (* Then *)
+  Have: left_1 < right_1.
+  If x <= v
+  Then {
+    Have: (right_1 = right_0) /\
+        (to_uint32(left_1 + (to_uint32(right_0 - left_1) / 2)) = middle_0).
+    Have: to_uint32(1 + middle_0) = left_0.
+  }
+  Else {
+    Have: (left_0 = left_1) /\
+        (to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)) = right_0).
+  }
+}
+Prove: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (20ms) (108640)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (27ms) (484)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/upper_bound/upper_bound.acsl.c, line 73):
+Prove: true.
+Prover Qed returns Valid (0.93ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/upper_bound/upper_bound.acsl.c, line 74):
+Let x = to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)).
+Let x_1 = to_uint32(1 + x).
+Let x_2 = Mint_0[shift_sint32(a, x)].
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(n) /\ is_uint32(right_0) /\
+      is_sint32(v) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: x_2 <= v.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, 0, v).
+  (* Invariant *)
+  Have: P_StrictLowerBound_1_(Mint_0, a, n, n, v).
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, left_0, v).
+  (* Invariant *)
+  Have: P_StrictLowerBound_1_(Mint_0, a, right_0, n, v).
+  (* Then *)
+  Have: left_0 < right_0.
+  (* Invariant *)
+  Have: x_1 <= right_0.
+}
+Prove: P_UpperBound_1_(Mint_0, a, 0, x_1, v).
+Prover Alt-Ergo  returns Valid (Qed:11ms) (30ms) (614)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/upper_bound/upper_bound.acsl.c, line 74):
+Assume {
+  Type: is_uint32(n) /\ is_sint32(v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: P_UpperBound_1_(Mint_0, a, 0, 0, v).
+Prover Z3 4.15.4 returns Valid (Qed:0.91ms) (10ms) (35534)
+Prover Alt-Ergo  returns Valid (Qed:0.91ms) (8ms) (52)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/upper_bound/upper_bound.acsl.c, line 75):
+Let x = to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)).
+Let x_1 = Mint_0[shift_sint32(a, x)].
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(n) /\ is_uint32(right_0) /\
+      is_sint32(v) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: v < x_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, 0, v).
+  (* Invariant *)
+  Have: P_StrictLowerBound_1_(Mint_0, a, n, n, v).
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, left_0, v).
+  (* Invariant *)
+  Have: P_StrictLowerBound_1_(Mint_0, a, right_0, n, v).
+  (* Then *)
+  Have: left_0 < right_0.
+  (* Invariant *)
+  Have: (x <= n) /\ (left_0 <= x).
+}
+Prove: P_StrictLowerBound_1_(Mint_0, a, x, n, v).
+Prover Alt-Ergo  returns Valid (Qed:12ms) (27ms) (477)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/upper_bound/upper_bound.acsl.c, line 75):
+Assume {
+  Type: is_uint32(n) /\ is_sint32(v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, 0, v).
+}
+Prove: P_StrictLowerBound_1_(Mint_0, a, n, n, v).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (33825)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (56)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/upper_bound/upper_bound.acsl.c, line 88):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/upper_bound/upper_bound.acsl.c, line 76):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'upper_bound':
+Effect at line 79
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/upper_bound/upper_bound.acsl.c, line 79):
+Let x = Mint_0
+          [shift_sint32(a,
+             to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)))].
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(left_1) /\ is_uint32(middle_0) /\
+      is_uint32(n) /\ is_uint32(right_0) /\ is_uint32(right_1) /\
+      is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, 0, v).
+  (* Invariant *)
+  Have: P_StrictLowerBound_1_(Mint_0, a, n, n, v).
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_1 <= n) /\ (left_0 <= right_1).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, left_0, v).
+  (* Invariant *)
+  Have: P_StrictLowerBound_1_(Mint_0, a, right_1, n, v).
+  (* Then *)
+  Have: left_0 < right_1.
+  If x <= v
+  Then {
+    Have: (right_1 = right_0) /\
+        (to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)) = middle_0).
+    Have: to_uint32(1 + middle_0) = left_1.
+  }
+  Else {
+    Have: (left_1 = left_0) /\
+        (to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)) = right_0).
+  }
+  (* Invariant *)
+  Have: (0 <= left_1) /\ (right_0 <= n) /\ (left_1 <= right_0).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, left_1, v).
+  (* Invariant *)
+  Have: P_StrictLowerBound_1_(Mint_0, a, right_0, n, v).
+}
+Prove: (left_0 + right_0) < (left_1 + right_1).
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (20ms) (108784)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (24ms) (415)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/upper_bound/upper_bound.acsl.c, line 79):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------

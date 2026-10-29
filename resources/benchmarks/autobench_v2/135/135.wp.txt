@@ -1,0 +1,218 @@
+[kernel] Parsing output/autobench_v2/135/135.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/autobench_v2/135/135.acsl.c:26: Warning: 
+  Calling function unknown2 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/135/135.acsl.c:7: Warning: 
+  Neither code nor specification for function unknown2, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:            13
+  Alt-Ergo :       4 (7ms-15ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/135/135.acsl.c, line 17):
+Let x_1 = z - z_1 - (2 * x).
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(z) /\ is_sint32(z_1) /\
+      is_sint32(1 + x) /\ is_sint32(x_1).
+  (* Residual *)
+  When: (z % 2) != 1.
+  (* Invariant *)
+  Have: (z_1 % 2) = 1.
+  (* Invariant *)
+  Have: (x_1 % 2) = 0.
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: (z_1 + (2 * x)) <= z.
+  (* Invariant *)
+  Have: 0 < z_1.
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: false.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (32156)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (13ms) (211)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/135/135.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/135/135.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/135/135.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/135/135.acsl.c, line 19):
+Let x_1 = (-2) * x.
+Let x_2 = -z_1.
+Let x_3 = z - z_1 - (2 * x).
+Let x_4 = 2 + z - z_1 - (2 * x).
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(z) /\ is_sint32(z_1) /\
+      is_sint32(1 + x) /\ is_sint32(x_3) /\ is_sint32(x_4).
+  (* Invariant *)
+  Have: (z_1 % 2) = 1.
+  (* Invariant *)
+  Have: (x_3 % 2) = 0.
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: (z_1 + (2 * x)) <= z.
+  (* Invariant *)
+  Have: 0 < z_1.
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: (z % 2) = 1.
+}
+Prove: (x_4 % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (33871)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (15ms) (234)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/135/135.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/135/135.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/135/135.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/135/135.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/135/135.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/135/135.acsl.c, line 22):
+Let x_1 = (-2) * x.
+Let x_2 = -z.
+Let x_3 = 2 + z_1 - z - (2 * x).
+Let x_4 = z + (2 * x).
+Let x_5 = z_1 - z - (2 * x).
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(z_1) /\ is_sint32(z) /\
+      is_sint32(1 + x) /\ is_sint32(x_5) /\ is_sint32(x_3).
+  (* Invariant *)
+  Have: (z % 2) = 1.
+  (* Invariant *)
+  Have: (x_5 % 2) = 0.
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: x_4 <= z_1.
+  (* Invariant *)
+  Have: 0 < z.
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: (z_1 % 2) = 1.
+  (* Invariant *)
+  Have: (x_3 % 2) = 0.
+}
+Prove: x_4 <= (2 + z_1).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (29786)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (7ms) (29)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/135/135.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/135/135.acsl.c, line 23):
+Let x_1 = 2 + w.
+Let x_2 = w + z + (2 * x).
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(w) /\ is_sint32(x) /\ is_sint32(z) /\
+      is_sint32(1 + x) /\ is_sint32(x_1) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: (z % 2) = 1.
+  (* Invariant *)
+  Have: (w % 2) = 0.
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: 0 <= w.
+  (* Invariant *)
+  Have: 0 < z.
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: (x_2 % 2) = 1.
+  (* Invariant *)
+  Have: (x_1 % 2) = 0.
+  (* Invariant *)
+  Have: (-2) <= w.
+}
+Prove: 0 < x_2.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (29690)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (7ms) (25)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/135/135.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/135/135.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/135/135.acsl.c, line 24) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/135/135.acsl.c, line 24) (2/2):
+Call Result at line 26
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/135/135.acsl.c:3: Warning: 
+  No 'assigns' specification for function 'unknown2'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/135/135.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,99 @@
+[kernel] Parsing output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             7
+  Alt-Ergo :       2 (9ms-14ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c, line 6):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Loop assigns ... *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 2047) ->
+      (((i_2 < 0) \/ (1024 <= i_2)) -> (A_1[i_2] = A[i_2])))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1024).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (A[i_2] = i_2))).
+  (* Then *)
+  Have: i <= 1023.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: A[i <- i][i_1] = i_1.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (29922)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (14ms) (67)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c, line 13):
+Let x = A[1023].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x).
+  (* Loop assigns ... *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 2047) ->
+      (((i_1 < 0) \/ (1024 <= i_1)) -> (A_1[i_1] = A[i_1])))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1024).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) -> (A[i_1] = i_1))).
+  (* Else *)
+  Have: 1024 <= i.
+}
+Prove: x = 1023.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (29179)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (32)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c, line 7) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c, line 7) (2/2):
+Effect at line 11
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-acceleration_array_1-2/loop-acceleration_array_1-2.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

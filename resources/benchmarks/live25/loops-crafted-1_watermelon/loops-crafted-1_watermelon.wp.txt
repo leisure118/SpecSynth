@@ -1,0 +1,210 @@
+[kernel] Parsing output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c:11: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 19 goals scheduled
+[wp] Proved goals:   19 / 19
+  Qed:            16
+  Alt-Ergo :       3 (13ms-17ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 25):
+Let x = 2 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(unknown_0) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: (0 < unknown_0) /\ (unknown_0 <= 9999999).
+  (* Else *)
+  Have: 4 <= unknown_0.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: i <= (1 + unknown_0).
+  (* Then *)
+  Have: i < unknown_0.
+  (* Invariant *)
+  Have: (-2) <= i.
+}
+Prove: (x % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (30427)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (13ms) (98)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 46):
+Let x = 1 + unknown_0.
+Let x_1 = 2 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(unknown_0) /\
+      is_sint32(x_1).
+  (* Call 'unknown' *)
+  Have: (0 < unknown_0) /\ (unknown_0 <= 9999999).
+  (* Invariant *)
+  Have: 0 <= i_1.
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: i_1 <= x.
+  (* Else *)
+  Have: unknown_0 <= i_1.
+  (* Else *)
+  Have: 4 <= unknown_0.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: i <= x.
+  (* Then *)
+  Have: i < unknown_0.
+  (* Invariant *)
+  Have: (-2) <= i.
+}
+Prove: (x_1 % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (32162)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (17ms) (148)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 57):
+Let x = 1 + unknown_0.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(is_divisible1_0) /\
+      is_sint32(is_divisible2_0) /\ is_sint32(unknown_0).
+  (* Residual *)
+  When: 4 <= unknown_0.
+  (* Call 'unknown' *)
+  Have: (0 < unknown_0) /\ (unknown_0 <= 9999999).
+  (* Invariant *)
+  Have: 0 <= i_1.
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: i_1 <= x.
+  (* Else *)
+  Have: unknown_0 <= i_1.
+  If unknown_0 != i_1
+  Then { Have: is_divisible1_0 = 0. }
+  Else { Have: is_divisible1_0 = 1. }
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: i <= x.
+  (* Else *)
+  Have: unknown_0 <= i.
+  If unknown_0 != i
+  Then { Have: is_divisible2_0 = 0. }
+  Else { Have: is_divisible2_0 = 1. }
+}
+Prove: is_divisible2_0 = is_divisible1_0.
+Prover Z3 4.15.4 returns Valid (Qed:30ms) (10ms) (31836)
+Prover Alt-Ergo  returns Valid (Qed:30ms) (17ms) (269)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops-crafted-1_watermelon/loops-crafted-1_watermelon.acsl.c:10: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

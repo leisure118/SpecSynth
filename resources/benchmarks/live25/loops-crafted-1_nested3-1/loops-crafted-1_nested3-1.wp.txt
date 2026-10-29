@@ -1,0 +1,218 @@
+[kernel] Parsing output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 18 goals scheduled
+[wp] Proved goals:   18 / 18
+  Qed:            12
+  Alt-Ergo :       6 (7ms-8ms-11ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 8):
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 268435455).
+  (* Then *)
+  Have: x <= 268435454.
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 268435455).
+  (* Else *)
+  Have: 268435455 <= y.
+}
+Prove: to_uint32(1 + x) <= 268435455.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28166)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (31)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 15):
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y) /\ is_uint32(z).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 268435455).
+  (* Then *)
+  Have: x <= 268435454.
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 268435455).
+  (* Then *)
+  Have: y <= 268435454.
+  (* Invariant *)
+  Have: (0 <= z) /\ (z <= 268435455).
+  (* Else *)
+  Have: 268435455 <= z.
+}
+Prove: to_uint32(1 + y) <= 268435455.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (28660)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (40)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 22):
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y) /\ is_uint32(z).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 268435455).
+  (* Then *)
+  Have: x <= 268435454.
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 268435455).
+  (* Then *)
+  Have: y <= 268435454.
+  (* Invariant *)
+  Have: (0 <= z) /\ (z <= 268435455).
+  (* Then *)
+  Have: z <= 268435454.
+}
+Prove: to_uint32(1 + z) <= 268435455.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (28659)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (34)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.78ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 12):
+Let x_1 = to_uint32(1 + x).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 268435455).
+  (* Then *)
+  Have: x <= 268435454.
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 268435455).
+  (* Else *)
+  Have: 268435455 <= y.
+  (* Invariant *)
+  Have: x_1 <= 268435455.
+}
+Prove: x < x_1.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (28357)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (11ms) (36)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 19):
+Let x_1 = to_uint32(1 + y).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y) /\ is_uint32(z).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 268435455).
+  (* Then *)
+  Have: x <= 268435454.
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 268435455).
+  (* Then *)
+  Have: y <= 268435454.
+  (* Invariant *)
+  Have: (0 <= z) /\ (z <= 268435455).
+  (* Else *)
+  Have: 268435455 <= z.
+  (* Invariant *)
+  Have: x_1 <= 268435455.
+}
+Prove: y < x_1.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (28851)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (45)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 26):
+Let x_1 = to_uint32(1 + z).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y) /\ is_uint32(z).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 268435455).
+  (* Then *)
+  Have: x <= 268435454.
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 268435455).
+  (* Then *)
+  Have: y <= 268435454.
+  (* Invariant *)
+  Have: (0 <= z) /\ (z <= 268435455).
+  (* Then *)
+  Have: z <= 268435454.
+  (* Invariant *)
+  Have: x_1 <= 268435455.
+}
+Prove: z < x_1.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28850)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (40)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops-crafted-1_nested3-1/loops-crafted-1_nested3-1.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,62 @@
+[kernel] Parsing output/live25/loop-zilu_benchmark29_linear/loop-zilu_benchmark29_linear.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-zilu_benchmark29_linear/loop-zilu_benchmark29_linear.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             5
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark29_linear/loop-zilu_benchmark29_linear.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (0.79ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark29_linear/loop-zilu_benchmark29_linear.acsl.c, line 13):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= y) /\ (y <= 2147483646).
+  (* Else *)
+  Have: x < y.
+}
+Prove: x <= (99 + y).
+Prover Z3 4.15.4 returns Valid (Qed:0.61ms) (10ms) (27906)
+Prover Alt-Ergo  returns Valid (Qed:0.61ms) (6ms) (21)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-zilu_benchmark29_linear/loop-zilu_benchmark29_linear.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark29_linear/loop-zilu_benchmark29_linear.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-zilu_benchmark29_linear/loop-zilu_benchmark29_linear.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-zilu_benchmark29_linear/loop-zilu_benchmark29_linear.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-zilu_benchmark29_linear/loop-zilu_benchmark29_linear.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

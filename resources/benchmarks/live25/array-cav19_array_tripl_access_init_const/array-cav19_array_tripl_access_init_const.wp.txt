@@ -1,0 +1,278 @@
+[kernel] Parsing output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 20 goals scheduled
+[wp] Proved goals:   20 / 20
+  Qed:            16
+  Alt-Ergo :       4 (8ms-9ms-13ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 7):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 7):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 8):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 3 * i.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 300003).
+Let x_1 = 2 + x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= 300000) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) -> ((i_2 <= 300000) ->
+      (a_1[shift_sint32(a, i_2)] = 0)))).
+  (* Then *)
+  Have: i <= 100000.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_1[shift_sint32(a, x) <- 0][shift_sint32(a, 1 + x) <- 0]
+         [shift_sint32(a, x_1) <- 0][shift_sint32(a, i_1)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:21ms) (20ms) (95992)
+Prover Alt-Ergo  returns Valid (Qed:21ms) (13ms) (270)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 8):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 18):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (15ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 18):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 19):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 300003).
+Let a_2 = a_1[shift_sint32(a, i_2)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2) /\
+      is_sint32(a_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 300000).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100001).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < (3 * i_1)) ->
+      ((i_3 <= 300000) -> (a_1[shift_sint32(a, i_3)] = 0)))).
+  (* Else *)
+  Have: 100001 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 300001).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 300000) ->
+      (a_1[shift_sint32(a, i_3)] = 0))).
+  (* Then *)
+  Have: i_2 <= 300000.
+  (* Assertion *)
+  Have: 0 <= a_2.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a_1[shift_sint32(a, i)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:27ms) (10ms) (126633)
+Prover Alt-Ergo  returns Valid (Qed:27ms) (9ms) (74)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 19):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 300003).
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 300000).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < (3 * i_1)) ->
+      ((i_2 <= 300000) -> (a_1[shift_sint32(a, i_2)] = 0)))).
+  (* Else *)
+  Have: 100001 <= i_1.
+}
+Prove: a_1[shift_sint32(a, i)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (10ms) (94610)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (8ms) (45)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 24):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 300003).
+Let a_2 = a_1[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(a_2).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < (3 * i_1)) ->
+      ((i_2 <= 300000) -> (a_1[shift_sint32(a, i_2)] = 0)))).
+  (* Else *)
+  Have: 100001 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 300001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 300000) ->
+      (a_1[shift_sint32(a, i_2)] = 0))).
+  (* Then *)
+  Have: i <= 300000.
+}
+Prove: 0 <= a_2.
+Prover Z3 4.15.4 returns Valid (Qed:23ms) (10ms) (96158)
+Prover Alt-Ergo  returns Valid (Qed:23ms) (8ms) (60)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 9) (1/5):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 9) (2/5):
+Effect at line 12
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 9) (3/5):
+Effect at line 13
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 9) (4/5):
+Effect at line 14
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 9) (5/5):
+Effect at line 15
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 20):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 12):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 12):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 23):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c, line 23):
+output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-cav19_array_tripl_access_init_const/array-cav19_array_tripl_access_init_const.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

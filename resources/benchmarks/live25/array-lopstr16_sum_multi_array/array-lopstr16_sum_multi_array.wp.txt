@@ -1,0 +1,248 @@
+[kernel] Parsing output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c:28: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 22 goals scheduled
+[wp] Proved goals:   22 / 22
+  Qed:            18
+  Alt-Ergo :       4 (7ms-9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 35):
+Let x = a[i].F1__S_n.
+Let x_1 = b[i].F1__S_n.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Else *)
+  Have: 1000000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      ((c[i_3].F1__S_n) = ((a[i_3].F1__S_n) + (b[i_3].F1__S_n))))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (c[i <- { F1__S_n = x + x_1 }][i_1].F1__S_n)
+         = ((a[i_1].F1__S_n) + (b[i_1].F1__S_n)).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (31556)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (83)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 45):
+Let x = c[i_3].F1__S_n.
+Let x_1 = a[i_3].F1__S_n.
+Let x_2 = b[i_3].F1__S_n.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x) /\ is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      ((c[i_4].F1__S_n) = ((a[i_4].F1__S_n) + (b[i_4].F1__S_n))))).
+  (* Else *)
+  Have: 1000000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 999999) ->
+      ((c[i_4].F1__S_n) = ((a[i_4].F1__S_n) + (b[i_4].F1__S_n))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000000).
+  (* Then *)
+  Have: i_3 <= 999999.
+  (* Assertion *)
+  Have: x = (x_1 + x_2).
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: (c[i].F1__S_n) = ((a[i].F1__S_n) + (b[i].F1__S_n)).
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (32761)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (9ms) (71)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 45):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      ((c[i_3].F1__S_n) = ((a[i_3].F1__S_n) + (b[i_3].F1__S_n))))).
+  (* Else *)
+  Have: 1000000 <= i_2.
+}
+Prove: (c[i].F1__S_n) = ((a[i].F1__S_n) + (b[i].F1__S_n)).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29803)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (44)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 51):
+Let x = a[i].F1__S_n.
+Let x_1 = b[i].F1__S_n.
+Let x_2 = c[i].F1__S_n.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      ((c[i_3].F1__S_n) = ((a[i_3].F1__S_n) + (b[i_3].F1__S_n))))).
+  (* Else *)
+  Have: 1000000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      ((c[i_3].F1__S_n) = ((a[i_3].F1__S_n) + (b[i_3].F1__S_n))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+}
+Prove: x_2 = (x + x_1).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (31621)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (7ms) (57)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 22) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 22) (2/3):
+Call Result at line 28
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 22) (3/3):
+Call Result at line 30
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 49):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c, line 49):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-lopstr16_sum_multi_array/array-lopstr16_sum_multi_array.acsl.c:17: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

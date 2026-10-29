@@ -1,0 +1,146 @@
+[kernel] Parsing output/autobench_v2/247/247.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/autobench_v2/247/247.acsl.c:13: Warning: 
+  Calling function unknown_int that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/247/247.acsl.c:10: Warning: 
+  Neither code nor implicit assigns clause for function unknown_int, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] Proved goals:   12 / 12
+  Qed:            10
+  Alt-Ergo :       2 (7ms-12ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/247/247.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/247/247.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/247/247.acsl.c, line 24):
+Let x = 2 * i.
+Let x_1 = 1 + j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(l) /\
+      is_sint32(m) /\ is_sint32(n) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483647).
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= m) /\ (m <= 2147483647).
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= l) /\ (l <= 2147483647).
+  (* Then *)
+  Have: (3 * n) <= (l + m).
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x <= j.
+  (* Then *)
+  Have: j < (3 * i).
+  (* Invariant *)
+  Have: i <= k.
+  (* Else *)
+  Have: j <= k.
+}
+Prove: x <= x_1.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (30362)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (21)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/247/247.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/247/247.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/247/247.acsl.c, line 35):
+Let x = 2 * i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(l) /\
+      is_sint32(m) /\ is_sint32(n) /\ is_sint32(x).
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483647).
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= m) /\ (m <= 2147483647).
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= l) /\ (l <= 2147483647).
+  (* Then *)
+  Have: (3 * n) <= (l + m).
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x <= j.
+  (* Then *)
+  Have: j < (3 * i).
+  (* Invariant *)
+  Have: i <= k.
+  (* Then *)
+  Have: k < j.
+}
+Prove: k <= (i + (2 * n)).
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (30289)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (12ms) (22)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/247/247.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/247/247.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/247/247.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/247/247.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/247/247.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/247/247.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/247/247.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'unknown_int'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/247/247.acsl.c:10: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

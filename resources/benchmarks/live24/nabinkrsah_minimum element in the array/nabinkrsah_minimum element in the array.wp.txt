@@ -1,0 +1,156 @@
+[kernel] Parsing output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] Proved goals:   12 / 12
+  Qed:             9
+  Alt-Ergo :       3 (6ms-12ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 32):
+Assume {
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Initializer *)
+  Init: arr_0[0] = 5.
+  (* Initializer *)
+  Init: arr_0[1] = 3.
+  (* Initializer *)
+  Init: arr_0[2] = 1.
+  (* Initializer *)
+  Init: arr_0[3] = 33.
+  (* Initializer *)
+  Init: arr_0[4] = 22.
+  (* Call 'min_in_array' *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 4) -> (k <= arr_0[i_1]))).
+}
+Prove: k <= arr_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (19917)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (33)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 3) in 'min_in_array'' in 'main' at initialization of 'k' (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 31)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 4) in 'min_in_array'' in 'main' at initialization of 'k' (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 31)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function min_in_array
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 6) in 'min_in_array':
+Let a = shift_sint32(arr_0, 0).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(min_in_array_0) /\ is_sint32(n) /\
+      is_sint32(Mint_0[a]).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (min_in_array_0 <= Mint_0[shift_sint32(arr_0, i_2)]))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: min_in_array_0 <= Mint_0[shift_sint32(arr_0, i)].
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (94488)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (51)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 14):
+Let x = Mint_0[shift_sint32(arr_0, i_1)].
+Let a = shift_sint32(arr_0, 0).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(min_1) /\ is_sint32(n) /\
+      is_sint32(1 + i_1) /\ is_sint32(Mint_0[a]) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (min_1 <= Mint_0[shift_sint32(arr_0, i_2)]))).
+  (* Then *)
+  Have: i_1 < n.
+  If x < min_1
+  Then { Have: x = min_0. }
+  Else { Have: min_1 = min_0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: min_0 <= Mint_0[shift_sint32(arr_0, i)].
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (50ms) (397482)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (12ms) (122)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'min_in_array':
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/nabinkrsah_minimum element in the array/nabinkrsah_minimum element in the array.acsl.c:27: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

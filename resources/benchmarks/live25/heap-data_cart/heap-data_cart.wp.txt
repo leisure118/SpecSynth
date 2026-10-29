@@ -1,0 +1,82 @@
+[kernel] Parsing output/live25/heap-data_cart/heap-data_cart.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/heap-data_cart/heap-data_cart.acsl.c:18: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/heap-data_cart/heap-data_cart.acsl.c:21: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: node*)
+[wp] output/live25/heap-data_cart/heap-data_cart.acsl.c:36: Warning: 
+  Missing assigns clause (assigns 'everything' instead)
+[wp] output/live25/heap-data_cart/heap-data_cart.acsl.c:17: Warning: 
+  Missing assigns clause (assigns 'everything' instead)
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             5
+  Alt-Ergo :       1 (15ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/heap-data_cart/heap-data_cart.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/heap-data_cart/heap-data_cart.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/heap-data_cart/heap-data_cart.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/heap-data_cart/heap-data_cart.acsl.c, line 54):
+Let x = Mint_1[shiftfield_F4_node_order(i_1)].
+Let x_1 = Mint_1[shiftfield_F4_node_stock(i_1)].
+Let x_2 = Mint_0[shiftfield_F4_node_order(i)].
+Let x_3 = Mint_0[shiftfield_F4_node_stock(i)].
+Assume {
+  Type: is_sint32(x_2) /\
+      is_sint32(Mint_0[shiftfield_F4_node_order(null)]) /\ is_sint32(x_3) /\
+      is_sint32(Mint_0[shiftfield_F4_node_stock(null)]) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Goal *)
+  When: null != i.
+  (* Admit *)
+  Have: ((null != i_1) -> (x <= x_1)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, i, 3).
+  (* Admit *)
+  Have: forall a : addr. let x_4 = Mint_0[shiftfield_F4_node_stock(a)] in
+      (valid_rw(Malloc_0, a, 3) ->
+      ((0 <= x_4) /\ (Mint_0[shiftfield_F4_node_order(a)] <= x_4))).
+}
+Prove: x_2 <= x_3.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (80ms) (640869)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (15ms) (69)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/heap-data_cart/heap-data_cart.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_cart/heap-data_cart.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/heap-data_cart/heap-data_cart.acsl.c:15: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

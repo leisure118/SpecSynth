@@ -1,0 +1,95 @@
+[kernel] Parsing output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c:19: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] [Timeout] typed_lemma_add2_lsb (Z3)
+[wp] [Timeout] typed_main_loop_variant_decrease (Qed 4ms) (Z3)
+[wp] Proved goals:    6 / 8
+  Qed:             4
+  Alt-Ergo :       2 (10ms-22ms)
+  Timeout:         2
+------------------------------------------------------------
+  Global
+------------------------------------------------------------
+
+Lemma add2_lsb:
+Prove: (is_uint32 u_0) -> ((bit_test (2+u_0) 0) <-> (bit_test u_0 0))
+Prover Z3 4.15.4 returns Timeout (15s)
+Prover Alt-Ergo  returns Timeout (15s)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c, line 15):
+Assume {
+  Type: is_uint32(x) /\ is_sint32(tmp_0).
+  (* Invariant *)
+  Have: bit_test(x, 0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: bit_test(2 + x, 0).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (85444)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (10ms) (59)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c, line 22):
+Assume { Type: is_uint32(x). (* Invariant *) Have: bit_test(x, 0). }
+Prove: (x % 2) != 0.
+Prover Alt-Ergo  returns Valid (Qed:3ms) (22ms) (619)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c, line 16) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c, line 16) (2/2):
+Call Result at line 19
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c, line 19):
+Assume {
+  Type: is_uint32(x) /\ is_sint32(tmp_0).
+  (* Invariant *)
+  Have: bit_test(x, 0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: bit_test(2 + x, 0).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (Qed:4ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:4ms) (15s)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-invariants_odd/loop-invariants_odd.acsl.c:12: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

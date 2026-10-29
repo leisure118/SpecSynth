@@ -1,0 +1,94 @@
+[kernel] Parsing output/autobench_v2/94/94.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Z3 4.15.4:       2 (10ms-30ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/94/94.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/94/94.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/94/94.acsl.c, line 11):
+Let x = -j_1.
+Let x_1 = j - j_1.
+Let x_2 = j - 1 - j_1.
+Assume {
+  Type: is_sint32(j) /\ is_sint32(j_1) /\ is_sint32(k) /\ is_sint32(n) /\
+      is_sint32(x_1) /\ is_sint32(x_2).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= k.
+  (* Invariant *)
+  Have: (-1) <= n.
+  (* Invariant *)
+  Have: (j_1 < j) /\ (j <= (2 + j_1 + n)).
+  (* Invariant *)
+  Have: ((x_1 * x_2) / 2) = j_1.
+  (* Then *)
+  Have: j <= (1 + j_1 + n).
+}
+Prove: ((x_1 * (1 + j - j_1)) / 2) = j.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (30ms) (60040)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/94/94.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/94/94.acsl.c, line 20):
+Let x = (i * (1 + i)) / 2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(k) /\ is_sint32(n) /\ is_sint32(x).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= k.
+  (* Invariant *)
+  Have: (-1) <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= (1 + n)).
+  (* Else *)
+  Have: n < i.
+}
+Prove: (2 * n) < (i + k + x).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (35326)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/94/94.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/94/94.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/94/94.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/94/94.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

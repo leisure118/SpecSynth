@@ -1,0 +1,101 @@
+[kernel] Parsing output/live24/code2_83/code2_83.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             5
+  Alt-Ergo :       2 (7ms-11ms)
+  Z3 4.15.4:       1 (10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_83/code2_83.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_83/code2_83.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_83/code2_83.acsl.c, line 6):
+Let x_1 = 2 * x.
+Let x_2 = 1 + y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_2) /\ is_sint32(x + y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (y * (y - 1)) = (10000 + x_1).
+  (* Then *)
+  Have: x < 0.
+  (* Invariant *)
+  Have: (-1) <= y.
+}
+Prove: (y * x_2) = (10000 + x_1 + (2 * y)).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (7428)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (29)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_83/code2_83.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/code2_83/code2_83.acsl.c, line 14):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (y * (y - 1)) = (10000 + (2 * x)).
+  (* Else *)
+  Have: 0 <= x.
+}
+Prove: 0 < y.
+Prover Z3 4.15.4 returns Valid (Qed:0.93ms) (10ms) (27963)
+Prover Alt-Ergo  returns Valid (Qed:0.93ms) (11ms) (40)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_83/code2_83.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/code2_83/code2_83.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/code2_83/code2_83.acsl.c, line 10):
+Let x_1 = 1 + y.
+Let x_2 = 2 * x.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1) /\ is_sint32(x + y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (y * (y - 1)) = (10000 + x_2).
+  (* Then *)
+  Have: x < 0.
+  (* Invariant *)
+  Have: (-1) <= y.
+  (* Invariant *)
+  Have: (y * x_1) = (10000 + x_2 + (2 * y)).
+}
+Prove: (y + x_2) <= 0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29707)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/code2_83/code2_83.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

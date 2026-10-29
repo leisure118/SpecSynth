@@ -1,0 +1,680 @@
+[kernel] Parsing output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c:23: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 32 goals scheduled
+[wp] Proved goals:   32 / 32
+  Qed:            21
+  Alt-Ergo :      11 (7ms-10ms-19ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 35):
+Let x = array_0[i_2].
+Let x_1 = array_0[0].
+Let x_2 = array_0[1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(largest1_0) /\
+      is_sint32(largest1_1) /\ is_sint32(largest1_2) /\
+      is_sint32(largest2_0) /\ is_sint32(largest2_1) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(x) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (i <= i_2) /\ (0 <= i).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  If x_1 < x_2
+  Then { Have: (x_1 = largest2_1) /\ (x_2 = largest1_2). }
+  Else { Have: (x_1 = largest1_2) /\ (x_2 = largest2_1). }
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 1) ->
+      (array_0[i_3] <= largest1_2))).
+  (* Invariant *)
+  Have: largest2_1 <= largest1_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_3 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 <= 1) -> ((x_3 = largest1_2) \/ (x_3 <= largest2_1)))).
+  (* Invariant *)
+  Have: (2 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] <= largest1_1))).
+  (* Invariant *)
+  Have: largest2_0 <= largest1_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_3 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> ((x_3 = largest1_1) \/ (x_3 <= largest2_0)))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  If largest1_1 <= x
+  Then { Have: x = largest1_0. }
+  Else { Have: largest1_1 = largest1_0. }
+  (* Invariant *)
+  Have: 0 < i_2.
+}
+Prove: array_0[i] <= largest1_0.
+Prover Z3 4.15.4 returns Valid (Qed:27ms) (10ms) (35983)
+Prover Alt-Ergo  returns Valid (Qed:27ms) (15ms) (313)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 35):
+Let x = array_0[0].
+Let x_1 = array_0[1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(largest1_0) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 1).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  If x < x_1
+  Then { Have: x_1 = largest1_0. }
+  Else { Have: x = largest1_0. }
+}
+Prove: array_0[i] <= largest1_0.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (29812)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (48)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 36):
+Let x = array_0[i_1].
+Let x_1 = array_0[0].
+Let x_2 = array_0[1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(largest1_0) /\
+      is_sint32(largest1_1) /\ is_sint32(largest2_0) /\
+      is_sint32(largest2_1) /\ is_sint32(largest2_2) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(x) /\ is_sint32(1 + i_1).
+  (* Residual *)
+  When: x < largest1_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  If x_1 < x_2
+  Then { Have: (x_1 = largest2_2) /\ (x_2 = largest1_1). }
+  Else { Have: (x_1 = largest1_1) /\ (x_2 = largest2_2). }
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 1) ->
+      (array_0[i_2] <= largest1_1))).
+  (* Invariant *)
+  Have: largest2_2 <= largest1_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_3 = array_0[i_2] in ((0 <= i_2) ->
+      ((i_2 <= 1) -> ((x_3 = largest1_1) \/ (x_3 <= largest2_2)))).
+  (* Invariant *)
+  Have: (2 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (array_0[i_2] <= largest1_0))).
+  (* Invariant *)
+  Have: largest2_1 <= largest1_0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_3 = array_0[i_2] in ((0 <= i_2) ->
+      ((i_2 < i_1) -> ((x_3 = largest1_0) \/ (x_3 <= largest2_1)))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  If largest2_1 < x
+  Then { Have: x = largest2_0. }
+  Else { Have: largest2_1 = largest2_0. }
+  (* Invariant *)
+  Have: 0 < i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i_1) -> ((0 <= i_2) ->
+      (array_0[i_2] <= largest1_0))).
+}
+Prove: largest2_0 <= largest1_0.
+Prover Z3 4.15.4 returns Valid (Qed:44ms) (10ms) (35416)
+Prover Alt-Ergo  returns Valid (Qed:44ms) (7ms) (68)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 37):
+Let x = array_0[i_2].
+Let x_1 = array_0[0].
+Let x_2 = array_0[1].
+Let x_3 = array_0[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(largest1_0) /\
+      is_sint32(largest1_1) /\ is_sint32(largest1_2) /\
+      is_sint32(largest2_0) /\ is_sint32(largest2_1) /\
+      is_sint32(largest2_2) /\ is_sint32(largest2_3) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(x) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (i <= i_2) /\ (0 <= i).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  If x_1 < x_2
+  Then { Have: (x_1 = largest2_3) /\ (x_2 = largest1_2). }
+  Else { Have: (x_1 = largest1_2) /\ (x_2 = largest2_3). }
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 1) ->
+      (array_0[i_3] <= largest1_2))).
+  (* Invariant *)
+  Have: largest2_3 <= largest1_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_4 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 <= 1) -> ((x_4 = largest1_2) \/ (x_4 <= largest2_3)))).
+  (* Invariant *)
+  Have: (2 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] <= largest1_1))).
+  (* Invariant *)
+  Have: largest2_2 <= largest1_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_4 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> ((x_4 = largest1_1) \/ (x_4 <= largest2_2)))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  If largest1_1 <= x
+  Then { Have: largest2_0 = largest1_1. Have: x = largest1_0. }
+  Else {
+    Have: (largest1_1 = largest1_0) /\ (largest2_2 = largest2_1).
+    If largest2_1 < x
+    Then { Have: x = largest2_0. }
+    Else { Have: largest2_1 = largest2_0. }
+  }
+  (* Invariant *)
+  Have: 0 < i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i_2) -> ((0 <= i_3) ->
+      (array_0[i_3] <= largest1_0))).
+  (* Invariant *)
+  Have: largest2_0 <= largest1_0.
+}
+Prove: (x_3 = largest1_0) \/ (x_3 <= largest2_0).
+Prover Z3 4.15.4 returns Valid (Qed:39ms) (10ms) (38222)
+Prover Alt-Ergo  returns Valid (Qed:39ms) (19ms) (338)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 37):
+Let x = array_0[0].
+Let x_1 = array_0[1].
+Let x_2 = array_0[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(largest1_0) /\ is_sint32(largest2_0) /\
+      is_sint32(x) /\ is_sint32(x_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 1).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  If x < x_1
+  Then { Have: (x = largest2_0) /\ (x_1 = largest1_0). }
+  Else { Have: (x = largest1_0) /\ (x_1 = largest2_0). }
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 1) ->
+      (array_0[i_2] <= largest1_0))).
+  (* Invariant *)
+  Have: largest2_0 <= largest1_0.
+}
+Prove: (x_2 = largest1_0) \/ (x_2 <= largest2_0).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (30928)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (7ms) (63)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 56):
+Let x_1 = array_0[x].
+Let x_2 = array_0[0].
+Let x_3 = array_0[1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(largest1_0) /\
+      is_sint32(largest1_1) /\ is_sint32(largest2_0) /\
+      is_sint32(largest2_1) /\ is_sint32(x) /\ is_sint32(x_2) /\
+      is_sint32(x_3) /\ is_sint32(x_1) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  If x_2 < x_3
+  Then { Have: (x_2 = largest2_1) /\ (x_3 = largest1_1). }
+  Else { Have: (x_2 = largest1_1) /\ (x_3 = largest2_1). }
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 1) ->
+      (array_0[i_3] <= largest1_1))).
+  (* Invariant *)
+  Have: largest2_1 <= largest1_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_4 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 <= 1) -> ((x_4 = largest1_1) \/ (x_4 <= largest2_1)))).
+  (* Invariant *)
+  Have: (2 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] <= largest1_0))).
+  (* Invariant *)
+  Have: largest2_0 <= largest1_0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_4 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> ((x_4 = largest1_0) \/ (x_4 <= largest2_0)))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      (array_0[i_3] <= largest1_0))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Assertion *)
+  Have: x_1 <= largest1_0.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: array_0[i] <= largest1_0.
+Prover Z3 4.15.4 returns Valid (Qed:21ms) (10ms) (35630)
+Prover Alt-Ergo  returns Valid (Qed:21ms) (9ms) (124)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 56):
+Let x = array_0[0].
+Let x_1 = array_0[1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(largest1_0) /\
+      is_sint32(largest1_1) /\ is_sint32(largest2_0) /\
+      is_sint32(largest2_1) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  If x < x_1
+  Then { Have: (x = largest2_1) /\ (x_1 = largest1_1). }
+  Else { Have: (x = largest1_1) /\ (x_1 = largest2_1). }
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 1) ->
+      (array_0[i_3] <= largest1_1))).
+  (* Invariant *)
+  Have: largest2_1 <= largest1_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_2 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 <= 1) -> ((x_2 = largest1_1) \/ (x_2 <= largest2_1)))).
+  (* Invariant *)
+  Have: (2 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] <= largest1_0))).
+  (* Invariant *)
+  Have: largest2_0 <= largest1_0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_2 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> ((x_2 = largest1_0) \/ (x_2 <= largest2_0)))).
+  (* Else *)
+  Have: 100000 <= i_2.
+}
+Prove: array_0[i] <= largest1_0.
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (33654)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (11ms) (83)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 61):
+Let x_1 = array_0[0].
+Let x_2 = array_0[1].
+Let x_3 = array_0[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(largest1_0) /\
+      is_sint32(largest1_1) /\ is_sint32(largest2_0) /\
+      is_sint32(largest2_1) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(x_3).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  If x_1 < x_2
+  Then { Have: (x_1 = largest2_1) /\ (x_2 = largest1_1). }
+  Else { Have: (x_1 = largest1_1) /\ (x_2 = largest2_1). }
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 1) ->
+      (array_0[i_2] <= largest1_1))).
+  (* Invariant *)
+  Have: largest2_1 <= largest1_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_4 = array_0[i_2] in ((0 <= i_2) ->
+      ((i_2 <= 1) -> ((x_4 = largest1_1) \/ (x_4 <= largest2_1)))).
+  (* Invariant *)
+  Have: (2 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (array_0[i_2] <= largest1_0))).
+  (* Invariant *)
+  Have: largest2_0 <= largest1_0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_4 = array_0[i_2] in ((0 <= i_2) ->
+      ((i_2 < i_1) -> ((x_4 = largest1_0) \/ (x_4 <= largest2_0)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      (array_0[i_2] <= largest1_0))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+}
+Prove: x_3 <= largest1_0.
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (34740)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (9ms) (93)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 65):
+Let x_2 = array_0[x_1].
+Let x_3 = array_0[0].
+Let x_4 = array_0[1].
+Let x_5 = array_0[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(largest1_0) /\
+      is_sint32(largest1_1) /\ is_sint32(largest2_0) /\
+      is_sint32(largest2_1) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_3) /\ is_sint32(x_4) /\ is_sint32(x_2) /\
+      is_sint32(1 + x_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  If x_3 < x_4
+  Then { Have: (x_3 = largest2_1) /\ (x_4 = largest1_1). }
+  Else { Have: (x_3 = largest1_1) /\ (x_4 = largest2_1). }
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 1) ->
+      (array_0[i_3] <= largest1_1))).
+  (* Invariant *)
+  Have: largest2_1 <= largest1_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_6 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 <= 1) -> ((x_6 = largest1_1) \/ (x_6 <= largest2_1)))).
+  (* Invariant *)
+  Have: (2 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] <= largest1_0))).
+  (* Invariant *)
+  Have: largest2_0 <= largest1_0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_6 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> ((x_6 = largest1_0) \/ (x_6 <= largest2_0)))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      (array_0[i_3] <= largest1_0))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_6 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 <= 99999) -> ((x_6 = largest1_0) \/ (x_6 <= largest2_0)))).
+  (* Invariant *)
+  Have: (0 <= x_1) /\ (x_1 <= 100000).
+  (* Then *)
+  Have: x_1 <= 99999.
+  (* Assertion *)
+  Have: (x_2 = largest1_0) \/ (x_2 <= largest2_0).
+  (* Invariant *)
+  Have: (-1) <= x_1.
+}
+Prove: (x_5 = largest1_0) \/ (x_5 <= largest2_0).
+Prover Z3 4.15.4 returns Valid (Qed:26ms) (10ms) (37033)
+Prover Alt-Ergo  returns Valid (Qed:26ms) (12ms) (207)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 65):
+Let x_1 = array_0[0].
+Let x_2 = array_0[1].
+Let x_3 = array_0[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(largest1_0) /\
+      is_sint32(largest1_1) /\ is_sint32(largest2_0) /\
+      is_sint32(largest2_1) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  If x_1 < x_2
+  Then { Have: (x_1 = largest2_1) /\ (x_2 = largest1_1). }
+  Else { Have: (x_1 = largest1_1) /\ (x_2 = largest2_1). }
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 1) ->
+      (array_0[i_3] <= largest1_1))).
+  (* Invariant *)
+  Have: largest2_1 <= largest1_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_4 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 <= 1) -> ((x_4 = largest1_1) \/ (x_4 <= largest2_1)))).
+  (* Invariant *)
+  Have: (2 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (array_0[i_3] <= largest1_0))).
+  (* Invariant *)
+  Have: largest2_0 <= largest1_0.
+  (* Invariant *)
+  Have: forall i_3 : Z. let x_4 = array_0[i_3] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> ((x_4 = largest1_0) \/ (x_4 <= largest2_0)))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      (array_0[i_3] <= largest1_0))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+}
+Prove: (x_3 = largest1_0) \/ (x_3 <= largest2_0).
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (10ms) (34872)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (9ms) (139)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 70):
+Let x_2 = array_0[0].
+Let x_3 = array_0[1].
+Let x_4 = array_0[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(largest1_0) /\
+      is_sint32(largest1_1) /\ is_sint32(largest2_0) /\
+      is_sint32(largest2_1) /\ is_sint32(x_1) /\ is_sint32(x) /\
+      is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(x_4).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  If x_2 < x_3
+  Then { Have: (x_2 = largest2_1) /\ (x_3 = largest1_1). }
+  Else { Have: (x_2 = largest1_1) /\ (x_3 = largest2_1). }
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 1) ->
+      (array_0[i_2] <= largest1_1))).
+  (* Invariant *)
+  Have: largest2_1 <= largest1_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_5 = array_0[i_2] in ((0 <= i_2) ->
+      ((i_2 <= 1) -> ((x_5 = largest1_1) \/ (x_5 <= largest2_1)))).
+  (* Invariant *)
+  Have: (2 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (array_0[i_2] <= largest1_0))).
+  (* Invariant *)
+  Have: largest2_0 <= largest1_0.
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_5 = array_0[i_2] in ((0 <= i_2) ->
+      ((i_2 < i_1) -> ((x_5 = largest1_0) \/ (x_5 <= largest2_0)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      (array_0[i_2] <= largest1_0))).
+  (* Invariant *)
+  Have: (0 <= x_1) /\ (x_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= x_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_5 = array_0[i_2] in ((0 <= i_2) ->
+      ((i_2 <= 99999) -> ((x_5 = largest1_0) \/ (x_5 <= largest2_0)))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+}
+Prove: (x_4 = largest1_0) \/ (x_4 <= largest2_0).
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (10ms) (36021)
+Prover Alt-Ergo  returns Valid (Qed:20ms) (10ms) (162)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 69):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c, line 69):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_sanfoundry_02_ground/array-examples_sanfoundry_02_ground.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

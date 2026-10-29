@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { submitRun, getRun, getRunResult, getRunArtifacts, getArtifactContent } from '../api.js'
+import { getRun, getRunResult, getRunArtifacts, getArtifactContent } from '../api.js'
 
 export const RUN_POLL_INTERVAL_MS = 3000
 
@@ -434,7 +434,6 @@ export const useRunStore = defineStore('run', {
     },
   },
   actions: {
-    async submit(mode, payload) { return await submitRun(mode, payload) },
     async fetchTask(id) { this.task = await getRun(id); return this.task },
     async fetchResult(id) { this.result = await getRunResult(id); return this.result },
     async fetchArtifacts(id) { var r = await getRunArtifacts(id); this.artifacts = r.items || []; return this.artifacts },

@@ -1,0 +1,500 @@
+[kernel] Parsing output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c:24: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 36 goals scheduled
+[wp] Proved goals:   36 / 36
+  Qed:            27
+  Alt-Ergo :       9 (7ms-9ms-12ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (0.88ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 28):
+Let x = b_1 + c.
+Let x_1 = aa_0[x].
+Let x_2 = 1 + b_1 + c.
+Assume {
+  Type: is_sint32(b) /\ is_sint32(b_1) /\ is_sint32(c) /\ is_sint32(i) /\
+      is_sint32(x) /\ is_sint32(x_2) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Invariant *)
+  Have: (0 <= b_1) /\ (0 <= c).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < b_1) -> (0 <= bb_0[i_1]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < c) -> (cc_0[i_1] < 0))).
+  (* Then *)
+  Have: x <= 99999.
+  If 0 <= x_1
+  Then { Have: (1 + b_1) = b. }
+  Else { Have: b_1 = b. }
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: (0 <= b) /\ (b <= x_2).
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (31294)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (7ms) (54)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 31):
+Let x = 1 + b + c_2.
+Let x_1 = b + c_2.
+Let x_2 = aa_0[x_1].
+Assume {
+  Type: is_sint32(b) /\ is_sint32(c) /\ is_sint32(c_1) /\ is_sint32(c_2) /\
+      is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_2) /\
+      is_sint32(1 + b + c_2 - c).
+  (* Goal *)
+  When: (0 <= i) /\ ((c + i) <= x_1).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= x_1) /\ (x_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= b) /\ (0 <= c_2).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < b) -> (0 <= bb_1[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < c_2) -> (cc_0[i_2] < 0))).
+  (* Then *)
+  Have: x_1 <= 99999.
+  If 0 <= x_2
+  Then {
+    Have: (aa_0 = aa_1) /\ (bb_1 = bb_2) /\ (c_2 = c).
+    Have: bb_2[b <- aa_1[b + c]] = bb_0.
+  }
+  Else { Have: (bb_1 = bb_0) /\ (c_2 = c_1) /\ ((1 + c_1) = c). }
+  (* Invariant *)
+  Have: (0 <= c) /\ (c <= x).
+}
+Prove: 0 <= bb_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (33724)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (12ms) (197)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 32):
+Let x = b + c_2.
+Let x_1 = 1 + b + c_2.
+Let x_2 = aa_0[x].
+Assume {
+  Type: is_sint32(b) /\ is_sint32(c) /\ is_sint32(c_1) /\ is_sint32(c_2) /\
+      is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(1 + b + c_2 - c).
+  (* Goal *)
+  When: (0 <= i) /\ (i < c).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Invariant *)
+  Have: (0 <= b) /\ (0 <= c_2).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < b) -> (0 <= bb_0[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < c_2) -> (cc_1[i_2] < 0))).
+  (* Then *)
+  Have: x <= 99999.
+  If 0 <= x_2
+  Then {
+    Have: (aa_0 = aa_1) /\ (bb_0 = bb_1) /\ (c_2 = c) /\ (cc_1 = cc_0).
+    Have: bb_1[b <- aa_1[b + c]] = bb_2.
+  }
+  Else {
+    Have: (aa_0 = aa_2) /\ (bb_0 = bb_2) /\ (c_2 = c_1) /\ (cc_1 = cc_2) /\
+        ((1 + c_1) = c).
+    Have: cc_2[c_1 <- aa_2[b + c_1]] = cc_0.
+  }
+  (* Invariant *)
+  Have: (0 <= c) /\ (c <= x_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((c + i_2) <= x) ->
+      (0 <= bb_2[i_2]))).
+}
+Prove: cc_0[i] < 0.
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (10ms) (35332)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (12ms) (221)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 49):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 49):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 50):
+Let x_1 = bb_0[x].
+Let x_2 = b + c.
+Assume {
+  Type: is_sint32(b) /\ is_sint32(c) /\ is_sint32(i_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(1 + x) /\ is_sint32(x_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i < b).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= x_2) /\ (x_2 <= 100000).
+  (* Invariant *)
+  Have: (0 <= b) /\ (0 <= c).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < b) -> (0 <= bb_0[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < c) -> (cc_0[i_2] < 0))).
+  (* Else *)
+  Have: 100000 <= x_2.
+  (* Invariant *)
+  Have: (x <= b) /\ (0 <= x).
+  (* Then *)
+  Have: x < b.
+  (* Assertion *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: 0 <= bb_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (31494)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (72)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 50):
+Let x = b + c.
+Assume {
+  Type: is_sint32(b) /\ is_sint32(c) /\ is_sint32(i_1) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i < b).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Invariant *)
+  Have: (0 <= b) /\ (0 <= c).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < b) -> (0 <= bb_0[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < c) -> (cc_0[i_2] < 0))).
+  (* Else *)
+  Have: 100000 <= x.
+}
+Prove: 0 <= bb_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30265)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (51)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 55):
+Let x_1 = b + c.
+Let x_2 = bb_0[x].
+Assume {
+  Type: is_sint32(b) /\ is_sint32(c) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(x_2) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= x_1) /\ (x_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= b) /\ (0 <= c).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < b) -> (0 <= bb_0[i_1]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < c) -> (cc_0[i_1] < 0))).
+  (* Else *)
+  Have: 100000 <= x_1.
+  (* Invariant *)
+  Have: (x <= b) /\ (0 <= x).
+  (* Then *)
+  Have: x < b.
+}
+Prove: 0 <= x_2.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (30737)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (60)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 59):
+Let x_2 = cc_0[x_1].
+Let x_3 = b + c.
+Assume {
+  Type: is_sint32(b) /\ is_sint32(c) /\ is_sint32(i_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(1 + x_1) /\
+      is_sint32(x_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i < c).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= x_3) /\ (x_3 <= 100000).
+  (* Invariant *)
+  Have: (0 <= b) /\ (0 <= c).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < b) -> (0 <= bb_0[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < c) -> (cc_0[i_2] < 0))).
+  (* Else *)
+  Have: 100000 <= x_3.
+  (* Invariant *)
+  Have: (x <= b) /\ (0 <= x).
+  (* Else *)
+  Have: b <= x.
+  (* Invariant *)
+  Have: (x_1 <= c) /\ (0 <= x_1).
+  (* Then *)
+  Have: x_1 < c.
+  (* Assertion *)
+  Have: x_2 < 0.
+  (* Invariant *)
+  Have: (-1) <= x_1.
+}
+Prove: cc_0[i] < 0.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (32077)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (76)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 59):
+Let x_1 = b + c.
+Assume {
+  Type: is_sint32(b) /\ is_sint32(c) /\ is_sint32(i_1) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < c).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= x_1) /\ (x_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= b) /\ (0 <= c).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < b) -> (0 <= bb_0[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < c) -> (cc_0[i_2] < 0))).
+  (* Else *)
+  Have: 100000 <= x_1.
+  (* Invariant *)
+  Have: (x <= b) /\ (0 <= x).
+  (* Else *)
+  Have: b <= x.
+}
+Prove: cc_0[i] < 0.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30836)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (61)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 64):
+Let x_2 = b + c.
+Let x_3 = cc_0[x].
+Assume {
+  Type: is_sint32(b) /\ is_sint32(c) /\ is_sint32(i) /\ is_sint32(x_1) /\
+      is_sint32(x) /\ is_sint32(x_3) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= x_2) /\ (x_2 <= 100000).
+  (* Invariant *)
+  Have: (0 <= b) /\ (0 <= c).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < b) -> (0 <= bb_0[i_1]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < c) -> (cc_0[i_1] < 0))).
+  (* Else *)
+  Have: 100000 <= x_2.
+  (* Invariant *)
+  Have: (x_1 <= b) /\ (0 <= x_1).
+  (* Else *)
+  Have: b <= x_1.
+  (* Invariant *)
+  Have: (x <= c) /\ (0 <= x).
+  (* Then *)
+  Have: x < c.
+}
+Prove: x_3 < 0.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (31308)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (69)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_standard_partition_original_ground/array-examples_standard_partition_original_ground.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

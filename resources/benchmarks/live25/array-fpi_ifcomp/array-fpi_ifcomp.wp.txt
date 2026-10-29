@@ -1,0 +1,2259 @@
+[kernel] Parsing output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:11: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+[wp] output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+[wp] output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+[wp] 49 goals scheduled
+[wp] Proved goals:   49 / 49
+  Qed:            30
+  Alt-Ergo :      18 (10ms-102ms-1.5s)
+  Z3 4.15.4:       1 (40ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (0.51ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 23):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 23):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 24):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = shift_sint64(c, 0).
+Let x = to_uint64(8 * to_uint64(N)).
+Let a_5 = a_2[shift_sint64(a, i - 1)].
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i) /\ is_sint64(1 + i) /\ is_sint64(a_5).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Residual *)
+  When: i != 0.
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_4, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_4, N) /\
+      separated(a_3, N, a_4, N).
+  (* Invariant *)
+  Have: (i <= N) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint64(a, i_2)] = (6 + (6 * i_2))))).
+  (* Then *)
+  Have: i < N.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_2[shift_sint64(a, i) <- 6 + a_5][shift_sint64(a, i_1)] =
+    (6 + (6 * i_1)).
+Prover Alt-Ergo  returns Valid (Qed:16ms) (15ms) (262)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 24):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 37):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 37):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 38):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_2, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let x = to_uint64(8 * to_uint64(N)).
+Let x_1 = i_2 - 1.
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\
+      is_sint64(1 + i_2) /\ is_sint64(Mint_1[shift_sint64(a, x_1)]) /\
+      is_sint64(Mint_1[shift_sint64(b, x_1)]).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_4[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_4[shift_sint64(b, i_3)] = (1 + (3 * (i_3 * (1 + i_3))))))).
+  (* Then *)
+  Have: i_2 < N.
+  If i_2 = 0
+  Then { Have: a_4[a_3 <- 1] = Mint_0. }
+  Else {
+    Have: a_4 = Mint_1.
+    Have: Mint_1[shift_sint64(b, i_2) <- Mint_1[shift_sint64(a, x_1)]
+            + Mint_1[shift_sint64(b, x_1)]] = Mint_0.
+  }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: Mint_0[shift_sint64(a, i)] = (6 + (6 * i)).
+Prover Z3 4.15.4 returns Valid (Qed:25ms) (70ms) (607730)
+Prover Alt-Ergo  returns Valid (Qed:25ms) (30ms) (698)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 38):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = shift_sint64(c, 0).
+Let x = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_4, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_4, N) /\
+      separated(a_3, N, a_4, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_2[shift_sint64(a, i_2)] = (6 + (6 * i_2))))).
+  (* Else *)
+  Have: N <= i_1.
+}
+Prove: a_2[shift_sint64(a, i)] = (6 + (6 * i)).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (30ms) (246696)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (87)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 39):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, N).
+Let x = i - 1.
+Let a_5 = a_4[shift_sint64(a, x)].
+Let a_6 = a_4[shift_sint64(b, x)].
+Let a_7 = a_4[shift_sint64(b, i) <- a_5 + a_6].
+Let a_8 = shift_sint64(c, 0).
+Let x_1 = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_2) /\ is_sint64(i) /\ is_sint64(1 + i) /\
+      is_sint64(a_5) /\ is_sint64(a_6).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Residual *)
+  When: i != 0.
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x_1)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x_1)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x_1)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_8, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_8, N) /\
+      separated(a_3, N, a_8, N).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: (i <= N) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_4[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_4[shift_sint64(b, i_3)] = (1 + (3 * (i_3 * (1 + i_3))))))).
+  (* Then *)
+  Have: i < N.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_7[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+}
+Prove: a_7[shift_sint64(b, i_1)] = (1 + (3 * (i_1 * (1 + i_1)))).
+Prover Alt-Ergo  returns Valid (Qed:24ms) (37ms) (2164)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 39):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 52):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 52):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 53):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_2, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_2, a_4, a_5, N).
+Let x = to_uint64(8 * to_uint64(N)).
+Let x_1 = i_3 - 1.
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3) /\
+      is_sint64(1 + i_3) /\ is_sint64(Mint_1[shift_sint64(b, x_1)]) /\
+      is_sint64(Mint_1[shift_sint64(c, x_1)]).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (a_6[shift_sint64(c, i_4)] = (i_4 * i_4 * i_4)))).
+  (* Then *)
+  Have: i_3 < N.
+  If i_3 = 0
+  Then { Have: a_6[a_5 <- 0] = Mint_0. }
+  Else {
+    Have: a_6 = Mint_1.
+    Have: Mint_1[shift_sint64(c, i_3) <- Mint_1[shift_sint64(b, x_1)]
+            + Mint_1[shift_sint64(c, x_1)]] = Mint_0.
+  }
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: Mint_0[shift_sint64(a, i)] = (6 + (6 * i)).
+Prover Alt-Ergo  returns Valid (Qed:33ms) (26ms) (575)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 53):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let x = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_4[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_4[shift_sint64(b, i_3)] = (1 + (3 * (i_3 * (1 + i_3))))))).
+  (* Else *)
+  Have: N <= i_2.
+}
+Prove: a_4[shift_sint64(a, i)] = (6 + (6 * i)).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (30ms) (250609)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (11ms) (102)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 54):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_2, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_2, a_4, a_5, N).
+Let x = to_uint64(8 * to_uint64(N)).
+Let x_1 = i_3 - 1.
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3) /\
+      is_sint64(1 + i_3) /\ is_sint64(Mint_1[shift_sint64(b, x_1)]) /\
+      is_sint64(Mint_1[shift_sint64(c, x_1)]).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (a_6[shift_sint64(c, i_4)] = (i_4 * i_4 * i_4)))).
+  (* Then *)
+  Have: i_3 < N.
+  If i_3 = 0
+  Then { Have: a_6[a_5 <- 0] = Mint_0. }
+  Else {
+    Have: a_6 = Mint_1.
+    Have: Mint_1[shift_sint64(c, i_3) <- Mint_1[shift_sint64(b, x_1)]
+            + Mint_1[shift_sint64(c, x_1)]] = Mint_0.
+  }
+  (* Invariant *)
+  Have: (-1) <= i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (Mint_0[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+}
+Prove: Mint_0[shift_sint64(b, i)] = (1 + (3 * (i * (1 + i)))).
+Prover Z3 4.15.4 returns Valid (Qed:45ms) (60ms) (615695)
+Prover Alt-Ergo  returns Valid (Qed:45ms) (29ms) (1206)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 54):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let x = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_4[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_4[shift_sint64(b, i_3)] = (1 + (3 * (i_3 * (1 + i_3))))))).
+  (* Else *)
+  Have: N <= i_2.
+}
+Prove: a_4[shift_sint64(b, i)] = (1 + (3 * (i * (1 + i)))).
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (30ms) (251370)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (11ms) (124)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 55):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_2, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_0, a_4, a_5, N).
+Let x = i - 1.
+Let a_7 = a_6[shift_sint64(b, x)].
+Let a_8 = a_6[shift_sint64(c, x)].
+Let a_9 = a_6[shift_sint64(c, i) <- a_7 + a_8].
+Let x_1 = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_2) /\ is_sint64(i_3) /\ is_sint64(i) /\
+      is_sint64(1 + i) /\ is_sint64(a_7) /\ is_sint64(a_8).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Residual *)
+  When: i != 0.
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x_1)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x_1)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x_1)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Else *)
+  Have: N <= i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: (i <= N) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i) ->
+      (a_6[shift_sint64(c, i_4)] = (i_4 * i_4 * i_4)))).
+  (* Then *)
+  Have: i < N.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_9[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_9[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+}
+Prove: a_9[shift_sint64(c, i_1)] = (i_1 * i_1 * i_1).
+Prover Alt-Ergo  returns Valid (Qed:36ms) (1.5s) (44958)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 55):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 68):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 68):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 69):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_2, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_0, a_4, a_5, N).
+Let a_7 = a_6[shift_sint64(c, i_4)].
+Let x = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3) /\
+      is_sint64(i_4) /\ is_sint64(1 + i_4) /\ is_sint64(a_7).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_1) ->
+      (a_2[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_2[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_4[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) ->
+      (a_4[shift_sint64(b, i_5)] = (1 + (3 * (i_5 * (1 + i_5))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_4[shift_sint64(b, i_5)] = (1 + (3 * (i_5 * (1 + i_5))))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_6[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_6[shift_sint64(b, i_5)] = (1 + (3 * (i_5 * (1 + i_5))))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) ->
+      (a_6[shift_sint64(c, i_5)] = (i_5 * i_5 * i_5)))).
+  (* Else *)
+  Have: N <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_6[shift_sint64(c, i_5)] = (i_5 * i_5 * i_5)))).
+  (* Invariant *)
+  Have: (i_4 <= N) /\ (0 <= i_4).
+  (* Then *)
+  Have: i_4 < N.
+  (* Assertion *)
+  Have: a_7 = (i_4 * i_4 * i_4).
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: a_6[shift_sint64(a, i)] = (6 + (6 * i)).
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (30ms) (350296)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (13ms) (619)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 69):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_2, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_0, a_4, a_5, N).
+Let x = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (a_6[shift_sint64(c, i_4)] = (i_4 * i_4 * i_4)))).
+  (* Else *)
+  Have: N <= i_3.
+}
+Prove: a_6[shift_sint64(a, i)] = (6 + (6 * i)).
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (30ms) (257393)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (11ms) (120)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 70):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_2, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_0, a_4, a_5, N).
+Let a_7 = a_6[shift_sint64(c, i_4)].
+Let x = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3) /\
+      is_sint64(i_4) /\ is_sint64(1 + i_4) /\ is_sint64(a_7).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_1) ->
+      (a_2[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_2[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_4[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) ->
+      (a_4[shift_sint64(b, i_5)] = (1 + (3 * (i_5 * (1 + i_5))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_4[shift_sint64(b, i_5)] = (1 + (3 * (i_5 * (1 + i_5))))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_6[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_6[shift_sint64(b, i_5)] = (1 + (3 * (i_5 * (1 + i_5))))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) ->
+      (a_6[shift_sint64(c, i_5)] = (i_5 * i_5 * i_5)))).
+  (* Else *)
+  Have: N <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_6[shift_sint64(c, i_5)] = (i_5 * i_5 * i_5)))).
+  (* Invariant *)
+  Have: (i_4 <= N) /\ (0 <= i_4).
+  (* Then *)
+  Have: i_4 < N.
+  (* Assertion *)
+  Have: a_7 = (i_4 * i_4 * i_4).
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: a_6[shift_sint64(b, i)] = (1 + (3 * (i * (1 + i)))).
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (40ms) (350472)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (14ms) (1032)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 70):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_2, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_0, a_4, a_5, N).
+Let x = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (a_6[shift_sint64(c, i_4)] = (i_4 * i_4 * i_4)))).
+  (* Else *)
+  Have: N <= i_3.
+}
+Prove: a_6[shift_sint64(b, i)] = (1 + (3 * (i * (1 + i)))).
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (30ms) (257518)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (11ms) (146)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 71):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_2, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_0, a_4, a_5, N).
+Let a_7 = a_6[shift_sint64(c, i_4)].
+Let x = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3) /\
+      is_sint64(i_4) /\ is_sint64(1 + i_4) /\ is_sint64(a_7).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_1) ->
+      (a_2[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_2[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_4[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) ->
+      (a_4[shift_sint64(b, i_5)] = (1 + (3 * (i_5 * (1 + i_5))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_4[shift_sint64(b, i_5)] = (1 + (3 * (i_5 * (1 + i_5))))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_6[shift_sint64(a, i_5)] = (6 + (6 * i_5))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_6[shift_sint64(b, i_5)] = (1 + (3 * (i_5 * (1 + i_5))))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) ->
+      (a_6[shift_sint64(c, i_5)] = (i_5 * i_5 * i_5)))).
+  (* Else *)
+  Have: N <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < N) ->
+      (a_6[shift_sint64(c, i_5)] = (i_5 * i_5 * i_5)))).
+  (* Invariant *)
+  Have: (i_4 <= N) /\ (0 <= i_4).
+  (* Then *)
+  Have: i_4 < N.
+  (* Assertion *)
+  Have: a_7 = (i_4 * i_4 * i_4).
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: a_6[shift_sint64(c, i)] = (i * i * i).
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (30ms) (349660)
+Prover Alt-Ergo  returns Valid (Qed:20ms) (16ms) (826)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 71):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_2, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_0, a_4, a_5, N).
+Let x = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (a_6[shift_sint64(c, i_4)] = (i_4 * i_4 * i_4)))).
+  (* Else *)
+  Have: N <= i_3.
+}
+Prove: a_6[shift_sint64(c, i)] = (i * i * i).
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (30ms) (257956)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (13ms) (133)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 77):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_2, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_0, a_4, a_5, N).
+Let x = to_uint64(8 * to_uint64(N)).
+Let a_7 = a_6[shift_sint64(c, i)].
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3) /\
+      is_sint64(i) /\ is_sint64(a_7).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_2[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_4[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: (i_3 <= N) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(a, i_4)] = (6 + (6 * i_4))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(b, i_4)] = (1 + (3 * (i_4 * (1 + i_4))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (a_6[shift_sint64(c, i_4)] = (i_4 * i_4 * i_4)))).
+  (* Else *)
+  Have: N <= i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < N) ->
+      (a_6[shift_sint64(c, i_4)] = (i_4 * i_4 * i_4)))).
+  (* Invariant *)
+  Have: (i <= N) /\ (0 <= i).
+  (* Then *)
+  Have: i < N.
+}
+Prove: a_7 = (i * i * i).
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (30ms) (259467)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (12ms) (141)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 25) (1/4):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 25) (2/4):
+Effect at line 28
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 25) (3/4):
+Effect at line 31
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 25) (4/4):
+Effect at line 33
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, N).
+Let x = i - 1.
+Let a_3 = shift_sint64(a, x).
+Let a_4 = a_2[shift_sint64(a, i - 2)].
+Let a_5 = shift_sint64(b, 0).
+Let a_6 = shift_sint64(c, 0).
+Let x_1 = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i) /\ is_sint64(x) /\ is_sint64(a_4).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x_1)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x_1)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x_1)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_6, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_5, N) /\ separated(a_1, N, a_6, N) /\
+      separated(a_5, N, a_6, N).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + N)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint64(a, i_1)] = (6 + (6 * i_1))))).
+  (* Then *)
+  Have: i <= N.
+  (* Else *)
+  Have: i != 1.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[a_3 <- 6 + a_4][shift_sint64(a, i_1)] = (6 + (6 * i_1))))).
+}
+Prove: included(a_3, 1, a_1, N).
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (30ms) (248953)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (14ms) (196)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 40) (1/4):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 40) (2/4):
+Effect at line 43
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 40) (3/4):
+Effect at line 46
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 40) (4/4):
+Effect at line 48
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, N).
+Let x = i - 1.
+Let a_5 = shift_sint64(b, x).
+Let x_1 = i - 2.
+Let a_6 = a_4[shift_sint64(a, x_1)].
+Let a_7 = a_4[shift_sint64(b, x_1)].
+Let a_8 = a_4[a_5 <- a_6 + a_7].
+Let a_9 = shift_sint64(c, 0).
+Let x_2 = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i) /\ is_sint64(x) /\
+      is_sint64(a_6) /\ is_sint64(a_7).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_5, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x_2)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x_2)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x_2)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_9, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_9, N) /\
+      separated(a_3, N, a_9, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_2[shift_sint64(a, i_2)] = (6 + (6 * i_2))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < N) ->
+      (a_2[shift_sint64(a, i_2)] = (6 + (6 * i_2))))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + N)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < N) ->
+      (a_4[shift_sint64(a, i_2)] = (6 + (6 * i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i) ->
+      (a_4[shift_sint64(b, i_2)] = (1 + (3 * (i_2 * (1 + i_2))))))).
+  (* Then *)
+  Have: i <= N.
+  (* Else *)
+  Have: i != 1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < N) ->
+      (a_8[shift_sint64(a, i_2)] = (6 + (6 * i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_8[shift_sint64(b, i_2)] = (1 + (3 * (i_2 * (1 + i_2))))))).
+}
+Prove: included(a_5, 1, a_3, N).
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (40ms) (345657)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (26ms) (892)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 56) (1/4):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 56) (2/4):
+Effect at line 59
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 56) (3/4):
+Effect at line 62
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 56) (4/4):
+Effect at line 64
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_2, Mint_0, a_1, N).
+Let a_3 = shift_sint64(b, 0).
+Let a_4 = havoc(Mint_undef_1, a_2, a_3, N).
+Let a_5 = shift_sint64(c, 0).
+Let a_6 = havoc(Mint_undef_0, a_4, a_5, N).
+Let x = i - 1.
+Let a_7 = shift_sint64(c, x).
+Let x_1 = i - 2.
+Let a_8 = a_6[shift_sint64(b, x_1)].
+Let a_9 = a_6[shift_sint64(c, x_1)].
+Let a_10 = a_6[a_7 <- a_8 + a_9].
+Let x_2 = to_uint64(8 * to_uint64(N)).
+Assume {
+  Type: is_sint32(N) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i) /\
+      is_sint64(x) /\ is_sint64(a_8) /\ is_sint64(a_9).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_7, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 536870911).
+  (* Else *)
+  Have: 0 < N.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, x_2)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, x_2)) -> (null = malloc_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_2, x_2)) -> (null = malloc_2)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_3, N).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_5, N).
+  (* Admit *)
+  Have: separated(a_1, N, a_3, N) /\ separated(a_1, N, a_5, N) /\
+      separated(a_3, N, a_5, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Else *)
+  Have: N <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_2[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_4[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_4[shift_sint64(b, i_3)] = (1 + (3 * (i_3 * (1 + i_3))))))).
+  (* Else *)
+  Have: N <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_4[shift_sint64(b, i_3)] = (1 + (3 * (i_3 * (1 + i_3))))))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + N)).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_6[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_6[shift_sint64(b, i_3)] = (1 + (3 * (i_3 * (1 + i_3))))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((2 + i_3) <= i) ->
+      (a_6[shift_sint64(c, i_3)] = (i_3 * i_3 * i_3)))).
+  (* Then *)
+  Have: i <= N.
+  (* Else *)
+  Have: i != 1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_10[shift_sint64(a, i_3)] = (6 + (6 * i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < N) ->
+      (a_10[shift_sint64(b, i_3)] = (1 + (3 * (i_3 * (1 + i_3))))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_10[shift_sint64(c, i_3)] = (i_3 * i_3 * i_3)))).
+}
+Prove: included(a_7, 1, a_5, N).
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (40ms) (354953)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 72):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 28):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 28):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 43):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 43):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 59):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 59):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 75):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c, line 75):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:17: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-fpi_ifcomp/array-fpi_ifcomp.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

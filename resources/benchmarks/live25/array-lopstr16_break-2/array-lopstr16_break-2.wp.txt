@@ -1,0 +1,179 @@
+[kernel] Parsing output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:            11
+  Alt-Ergo :       4 (7ms-8ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 13):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i) /\ (i_1 <= 500000).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> ((i_2 <= 500000) ->
+      ((s[i_2].F1_S_n) = 10)))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Else *)
+  Have: i <= 500000.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (s[i <- { F1_S_n = 10 }][i_1].F1_S_n) = 10.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29693)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (67)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 25):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(s[i_2].F1_S_n) /\
+      is_sint32(1 + i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 500000) /\ (i <= 999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((i_3 <= 500000) ->
+      ((s[i_3].F1_S_n) = 10)))).
+  If i_1 <= 999999
+  Then { (* Then *) Have: 500001 <= i_1. }
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 500000) ->
+      ((i_3 <= 999999) -> ((s[i_3].F1_S_n) = 10)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Then *)
+  Have: i_2 <= 999999.
+  If i_2 <= 500000
+  Then { (* Assertion *) Have: (s[i_2].F1_S_n) = 10. }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: (s[i].F1_S_n) = 10.
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (30934)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (8ms) (71)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 25):
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 500000) /\ (i <= 999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((i_2 <= 500000) ->
+      ((s[i_2].F1_S_n) = 10)))).
+  If i_1 <= 999999
+  Then { (* Then *) Have: 500001 <= i_1. }
+}
+Prove: (s[i].F1_S_n) = 10.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (28912)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (42)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 32):
+Let x = s[i].F1_S_n.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((i_2 <= 500000) ->
+      ((s[i_2].F1_S_n) = 10)))).
+  If i_1 <= 999999
+  Then { (* Then *) Have: 500001 <= i_1. }
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 500000) ->
+      ((i_2 <= 999999) -> ((s[i_2].F1_S_n) = 10)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+  (* Then *)
+  Have: i <= 500000.
+}
+Prove: x = 10.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (30053)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (7ms) (45)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

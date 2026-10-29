@@ -1,0 +1,453 @@
+[kernel] Parsing output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:26: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:37: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: S*)
+[wp] output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:46: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: S*)
+[wp] 20 goals scheduled
+[wp] [Timeout] typed_main_loop_assigns_part3 (Qed 12ms) (Alt-Ergo) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part5 (Qed 11ms) (Alt-Ergo) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part6 (Qed 8ms) (Alt-Ergo) (Stronger, 3 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part7 (Qed 8ms) (Alt-Ergo) (Stronger, 3 warnings)
+[wp] Proved goals:   16 / 20
+  Qed:            14
+  Alt-Ergo :       2 (8ms-11ms)
+  Timeout:         4
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 20):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:37: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 49):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:46: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 49):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:46: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 50):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:46: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Let m = a[3 <- v].
+Let a_1 = m[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2) /\
+      is_sint32(Mint_0[shiftfield_F4_S_n(m[i_2])]).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (i != 3) /\ (a_1 != null) /\ (i <= i_2) /\ (0 <= i).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[3 <- v_1] = Init_a_0.
+  (* Admit *)
+  Have: forall i_3 : Z. let a_2 = m[i_3] in ((i_3 != 3) -> ((a_2 != null) ->
+      ((0 <= i_3) -> ((i_3 <= 999999) ->
+      ((Mint_0[shiftfield_F4_S_n(a_2)] = 0) /\
+       (Mptr_0[shiftfield_F4_S_p(a_2)] != null)))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_2 = m[i_3] in ((i_3 != 3) -> ((a_2 != null) ->
+      ((0 <= i_3) -> ((i_3 < i_2) ->
+      ((Mint_0[shiftfield_F4_S_n(a_2)] = 0) /\
+       (Mptr_0[shiftfield_F4_S_p(a_2)] != null)))))).
+  (* Then *)
+  Have: i_2 <= 999999.
+  If i_2 != 3
+  Then {
+    If m[i_2] != null
+    Then {
+      If Mint_0[shiftfield_F4_S_n(m[i_2])] = 0
+      Then { (* Assertion *) Have: Mptr_0[shiftfield_F4_S_p(m[i_2])] != null.
+      }
+    }
+  }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: (Mint_0[shiftfield_F4_S_n(a_1)] = 0) /\
+    (Mptr_0[shiftfield_F4_S_p(a_1)] != null).
+Prover Alt-Ergo  returns Valid (Qed:35ms) (11ms) (112)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 50):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:46: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 59):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:46: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Let m = a[3 <- v].
+Let a_1 = m[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[3 <- v_1] = Init_a_0.
+  (* Admit *)
+  Have: forall i_2 : Z. let a_2 = m[i_2] in ((i_2 != 3) -> ((a_2 != null) ->
+      ((0 <= i_2) -> ((i_2 <= 999999) ->
+      ((Mint_0[shiftfield_F4_S_n(a_2)] = 0) /\
+       (Mptr_0[shiftfield_F4_S_p(a_2)] != null)))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = m[i_2] in ((i_2 != 3) -> ((a_2 != null) ->
+      ((0 <= i_2) -> ((i_2 < i) ->
+      ((Mint_0[shiftfield_F4_S_n(a_2)] = 0) /\
+       (Mptr_0[shiftfield_F4_S_p(a_2)] != null)))))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Then *)
+  Have: i != 3.
+  (* Then *)
+  Have: a_1 != null.
+  (* Then *)
+  Have: Mint_0[shiftfield_F4_S_n(a_1)] = 0.
+}
+Prove: Mptr_0[shiftfield_F4_S_p(a_1)] != null.
+Prover Alt-Ergo  returns Valid (Qed:12ms) (8ms) (69)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 21) (1/8):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:37: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 21) (2/8):
+Call Result at line 26
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 21) (3/8):
+Call Effect at line 30
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  If null != s
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: false.
+Prover Z3 4.15.4 returns Unknown (Qed:12ms)
+Prover Alt-Ergo  returns Timeout (Qed:12ms) (20s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 21) (4/8):
+Call Result at line 30
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 21) (5/8):
+Effect at line 31
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Residual *)
+  When: null != s.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: invalid(Malloc_0, shiftfield_F4_S_n(s), 1).
+Prover Z3 4.15.4 returns Unknown (Qed:11ms)
+Prover Alt-Ergo  returns Timeout (Qed:11ms) (20s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 21) (6/8):
+Call Effect at line 37
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:37: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Then *)
+  Have: null != s.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: false.
+Prover Z3 4.15.4 returns Unknown (Qed:8ms)
+Prover Alt-Ergo  returns Timeout (Qed:8ms) (20s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 21) (7/8):
+Call Result at line 37
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:37: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Then *)
+  Have: null != s.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: invalid(Malloc_0, shiftfield_F4_S_p(s), 1).
+Prover Z3 4.15.4 returns Unknown (Qed:8ms)
+Prover Alt-Ergo  returns Timeout (Qed:8ms) (20s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 21) (8/8):
+Effect at line 41
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 51):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:46: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 24):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:37: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 24):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:37: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 54):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:46: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c, line 54):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:46: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: S*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-lopstr16_single_elem_safe/array-lopstr16_single_elem_safe.acsl.c:16: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

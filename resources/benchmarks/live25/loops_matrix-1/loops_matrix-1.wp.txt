@@ -1,0 +1,173 @@
+[kernel] Parsing output/live25/loops_matrix-1/loops_matrix-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loops_matrix-1/loops_matrix-1.acsl.c:14: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 18 goals scheduled
+[wp] Proved goals:   18 / 18
+  Qed:            16
+  Alt-Ergo :       2 (10ms-12ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 17):
+Assume {
+  Type: is_uint32(j) /\ is_uint32(k) /\ is_sint32(maior_1).
+  (* Goal *)
+  When: (i_1 <= 0) /\ (0 <= i) /\ (0 <= i_1) /\ (i < to_uint32(1 + j)).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= maior_1) /\ (maior_1 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1).
+  (* Then *)
+  Have: j <= 0.
+  (* Loop assigns ... *)
+  Have: forall i_2 : Z. ((i_2 != 0) ->
+      (matriz_1[0 <- matriz_1[0][0 <- v]][i_2] = matriz_0[i_2])).
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= 1).
+  (* Invariant *)
+  Have: matriz_0[0][0] <= maior_0.
+  (* Else *)
+  Have: 0 < k.
+}
+Prove: matriz_0[i][0] <= maior_0.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (30426)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (10ms) (61)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 24):
+Assume {
+  Type: is_uint32(j) /\ is_uint32(k) /\ is_sint32(maior_1) /\
+      is_sint32(maior_2) /\ is_sint32(v).
+  (* Goal *)
+  When: (0 <= i) /\ (i < to_uint32(1 + k)).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= maior_2) /\ (maior_2 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1).
+  (* Then *)
+  Have: j <= 0.
+  (* Loop assigns ... *)
+  Have: forall i_1 : Z. ((i_1 != 0) ->
+      (matriz_1[0 <- matriz_1[0][0 <- v_1]][i_1] = matriz_0[i_1])).
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= 1).
+  (* Then *)
+  Have: k <= 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If maior_1 <= v
+  Then { Have: v = maior_0. }
+  Else { Have: maior_1 = maior_0. }
+}
+Prove: matriz_0[0][0 <- v][i] <= maior_0.
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (10ms) (30970)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (12ms) (77)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 18) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 18) (2/2):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 25) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 25) (2/3):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 25) (3/3):
+Call Result at line 30
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_matrix-1/loops_matrix-1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops_matrix-1/loops_matrix-1.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

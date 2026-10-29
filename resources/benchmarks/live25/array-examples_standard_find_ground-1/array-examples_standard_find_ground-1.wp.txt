@@ -1,0 +1,228 @@
+[kernel] Parsing output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c:10: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 20 goals scheduled
+[wp] Proved goals:   20 / 20
+  Qed:            16
+  Alt-Ergo :       4 (7ms-8ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.68ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 23):
+Let x = a[i_1].
+Assume {
+  Type: is_sint32(e) /\ is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x) /\
+      is_sint32(1 + i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= e) /\ (e <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (a[i_2] != e))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  (* Then *)
+  Have: x != e.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: a[i] != e.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30102)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (65)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 33):
+Let x_1 = a[x].
+Assume {
+  Type: is_sint32(e) /\ is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i < i_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= e) /\ (e <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (a[i_2] != e))).
+  If i_1 <= 99999
+  Then { Have: a[i_1] = e. }
+  (* Invariant *)
+  Have: (x <= i_1) /\ (0 <= x).
+  (* Then *)
+  Have: x < i_1.
+  (* Assertion *)
+  Have: x_1 != e.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: a[i] != e.
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (30761)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (8ms) (69)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 33):
+Assume {
+  Type: is_sint32(e) /\ is_sint32(i_1) /\ is_sint32(j).
+  (* Goal *)
+  When: (0 <= i) /\ (i < i_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= e) /\ (e <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (a[i_2] != e))).
+  If i_1 <= 99999
+  Then { Have: a[i_1] = e. }
+}
+Prove: a[i] != e.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (29550)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (8ms) (45)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 38):
+Let x_1 = a[x].
+Assume {
+  Type: is_sint32(e) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= e) /\ (e <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) -> (a[i_1] != e))).
+  If i <= 99999
+  Then { Have: a[i] = e. }
+  (* Invariant *)
+  Have: (x <= i) /\ (0 <= x).
+  (* Then *)
+  Have: x < i.
+}
+Prove: x_1 != e.
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (29836)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (7ms) (48)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_standard_find_ground-1/array-examples_standard_find_ground-1.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

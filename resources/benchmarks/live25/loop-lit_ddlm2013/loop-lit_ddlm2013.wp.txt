@@ -1,0 +1,170 @@
+[kernel] Parsing output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c:10: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 16 goals scheduled
+[wp] [Timeout] typed_main_assert_5 (Qed 11ms) (Z3)
+[wp] [Timeout] typed_main_assert_4 (Qed 13ms) (Z3)
+[wp] Proved goals:   14 / 16
+  Qed:            13
+  Alt-Ergo :       1 (36ms)
+  Timeout:         2
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 20):
+Let x = to_uint32(1 + j).
+Let x_1 = 1 + x.
+Let x_2 = j - 1.
+Assume {
+  Type: is_uint32(j) /\ is_sint32(flag_0) /\ is_sint32(tmp_0_0) /\
+      is_uint32(x_2) /\ is_uint32(x_1).
+  (* Goal *)
+  When: flag_0 != 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= flag_0) /\ (flag_0 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0_0 != 0.
+  (* Assertion *)
+  Have: (1 + (2 * (x_2 / 2))) = j.
+  Have: to_uint32(x % 2) = 0.
+  Have: x_1 = to_uint32(2 + j).
+}
+Prove: (2 * (x / 2)) = x.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (31671)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (36ms) (886)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.61ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 38):
+Let x = to_uint32(1 + j).
+Let x_1 = j - 1.
+Assume {
+  Type: is_uint32(j_1) /\ is_uint32(j) /\ is_sint32(flag_0) /\
+      is_sint32(tmp_0_0) /\ is_uint32(x_1).
+  (* Goal *)
+  When: flag_0 != 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= flag_0) /\ (flag_0 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0_0 != 0.
+  (* Assertion *)
+  Have: (1 + (2 * (x_1 / 2))) = j.
+  If to_uint32(x % 2) = 0
+  Then { Have: to_uint32(2 + j) = j_1. }
+  Else { Have: x = j_1. }
+}
+Prove: (1 + x) = j_1.
+Prover Z3 4.15.4 returns Timeout (Qed:13ms) (12.6s)
+Prover Alt-Ergo  returns Timeout (Qed:13ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 39):
+Let x = 2 * j.
+Let x_1 = to_uint32(1 + x).
+Assume {
+  Type: is_uint32(j_1) /\ is_uint32(j) /\ is_sint32(tmp_0_0) /\
+      is_uint32(x - 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0_0 != 0.
+  If to_uint32(x_1 % 2) = 0
+  Then { Have: to_uint32(2 + j) = j_1. }
+  Else { Have: to_uint32(1 + j) = j_1. }
+}
+Prove: (1 + x_1) = (2 * j_1).
+Prover Z3 4.15.4 returns Timeout (Qed:11ms) (12.5s)
+Prover Alt-Ergo  returns Timeout (Qed:11ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 24) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c, line 24) (2/2):
+Call Result at line 26
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-lit_ddlm2013/loop-lit_ddlm2013.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

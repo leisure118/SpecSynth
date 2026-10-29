@@ -1,0 +1,776 @@
+[kernel] Parsing output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:12: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+[wp] 28 goals scheduled
+[wp] Proved goals:   28 / 28
+  Qed:            19
+  Alt-Ergo :       9 (9ms-13ms-20ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 18):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 18):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (0.89ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint64(i) /\ is_sint64(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_1[shift_sint64(a, i_2)] = (2 + (i_2 * i_2))))).
+  (* Then *)
+  Have: i < SIZE_0.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_1[shift_sint64(a, i) <- 2 + (i * i)][shift_sint64(a, i_1)] =
+    (2 + (i_1 * i_1)).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (226243)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (16ms) (771)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 28):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 28):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 29):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, SIZE_0).
+Let a_4 = shift_sint64(a, i).
+Let a_5 = a_2[a_4].
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint64(i_2) /\ is_sint64(i) /\
+      is_sint64(1 + i) /\ is_sint64(a_5).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_2 <= SIZE_0) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_3[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Else *)
+  Have: SIZE_0 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < SIZE_0) ->
+      (a_3[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_2[shift_sint64(a, i_3)] = (i_3 * i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < SIZE_0) -> ((i <= i_3) ->
+      (a_2[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Then *)
+  Have: i < SIZE_0.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_2[a_4 <- a_5 - 2][shift_sint64(a, i_1)] = (i_1 * i_1).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (90ms) (941539)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (20ms) (792)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 29):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 30):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let a_3 = shift_sint64(a, i).
+Let a_4 = a_2[a_3].
+Let a_5 = a_2[a_3 <- a_4 - 2].
+Let a_6 = havoc(Mint_undef_1, Mint_0, a_1, SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint64(i_2) /\ is_sint64(i) /\
+      is_sint64(1 + i) /\ is_sint64(a_4).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (i_1 < SIZE_0) /\ (i < i_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_2 <= SIZE_0) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_6[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Else *)
+  Have: SIZE_0 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < SIZE_0) ->
+      (a_6[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_2[shift_sint64(a, i_3)] = (i_3 * i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < SIZE_0) -> ((i <= i_3) ->
+      (a_2[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Then *)
+  Have: i < SIZE_0.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (a_5[shift_sint64(a, i_3)] = (i_3 * i_3)))).
+}
+Prove: a_5[shift_sint64(a, i_1)] = (2 + (i_1 * i_1)).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (134723)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (14ms) (501)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 30):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint64(i_1).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = (2 + (i_2 * i_2))))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+}
+Prove: a_1[shift_sint64(a, i)] = (2 + (i * i)).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (96771)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (77)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 39):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 39):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 40):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let a_3 = a_2[shift_sint64(a, i_3)].
+Let a_4 = havoc(Mint_undef_1, Mint_0, a_1, SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint64(i_1) /\ is_sint64(i_2) /\
+      is_sint64(i_3) /\ is_sint64(1 + i_3) /\ is_sint64(a_3).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_4[shift_sint64(a, i_4)] = (2 + (i_4 * i_4))))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < SIZE_0) ->
+      (a_4[shift_sint64(a, i_4)] = (2 + (i_4 * i_4))))).
+  (* Invariant *)
+  Have: (i_2 <= SIZE_0) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_2[shift_sint64(a, i_4)] = (i_4 * i_4)))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 < SIZE_0) -> ((i_2 <= i_4) ->
+      (a_2[shift_sint64(a, i_4)] = (2 + (i_4 * i_4))))).
+  (* Else *)
+  Have: SIZE_0 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < SIZE_0) ->
+      (a_2[shift_sint64(a, i_4)] = (i_4 * i_4)))).
+  (* Invariant *)
+  Have: (i_3 <= SIZE_0) /\ (0 <= i_3).
+  (* Then *)
+  Have: i_3 < SIZE_0.
+  (* Assertion *)
+  Have: a_3 = (i_3 * i_3).
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: a_2[shift_sint64(a, i)] = (i * i).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (20ms) (133390)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (11ms) (407)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 40):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint64(i_1) /\ is_sint64(i_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_3[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < SIZE_0) ->
+      (a_3[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Invariant *)
+  Have: (i_2 <= SIZE_0) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_2[shift_sint64(a, i_3)] = (i_3 * i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < SIZE_0) -> ((i_2 <= i_3) ->
+      (a_2[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Else *)
+  Have: SIZE_0 <= i_2.
+}
+Prove: a_2[shift_sint64(a, i)] = (i * i).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (100619)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (99)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 46):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, SIZE_0).
+Let a_4 = a_2[shift_sint64(a, i)].
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint64(i_1) /\ is_sint64(i_2) /\
+      is_sint64(i) /\ is_sint64(a_4).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_3[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < SIZE_0) ->
+      (a_3[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Invariant *)
+  Have: (i_2 <= SIZE_0) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_2[shift_sint64(a, i_3)] = (i_3 * i_3)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < SIZE_0) -> ((i_2 <= i_3) ->
+      (a_2[shift_sint64(a, i_3)] = (2 + (i_3 * i_3))))).
+  (* Else *)
+  Have: SIZE_0 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < SIZE_0) ->
+      (a_2[shift_sint64(a, i_3)] = (i_3 * i_3)))).
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Then *)
+  Have: i < SIZE_0.
+}
+Prove: a_4 = (i * i).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (102418)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (110)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 20) (1/3):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 20) (2/3):
+Effect at line 23
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 20) (3/3):
+Effect at line 25
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let x = i - 1.
+Let a_3 = shift_sint64(a, x).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint64(i) /\ is_sint64(x).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + SIZE_0)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint64(a, i_1)] = (2 + (i_1 * i_1))))).
+  (* Then *)
+  Have: i <= SIZE_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[a_3 <- 2 + (x * x)][shift_sint64(a, i_1)] = (2 + (i_1 * i_1))))).
+}
+Prove: included(a_3, 1, a_1, SIZE_0).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (69643)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (12ms) (267)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 31) (1/3):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 31) (2/3):
+Effect at line 34
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 31) (3/3):
+Effect at line 36
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let x = i - 1.
+Let a_3 = shift_sint64(a, x).
+Let a_4 = a_2[a_3].
+Let a_5 = a_2[a_3 <- a_4 - 2].
+Let a_6 = havoc(Mint_undef_1, Mint_0, a_1, SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint64(i_1) /\ is_sint64(i) /\
+      is_sint64(x) /\ is_sint64(a_4).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_6[shift_sint64(a, i_2)] = (2 + (i_2 * i_2))))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_6[shift_sint64(a, i_2)] = (2 + (i_2 * i_2))))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + SIZE_0)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i) ->
+      (a_2[shift_sint64(a, i_2)] = (i_2 * i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < SIZE_0) -> ((i <= (1 + i_2)) ->
+      (a_2[shift_sint64(a, i_2)] = (2 + (i_2 * i_2))))).
+  (* Then *)
+  Have: i <= SIZE_0.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_5[shift_sint64(a, i_2)] = (i_2 * i_2)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < SIZE_0) -> ((i <= i_2) ->
+      (a_5[shift_sint64(a, i_2)] = (2 + (i_2 * i_2))))).
+}
+Prove: included(a_3, 1, a_1, SIZE_0).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (75393)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (15ms) (414)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 41):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 23):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 23):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 34):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 34):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 44):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c, line 44):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:16: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-tiling_poly2/array-tiling_poly2.acsl.c:10: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

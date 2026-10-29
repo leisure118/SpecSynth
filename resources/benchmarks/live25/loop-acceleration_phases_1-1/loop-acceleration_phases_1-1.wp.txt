@@ -1,0 +1,84 @@
+[kernel] Parsing output/live25/loop-acceleration_phases_1-1/loop-acceleration_phases_1-1.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             3
+  Alt-Ergo :       3 (5ms-9ms-14ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_phases_1-1/loop-acceleration_phases_1-1.acsl.c, line 4):
+Assume {
+  Type: is_uint32(x) /\ is_uint32(x_1) /\ is_uint32(x_2) /\ is_uint32(x_3).
+  (* Goal *)
+  When: 65520 <= x.
+  (* Invariant *)
+  Have: ((65520 <= x_3) -> ((x_3 % 2) = 0)).
+  (* Then *)
+  Have: x_3 <= 268435454.
+  If x_3 <= 65519
+  Then { Have: x_3 = x_1. Have: to_uint32(1 + x_1) = x. }
+  Else { Have: x_3 = x_2. Have: to_uint32(2 + x_2) = x. }
+}
+Prove: (x % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (37342)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (14ms) (261)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_phases_1-1/loop-acceleration_phases_1-1.acsl.c, line 4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-acceleration_phases_1-1/loop-acceleration_phases_1-1.acsl.c, line 15):
+Let x_1 = x % 2.
+Assume {
+  Type: is_uint32(x).
+  (* Invariant *)
+  Have: ((65520 <= x) -> (x_1 = 0)).
+  (* Else *)
+  Have: 268435455 <= x.
+}
+Prove: x_1 = 0.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (27397)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (5ms) (11)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-acceleration_phases_1-1/loop-acceleration_phases_1-1.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-acceleration_phases_1-1/loop-acceleration_phases_1-1.acsl.c, line 8):
+Assume {
+  Type: is_uint32(x_1) /\ is_uint32(x).
+  (* Invariant *)
+  Have: ((65520 <= x) -> ((x % 2) = 0)).
+  (* Then *)
+  Have: x <= 268435454.
+  If x <= 65519
+  Then { Have: to_uint32(1 + x) = x_1. }
+  Else { Have: to_uint32(2 + x) = x_1. }
+  (* Invariant *)
+  Have: ((65520 <= x_1) -> ((x_1 % 2) = 0)).
+}
+Prove: x < x_1.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (29549)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (93)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-acceleration_phases_1-1/loop-acceleration_phases_1-1.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-acceleration_phases_1-1/loop-acceleration_phases_1-1.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

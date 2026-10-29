@@ -1,0 +1,629 @@
+[kernel] Parsing output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:12: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 34 goals scheduled
+[wp] Proved goals:   34 / 34
+  Qed:            25
+  Alt-Ergo :       9 (7ms-11ms-19ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 16):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 16):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 25):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 25):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 26):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = havoc(Mint_undef_0, Mint_0, shift_sint32(vectorx_0, 0), 100000).
+Let a_1 = a[shift_sint32(vectorx_0, i_1)].
+Assume {
+  Type: is_sint32(element_0) /\ is_sint32(found_0) /\ is_sint32(i) /\
+      is_sint32(i_1) /\ is_sint32(1 + i_1) /\ is_sint32(a_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= element_0) /\ (element_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a[shift_sint32(vectorx_0, i_2)] != element_0))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  If a_1 = element_0
+  Then { Have: found_0 = 1. }
+  Else { Have: found_0 = 0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: (0 <= found_0) /\ (found_0 <= 1).
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (20ms) (96695)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (9ms) (51)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 26):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 27):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 27):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 28):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = havoc(Mint_undef_0, Mint_0, shift_sint32(vectorx_0, 0), 100000).
+Let a_1 = a[shift_sint32(vectorx_0, i_2)].
+Assume {
+  Type: is_sint32(element_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(1 + i_2) /\ is_sint32(a_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_2).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= element_0) /\ (element_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a[shift_sint32(vectorx_0, i_3)] != element_0))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  Have: a_1 != element_0.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a[shift_sint32(vectorx_0, i)] != element_0.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (30ms) (264246)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (10ms) (96)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 28):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 43):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = havoc(Mint_undef_0, Mint_0, shift_sint32(vectorx_0, 0), 100000).
+Let a_1 = a[shift_sint32(vectorx_0, pos_0)].
+Let x = 1 + i.
+Assume {
+  Type: is_sint32(element_0) /\ is_sint32(found_0) /\ is_sint32(i_1) /\
+      is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(pos_0) /\ is_sint32(x) /\
+      is_sint32(a_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= element_0) /\ (element_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (0 <= found_0) /\ (found_0 <= 1).
+  (* Invariant *)
+  Have: ((found_0 = 1) ->
+      ((a_1 = element_0) /\ (0 <= pos_0) /\ (pos_0 < i_2) /\
+       (forall i_3 : Z. ((0 <= i_3) -> ((i_3 < pos_0) ->
+        (a[shift_sint32(vectorx_0, i_3)] != element_0)))))).
+  (* Then *)
+  Have: found_0 != 0.
+  (* Invariant *)
+  Have: pos_0 <= 99999.
+  (* Invariant *)
+  Have: (pos_0 <= i) /\ (i <= 99999).
+  (* Then *)
+  Have: i <= 99998.
+}
+Prove: pos_0 <= x.
+Prover Z3 4.15.4 returns Valid (Qed:41ms) (10ms) (70059)
+Prover Alt-Ergo  returns Valid (Qed:41ms) (9ms) (28)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 43):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = havoc(Mint_undef_0, Mint_0, shift_sint32(vectorx_0, 0), 100000).
+Let a_1 = a[shift_sint32(vectorx_0, i)].
+Assume {
+  Type: is_sint32(element_0) /\ is_sint32(found_0) /\ is_sint32(i_1) /\
+      is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(a_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= element_0) /\ (element_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (0 <= found_0) /\ (found_0 <= 1).
+  (* Invariant *)
+  Have: ((found_0 = 1) ->
+      ((a_1 = element_0) /\ (0 <= i) /\ (i < i_2) /\
+       (forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+        (a[shift_sint32(vectorx_0, i_3)] != element_0)))))).
+  (* Then *)
+  Have: found_0 != 0.
+}
+Prove: i <= 99999.
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (20ms) (96908)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (7ms) (50)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 55):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (25ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 55):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = havoc(Mint_undef_0, Mint_0, shift_sint32(vectorx_0, 0), 100000).
+Let a_1 = a[shift_sint32(vectorx_0, pos_0)].
+Assume {
+  Type: is_sint32(element_0) /\ is_sint32(found_0) /\ is_sint32(i) /\
+      is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(pos_0) /\ is_sint32(a_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= element_0) /\ (element_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= found_0) /\ (found_0 <= 1).
+  (* Invariant *)
+  Have: ((found_0 = 1) ->
+      ((a_1 = element_0) /\ (0 <= pos_0) /\ (pos_0 < i_1) /\
+       (forall i_3 : Z. ((0 <= i_3) -> ((i_3 < pos_0) ->
+        (a[shift_sint32(vectorx_0, i_3)] != element_0)))))).
+  (* Invariant *)
+  Have: pos_0 <= 99999.
+  (* Invariant *)
+  Have: (pos_0 <= i_2) /\ (i_2 <= 99999).
+  (* Else *)
+  Have: 99999 <= i_2.
+  (* Then *)
+  Have: found_0 != 0.
+}
+Prove: 0 <= pos_0.
+Prover Z3 4.15.4 returns Valid (Qed:26ms) (10ms) (97578)
+Prover Alt-Ergo  returns Valid (Qed:26ms) (11ms) (29)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 56):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = havoc(Mint_undef_1, Mint_0, shift_sint32(vectorx_0, 0), 100000).
+Let a_1 = shift_sint32(vectorx_0, i).
+Let a_2 = havoc(Mint_undef_0, a, a_1, 99999 - i).
+Let a_3 = a_2[shift_sint32(vectorx_0, x)].
+Let a_4 = a[a_1].
+Assume {
+  Type: is_sint32(element_0) /\ is_sint32(found_0) /\ is_sint32(i_2) /\
+      is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(1 + x) /\ is_sint32(a_4) /\ is_sint32(a_3).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= element_0) /\ (element_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: (0 <= found_0) /\ (found_0 <= 1).
+  (* Invariant *)
+  Have: ((found_0 = 1) ->
+      ((a_4 = element_0) /\ (i < i_3) /\
+       (forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i) ->
+        (a[shift_sint32(vectorx_0, i_5)] != element_0)))))).
+  (* Invariant *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (i <= i_4) /\ (i_4 <= 99999).
+  (* Else *)
+  Have: 99999 <= i_4.
+  (* Then *)
+  Have: found_0 != 0.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i) ->
+      (a_2[shift_sint32(vectorx_0, i_5)] != element_0))).
+  (* Invariant *)
+  Have: (x <= i) /\ (0 <= x).
+  (* Then *)
+  Have: x < i.
+  (* Assertion *)
+  Have: a_3 != element_0.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: a_2[shift_sint32(vectorx_0, i_1)] != element_0.
+Prover Z3 4.15.4 returns Valid (Qed:26ms) (30ms) (177038)
+Prover Alt-Ergo  returns Valid (Qed:26ms) (12ms) (151)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 56):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = havoc(Mint_undef_1, Mint_0, shift_sint32(vectorx_0, 0), 100000).
+Let a_1 = shift_sint32(vectorx_0, i).
+Let a_2 = a[a_1].
+Assume {
+  Type: is_sint32(element_0) /\ is_sint32(found_0) /\ is_sint32(i_2) /\
+      is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(i) /\ is_sint32(a_2).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= element_0) /\ (element_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: (0 <= found_0) /\ (found_0 <= 1).
+  (* Invariant *)
+  Have: ((found_0 = 1) ->
+      ((a_2 = element_0) /\ (i < i_3) /\
+       (forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i) ->
+        (a[shift_sint32(vectorx_0, i_5)] != element_0)))))).
+  (* Invariant *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (i <= i_4) /\ (i_4 <= 99999).
+  (* Else *)
+  Have: 99999 <= i_4.
+  (* Then *)
+  Have: found_0 != 0.
+  (* Invariant *)
+  Have: 0 <= i.
+}
+Prove: havoc(Mint_undef_0, a, a_1, 99999 - i)[shift_sint32(vectorx_0, i_1)] !=
+    element_0.
+Prover Z3 4.15.4 returns Valid (Qed:24ms) (30ms) (128966)
+Prover Alt-Ergo  returns Valid (Qed:24ms) (19ms) (263)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 61):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = havoc(Mint_undef_1, Mint_0, shift_sint32(vectorx_0, 0), 100000).
+Let a_1 = shift_sint32(vectorx_0, i).
+Let a_2 = havoc(Mint_undef_0, a, a_1, 99999 - i).
+Let a_3 = a[a_1].
+Let a_4 = a_2[shift_sint32(vectorx_0, x)].
+Assume {
+  Type: is_sint32(element_0) /\ is_sint32(found_0) /\ is_sint32(i_1) /\
+      is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(a_3) /\ is_sint32(a_4).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= element_0) /\ (element_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (0 <= found_0) /\ (found_0 <= 1).
+  (* Invariant *)
+  Have: ((found_0 = 1) ->
+      ((a_3 = element_0) /\ (i < i_2) /\
+       (forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i) ->
+        (a[shift_sint32(vectorx_0, i_4)] != element_0)))))).
+  (* Invariant *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (i <= i_3) /\ (i_3 <= 99999).
+  (* Else *)
+  Have: 99999 <= i_3.
+  (* Then *)
+  Have: found_0 != 0.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i) ->
+      (a_2[shift_sint32(vectorx_0, i_4)] != element_0))).
+  (* Invariant *)
+  Have: (x <= i) /\ (0 <= x).
+  (* Then *)
+  Have: x < i.
+}
+Prove: a_4 != element_0.
+Prover Z3 4.15.4 returns Valid (Qed:29ms) (20ms) (129985)
+Prover Alt-Ergo  returns Valid (Qed:29ms) (11ms) (118)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 17) (1/3):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 17) (2/3):
+Effect at line 20
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 17) (3/3):
+Call Result at line 22
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 29):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 44) (1/3):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 44) (2/3):
+Effect at line 47
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 44) (3/3):
+Effect at line 49
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = havoc(Mint_undef_0, Mint_0, shift_sint32(vectorx_0, 0), 100000).
+Let a_1 = shift_sint32(vectorx_0, pos_0).
+Let a_2 = a[a_1].
+Let x = i - 1.
+Let a_3 = shift_sint32(vectorx_0, x).
+Assume {
+  Type: is_sint32(element_0) /\ is_sint32(found_0) /\ is_sint32(i_1) /\
+      is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(pos_0) /\ is_sint32(x) /\
+      is_sint32(a_2).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= element_0) /\ (element_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (0 <= found_0) /\ (found_0 <= 1).
+  (* Invariant *)
+  Have: ((found_0 = 1) ->
+      ((a_2 = element_0) /\ (0 <= pos_0) /\ (pos_0 < i_2) /\
+       (forall i_3 : Z. ((0 <= i_3) -> ((i_3 < pos_0) ->
+        (a[shift_sint32(vectorx_0, i_3)] != element_0)))))).
+  (* Then *)
+  Have: found_0 != 0.
+  (* Invariant *)
+  Have: pos_0 <= 99999.
+  (* Invariant *)
+  Have: (pos_0 < i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: i <= 99999.
+}
+Prove: included(a_3, 1, a_1, 99999 - pos_0).
+Prover Z3 4.15.4 returns Valid (Qed:28ms) (20ms) (69283)
+Prover Alt-Ergo  returns Valid (Qed:28ms) (14ms) (176)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 57):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 20):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 20):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 32):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 32):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 47):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 47):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 60):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c, line 60):
+output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_sanfoundry_10_ground/array-examples_sanfoundry_10_ground.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

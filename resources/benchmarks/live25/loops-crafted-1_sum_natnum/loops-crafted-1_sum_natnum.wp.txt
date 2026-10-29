@@ -1,0 +1,72 @@
+[kernel] Parsing output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             7
+  Z3 4.15.4:       1 (10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c, line 14):
+Let x = 1 + i.
+Let x_1 = (i * x) / 2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x) /\ is_uint64(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 40000).
+  (* Then *)
+  Have: i <= 39999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: ((x * (2 + i)) / 2) = to_uint64(to_uint64(x) + x_1).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (41362)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.73ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops-crafted-1_sum_natnum/loops-crafted-1_sum_natnum.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

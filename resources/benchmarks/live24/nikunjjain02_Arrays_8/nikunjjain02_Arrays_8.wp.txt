@@ -1,0 +1,219 @@
+[kernel] Parsing output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 16 goals scheduled
+[wp] Proved goals:   16 / 16
+  Qed:            12
+  Alt-Ergo :       4 (9ms-19ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 28):
+Let a_1 = global(L_b_931).
+Let a_2 = havoc(Mint_undef_0, Mint_0, shift_sint32(a_1, 0), 5).
+Assume {
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Initializer *)
+  Init: a[0] = 21.
+  (* Initializer *)
+  Init: a[1] = 24.
+  (* Initializer *)
+  Init: a[2] = 23.
+  (* Initializer *)
+  Init: a[3] = 24.
+  (* Initializer *)
+  Init: a[4] = 25.
+  (* Call 'reverse' *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 4) ->
+      (a_2[shift_sint32(a_1, i_1)] = a[4 - i_1]))).
+}
+Prove: a_2[shift_sint32(a_1, i)] = a[4 - i].
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (83373)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (60)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 3) in 'reverse'' in 'main' at initialization of 'c' (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 27)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 4) in 'reverse'' in 'main' at initialization of 'c' (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 27)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 5) in 'reverse'' in 'main' at initialization of 'c' (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 27)
+:
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function reverse
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 7) in 'reverse':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 8) in 'reverse':
+Let a_1 = shift_sint32(reverse_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_1, i).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(reverse_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint32(a, n - 1 - i_2)] = a_2[shift_sint32(reverse_0, i_2)]))).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: a_3[shift_sint32(a, i - 1 - i_1)] = a_3[shift_sint32(reverse_0, i_1)].
+Prover Alt-Ergo  returns Valid (Qed:3ms) (15ms) (72)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 14):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = a_2[shift_sint32(b, i) <- a_2[shift_sint32(a, n - 1 - i)]].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint32(a, n - 1 - i_2)] = a_2[shift_sint32(b, i_2)]))).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_3[shift_sint32(a, n - 1 - i_1)] = a_3[shift_sint32(b, i_1)].
+Prover Alt-Ergo  returns Valid (Qed:6ms) (19ms) (252)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 15) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 15) (2/3):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 15) (3/3):
+Effect at line 19
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let x = i - 1.
+Let a_3 = shift_sint32(b, x).
+Let a_4 = a_2[a_3 <- a_2[shift_sint32(a, n - i)]].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + n)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint32(a, n - 1 - i_1)] = a_2[shift_sint32(b, i_1)]))).
+  (* Then *)
+  Have: i <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_4[shift_sint32(a, n - 1 - i_1)] = a_4[shift_sint32(b, i_1)]))).
+}
+Prove: included(a_3, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (69819)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (14ms) (148)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 6) in 'reverse':
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c:10: Warning: 
+  No 'assigns \result \from ...' specification for function 'reverse'returning pointer type.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/live24/nikunjjain02_Arrays_8/nikunjjain02_Arrays_8.acsl.c:24: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

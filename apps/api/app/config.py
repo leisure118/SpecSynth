@@ -9,6 +9,9 @@ from typing import Any
 import yaml
 
 ROOT_DIR = Path(__file__).resolve().parents[3]
+# Load private server settings before constructing task runners.
+from dotenv import load_dotenv
+load_dotenv(ROOT_DIR / '.env', override=False)
 RUNTIME_DIR = ROOT_DIR / "runtime"
 RUNS_DIR = RUNTIME_DIR / "runs"
 UPLOADS_DIR = RUNS_DIR / "uploads"
@@ -91,5 +94,5 @@ def load_demo_cases_config() -> list[dict[str, Any]]:
 
 
 def get_allowed_origins() -> list[str]:
-    raw_value = os.getenv("ACSL_AGENT_ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
+    raw_value = os.getenv("ACSL_AGENT_ALLOWED_ORIGINS", "")
     return [item.strip() for item in raw_value.split(",") if item.strip()]

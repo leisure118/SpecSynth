@@ -1,0 +1,97 @@
+[kernel] Parsing output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             8
+  Alt-Ergo :       2 (7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 7):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: x <= 49.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100).
+  (* Invariant *)
+  Have: ((x <= 50) -> (y = 50)).
+  (* Then *)
+  Have: x <= 99.
+}
+Prove: y = 50.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (28068)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (22)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 20):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100).
+  (* Invariant *)
+  Have: ((x <= 50) -> (y = 50)).
+  (* Invariant *)
+  Have: ((50 <= x) -> (y = x)).
+  (* Else *)
+  Have: 100 <= x.
+}
+Prove: y = 100.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28234)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (21)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-lit_gj2007/loop-lit_gj2007.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

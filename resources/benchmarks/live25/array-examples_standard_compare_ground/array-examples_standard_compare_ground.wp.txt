@@ -1,0 +1,265 @@
+[kernel] Parsing output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c:21: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 22 goals scheduled
+[wp] Proved goals:   22 / 22
+  Qed:            17
+  Alt-Ergo :       5 (9ms-11ms-14ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (0.95ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 28):
+Let x = b[i].
+Let x_1 = a[i].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(rv_0) /\ is_sint32(rv_1) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(1 + i).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (rv_1 = 0) \/ (rv_1 = 1).
+  (* Invariant *)
+  Have: ((rv_1 = 1) ->
+      (forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) -> (b[i_1] = a[i_1]))))).
+  (* Then *)
+  Have: i <= 99999.
+  If x != x_1
+  Then { Have: rv_0 = 0. }
+  Else { Have: rv_1 = rv_0. }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (rv_0 = 0) \/ (rv_0 = 1).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (30031)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (9ms) (48)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 29):
+Let x = b[i_1].
+Let x_1 = a[i_1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x_1) /\ is_sint32(x) /\
+      is_sint32(1 + i_1).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (b[i_2] = a[i_2]))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  Have: x = x_1.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: b[i] = a[i].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30091)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (11ms) (64)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 43):
+Let x_1 = b[x].
+Let x_2 = a[x].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x) /\ is_sint32(x_2) /\
+      is_sint32(x_1) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (b[i_2] = a[i_2]))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      (b[i_2] = a[i_2]))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Assertion *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: b[i] = a[i].
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (31021)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (10ms) (64)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 43):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (b[i_2] = a[i_2]))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: b[i] = a[i].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29076)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (14ms) (44)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 48):
+Let x_1 = a[x].
+Let x_2 = b[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) -> (b[i_1] = a[i_1]))).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 99999) ->
+      (b[i_1] = a[i_1]))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+}
+Prove: x_2 = x_1.
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (30310)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (10ms) (50)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_standard_compare_ground/array-examples_standard_compare_ground.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

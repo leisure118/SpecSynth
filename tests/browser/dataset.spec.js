@@ -63,3 +63,43 @@ test('generation import uses the task requirements without treating its referenc
  await expect(page.getByPlaceholder('fn increment(x: u64) -> (r: u64)')).toHaveValue(sample.function_signature);
  expect(sent[0].files[0].content).not.toBe(sample.verified_verus);
 });
+
+test('project actions and GitHub import are wired to backend endpoints',async({page})=>{
+ const first={id:'c'.repeat(32),name:'Example',language:'C',revision:1,file_count:1,runs:[],updated_at:new Date().toISOString(),files:[{path:'main.c',content:'int main(void){return 0;}'}]};
+ let projects=[first];
+ await page.route('**/api/v1/**',async route=>{
+  const req=route.request(),path=new URL(req.url()).pathname,method=req.method();let body={items:[]};
+  if(path.endsWith('/models'))body={models:['test-model']};
+  else if(path.endsWith('/rust/status'))body={verifier:{available:true,message:'ready'},provider:{models:[]}};
+  else if(path.endsWith('/projects/from-github')){const input=req.postDataJSON();expect(input.repository).toBe('example/repo');expect(input.language).toBe('Rust');body={...first,id:'e'.repeat(32),name:'repo',language:'Rust',files:[{path:'lib.rs',content:'use vstd::prelude::*; verus! {}'}]};projects.push(body);}
+  else if(path.endsWith('/projects'))body={items:projects};
+  else if(path.endsWith('/duplicate')){const original=projects.find(p=>path.includes(p.id));body={...original,id:'d'.repeat(32),name:original.name+' 副本'};projects.push(body);}
+  else if(path.includes('/projects/')){
+   const id=path.split('/')[4],p=projects.find(p=>p.id===id);
+   if(method==='PATCH'){Object.assign(p,req.postDataJSON(),{revision:p.revision+1});body=p}
+   else if(method==='DELETE'){projects=projects.filter(p=>p.id!==id);body={archived:true}}
+   else body=p;
+  }
+  await route.fulfill({json:body});
+ });
+ await page.goto('/#/projects');
+ await page.getByRole('button',{name:'Example 项目操作',exact:true}).click();
+ await page.getByRole('menuitem',{name:'重命名',exact:true}).click();
+ await page.getByLabel('新项目名称',{exact:true}).fill('Renamed');
+ await page.getByRole('button',{name:'保存名称',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Renamed',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'Renamed 项目操作',exact:true}).click();
+ await page.getByRole('menuitem',{name:'复制项目',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Renamed 副本',exact:true})).toBeVisible();
+ page.on('dialog',dialog=>dialog.accept());
+ await page.getByRole('button',{name:'Renamed 副本 项目操作',exact:true}).click();
+ await page.getByRole('menuitem',{name:'归档项目',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Renamed 副本',exact:true})).toHaveCount(0);
+ await page.getByRole('button',{name:'＋ 新建项目',exact:true}).click();
+ await page.getByRole('button',{name:'从 GitHub 导入',exact:true}).click();
+ await page.getByLabel('仓库地址',{exact:true}).fill('example/repo');
+ await page.getByLabel('导入语言',{exact:true}).selectOption('Rust');
+ await page.getByRole('button',{name:'导入项目',exact:true}).click();
+ await expect(page).toHaveURL(new RegExp('/projects/'+'e'.repeat(32)+'$'));
+ await expect(page.getByLabel('源代码编辑器')).toHaveValue('use vstd::prelude::*; verus! {}');
+});

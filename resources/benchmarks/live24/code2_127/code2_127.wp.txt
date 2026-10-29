@@ -1,0 +1,76 @@
+[kernel] Parsing output/live24/code2_127/code2_127.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             8
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_127/code2_127.acsl.c, line 9):
+Assume {
+  Type: is_sint32(j) /\ is_sint32(x) /\ is_sint32(y) /\ is_sint32(x - 1) /\
+      is_sint32(j + x - y).
+  (* Pre-condition *)
+  Have: y <= (j + x).
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Then *)
+  Have: x != 0.
+}
+Prove: 0 < x.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28383)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (24)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_127/code2_127.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_127/code2_127.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_127/code2_127.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/code2_127/code2_127.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_127/code2_127.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'foo':
+Effect at line 14
+Prove: true.
+Prover Qed returns Valid (0.65ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/code2_127/code2_127.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/code2_127/code2_127.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------

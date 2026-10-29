@@ -1,0 +1,71 @@
+[kernel] Parsing output/live25/loops-crafted-1_iftelse/loops-crafted-1_iftelse.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loops-crafted-1_iftelse/loops-crafted-1_iftelse.acsl.c:10: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 5 goals scheduled
+[wp] Proved goals:    5 / 5
+  Qed:             4
+  Alt-Ergo :       1 (12ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_iftelse/loops-crafted-1_iftelse.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_iftelse/loops-crafted-1_iftelse.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_iftelse/loops-crafted-1_iftelse.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_iftelse/loops-crafted-1_iftelse.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_iftelse/loops-crafted-1_iftelse.acsl.c, line 28):
+Let x = 3 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(j_1) /\ is_sint32(j_2) /\
+      is_sint32(n) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Else *)
+  Have: n <= 20000001.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 3) = 0.
+  (* Invariant *)
+  Have: i <= (2 * j_2).
+  (* Invariant *)
+  Have: (j_2 % 3) = 0.
+  (* Then *)
+  Have: i < n.
+  If (x % 2) != 0
+  Then { Have: j_2 = j_1. Have: (3 + j_1) = j. }
+  Else { Have: j_2 = j. }
+  (* Then *)
+  Have: 0 < n.
+}
+Prove: (x / 2) <= j.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (33703)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (12ms) (204)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops-crafted-1_iftelse/loops-crafted-1_iftelse.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

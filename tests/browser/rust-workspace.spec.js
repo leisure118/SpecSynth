@@ -39,3 +39,57 @@ test('Rust project creation, file isolation and generation controls',async({page
  await expect(page.getByText('提示词（未调用模型）',{exact:true})).toBeVisible();
  expect(errors).toEqual([]);
 });
+
+test('independent skill library binds a pinned version to an agent',async({page})=>{
+ const id='a'.repeat(32),skillId='b'.repeat(32),project={id,name:'Agent project',language:'C',revision:1,files:[{path:'main.c',content:'int main(void){return 0;}'}],runs:[]};
+ let saved,submitted,skills=[];
+ await page.route('**/api/v1/**',async route=>{
+  const req=route.request(),path=new URL(req.url()).pathname;let body={items:[]};
+  if(path.endsWith('/models'))body={models:['test-model']};
+  else if(path.endsWith('/agents'))body={items:[{id:'default',name:'默认验证流程',ready:true},{id:'codex',name:'Codex',ready:true,message:'登录记录已检测'}]};
+  else if(path.endsWith('/skills')){if(req.method()==='POST'){skills=[{...req.postDataJSON(),id:skillId,version:1}];body=skills[0]}else body={items:skills};}
+  else if(path.endsWith('/assistant')){saved=req.postDataJSON();project.assistant=saved;body=saved;}
+  else if(path.endsWith('/runs')&&req.method()==='POST'){submitted=req.postDataJSON();body={task_id:'skill-task',status:'queued'};}
+  else if(path.includes('/projects/'))body=project;
+  else if(path.endsWith('/runs/skill-task'))body={task_id:'skill-task',status:'queued',phases:[]};
+  await route.fulfill({json:body});
+ });
+ await page.goto('/#/projects/'+id);
+ await page.getByRole('link',{name:'独立设置 Skill ↗',exact:true}).click();
+ await page.getByLabel('Skill 名称',{exact:true}).fill('数组边界');
+ await page.getByLabel('Skill 指令',{exact:true}).fill('Check all array boundaries.');
+ await page.getByRole('button',{name:'创建 Skill',exact:true}).click();
+ await expect(page.getByRole('heading',{name:/数组边界/})).toBeVisible();
+ await page.getByRole('link',{name:'返回项目',exact:true}).click();
+ await page.getByLabel('执行 Agent',{exact:true}).selectOption('codex');
+ await page.getByRole('checkbox',{name:/数组边界/}).check();
+ await page.getByRole('button',{name:'保存配置',exact:true}).click();
+ await expect(page.getByRole('status')).toContainText('配置已保存');
+ expect(saved.agent).toBe('codex');expect(saved.skill_refs[0]).toEqual({id:skillId,version:1,enabled:true});
+ await page.reload();
+ await expect(page.getByLabel('执行 Agent',{exact:true})).toHaveValue('codex');
+ await expect(page.getByRole('checkbox',{name:/数组边界/})).toBeChecked();
+ await page.getByRole('button',{name:'▷ 验证当前文件',exact:true}).click();
+ await expect.poll(()=>submitted?.assistant?.agent).toBe('codex');
+ expect(submitted.assistant.skill_refs[0].version).toBe(1);
+});
+
+test('pinned skill keeps its original metadata until explicitly upgraded',async({page})=>{
+ const id='a'.repeat(32),skillId='b'.repeat(32);
+ const project={id,name:'Pinned project',language:'C',revision:1,runs:[],files:[{path:'main.c',content:'int f(void){return 0;}'}],assistant:{agent:'codex',skills:[],skill_refs:[{id:skillId,version:1,enabled:true}]}};
+ await page.route('**/api/v1/**',async route=>{
+  const path=new URL(route.request().url()).pathname;let body={items:[]};
+  if(path.endsWith('/models'))body={models:['test']};
+  else if(path.endsWith('/agents'))body={items:[{id:'codex',name:'Codex',ready:true}]};
+  else if(path.endsWith('/skills/'+skillId))body={id:skillId,name:'Original pinned',version:1,agents:['codex'],enabled:true};
+  else if(path.endsWith('/skills'))body={items:[{id:skillId,name:'Changed latest',version:2,agents:['claude-code'],enabled:true}]};
+  else if(path.includes('/projects/'))body=project;
+  await route.fulfill({json:body});
+ });
+ await page.goto('/#/projects/'+id);
+ await expect(page.getByRole('checkbox',{name:/Original pinned/})).toBeChecked();
+ await expect(page.getByRole('checkbox',{name:/Changed latest/})).toHaveCount(0);
+ await page.getByRole('button',{name:'升级 v2',exact:true}).click();
+ await expect(page.getByRole('checkbox',{name:/Changed latest/})).toBeChecked();
+ await expect(page.locator('.vf-agent-config')).toContainText('当前 Agent 不应用');
+});

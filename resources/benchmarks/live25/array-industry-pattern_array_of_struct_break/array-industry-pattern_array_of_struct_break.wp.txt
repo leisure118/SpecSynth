@@ -1,0 +1,187 @@
+[kernel] Parsing output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c:18: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:            11
+  Alt-Ergo :       4 (7ms-7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 21):
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      ((s[i_2].F1_S_n) = 10))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Else *)
+  Have: c <= 5.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (s[i <- { F1_S_n = 10 }][i_1].F1_S_n) = 10.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29817)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (75)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 33):
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(1 + i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (c <= 5) /\ (i <= 99999).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      ((s[i_3].F1_S_n) = 10))).
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      ((s[i_3].F1_S_n) = 10))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Then *)
+  Have: i_2 <= 99999.
+  (* Assertion *)
+  Have: (s[i_2].F1_S_n) = 10.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: (s[i].F1_S_n) = 10.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30575)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (60)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 33):
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (c <= 5) /\ (i <= 99999).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((s[i_2].F1_S_n) = 10))).
+  Have: 100000 <= i_1.
+}
+Prove: (s[i].F1_S_n) = 10.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29023)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (38)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 40):
+Let x = s[i].F1_S_n.
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((s[i_2].F1_S_n) = 10))).
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      ((s[i_2].F1_S_n) = 10))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+  (* Then *)
+  Have: c <= 5.
+}
+Prove: x = 10.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (30054)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (46)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_of_struct_break/array-industry-pattern_array_of_struct_break.acsl.c:14: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

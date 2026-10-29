@@ -1,0 +1,222 @@
+[kernel] Parsing output/live24/stack_pop_wd/stack_pop_wd.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:             8
+  Alt-Ergo :       6 (7ms-50ms-119ms)
+------------------------------------------------------------
+  Axiomatic 'StackEquality'
+------------------------------------------------------------
+
+Lemma StackEqual_Reflexive:
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_0 Mint_0 Mint_1 s_0 s_0)
+Prover Z3 4.15.4 returns Valid (10ms) (31834)
+Prover Alt-Ergo  returns Valid (7ms) (37)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Symmetric:
+Assume: 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_1 Mint_2 Mint_3 Mptr_0 Mint_0 Mint_1 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 t_0 s_0)
+Prover Alt-Ergo  returns Valid (8ms) (73)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Transitive:
+Assume: 'StackEqual_Symmetric' 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_2 Mint_4 Mint_5 t_0 u_0)
+       -> (P_StackEqual Mptr_2 Mint_4 Mint_5 Mptr_1 Mint_2 Mint_3 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 s_0 u_0)
+Prover Alt-Ergo  returns Valid (9ms) (94)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function stack_pop_wd
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 131) in 'stack_pop_wd':
+Let m = Mint_0[shiftfield_F1_Stack_size(s) <- v].
+Let m_1 = m[shiftfield_F1_Stack_size(t) <- v_1].
+Let x = L_StackSize(m_1, t).
+Let x_1 = L_StackSize(m, s).
+Assume {
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, s, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_0, s).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, t, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_0, t).
+  (* Pre-condition *)
+  Have: P_StackSeparated(Mptr_0, Mint_0, s, t).
+  (* Pre-condition *)
+  Have: P_StackEqual(Mptr_0, Mint_1, Mint_0, Mptr_0, Mint_1, Mint_0, s, t).
+  (* Call 'stack_pop' *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, m, s) /\
+      ((P_StackFull(m, s) -> P_StackEmpty(Mint_0, s))) /\
+      ((P_StackEmpty(Mint_0, s) -> P_StackEmpty(m, s))) /\
+      (((!P_StackEmpty(Mint_0, s)) ->
+       (L_StackCapacity(m, s) = L_StackCapacity(Mint_0, s)))) /\
+      (((!P_StackEmpty(Mint_0, s)) -> ((1 + x_1) = L_StackSize(Mint_0, s)))) /\
+      (((!P_StackEmpty(Mint_0, s)) ->
+       P_Unchanged_2_(Mint_1, Mint_1, L_StackStorage(Mptr_0, s), x_1))) /\
+      ((P_StackEmpty(Mint_0, s) ->
+       P_StackUnchanged(Mptr_0, Mint_1, m, Mptr_0, Mint_1, Mint_0, s))).
+  (* Call 'stack_pop' *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, m_1, t) /\
+      ((P_StackFull(m_1, t) -> P_StackEmpty(m, t))) /\
+      ((P_StackEmpty(m, t) -> P_StackEmpty(m_1, t))) /\
+      (((!P_StackEmpty(m, t)) ->
+       (L_StackCapacity(m_1, t) = L_StackCapacity(m, t)))) /\
+      (((!P_StackEmpty(m, t)) -> ((1 + x) = L_StackSize(m, t)))) /\
+      (((!P_StackEmpty(m, t)) ->
+       P_Unchanged_2_(Mint_1, Mint_1, L_StackStorage(Mptr_0, t), x))) /\
+      ((P_StackEmpty(m, t) ->
+       P_StackUnchanged(Mptr_0, Mint_1, m_1, Mptr_0, Mint_1, m, t))).
+  (* Assertion *)
+  Have: P_StackEqual(Mptr_0, Mint_1, m_1, Mptr_0, Mint_1, m_1, s, t).
+}
+Prove: P_StackInvariant(Malloc_0, Mptr_0, m_1, s).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (119ms) (3303)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 132) in 'stack_pop_wd':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 133) in 'stack_pop_wd':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 138):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 141):
+Let m = Mint_1[shiftfield_F1_Stack_size(s) <- v].
+Let m_1 = m[shiftfield_F1_Stack_size(t) <- v_1].
+Let x = L_StackSize(m_1, t).
+Let x_1 = L_StackSize(m, s).
+Assume {
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, s, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_1, s).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, t, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_1, t).
+  (* Pre-condition *)
+  Have: P_StackSeparated(Mptr_0, Mint_1, s, t).
+  (* Pre-condition *)
+  Have: P_StackEqual(Mptr_0, Mint_0, Mint_1, Mptr_0, Mint_0, Mint_1, s, t).
+  (* Call 'stack_pop' *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, m, s) /\
+      ((P_StackFull(m, s) -> P_StackEmpty(Mint_1, s))) /\
+      ((P_StackEmpty(Mint_1, s) -> P_StackEmpty(m, s))) /\
+      (((!P_StackEmpty(Mint_1, s)) ->
+       (L_StackCapacity(m, s) = L_StackCapacity(Mint_1, s)))) /\
+      (((!P_StackEmpty(Mint_1, s)) -> ((1 + x_1) = L_StackSize(Mint_1, s)))) /\
+      (((!P_StackEmpty(Mint_1, s)) ->
+       P_Unchanged_2_(Mint_0, Mint_0, L_StackStorage(Mptr_0, s), x_1))) /\
+      ((P_StackEmpty(Mint_1, s) ->
+       P_StackUnchanged(Mptr_0, Mint_0, m, Mptr_0, Mint_0, Mint_1, s))).
+  (* Call 'stack_pop' *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, m_1, t) /\
+      ((P_StackFull(m_1, t) -> P_StackEmpty(m, t))) /\
+      ((P_StackEmpty(m, t) -> P_StackEmpty(m_1, t))) /\
+      (((!P_StackEmpty(m, t)) ->
+       (L_StackCapacity(m_1, t) = L_StackCapacity(m, t)))) /\
+      (((!P_StackEmpty(m, t)) -> ((1 + x) = L_StackSize(m, t)))) /\
+      (((!P_StackEmpty(m, t)) ->
+       P_Unchanged_2_(Mint_0, Mint_0, L_StackStorage(Mptr_0, t), x))) /\
+      ((P_StackEmpty(m, t) ->
+       P_StackUnchanged(Mptr_0, Mint_0, m_1, Mptr_0, Mint_0, m, t))).
+}
+Prove: P_StackEqual(Mptr_0, Mint_0, m_1, Mptr_0, Mint_0, m_1, s, t).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (83ms) (2186)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 130) in 'stack_pop_wd' (1/2):
+Call Effect at line 139
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 130) in 'stack_pop_wd' (2/2):
+Call Effect at line 140
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 130) in 'stack_pop_wd' (1/2):
+Call Effect at line 139
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 130) in 'stack_pop_wd' (2/2):
+Call Effect at line 140
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_pop'' in 'stack_pop_wd' at call 'stack_pop' (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 139)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_pop'' in 'stack_pop_wd' at call 'stack_pop' (file output/live24/stack_pop_wd/stack_pop_wd.acsl.c, line 140)
+:
+Let m = Mint_0[shiftfield_F1_Stack_size(s) <- v].
+Let x = L_StackSize(m, s).
+Assume {
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, s, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_0, s).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, t, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_0, t).
+  (* Pre-condition *)
+  Have: P_StackSeparated(Mptr_0, Mint_0, s, t).
+  (* Pre-condition *)
+  Have: P_StackEqual(Mptr_0, Mint_1, Mint_0, Mptr_0, Mint_1, Mint_0, s, t).
+  (* Call 'stack_pop' *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, m, s) /\
+      ((P_StackFull(m, s) -> P_StackEmpty(Mint_0, s))) /\
+      ((P_StackEmpty(Mint_0, s) -> P_StackEmpty(m, s))) /\
+      (((!P_StackEmpty(Mint_0, s)) ->
+       (L_StackCapacity(m, s) = L_StackCapacity(Mint_0, s)))) /\
+      (((!P_StackEmpty(Mint_0, s)) -> ((1 + x) = L_StackSize(Mint_0, s)))) /\
+      (((!P_StackEmpty(Mint_0, s)) ->
+       P_Unchanged_2_(Mint_1, Mint_1, L_StackStorage(Mptr_0, s), x))) /\
+      ((P_StackEmpty(Mint_0, s) ->
+       P_StackUnchanged(Mptr_0, Mint_1, m, Mptr_0, Mint_1, Mint_0, s))).
+}
+Prove: P_StackInvariant(Malloc_0, Mptr_0, m, t).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (100ms) (916940)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (75ms) (1951)
+
+------------------------------------------------------------

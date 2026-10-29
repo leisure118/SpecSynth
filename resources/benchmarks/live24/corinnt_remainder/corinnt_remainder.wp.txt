@@ -1,0 +1,126 @@
+[kernel] Parsing output/live24/corinnt_remainder/corinnt_remainder.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             5
+  Alt-Ergo :       4 (7ms-19ms)
+------------------------------------------------------------
+  Function div_rem
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 6) in 'div_rem':
+Let x_1 = to_uint32(x / y).
+Let x_2 = y * x_1.
+Let x_3 = x - x_2.
+Let x_4 = Mint_0[q <- x_1][r <- x_3][q].
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y) /\ is_uint32(x_3) /\ is_uint32(x_4).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ (region(r.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 < y.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1) /\ valid_rw(Malloc_0, r, 1).
+  (* Pre-condition *)
+  Have: r != q.
+  (* Initializer *)
+  Init: (to_uint32(x % y) + x_2) = x.
+}
+Prove: (y * x_4) = x_2.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (109057)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (13ms) (73)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 7) in 'div_rem':
+Let x_1 = y * to_uint32(x / y).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y) /\ is_uint32(x - x_1).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ (region(r.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 < y.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1) /\ valid_rw(Malloc_0, r, 1).
+  (* Pre-condition *)
+  Have: r != q.
+  (* Initializer *)
+  Init: (to_uint32(x % y) + x_1) = x.
+}
+Prove: x < (y + x_1).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (103257)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (19ms) (439)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 14):
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ (region(r.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 < y.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1) /\ valid_rw(Malloc_0, r, 1).
+  (* Pre-condition *)
+  Have: r != q.
+}
+Prove: (to_uint32(x % y) + (y * to_uint32(x / y))) = x.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (30ms) (206076)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (15ms) (186)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 5) in 'div_rem' (1/2):
+Effect at line 12
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 5) in 'div_rem' (2/2):
+Effect at line 13
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 20):
+Assume {
+  Type: is_uint32(q) /\ is_uint32(10 - (3 * q)).
+  (* Call 'div_rem' *)
+  Have: 3 <= q.
+}
+Prove: q = 3.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (27481)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (21)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 2) in 'div_rem'' in 'main' at call 'div_rem' (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 19)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 3) in 'div_rem'' in 'main' at call 'div_rem' (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 19)
+:
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 4) in 'div_rem'' in 'main' at call 'div_rem' (file output/live24/corinnt_remainder/corinnt_remainder.acsl.c, line 19)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/corinnt_remainder/corinnt_remainder.acsl.c:16: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

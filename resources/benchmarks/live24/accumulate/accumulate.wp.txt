@@ -1,0 +1,209 @@
+[kernel] Parsing output/live24/accumulate/accumulate.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:             3
+  Alt-Ergo :      10 (7ms-11ms)
+------------------------------------------------------------
+  Axiomatic 'Accumulate'
+------------------------------------------------------------
+
+Lemma Accumulate_Init:
+Assume: 'Unchanged_Transitive' 'Unchanged_Symmetric' 'Unchanged_Extend'
+  'Unchanged_Shrink'
+Prove: (n_0<=0) -> (is_sint32 init_0)
+       -> ((L_Accumulate Mint_0 a_0 n_0 init_0)=init_0)
+Prover Z3 4.15.4 returns Valid (10ms) (85006)
+Prover Alt-Ergo  returns Valid (7ms) (29)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Axiomatic 'UnchangedLemmas'
+------------------------------------------------------------
+
+Lemma Unchanged_Extend:
+Assume: 'Unchanged_Shrink'
+Prove: let a_1 = (shift_sint32 a_0 n_0) in
+       let x_0 = Mint_1[a_1] in
+       let x_1 = Mint_0[a_1] in
+       (x_0=x_1) -> (P_Unchanged_2_ Mint_0 Mint_1 a_0 n_0) -> (is_sint32 x_1)
+       -> (is_sint32 x_0) -> (P_Unchanged_2_ Mint_0 Mint_1 a_0 (1+n_0))
+Prover Alt-Ergo  returns Valid (10ms) (87)
+
+------------------------------------------------------------
+
+Lemma Unchanged_Shrink:
+Prove: (q_0<=n_0) -> (m_0<=p_0) -> (p_0<=q_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 p_0 q_0)
+Prover Alt-Ergo  returns Valid (7ms) (59)
+
+------------------------------------------------------------
+
+Lemma Unchanged_Symmetric:
+Assume: 'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: (P_Unchanged_1_ Mint_1 Mint_0 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 m_0 n_0)
+Prover Alt-Ergo  returns Valid (8ms) (46)
+
+------------------------------------------------------------
+
+Lemma Unchanged_Transitive:
+Assume: 'Unchanged_Symmetric' 'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: (P_Unchanged_1_ Mint_0 Mint_2 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_2 Mint_1 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 m_0 n_0)
+Prover Alt-Ergo  returns Valid (9ms) (54)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function accumulate
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/accumulate/accumulate.acsl.c, line 64):
+Let x = L_Accumulate(Mint_0, a, i, init_0).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Let x_2 = 1 + i.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(init_0) /\
+      is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (x_1 + x) = L_Accumulate(Mint_0, a, x_2, init_0).
+  (* Then *)
+  Have: i < n.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+}
+Prove: to_uint32(x_2) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (149856)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (107)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/accumulate/accumulate.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/accumulate/accumulate.acsl.c, line 65):
+Let x = 1 + i.
+Let x_1 = to_uint32(x).
+Let x_2 = L_Accumulate(Mint_0, a, i, init_0).
+Let x_3 = Mint_0[shift_sint32(a, i)].
+Let x_4 = x_3 + x_2.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(init_0) /\
+      is_sint32(x_3) /\ is_sint32(x_2) /\ is_sint32(x_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  Have: x_4 = L_Accumulate(Mint_0, a, x, init_0).
+  (* Invariant *)
+  Have: x_1 <= n.
+}
+Prove: x_4 = L_Accumulate(Mint_0, a, x_1, init_0).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (30ms) (218060)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (11ms) (120)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/accumulate/accumulate.acsl.c, line 65):
+Assume {
+  Type: is_uint32(n) /\ is_sint32(init_0).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+Prover Alt-Ergo  returns Valid (Qed:0.70ms) (9ms) (30)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte_help' (file output/live24/accumulate/accumulate.acsl.c, line 71):
+Let x = Mint_0[shift_sint32(a, i)].
+Let x_1 = L_Accumulate(Mint_0, a, i, init_0).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(init_0) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+}
+Prove: (x + x_1) = L_Accumulate(Mint_0, a, 1 + i, init_0).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (149742)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (67)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/accumulate/accumulate.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/accumulate/accumulate.acsl.c, line 69):
+Let x = 1 + i.
+Let x_1 = to_uint32(x).
+Let x_2 = L_Accumulate(Mint_0, a, i, init_0).
+Let x_3 = Mint_0[shift_sint32(a, i)].
+Let x_4 = x_3 + x_2.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(init_0) /\
+      is_sint32(x_3) /\ is_sint32(x_2) /\ is_sint32(x_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x_4 = L_Accumulate(Mint_0, a, x_1, init_0).
+  (* Then *)
+  Have: i < n.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Assertion 'rte_help' *)
+  Have: x_4 = L_Accumulate(Mint_0, a, x, init_0).
+  (* Invariant *)
+  Have: x_1 <= n.
+}
+Prove: i < x_1.
+Prover Alt-Ergo  returns Valid (Qed:3ms) (11ms) (123)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/accumulate/accumulate.acsl.c, line 69):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/accumulate/accumulate.acsl.c:61: Warning: 
+  No 'assigns' specification for function 'accumulate'.
+  Callers assumptions might be imprecise.

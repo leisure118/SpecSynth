@@ -1,0 +1,859 @@
+[kernel] Parsing output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c:51: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 70 goals scheduled
+[wp] Proved goals:   70 / 70
+  Qed:            58
+  Alt-Ergo :      12 (6ms-9ms-20ms)
+------------------------------------------------------------
+  Function elem_exists
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 23) in 'elem_exists':
+Let x = Mint_0[shift_sint32(set_0, i)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(size_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(set_0.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: i < size_0.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(set_0, 0), size_0).
+  (* Invariant *)
+  Have: 0 <= size_0.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(set_0, i_1)] != x))).
+}
+Prove: exists i_1 : Z. (Mint_0[shift_sint32(set_0, i_1)] = x) /\
+    (0 <= i_1) /\ (i_1 < size_0).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (94341)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (7ms) (41)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 24) in 'elem_exists':
+Let x = Mint_0[shift_sint32(set_0, i)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(size_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(set_0.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: i < size_0.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(set_0, 0), size_0).
+  (* Invariant *)
+  Have: 0 <= size_0.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(set_0, i_1)] != x))).
+}
+Prove: exists i_1 : Z. (Mint_0[shift_sint32(set_0, i_1)] = x) /\
+    (0 <= i_1) /\ (i_1 < size_0).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (94341)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (41)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 30):
+Let x = Mint_0[shift_sint32(set_0, i_1)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(size_0) /\ is_sint32(value_0) /\
+      is_sint32(1 + i_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(set_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(set_0, 0), size_0).
+  (* Invariant *)
+  Have: 0 <= size_0.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= size_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(set_0, i_2)] != value_0))).
+  (* Then *)
+  Have: i_1 < size_0.
+  (* Else *)
+  Have: x != value_0.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: Mint_0[shift_sint32(set_0, i)] != value_0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (30ms) (262337)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (68)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'elem_exists' (1/4):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid (0.53ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'elem_exists' (2/4):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid (0.89ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'elem_exists' (3/4):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'elem_exists' (4/4):
+Effect at line 37
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function insert
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 12) in 'insert':
+Prove: true.
+Prover Qed returns Valid (0.68ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 13) in 'insert':
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 11) in 'insert' (1/2):
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 11) in 'insert' (2/2):
+Effect at line 17
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (0.61ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (0.55ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (0.95ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (0.62ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 81):
+Let x_2 = values_0[v].
+Assume {
+  Type: is_sint32(elem_exists_0) /\ is_sint32(n) /\ is_sint32(v_1) /\
+      is_sint32(v) /\ is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(1 + v).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+  (* Invariant *)
+  Have: x_1 <= 0.
+  (* Else *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (0 <= v_1) /\ (v_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= v_1.
+  (* Invariant *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 < i) -> ((i < 0) ->
+      (set_0[i_1] != set_0[i])))).
+  (* Invariant *)
+  Have: (0 <= v) /\ (v <= 100000).
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= v).
+  (* Invariant *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 < i) -> ((i < n) ->
+      (set_1[i_1] != set_1[i])))).
+  (* Then *)
+  Have: v <= 99999.
+  (* Call 'elem_exists' *)
+  Have: ((forall i : Z. ((0 <= i) -> ((i < n) -> (x_2 != set_1[i])))) <->
+         (elem_exists_0 = 0)) /\
+      ((exists i : Z. (x_2 = set_1[i]) /\ (0 <= i) /\ (i < n)) <->
+       (elem_exists_0 = 1)).
+}
+Prove: (-1) <= v.
+Prover Z3 4.15.4 returns Valid (Qed:30ms) (10ms) (33371)
+Prover Alt-Ergo  returns Valid (Qed:30ms) (6ms) (23)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 81):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 82):
+Let x_2 = values_0[v].
+Let x_3 = 1 + v.
+Assume {
+  Type: is_sint32(elem_exists_0) /\ is_sint32(insert_0) /\ is_sint32(n) /\
+      is_sint32(n_1) /\ is_sint32(n_2) /\ is_sint32(v_1) /\ is_sint32(v) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+  (* Invariant *)
+  Have: x_1 <= 0.
+  (* Else *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (0 <= v_1) /\ (v_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= v_1.
+  (* Invariant *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 < i) -> ((i < 0) ->
+      (set_0[i_1] != set_0[i])))).
+  (* Invariant *)
+  Have: (0 <= v) /\ (v <= 100000).
+  (* Invariant *)
+  Have: (0 <= n_2) /\ (n_2 <= v).
+  (* Invariant *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 < i) -> ((i < n_2) ->
+      (set_1[i_1] != set_1[i])))).
+  (* Then *)
+  Have: v <= 99999.
+  (* Call 'elem_exists' *)
+  Have: ((forall i : Z. ((0 <= i) -> ((i < n_2) -> (x_2 != set_1[i])))) <->
+         (elem_exists_0 = 0)) /\
+      ((exists i : Z. (x_2 = set_1[i]) /\ (0 <= i) /\ (i < n_2)) <->
+       (elem_exists_0 = 1)).
+  If elem_exists_0 != 0
+  Then { Have: n_2 = n. }
+  Else {
+    Let x_4 = 1 + n_1.
+    Have: (n_2 = n_1) /\ (x_4 = n).
+    (* Call 'insert' *)
+    Have: (n = insert_0) /\ (x_4 = insert_0).
+  }
+  (* Invariant *)
+  Have: (-1) <= v.
+}
+Prove: (0 <= n) /\ (n <= x_3).
+Prover Z3 4.15.4 returns Valid (Qed:29ms) (10ms) (35303)
+Prover Alt-Ergo  returns Valid (Qed:29ms) (7ms) (94)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 82):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 83):
+Let x_2 = 1 + v_1.
+Let x_3 = values_0[v_1].
+Assume {
+  Type: is_sint32(elem_exists_0) /\ is_sint32(insert_0) /\ is_sint32(n) /\
+      is_sint32(n_1) /\ is_sint32(n_2) /\ is_sint32(v) /\ is_sint32(v_1) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(set_0[n_1]) /\
+      is_sint32(x_3) /\ is_sint32(x_2).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i) /\ (i < n).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+  (* Invariant *)
+  Have: x_1 <= 0.
+  (* Else *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (0 <= v) /\ (v <= 100000).
+  (* Else *)
+  Have: 100000 <= v.
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> ((i_2 < 0) ->
+      (set_1[i_3] != set_1[i_2])))).
+  (* Invariant *)
+  Have: (0 <= v_1) /\ (v_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= n_2) /\ (n_2 <= v_1).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> ((i_2 < n_2) ->
+      (set_2[i_3] != set_2[i_2])))).
+  (* Then *)
+  Have: v_1 <= 99999.
+  (* Call 'elem_exists' *)
+  Have: ((forall i_2 : Z. ((0 <= i_2) -> ((i_2 < n_2) ->
+          (x_3 != set_2[i_2])))) <-> (elem_exists_0 = 0)) /\
+      ((exists i_2 : Z. (x_3 = set_2[i_2]) /\ (0 <= i_2) /\ (i_2 < n_2)) <->
+       (elem_exists_0 = 1)).
+  If elem_exists_0 != 0
+  Then { Have: (n_2 = n) /\ (set_2 = set_0). }
+  Else {
+    Let x_4 = 1 + n_1.
+    Have: (n_2 = n_1) /\ (set_2 = set_3) /\ (x_4 = n).
+    (* Call 'insert' *)
+    Have: (n = insert_0) /\ (x_4 = insert_0).
+    (* Call Effects *)
+    Have: set_3[n_1 <- x_3] = set_0.
+  }
+  (* Invariant *)
+  Have: (-1) <= v_1.
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= x_2).
+}
+Prove: set_0[i] != set_0[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:44ms) (10ms) (37661)
+Prover Alt-Ergo  returns Valid (Qed:44ms) (20ms) (509)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 83):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 93):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 93):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 94):
+Assume {
+  Type: is_sint32(n) /\ is_sint32(v) /\ is_sint32(v_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(y) /\ is_sint32(1 + x_2).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i) /\ (i < n).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+  (* Invariant *)
+  Have: x_1 <= 0.
+  (* Else *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (0 <= v) /\ (v <= 100000).
+  (* Else *)
+  Have: 100000 <= v.
+  (* Invariant *)
+  Have: (0 <= v_1) /\ (v_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= v_1).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> ((i_2 < n) ->
+      (set_0[i_3] != set_0[i_2])))).
+  (* Else *)
+  Have: 100000 <= v_1.
+  (* Invariant *)
+  Have: (x_2 <= n) /\ (0 <= x_2).
+  (* Then *)
+  Have: x_2 < n.
+  (* Invariant *)
+  Have: x_2 < y.
+  (* Else *)
+  Have: n <= y.
+  (* Invariant *)
+  Have: (-1) <= x_2.
+}
+Prove: set_0[i] != set_0[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (32371)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (9ms) (90)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 94):
+Assume {
+  Type: is_sint32(n) /\ is_sint32(v) /\ is_sint32(v_1) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i) /\ (i < n).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+  (* Invariant *)
+  Have: x_1 <= 0.
+  (* Else *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (0 <= v) /\ (v <= 100000).
+  (* Else *)
+  Have: 100000 <= v.
+  (* Invariant *)
+  Have: (0 <= v_1) /\ (v_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= v_1).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> ((i_2 < n) ->
+      (set_0[i_3] != set_0[i_2])))).
+  (* Else *)
+  Have: 100000 <= v_1.
+}
+Prove: set_0[i] != set_0[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (30971)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (8ms) (73)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 100):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 100):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 101):
+Let x_3 = set_0[y].
+Let x_4 = set_0[x_2].
+Assume {
+  Type: is_sint32(n) /\ is_sint32(v) /\ is_sint32(v_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(y) /\ is_sint32(x_4) /\
+      is_sint32(x_3) /\ is_sint32(1 + x_2) /\ is_sint32(1 + y).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i) /\ (i < n).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+  (* Invariant *)
+  Have: x_1 <= 0.
+  (* Else *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (0 <= v) /\ (v <= 100000).
+  (* Else *)
+  Have: 100000 <= v.
+  (* Invariant *)
+  Have: (0 <= v_1) /\ (v_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= v_1).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> ((i_2 < n) ->
+      (set_0[i_3] != set_0[i_2])))).
+  (* Else *)
+  Have: 100000 <= v_1.
+  (* Invariant *)
+  Have: (x_2 <= n) /\ (0 <= x_2).
+  (* Then *)
+  Have: x_2 < n.
+  (* Invariant *)
+  Have: x_2 < y.
+  (* Then *)
+  Have: y < n.
+  (* Assertion *)
+  Have: x_3 != x_4.
+}
+Prove: set_0[i] != set_0[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (33483)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (8ms) (98)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 101):
+Assume {
+  Type: is_sint32(n) /\ is_sint32(v) /\ is_sint32(v_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(y) /\ is_sint32(y - 1).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i) /\ (i < n).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+  (* Invariant *)
+  Have: x_1 <= 0.
+  (* Else *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (0 <= v) /\ (v <= 100000).
+  (* Else *)
+  Have: 100000 <= v.
+  (* Invariant *)
+  Have: (0 <= v_1) /\ (v_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= v_1).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> ((i_2 < n) ->
+      (set_0[i_3] != set_0[i_2])))).
+  (* Else *)
+  Have: 100000 <= v_1.
+  (* Invariant *)
+  Have: (0 < y) /\ (y <= (1 + n)).
+  (* Then *)
+  Have: y <= n.
+}
+Prove: set_0[i] != set_0[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (31791)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (9ms) (85)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 106):
+Let x_3 = set_0[x].
+Let x_4 = set_0[y].
+Assume {
+  Type: is_sint32(n) /\ is_sint32(v) /\ is_sint32(v_1) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_3) /\
+      is_sint32(x_4) /\ is_sint32(1 + x).
+  (* Invariant *)
+  Have: (0 <= x_1) /\ (x_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= x_1.
+  (* Invariant *)
+  Have: x_2 <= 0.
+  (* Else *)
+  Have: 0 <= x_2.
+  (* Invariant *)
+  Have: (0 <= v) /\ (v <= 100000).
+  (* Else *)
+  Have: 100000 <= v.
+  (* Invariant *)
+  Have: (0 <= v_1) /\ (v_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= v_1).
+  (* Invariant *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 < i) -> ((i < n) ->
+      (set_0[i_1] != set_0[i])))).
+  (* Else *)
+  Have: 100000 <= v_1.
+  (* Invariant *)
+  Have: (x <= n) /\ (0 <= x).
+  (* Then *)
+  Have: x < n.
+  (* Invariant *)
+  Have: x < y.
+  (* Then *)
+  Have: y < n.
+}
+Prove: x_4 != x_3.
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (32231)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (10ms) (81)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 55) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 55) (2/3):
+Effect at line 65
+Prove: true.
+Prover Qed returns Valid (0.92ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 55) (3/3):
+Effect at line 65
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 73):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 84) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 84) (2/2):
+Call Result at line 88
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 95):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 102):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 49):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 49):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid (0.79ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid (0.59ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 76):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 76):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 87):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 87):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 98):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 98):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 105):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 105):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 20) in 'elem_exists'' in 'main' at call 'elem_exists' (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 88)
+:
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 21) in 'elem_exists'' in 'main' at call 'elem_exists' (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 88)
+:
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 10) in 'insert'' in 'main' at call 'insert' (file output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c, line 89)
+:
+Let x_2 = values_0[v_1].
+Assume {
+  Type: is_sint32(n) /\ is_sint32(v) /\ is_sint32(v_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Else *)
+  Have: 100000 <= x.
+  (* Invariant *)
+  Have: x_1 <= 0.
+  (* Else *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (0 <= v) /\ (v <= 100000).
+  (* Else *)
+  Have: 100000 <= v.
+  (* Invariant *)
+  Have: (0 <= v_1) /\ (v_1 <= 100000).
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= v_1).
+  (* Invariant *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 < i) -> ((i < n) ->
+      (set_0[i_1] != set_0[i])))).
+  (* Then *)
+  Have: v_1 <= 99999.
+  (* Call 'elem_exists' *)
+  Have: forall i : Z. ((0 <= i) -> ((i < n) -> (x_2 != set_0[i]))).
+}
+Prove: n <= 99999.
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (31070)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (7ms) (20)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_data_structures_set_multi_proc_ground-2/array-examples_data_structures_set_multi_proc_ground-2.acsl.c:39: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,167 @@
+[kernel] Parsing output/live24/random_number/random_number.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 18 goals scheduled
+[wp] Proved goals:   18 / 18
+  Qed:            15
+  Alt-Ergo :       3 (7ms-14ms-25ms)
+------------------------------------------------------------
+  Axiomatic 'C_Bit'
+------------------------------------------------------------
+
+Lemma RandomNumberModulo:
+Prove: (is_uint64 a_0) -> ((a_0 mod 281474976710656)<=281474976710655)
+Prover Z3 4.15.4 returns Valid (10ms) (27527)
+Prover Alt-Ergo  returns Valid (7ms) (39)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function my_lrand48
+------------------------------------------------------------
+
+Goal Post-condition 'lower' in 'my_lrand48':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Post-condition 'upper' in 'my_lrand48':
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'lower' (file output/live24/random_number/random_number.acsl.c, line 33):
+Let a = shift_uint16(seed_0, 0).
+Let x = Mint_0[a].
+Let x_1 = Mint_0[shift_uint16(seed_0, 1)].
+Let x_2 = Mint_0[shift_uint16(seed_0, 2)].
+Assume {
+  Type: is_uint16(x) /\ is_uint16(x_1) /\ is_uint16(x_2).
+  (* Heap *)
+  Type: (region(seed_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition 'valid' *)
+  Have: valid_rw(Malloc_0, a, 3).
+}
+Prove: to_uint64(to_uint64(11
+                   + to_uint64(25214903917 * lor(to_uint64(lsl(x, 32)),
+                       lor(to_uint64(lsl(x_1, 16)), x_2))))
+         % 281474976710656) <= 281474976710655.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (185108)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (25ms) (430)
+
+------------------------------------------------------------
+
+Goal Assertion 'lower' (file output/live24/random_number/random_number.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 22) in 'my_lrand48' (1/4):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 22) in 'my_lrand48' (2/4):
+Effect at line 36
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 22) in 'my_lrand48' (3/4):
+Effect at line 37
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 22) in 'my_lrand48' (4/4):
+Effect at line 38
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function random_init
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 54) in 'random_init' (1/3):
+Effect at line 59
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 54) in 'random_init' (2/3):
+Effect at line 60
+Prove: true.
+Prover Qed returns Valid (0.78ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 54) in 'random_init' (3/3):
+Effect at line 61
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function random_number
+------------------------------------------------------------
+
+Goal Post-condition 'lower' in 'random_number':
+Assume {
+  Type: is_uint32(n) /\ is_sint64(my_lrand48_0).
+  (* Heap *)
+  Type: (region(state_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_uint16(state_0, 0), 3).
+  (* Call 'my_lrand48' *)
+  Have: (0 <= my_lrand48_0) /\ (my_lrand48_0 <= 2147483647).
+}
+Prove: to_uint32(my_lrand48_0 % n) < n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (70421)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (71)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 44) in 'random_number':
+Call Effect at line 50
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 44) in 'random_number' (1/3):
+Call Effect at line 50
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 44) in 'random_number' (2/3):
+Call Result at line 50
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/random_number/random_number.acsl.c, line 44) in 'random_number' (3/3):
+Effect at line 50
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'my_lrand48'' in 'random_number' at call 'my_lrand48' (file output/live24/random_number/random_number.acsl.c, line 50)
+:
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------

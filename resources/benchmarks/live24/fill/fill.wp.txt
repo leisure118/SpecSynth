@@ -1,0 +1,193 @@
+[kernel] Parsing output/live24/fill/fill.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] Proved goals:   12 / 12
+  Qed:             5
+  Alt-Ergo :       7 (8ms-13ms)
+------------------------------------------------------------
+  Axiomatic 'AllSomeNot'
+------------------------------------------------------------
+
+Lemma NotAllEqual_SomeNotEqual:
+Prove: (is_sint32 v_0) -> (not (P_AllEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+       -> (P_SomeNotEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+Prover Alt-Ergo  returns Valid (13ms) (50)
+
+------------------------------------------------------------
+
+Lemma SomeNotEqual_NotAllEqual:
+Assume: 'NotAllEqual_SomeNotEqual'
+Prove: (is_sint32 v_0) -> (P_SomeNotEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+       -> (not (P_AllEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+Prover Alt-Ergo  returns Valid (11ms) (50)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function fill
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/fill/fill.acsl.c, line 42):
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), n)
+         [shift_sint32(a, i_1)] = v))).
+  (* Then *)
+  Have: i < n.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (77420)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (44)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/fill/fill.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/fill/fill.acsl.c, line 43):
+Let x = to_uint32(1 + i).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), n).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < x).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_1[shift_sint32(a, i_2)] = v))).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: a_1[shift_sint32(a, i) <- v][shift_sint32(a, i_1)] = v.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (95917)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (106)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/fill/fill.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/fill/fill.acsl.c, line 50):
+Let a_1 = shift_sint32(a, 0).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (havoc(Mint_undef_0, Mint_0, a_1, n)[shift_sint32(a, i_1)] = v))).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_AllEqual_3_(havoc(Mint_undef_0, Mint_0, a_1, i), a, i, v).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (97)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/fill/fill.acsl.c, line 44) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/fill/fill.acsl.c, line 44) (2/3):
+Effect at line 47
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/fill/fill.acsl.c, line 44) (3/3):
+Effect at line 48
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(a, i).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(a, i_1)] = v))).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_2[a_3 <- v][shift_sint32(a, i_1)] = v))).
+}
+Prove: included(a_3, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (67679)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (11ms) (102)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/fill/fill.acsl.c, line 47):
+Let x = to_uint32(1 + i).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), n).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_1[shift_sint32(a, i_1)] = v))).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_1[shift_sint32(a, i) <- v][shift_sint32(a, i_1)] = v))).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (79007)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (59)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/fill/fill.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/fill/fill.acsl.c:39: Warning: 
+  No 'assigns' specification for function 'fill'.
+  Callers assumptions might be imprecise.

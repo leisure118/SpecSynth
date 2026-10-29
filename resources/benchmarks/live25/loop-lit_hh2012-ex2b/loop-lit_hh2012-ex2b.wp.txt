@@ -1,0 +1,65 @@
+[kernel] Parsing output/live25/loop-lit_hh2012-ex2b/loop-lit_hh2012-ex2b.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-lit_hh2012-ex2b/loop-lit_hh2012-ex2b.acsl.c:16: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             5
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_hh2012-ex2b/loop-lit_hh2012-ex2b.acsl.c, line 11):
+Assume {
+  Type: is_sint32(n) /\ is_sint32(tmp_0) /\ is_sint32(1 + n).
+  (* Residual *)
+  When: n <= 59.
+  (* Residual *)
+  When: tmp_0 != 0.
+  (* Invariant *)
+  Have: (0 <= n) /\ (n <= 60).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+}
+Prove: (-1) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (28152)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (25)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_hh2012-ex2b/loop-lit_hh2012-ex2b.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_hh2012-ex2b/loop-lit_hh2012-ex2b.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_hh2012-ex2b/loop-lit_hh2012-ex2b.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_hh2012-ex2b/loop-lit_hh2012-ex2b.acsl.c, line 12) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_hh2012-ex2b/loop-lit_hh2012-ex2b.acsl.c, line 12) (2/2):
+Call Result at line 16
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-lit_hh2012-ex2b/loop-lit_hh2012-ex2b.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

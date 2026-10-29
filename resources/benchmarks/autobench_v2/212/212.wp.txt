@@ -1,0 +1,118 @@
+[kernel] Parsing output/autobench_v2/212/212.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:             9
+  Alt-Ergo :       2 (7ms)
+------------------------------------------------------------
+  Function func
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/212/212.acsl.c, line 3) in 'func':
+Let x = n / 2.
+Let x_1 = 1 + x.
+Let x_2 = i * (i - 1).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(x_2).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (-3) <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= x_1).
+  (* Else *)
+  Have: x < i.
+}
+Prove: (x_1 * x) = x_2.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (30ms) (56428)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (45)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/212/212.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/212/212.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/212/212.acsl.c, line 12):
+Let x = n / 2.
+Let x_1 = 1 + i.
+Let x_2 = i * (i - 1).
+Let x_3 = (2 * i) + x_2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(x_3).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (-3) <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= (1 + x)).
+  (* Then *)
+  Have: i <= x.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (i * x_1) = x_3.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (7495)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (7ms) (32)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/212/212.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/212/212.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'func':
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/212/212.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/212/212.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/212/212.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/212/212.acsl.c, line 2) in 'func'' in 'main' at initialization of 't' (file output/autobench_v2/212/212.acsl.c, line 25)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/212/212.acsl.c:24: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

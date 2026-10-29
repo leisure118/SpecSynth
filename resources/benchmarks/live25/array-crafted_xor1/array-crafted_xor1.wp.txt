@@ -1,0 +1,213 @@
+[kernel] Parsing output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c:49: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 26 goals scheduled
+[wp] Proved goals:   26 / 26
+  Qed:            24
+  Alt-Ergo :       2 (17ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 67):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 57) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 57) (2/2):
+Effect at line 61
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 17) in 'xor'' in 'main' at call 'xor' (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 51)
+:
+Prove: true.
+Prover Qed returns Valid (0.65ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 17) in 'xor'' in 'main' at call 'xor' (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 53)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 17) in 'xor'' in 'main' at call 'xor' (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 64)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function xor
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 27):
+Let a = shift_sint32(x, 0).
+Let x_1 = Mint_0[a].
+Let x_2 = 1 + i.
+Let x_3 = Mint_0[shift_sint32(x, i)].
+Let x_4 = L_xor_range(Mint_0, x, 0, i).
+Let x_5 = lxor(x_4, x_3).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_2) /\ is_sint32(x_1) /\ is_sint32(x_3) /\
+      is_sint64(x_4) /\ is_sint64(x_5).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 100).
+  Have: x_1 = L_xor_range(Mint_0, x, 0, 1).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= 100).
+  (* Then *)
+  Have: i <= 99.
+}
+Prove: L_xor_range(Mint_0, x, 0, x_2) = x_5.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (158126)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (17ms) (307)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 27):
+Let a = shift_sint32(x, 0).
+Let x_1 = Mint_0[a].
+Assume {
+  Type: is_sint32(x_1).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 100).
+}
+Prove: x_1 = L_xor_range(Mint_0, x, 0, 1).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (20ms) (138831)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (17ms) (283)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'xor' (1/4):
+Effect at line 24
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'xor' (2/4):
+Effect at line 31
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'xor' (3/4):
+Effect at line 31
+Prove: true.
+Prover Qed returns Valid (0.67ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'xor' (4/4):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-crafted_xor1/array-crafted_xor1.acsl.c:36: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

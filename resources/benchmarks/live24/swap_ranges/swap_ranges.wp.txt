@@ -1,0 +1,878 @@
+[kernel] Parsing output/live24/swap_ranges/swap_ranges.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 29 goals scheduled
+[wp] Proved goals:   29 / 29
+  Qed:            13
+  Alt-Ergo :      15 (8ms-23ms-74ms)
+  Z3 4.15.4:       1 (60ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/swap_ranges/swap_ranges.acsl.c, line 74):
+Let x = a[0].
+Let x_1 = b[0].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(a[1]) /\ is_sint32(a[2]) /\
+      is_sint32(a[3]) /\ is_sint32(a[4]) /\ is_sint32(x_1) /\
+      is_sint32(b[1]) /\ is_sint32(b[2]) /\ is_sint32(b[3]) /\
+      is_sint32(b[4]).
+  (* Initializer *)
+  Init: a_1[0] = 1.
+  (* Initializer *)
+  Init: a_1[1] = 2.
+  (* Initializer *)
+  Init: a_1[2] = 3.
+  (* Initializer *)
+  Init: a_1[3] = 4.
+  (* Initializer *)
+  Init: a_1[4] = 5.
+  (* Initializer *)
+  Init: b_1[0] = 6.
+  (* Initializer *)
+  Init: b_1[1] = 7.
+  (* Initializer *)
+  Init: b_1[2] = 8.
+  (* Initializer *)
+  Init: b_1[3] = 9.
+  (* Initializer *)
+  Init: b_1[4] = 10.
+  (* Call 'swap_ranges' *)
+  Have: (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b[i] = a_1[i])))) /\
+      (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b_1[i] = a[i])))).
+}
+Prove: (x = 6) /\ (x_1 = 1).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (32600)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (97)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/swap_ranges/swap_ranges.acsl.c, line 75):
+Let x = a[1].
+Let x_1 = b[1].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(a[2]) /\ is_sint32(a[3]) /\
+      is_sint32(a[4]) /\ is_sint32(x_1) /\ is_sint32(b[2]) /\
+      is_sint32(b[3]) /\ is_sint32(b[4]).
+  (* Initializer *)
+  Init: a_1[0] = 1.
+  (* Initializer *)
+  Init: a_1[1] = 2.
+  (* Initializer *)
+  Init: a_1[2] = 3.
+  (* Initializer *)
+  Init: a_1[3] = 4.
+  (* Initializer *)
+  Init: a_1[4] = 5.
+  (* Initializer *)
+  Init: b_1[0] = 6.
+  (* Initializer *)
+  Init: b_1[1] = 7.
+  (* Initializer *)
+  Init: b_1[2] = 8.
+  (* Initializer *)
+  Init: b_1[3] = 9.
+  (* Initializer *)
+  Init: b_1[4] = 10.
+  (* Call 'swap_ranges' *)
+  Have: (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b[i] = a_1[i])))) /\
+      (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b_1[i] = a[i])))).
+  (* Assertion *)
+  Have: (a[0] = 6) /\ (b[0] = 1).
+}
+Prove: (x = 7) /\ (x_1 = 2).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (32358)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (8ms) (94)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/swap_ranges/swap_ranges.acsl.c, line 76):
+Let x = a[2].
+Let x_1 = b[2].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(a[3]) /\ is_sint32(a[4]) /\
+      is_sint32(x_1) /\ is_sint32(b[3]) /\ is_sint32(b[4]).
+  (* Initializer *)
+  Init: a_1[0] = 1.
+  (* Initializer *)
+  Init: a_1[1] = 2.
+  (* Initializer *)
+  Init: a_1[2] = 3.
+  (* Initializer *)
+  Init: a_1[3] = 4.
+  (* Initializer *)
+  Init: a_1[4] = 5.
+  (* Initializer *)
+  Init: b_1[0] = 6.
+  (* Initializer *)
+  Init: b_1[1] = 7.
+  (* Initializer *)
+  Init: b_1[2] = 8.
+  (* Initializer *)
+  Init: b_1[3] = 9.
+  (* Initializer *)
+  Init: b_1[4] = 10.
+  (* Call 'swap_ranges' *)
+  Have: (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b[i] = a_1[i])))) /\
+      (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b_1[i] = a[i])))).
+  (* Assertion *)
+  Have: (a[0] = 6) /\ (b[0] = 1).
+  (* Assertion *)
+  Have: (a[1] = 7) /\ (b[1] = 2).
+}
+Prove: (x = 8) /\ (x_1 = 3).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (32116)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (90)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/swap_ranges/swap_ranges.acsl.c, line 77):
+Let x = a[3].
+Let x_1 = b[3].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(a[4]) /\ is_sint32(x_1) /\ is_sint32(b[4]).
+  (* Initializer *)
+  Init: a_1[0] = 1.
+  (* Initializer *)
+  Init: a_1[1] = 2.
+  (* Initializer *)
+  Init: a_1[2] = 3.
+  (* Initializer *)
+  Init: a_1[3] = 4.
+  (* Initializer *)
+  Init: a_1[4] = 5.
+  (* Initializer *)
+  Init: b_1[0] = 6.
+  (* Initializer *)
+  Init: b_1[1] = 7.
+  (* Initializer *)
+  Init: b_1[2] = 8.
+  (* Initializer *)
+  Init: b_1[3] = 9.
+  (* Initializer *)
+  Init: b_1[4] = 10.
+  (* Call 'swap_ranges' *)
+  Have: (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b[i] = a_1[i])))) /\
+      (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b_1[i] = a[i])))).
+  (* Assertion *)
+  Have: (a[0] = 6) /\ (b[0] = 1).
+  (* Assertion *)
+  Have: (a[1] = 7) /\ (b[1] = 2).
+  (* Assertion *)
+  Have: (a[2] = 8) /\ (b[2] = 3).
+}
+Prove: (x = 9) /\ (x_1 = 4).
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (31874)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (14ms) (89)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/swap_ranges/swap_ranges.acsl.c, line 78):
+Let x = a[4].
+Let x_1 = b[4].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1).
+  (* Initializer *)
+  Init: a_1[0] = 1.
+  (* Initializer *)
+  Init: a_1[1] = 2.
+  (* Initializer *)
+  Init: a_1[2] = 3.
+  (* Initializer *)
+  Init: a_1[3] = 4.
+  (* Initializer *)
+  Init: a_1[4] = 5.
+  (* Initializer *)
+  Init: b_1[0] = 6.
+  (* Initializer *)
+  Init: b_1[1] = 7.
+  (* Initializer *)
+  Init: b_1[2] = 8.
+  (* Initializer *)
+  Init: b_1[3] = 9.
+  (* Initializer *)
+  Init: b_1[4] = 10.
+  (* Call 'swap_ranges' *)
+  Have: (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b[i] = a_1[i])))) /\
+      (forall i : Z. ((0 <= i) -> ((i <= 4) -> (b_1[i] = a[i])))).
+  (* Assertion *)
+  Have: (a[0] = 6) /\ (b[0] = 1).
+  (* Assertion *)
+  Have: (a[1] = 7) /\ (b[1] = 2).
+  (* Assertion *)
+  Have: (a[2] = 8) /\ (b[2] = 3).
+  (* Assertion *)
+  Have: (a[3] = 9) /\ (b[3] = 4).
+}
+Prove: (x = 10) /\ (x_1 = 5).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (31632)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (85)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/swap_ranges/swap_ranges.acsl.c, line 46) in 'swap_ranges'' in 'main' at call 'swap_ranges' (file output/live24/swap_ranges/swap_ranges.acsl.c, line 73)
+:
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/swap_ranges/swap_ranges.acsl.c, line 47) in 'swap_ranges'' in 'main' at call 'swap_ranges' (file output/live24/swap_ranges/swap_ranges.acsl.c, line 73)
+:
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/swap_ranges/swap_ranges.acsl.c, line 48) in 'swap_ranges'' in 'main' at call 'swap_ranges' (file output/live24/swap_ranges/swap_ranges.acsl.c, line 73)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function swap_ranges
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/swap_ranges/swap_ranges.acsl.c, line 50) in 'swap_ranges':
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(a, i_2)] = Mint_0[shift_sint32(b, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_4 = shift_sint32(a, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_4] = Mint_0[a_4]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_4 = shift_sint32(b, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_4] = Mint_0[a_4]))).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, i), a_2, i)
+         [shift_sint32(a, i_1)] = Mint_0[shift_sint32(b, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (40ms) (208284)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (16ms) (75)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/swap_ranges/swap_ranges.acsl.c, line 51) in 'swap_ranges':
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(a, i_2)] = Mint_0[shift_sint32(b, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_4 = shift_sint32(a, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_4] = Mint_0[a_4]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_4 = shift_sint32(b, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_4] = Mint_0[a_4]))).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, i), a_2, i)
+         [shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (30ms) (208717)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (24ms) (75)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 57):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, i).
+Let a_6 = a_3[a_4].
+Let a_7 = a_3[a_4 <- v][a_5 <- a_6][a_4].
+Let a_8 = a_3[a_5].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(a_8) /\ is_sint32(a_6) /\
+      is_sint32(a_7).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(a, i_1)] = Mint_0[shift_sint32(b, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_9 = shift_sint32(a, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_9] = Mint_0[a_9]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_9 = shift_sint32(b, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_9] = Mint_0[a_9]))).
+  (* Then *)
+  Have: i < n.
+  (* Call 'swap' *)
+  Have: a_7 = a_8.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (50ms) (209522)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (19ms) (211)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 58):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, i).
+Let a_6 = a_3[a_4].
+Let a_7 = a_3[a_4 <- v][a_5 <- a_6].
+Let a_8 = a_7[a_4].
+Let a_9 = a_3[a_5].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(a_9) /\ is_sint32(a_6) /\
+      is_sint32(a_8).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(a, i_2)] = Mint_0[shift_sint32(b, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_10 = shift_sint32(a, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_10] = Mint_0[a_10]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_10 = shift_sint32(b, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_10] = Mint_0[a_10]))).
+  (* Then *)
+  Have: i < n.
+  (* Call 'swap' *)
+  Have: a_8 = a_9.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: a_7[shift_sint32(a, i_1)] = Mint_0[shift_sint32(b, i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (60ms) (392801)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 59):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, i).
+Let a_6 = a_3[a_4].
+Let a_7 = a_3[a_4 <- v][a_5 <- a_6].
+Let a_8 = a_7[a_4].
+Let a_9 = a_3[a_5].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(a_9) /\ is_sint32(a_6) /\
+      is_sint32(a_8).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(a, i_2)] = Mint_0[shift_sint32(b, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_10 = shift_sint32(a, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_10] = Mint_0[a_10]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_10 = shift_sint32(b, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_10] = Mint_0[a_10]))).
+  (* Then *)
+  Have: i < n.
+  (* Call 'swap' *)
+  Have: a_8 = a_9.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_7[shift_sint32(a, i_2)] = Mint_0[shift_sint32(b, i_2)]))).
+}
+Prove: a_7[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)].
+Prover Alt-Ergo  returns Valid (Qed:12ms) (74ms) (892)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 60):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, i).
+Let a_6 = a_3[a_4].
+Let a_7 = a_3[a_4 <- v][a_5 <- a_6].
+Let a_8 = a_7[a_4].
+Let a_9 = a_3[a_5].
+Let a_10 = shift_sint32(a, i_1).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(a_9) /\ is_sint32(a_6) /\
+      is_sint32(a_8).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i_1 < n) /\ (x <= i_1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(a, i_2)] = Mint_0[shift_sint32(b, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_11 = shift_sint32(a, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_11] = Mint_0[a_11]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_11 = shift_sint32(b, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_11] = Mint_0[a_11]))).
+  (* Then *)
+  Have: i < n.
+  (* Call 'swap' *)
+  Have: a_8 = a_9.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_7[shift_sint32(a, i_2)] = Mint_0[shift_sint32(b, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_7[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+}
+Prove: a_7[a_10] = Mint_0[a_10].
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (70ms) (422924)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (43ms) (510)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 61):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, i).
+Let a_6 = a_3[a_4].
+Let a_7 = a_3[a_4 <- v][a_5 <- a_6].
+Let a_8 = a_7[a_4].
+Let a_9 = a_3[a_5].
+Let a_10 = shift_sint32(b, i_1).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(a_9) /\ is_sint32(a_6) /\
+      is_sint32(a_8).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i_1 < n) /\ (x <= i_1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(a, i_2)] = Mint_0[shift_sint32(b, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_11 = shift_sint32(a, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_11] = Mint_0[a_11]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_11 = shift_sint32(b, i_2) in ((i <= i_2) ->
+      ((i_2 < n) -> (a_3[a_11] = Mint_0[a_11]))).
+  (* Then *)
+  Have: i < n.
+  (* Call 'swap' *)
+  Have: a_8 = a_9.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_7[shift_sint32(a, i_2)] = Mint_0[shift_sint32(b, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_7[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_11 = shift_sint32(a, i_2) in ((i_2 < n) ->
+      ((x <= i_2) -> (a_7[a_11] = Mint_0[a_11]))).
+}
+Prove: a_7[a_10] = Mint_0[a_10].
+Prover Alt-Ergo  returns Valid (Qed:16ms) (39ms) (476)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/swap_ranges/swap_ranges.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/swap_ranges/swap_ranges.acsl.c, line 62) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/swap_ranges/swap_ranges.acsl.c, line 62) (2/3):
+Effect at line 65
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/swap_ranges/swap_ranges.acsl.c, line 62) (3/3):
+Call Effect at line 66
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, i).
+Let a_6 = a_3[a_4].
+Let a_7 = a_3[a_4 <- v][a_5 <- a_6].
+Let a_8 = a_7[a_4].
+Let a_9 = a_3[a_5].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(a_9) /\ is_sint32(a_6) /\
+      is_sint32(a_8).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(a, i_1)] = Mint_0[shift_sint32(b, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_10 = shift_sint32(a, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_10] = Mint_0[a_10]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_10 = shift_sint32(b, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_10] = Mint_0[a_10]))).
+  (* Then *)
+  Have: i < n.
+  (* Call 'swap' *)
+  Have: a_8 = a_9.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_7[shift_sint32(a, i_1)] = Mint_0[shift_sint32(b, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_7[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_10 = shift_sint32(a, i_1) in ((i_1 < n) ->
+      ((x <= i_1) -> (a_7[a_10] = Mint_0[a_10]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_10 = shift_sint32(b, i_1) in ((i_1 < n) ->
+      ((x <= i_1) -> (a_7[a_10] = Mint_0[a_10]))).
+}
+Prove: (((!invalid(Malloc_0, a_5, 1)) ->
+        (included(a_5, 1, a_2, n) \/ included(a_5, 1, a_1, n)))) /\
+    (((!invalid(Malloc_0, a_4, 1)) ->
+     (included(a_4, 1, a_2, n) \/ included(a_4, 1, a_1, n)))).
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (10ms) (82315)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (45ms) (468)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/swap_ranges/swap_ranges.acsl.c, line 49) in 'swap_ranges' (1/2):
+Effect at line 65
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/swap_ranges/swap_ranges.acsl.c, line 49) in 'swap_ranges' (2/2):
+Call Effect at line 66
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Let a_4 = shift_sint32(a, i).
+Let a_5 = shift_sint32(b, i).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(a, i_1)] = Mint_0[shift_sint32(b, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_6 = shift_sint32(a, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_6] = Mint_0[a_6]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_6 = shift_sint32(b, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_6] = Mint_0[a_6]))).
+  (* Then *)
+  Have: i < n.
+}
+Prove: (((!invalid(Malloc_0, a_4, 1)) ->
+        (included(a_4, 1, a_2, n) \/ included(a_4, 1, a_1, n)))) /\
+    (((!invalid(Malloc_0, a_5, 1)) ->
+     (included(a_5, 1, a_2, n) \/ included(a_5, 1, a_1, n)))).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (20ms) (72853)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (17ms) (181)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/swap_ranges/swap_ranges.acsl.c, line 49) in 'swap_ranges':
+Effect at line 65
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/swap_ranges/swap_ranges.acsl.c, line 65):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, i).
+Let a_6 = a_3[a_4].
+Let a_7 = a_3[a_4 <- v][a_5 <- a_6].
+Let a_8 = a_7[a_4].
+Let a_9 = a_3[a_5].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(a_9) /\ is_sint32(a_6) /\
+      is_sint32(a_8).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(a, i_1)] = Mint_0[shift_sint32(b, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_10 = shift_sint32(a, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_10] = Mint_0[a_10]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_10 = shift_sint32(b, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_10] = Mint_0[a_10]))).
+  (* Then *)
+  Have: i < n.
+  (* Call 'swap' *)
+  Have: a_8 = a_9.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_7[shift_sint32(a, i_1)] = Mint_0[shift_sint32(b, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_7[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_10 = shift_sint32(a, i_1) in ((i_1 < n) ->
+      ((x <= i_1) -> (a_7[a_10] = Mint_0[a_10]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_10 = shift_sint32(b, i_1) in ((i_1 < n) ->
+      ((x <= i_1) -> (a_7[a_10] = Mint_0[a_10]))).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (30ms) (217185)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (16ms) (248)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/swap_ranges/swap_ranges.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/swap_ranges/swap_ranges.acsl.c, line 40) in 'swap'' in 'swap_ranges' at call 'swap' (file output/live24/swap_ranges/swap_ranges.acsl.c, line 66)
+:
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, havoc(Mint_undef_1, Mint_0, a_1, n), a_2, n).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: separated(a_2, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(a, i_1)] = Mint_0[shift_sint32(b, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_3[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_4 = shift_sint32(a, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_4] = Mint_0[a_4]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_4 = shift_sint32(b, i_1) in ((i <= i_1) ->
+      ((i_1 < n) -> (a_3[a_4] = Mint_0[a_4]))).
+  (* Then *)
+  Have: i < n.
+}
+Prove: valid_rw(Malloc_0, shift_sint32(a, i), 1) /\
+    valid_rw(Malloc_0, shift_sint32(b, i), 1).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (20ms) (113745)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (13ms) (143)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/swap_ranges/swap_ranges.acsl.c:69: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,106 @@
+[kernel] Parsing output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:            10
+  Alt-Ergo :       1 (8ms)
+------------------------------------------------------------
+  Function add
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 6) in 'add':
+Let x = Mint_0[p].
+Let x_1 = Mint_0[q].
+Let x_2 = x + x_1.
+Let m = Mint_0[r <- x_2].
+Let x_3 = m[p].
+Let x_4 = m[q].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(x_4).
+  (* Heap *)
+  Type: (region(p.base) <= 0) /\ (region(q.base) <= 0) /\
+      (region(r.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, p, 1) /\ valid_rw(Malloc_0, q, 1) /\
+      valid_rw(Malloc_0, r, 1).
+  (* Pre-condition *)
+  Have: (r != p) /\ (r != q).
+}
+Prove: (x_3 + x_4) = x_2.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (176858)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (31)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 7) in 'add':
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 5) in 'add':
+Effect at line 11
+Prove: true.
+Prover Qed returns Valid (0.60ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (0.50ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 3) in 'add'' in 'main' at call 'add' (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 19)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 4) in 'add'' in 'main' at call 'add' (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 19)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 3) in 'add'' in 'main' at call 'add' (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 22)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 4) in 'add'' in 'main' at call 'add' (file output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c, line 22)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/corinnt_add-ptr/corinnt_add-ptr.acsl.c:14: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,59 @@
+[kernel] Parsing output/autobench_v2/7/7.acsl.c (with preprocessing)
+[kernel:typing:implicit-function-declaration] output/autobench_v2/7/7.acsl.c:11: Warning: 
+  Calling undeclared function unknown. Old style K&R code?
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/7/7.acsl.c:5: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 5 goals scheduled
+[wp] Proved goals:    5 / 5
+  Qed:             4
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/7/7.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/7/7.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/7/7.acsl.c, line 17):
+Assume {
+  Type: is_sint32(y_1) /\ is_sint32(y) /\ is_sint32(20 + y_1 - y).
+  (* Pre-condition *)
+  Have: ((10 + y_1) <= y) /\ (y <= (20 + y_1)).
+  (* Pre-condition *)
+  Have: (0 <= y_1) /\ (y_1 <= 10).
+}
+Prove: y != 0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (27674)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (11)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/7/7.acsl.c, line 9) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/7/7.acsl.c, line 9) (2/2):
+Call Result at line 11
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/7/7.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/7/7.acsl.c:11: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.

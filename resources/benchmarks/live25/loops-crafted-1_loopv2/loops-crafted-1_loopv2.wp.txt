@@ -1,0 +1,240 @@
+[kernel] Parsing output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c:10: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:             9
+  Alt-Ergo :       6 (6ms-13ms-21ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 15):
+Let x = 4 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(n) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Else *)
+  Have: n <= 50000001.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 4) = 0.
+  (* Invariant *)
+  Have: (j % 2) = 0.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (-4) <= i.
+}
+Prove: (x % 4) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (31628)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (129)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 16):
+Let x = 4 + i.
+Let x_1 = 6 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(n) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Else *)
+  Have: n <= 50000001.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 4) = 0.
+  (* Invariant *)
+  Have: (j % 2) = 0.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (-4) <= i.
+  (* Invariant *)
+  Have: (x % 4) = 0.
+}
+Prove: (x_1 % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (33294)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (11ms) (161)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 26):
+Let x = j - 4.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(j_1) /\ is_sint32(k) /\
+      is_sint32(n) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Else *)
+  Have: n <= 50000001.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 4) = 0.
+  (* Invariant *)
+  Have: (j_1 % 2) = 0.
+  (* Else *)
+  Have: n <= i.
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: (j % 2) = 0.
+  (* Invariant *)
+  Have: (k % 2) = 0.
+}
+Prove: (x % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (54840)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (18ms) (315)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 27):
+Let x = j - 4.
+Let x_1 = k - 4.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(j_1) /\ is_sint32(k) /\
+      is_sint32(n) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Else *)
+  Have: n <= 50000001.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 4) = 0.
+  (* Invariant *)
+  Have: (j_1 % 2) = 0.
+  (* Else *)
+  Have: n <= i.
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: (j % 2) = 0.
+  (* Invariant *)
+  Have: (k % 2) = 0.
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: (x_1 % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (30ms) (80276)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (21ms) (463)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 27):
+Assume {
+  Type: is_sint32(j) /\ is_sint32(k) /\ is_sint32(n).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Else *)
+  Have: n <= 50000001.
+  (* Invariant *)
+  Have: 0 <= k.
+  (* Invariant *)
+  Have: (k % 4) = 0.
+  (* Invariant *)
+  Have: (j % 2) = 0.
+  (* Else *)
+  Have: n <= k.
+}
+Prove: (k % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (31136)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (10ms) (123)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c, line 20):
+Let x = j - 2.
+Let x_1 = j - 6.
+Assume {
+  Type: is_sint32(j) /\ is_sint32(j_1) /\ is_sint32(n) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Else *)
+  Have: n <= 50000001.
+  (* Invariant *)
+  Have: 6 <= j.
+  (* Invariant *)
+  Have: (x_1 % 4) = 0.
+  (* Invariant *)
+  Have: (j_1 % 2) = 0.
+  (* Then *)
+  Have: j <= (5 + n).
+  (* Invariant *)
+  Have: 2 <= j.
+  (* Invariant *)
+  Have: (x % 4) = 0.
+  (* Invariant *)
+  Have: (j % 2) = 0.
+}
+Prove: j <= (6 + n).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29368)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (20)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops-crafted-1_loopv2/loops-crafted-1_loopv2.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

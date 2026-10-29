@@ -1,0 +1,199 @@
+[kernel] Parsing output/live24/max_element/max_element.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             5
+  Alt-Ergo :       5 (8ms-10ms-13ms)
+------------------------------------------------------------
+  Function max_element
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/max_element/max_element.acsl.c, line 18):
+Let x = Mint_0[shift_sint32(a, max_0)].
+Let x_1 = to_uint32(1 + i).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(n) /\
+      is_sint32(Mint_0[shift_sint32(a, i)]) /\ is_sint32(x).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x))).
+  (* Then *)
+  Have: i < n.
+}
+Prove: (0 < x_1) /\ (x_1 <= n).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (126611)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (78)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/max_element/max_element.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/max_element/max_element.acsl.c, line 19):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, max_1)].
+Let x_2 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(n) /\ is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x_1))).
+  (* Then *)
+  Have: i < n.
+  If x_1 < x_2
+  Then { Have: max_0 = i. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: (0 < x) /\ (x <= n).
+}
+Prove: (0 <= max_0) /\ (max_0 < x).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (127527)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (10ms) (92)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/max_element/max_element.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/max_element/max_element.acsl.c, line 20):
+Let x = to_uint32(1 + i_1).
+Let x_1 = Mint_0[shift_sint32(a, max_1)].
+Let x_2 = Mint_0[shift_sint32(a, i_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(n) /\ is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x_1))).
+  (* Then *)
+  Have: i_1 < n.
+  If x_1 < x_2
+  Then { Have: max_0 = i_1. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: (0 < x) /\ (x <= n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < x).
+}
+Prove: Mint_0[shift_sint32(a, i)] <= Mint_0[shift_sint32(a, max_0)].
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (80ms) (888743)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (13ms) (141)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/max_element/max_element.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/max_element/max_element.acsl.c, line 29):
+Let x = Mint_0[shift_sint32(a, max_0)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(max_0) /\ is_uint32(n).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= x))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: Mint_0[shift_sint32(a, i)] <= x.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (125713)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (47)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/max_element/max_element.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/max_element/max_element.acsl.c, line 24):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, max_0)].
+Let x_2 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(n) /\ is_sint32(x_2) /\
+      is_sint32(x_1).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Residual *)
+  When: x_2 <= x_1.
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x_1))).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (0 < x) /\ (x <= n).
+  (* Invariant *)
+  Have: max_0 < x.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_sint32(a, i_1)] <= x_1))).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (20ms) (128273)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (9ms) (90)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/max_element/max_element.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/max_element/max_element.acsl.c:13: Warning: 
+  No 'assigns' specification for function 'max_element'.
+  Callers assumptions might be imprecise.

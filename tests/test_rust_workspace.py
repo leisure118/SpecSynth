@@ -173,3 +173,54 @@ def test_dataset_label_cannot_hide_modified_task(system,monkeypatch):
     response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'fake','sample_id':row['sample_id'],'description':'Modified task','function_signature':row.get('function_signature','')})
     assert response.status_code==422
     assert not client.get('/api/v1/projects/'+p['id']).json()['runs']
+
+def test_external_agent_failed_proof_repairs_then_persists(system,monkeypatch):
+    from apps.api.app import agent_execution, agent_runners
+    client,store,_=system
+    monkeypatch.setattr(agent_runners,'require_agent',lambda _:None)
+    monkeypatch.setattr(agent_execution,'verifier_preflight',lambda *a:None)
+    prompts=[]
+    def generate(agent,prompt,*args,**kwargs):
+        prompts.append(prompt)
+        return [{'path':'src/lib.rs','content':GOOD}]
+    monkeypatch.setattr(agent_execution,'generate',generate)
+    count=[]
+    def verify(*args,**kwargs):
+        count.append(1)
+        ok=len(count)>1
+        return {'status':'verified' if ok else 'failed','verified':ok,'message':'proved' if ok else 'boundary obligation failed','verified_count':1 if ok else 0,'error_count':0 if ok else 1}
+    monkeypatch.setattr(agent_execution,'verify_candidates',verify)
+    p=make(client)
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','description':'Increment safely','assistant':{'agent':'codex','skills':[]},'max_repair_rounds':1})
+    assert response.status_code==201,response.text
+    result=wait(store,response.json()['task_id'])
+    assert result['status']=='Pass' and len(result['engine_detail']['attempts'])==2
+    assert 'boundary obligation failed' in prompts[1]
+    assert result['engine_detail']['agent']=='codex'
+    assert result['result_code']==GOOD
+    assert store.read_task(response.json()['task_id']).metadata['agent']=='codex'
+
+
+def test_external_agent_cannot_report_pass_without_verifier(system,monkeypatch):
+    from apps.api.app import agent_execution,agent_runners
+    client,store,_=system
+    monkeypatch.setattr(agent_runners,'require_agent',lambda _:None)
+    monkeypatch.setattr(agent_execution,'verifier_preflight',lambda *a:None)
+    monkeypatch.setattr(agent_execution,'generate',lambda *a,**k:[{'path':'src/lib.rs','content':GOOD}])
+    monkeypatch.setattr(agent_execution,'verify_candidates',lambda *a,**k:{'status':'failed','verified':False,'message':'real failure','verified_count':0,'error_count':1})
+    p=make(client)
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','description':'Increment safely','assistant':{'agent':'claude-code'},'max_repair_rounds':0})
+    result=wait(store,response.json()['task_id'])
+    assert result['status']=='Fail' and result['proof_stats']['proved_goals']==0
+
+
+def test_unavailable_verifier_never_calls_agent(system,monkeypatch):
+    from apps.api.app import agent_execution,agent_runners
+    client,store,_=system
+    monkeypatch.setattr(agent_runners,'require_agent',lambda _:None)
+    monkeypatch.setattr(agent_execution,'verifier_preflight',lambda *a:'Verifier unavailable')
+    monkeypatch.setattr(agent_execution,'generate',lambda *a,**k:pytest.fail('must not call model'))
+    p=make(client)
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','description':'Increment safely','assistant':{'agent':'codex'}})
+    assert response.status_code==201,response.text
+    assert wait(store,response.json()['task_id'])['status']=='Unavailable'

@@ -1,0 +1,85 @@
+[kernel] Parsing output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             7
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c, line 23):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(k) /\
+      is_sint32(k_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= i_1) /\ (i_1 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= j) /\ (j <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= k_1) /\ (k_1 <= 2147483646).
+  (* Then *)
+  Have: i_1 < j.
+  (* Then *)
+  Have: i_1 < (j + k_1).
+  (* Invariant *)
+  Have: i <= j.
+  (* Invariant *)
+  Have: i < (j + k).
+  (* Else *)
+  Have: j <= i.
+}
+Prove: 0 < k.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29325)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (38)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-zilu_benchmark27_linear/loop-zilu_benchmark27_linear.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

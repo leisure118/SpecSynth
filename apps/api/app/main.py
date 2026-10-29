@@ -137,6 +137,12 @@ def health() -> HealthResponse:
     )
 
 
+@app.get('/api/v1/agents')
+def agents():
+    from .agent_runners import agent_status
+    return agent_status()
+
+
 @app.get("/api/v1/models")
 def models() -> dict:
     return {"models": get_available_models()}
@@ -430,6 +436,12 @@ def get_visualization(task_id: str) -> dict:
 app.include_router(create_workspace_router(manager, store))
 from .rust import router as rust_router
 app.include_router(rust_router)
+from .skill_library import router as skill_router
+app.include_router(skill_router)
+from .benchmarks import router as benchmark_router
+app.include_router(benchmark_router)
+from .benchmarks import create_benchmark_runs_router
+app.include_router(create_benchmark_runs_router(manager,store))
 
 
 if WEB_DIR.exists():

@@ -1,0 +1,55 @@
+[kernel] Parsing output/live25/loop-acceleration_phases_2-2/loop-acceleration_phases_2-2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-acceleration_phases_2-2/loop-acceleration_phases_2-2.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 4 goals scheduled
+[wp] Proved goals:    4 / 4
+  Qed:             3
+  Alt-Ergo :       1 (13ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_phases_2-2/loop-acceleration_phases_2-2.acsl.c, line 12):
+Let x_1 = x * x.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1).
+  (* Residual *)
+  When: x < (y / x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= y) /\ (y <= 2147483646).
+  (* Invariant *)
+  Have: 0 < y.
+  (* Invariant *)
+  Have: (0 < x) /\ (x <= y).
+  (* Then *)
+  Have: x < y.
+}
+Prove: (0 < x_1) /\ (x_1 <= y).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30455)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (13ms) (1132)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_phases_2-2/loop-acceleration_phases_2-2.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-acceleration_phases_2-2/loop-acceleration_phases_2-2.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.89ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-acceleration_phases_2-2/loop-acceleration_phases_2-2.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-acceleration_phases_2-2/loop-acceleration_phases_2-2.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,140 @@
+[kernel] Parsing output/live24/code2_15/code2_15.acsl.c (with preprocessing)
+[kernel:typing:implicit-function-declaration] output/live24/code2_15/code2_15.acsl.c:17: Warning: 
+  Calling undeclared function unknown. Old style K&R code?
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/live24/code2_15/code2_15.acsl.c:4: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:            12
+  Alt-Ergo :       2 (6ms-8ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_15/code2_15.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_15/code2_15.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_15/code2_15.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_15/code2_15.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_15/code2_15.acsl.c, line 11):
+Let x_1 = 1 + x.
+Assume {
+  Type: is_sint32(m) /\ is_sint32(n) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (x <= n) /\ (0 <= x).
+  (* Invariant *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: m <= x.
+  (* Invariant *)
+  Have: ((0 < x) -> (m < x)).
+  (* Then *)
+  Have: x < n.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: m <= x_1.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (28871)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (6ms) (15)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_15/code2_15.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_15/code2_15.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_15/code2_15.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/code2_15/code2_15.acsl.c, line 23):
+Assume {
+  Type: is_sint32(m) /\ is_sint32(n) /\ is_sint32(x).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (x <= n) /\ (0 <= x).
+  (* Invariant *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: m <= x.
+  (* Invariant *)
+  Have: ((0 < x) -> (m < x)).
+  (* Else *)
+  Have: n <= x.
+}
+Prove: m < n.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (28722)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (27)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/code2_15/code2_15.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_15/code2_15.acsl.c, line 13) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_15/code2_15.acsl.c, line 13) (2/2):
+Call Result at line 17
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/code2_15/code2_15.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/code2_15/code2_15.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/code2_15/code2_15.acsl.c:4: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/live24/code2_15/code2_15.acsl.c:17: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.

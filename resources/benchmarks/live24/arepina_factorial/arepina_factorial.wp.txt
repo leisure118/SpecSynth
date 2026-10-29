@@ -1,0 +1,132 @@
+[kernel] Parsing output/live24/arepina_factorial/arepina_factorial.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:             6
+  Alt-Ergo :       5 (6ms-9ms)
+------------------------------------------------------------
+  Axiomatic 'Factorial'
+------------------------------------------------------------
+
+Lemma non_negative:
+Assume: 'step' 'nil'
+Prove: (0<=i_0) -> (0<(L_factorial i_0))
+Prover Z3 4.15.4 returns Valid (18913)
+Prover Alt-Ergo  returns Valid (6ms) (20)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function factorial
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/arepina_factorial/arepina_factorial.acsl.c, line 15) in 'factorial':
+Let x = factorial_0 * L_factorial(0).
+Assume {
+  Type: is_uint32(i) /\ is_uint64(factorial_0).
+  (* Invariant *)
+  Have: x = L_factorial(i).
+  (* Invariant *)
+  Have: 0 <= i.
+}
+Prove: x = factorial_0.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (3999)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (16)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/arepina_factorial/arepina_factorial.acsl.c, line 22):
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(i) /\ is_uint64(f).
+  (* Invariant *)
+  Have: (f * L_factorial(i)) = L_factorial(i_1).
+  (* Invariant *)
+  Have: i <= i_1.
+  (* Then *)
+  Have: i != 0.
+}
+Prove: to_uint32(i - 1) <= i_1.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29732)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (109)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/arepina_factorial/arepina_factorial.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/arepina_factorial/arepina_factorial.acsl.c, line 23):
+Let x = to_uint32(i - 1).
+Let x_1 = f * L_factorial(i).
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(i) /\ is_uint64(f).
+  (* Invariant *)
+  Have: x_1 = L_factorial(i_1).
+  (* Invariant *)
+  Have: i <= i_1.
+  (* Then *)
+  Have: i != 0.
+  (* Invariant *)
+  Have: x <= i_1.
+}
+Prove: (to_uint64(f * i) * L_factorial(x)) = x_1.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (30257)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (231)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/arepina_factorial/arepina_factorial.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/arepina_factorial/arepina_factorial.acsl.c, line 24) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/arepina_factorial/arepina_factorial.acsl.c, line 24) (2/2):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'factorial':
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid (0.61ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/arepina_factorial/arepina_factorial.acsl.c, line 27):
+Let x = to_uint32(i - 1).
+Let x_1 = f * L_factorial(i).
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(i) /\ is_uint64(f).
+  (* Invariant *)
+  Have: x_1 = L_factorial(i_1).
+  (* Invariant *)
+  Have: i <= i_1.
+  (* Then *)
+  Have: i != 0.
+  (* Invariant *)
+  Have: x <= i_1.
+  (* Invariant *)
+  Have: (to_uint64(f * i) * L_factorial(x)) = x_1.
+}
+Prove: x < i.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (30424)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (304)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/arepina_factorial/arepina_factorial.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------

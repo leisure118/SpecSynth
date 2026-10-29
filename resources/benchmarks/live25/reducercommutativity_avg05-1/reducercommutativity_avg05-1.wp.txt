@@ -1,0 +1,487 @@
+[kernel] Parsing output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c:49: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 36 goals scheduled
+[wp] Proved goals:   36 / 36
+  Qed:            26
+  Alt-Ergo :       8 (9ms-32ms-119ms)
+  Z3 4.15.4:       2 (220ms-290ms)
+------------------------------------------------------------
+  Function avg
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 17) in 'avg':
+Let x_1 = L_sum(Mint_0, x, 5) / 5.
+Assume {
+  Type: is_sint32(i) /\ is_sint64(L_sum(Mint_0, x, i)).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 5).
+  (* Pre-condition *)
+  Have: forall i_1 : Z. let x_2 = Mint_0[shift_sint32(x, i_1)] in
+      ((0 <= i_1) -> ((i_1 <= 4) ->
+      (((-2147483648) <= x_2) /\ (x_2 <= 2147483646)))).
+  (* Invariant *)
+  Have: L_sum(Mint_0, x, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Else *)
+  Have: 5 <= i.
+}
+Prove: x_1 = to_sint32(x_1).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (220ms) (1546333)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 26):
+Let x_1 = 1 + i.
+Let x_2 = Mint_0[shift_sint32(x, i)].
+Let x_3 = L_sum(Mint_0, x, i).
+Let x_4 = x_3 + x_2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint64(x_3) /\
+      is_sint64(x_4).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 5).
+  (* Pre-condition *)
+  Have: forall i_1 : Z. let x_5 = Mint_0[shift_sint32(x, i_1)] in
+      ((0 <= i_1) -> ((i_1 <= 4) ->
+      (((-2147483648) <= x_5) /\ (x_5 <= 2147483646)))).
+  (* Invariant *)
+  Have: L_sum(Mint_0, x, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Then *)
+  Have: i <= 4.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x_4 = L_sum(Mint_0, x, x_1).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (141400)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (13ms) (167)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 26):
+Assume {
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 5).
+  (* Pre-condition *)
+  Have: forall i : Z. let x_1 = Mint_0[shift_sint32(x, i)] in ((0 <= i) ->
+      ((i <= 4) -> (((-2147483648) <= x_1) /\ (x_1 <= 2147483646)))).
+}
+Prove: L_sum(Mint_0, x, 0) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (65863)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (80)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'avg' (1/4):
+Effect at line 23
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'avg' (2/4):
+Effect at line 30
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'avg' (3/4):
+Effect at line 30
+Prove: true.
+Prover Qed returns Valid (0.97ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'avg' (4/4):
+Effect at line 33
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 44):
+Let a = global(L_x_54).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 5).
+Let a_2 = a_1[shift_sint32(a, i) <- v][shift_sint32(a, i_1)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_3 = a_1[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i) -> (((-2147483648) <= a_3) /\ (a_3 <= 2147483646)))).
+  (* Then *)
+  Have: i <= 4.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: ((-2147483648) <= a_2) /\ (a_2 <= 2147483646).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (84793)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (16ms) (198)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 57):
+Let a = global(L_x_54).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 5).
+Let a_3 = shift_sint32(a, 1).
+Let a_4 = a_2[a_1 <- Mint_undef_1[a_3]][a_3 <- Mint_undef_1[a_1]].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 4).
+Let x = 1 + i.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(L_sum(a_2, a_1, 5) / 5) /\ is_sint32(L_sum(a_4, a_1, 5) / 5).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_6 = a_2[shift_sint32(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> (((-2147483648) <= a_6) /\ (a_6 <= 2147483646)))).
+  (* Else *)
+  Have: 5 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 4) -> (a_5[a_6] = a_4[a_6]))).
+  (* Then *)
+  Have: i <= 3.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_5[shift_sint32(a, i) <- a_5[shift_sint32(a, x)]]
+         [shift_sint32(a, i_1)] = a_4[shift_sint32(a, 1 + i_1)].
+Prover Alt-Ergo  returns Valid (Qed:15ms) (25ms) (530)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (0.55ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 58):
+Let a = global(L_x_54).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 5).
+Let a_3 = shift_sint32(a, 1).
+Let a_4 = a_2[a_1 <- Mint_undef_1[a_3]][a_3 <- Mint_undef_1[a_1]].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 4).
+Let x = 1 + i.
+Let a_6 = a_5[shift_sint32(a, i) <- a_5[shift_sint32(a, x)]].
+Let a_7 = shift_sint32(a, i_1).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(L_sum(a_2, a_1, 5) / 5) /\ is_sint32(L_sum(a_4, a_1, 5) / 5).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 4).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = a_2[shift_sint32(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> (((-2147483648) <= a_8) /\ (a_8 <= 2147483646)))).
+  (* Else *)
+  Have: 5 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 4) -> (a_5[a_8] = a_4[a_8]))).
+  (* Then *)
+  Have: i <= 3.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (a_6[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+}
+Prove: a_6[a_7] = a_4[a_7].
+Prover Alt-Ergo  returns Valid (Qed:10ms) (24ms) (472)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 67):
+Let a = global(L_x_54).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 5).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x][a_3 <- Mint_undef_0[a_1]].
+Let a_5 = havoc(Mint_undef_1, a_4, a_1, 4).
+Let x_1 = L_sum(a_2, a_1, 5) / 5.
+Let x_2 = L_sum(a_4, a_1, 5) / 5.
+Let x_3 = L_sum(a_5[shift_sint32(a, 4) <- x], a_1, 5) / 5.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(x_3).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = a_2[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i) -> (((-2147483648) <= a_6) /\ (a_6 <= 2147483646)))).
+  (* Else *)
+  Have: 5 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 4).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_5[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 4) -> (a_5[a_6] = a_4[a_6]))).
+  (* Else *)
+  Have: 4 <= i_1.
+}
+Prove: (x_2 = x_1) /\ (x_3 = x_1).
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (290ms) (1986836)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 59) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 59) (2/2):
+Effect at line 63
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 14) in 'avg'' in 'main' at call 'avg' (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 51)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 15) in 'avg'' in 'main' at call 'avg' (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 51)
+:
+Let a = global(L_x_54).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 5).
+Let a_2 = a_1[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_3 = a_1[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i_1) -> (((-2147483648) <= a_3) /\ (a_3 <= 2147483646)))).
+  (* Else *)
+  Have: 5 <= i_1.
+}
+Prove: ((-2147483648) <= a_2) /\ (a_2 <= 2147483646).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (83280)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (9ms) (78)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 14) in 'avg'' in 'main' at call 'avg' (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 53)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 15) in 'avg'' in 'main' at call 'avg' (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 53)
+:
+Let a = global(L_x_54).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 5).
+Let a_3 = shift_sint32(a, 1).
+Let a_4 = a_2[a_1 <- Mint_undef_0[a_3]][a_3 <- Mint_undef_0[a_1]]
+            [shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(L_sum(a_2, a_1, 5) / 5).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a_2[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i_1) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 5 <= i_1.
+}
+Prove: ((-2147483648) <= a_4) /\ (a_4 <= 2147483646).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (40ms) (297031)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (38ms) (976)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 14) in 'avg'' in 'main' at call 'avg' (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 66)
+:
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 15) in 'avg'' in 'main' at call 'avg' (file output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c, line 66)
+:
+Let a = global(L_x_54).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 5).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let a_4 = a_2[a_1 <- x][a_3 <- Mint_undef_1[a_1]].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 4).
+Let a_6 = a_5[shift_sint32(a, 4) <- x][shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(L_sum(a_2, a_1, 5) / 5) /\ is_sint32(L_sum(a_4, a_1, 5) / 5).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_7 = a_2[shift_sint32(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < i_1) -> (((-2147483648) <= a_7) /\ (a_7 <= 2147483646)))).
+  (* Else *)
+  Have: 5 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 4).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_7 = shift_sint32(a, i_3) in ((i_2 <= i_3) ->
+      ((i_3 <= 4) -> (a_5[a_7] = a_4[a_7]))).
+  (* Else *)
+  Have: 4 <= i_2.
+}
+Prove: ((-2147483648) <= a_6) /\ (a_6 <= 2147483646).
+Prover Alt-Ergo  returns Valid (Qed:17ms) (119ms) (3121)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/reducercommutativity_avg05-1/reducercommutativity_avg05-1.acsl.c:35: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,88 @@
+[kernel] Parsing output/live24/code2_67/code2_67.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             9
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_67/code2_67.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_67/code2_67.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_67/code2_67.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_67/code2_67.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_67/code2_67.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_67/code2_67.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/code2_67/code2_67.acsl.c, line 19):
+Let x_1 = 1 + n.
+Assume {
+  Type: is_sint32(n) /\ is_sint32(x) /\ is_sint32(y).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < x) /\ (x <= x_1).
+  (* Invariant *)
+  Have: ((x = 1) -> (y = 0)).
+  (* Invariant *)
+  Have: ((2 <= x) -> ((x + y) = x_1)).
+  (* Else *)
+  Have: n < x.
+}
+Prove: 0 <= y.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28747)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (28)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_67/code2_67.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/code2_67/code2_67.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/code2_67/code2_67.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/code2_67/code2_67.acsl.c:4: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

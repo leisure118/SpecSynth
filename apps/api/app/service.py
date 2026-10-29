@@ -653,6 +653,7 @@ def _parse_result_marker(path: Path) -> tuple[str, dict]:
 class RunManager:
     def __init__(self, store: JsonStore) -> None:
         self.store = store
+        self._run_slots=threading.BoundedSemaphore(max(1,min(8,int(os.getenv('ACSL_AGENT_MAX_WORKERS','2')))))
         self.capabilities = detect_live_capabilities()
 
     def refresh_capabilities(self):
@@ -735,6 +736,10 @@ class RunManager:
         source_type = "demo" if payload.demo_case_id else "derived" if payload.upstream_task_id else "upload"
         title = case["title"] if case else f"{APP_NAME} {mode} run"
         phases = [PhaseState(key=key, label=label) for key, label in PHASE_LABELS[mode]]
+        actual_model=None if payload.verification_only else payload.model_name
+        if payload.assistant and payload.assistant.get('agent') in ('codex','claude-code'):
+            from .agent_runners import runner_default_model
+            actual_model=payload.assistant.get('runner_model') or runner_default_model(payload.assistant['agent']) or payload.assistant['agent']+' 默认模型'
         task = RunTask(
             task_id=task_id,
             mode=mode,
@@ -742,7 +747,7 @@ class RunManager:
             source_type=source_type,
             status="queued",
             engine=engine,
-            model_name=None if mode == "rust-verify" else payload.model_name,
+            model_name=None if mode=="rust-verify" else actual_model,
             demo_case_id=payload.demo_case_id,
             file_id=payload.file_id,
             upstream_task_id=payload.upstream_task_id,
@@ -751,10 +756,15 @@ class RunManager:
             task_dir=project_relative_path(task_dir),
             phases=phases,
             capabilities=capabilities.as_dict(),
-            metadata={"worker_pid": os.getpid()},
+            metadata={"worker_pid": os.getpid(), "assistant": payload.assistant, "agent_instructions": payload.agent_instructions, "benchmark": payload.benchmark_context},
         )
         self.store.create_task(task)
-        worker = threading.Thread(target=self._execute, args=(task.task_id, payload), daemon=True)
+        if payload.benchmark_context:
+            upload=self.store.read_upload(payload.file_id)
+            source=resolve_project_path(upload['stored_path']).read_text()
+            self.store.write_text_artifact(task.task_id,'benchmark','source.c',source)
+            self.store.write_text_artifact(task.task_id,'benchmark','configuration.json',json.dumps(payload.benchmark_context,ensure_ascii=False))
+        worker = threading.Thread(target=self._execute_with_slot, args=(task.task_id, payload), daemon=True)
         worker.start()
         return task
 
@@ -763,12 +773,12 @@ class RunManager:
         if task is None:
             return None, None
         result = self.store.read_result(task_id)
-        if (task.mode.startswith("rust-") and task.status in {"queued", "running"}
+        if ((task.mode.startswith("rust-") or task.metadata.get("benchmark")) and task.status in {"queued", "running"}
                 and task.metadata.get("worker_pid") != os.getpid() and result is None):
             # Never retry a model request after backend restart. Preserve any
             # completed rounds and make the interrupted state explicit.
             task.status = "unavailable"
-            task.message = "服务已重启，本次 Rust 验证中断；已完成的轮次保留，请手动重新提交。"
+            task.message = "服务已重启，本次基准重跑中断；已保存输入与工件，请手动重新提交。" if task.metadata.get("benchmark") else "服务已重启，本次 Rust 验证中断；已完成的轮次保留，请手动重新提交。"
             task.finished_at = utcnow()
             self._fail_remaining_phases(task, task.message)
             self.store.write_task(task)
@@ -840,6 +850,10 @@ class RunManager:
             if self._recover_task_from_artifacts(task):
                 recovered += 1
         return recovered
+
+    def _execute_with_slot(self,task_id,payload):
+        with self._run_slots:
+            self._execute(task_id,payload)
 
     def _execute(self, task_id: str, payload: RunRequest) -> None:
         task = self.store.read_task(task_id)
@@ -1230,6 +1244,12 @@ class RunManager:
         )
 
     def _run_live(self, task: RunTask, payload: RunRequest) -> dict:
+        if payload.verification_only:
+            from .agent_execution import execute_verification_only
+            return execute_verification_only(self, task, payload)
+        if payload.assistant and payload.assistant.get("agent", "default") != "default" and task.mode != "rust-verify":
+            from .agent_execution import execute_agent
+            return execute_agent(self, task, payload)
         if task.mode.startswith("rust-"):
             from .rust import execute_rust
             return execute_rust(self, task, payload)
@@ -1289,7 +1309,7 @@ class RunManager:
     def _run_live_single(self, task: RunTask, payload: RunRequest, source: Path) -> dict:
         self._advance_phase(task, "static_analysis", "completed", "Prepared single-file input for AutoSpec.")
 
-        cached = self._find_verified_single_cache(task, source)
+        cached = None if payload.agent_instructions else self._find_verified_single_cache(task, source)
         if cached is not None:
             cached_task, cached_result = cached
             self._advance_phase(task, "generate_specifications", "completed", "Reused a verifier-approved specification cache; no LLM call was required.")
@@ -1336,7 +1356,7 @@ class RunManager:
         )
         timeout_sec = payload.timeout_sec or int(os.getenv("AUTOSPEC_SINGLE_TIMEOUT", "120"))
         try:
-            completed = run_command(command, ROOT_DIR, timeout=timeout_sec)
+            completed = run_command(command, ROOT_DIR, timeout=timeout_sec, **({"agent_instructions": payload.agent_instructions} if payload.agent_instructions else {}))
             raw = (completed.stdout or "") + "\n" + (completed.stderr or "")
         except subprocess.TimeoutExpired as exc:
             raw = _timeout_output(exc)
@@ -1511,7 +1531,7 @@ class RunManager:
         )
         raw_parts: list[str] = []
         for command in commands:
-            completed = run_command(command, ROOT_DIR)
+            completed = run_command(command, ROOT_DIR, **({"agent_instructions": payload.agent_instructions} if payload.agent_instructions else {}))
             raw_parts.append((completed.stdout or "") + "\n" + (completed.stderr or ""))
             if completed.returncode != 0:
                 raw = "\n".join(raw_parts)
@@ -1578,7 +1598,7 @@ class RunManager:
         )
         timeout_sec = payload.timeout_sec or 600
         try:
-            completed = run_command(command, ROOT_DIR, timeout=timeout_sec)
+            completed = run_command(command, ROOT_DIR, timeout=timeout_sec, **({"agent_instructions": payload.agent_instructions} if payload.agent_instructions else {}))
             raw = (completed.stdout or "") + "\n" + (completed.stderr or "")
         except subprocess.TimeoutExpired as exc:
             raw = _timeout_output(exc)
@@ -1679,7 +1699,7 @@ class RunManager:
         task.metadata["timeout_sec"] = timeout_sec
         self.store.write_task(task)
         try:
-            completed = run_command(command, ROOT_DIR, timeout=timeout_sec)
+            completed = run_command(command, ROOT_DIR, timeout=timeout_sec, **({"agent_instructions": payload.agent_instructions} if payload.agent_instructions else {}))
             raw = (completed.stdout or "") + "\n" + (completed.stderr or "")
         except subprocess.TimeoutExpired as exc:
             raw = _timeout_output(exc)

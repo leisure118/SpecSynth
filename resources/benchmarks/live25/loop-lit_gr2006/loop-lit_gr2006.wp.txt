@@ -1,0 +1,158 @@
+[kernel] Parsing output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] Proved goals:   12 / 12
+  Qed:             8
+  Alt-Ergo :       4 (6ms-7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 7):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1) /\ is_sint32(y_2) /\
+      is_sint32(y_3) /\ is_sint32(1 + x).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100).
+  (* Invariant *)
+  Have: 0 <= y_3.
+  (* Invariant *)
+  Have: ((x <= 50) -> (y_3 = x)).
+  (* Invariant *)
+  Have: ((51 <= x) -> ((x + y_3) = 100)).
+  If x <= 49
+  Then { Have: y_3 = y_1. Have: (1 + y_1) = y. }
+  Else { Have: y_3 = y_2. Have: (1 + y) = y_2. }
+  (* Else *)
+  Have: 0 <= y.
+}
+Prove: ((-1) <= x) /\ (x <= 99).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30198)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (44)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 9):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(1 + x) /\ is_sint32(1 + y).
+  (* Goal *)
+  When: x <= 49.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: ((x <= 50) -> (y = x)).
+  (* Invariant *)
+  Have: ((51 <= x) -> ((x + y) = 100)).
+  (* Else *)
+  Have: (-1) <= y.
+  (* Invariant *)
+  Have: ((-1) <= x) /\ (x <= 99).
+}
+Prove: y = x.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (28915)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (6ms) (29)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 10):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(y - 1) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: 50 <= x.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: ((x <= 50) -> (y = x)).
+  (* Invariant *)
+  Have: ((51 <= x) -> (x_1 = 100)).
+  (* Else *)
+  Have: 0 < y.
+  (* Invariant *)
+  Have: ((-1) <= x) /\ (x <= 99).
+}
+Prove: x_1 = 100.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29030)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (36)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 23):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1) /\ is_sint32(y_2) /\
+      is_sint32(y_3).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100).
+  (* Invariant *)
+  Have: 0 <= y_3.
+  (* Invariant *)
+  Have: ((x <= 50) -> (y_3 = x)).
+  (* Invariant *)
+  Have: ((51 <= x) -> ((x + y_3) = 100)).
+  If x <= 49
+  Then { Have: y_3 = y_1. Have: (1 + y_1) = y. }
+  Else { Have: y_3 = y_2. Have: (1 + y) = y_2. }
+  (* Then *)
+  Have: y < 0.
+}
+Prove: x = 100.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30050)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (45)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-lit_gr2006/loop-lit_gr2006.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

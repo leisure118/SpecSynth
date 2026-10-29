@@ -1,0 +1,1960 @@
+[kernel] Parsing output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c:39: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 93 goals scheduled
+[wp] [Timeout] typed_main_assert_2 (Qed 13ms) (Z3)
+[wp] Proved goals:   92 / 93
+  Qed:            72
+  Alt-Ergo :       8 (8ms-12ms)
+  Z3 4.15.4:      12 (40ms-60ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 51):
+Let m = A[i_4].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(j) /\
+      is_sint32(1 + i_4).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_1) /\ (0 <= i_2) /\ (i <= i_4) /\ (i_1 <= 499) /\
+      (i_2 <= 499).
+  (* Loop assigns ... *)
+  Have: forall i_7,i_6,i_5 : Z. ((0 <= i_7) -> ((0 <= i_6) -> ((0 <= i_5) ->
+      ((i_7 <= 999) -> ((i_6 <= 999) -> ((i_5 <= 999) ->
+      (((i_7 < 0) \/ (i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_7) \/
+        (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (B_1[i_7][i_6][i_5] = B[i_7][i_6][i_5])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_7,i_6,i_5 : Z. ((0 <= i_7) -> ((0 <= i_6) -> ((0 <= i_5) ->
+      ((i_7 <= 999) -> ((i_6 <= 999) -> ((i_5 <= 999) ->
+      (((i_7 < 0) \/ (i_6 < 0) \/ (i_5 < 0) \/ (500 <= i_7) \/
+        (500 <= i_6) \/ (500 <= i_5)) ->
+      (A_1[i_7][i_6][i_5] = A_2[i_7][i_6][i_5])))))))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 500).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) ->
+      (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+       (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+        (B[i_5][i_6][i_7] = A_2[i_5][i_6][i_7]))))))))).
+  (* Then *)
+  Have: i_4 <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_5 : Z. ((i_5 != i_4) -> (A_2[i_5] = A[i_5]))) /\
+      (forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_4 <= 999) ->
+       ((i_6 <= 999) -> ((i_5 <= 999) ->
+       (((i_6 < 0) \/ (i_5 < 0) \/ (500 <= i_6) \/ (500 <= i_5)) ->
+       (A_2[i_4][i_6][i_5] = m[i_6][i_5])))))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 500).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < j) ->
+      (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+       (B[i_4][i_5][i_6] = m[i_5][i_6])))))).
+  (* Else *)
+  Have: 500 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: B[i][i_1][i_2] = A[i][i_1][i_2].
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (38484)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (11ms) (163)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (17ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 60):
+Let m = B[i].
+Let m_1 = A[i].
+Let m_2 = m_1[j].
+Let m_3 = A_3[i].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\
+      is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_1) /\ (0 <= i_2) /\ (i_1 <= j) /\ (i_2 <= 499).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_6) \/
+        (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (B_1[i_6][i_5][i_4] = B[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (i_4 < 0) \/ (500 <= i_6) \/
+        (500 <= i_5) \/ (500 <= i_4)) ->
+      (A_1[i_6][i_5][i_4] = A_2[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 500).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B[i_4][i_5][i_6] = A_2[i_4][i_5][i_6]))))))))).
+  (* Then *)
+  Have: i <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_4 : Z. ((i_4 != i) -> (A_2[i_4] = A_3[i_4]))) /\
+      (forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i <= 999) ->
+       ((i_5 <= 999) -> ((i_4 <= 999) ->
+       (((i_5 < 0) \/ (i_4 < 0) \/ (500 <= i_5) \/ (500 <= i_4)) ->
+       (A_2[i][i_5][i_4] = m_3[i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 500).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < j) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (m[i_4][i_5] = m_3[i_4][i_5])))))).
+  (* Then *)
+  Have: j <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_4 : Z. ((i_4 != i) -> (A_3[i_4] = A[i_4]))) /\
+      (forall i_4 : Z. ((i_4 != j) -> (m_3[i_4] = m_1[i_4]))) /\
+      (forall i_4 : Z. ((0 <= i_4) -> ((i <= 999) -> ((i_4 <= 999) ->
+       ((j <= 999) -> (((i_4 < 0) \/ (500 <= i_4)) ->
+       (m_3[j][i_4] = m_2[i_4]))))))).
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= 500).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < k) ->
+      (m[j][i_4] = m_2[i_4]))).
+  (* Else *)
+  Have: 500 <= k.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: m[i_1][i_2] = m_1[i_1][i_2].
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (41617)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (11ms) (168)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 67):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 67):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 68):
+Let m = B[i].
+Let m_1 = m[j].
+Let m_2 = A[i].
+Let m_3 = m_2[j].
+Let m_4 = A_3[i].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\
+      is_sint32(1 + k).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= k).
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4,i_3 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((0 <= i_3) ->
+      ((i_5 <= 999) -> ((i_4 <= 999) -> ((i_3 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_5) \/
+        (1000 <= i_4) \/ (1000 <= i_3)) ->
+      (B_1[i_5][i_4][i_3] = B[i_5][i_4][i_3])))))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4,i_3 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((0 <= i_3) ->
+      ((i_5 <= 999) -> ((i_4 <= 999) -> ((i_3 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (i_3 < 0) \/ (500 <= i_5) \/
+        (500 <= i_4) \/ (500 <= i_3)) ->
+      (A_1[i_5][i_4][i_3] = A_2[i_5][i_4][i_3])))))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 500).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+       (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+        (B[i_3][i_4][i_5] = A_2[i_3][i_4][i_5]))))))))).
+  (* Then *)
+  Have: i <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_3 : Z. ((i_3 != i) -> (A_2[i_3] = A_3[i_3]))) /\
+      (forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i <= 999) ->
+       ((i_4 <= 999) -> ((i_3 <= 999) ->
+       (((i_4 < 0) \/ (i_3 < 0) \/ (500 <= i_4) \/ (500 <= i_3)) ->
+       (A_2[i][i_4][i_3] = m_4[i_4][i_3])))))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 500).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j) ->
+      (forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+       (m[i_3][i_4] = m_4[i_3][i_4])))))).
+  (* Then *)
+  Have: j <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_3 : Z. ((i_3 != i) -> (A_3[i_3] = A[i_3]))) /\
+      (forall i_3 : Z. ((i_3 != j) -> (m_4[i_3] = m_2[i_3]))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i <= 999) -> ((i_3 <= 999) ->
+       ((j <= 999) -> (((i_3 < 0) \/ (500 <= i_3)) ->
+       (m_4[j][i_3] = m_3[i_3]))))))).
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= 500).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < k) -> (m_1[i_3] = m_3[i_3]))).
+  (* Then *)
+  Have: k <= 499.
+  (* Invariant *)
+  Have: (-1) <= k.
+}
+Prove: m_3[k <- m_1[k]][i_1] = m_1[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (41404)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (9ms) (120)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 68):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 82):
+Prove: true.
+Prover Qed returns Valid (16ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 82):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 83):
+Let m = A[i_5].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(i_5) /\ is_sint32(j) /\
+      is_sint32(1 + i_5).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_1) /\ (0 <= i_2) /\ (i <= 499) /\ (i_1 <= 499) /\
+      (i_2 <= 499).
+  (* Loop assigns ... *)
+  Have: forall i_8,i_7,i_6 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((0 <= i_6) ->
+      ((i_8 <= 999) -> ((i_7 <= 999) -> ((i_6 <= 999) ->
+      (((i_8 < 0) \/ (i_7 < 0) \/ (i_6 < 0) \/ (1000 <= i_8) \/
+        (1000 <= i_7) \/ (1000 <= i_6)) ->
+      (B_1[i_8][i_7][i_6] = B[i_8][i_7][i_6])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_8,i_7,i_6 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((0 <= i_6) ->
+      ((i_8 <= 999) -> ((i_7 <= 999) -> ((i_6 <= 999) ->
+      (((i_8 < 0) \/ (i_7 < 0) \/ (i_6 < 0) \/ (500 <= i_8) \/
+        (500 <= i_7) \/ (500 <= i_6)) ->
+      (A_1[i_8][i_7][i_6] = A_2[i_8][i_7][i_6])))))))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 500).
+  (* Invariant *)
+  Have: forall i_6 : Z. ((0 <= i_6) -> ((i_6 < i_4) ->
+      (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+       (forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= 499) ->
+        (B[i_6][i_7][i_8] = A_2[i_6][i_7][i_8]))))))))).
+  (* Else *)
+  Have: 500 <= i_4.
+  (* Invariant *)
+  Have: forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+      (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+       (forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= 499) ->
+        (B[i_6][i_7][i_8] = A_2[i_6][i_7][i_8]))))))))).
+  (* Loop assigns ... *)
+  Have: forall i_8,i_7,i_6 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((0 <= i_6) ->
+      ((i_8 <= 999) -> ((i_7 <= 999) -> ((i_6 <= 999) ->
+      (((i_8 <= 499) \/ (i_7 <= 499) \/ (i_6 <= 499) \/ (1000 <= i_8) \/
+        (1000 <= i_7) \/ (1000 <= i_6)) ->
+      (A_2[i_8][i_7][i_6] = A_3[i_8][i_7][i_6])))))))).
+  (* Invariant *)
+  Have: (500 <= i_5) /\ (i_5 <= 1000).
+  (* Invariant *)
+  Have: forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+      (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+       (forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= 499) ->
+        (B[i_6][i_7][i_8] = A_3[i_6][i_7][i_8]))))))))).
+  (* Invariant *)
+  Have: forall i_6 : Z. ((i_6 < i_5) -> ((500 <= i_6) ->
+      (forall i_7 : Z. ((500 <= i_7) -> ((i_7 <= 999) ->
+       (forall i_8 : Z. ((500 <= i_8) -> ((i_8 <= 999) ->
+        (B[i_6][i_7][i_8] = A_3[i_6][i_7][i_8]))))))))).
+  (* Then *)
+  Have: i_5 <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_6 : Z. ((i_6 != i_5) -> (A_3[i_6] = A[i_6]))) /\
+      (forall i_7,i_6 : Z. ((0 <= i_5) -> ((0 <= i_7) -> ((0 <= i_6) ->
+       ((i_7 <= 999) -> ((i_6 <= 999) ->
+       (((i_7 <= 499) \/ (i_6 <= 499) \/ (1000 <= i_7) \/ (1000 <= i_6)) ->
+       (A_3[i_5][i_7][i_6] = m[i_7][i_6])))))))).
+  (* Invariant *)
+  Have: (500 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_6 : Z. ((i_6 < j) -> ((500 <= i_6) ->
+      (forall i_7 : Z. ((500 <= i_7) -> ((i_7 <= 999) ->
+       (B[i_5][i_6][i_7] = m[i_6][i_7])))))).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: 499 <= i_5.
+}
+Prove: B[i][i_1][i_2] = A[i][i_1][i_2].
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (45773)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (12ms) (157)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 83):
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i_4).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_1) /\ (0 <= i_2) /\ (i <= 499) /\ (i_1 <= 499) /\
+      (i_2 <= 499).
+  (* Loop assigns ... *)
+  Have: forall i_7,i_6,i_5 : Z. ((0 <= i_7) -> ((0 <= i_6) -> ((0 <= i_5) ->
+      ((i_7 <= 999) -> ((i_6 <= 999) -> ((i_5 <= 999) ->
+      (((i_7 < 0) \/ (i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_7) \/
+        (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (B_1[i_7][i_6][i_5] = B[i_7][i_6][i_5])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_7,i_6,i_5 : Z. ((0 <= i_7) -> ((0 <= i_6) -> ((0 <= i_5) ->
+      ((i_7 <= 999) -> ((i_6 <= 999) -> ((i_5 <= 999) ->
+      (((i_7 < 0) \/ (i_6 < 0) \/ (i_5 < 0) \/ (500 <= i_7) \/
+        (500 <= i_6) \/ (500 <= i_5)) ->
+      (A_1[i_7][i_6][i_5] = A[i_7][i_6][i_5])))))))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 500).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) ->
+      (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+       (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+        (B[i_5][i_6][i_7] = A[i_5][i_6][i_7]))))))))).
+  (* Else *)
+  Have: 500 <= i_4.
+}
+Prove: B[i][i_1][i_2] = A[i][i_1][i_2].
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (34309)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (101)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 84):
+Let m = A[i_5].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(i_5) /\ is_sint32(j) /\
+      is_sint32(1 + i_5).
+  (* Goal *)
+  When: (i <= i_5) /\ (500 <= i) /\ (500 <= i_1) /\ (500 <= i_2) /\
+      (i_1 <= 999) /\ (i_2 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_8,i_7,i_6 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((0 <= i_6) ->
+      ((i_8 <= 999) -> ((i_7 <= 999) -> ((i_6 <= 999) ->
+      (((i_8 < 0) \/ (i_7 < 0) \/ (i_6 < 0) \/ (1000 <= i_8) \/
+        (1000 <= i_7) \/ (1000 <= i_6)) ->
+      (B_1[i_8][i_7][i_6] = B[i_8][i_7][i_6])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_8,i_7,i_6 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((0 <= i_6) ->
+      ((i_8 <= 999) -> ((i_7 <= 999) -> ((i_6 <= 999) ->
+      (((i_8 < 0) \/ (i_7 < 0) \/ (i_6 < 0) \/ (500 <= i_8) \/
+        (500 <= i_7) \/ (500 <= i_6)) ->
+      (A_1[i_8][i_7][i_6] = A_2[i_8][i_7][i_6])))))))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 500).
+  (* Invariant *)
+  Have: forall i_6 : Z. ((0 <= i_6) -> ((i_6 < i_4) ->
+      (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+       (forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= 499) ->
+        (B[i_6][i_7][i_8] = A_2[i_6][i_7][i_8]))))))))).
+  (* Else *)
+  Have: 500 <= i_4.
+  (* Invariant *)
+  Have: forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+      (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+       (forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= 499) ->
+        (B[i_6][i_7][i_8] = A_2[i_6][i_7][i_8]))))))))).
+  (* Loop assigns ... *)
+  Have: forall i_8,i_7,i_6 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((0 <= i_6) ->
+      ((i_8 <= 999) -> ((i_7 <= 999) -> ((i_6 <= 999) ->
+      (((i_8 <= 499) \/ (i_7 <= 499) \/ (i_6 <= 499) \/ (1000 <= i_8) \/
+        (1000 <= i_7) \/ (1000 <= i_6)) ->
+      (A_2[i_8][i_7][i_6] = A_3[i_8][i_7][i_6])))))))).
+  (* Invariant *)
+  Have: (500 <= i_5) /\ (i_5 <= 1000).
+  (* Invariant *)
+  Have: forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+      (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+       (forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= 499) ->
+        (B[i_6][i_7][i_8] = A_3[i_6][i_7][i_8]))))))))).
+  (* Invariant *)
+  Have: forall i_6 : Z. ((i_6 < i_5) -> ((500 <= i_6) ->
+      (forall i_7 : Z. ((500 <= i_7) -> ((i_7 <= 999) ->
+       (forall i_8 : Z. ((500 <= i_8) -> ((i_8 <= 999) ->
+        (B[i_6][i_7][i_8] = A_3[i_6][i_7][i_8]))))))))).
+  (* Then *)
+  Have: i_5 <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_6 : Z. ((i_6 != i_5) -> (A_3[i_6] = A[i_6]))) /\
+      (forall i_7,i_6 : Z. ((0 <= i_5) -> ((0 <= i_7) -> ((0 <= i_6) ->
+       ((i_7 <= 999) -> ((i_6 <= 999) ->
+       (((i_7 <= 499) \/ (i_6 <= 499) \/ (1000 <= i_7) \/ (1000 <= i_6)) ->
+       (A_3[i_5][i_7][i_6] = m[i_7][i_6])))))))).
+  (* Invariant *)
+  Have: (500 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_6 : Z. ((i_6 < j) -> ((500 <= i_6) ->
+      (forall i_7 : Z. ((500 <= i_7) -> ((i_7 <= 999) ->
+       (B[i_5][i_6][i_7] = m[i_6][i_7])))))).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: 499 <= i_5.
+  (* Invariant *)
+  Have: forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+      (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+       (forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= 499) ->
+        (B[i_6][i_7][i_8] = A[i_6][i_7][i_8]))))))))).
+}
+Prove: B[i][i_1][i_2] = A[i][i_1][i_2].
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (48531)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (12ms) (183)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 84):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 91):
+Prove: true.
+Prover Qed returns Valid (21ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 91):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 92):
+Let m = B[i].
+Let m_1 = A[i].
+Let m_2 = m_1[j].
+Let m_3 = A_4[i].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(i) /\ is_sint32(j) /\
+      is_sint32(k) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (i_1 <= j) /\ (500 <= i_1) /\ (500 <= i_2) /\ (i_2 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_7,i_6,i_5 : Z. ((0 <= i_7) -> ((0 <= i_6) -> ((0 <= i_5) ->
+      ((i_7 <= 999) -> ((i_6 <= 999) -> ((i_5 <= 999) ->
+      (((i_7 < 0) \/ (i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_7) \/
+        (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (B_1[i_7][i_6][i_5] = B[i_7][i_6][i_5])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_7,i_6,i_5 : Z. ((0 <= i_7) -> ((0 <= i_6) -> ((0 <= i_5) ->
+      ((i_7 <= 999) -> ((i_6 <= 999) -> ((i_5 <= 999) ->
+      (((i_7 < 0) \/ (i_6 < 0) \/ (i_5 < 0) \/ (500 <= i_7) \/
+        (500 <= i_6) \/ (500 <= i_5)) ->
+      (A_1[i_7][i_6][i_5] = A_2[i_7][i_6][i_5])))))))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 500).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) ->
+      (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+       (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+        (B[i_5][i_6][i_7] = A_2[i_5][i_6][i_7]))))))))).
+  (* Else *)
+  Have: 500 <= i_4.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+      (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+       (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+        (B[i_5][i_6][i_7] = A_2[i_5][i_6][i_7]))))))))).
+  (* Loop assigns ... *)
+  Have: forall i_7,i_6,i_5 : Z. ((0 <= i_7) -> ((0 <= i_6) -> ((0 <= i_5) ->
+      ((i_7 <= 999) -> ((i_6 <= 999) -> ((i_5 <= 999) ->
+      (((i_7 <= 499) \/ (i_6 <= 499) \/ (i_5 <= 499) \/ (1000 <= i_7) \/
+        (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (A_2[i_7][i_6][i_5] = A_3[i_7][i_6][i_5])))))))).
+  (* Invariant *)
+  Have: (500 <= i) /\ (i <= 1000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+      (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+       (forall i_7 : Z. ((0 <= i_7) -> ((i_7 <= 499) ->
+        (B[i_5][i_6][i_7] = A_3[i_5][i_6][i_7]))))))))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_5 < i) -> ((500 <= i_5) ->
+      (forall i_6 : Z. ((500 <= i_6) -> ((i_6 <= 999) ->
+       (forall i_7 : Z. ((500 <= i_7) -> ((i_7 <= 999) ->
+        (B[i_5][i_6][i_7] = A_3[i_5][i_6][i_7]))))))))).
+  (* Then *)
+  Have: i <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_5 : Z. ((i_5 != i) -> (A_3[i_5] = A_4[i_5]))) /\
+      (forall i_6,i_5 : Z. ((0 <= i) -> ((0 <= i_6) -> ((0 <= i_5) ->
+       ((i_6 <= 999) -> ((i_5 <= 999) ->
+       (((i_6 <= 499) \/ (i_5 <= 499) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+       (A_3[i][i_6][i_5] = m_3[i_6][i_5])))))))).
+  (* Invariant *)
+  Have: (500 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_5 < j) -> ((500 <= i_5) ->
+      (forall i_6 : Z. ((500 <= i_6) -> ((i_6 <= 999) ->
+       (m[i_5][i_6] = m_3[i_5][i_6])))))).
+  (* Then *)
+  Have: j <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_5 : Z. ((i_5 != i) -> (A_4[i_5] = A[i_5]))) /\
+      (forall i_5 : Z. ((i_5 != j) -> (m_3[i_5] = m_1[i_5]))) /\
+      (forall i_5 : Z. ((0 <= i) -> ((0 <= i_5) -> ((0 <= j) ->
+       ((i_5 <= 999) -> (((i_5 <= 499) \/ (1000 <= i_5)) ->
+       (m_3[j][i_5] = m_2[i_5]))))))).
+  (* Invariant *)
+  Have: (500 <= k) /\ (k <= 1000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_5 < k) -> ((500 <= i_5) ->
+      (m[j][i_5] = m_2[i_5]))).
+  (* Else *)
+  Have: 1000 <= k.
+  (* Invariant *)
+  Have: 499 <= j.
+}
+Prove: m[i_1][i_2] = m_1[i_1][i_2].
+Prover Z3 4.15.4 returns Valid (Qed:18ms) (10ms) (49332)
+Prover Alt-Ergo  returns Valid (Qed:18ms) (11ms) (187)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 92):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 99):
+Prove: true.
+Prover Qed returns Valid (19ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 99):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 100):
+Let m = B[i].
+Let m_1 = m[j].
+Let m_2 = A[i].
+Let m_3 = m_2[j].
+Let m_4 = A_4[i].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(j) /\
+      is_sint32(k) /\ is_sint32(1 + k).
+  (* Goal *)
+  When: (i_1 <= k) /\ (500 <= i_1).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_6) \/
+        (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (B_1[i_6][i_5][i_4] = B[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (i_4 < 0) \/ (500 <= i_6) \/
+        (500 <= i_5) \/ (500 <= i_4)) ->
+      (A_1[i_6][i_5][i_4] = A_2[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 500).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B[i_4][i_5][i_6] = A_2[i_4][i_5][i_6]))))))))).
+  (* Else *)
+  Have: 500 <= i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B[i_4][i_5][i_6] = A_2[i_4][i_5][i_6]))))))))).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 <= 499) \/ (i_5 <= 499) \/ (i_4 <= 499) \/ (1000 <= i_6) \/
+        (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (A_2[i_6][i_5][i_4] = A_3[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (500 <= i) /\ (i <= 1000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B[i_4][i_5][i_6] = A_3[i_4][i_5][i_6]))))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 < i) -> ((500 <= i_4) ->
+      (forall i_5 : Z. ((500 <= i_5) -> ((i_5 <= 999) ->
+       (forall i_6 : Z. ((500 <= i_6) -> ((i_6 <= 999) ->
+        (B[i_4][i_5][i_6] = A_3[i_4][i_5][i_6]))))))))).
+  (* Then *)
+  Have: i <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_4 : Z. ((i_4 != i) -> (A_3[i_4] = A_4[i_4]))) /\
+      (forall i_5,i_4 : Z. ((0 <= i) -> ((0 <= i_5) -> ((0 <= i_4) ->
+       ((i_5 <= 999) -> ((i_4 <= 999) ->
+       (((i_5 <= 499) \/ (i_4 <= 499) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+       (A_3[i][i_5][i_4] = m_4[i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (500 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 < j) -> ((500 <= i_4) ->
+      (forall i_5 : Z. ((500 <= i_5) -> ((i_5 <= 999) ->
+       (m[i_4][i_5] = m_4[i_4][i_5])))))).
+  (* Then *)
+  Have: j <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_4 : Z. ((i_4 != i) -> (A_4[i_4] = A[i_4]))) /\
+      (forall i_4 : Z. ((i_4 != j) -> (m_4[i_4] = m_2[i_4]))) /\
+      (forall i_4 : Z. ((0 <= i) -> ((0 <= i_4) -> ((0 <= j) ->
+       ((i_4 <= 999) -> (((i_4 <= 499) \/ (1000 <= i_4)) ->
+       (m_4[j][i_4] = m_3[i_4]))))))).
+  (* Invariant *)
+  Have: (500 <= k) /\ (k <= 1000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 < k) -> ((500 <= i_4) ->
+      (m_1[i_4] = m_3[i_4]))).
+  (* Then *)
+  Have: k <= 999.
+  (* Invariant *)
+  Have: 499 <= k.
+}
+Prove: m_3[k <- m_1[k]][i_1] = m_1[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:22ms) (10ms) (49085)
+Prover Alt-Ergo  returns Valid (Qed:22ms) (10ms) (134)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 100):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 116):
+Prove: true.
+Prover Qed returns Valid (17ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 116):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 124):
+Prove: true.
+Prover Qed returns Valid (16ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 124):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 131):
+Prove: true.
+Prover Qed returns Valid (17ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 131):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 136):
+Let x = A[i][j][k].
+Let x_1 = B[i][j][k].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i) /\
+      is_sint32(j) /\ is_sint32(k) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_6) \/
+        (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (B_1[i_6][i_5][i_4] = B[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (i_4 < 0) \/ (500 <= i_6) \/
+        (500 <= i_5) \/ (500 <= i_4)) ->
+      (A_1[i_6][i_5][i_4] = A_2[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 500).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B[i_4][i_5][i_6] = A_2[i_4][i_5][i_6]))))))))).
+  (* Else *)
+  Have: 500 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B[i_4][i_5][i_6] = A_2[i_4][i_5][i_6]))))))))).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 <= 499) \/ (i_5 <= 499) \/ (i_4 <= 499) \/ (1000 <= i_6) \/
+        (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (A_2[i_6][i_5][i_4] = A[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (500 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B[i_4][i_5][i_6] = A[i_4][i_5][i_6]))))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 < i_3) -> ((500 <= i_4) ->
+      (forall i_5 : Z. ((500 <= i_5) -> ((i_5 <= 999) ->
+       (forall i_6 : Z. ((500 <= i_6) -> ((i_6 <= 999) ->
+        (B[i_4][i_5][i_6] = A[i_4][i_5][i_6]))))))))).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000).
+  (* Then *)
+  Have: i <= 999.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Then *)
+  Have: j <= 999.
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= 1000).
+  (* Then *)
+  Have: k <= 999.
+}
+Prove: x_1 = x.
+Prover Z3 4.15.4 returns Timeout (Qed:13ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:13ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 20) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 20) (2/3):
+Effect at line 23
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(j) /\ is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\ (0 <= i_7) /\ (0 <= i_8) /\
+      (0 <= i_9) /\ (0 <= i) /\ (0 <= i_1) /\ (0 <= i_2) /\ (i_4 <= 999) /\
+      (i_5 <= 999) /\ (i_6 <= 999) /\ (i_7 <= 999) /\ (i_8 <= 999) /\
+      (i_9 <= 999) /\ (i <= 999) /\ (i_1 <= 999) /\ (i_2 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_12,i_11,i_10 : Z. ((0 <= i_12) -> ((0 <= i_11) ->
+      ((0 <= i_10) -> ((i_12 <= 999) -> ((i_11 <= 999) -> ((i_10 <= 999) ->
+      (((i_12 < 0) \/ (i_11 < 0) \/ (i_10 < 0) \/ (1000 <= i_12) \/
+        (1000 <= i_11) \/ (1000 <= i_10)) ->
+      (B[i_12][i_11][i_10] = B_1[i_12][i_11][i_10])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Then *)
+  Have: i_3 <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_10 : Z. ((i_10 != i_3) -> (B_1[i_10] = B_2[i_10]))) /\
+      (forall i_11,i_10 : Z. ((0 <= i_11) -> ((0 <= i_10) ->
+       ((i_11 <= 999) -> ((i_10 <= 999) ->
+       (((i_11 < 0) \/ (i_10 < 0) \/ (1000 <= i_11) \/ (1000 <= i_10)) ->
+       (B_1[i_3][i_11][i_10] = B_2[i_3][i_11][i_10]))))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: exists i_12,i_11,i_10 : Z. (i_12 <= i) /\ (i_11 <= i_1) /\
+    (i_10 <= i_2) /\ (0 <= i_12) /\ (i <= i_12) /\ (0 <= i_11) /\
+    (i_1 <= i_11) /\ (0 <= i_10) /\ (i_2 <= i_10) /\ (i_12 <= 999) /\
+    (i_11 <= 999) /\ (i_10 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (40ms) (167125)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 20) (3/3):
+Effect at line 31
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_3) /\ (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\
+      (0 <= i_1) /\ (0 <= i_2) /\ (i <= 999) /\ (i_3 <= 999) /\
+      (i_4 <= 999) /\ (i_5 <= 999) /\ (i_6 <= 999) /\ (i_1 <= 999) /\
+      (i_2 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_9,i_8,i_7 : Z. ((0 <= i_9) -> ((0 <= i_8) -> ((0 <= i_7) ->
+      ((i_9 <= 999) -> ((i_8 <= 999) -> ((i_7 <= 999) ->
+      (((i_9 < 0) \/ (i_8 < 0) \/ (i_7 < 0) \/ (1000 <= i_9) \/
+        (1000 <= i_8) \/ (1000 <= i_7)) ->
+      (B[i_9][i_8][i_7] = B_1[i_9][i_8][i_7])))))))).
+  (* Invariant *)
+  Have: i <= 1000.
+  (* Loop assigns ... *)
+  Have: (forall i_7 : Z. ((i_7 != i) -> (B_1[i_7] = B_2[i_7]))) /\
+      (forall i_8,i_7 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((i_8 <= 999) ->
+       ((i_7 <= 999) ->
+       (((i_8 < 0) \/ (i_7 < 0) \/ (1000 <= i_8) \/ (1000 <= i_7)) ->
+       (B_1[i][i_8][i_7] = B_2[i][i_8][i_7]))))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: exists i_9,i_8,i_7 : Z. (i_9 <= i) /\ (i_8 <= i_1) /\ (i_7 <= i_2) /\
+    (0 <= i_9) /\ (i <= i_9) /\ (0 <= i_8) /\ (i_1 <= i_8) /\ (0 <= i_7) /\
+    (i_2 <= i_7) /\ (i_9 <= 999) /\ (i_8 <= 999) /\ (i_7 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (40ms) (187299)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 28) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 28) (2/3):
+Effect at line 31
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_2) /\ (0 <= i_3) /\ (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\
+      (0 <= i) /\ (0 <= i_1) /\ (i_2 <= 999) /\ (i_3 <= 999) /\
+      (i_4 <= 999) /\ (i_5 <= 999) /\ (i_6 <= 999) /\ (i <= 999) /\
+      (i_1 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_9,i_8,i_7 : Z. ((0 <= i_9) -> ((0 <= i_8) -> ((0 <= i_7) ->
+      ((i_9 <= 999) -> ((i_8 <= 999) -> ((i_7 <= 999) ->
+      (((i_9 < 0) \/ (i_8 < 0) \/ (i_7 < 0) \/ (1000 <= i_9) \/
+        (1000 <= i_8) \/ (1000 <= i_7)) ->
+      (B[i_9][i_8][i_7] = B_1[i_9][i_8][i_7])))))))).
+  (* Invariant *)
+  Have: i_2 <= 1000.
+  (* Loop assigns ... *)
+  Have: (forall i_7 : Z. ((i_7 != i_2) -> (B_1[i_7] = B_2[i_7]))) /\
+      (forall i_8,i_7 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((i_8 <= 999) ->
+       ((i_7 <= 999) ->
+       (((i_8 < 0) \/ (i_7 < 0) \/ (1000 <= i_8) \/ (1000 <= i_7)) ->
+       (B_1[i_2][i_8][i_7] = B_2[i_2][i_8][i_7]))))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Then *)
+  Have: j <= 999.
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= 1000).
+  (* Else *)
+  Have: 1000 <= k.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: exists i_8,i_7 : Z. (i_8 <= i) /\ (i_7 <= i_1) /\ (0 <= i_8) /\
+    (i <= i_8) /\ (0 <= i_7) /\ (i_1 <= i_7) /\ (i_8 <= 999) /\ (i_7 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (50ms) (214121)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 28) (3/3):
+Effect at line 38
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_1) /\ (0 <= i) /\ (0 <= j) /\ (i_1 <= 999) /\ (i <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3,i_2 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((0 <= i_2) ->
+      ((i_4 <= 999) -> ((i_3 <= 999) -> ((i_2 <= 999) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (i_2 < 0) \/ (1000 <= i_4) \/
+        (1000 <= i_3) \/ (1000 <= i_2)) ->
+      (B[i_4][i_3][i_2] = B_1[i_4][i_3][i_2])))))))).
+  (* Invariant *)
+  Have: i_1 <= 1000.
+  (* Loop assigns ... *)
+  Have: (forall i_2 : Z. ((i_2 != i_1) -> (B_1[i_2] = B_2[i_2]))) /\
+      (forall i_3,i_2 : Z. ((0 <= i_3) -> ((0 <= i_2) -> ((i_3 <= 999) ->
+       ((i_2 <= 999) ->
+       (((i_3 < 0) \/ (i_2 < 0) \/ (1000 <= i_3) \/ (1000 <= i_2)) ->
+       (B_1[i_1][i_3][i_2] = B_2[i_1][i_3][i_2]))))))).
+  (* Invariant *)
+  Have: j <= 1000.
+  (* Then *)
+  Have: j <= 999.
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= 1000).
+  (* Else *)
+  Have: 1000 <= k.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: exists i_3,i_2 : Z. (i_2 <= i) /\ (0 <= i_3) /\ (j <= i_3) /\
+    (0 <= i_2) /\ (i <= i_2) /\ (i_3 <= j) /\ (i_3 <= 999) /\ (i_2 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (40ms) (165728)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 35) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 35) (2/2):
+Effect at line 38
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 52) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 52) (2/3):
+Effect at line 55
+Let m = A_2[i_4].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(j) /\
+      is_sint32(1 + i_4).
+  (* Goal *)
+  When: (0 <= i_5) /\ (0 <= i_6) /\ (0 <= i_7) /\ (0 <= i_8) /\ (0 <= i_9) /\
+      (0 <= i_10) /\ (0 <= i) /\ (0 <= i_1) /\ (0 <= i_2) /\ (i_5 <= 499) /\
+      (i_6 <= 499) /\ (i_7 <= 499) /\ (i_8 <= 499) /\ (i_9 <= 499) /\
+      (i_10 <= 499) /\ (i <= 499) /\ (i_1 <= 499) /\ (i_2 <= 499) /\
+      (i_5 <= 999) /\ (i_6 <= 999) /\ (i_7 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_13,i_12,i_11 : Z. ((0 <= i_13) -> ((0 <= i_12) ->
+      ((0 <= i_11) -> ((i_13 <= 999) -> ((i_12 <= 999) -> ((i_11 <= 999) ->
+      (((i_13 < 0) \/ (i_12 < 0) \/ (i_11 < 0) \/ (1000 <= i_13) \/
+        (1000 <= i_12) \/ (1000 <= i_11)) ->
+      (B[i_13][i_12][i_11] = B_1[i_13][i_12][i_11])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_13,i_12,i_11 : Z. ((0 <= i_13) -> ((0 <= i_12) ->
+      ((0 <= i_11) -> ((i_13 <= 999) -> ((i_12 <= 999) -> ((i_11 <= 999) ->
+      (((i_13 < 0) \/ (i_12 < 0) \/ (i_11 < 0) \/ (500 <= i_13) \/
+        (500 <= i_12) \/ (500 <= i_11)) ->
+      (A[i_13][i_12][i_11] = A_1[i_13][i_12][i_11])))))))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 500).
+  (* Invariant *)
+  Have: forall i_11 : Z. ((0 <= i_11) -> ((i_11 < i_4) ->
+      (forall i_12 : Z. ((0 <= i_12) -> ((i_12 <= 499) ->
+       (forall i_13 : Z. ((0 <= i_13) -> ((i_13 <= 499) ->
+        (B_1[i_11][i_12][i_13] = A_1[i_11][i_12][i_13]))))))))).
+  (* Then *)
+  Have: i_4 <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_11 : Z. ((i_11 != i_4) -> (A_1[i_11] = A_2[i_11]))) /\
+      (forall i_12,i_11 : Z. ((0 <= i_12) -> ((0 <= i_11) -> ((i_4 <= 999) ->
+       ((i_12 <= 999) -> ((i_11 <= 999) ->
+       (((i_12 < 0) \/ (i_11 < 0) \/ (500 <= i_12) \/ (500 <= i_11)) ->
+       (A_1[i_4][i_12][i_11] = m[i_12][i_11])))))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 500).
+  (* Invariant *)
+  Have: forall i_11 : Z. ((0 <= i_11) -> ((i_11 < j) ->
+      (forall i_12 : Z. ((0 <= i_12) -> ((i_12 <= 499) ->
+       (B_1[i_4][i_11][i_12] = m[i_11][i_12])))))).
+  (* Else *)
+  Have: 500 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_4.
+  (* Invariant *)
+  Have: forall i_11 : Z. ((i_11 <= i_4) -> ((0 <= i_11) ->
+      (forall i_12 : Z. ((0 <= i_12) -> ((i_12 <= 499) ->
+       (forall i_13 : Z. ((0 <= i_13) -> ((i_13 <= 499) ->
+        (B_1[i_11][i_12][i_13] = A_2[i_11][i_12][i_13]))))))))).
+}
+Prove: exists i_13,i_12,i_11 : Z. (i_13 <= i) /\ (i_12 <= i_1) /\
+    (i_11 <= i_2) /\ (0 <= i_13) /\ (i <= i_13) /\ (0 <= i_12) /\
+    (i_1 <= i_12) /\ (0 <= i_11) /\ (i_2 <= i_11) /\ (i_13 <= 499) /\
+    (i_12 <= 499) /\ (i_11 <= 499).
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (50ms) (233322)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 52) (3/3):
+Effect at line 64
+Let m = A_2[i].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\ (0 <= i_7) /\
+      (0 <= i_1) /\ (0 <= i_2) /\ (i_4 <= 499) /\ (i_5 <= 499) /\
+      (i_6 <= 499) /\ (i_7 <= 499) /\ (i_1 <= 499) /\ (i_2 <= 499) /\
+      (i <= 999) /\ (i_4 <= 999) /\ (i_5 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_10,i_9,i_8 : Z. ((0 <= i_10) -> ((0 <= i_9) ->
+      ((0 <= i_8) -> ((i_10 <= 999) -> ((i_9 <= 999) -> ((i_8 <= 999) ->
+      (((i_10 < 0) \/ (i_9 < 0) \/ (i_8 < 0) \/ (1000 <= i_10) \/
+        (1000 <= i_9) \/ (1000 <= i_8)) ->
+      (B[i_10][i_9][i_8] = B_1[i_10][i_9][i_8])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_10,i_9,i_8 : Z. ((0 <= i_10) -> ((0 <= i_9) ->
+      ((0 <= i_8) -> ((i_10 <= 999) -> ((i_9 <= 999) -> ((i_8 <= 999) ->
+      (((i_10 < 0) \/ (i_9 < 0) \/ (i_8 < 0) \/ (500 <= i_10) \/
+        (500 <= i_9) \/ (500 <= i_8)) ->
+      (A[i_10][i_9][i_8] = A_1[i_10][i_9][i_8])))))))).
+  (* Invariant *)
+  Have: i <= 500.
+  (* Invariant *)
+  Have: forall i_8 : Z. ((0 <= i_8) -> ((i_8 < i) ->
+      (forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+       (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+        (B_1[i_8][i_9][i_10] = A_1[i_8][i_9][i_10]))))))))).
+  (* Then *)
+  Have: i <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_8 : Z. ((i_8 != i) -> (A_1[i_8] = A_2[i_8]))) /\
+      (forall i_9,i_8 : Z. ((0 <= i_9) -> ((0 <= i_8) -> ((i_9 <= 999) ->
+       ((i_8 <= 999) ->
+       (((i_9 < 0) \/ (i_8 < 0) \/ (500 <= i_9) \/ (500 <= i_8)) ->
+       (A_1[i][i_9][i_8] = m[i_9][i_8]))))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 500).
+  (* Invariant *)
+  Have: forall i_8 : Z. ((0 <= i_8) -> ((i_8 < j) ->
+      (forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+       (B_1[i][i_8][i_9] = m[i_8][i_9])))))).
+  (* Else *)
+  Have: 500 <= j.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_8 : Z. ((i_8 <= i) -> ((0 <= i_8) ->
+      (forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+       (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+        (B_1[i_8][i_9][i_10] = A_2[i_8][i_9][i_10]))))))))).
+}
+Prove: exists i_10,i_9,i_8 : Z. (i_10 <= i) /\ (i_9 <= i_1) /\
+    (i_8 <= i_2) /\ (0 <= i_10) /\ (i <= i_10) /\ (0 <= i_9) /\
+    (i_1 <= i_9) /\ (0 <= i_8) /\ (i_2 <= i_8) /\ (i_10 <= 499) /\
+    (i_9 <= 499) /\ (i_8 <= 499).
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (50ms) (209508)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 61) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 61) (2/3):
+Effect at line 64
+Let m = B_1[i_3].
+Let m_1 = A_3[i_3].
+Let m_2 = m_1[j].
+Let m_3 = A_2[i_3].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(j) /\ is_sint32(k) /\
+      is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_3) /\ (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\ (0 <= i_7) /\
+      (0 <= i) /\ (0 <= i_1) /\ (i_4 <= 499) /\ (i_5 <= 499) /\
+      (i_6 <= 499) /\ (i_7 <= 499) /\ (i <= 499) /\ (i_1 <= 499) /\
+      (i_3 <= 999) /\ (i_4 <= 999) /\ (i_5 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_10,i_9,i_8 : Z. ((0 <= i_10) -> ((0 <= i_9) ->
+      ((0 <= i_8) -> ((i_10 <= 999) -> ((i_9 <= 999) -> ((i_8 <= 999) ->
+      (((i_10 < 0) \/ (i_9 < 0) \/ (i_8 < 0) \/ (1000 <= i_10) \/
+        (1000 <= i_9) \/ (1000 <= i_8)) ->
+      (B[i_10][i_9][i_8] = B_1[i_10][i_9][i_8])))))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_10,i_9,i_8 : Z. ((0 <= i_10) -> ((0 <= i_9) ->
+      ((0 <= i_8) -> ((i_10 <= 999) -> ((i_9 <= 999) -> ((i_8 <= 999) ->
+      (((i_10 < 0) \/ (i_9 < 0) \/ (i_8 < 0) \/ (500 <= i_10) \/
+        (500 <= i_9) \/ (500 <= i_8)) ->
+      (A[i_10][i_9][i_8] = A_1[i_10][i_9][i_8])))))))).
+  (* Invariant *)
+  Have: i_3 <= 500.
+  (* Invariant *)
+  Have: forall i_8 : Z. ((0 <= i_8) -> ((i_8 < i_3) ->
+      (forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+       (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+        (B_1[i_8][i_9][i_10] = A_1[i_8][i_9][i_10]))))))))).
+  (* Then *)
+  Have: i_3 <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_8 : Z. ((i_8 != i_3) -> (A_1[i_8] = A_2[i_8]))) /\
+      (forall i_9,i_8 : Z. ((0 <= i_9) -> ((0 <= i_8) -> ((i_9 <= 999) ->
+       ((i_8 <= 999) ->
+       (((i_9 < 0) \/ (i_8 < 0) \/ (500 <= i_9) \/ (500 <= i_8)) ->
+       (A_1[i_3][i_9][i_8] = m_3[i_9][i_8]))))))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 500).
+  (* Invariant *)
+  Have: forall i_8 : Z. ((0 <= i_8) -> ((i_8 < j) ->
+      (forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+       (m[i_8][i_9] = m_3[i_8][i_9])))))).
+  (* Then *)
+  Have: j <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_8 : Z. ((i_8 != i_3) -> (A_2[i_8] = A_3[i_8]))) /\
+      (forall i_8 : Z. ((i_8 != j) -> (m_3[i_8] = m_1[i_8]))) /\
+      (forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= 999) -> ((j <= 999) ->
+       (((i_8 < 0) \/ (500 <= i_8)) -> (m_3[j][i_8] = m_2[i_8])))))).
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= 500).
+  (* Invariant *)
+  Have: forall i_8 : Z. ((0 <= i_8) -> ((i_8 < k) ->
+      (m[j][i_8] = m_2[i_8]))).
+  (* Else *)
+  Have: 500 <= k.
+  (* Invariant *)
+  Have: (-1) <= j.
+  (* Invariant *)
+  Have: forall i_8 : Z. ((0 <= i_8) -> ((i_8 <= j) ->
+      (forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+       (m[i_8][i_9] = m_1[i_8][i_9])))))).
+}
+Prove: exists i_9,i_8 : Z. (i_9 <= i) /\ (i_8 <= i_1) /\ (0 <= i_9) /\
+    (i <= i_9) /\ (0 <= i_8) /\ (i_1 <= i_8) /\ (i_9 <= 499) /\ (i_8 <= 499).
+Prover Z3 4.15.4 returns Valid (Qed:18ms) (50ms) (226820)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 61) (3/3):
+Effect at line 72
+Let m = B_1[i_2].
+Let m_1 = A_3[i_2].
+Let m_2 = m_1[j].
+Let m_3 = A_2[i_2].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(k) /\
+      is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_2) /\ (0 <= i) /\ (0 <= j) /\ (i <= 499) /\ (i_2 <= 999) /\
+      (j <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4,i_3 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((0 <= i_3) ->
+      ((i_5 <= 999) -> ((i_4 <= 999) -> ((i_3 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_5) \/
+        (1000 <= i_4) \/ (1000 <= i_3)) ->
+      (B[i_5][i_4][i_3] = B_1[i_5][i_4][i_3])))))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4,i_3 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((0 <= i_3) ->
+      ((i_5 <= 999) -> ((i_4 <= 999) -> ((i_3 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (i_3 < 0) \/ (500 <= i_5) \/
+        (500 <= i_4) \/ (500 <= i_3)) ->
+      (A[i_5][i_4][i_3] = A_1[i_5][i_4][i_3])))))))).
+  (* Invariant *)
+  Have: i_2 <= 500.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+       (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+        (B_1[i_3][i_4][i_5] = A_1[i_3][i_4][i_5]))))))))).
+  (* Then *)
+  Have: i_2 <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_3 : Z. ((i_3 != i_2) -> (A_1[i_3] = A_2[i_3]))) /\
+      (forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+       ((i_3 <= 999) ->
+       (((i_4 < 0) \/ (i_3 < 0) \/ (500 <= i_4) \/ (500 <= i_3)) ->
+       (A_1[i_2][i_4][i_3] = m_3[i_4][i_3]))))))).
+  (* Invariant *)
+  Have: j <= 500.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j) ->
+      (forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+       (m[i_3][i_4] = m_3[i_3][i_4])))))).
+  (* Then *)
+  Have: j <= 499.
+  (* Loop assigns ... *)
+  Have: (forall i_3 : Z. ((i_3 != i_2) -> (A_2[i_3] = A_3[i_3]))) /\
+      (forall i_3 : Z. ((i_3 != j) -> (m_3[i_3] = m_1[i_3]))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999) ->
+       (((i_3 < 0) \/ (500 <= i_3)) -> (m_3[j][i_3] = m_2[i_3]))))).
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= 500).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < k) ->
+      (m[j][i_3] = m_2[i_3]))).
+  (* Else *)
+  Have: 500 <= k.
+  (* Invariant *)
+  Have: (-1) <= j.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= j) ->
+      (forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+       (m[i_3][i_4] = m_1[i_3][i_4])))))).
+}
+Prove: exists i_4,i_3 : Z. (i_3 <= i) /\ (0 <= i_4) /\ (j <= i_4) /\
+    (0 <= i_3) /\ (i <= i_3) /\ (i_4 <= j) /\ (i_4 <= 499) /\ (i_3 <= 499).
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (50ms) (213636)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 69) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 69) (2/3):
+Effect at line 72
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 69) (3/3):
+Effect at line 73
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 85) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 85) (2/3):
+Effect at line 88
+Let m = A_3[i_5].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(i_5) /\ is_sint32(j) /\
+      is_sint32(1 + i_5).
+  (* Goal *)
+  When: (0 <= i_6) /\ (0 <= i_7) /\ (0 <= i_8) /\ (500 <= i_6) /\
+      (500 <= i_7) /\ (500 <= i_8) /\ (500 <= i_9) /\ (500 <= i_10) /\
+      (500 <= i_11) /\ (500 <= i) /\ (500 <= i_1) /\ (500 <= i_2) /\
+      (i_6 <= 999) /\ (i_7 <= 999) /\ (i_8 <= 999) /\ (i_9 <= 999) /\
+      (i_10 <= 999) /\ (i_11 <= 999) /\ (i <= 999) /\ (i_1 <= 999) /\
+      (i_2 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_14,i_13,i_12 : Z. ((0 <= i_14) -> ((0 <= i_13) ->
+      ((0 <= i_12) -> ((i_14 <= 999) -> ((i_13 <= 999) -> ((i_12 <= 999) ->
+      (((i_14 < 0) \/ (i_13 < 0) \/ (i_12 < 0) \/ (1000 <= i_14) \/
+        (1000 <= i_13) \/ (1000 <= i_12)) ->
+      (B[i_14][i_13][i_12] = B_1[i_14][i_13][i_12])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_14,i_13,i_12 : Z. ((0 <= i_14) -> ((0 <= i_13) ->
+      ((0 <= i_12) -> ((i_14 <= 999) -> ((i_13 <= 999) -> ((i_12 <= 999) ->
+      (((i_14 < 0) \/ (i_13 < 0) \/ (i_12 < 0) \/ (500 <= i_14) \/
+        (500 <= i_13) \/ (500 <= i_12)) ->
+      (A[i_14][i_13][i_12] = A_1[i_14][i_13][i_12])))))))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 500).
+  (* Invariant *)
+  Have: forall i_12 : Z. ((0 <= i_12) -> ((i_12 < i_4) ->
+      (forall i_13 : Z. ((0 <= i_13) -> ((i_13 <= 499) ->
+       (forall i_14 : Z. ((0 <= i_14) -> ((i_14 <= 499) ->
+        (B_1[i_12][i_13][i_14] = A_1[i_12][i_13][i_14]))))))))).
+  (* Else *)
+  Have: 500 <= i_4.
+  (* Invariant *)
+  Have: forall i_12 : Z. ((0 <= i_12) -> ((i_12 <= 499) ->
+      (forall i_13 : Z. ((0 <= i_13) -> ((i_13 <= 499) ->
+       (forall i_14 : Z. ((0 <= i_14) -> ((i_14 <= 499) ->
+        (B_1[i_12][i_13][i_14] = A_1[i_12][i_13][i_14]))))))))).
+  (* Loop assigns ... *)
+  Have: forall i_14,i_13,i_12 : Z. ((0 <= i_14) -> ((0 <= i_13) ->
+      ((0 <= i_12) -> ((i_14 <= 999) -> ((i_13 <= 999) -> ((i_12 <= 999) ->
+      (((i_14 <= 499) \/ (i_13 <= 499) \/ (i_12 <= 499) \/ (1000 <= i_14) \/
+        (1000 <= i_13) \/ (1000 <= i_12)) ->
+      (A_1[i_14][i_13][i_12] = A_2[i_14][i_13][i_12])))))))).
+  (* Invariant *)
+  Have: (500 <= i_5) /\ (i_5 <= 1000).
+  (* Invariant *)
+  Have: forall i_12 : Z. ((0 <= i_12) -> ((i_12 <= 499) ->
+      (forall i_13 : Z. ((0 <= i_13) -> ((i_13 <= 499) ->
+       (forall i_14 : Z. ((0 <= i_14) -> ((i_14 <= 499) ->
+        (B_1[i_12][i_13][i_14] = A_2[i_12][i_13][i_14]))))))))).
+  (* Invariant *)
+  Have: forall i_12 : Z. ((i_12 < i_5) -> ((500 <= i_12) ->
+      (forall i_13 : Z. ((500 <= i_13) -> ((i_13 <= 999) ->
+       (forall i_14 : Z. ((500 <= i_14) -> ((i_14 <= 999) ->
+        (B_1[i_12][i_13][i_14] = A_2[i_12][i_13][i_14]))))))))).
+  (* Then *)
+  Have: i_5 <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_12 : Z. ((i_12 != i_5) -> (A_2[i_12] = A_3[i_12]))) /\
+      (forall i_13,i_12 : Z. ((0 <= i_5) -> ((0 <= i_13) -> ((0 <= i_12) ->
+       ((i_13 <= 999) -> ((i_12 <= 999) ->
+       (((i_13 <= 499) \/ (i_12 <= 499) \/ (1000 <= i_13) \/ (1000 <= i_12)) ->
+       (A_2[i_5][i_13][i_12] = m[i_13][i_12])))))))).
+  (* Invariant *)
+  Have: (500 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_12 : Z. ((i_12 < j) -> ((500 <= i_12) ->
+      (forall i_13 : Z. ((500 <= i_13) -> ((i_13 <= 999) ->
+       (B_1[i_5][i_12][i_13] = m[i_12][i_13])))))).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: 499 <= i_5.
+  (* Invariant *)
+  Have: forall i_12 : Z. ((0 <= i_12) -> ((i_12 <= 499) ->
+      (forall i_13 : Z. ((0 <= i_13) -> ((i_13 <= 499) ->
+       (forall i_14 : Z. ((0 <= i_14) -> ((i_14 <= 499) ->
+        (B_1[i_12][i_13][i_14] = A_3[i_12][i_13][i_14]))))))))).
+  (* Invariant *)
+  Have: forall i_12 : Z. ((i_12 <= i_5) -> ((500 <= i_12) ->
+      (forall i_13 : Z. ((500 <= i_13) -> ((i_13 <= 999) ->
+       (forall i_14 : Z. ((500 <= i_14) -> ((i_14 <= 999) ->
+        (B_1[i_12][i_13][i_14] = A_3[i_12][i_13][i_14]))))))))).
+}
+Prove: exists i_14,i_13,i_12 : Z. (i_14 <= i) /\ (i_13 <= i_1) /\
+    (i_12 <= i_2) /\ (i <= i_14) /\ (i_1 <= i_13) /\ (i_2 <= i_12) /\
+    (500 <= i_14) /\ (500 <= i_13) /\ (500 <= i_12) /\ (i_14 <= 999) /\
+    (i_13 <= 999) /\ (i_12 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (50ms) (218423)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 85) (3/3):
+Effect at line 96
+Let m = A_3[i].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(i) /\ is_sint32(j) /\
+      is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_5) /\ (0 <= i_6) /\ (500 <= i_5) /\
+      (500 <= i_6) /\ (500 <= i_7) /\ (500 <= i_8) /\ (500 <= i_1) /\
+      (500 <= i_2) /\ (i <= 999) /\ (i_5 <= 999) /\ (i_6 <= 999) /\
+      (i_7 <= 999) /\ (i_8 <= 999) /\ (i_1 <= 999) /\ (i_2 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_11,i_10,i_9 : Z. ((0 <= i_11) -> ((0 <= i_10) ->
+      ((0 <= i_9) -> ((i_11 <= 999) -> ((i_10 <= 999) -> ((i_9 <= 999) ->
+      (((i_11 < 0) \/ (i_10 < 0) \/ (i_9 < 0) \/ (1000 <= i_11) \/
+        (1000 <= i_10) \/ (1000 <= i_9)) ->
+      (B[i_11][i_10][i_9] = B_1[i_11][i_10][i_9])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_11,i_10,i_9 : Z. ((0 <= i_11) -> ((0 <= i_10) ->
+      ((0 <= i_9) -> ((i_11 <= 999) -> ((i_10 <= 999) -> ((i_9 <= 999) ->
+      (((i_11 < 0) \/ (i_10 < 0) \/ (i_9 < 0) \/ (500 <= i_11) \/
+        (500 <= i_10) \/ (500 <= i_9)) ->
+      (A[i_11][i_10][i_9] = A_1[i_11][i_10][i_9])))))))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 500).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((0 <= i_9) -> ((i_9 < i_4) ->
+      (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+       (forall i_11 : Z. ((0 <= i_11) -> ((i_11 <= 499) ->
+        (B_1[i_9][i_10][i_11] = A_1[i_9][i_10][i_11]))))))))).
+  (* Else *)
+  Have: 500 <= i_4.
+  (* Invariant *)
+  Have: forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+      (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+       (forall i_11 : Z. ((0 <= i_11) -> ((i_11 <= 499) ->
+        (B_1[i_9][i_10][i_11] = A_1[i_9][i_10][i_11]))))))))).
+  (* Loop assigns ... *)
+  Have: forall i_11,i_10,i_9 : Z. ((0 <= i_11) -> ((0 <= i_10) ->
+      ((0 <= i_9) -> ((i_11 <= 999) -> ((i_10 <= 999) -> ((i_9 <= 999) ->
+      (((i_11 <= 499) \/ (i_10 <= 499) \/ (i_9 <= 499) \/ (1000 <= i_11) \/
+        (1000 <= i_10) \/ (1000 <= i_9)) ->
+      (A_1[i_11][i_10][i_9] = A_2[i_11][i_10][i_9])))))))).
+  (* Invariant *)
+  Have: (500 <= i) /\ (i <= 1000).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+      (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+       (forall i_11 : Z. ((0 <= i_11) -> ((i_11 <= 499) ->
+        (B_1[i_9][i_10][i_11] = A_2[i_9][i_10][i_11]))))))))).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((i_9 < i) -> ((500 <= i_9) ->
+      (forall i_10 : Z. ((500 <= i_10) -> ((i_10 <= 999) ->
+       (forall i_11 : Z. ((500 <= i_11) -> ((i_11 <= 999) ->
+        (B_1[i_9][i_10][i_11] = A_2[i_9][i_10][i_11]))))))))).
+  (* Loop assigns ... *)
+  Have: (forall i_9 : Z. ((i_9 != i) -> (A_2[i_9] = A_3[i_9]))) /\
+      (forall i_10,i_9 : Z. ((0 <= i_10) -> ((0 <= i_9) -> ((i_10 <= 999) ->
+       ((i_9 <= 999) ->
+       (((i_10 <= 499) \/ (i_9 <= 499) \/ (1000 <= i_10) \/ (1000 <= i_9)) ->
+       (A_2[i][i_10][i_9] = m[i_10][i_9]))))))).
+  (* Invariant *)
+  Have: (500 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((i_9 < j) -> ((500 <= i_9) ->
+      (forall i_10 : Z. ((500 <= i_10) -> ((i_10 <= 999) ->
+       (B_1[i][i_9][i_10] = m[i_9][i_10])))))).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: 499 <= i.
+  (* Invariant *)
+  Have: forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+      (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+       (forall i_11 : Z. ((0 <= i_11) -> ((i_11 <= 499) ->
+        (B_1[i_9][i_10][i_11] = A_3[i_9][i_10][i_11]))))))))).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((i_9 <= i) -> ((500 <= i_9) ->
+      (forall i_10 : Z. ((500 <= i_10) -> ((i_10 <= 999) ->
+       (forall i_11 : Z. ((500 <= i_11) -> ((i_11 <= 999) ->
+        (B_1[i_9][i_10][i_11] = A_3[i_9][i_10][i_11]))))))))).
+}
+Prove: exists i_11,i_10,i_9 : Z. (i_11 <= i) /\ (i_10 <= i_1) /\
+    (i_9 <= i_2) /\ (i <= i_11) /\ (i_1 <= i_10) /\ (i_2 <= i_9) /\
+    (500 <= i_11) /\ (500 <= i_10) /\ (500 <= i_9) /\ (i_11 <= 999) /\
+    (i_10 <= 999) /\ (i_9 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:21ms) (60ms) (233023)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 93) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 93) (2/3):
+Effect at line 96
+Let m = B_1[i_4].
+Let m_1 = A_4[i_4].
+Let m_2 = m_1[j].
+Let m_3 = A_3[i_4].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(j) /\
+      is_sint32(k) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\ (500 <= i_5) /\
+      (500 <= i_6) /\ (500 <= i_7) /\ (500 <= i_8) /\ (500 <= i) /\
+      (500 <= i_1) /\ (i_4 <= 999) /\ (i_5 <= 999) /\ (i_6 <= 999) /\
+      (i_7 <= 999) /\ (i_8 <= 999) /\ (i <= 999) /\ (i_1 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_11,i_10,i_9 : Z. ((0 <= i_11) -> ((0 <= i_10) ->
+      ((0 <= i_9) -> ((i_11 <= 999) -> ((i_10 <= 999) -> ((i_9 <= 999) ->
+      (((i_11 < 0) \/ (i_10 < 0) \/ (i_9 < 0) \/ (1000 <= i_11) \/
+        (1000 <= i_10) \/ (1000 <= i_9)) ->
+      (B[i_11][i_10][i_9] = B_1[i_11][i_10][i_9])))))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_11,i_10,i_9 : Z. ((0 <= i_11) -> ((0 <= i_10) ->
+      ((0 <= i_9) -> ((i_11 <= 999) -> ((i_10 <= 999) -> ((i_9 <= 999) ->
+      (((i_11 < 0) \/ (i_10 < 0) \/ (i_9 < 0) \/ (500 <= i_11) \/
+        (500 <= i_10) \/ (500 <= i_9)) ->
+      (A[i_11][i_10][i_9] = A_1[i_11][i_10][i_9])))))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 500).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((0 <= i_9) -> ((i_9 < i_3) ->
+      (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+       (forall i_11 : Z. ((0 <= i_11) -> ((i_11 <= 499) ->
+        (B_1[i_9][i_10][i_11] = A_1[i_9][i_10][i_11]))))))))).
+  (* Else *)
+  Have: 500 <= i_3.
+  (* Invariant *)
+  Have: forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+      (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+       (forall i_11 : Z. ((0 <= i_11) -> ((i_11 <= 499) ->
+        (B_1[i_9][i_10][i_11] = A_1[i_9][i_10][i_11]))))))))).
+  (* Loop assigns ... *)
+  Have: forall i_11,i_10,i_9 : Z. ((0 <= i_11) -> ((0 <= i_10) ->
+      ((0 <= i_9) -> ((i_11 <= 999) -> ((i_10 <= 999) -> ((i_9 <= 999) ->
+      (((i_11 <= 499) \/ (i_10 <= 499) \/ (i_9 <= 499) \/ (1000 <= i_11) \/
+        (1000 <= i_10) \/ (1000 <= i_9)) ->
+      (A_1[i_11][i_10][i_9] = A_2[i_11][i_10][i_9])))))))).
+  (* Invariant *)
+  Have: (500 <= i_4) /\ (i_4 <= 1000).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((0 <= i_9) -> ((i_9 <= 499) ->
+      (forall i_10 : Z. ((0 <= i_10) -> ((i_10 <= 499) ->
+       (forall i_11 : Z. ((0 <= i_11) -> ((i_11 <= 499) ->
+        (B_1[i_9][i_10][i_11] = A_2[i_9][i_10][i_11]))))))))).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((i_9 < i_4) -> ((500 <= i_9) ->
+      (forall i_10 : Z. ((500 <= i_10) -> ((i_10 <= 999) ->
+       (forall i_11 : Z. ((500 <= i_11) -> ((i_11 <= 999) ->
+        (B_1[i_9][i_10][i_11] = A_2[i_9][i_10][i_11]))))))))).
+  (* Loop assigns ... *)
+  Have: (forall i_9 : Z. ((i_9 != i_4) -> (A_2[i_9] = A_3[i_9]))) /\
+      (forall i_10,i_9 : Z. ((0 <= i_10) -> ((0 <= i_9) -> ((i_10 <= 999) ->
+       ((i_9 <= 999) ->
+       (((i_10 <= 499) \/ (i_9 <= 499) \/ (1000 <= i_10) \/ (1000 <= i_9)) ->
+       (A_2[i_4][i_10][i_9] = m_3[i_10][i_9]))))))).
+  (* Invariant *)
+  Have: (500 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((i_9 < j) -> ((500 <= i_9) ->
+      (forall i_10 : Z. ((500 <= i_10) -> ((i_10 <= 999) ->
+       (m[i_9][i_10] = m_3[i_9][i_10])))))).
+  (* Then *)
+  Have: j <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_9 : Z. ((i_9 != i_4) -> (A_3[i_9] = A_4[i_9]))) /\
+      (forall i_9 : Z. ((i_9 != j) -> (m_3[i_9] = m_1[i_9]))) /\
+      (forall i_9 : Z. ((0 <= i_9) -> ((0 <= j) -> ((i_9 <= 999) ->
+       (((i_9 <= 499) \/ (1000 <= i_9)) -> (m_3[j][i_9] = m_2[i_9])))))).
+  (* Invariant *)
+  Have: (500 <= k) /\ (k <= 1000).
+  (* Invariant *)
+  Have: forall i_9 : Z. ((i_9 < k) -> ((500 <= i_9) ->
+      (m[j][i_9] = m_2[i_9]))).
+  (* Else *)
+  Have: 1000 <= k.
+  (* Invariant *)
+  Have: 499 <= j.
+  (* Invariant *)
+  Have: forall i_9 : Z. ((i_9 <= j) -> ((500 <= i_9) ->
+      (forall i_10 : Z. ((500 <= i_10) -> ((i_10 <= 999) ->
+       (m[i_9][i_10] = m_1[i_9][i_10])))))).
+}
+Prove: exists i_10,i_9 : Z. (i_10 <= i) /\ (i_9 <= i_1) /\ (i <= i_10) /\
+    (i_1 <= i_9) /\ (500 <= i_10) /\ (500 <= i_9) /\ (i_10 <= 999) /\
+    (i_9 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (50ms) (222824)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 93) (3/3):
+Effect at line 104
+Let m = B_1[i_3].
+Let m_1 = A_4[i_3].
+Let m_2 = m_1[j].
+Let m_3 = A_3[i_3].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(j) /\
+      is_sint32(k) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_3) /\ (0 <= j) /\ (500 <= i) /\ (i_3 <= 999) /\ (i <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_6) \/
+        (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (B[i_6][i_5][i_4] = B_1[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (i_4 < 0) \/ (500 <= i_6) \/
+        (500 <= i_5) \/ (500 <= i_4)) ->
+      (A[i_6][i_5][i_4] = A_1[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 500).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B_1[i_4][i_5][i_6] = A_1[i_4][i_5][i_6]))))))))).
+  (* Else *)
+  Have: 500 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B_1[i_4][i_5][i_6] = A_1[i_4][i_5][i_6]))))))))).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5,i_4 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((0 <= i_4) ->
+      ((i_6 <= 999) -> ((i_5 <= 999) -> ((i_4 <= 999) ->
+      (((i_6 <= 499) \/ (i_5 <= 499) \/ (i_4 <= 499) \/ (1000 <= i_6) \/
+        (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (A_1[i_6][i_5][i_4] = A_2[i_6][i_5][i_4])))))))).
+  (* Invariant *)
+  Have: (500 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499) ->
+      (forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 499) ->
+       (forall i_6 : Z. ((0 <= i_6) -> ((i_6 <= 499) ->
+        (B_1[i_4][i_5][i_6] = A_2[i_4][i_5][i_6]))))))))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 < i_3) -> ((500 <= i_4) ->
+      (forall i_5 : Z. ((500 <= i_5) -> ((i_5 <= 999) ->
+       (forall i_6 : Z. ((500 <= i_6) -> ((i_6 <= 999) ->
+        (B_1[i_4][i_5][i_6] = A_2[i_4][i_5][i_6]))))))))).
+  (* Loop assigns ... *)
+  Have: (forall i_4 : Z. ((i_4 != i_3) -> (A_2[i_4] = A_3[i_4]))) /\
+      (forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+       ((i_4 <= 999) ->
+       (((i_5 <= 499) \/ (i_4 <= 499) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+       (A_2[i_3][i_5][i_4] = m_3[i_5][i_4]))))))).
+  (* Invariant *)
+  Have: (500 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 < j) -> ((500 <= i_4) ->
+      (forall i_5 : Z. ((500 <= i_5) -> ((i_5 <= 999) ->
+       (m[i_4][i_5] = m_3[i_4][i_5])))))).
+  (* Then *)
+  Have: j <= 999.
+  (* Loop assigns ... *)
+  Have: (forall i_4 : Z. ((i_4 != i_3) -> (A_3[i_4] = A_4[i_4]))) /\
+      (forall i_4 : Z. ((i_4 != j) -> (m_3[i_4] = m_1[i_4]))) /\
+      (forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 999) ->
+       (((i_4 <= 499) \/ (1000 <= i_4)) -> (m_3[j][i_4] = m_2[i_4]))))).
+  (* Invariant *)
+  Have: (500 <= k) /\ (k <= 1000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 < k) -> ((500 <= i_4) ->
+      (m[j][i_4] = m_2[i_4]))).
+  (* Else *)
+  Have: 1000 <= k.
+  (* Invariant *)
+  Have: 499 <= j.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= j) -> ((500 <= i_4) ->
+      (forall i_5 : Z. ((500 <= i_5) -> ((i_5 <= 999) ->
+       (m[i_4][i_5] = m_1[i_4][i_5])))))).
+}
+Prove: exists i_5,i_4 : Z. (i_4 <= i) /\ (j <= i_5) /\ (i <= i_4) /\
+    (i_5 <= j) /\ (500 <= i_5) /\ (500 <= i_4) /\ (i_5 <= 999) /\
+    (i_4 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:22ms) (50ms) (218430)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 101) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 101) (2/3):
+Effect at line 104
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 101) (3/3):
+Effect at line 105
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 117):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 125):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 132):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 88):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 88):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 96):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 96):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 104):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 104):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 120):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 120):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 128):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 128):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 135):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c, line 135):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-multidimensional_copy-partial-3-u/array-multidimensional_copy-partial-3-u.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

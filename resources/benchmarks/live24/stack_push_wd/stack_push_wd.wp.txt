@@ -1,0 +1,423 @@
+[kernel] Parsing output/live24/stack_push_wd/stack_push_wd.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:             3
+  Alt-Ergo :      10 (7ms-44ms-193ms)
+------------------------------------------------------------
+  Axiomatic 'StackEquality'
+------------------------------------------------------------
+
+Lemma StackEqual_Reflexive:
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_0 Mint_0 Mint_1 s_0 s_0)
+Prover Z3 4.15.4 returns Valid (10ms) (31834)
+Prover Alt-Ergo  returns Valid (7ms) (37)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Symmetric:
+Assume: 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_1 Mint_2 Mint_3 Mptr_0 Mint_0 Mint_1 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 t_0 s_0)
+Prover Alt-Ergo  returns Valid (9ms) (73)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Transitive:
+Assume: 'StackEqual_Symmetric' 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_2 Mint_4 Mint_5 t_0 u_0)
+       -> (P_StackEqual Mptr_2 Mint_4 Mint_5 Mptr_1 Mint_2 Mint_3 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 s_0 u_0)
+Prover Alt-Ergo  returns Valid (9ms) (94)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Axiomatic 'StackLemmas'
+------------------------------------------------------------
+
+Lemma StackPush_Equal:
+Prove: let x_0 = (L_StackSize Mint_1 s_0) in
+       let x_1 = (L_StackSize Mint_2 s_0) in
+       ((L_StackSize Mint_1 t_0)=x_0)
+       -> ((L_StackTop Mptr_0 Mint_0 Mint_1 t_0)=
+           (L_StackTop Mptr_0 Mint_0 Mint_1 s_0)) -> ((1+x_1)=x_0)
+       -> (P_Equal_2_ Mint_0 Mint_0 (L_StackStorage Mptr_0 s_0) x_1
+            (L_StackStorage Mptr_0 t_0))
+       -> (P_StackEqual Mptr_1 Mint_3 Mint_2 Mptr_1 Mint_3 Mint_2 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_0 Mint_0 Mint_1 s_0 t_0)
+Prover Alt-Ergo  returns Valid (12ms) (150)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function stack_push_wd
+------------------------------------------------------------
+
+Goal Assertion 'top' (file output/live24/stack_push_wd/stack_push_wd.acsl.c, line 159):
+Let a = shiftfield_F1_Stack_size(s).
+Let m = Mint_1[a <- v_1].
+Let a_1 = shiftfield_F1_Stack_size(t).
+Let m_1 = m[a_1 <- v_3].
+Let x = L_StackSize(m, t).
+Let a_2 = Mptr_0[shiftfield_F1_Stack_obj(s)].
+Let x_1 = Mint_1[a].
+Let m_2 = Mint_0[shift_sint32(a_2, x_1) <- v].
+Let a_3 = Mptr_0[shiftfield_F1_Stack_obj(t)].
+Let x_2 = m[a_1].
+Let m_3 = m_2[shift_sint32(a_3, x_2) <- v_2].
+Let x_3 = L_StackTop(Mptr_0, m_2, m, s).
+Let x_4 = L_StackCapacity(Mint_1, s).
+Let x_5 = L_StackSize(Mint_1, s).
+Assume {
+  Type: is_uint32(x_1) /\ is_uint32(Mint_1[a_1]) /\ is_uint32(x_2) /\
+      is_sint32(x_3).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, s, 3) /\ valid_rw(Malloc_0, t, 3).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_1, s).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_1, t).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_1, s).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_1, t).
+  (* Pre-condition *)
+  Have: separated(s, 3, t, 3).
+  (* Pre-condition *)
+  Have: separated(shift_sint32(a_2, 0), x_4, shift_sint32(a_3, 0),
+          L_StackCapacity(Mint_1, t)).
+  (* Pre-condition *)
+  Have: P_StackEqual(Mptr_0, Mint_0, Mint_1, Mptr_0, Mint_0, Mint_1, s, t).
+  (* Call 'stack_push' *)
+  Have: (L_StackCapacity(m, s) = x_4) /\ ((1 + x_5) = L_StackSize(m, s)) /\
+      (!P_StackEmpty(m, s)) /\ P_StackInvariant(Malloc_0, Mptr_0, m, s) /\
+      P_Unchanged_2_(m_2, Mint_0, L_StackStorage(Mptr_0, s), x_5).
+  (* Call 'stack_push' *)
+  Have: ((P_StackEmpty(m_1, t) -> P_StackFull(m, t))) /\
+      ((P_StackFull(m, t) -> P_StackFull(m_1, t))) /\
+      (((!P_StackFull(m, t)) ->
+       (L_StackCapacity(m_1, t) = L_StackCapacity(m, t)))) /\
+      ((P_StackFull(m, t) -> P_StackInvariant(Malloc_0, Mptr_0, m_1, t))) /\
+      (((!P_StackFull(m, t)) -> P_StackInvariant(Malloc_0, Mptr_0, m_1, t))) /\
+      (((!P_StackFull(m, t)) -> ((1 + x) = L_StackSize(m_1, t)))) /\
+      (((!P_StackFull(m, t)) ->
+       P_Unchanged_2_(m_3, m_2, L_StackStorage(Mptr_0, t), x))) /\
+      (((!P_StackFull(m, t)) -> (L_StackTop(Mptr_0, m_3, m_1, t) = x_3))) /\
+      ((P_StackFull(m, t) ->
+       P_StackUnchanged(Mptr_0, m_3, m_1, Mptr_0, m_2, m, t))).
+}
+Prove: L_StackTop(Mptr_0, m_3, m_1, s) = x_3.
+Prover Alt-Ergo  returns Valid (Qed:5ms) (48ms) (1241)
+
+------------------------------------------------------------
+
+Goal Assertion 'top' (file output/live24/stack_push_wd/stack_push_wd.acsl.c, line 160):
+Let a = shiftfield_F1_Stack_size(s).
+Let m = Mint_1[a <- v_1].
+Let a_1 = shiftfield_F1_Stack_size(t).
+Let m_1 = m[a_1 <- v_3].
+Let x = L_StackSize(m, t).
+Let a_2 = Mptr_0[shiftfield_F1_Stack_obj(s)].
+Let x_1 = Mint_1[a].
+Let m_2 = Mint_0[shift_sint32(a_2, x_1) <- v].
+Let a_3 = Mptr_0[shiftfield_F1_Stack_obj(t)].
+Let x_2 = m[a_1].
+Let m_3 = m_2[shift_sint32(a_3, x_2) <- v_2].
+Let x_3 = L_StackTop(Mptr_0, m_3, m_1, t).
+Let x_4 = L_StackTop(Mptr_0, m_3, m_1, s).
+Let x_5 = L_StackCapacity(Mint_1, s).
+Let x_6 = L_StackSize(Mint_1, s).
+Assume {
+  Type: is_uint32(x_1) /\ is_uint32(Mint_1[a_1]) /\ is_uint32(x_2) /\
+      is_sint32(x_4).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, s, 3) /\ valid_rw(Malloc_0, t, 3).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_1, s).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_1, t).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_1, s).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_1, t).
+  (* Pre-condition *)
+  Have: separated(s, 3, t, 3).
+  (* Pre-condition *)
+  Have: separated(shift_sint32(a_2, 0), x_5, shift_sint32(a_3, 0),
+          L_StackCapacity(Mint_1, t)).
+  (* Pre-condition *)
+  Have: P_StackEqual(Mptr_0, Mint_0, Mint_1, Mptr_0, Mint_0, Mint_1, s, t).
+  (* Call 'stack_push' *)
+  Have: (L_StackCapacity(m, s) = x_5) /\ ((1 + x_6) = L_StackSize(m, s)) /\
+      (x_4 = L_StackTop(Mptr_0, m_2, m, s)) /\ (!P_StackEmpty(m, s)) /\
+      P_StackInvariant(Malloc_0, Mptr_0, m, s) /\
+      P_Unchanged_2_(m_2, Mint_0, L_StackStorage(Mptr_0, s), x_6).
+  (* Call 'stack_push' *)
+  Have: ((P_StackEmpty(m_1, t) -> P_StackFull(m, t))) /\
+      ((P_StackFull(m, t) -> P_StackFull(m_1, t))) /\
+      (((!P_StackFull(m, t)) ->
+       (L_StackCapacity(m_1, t) = L_StackCapacity(m, t)))) /\
+      ((P_StackFull(m, t) -> P_StackInvariant(Malloc_0, Mptr_0, m_1, t))) /\
+      (((!P_StackFull(m, t)) -> P_StackInvariant(Malloc_0, Mptr_0, m_1, t))) /\
+      (((!P_StackFull(m, t)) -> ((1 + x) = L_StackSize(m_1, t)))) /\
+      (((!P_StackFull(m, t)) ->
+       P_Unchanged_2_(m_3, m_2, L_StackStorage(Mptr_0, t), x))) /\
+      (((!P_StackFull(m, t)) -> (x_3 = x_4))) /\
+      ((P_StackFull(m, t) ->
+       P_StackUnchanged(Mptr_0, m_3, m_1, Mptr_0, m_2, m, t))).
+}
+Prove: x_3 = x_4.
+Prover Alt-Ergo  returns Valid (Qed:6ms) (44ms) (1109)
+
+------------------------------------------------------------
+
+Goal Assertion 'equal' (file output/live24/stack_push_wd/stack_push_wd.acsl.c, line 161):
+Let a = Mptr_0[shiftfield_F1_Stack_obj(s)].
+Let a_1 = shiftfield_F1_Stack_size(s).
+Let x = Mint_1[a_1].
+Let m = Mint_0[shift_sint32(a, x) <- v].
+Let a_2 = Mptr_0[shiftfield_F1_Stack_obj(t)].
+Let m_1 = Mint_1[a_1 <- v_1].
+Let a_3 = shiftfield_F1_Stack_size(t).
+Let x_1 = m_1[a_3].
+Let m_2 = m[shift_sint32(a_2, x_1) <- v_2].
+Let m_3 = m_1[a_3 <- v_3].
+Let x_2 = L_StackTop(Mptr_0, m_2, m_3, t).
+Let x_3 = L_StackSize(m_1, t).
+Let a_4 = L_StackStorage(Mptr_0, t).
+Let x_4 = L_StackCapacity(Mint_1, s).
+Let x_5 = L_StackSize(Mint_1, s).
+Let a_5 = L_StackStorage(Mptr_0, s).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(Mint_1[a_3]) /\ is_uint32(x_1) /\
+      is_sint32(x_2).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, s, 3) /\ valid_rw(Malloc_0, t, 3).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_1, s).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_1, t).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_1, s).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_1, t).
+  (* Pre-condition *)
+  Have: separated(s, 3, t, 3).
+  (* Pre-condition *)
+  Have: separated(shift_sint32(a, 0), x_4, shift_sint32(a_2, 0),
+          L_StackCapacity(Mint_1, t)).
+  (* Pre-condition *)
+  Have: P_StackEqual(Mptr_0, Mint_0, Mint_1, Mptr_0, Mint_0, Mint_1, s, t).
+  (* Call 'stack_push' *)
+  Have: (L_StackCapacity(m_1, s) = x_4) /\
+      ((1 + x_5) = L_StackSize(m_1, s)) /\
+      (x_2 = L_StackTop(Mptr_0, m, m_1, s)) /\ (!P_StackEmpty(m_1, s)) /\
+      P_StackInvariant(Malloc_0, Mptr_0, m_1, s) /\
+      P_Unchanged_2_(m, Mint_0, a_5, x_5).
+  (* Call 'stack_push' *)
+  Have: ((P_StackEmpty(m_3, t) -> P_StackFull(m_1, t))) /\
+      ((P_StackFull(m_1, t) -> P_StackFull(m_3, t))) /\
+      (((!P_StackFull(m_1, t)) ->
+       (L_StackCapacity(m_3, t) = L_StackCapacity(m_1, t)))) /\
+      ((P_StackFull(m_1, t) -> P_StackInvariant(Malloc_0, Mptr_0, m_3, t))) /\
+      (((!P_StackFull(m_1, t)) ->
+       P_StackInvariant(Malloc_0, Mptr_0, m_3, t))) /\
+      (((!P_StackFull(m_1, t)) -> ((1 + x_3) = L_StackSize(m_3, t)))) /\
+      (((!P_StackFull(m_1, t)) -> P_Unchanged_2_(m_2, m, a_4, x_3))) /\
+      ((P_StackFull(m_1, t) ->
+       P_StackUnchanged(Mptr_0, m_2, m_3, Mptr_0, m, m_1, t))).
+  (* Assertion 'top' *)
+  Have: x_2 = L_StackTop(Mptr_0, m_2, m_3, s).
+}
+Prove: P_Equal_2_(m_2, m_2, a_5, x_5, a_4).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (193ms) (5038)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/stack_push_wd/stack_push_wd.acsl.c, line 152) in 'stack_push_wd' (1/2):
+Call Effect at line 157
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/stack_push_wd/stack_push_wd.acsl.c, line 152) in 'stack_push_wd' (2/2):
+Call Effect at line 158
+Let a = shiftfield_F1_Stack_size(s).
+Let m = Mint_0[a <- v].
+Let x = L_StackCapacity(Mint_0, s).
+Let x_1 = L_StackSize(Mint_0, s).
+Let a_1 = Mptr_0[shiftfield_F1_Stack_obj(s)].
+Let x_2 = Mint_0[a].
+Let a_2 = shift_sint32(a_1, x_2).
+Let m_1 = Mint_1[a_2 <- v_1].
+Let a_3 = Mptr_0[shiftfield_F1_Stack_obj(t)].
+Let a_4 = shiftfield_F1_Stack_size(t).
+Let x_3 = Mint_0[a_4].
+Let x_4 = m[a_4].
+Let a_5 = shift_sint32(a_3, x_4).
+Assume {
+  Have: !invalid(Malloc_0, a_5, 1).
+  Type: is_uint32(x_2) /\ is_uint32(x_3) /\ is_uint32(x_4) /\
+      is_sint32(L_StackTop(Mptr_0, m_1, m, s)).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, s, 3) /\ valid_rw(Malloc_0, t, 3).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_0, s).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_0, t).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_0, s).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_0, t).
+  (* Pre-condition *)
+  Have: separated(s, 3, t, 3).
+  (* Pre-condition *)
+  Have: separated(shift_sint32(a_1, 0), x, shift_sint32(a_3, 0),
+          L_StackCapacity(Mint_0, t)).
+  (* Pre-condition *)
+  Have: P_StackEqual(Mptr_0, Mint_1, Mint_0, Mptr_0, Mint_1, Mint_0, s, t).
+  (* Call 'stack_push' *)
+  Have: (L_StackCapacity(m, s) = x) /\ ((1 + x_1) = L_StackSize(m, s)) /\
+      (!P_StackEmpty(m, s)) /\ P_StackInvariant(Malloc_0, Mptr_0, m, s) /\
+      P_Unchanged_2_(m_1, Mint_1, L_StackStorage(Mptr_0, s), x_1).
+}
+Prove: (x_4 = x_3) \/ (a_5 = a) \/ (a_5 = a_4) \/ (a_5 = a_2).
+Prover Alt-Ergo  returns Valid (Qed:5ms) (21ms) (399)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/stack_push_wd/stack_push_wd.acsl.c, line 152) in 'stack_push_wd' (1/2):
+Call Effect at line 157
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/stack_push_wd/stack_push_wd.acsl.c, line 152) in 'stack_push_wd' (2/2):
+Call Effect at line 158
+Let a = shiftfield_F1_Stack_size(s).
+Let m = Mint_0[a <- v].
+Let a_1 = shiftfield_F1_Stack_size(t).
+Let m_1 = m[a_1 <- v_2].
+Let x = L_StackSize(m, t).
+Let a_2 = Mptr_0[shiftfield_F1_Stack_obj(s)].
+Let x_1 = Mint_0[a].
+Let a_3 = shift_sint32(a_2, x_1).
+Let m_2 = Mint_1[a_3 <- v_1].
+Let a_4 = Mptr_0[shiftfield_F1_Stack_obj(t)].
+Let x_2 = m[a_1].
+Let a_5 = shift_sint32(a_4, x_2).
+Let m_3 = m_2[a_5 <- v_3].
+Let x_3 = L_StackTop(Mptr_0, m_2, m, s).
+Let x_4 = L_StackCapacity(Mint_0, s).
+Let x_5 = L_StackSize(Mint_0, s).
+Let x_6 = Mint_0[a_1].
+Assume {
+  Have: !invalid(Malloc_0, a_5, 1).
+  Type: is_uint32(x_1) /\ is_uint32(x_6) /\ is_uint32(x_2) /\ is_sint32(x_3).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, s, 3) /\ valid_rw(Malloc_0, t, 3).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_0, s).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_0, t).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_0, s).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_0, t).
+  (* Pre-condition *)
+  Have: separated(s, 3, t, 3).
+  (* Pre-condition *)
+  Have: separated(shift_sint32(a_2, 0), x_4, shift_sint32(a_4, 0),
+          L_StackCapacity(Mint_0, t)).
+  (* Pre-condition *)
+  Have: P_StackEqual(Mptr_0, Mint_1, Mint_0, Mptr_0, Mint_1, Mint_0, s, t).
+  (* Call 'stack_push' *)
+  Have: (L_StackCapacity(m, s) = x_4) /\ ((1 + x_5) = L_StackSize(m, s)) /\
+      (!P_StackEmpty(m, s)) /\ P_StackInvariant(Malloc_0, Mptr_0, m, s) /\
+      P_Unchanged_2_(m_2, Mint_1, L_StackStorage(Mptr_0, s), x_5).
+  (* Call 'stack_push' *)
+  Have: ((P_StackEmpty(m_1, t) -> P_StackFull(m, t))) /\
+      ((P_StackFull(m, t) -> P_StackFull(m_1, t))) /\
+      (((!P_StackFull(m, t)) ->
+       (L_StackCapacity(m_1, t) = L_StackCapacity(m, t)))) /\
+      ((P_StackFull(m, t) -> P_StackInvariant(Malloc_0, Mptr_0, m_1, t))) /\
+      (((!P_StackFull(m, t)) -> P_StackInvariant(Malloc_0, Mptr_0, m_1, t))) /\
+      (((!P_StackFull(m, t)) -> ((1 + x) = L_StackSize(m_1, t)))) /\
+      (((!P_StackFull(m, t)) ->
+       P_Unchanged_2_(m_3, m_2, L_StackStorage(Mptr_0, t), x))) /\
+      (((!P_StackFull(m, t)) -> (L_StackTop(Mptr_0, m_3, m_1, t) = x_3))) /\
+      ((P_StackFull(m, t) ->
+       P_StackUnchanged(Mptr_0, m_3, m_1, Mptr_0, m_2, m, t))).
+}
+Prove: (x_2 = x_6) \/ (a_5 = a) \/ (a_5 = a_1) \/ (a_5 = a_3).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (32ms) (804)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_push'' in 'stack_push_wd' at call 'stack_push' (file output/live24/stack_push_wd/stack_push_wd.acsl.c, line 157)
+:
+Prove: true.
+Prover Qed returns Valid (0.53ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_push'' in 'stack_push_wd' at call 'stack_push' (file output/live24/stack_push_wd/stack_push_wd.acsl.c, line 158)
+:
+Let a = shiftfield_F1_Stack_size(s).
+Let m = Mint_0[a <- v].
+Let x = L_StackCapacity(Mint_0, s).
+Let x_1 = L_StackSize(Mint_0, s).
+Let a_1 = Mptr_0[shiftfield_F1_Stack_obj(s)].
+Let x_2 = Mint_0[a].
+Let m_1 = Mint_1[shift_sint32(a_1, x_2) <- v_1].
+Let a_2 = shiftfield_F1_Stack_size(t).
+Assume {
+  Type: is_uint32(x_2) /\ is_uint32(Mint_0[a_2]) /\ is_uint32(m[a_2]) /\
+      is_sint32(L_StackTop(Mptr_0, m_1, m, s)).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, s, 3) /\ valid_rw(Malloc_0, t, 3).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_0, s).
+  (* Pre-condition *)
+  Have: P_StackInvariant(Malloc_0, Mptr_0, Mint_0, t).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_0, s).
+  (* Pre-condition *)
+  Have: !P_StackFull(Mint_0, t).
+  (* Pre-condition *)
+  Have: separated(s, 3, t, 3).
+  (* Pre-condition *)
+  Have: separated(shift_sint32(a_1, 0), x,
+          shift_sint32(Mptr_0[shiftfield_F1_Stack_obj(t)], 0),
+          L_StackCapacity(Mint_0, t)).
+  (* Pre-condition *)
+  Have: P_StackEqual(Mptr_0, Mint_1, Mint_0, Mptr_0, Mint_1, Mint_0, s, t).
+  (* Call 'stack_push' *)
+  Have: (L_StackCapacity(m, s) = x) /\ ((1 + x_1) = L_StackSize(m, s)) /\
+      (!P_StackEmpty(m, s)) /\ P_StackInvariant(Malloc_0, Mptr_0, m, s) /\
+      P_Unchanged_2_(m_1, Mint_1, L_StackStorage(Mptr_0, s), x_1).
+}
+Prove: P_StackInvariant(Malloc_0, Mptr_0, m, t).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (61ms) (1723)
+
+------------------------------------------------------------

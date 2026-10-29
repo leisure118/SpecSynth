@@ -97,6 +97,8 @@ class ConfigLoader:
         base_url_env = final_config_data.get('base_url_env')
         if base_url_env and os.getenv(base_url_env, '').strip():
             final_config_data['base_url'] = os.environ[base_url_env].strip()
+        if base_url_env and not str(final_config_data.get('base_url') or '').strip():
+            raise ValueError(f"模型 '{model_name}' 未配置服务地址，请设置环境变量 '{base_url_env}'。")
 
         # 4. 解析 API Key 凭证
         api_key_env_var = final_config_data.get('api_key_env')

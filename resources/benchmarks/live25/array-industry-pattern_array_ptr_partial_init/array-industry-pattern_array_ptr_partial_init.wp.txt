@@ -1,0 +1,442 @@
+[kernel] Parsing output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c:27: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 25 goals scheduled
+[wp] [Timeout] typed_main_loop_assigns_2_part2 (Qed 8ms) (Alt-Ergo) (Stronger, 2 warnings)
+[wp] Proved goals:   24 / 25
+  Qed:            17
+  Alt-Ergo :       7 (9ms-12ms-21ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 10):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (a[i_2] = null))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a[i <- null][i_1] = null.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (20ms) (122117)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (10ms) (66)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c:27: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 20):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c:27: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (a_1[i_3] = null))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((50000 <= i_3) -> ((i_3 <= 99999) ->
+      (a_1[i_3] = null))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 50000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) -> (a[i_3] != null))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((50000 <= i_3) -> ((i_3 <= 99999) ->
+      (a[i_3] = null))).
+  (* Then *)
+  Have: i <= 49999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[i <- v_1] = Init_a_0.
+  (* Admit *)
+  Have: null != v.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a[i <- v][i_1] != null.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (97619)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (21ms) (89)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 21):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c:27: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let m = a[i <- v].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (50000 <= i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (a_1[i_3] = null))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((50000 <= i_3) -> ((i_3 <= 99999) ->
+      (a_1[i_3] = null))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 50000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) -> (a[i_3] != null))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((50000 <= i_3) -> ((i_3 <= 99999) ->
+      (a[i_3] = null))).
+  (* Then *)
+  Have: i <= 49999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[i <- v_1] = Init_a_0.
+  (* Admit *)
+  Have: null != v.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) -> (m[i_3] != null))).
+}
+Prove: m[i_1] = null.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (30ms) (191084)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (14ms) (88)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 21):
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (50000 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (a[i_2] = null))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: a[i] = null.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (71148)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (35)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 32):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 49999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) -> (a_1[i_4] = null))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((50000 <= i_4) -> ((i_4 <= 99999) ->
+      (a_1[i_4] = null))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 50000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> (a[i_4] != null))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((50000 <= i_4) -> ((i_4 <= 99999) ->
+      (a[i_4] = null))).
+  (* Else *)
+  Have: 50000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 49999) -> (a[i_4] != null))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 50000).
+  (* Then *)
+  Have: i_3 <= 49999.
+  (* Assertion *)
+  Have: a[i_3] != null.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: a[i] != null.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (97646)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (72)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 32):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 49999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = null))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((50000 <= i_3) -> ((i_3 <= 99999) ->
+      (a_1[i_3] = null))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 50000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (a[i_3] != null))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((50000 <= i_3) -> ((i_3 <= 99999) ->
+      (a[i_3] = null))).
+  (* Else *)
+  Have: 50000 <= i_2.
+}
+Prove: a[i] != null.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (69518)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (14ms) (49)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 38):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = null))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((50000 <= i_3) -> ((i_3 <= 99999) ->
+      (a_1[i_3] = null))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 50000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (a[i_3] != null))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((50000 <= i_3) -> ((i_3 <= 99999) ->
+      (a[i_3] = null))).
+  (* Else *)
+  Have: 50000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 49999) -> (a[i_3] != null))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 50000).
+  (* Then *)
+  Have: i <= 49999.
+}
+Prove: a[i] != null.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (70472)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (53)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 22) (1/2):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c:27: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 22) (2/2):
+Call Effect at line 27
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c:27: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let m = a_1[i_1 <- v_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(1 + i_1).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (a[i_2] = null))).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((50000 <= i_2) -> ((i_2 <= 99999) ->
+      (a[i_2] = null))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 50000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (a_1[i_2] != null))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((50000 <= i_2) -> ((i_2 <= 99999) ->
+      (a_1[i_2] = null))).
+  (* Then *)
+  Have: i_1 <= 49999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[i_1 <- v] = Init_a_0.
+  (* Admit *)
+  Have: null != v_1.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i_1) -> ((0 <= i_2) -> (m[i_2] != null))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((50000 <= i_2) -> ((i_2 <= 99999) ->
+      (m[i_2] = null))).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Unknown (Qed:8ms)
+Prover Alt-Ergo  returns Timeout (Qed:8ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 25):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c:27: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 25):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c:27: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_ptr_partial_init/array-industry-pattern_array_ptr_partial_init.acsl.c:6: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

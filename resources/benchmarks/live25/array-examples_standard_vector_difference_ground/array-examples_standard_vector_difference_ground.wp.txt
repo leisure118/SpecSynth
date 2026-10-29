@@ -1,0 +1,233 @@
+[kernel] Parsing output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c:22: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 20 goals scheduled
+[wp] Proved goals:   20 / 20
+  Qed:            16
+  Alt-Ergo :       4 (8ms-9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 28):
+Let x = a[i_1].
+Let x_1 = b[i_1].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(1 + i_1).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a[i_3] = (b[i_3] + c[i_3])))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: a[i] = (b[i] + c[i_1 <- x - x_1][i]).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (31076)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (83)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 39):
+Let x_1 = a[x].
+Let x_2 = b[x].
+Let x_3 = c[x].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a[i_3] = (b[i_3] + c[i_3])))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      (a[i_3] = (b[i_3] + c[i_3])))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Assertion *)
+  Have: x_1 = (x_2 + x_3).
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: a[i] = (b[i] + c[i]).
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (31955)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (8ms) (70)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 39):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a[i_3] = (b[i_3] + c[i_3])))).
+  (* Else *)
+  Have: 100000 <= i_2.
+}
+Prove: a[i] = (b[i] + c[i]).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (29463)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (9ms) (44)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 44):
+Let x_1 = a[x].
+Let x_2 = b[x].
+Let x_3 = c[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(x_3).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a[i_2] = (b[i_2] + c[i_2])))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      (a[i_2] = (b[i_2] + c[i_2])))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+}
+Prove: x_1 = (x_2 + x_3).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (30987)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (8ms) (56)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_standard_vector_difference_ground/array-examples_standard_vector_difference_ground.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

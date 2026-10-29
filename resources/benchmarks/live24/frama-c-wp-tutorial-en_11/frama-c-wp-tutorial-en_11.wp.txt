@@ -1,0 +1,49 @@
+[kernel] Parsing output/live24/frama-c-wp-tutorial-en_11/frama-c-wp-tutorial-en_11.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 3 goals scheduled
+[wp] Proved goals:    3 / 3
+  Qed:             0
+  Alt-Ergo :       3 (7ms-10ms-12ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/frama-c-wp-tutorial-en_11/frama-c-wp-tutorial-en_11.acsl.c, line 15):
+Let x = L_ax_b(3, 10, 4). Assume { Type: is_sint32(x). }
+Prove: x = 34.
+Prover Z3 4.15.4 returns Valid (10ms) (14892)
+Prover Alt-Ergo  returns Valid (7ms) (21)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/frama-c-wp-tutorial-en_11/frama-c-wp-tutorial-en_11.acsl.c, line 6) in 'restricted'' in 'main' at initialization of 'result' (file output/live24/frama-c-wp-tutorial-en_11/frama-c-wp-tutorial-en_11.acsl.c, line 14)
+:
+Let x = L_ax_b(3, 10, 4). Prove: ((-2147483648) <= x) /\ (x <= 2147483647).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (9491)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (11ms) (23)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function restricted
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/frama-c-wp-tutorial-en_11/frama-c-wp-tutorial-en_11.acsl.c, line 7) in 'restricted':
+Let x_1 = L_ax_b(3, x, 4).
+Let x_2 = 4 + (3 * x).
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_2).
+  (* Pre-condition *)
+  Have: ((-2147483648) <= x_1) /\ (x_1 <= 2147483647).
+}
+Prove: x_2 = x_1.
+Prover Z3 4.15.4 returns Valid (Qed:0.86ms) (10ms) (15147)
+Prover Alt-Ergo  returns Valid (Qed:0.86ms) (12ms) (28)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/frama-c-wp-tutorial-en_11/frama-c-wp-tutorial-en_11.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'restricted'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/live24/frama-c-wp-tutorial-en_11/frama-c-wp-tutorial-en_11.acsl.c:12: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

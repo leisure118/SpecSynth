@@ -1,0 +1,113 @@
+[kernel] Parsing output/autobench_v2/226/226.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             8
+  Alt-Ergo :       2 (13ms-17ms)
+------------------------------------------------------------
+  Function div_rem
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/226/226.acsl.c, line 6) in 'div_rem':
+Let x_1 = x / y.
+Let x_2 = Mint_0[q <- to_uint32(x_1)][r <- to_uint32(x % y)][q].
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y) /\ is_uint32(x_2).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ (region(r.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: y != 0.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, r, 1).
+  (* Pre-condition *)
+  Have: r != q.
+}
+Prove: x_2 = x_1.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (108744)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (17ms) (218)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/226/226.acsl.c, line 7) in 'div_rem':
+Let x_1 = x % y.
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ (region(r.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: y != 0.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, r, 1).
+  (* Pre-condition *)
+  Have: r != q.
+}
+Prove: x_1 = to_uint32(x_1).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (102113)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (13ms) (113)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/226/226.acsl.c, line 8) in 'div_rem' (1/2):
+Effect at line 11
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/autobench_v2/226/226.acsl.c, line 8) in 'div_rem' (2/2):
+Effect at line 12
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/226/226.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (0.79ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/226/226.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/226/226.acsl.c, line 2) in 'div_rem'' in 'main' at call 'div_rem' (file output/autobench_v2/226/226.acsl.c, line 18)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/226/226.acsl.c, line 3) in 'div_rem'' in 'main' at call 'div_rem' (file output/autobench_v2/226/226.acsl.c, line 18)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/226/226.acsl.c, line 4) in 'div_rem'' in 'main' at call 'div_rem' (file output/autobench_v2/226/226.acsl.c, line 18)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/226/226.acsl.c, line 5) in 'div_rem'' in 'main' at call 'div_rem' (file output/autobench_v2/226/226.acsl.c, line 18)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/226/226.acsl.c:16: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

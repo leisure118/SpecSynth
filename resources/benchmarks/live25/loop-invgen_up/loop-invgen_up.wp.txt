@@ -1,0 +1,122 @@
+[kernel] Parsing output/live25/loop-invgen_up/loop-invgen_up.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-invgen_up/loop-invgen_up.acsl.c:12: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:            14
+  Alt-Ergo :       1 (10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (0.85ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (0.92ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 31):
+Assume {
+  Type: is_sint32(j) /\ is_sint32(k) /\ is_sint32(k_1) /\ is_sint32(n).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Invariant *)
+  Have: 0 <= k_1.
+  (* Else *)
+  Have: n <= k_1.
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: n <= (j + k).
+  (* Then *)
+  Have: j < n.
+}
+Prove: 0 < k.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (28709)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (29)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-invgen_up/loop-invgen_up.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-invgen_up/loop-invgen_up.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

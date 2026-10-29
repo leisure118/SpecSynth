@@ -1,0 +1,115 @@
+[kernel] Parsing output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             7
+  Alt-Ergo :       1 (10ms)
+------------------------------------------------------------
+  Function day_of
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 4) in 'day_of':
+Let x = days_0[m - 1].
+Assume {
+  Type: is_sint32(m) /\ is_sint32(x).
+  (* Pre-condition *)
+  Have: (0 < m) /\ (m <= 12).
+  (* Initializer *)
+  Init: days_0[0] = 31.
+  (* Initializer *)
+  Init: days_0[1] = 28.
+  (* Initializer *)
+  Init: days_0[2] = 31.
+  (* Initializer *)
+  Init: days_0[3] = 30.
+  (* Initializer *)
+  Init: days_0[4] = 31.
+  (* Initializer *)
+  Init: days_0[5] = 30.
+  (* Initializer *)
+  Init: forall i : Z. ((6 <= i) -> ((i <= 7) -> (days_0[i] = 31))).
+  (* Initializer *)
+  Init: days_0[8] = 30.
+  (* Initializer *)
+  Init: days_0[9] = 31.
+  (* Initializer *)
+  Init: days_0[10] = 30.
+  (* Initializer *)
+  Init: days_0[11] = 31.
+}
+Prove: x
+         = (if (m = 1) then 31
+            else (if (m = 2) then 28
+                  else (if (m = 3) then 31
+                        else (if (m = 4) then 30
+                              else (if (m = 5) then 31
+                                    else (if (m = 6) then 30
+                                          else (if (m = 7) then 31
+                                                else (if (m = 8) then 31
+                                                      else (if (m = 9)
+                                                            then 30
+                                                            else (if 
+                                                                  (m = 10)
+                                                                  then 31
+                                                                  else 
+                                                                  (if 
+                                                                   (m = 11)
+                                                                   then 30
+                                                                   else 31))))))))))).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (33203)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (236)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'day_of':
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 2) in 'day_of'' in 'main' at initialization of 'm2' (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 11)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 2) in 'day_of'' in 'main' at initialization of 'm1' (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 13)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 2) in 'day_of'' in 'main' at initialization of 'm4' (file output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c, line 15)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/frama-c-wp-tutorial-en_8/frama-c-wp-tutorial-en_8.acsl.c:10: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

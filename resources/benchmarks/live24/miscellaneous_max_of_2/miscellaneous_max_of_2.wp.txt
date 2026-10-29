@@ -1,0 +1,55 @@
+[kernel] Parsing output/live24/miscellaneous_max_of_2/miscellaneous_max_of_2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 5 goals scheduled
+[wp] Proved goals:    5 / 5
+  Qed:             4
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/miscellaneous_max_of_2/miscellaneous_max_of_2.acsl.c, line 16):
+Assume {
+  Type: is_sint32(result_0).
+  (* Call 'max' *)
+  Have: (5 <= result_0) /\ (10 <= result_0) /\
+      ((result_0 = 5) \/ (result_0 = 10)).
+}
+Prove: result_0 = 10.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (4534)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (14)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/miscellaneous_max_of_2/miscellaneous_max_of_2.acsl.c, line 2) in 'max':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/miscellaneous_max_of_2/miscellaneous_max_of_2.acsl.c, line 3) in 'max':
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max' (1/2):
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max' (2/2):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/miscellaneous_max_of_2/miscellaneous_max_of_2.acsl.c:12: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

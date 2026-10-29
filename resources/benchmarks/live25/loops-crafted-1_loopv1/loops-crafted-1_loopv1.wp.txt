@@ -1,0 +1,113 @@
+[kernel] Parsing output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c:11: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             7
+  Alt-Ergo :       2 (7ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c, line 15):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(n) /\ is_sint32(tmp_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Else *)
+  Have: n <= 50000001.
+  (* Invariant *)
+  Have: 0 <= i_3.
+  (* Invariant *)
+  Have: (i_3 % 3) = 0.
+  (* Then *)
+  Have: i_3 < n.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  If tmp_0 != 0
+  Then { Have: i_3 = i_1. Have: (6 + i_1) = i. }
+  Else { Have: i_3 = i_2. Have: (3 + i_2) = i. }
+}
+Prove: 0 <= i.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (30848)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (36)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c, line 16):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(n) /\ is_sint32(tmp_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Else *)
+  Have: n <= 50000001.
+  (* Invariant *)
+  Have: 0 <= i_3.
+  (* Invariant *)
+  Have: (i_3 % 3) = 0.
+  (* Then *)
+  Have: i_3 < n.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  If tmp_0 != 0
+  Then { Have: i_3 = i_1. Have: (6 + i_1) = i. }
+  Else { Have: i_3 = i_2. Have: (3 + i_2) = i. }
+  (* Invariant *)
+  Have: 0 <= i.
+}
+Prove: (i % 3) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (36503)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (140)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c, line 17) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c, line 17) (2/2):
+Call Result at line 21
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops-crafted-1_loopv1/loops-crafted-1_loopv1.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -100,6 +100,13 @@ class JsonStore:
 
     def write_result(self, task_id: str, result: dict[str, Any]) -> None:
         self._write_json(RUNS_DIR / task_id / "result.json", result)
+        task=self.read_task(task_id)
+        if task and task.metadata.get('benchmark'):
+            self.write_text_artifact(task_id,'benchmark','proof.json',json.dumps(result,ensure_ascii=False))
+            candidate=result.get('result_code')
+            if candidate:
+                self.write_text_artifact(task_id,'benchmark','candidate.c',candidate)
+
 
     def read_result(self, task_id: str) -> dict[str, Any] | None:
         result_path = RUNS_DIR / task_id / "result.json"

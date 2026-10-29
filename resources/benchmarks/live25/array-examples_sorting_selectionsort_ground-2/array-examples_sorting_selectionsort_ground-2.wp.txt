@@ -1,0 +1,1114 @@
+[kernel] Parsing output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c:21: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 62 goals scheduled
+[wp] Proved goals:   62 / 62
+  Qed:            45
+  Alt-Ergo :      17 (7ms-12ms-22ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 26):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(a_1[s]) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1) /\ (i_1 <= i_3).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a_2[i_5] <= a_2[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a_2[i_5] <= a_2[i_4]))))).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= i_3) -> ((i_3 <= i_4) ->
+      (a_2[i_3] <= a_2[i_4]))).
+  (* Invariant *)
+  Have: (i_3 < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i_3 <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 < k) ->
+      (a_2[s] <= a_2[i_4]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i_3
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i_3]][i_3 <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: (x <= i_3) /\ (0 <= x).
+  (* Else *)
+  Have: i_3 <= x.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 <= 99999) ->
+      (a[i_3] <= a[i_4]))).
+  (* Invariant *)
+  Have: (i_3 <= x_1) /\ (x_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= x_1.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (10ms) (41379)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (21ms) (464)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 27):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(a_1[s]) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_3) /\ (i_3 < i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a_2[i_5] <= a_2[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a_2[i_5] <= a_2[i_4]))))).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= i_3) -> ((i_3 <= i_4) ->
+      (a_2[i_3] <= a_2[i_4]))).
+  (* Invariant *)
+  Have: (i_3 < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i_3 <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 < k) ->
+      (a_2[s] <= a_2[i_4]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i_3
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i_3]][i_3 <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: (x <= i_3) /\ (0 <= x).
+  (* Else *)
+  Have: i_3 <= x.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 <= 99999) ->
+      (a[i_3] <= a[i_4]))).
+  (* Invariant *)
+  Have: (i_3 <= x_1) /\ (x_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= x_1.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((i_4 <= i_3) -> ((0 <= i_5) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (10ms) (38935)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (10ms) (152)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (26ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 37):
+Let x = a[k].
+Let x_1 = a[s_1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(s_1) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(1 + i_2) /\ is_sint32(1 + k).
+  (* Goal *)
+  When: (i_2 <= i) /\ (i <= k).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_3 < i_2) -> ((i_4 <= i_3) ->
+      (a[i_4] <= a[i_3])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> ((i_2 <= i_3) ->
+      ((i_3 <= 99999) -> (a[i_4] <= a[i_3]))))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i_2) -> ((i_2 <= i_3) ->
+      (a[i_2] <= a[i_3]))).
+  (* Invariant *)
+  Have: (i_2 < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i_2 <= s_1) /\ (s_1 <= 99999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_2 <= i_3) -> ((i_3 < k) -> (x_1 <= a[i_3]))).
+  (* Then *)
+  Have: k <= 99999.
+  If x < x_1
+  Then { Have: s = k. }
+  Else { Have: s_1 = s. }
+  (* Invariant *)
+  Have: (i_2 <= s) /\ (s <= 99999).
+}
+Prove: a[s] <= a[i].
+Prover Z3 4.15.4 returns Valid (Qed:25ms) (10ms) (36895)
+Prover Alt-Ergo  returns Valid (Qed:25ms) (16ms) (298)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 54):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(x) /\ is_sint32(y) /\ is_sint32(a_1[s]) /\
+      is_sint32(1 + i_3) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i_1 < i_3) /\ (i <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a_2[i_5] <= a_2[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a_2[i_5] <= a_2[i_4]))))).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= i_3) -> ((i_3 <= i_4) ->
+      (a_2[i_3] <= a_2[i_4]))).
+  (* Invariant *)
+  Have: (i_3 < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i_3 <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 < k) ->
+      (a_2[s] <= a_2[i_4]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i_3
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i_3]][i_3 <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: (x <= i_3) /\ (0 <= x).
+  (* Then *)
+  Have: x < i_3.
+  (* Invariant *)
+  Have: (y <= i_3) /\ (x < y).
+  (* Else *)
+  Have: i_3 <= y.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:18ms) (10ms) (36863)
+Prover Alt-Ergo  returns Valid (Qed:18ms) (12ms) (162)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 54):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(a_1[s]) /\ is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i_1 < i_3) /\ (i <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a_2[i_5] <= a_2[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a_2[i_5] <= a_2[i_4]))))).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= i_3) -> ((i_3 <= i_4) ->
+      (a_2[i_3] <= a_2[i_4]))).
+  (* Invariant *)
+  Have: (i_3 < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i_3 <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 < k) ->
+      (a_2[s] <= a_2[i_4]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i_3
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i_3]][i_3 <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (37033)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (22ms) (485)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 61):
+Let x_1 = a[x].
+Let x_2 = a[y].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(a_1[s]) /\ is_sint32(1 + i_3) /\ is_sint32(1 + x) /\
+      is_sint32(1 + y).
+  (* Goal *)
+  When: (0 <= i) /\ (i_1 < i_3) /\ (i <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a_2[i_5] <= a_2[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a_2[i_5] <= a_2[i_4]))))).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= i_3) -> ((i_3 <= i_4) ->
+      (a_2[i_3] <= a_2[i_4]))).
+  (* Invariant *)
+  Have: (i_3 < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i_3 <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 < k) ->
+      (a_2[s] <= a_2[i_4]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i_3
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i_3]][i_3 <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: (x <= i_3) /\ (0 <= x).
+  (* Then *)
+  Have: x < i_3.
+  (* Invariant *)
+  Have: (y <= i_3) /\ (x < y).
+  (* Then *)
+  Have: y < i_3.
+  (* Assertion *)
+  Have: x_1 <= x_2.
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (10ms) (38178)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (15ms) (248)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 61):
+Let x = 1 + i_3.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(y) /\ is_sint32(a_1[s]) /\ is_sint32(y - 1) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i_1 < i_3) /\ (i <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a_2[i_5] <= a_2[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a_2[i_5] <= a_2[i_4]))))).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= i_3) -> ((i_3 <= i_4) ->
+      (a_2[i_3] <= a_2[i_4]))).
+  (* Invariant *)
+  Have: (i_3 < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i_3 <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 < k) ->
+      (a_2[s] <= a_2[i_4]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i_3
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i_3]][i_3 <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: (0 < y) /\ (y <= x).
+  (* Then *)
+  Have: y <= i_3.
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (36139)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (12ms) (148)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 66):
+Let x_1 = a[x].
+Let x_2 = a[y].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(a_1[s]) /\ is_sint32(1 + i_1) /\ is_sint32(1 + x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_2 < i_1) -> ((i_3 <= i_2) ->
+      (a_2[i_3] <= a_2[i_2])))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((i_1 <= i_2) ->
+      ((i_2 <= 99999) -> (a_2[i_3] <= a_2[i_2]))))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i_1) -> ((i_1 <= i_2) ->
+      (a_2[i_1] <= a_2[i_2]))).
+  (* Invariant *)
+  Have: (i_1 < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i_1 <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 <= i_2) -> ((i_2 < k) ->
+      (a_2[s] <= a_2[i_2]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i_1
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i_1]][i_1 <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_2 < i_1) -> ((i_3 <= i_2) ->
+      (a[i_3] <= a[i_2])))).
+  (* Invariant *)
+  Have: (x <= i_1) /\ (0 <= x).
+  (* Then *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: (y <= i_1) /\ (x < y).
+  (* Then *)
+  Have: y < i_1.
+}
+Prove: x_1 <= x_2.
+Prover Z3 4.15.4 returns Valid (Qed:21ms) (10ms) (36731)
+Prover Alt-Ergo  returns Valid (Qed:21ms) (11ms) (150)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 70):
+Let x_2 = a[i].
+Let x_3 = a[x].
+Let x_4 = 1 + x.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(a_1[s]) /\ is_sint32(1 + i) /\ is_sint32(x_4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_2 < i) -> ((i_3 <= i_2) ->
+      (a_2[i_3] <= a_2[i_2])))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i) -> ((i <= i_2) ->
+      ((i_2 <= 99999) -> (a_2[i_3] <= a_2[i_2]))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((i <= i_2) -> (a_2[i] <= a_2[i_2]))).
+  (* Invariant *)
+  Have: (i < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i <= i_2) -> ((i_2 < k) -> (a_2[s] <= a_2[i_2]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i]][i <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_2 < i) -> ((i_3 <= i_2) ->
+      (a[i_3] <= a[i_2])))).
+  (* Invariant *)
+  Have: (x_1 <= i) /\ (0 <= x_1).
+  (* Else *)
+  Have: i <= x_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i <= i_2) -> ((i_2 <= 99999) -> (x_2 <= a[i_2]))).
+  (* Invariant *)
+  Have: (i <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Assertion *)
+  Have: x_2 <= x_3.
+}
+Prove: i <= x_4.
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (37117)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (7ms) (31)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 70):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 71):
+Let x_2 = 1 + x_1.
+Let x_3 = a[i].
+Let x_4 = a[x_1].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_3) /\ is_sint32(x_4) /\
+      is_sint32(a_1[s]) /\ is_sint32(1 + i) /\ is_sint32(x_2).
+  (* Goal *)
+  When: (i <= i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_3 < i) -> ((i_4 <= i_3) ->
+      (a_2[i_4] <= a_2[i_3])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_4 < i) -> ((i <= i_3) ->
+      ((i_3 <= 99999) -> (a_2[i_4] <= a_2[i_3]))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((i <= i_3) -> (a_2[i] <= a_2[i_3]))).
+  (* Invariant *)
+  Have: (i < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 < k) -> (a_2[s] <= a_2[i_3]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i]][i <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_3 < i) -> ((i_4 <= i_3) ->
+      (a[i_4] <= a[i_3])))).
+  (* Invariant *)
+  Have: (x <= i) /\ (0 <= x).
+  (* Else *)
+  Have: i <= x.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 99999) -> (x_3 <= a[i_3]))).
+  (* Invariant *)
+  Have: (i <= x_1) /\ (x_1 <= 100000).
+  (* Then *)
+  Have: x_1 <= 99999.
+  (* Assertion *)
+  Have: x_3 <= x_4.
+  (* Invariant *)
+  Have: i <= x_2.
+}
+Prove: x_3 <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (38265)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (12ms) (171)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 71):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(x) /\ is_sint32(a_1[s]) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (i <= i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_3 < i) -> ((i_4 <= i_3) ->
+      (a_2[i_4] <= a_2[i_3])))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_4 < i) -> ((i <= i_3) ->
+      ((i_3 <= 99999) -> (a_2[i_4] <= a_2[i_3]))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((i <= i_3) -> (a_2[i] <= a_2[i_3]))).
+  (* Invariant *)
+  Have: (i < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 < k) -> (a_2[s] <= a_2[i_3]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i]][i <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_3 < i) -> ((i_4 <= i_3) ->
+      (a[i_4] <= a[i_3])))).
+  (* Invariant *)
+  Have: (x <= i) /\ (0 <= x).
+  (* Else *)
+  Have: i <= x.
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (37308)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (11ms) (186)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 76):
+Let x_2 = a[i].
+Let x_3 = a[x].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(k) /\ is_sint32(s) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(a_1[s]) /\ is_sint32(1 + i).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_2 < i) -> ((i_3 <= i_2) ->
+      (a_2[i_3] <= a_2[i_2])))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i) -> ((i <= i_2) ->
+      ((i_2 <= 99999) -> (a_2[i_3] <= a_2[i_2]))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((i <= i_2) -> (a_2[i] <= a_2[i_2]))).
+  (* Invariant *)
+  Have: (i < k) /\ (k <= 100000).
+  (* Invariant *)
+  Have: (i <= s) /\ (s <= 99999).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i <= i_2) -> ((i_2 < k) -> (a_2[s] <= a_2[i_2]))).
+  (* Else *)
+  Have: 100000 <= k.
+  If s != i
+  Then { Have: a_2 = a_1. Have: a_1[s <- a_1[i]][i <- a_1[s]] = a. }
+  Else { Have: a_2 = a. }
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_2 < i) -> ((i_3 <= i_2) ->
+      (a[i_3] <= a[i_2])))).
+  (* Invariant *)
+  Have: (x_1 <= i) /\ (0 <= x_1).
+  (* Else *)
+  Have: i <= x_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i <= i_2) -> ((i_2 <= 99999) -> (x_2 <= a[i_2]))).
+  (* Invariant *)
+  Have: (i <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+}
+Prove: x_2 <= x_3.
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (10ms) (37201)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (10ms) (134)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 81):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 81):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 82):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(x) /\ is_sint32(y) /\
+      is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a[i_5] <= a[i_4]))))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 <= i_4) ->
+      ((i_4 <= 99999) -> (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Invariant *)
+  Have: (x < y) /\ (y <= 100000).
+  (* Else *)
+  Have: 100000 <= y.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (33171)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (87)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 82):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a[i_5] <= a[i_4]))))).
+  (* Else *)
+  Have: 100000 <= i_3.
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30875)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (54)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 88):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 88):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 89):
+Let x_1 = a[x].
+Let x_2 = a[y].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(x) /\ is_sint32(y) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(1 + x) /\
+      is_sint32(1 + y).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a[i_5] <= a[i_4]))))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 <= i_4) ->
+      ((i_4 <= 99999) -> (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Invariant *)
+  Have: (x < y) /\ (y <= 100000).
+  (* Then *)
+  Have: y <= 99999.
+  (* Assertion *)
+  Have: x_1 <= x_2.
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (35287)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (9ms) (95)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 89):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(y) /\ is_sint32(y - 1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_4 < i_3) -> ((i_5 <= i_4) ->
+      (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((i_3 <= i_4) ->
+      ((i_4 <= 99999) -> (a[i_5] <= a[i_4]))))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 <= i_4) ->
+      ((i_4 <= 99999) -> (a[i_5] <= a[i_4])))).
+  (* Invariant *)
+  Have: (0 < y) /\ (y <= 100001).
+  (* Then *)
+  Have: y <= 100000.
+}
+Prove: a[i] <= a[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (32512)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (69)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 94):
+Let x_1 = a[x].
+Let x_2 = a[y].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(y) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(1 + x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_2 < i_1) -> ((i_3 <= i_2) ->
+      (a[i_3] <= a[i_2])))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((i_1 <= i_2) ->
+      ((i_2 <= 99999) -> (a[i_3] <= a[i_2]))))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 <= i_2) ->
+      ((i_2 <= 99999) -> (a[i_3] <= a[i_2])))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Invariant *)
+  Have: (x < y) /\ (y <= 100000).
+  (* Then *)
+  Have: y <= 99999.
+}
+Prove: x_1 <= x_2.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (33080)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (9ms) (65)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 28) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 28) (2/2):
+Effect at line 41
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 83):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 90):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 75):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 75):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 86):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 86):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 93):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c, line 93):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_sorting_selectionsort_ground-2/array-examples_sorting_selectionsort_ground-2.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

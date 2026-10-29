@@ -1,0 +1,424 @@
+[kernel] Parsing output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 30 goals scheduled
+[wp] Proved goals:   30 / 30
+  Qed:            22
+  Alt-Ergo :       8 (8ms-10ms-13ms)
+------------------------------------------------------------
+  Function max_ptr
+------------------------------------------------------------
+
+Goal Complete behaviors 'do_not_change', 'reorder':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Disjoint behaviors 'do_not_change', 'reorder':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 19):
+Let x = Mint_0[a].
+Let x_1 = Mint_0[b].
+Let x_2 = Mint_0[b <- x][a <- x_1][b].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: x < x_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1).
+}
+Prove: x_2 <= x_1.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (107985)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (38)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 3) in 'max_ptr' (1/2):
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 3) in 'max_ptr' (2/2):
+Effect at line 17
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max_ptr with behavior do_not_change
+------------------------------------------------------------
+
+Goal Post-condition for 'do_not_change' (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 9) in 'max_ptr':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max_ptr with behavior reorder
+------------------------------------------------------------
+
+Goal Post-condition for 'reorder' (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 6) in 'max_ptr':
+Let x = Mint_0[a].
+Let x_1 = Mint_0[b].
+Let x_2 = Mint_0[b <- x][a <- x_1][b].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1).
+  (* Pre-condition for 'reorder' *)
+  Have: x < x_1.
+  (* Assertion *)
+  Have: x_2 <= x_1.
+}
+Prove: x_2 = x.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (107958)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (40)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function min_ptr
+------------------------------------------------------------
+
+Goal Complete behaviors 'do_not_change', 'reorder':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Disjoint behaviors 'do_not_change', 'reorder':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 35):
+Let x = Mint_0[b].
+Let x_1 = Mint_0[a].
+Let x_2 = Mint_0[a <- v][b <- v_1][a].
+Assume {
+  Type: is_sint32(v_1) /\ is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1).
+  (* Call 'max_ptr' *)
+  Have: (((x < x_1) -> ((x_1 = v_1) /\ (x_2 = x)))) /\
+      (((x_1 <= x) -> ((x = v_1) /\ (x_2 = x_1)))).
+}
+Prove: x_2 <= v_1.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (108952)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (55)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 23) in 'min_ptr':
+Call Effect at line 34
+Prove: true.
+Prover Qed returns Valid (0.59ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 23) in 'min_ptr':
+Call Effect at line 34
+Prove: true.
+Prover Qed returns Valid (0.79ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 2) in 'max_ptr'' in 'min_ptr' at call 'max_ptr' (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 34)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function min_ptr with behavior do_not_change
+------------------------------------------------------------
+
+Goal Post-condition for 'do_not_change' (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 29) in 'min_ptr':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function min_ptr with behavior reorder
+------------------------------------------------------------
+
+Goal Post-condition for 'reorder' (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 26) in 'min_ptr':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function order_3_inc_max_min
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 42) in 'order_3_inc_max_min':
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 46):
+Let x = Mint_0[c].
+Let x_1 = Mint_0[b].
+Let x_2 = Mint_0[b <- v][c <- v_1][b].
+Assume {
+  Type: is_sint32(v_1) /\ is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+  (* Pre-condition *)
+  Have: (b != a) /\ (c != a) /\ (c != b).
+  (* Call 'max_ptr' *)
+  Have: (((x < x_1) -> ((x_1 = v_1) /\ (x_2 = x)))) /\
+      (((x_1 <= x) -> ((x = v_1) /\ (x_2 = x_1)))).
+}
+Prove: x_2 <= v_1.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (177505)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (61)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 48):
+Let m = Mint_0[b <- v][c <- v_1].
+Let x = m[a].
+Let m_1 = m[a <- v_2][c <- v_3].
+Let x_1 = m_1[a].
+Let x_2 = m[b].
+Let x_3 = Mint_0[c].
+Let x_4 = Mint_0[b].
+Assume {
+  Type: is_sint32(v_3) /\ is_sint32(v_1) /\ is_sint32(x_4) /\
+      is_sint32(x_3) /\ is_sint32(x) /\ is_sint32(x_2) /\ is_sint32(x_1) /\
+      is_sint32(m_1[b]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+  (* Pre-condition *)
+  Have: (b != a) /\ (c != a) /\ (c != b).
+  (* Call 'max_ptr' *)
+  Have: (((x_3 < x_4) -> ((x_4 = v_1) /\ (x_2 = x_3)))) /\
+      (((x_4 <= x_3) -> ((x_3 = v_1) /\ (x_2 = x_4)))).
+  (* Assertion *)
+  Have: x_2 <= v_1.
+  (* Call 'max_ptr' *)
+  Have: (((x <= v_1) -> ((v_1 = v_3) /\ (x_1 = x)))) /\
+      (((v_1 < x) -> ((x = v_3) /\ (x_1 = v_1)))).
+}
+Prove: x_1 <= v_3.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (20ms) (180220)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (10ms) (118)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 49):
+Let m = Mint_0[b <- v][c <- v_1].
+Let m_1 = m[a <- v_2][c <- v_3].
+Let x = m_1[a].
+Let x_1 = m[a].
+Let x_2 = m[b].
+Let x_3 = Mint_0[c].
+Let x_4 = Mint_0[b].
+Let x_5 = m_1[b].
+Assume {
+  Type: is_sint32(v_3) /\ is_sint32(v_1) /\ is_sint32(x_4) /\
+      is_sint32(x_3) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x) /\
+      is_sint32(x_5).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+  (* Pre-condition *)
+  Have: (b != a) /\ (c != a) /\ (c != b).
+  (* Call 'max_ptr' *)
+  Have: (((x_3 < x_4) -> ((x_4 = v_1) /\ (x_2 = x_3)))) /\
+      (((x_4 <= x_3) -> ((x_3 = v_1) /\ (x_2 = x_4)))).
+  (* Assertion *)
+  Have: x_2 <= v_1.
+  (* Call 'max_ptr' *)
+  Have: (((x_1 <= v_1) -> ((v_1 = v_3) /\ (x = x_1)))) /\
+      (((v_1 < x_1) -> ((x_1 = v_3) /\ (x = v_1)))).
+  (* Assertion *)
+  Have: x <= v_3.
+}
+Prove: x_5 <= v_3.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (180243)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (121)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 51):
+Let m = Mint_0[b <- v][c <- v_1].
+Let m_1 = m[a <- v_2][c <- v_3].
+Let x = m_1[b].
+Let x_1 = m_1[a].
+Let m_2 = m_1[a <- v_4][b <- v_5].
+Let x_2 = m_2[a].
+Let x_3 = m[a].
+Let x_4 = m[b].
+Let x_5 = Mint_0[c].
+Let x_6 = Mint_0[b].
+Assume {
+  Type: is_sint32(v_5) /\ is_sint32(v_3) /\ is_sint32(v_1) /\
+      is_sint32(x_6) /\ is_sint32(x_5) /\ is_sint32(x_3) /\ is_sint32(x_4) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_2) /\ is_sint32(m_2[c]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+  (* Pre-condition *)
+  Have: (b != a) /\ (c != a) /\ (c != b).
+  (* Call 'max_ptr' *)
+  Have: (((x_5 < x_6) -> ((x_6 = v_1) /\ (x_4 = x_5)))) /\
+      (((x_6 <= x_5) -> ((x_5 = v_1) /\ (x_4 = x_6)))).
+  (* Assertion *)
+  Have: x_4 <= v_1.
+  (* Call 'max_ptr' *)
+  Have: (((x_3 <= v_1) -> ((v_1 = v_3) /\ (x_1 = x_3)))) /\
+      (((v_1 < x_3) -> ((x_3 = v_3) /\ (x_1 = v_1)))).
+  (* Assertion *)
+  Have: x_1 <= v_3.
+  (* Assertion *)
+  Have: x <= v_3.
+  (* Call 'max_ptr' *)
+  Have: (((x < x_1) -> ((x_1 = v_5) /\ (x_2 = x)))) /\
+      (((x_1 <= x) -> ((x = v_5) /\ (x_2 = x_1)))).
+}
+Prove: x_2 <= v_5.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (182315)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (13ms) (181)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 52):
+Let m = Mint_0[b <- v_1][c <- v_2].
+Let m_1 = m[a <- v_3][c <- v_4].
+Let m_2 = m_1[a <- v_5][b <- v].
+Let x = m_2[a].
+Let x_1 = m_1[b].
+Let x_2 = m_1[a].
+Let x_3 = m[a].
+Let x_4 = m[b].
+Let x_5 = Mint_0[c].
+Let x_6 = Mint_0[b].
+Let x_7 = m_2[c].
+Assume {
+  Type: is_sint32(v) /\ is_sint32(v_4) /\ is_sint32(v_2) /\ is_sint32(x_6) /\
+      is_sint32(x_5) /\ is_sint32(x_3) /\ is_sint32(x_4) /\ is_sint32(x_2) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_7).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+  (* Pre-condition *)
+  Have: (b != a) /\ (c != a) /\ (c != b).
+  (* Call 'max_ptr' *)
+  Have: (((x_5 < x_6) -> ((x_6 = v_2) /\ (x_4 = x_5)))) /\
+      (((x_6 <= x_5) -> ((x_5 = v_2) /\ (x_4 = x_6)))).
+  (* Assertion *)
+  Have: x_4 <= v_2.
+  (* Call 'max_ptr' *)
+  Have: (((x_3 <= v_2) -> ((v_2 = v_4) /\ (x_2 = x_3)))) /\
+      (((v_2 < x_3) -> ((x_3 = v_4) /\ (x_2 = v_2)))).
+  (* Assertion *)
+  Have: x_2 <= v_4.
+  (* Assertion *)
+  Have: x_1 <= v_4.
+  (* Call 'max_ptr' *)
+  Have: (((x_1 < x_2) -> ((x_2 = v) /\ (x = x_1)))) /\
+      (((x_2 <= x_1) -> ((x_1 = v) /\ (x = x_2)))).
+  (* Assertion *)
+  Have: x <= v.
+}
+Prove: v <= x_7.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (20ms) (182655)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (13ms) (195)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 41) in 'order_3_inc_max_min' (1/3):
+Call Effect at line 45
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 41) in 'order_3_inc_max_min' (2/3):
+Call Effect at line 47
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 41) in 'order_3_inc_max_min' (3/3):
+Call Effect at line 50
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 41) in 'order_3_inc_max_min' (1/3):
+Call Effect at line 45
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 41) in 'order_3_inc_max_min' (2/3):
+Call Effect at line 47
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 41) in 'order_3_inc_max_min' (3/3):
+Call Effect at line 50
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 2) in 'max_ptr'' in 'order_3_inc_max_min' at call 'max_ptr' (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 45)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 2) in 'max_ptr'' in 'order_3_inc_max_min' at call 'max_ptr' (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 47)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 2) in 'max_ptr'' in 'order_3_inc_max_min' at call 'max_ptr' (file output/live24/corinnt_order_inc_max/corinnt_order_inc_max.acsl.c, line 50)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------

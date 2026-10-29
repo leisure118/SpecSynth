@@ -457,10 +457,16 @@ def build_termination_commands(
     return [generate_cmd, verify_cmd]
 
 
-def run_command(command: list[str], cwd: Path, timeout: int = 900) -> subprocess.CompletedProcess[str]:
+def run_command(command: list[str], cwd: Path, timeout: int = 900, agent_instructions: str = "") -> subprocess.CompletedProcess[str]:
+    # Compose does not inherit arbitrary parent variables into its containers.
+    # Forward by name, never interpolate user instructions into shell source.
+    command = list(command)
+    if command[:3] == ['docker', 'compose', 'run']:
+        command[3:3] = ['-e', 'XUANJIAN_AGENT_INSTRUCTIONS']
     return subprocess.run(
         command,
         cwd=str(cwd),
+        env={**os.environ, "XUANJIAN_AGENT_INSTRUCTIONS": agent_instructions},
         text=True,
         capture_output=True,
         timeout=timeout,

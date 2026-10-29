@@ -1,0 +1,270 @@
+[kernel] Parsing output/live25/heap-data_min_max/heap-data_min_max.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/heap-data_min_max/heap-data_min_max.acsl.c:31: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/heap-data_min_max/heap-data_min_max.acsl.c:30: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: node*)
+[wp] 11 goals scheduled
+[wp] [Timeout] typed_main_loop_invariant_preserved (Qed 22ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part2 (Qed 29ms) (Z3)
+[wp] [Timeout] typed_main_loop_assigns_part4 (Qed 26ms) (Z3) (Stronger, 2 warnings)
+[wp] Proved goals:    8 / 11
+  Qed:             4
+  Alt-Ergo :       4 (9ms-14ms)
+  Timeout:         3
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 26):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/heap-data_min_max/heap-data_min_max.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Let a = havoc(Mptr_undef_0, Mptr_0, p, 2).
+Let a_1 = havoc(Mint_undef_0, Mint_0, p, 2).
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(max_1) /\ is_sint32(min_0) /\
+      is_sint32(min_1) /\ is_sint32(tmp_0) /\ is_sint32(v).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, 2147483647,
+          -2147483647).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a, a_1, l_1, min_1, max_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v < min_1
+  Then { Have: v = min_0. }
+  Else { Have: min_1 = min_0. }
+  If max_1 < v
+  Then { Have: v = max_0. }
+  Else { Have: max_1 = max_0. }
+}
+Prove: P_all_in_range(Malloc_0, a[shiftfield_F4_node_next(l) <- l_1],
+         a_1[shiftfield_F4_node_val(l) <- v], l, min_0, max_0).
+Prover Z3 4.15.4 returns Timeout (Qed:22ms) (53s)
+Prover Alt-Ergo  returns Timeout (Qed:22ms) (1')
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 26):
+Assume { (* Heap *) Type: framed(Mptr_0) /\ linked(Malloc_0). }
+Prove: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, 2147483647,
+         -2147483647).
+Prover Z3 4.15.4 returns Valid (Qed:0.84ms) (10ms) (75486)
+Prover Alt-Ergo  returns Valid (Qed:0.84ms) (14ms) (71)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 42):
+Let a = havoc(Mint_undef_0, Mint_0, p, 2).
+Let a_1 = a[shiftfield_F4_node_val(i)].
+Let a_2 = havoc(Mptr_undef_0, Mptr_0, p, 2).
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(min_0) /\ is_sint32(a_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, 2147483647,
+          -2147483647).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a_2, a, i_1, min_0, max_0).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a_2, a, i, min_0, max_0).
+  (* Then *)
+  Have: null != i.
+  (* Assertion *)
+  Have: min_0 <= a_1.
+  (* Assertion *)
+  Have: a_1 <= max_0.
+}
+Prove: P_all_in_range(Malloc_0, a_2, a, a_2[shiftfield_F4_node_next(i)],
+         min_0, max_0).
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (60ms) (412567)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (12ms) (62)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 46):
+Let a = havoc(Mptr_undef_0, Mptr_0, p, 2).
+Let a_1 = havoc(Mint_undef_0, Mint_0, p, 2).
+Let a_2 = a_1[shiftfield_F4_node_val(i)].
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(min_0) /\ is_sint32(a_2).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, 2147483647,
+          -2147483647).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a, a_1, i_1, min_0, max_0).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a, a_1, i, min_0, max_0).
+  (* Then *)
+  Have: null != i.
+}
+Prove: min_0 <= a_2.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (71)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 47):
+Let a = havoc(Mint_undef_0, Mint_0, p, 2).
+Let a_1 = a[shiftfield_F4_node_val(i)].
+Let a_2 = havoc(Mptr_undef_0, Mptr_0, p, 2).
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(min_0) /\ is_sint32(a_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, 2147483647,
+          -2147483647).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a_2, a, i_1, min_0, max_0).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a_2, a, i, min_0, max_0).
+  (* Then *)
+  Have: null != i.
+  (* Assertion *)
+  Have: min_0 <= a_1.
+}
+Prove: a_1 <= max_0.
+Prover Alt-Ergo  returns Valid (Qed:6ms) (12ms) (70)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 27) (1/4):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/heap-data_min_max/heap-data_min_max.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 27) (2/4):
+Effect at line 29
+Let a = havoc(Mptr_undef_0, Mptr_0, p, 2).
+Let a_1 = havoc(Mint_undef_0, Mint_0, p, 2).
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(max_1) /\ is_sint32(min_0) /\
+      is_sint32(min_1) /\ is_sint32(tmp_0) /\ is_sint32(v).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, p, 2).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, 2147483647,
+          -2147483647).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a, a_1, l, min_1, max_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v < min_1
+  Then { Have: v = min_0. }
+  Else { Have: min_1 = min_0. }
+  If max_1 < v
+  Then { Have: v = max_0. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a[shiftfield_F4_node_next(p_1) <- l],
+          a_1[shiftfield_F4_node_val(p_1) <- v], p_1, min_0, max_0).
+}
+Prove: p = p_1.
+Prover Z3 4.15.4 returns Timeout (Qed:29ms) (42.9s)
+Prover Alt-Ergo  returns Timeout (Qed:29ms) (1')
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 27) (3/4):
+Call Result at line 29
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 27) (4/4):
+Call Effect at line 30
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/heap-data_min_max/heap-data_min_max.acsl.c:30: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Let a = havoc(Mptr_undef_0, Mptr_0, p, 2).
+Let a_1 = havoc(Mint_undef_0, Mint_0, p, 2).
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(max_1) /\ is_sint32(min_0) /\
+      is_sint32(min_1) /\ is_sint32(tmp_0) /\ is_sint32(v).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, 2147483647,
+          -2147483647).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a, a_1, l, min_1, max_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v < min_1
+  Then { Have: v = min_0. }
+  Else { Have: min_1 = min_0. }
+  If max_1 < v
+  Then { Have: v = max_0. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, a[shiftfield_F4_node_next(l_1) <- l],
+          a_1[shiftfield_F4_node_val(l_1) <- v], l_1, min_0, max_0).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (Qed:26ms) (42.7s)
+Prover Alt-Ergo  returns Timeout (Qed:26ms) (1')
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/heap-data_min_max/heap-data_min_max.acsl.c:21: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

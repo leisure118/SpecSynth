@@ -1,0 +1,227 @@
+[kernel] Parsing output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c:19: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 20 goals scheduled
+[wp] Proved goals:   20 / 20
+  Qed:            16
+  Alt-Ergo :       4 (8ms-9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (0.73ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 24):
+Let x = a[i_1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(min_1) /\ is_sint32(x) /\
+      is_sint32(1 + i_1).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (min_1 <= a[i_2]))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  If x < min_1
+  Then { Have: x = min_0. }
+  Else { Have: min_1 = min_0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: min_0 <= a[i].
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (30864)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (9ms) (104)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 37):
+Let x_1 = a[x].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(min_0) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (min_0 <= a[i_2]))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      (min_0 <= a[i_2]))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Assertion *)
+  Have: min_0 <= x_1.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: min_0 <= a[i].
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (31185)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (60)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 37):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(min_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (min_0 <= a[i_2]))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: min_0 <= a[i].
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29322)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (44)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 42):
+Let x_1 = a[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(min_0) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Else *)
+  Have: 100000 <= j.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) -> (min_0 <= a[i_1]))).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 99999) ->
+      (min_0 <= a[i_1]))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+}
+Prove: min_0 <= x_1.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30385)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (47)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_standard_minInArray_ground-2/array-examples_standard_minInArray_ground-2.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

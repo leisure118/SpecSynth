@@ -1,0 +1,166 @@
+[kernel] Parsing output/live24/evdenis_small-examples_max3/evdenis_small-examples_max3.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:             6
+  Alt-Ergo :       5 (6ms-9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/evdenis_small-examples_max3/evdenis_small-examples_max3.acsl.c, line 17):
+Assume {
+  Type: is_sint32(d).
+  (* Call 'max3' *)
+  Have: (0 < d) /\ (2 <= d) /\ (3 <= d) /\ ((d = 1) \/ (d = 2) \/ (d = 3)).
+}
+Prove: d = 3.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (27739)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (18)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max3
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/evdenis_small-examples_max3/evdenis_small-examples_max3.acsl.c, line 3) in 'max3':
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b) /\ is_sint32(c) /\ is_sint32(max3_0).
+  If b < a
+  Then {
+    Have: (ta_tmp_0=false).
+    If c < a
+    Then { Have: max3_0 = a. }
+    Else { Have: max3_0 = c. }
+  }
+  Else {
+    (* Block In *)
+    Have: (ta_tmp_0_0=false).
+    If c < b
+    Then { Have: max3_0 = b. }
+    Else { Have: max3_0 = c. }
+  }
+}
+Prove: a <= max3_0.
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (10ms) (28992)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (8ms) (24)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/evdenis_small-examples_max3/evdenis_small-examples_max3.acsl.c, line 4) in 'max3':
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b) /\ is_sint32(c) /\ is_sint32(max3_0).
+  If b < a
+  Then {
+    Have: (ta_tmp_0=false).
+    If c < a
+    Then { Have: max3_0 = a. }
+    Else { Have: max3_0 = c. }
+  }
+  Else {
+    (* Block In *)
+    Have: (ta_tmp_0_0=false).
+    If c < b
+    Then { Have: max3_0 = b. }
+    Else { Have: max3_0 = c. }
+  }
+}
+Prove: b <= max3_0.
+Prover Z3 4.15.4 returns Valid (Qed:18ms) (10ms) (28976)
+Prover Alt-Ergo  returns Valid (Qed:18ms) (9ms) (24)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/evdenis_small-examples_max3/evdenis_small-examples_max3.acsl.c, line 5) in 'max3':
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b) /\ is_sint32(c) /\ is_sint32(max3_0).
+  If b < a
+  Then {
+    Have: (ta_tmp_0=false).
+    If c < a
+    Then { Have: max3_0 = a. }
+    Else { Have: max3_0 = c. }
+  }
+  Else {
+    (* Block In *)
+    Have: (ta_tmp_0_0=false).
+    If c < b
+    Then { Have: max3_0 = b. }
+    Else { Have: max3_0 = c. }
+  }
+}
+Prove: c <= max3_0.
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (10ms) (28972)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (8ms) (20)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/evdenis_small-examples_max3/evdenis_small-examples_max3.acsl.c, line 6) in 'max3':
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b) /\ is_sint32(c) /\ is_sint32(max3_0).
+  If b < a
+  Then {
+    Have: (ta_tmp_0=false).
+    If c < a
+    Then { Have: max3_0 = a. }
+    Else { Have: max3_0 = c. }
+  }
+  Else {
+    (* Block In *)
+    Have: (ta_tmp_0_0=false).
+    If c < b
+    Then { Have: max3_0 = b. }
+    Else { Have: max3_0 = c. }
+  }
+}
+Prove: (max3_0 = a) \/ (max3_0 = b) \/ (max3_0 = c).
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (28891)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (9ms) (16)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max3' (1/6):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid (0.91ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max3' (2/6):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max3' (3/6):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max3' (4/6):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid (0.55ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max3' (5/6):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max3' (6/6):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/evdenis_small-examples_max3/evdenis_small-examples_max3.acsl.c:12: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

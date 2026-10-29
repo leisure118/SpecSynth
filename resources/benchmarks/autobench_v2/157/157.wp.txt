@@ -1,0 +1,210 @@
+[kernel] Parsing output/autobench_v2/157/157.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 20 goals scheduled
+[wp] Proved goals:   20 / 20
+  Qed:            16
+  Alt-Ergo :       4 (6ms-7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/157/157.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/157/157.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/157/157.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/157/157.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/157/157.acsl.c, line 22):
+Let x = 1 + j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(n) /\
+      is_sint32(x).
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (i <= j) /\ (j <= n).
+  (* Then *)
+  Have: j < n.
+  (* Invariant *)
+  Have: (j <= k) /\ (k <= n).
+  (* Invariant *)
+  Have: i <= k.
+  (* Else *)
+  Have: n <= k.
+}
+Prove: i <= x.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29237)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (6ms) (18)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/157/157.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/157/157.acsl.c, line 28):
+Let x = 1 + k.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(n) /\
+      is_sint32(x).
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (i <= j) /\ (j <= n).
+  (* Then *)
+  Have: j < n.
+  (* Invariant *)
+  Have: (j <= k) /\ (k <= n).
+  (* Invariant *)
+  Have: i <= k.
+  (* Then *)
+  Have: k < n.
+}
+Prove: j <= x.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29243)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (17)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/157/157.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/157/157.acsl.c, line 29):
+Let x = 1 + k.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(n) /\
+      is_sint32(x).
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (i <= j) /\ (j <= n).
+  (* Then *)
+  Have: j < n.
+  (* Invariant *)
+  Have: (j <= k) /\ (k <= n).
+  (* Invariant *)
+  Have: i <= k.
+  (* Then *)
+  Have: k < n.
+  (* Invariant *)
+  Have: j <= x.
+}
+Prove: i <= x.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29344)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (18)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/157/157.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/157/157.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/157/157.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/157/157.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/157/157.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/157/157.acsl.c, line 20):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(n) /\ is_sint32(1 + i).
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (i <= j) /\ (j <= n).
+  (* Else *)
+  Have: n <= j.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: if (0 <= j) then (j <= (i + (if (0 <= j) then (j - i) else 0)))
+       else (0 <= j).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29039)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (26)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/157/157.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/157/157.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/157/157.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/157/157.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/157/157.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/157/157.acsl.c:11: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

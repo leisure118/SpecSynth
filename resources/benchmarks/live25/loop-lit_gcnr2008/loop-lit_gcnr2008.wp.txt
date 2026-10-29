@@ -1,0 +1,322 @@
+[kernel] Parsing output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c:23: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] [Timeout] typed_main_assert (Qed 8ms) (Z3)
+[wp] Proved goals:   14 / 15
+  Qed:            10
+  Alt-Ergo :       4 (7ms-9ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 12):
+Let x_6 = 100 * w.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(tmp_0_0) /\ is_sint32(tmp_1_0) /\
+      is_sint32(w) /\ is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(x_3) /\ is_sint32(x_4) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(10 * w).
+  (* Invariant *)
+  Have: 0 <= x_4.
+  (* Invariant *)
+  Have: x_4 <= w.
+  (* Invariant *)
+  Have: y_1 <= x_6.
+  (* Invariant *)
+  Have: 0 <= (y_1 + x_6).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_1_0 != 0.
+  (* Then *)
+  Have: y_1 <= 9999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483646).
+  If tmp_0_0 != 0
+  Then { Have: x_4 = x_1. Have: (1 + x_1) = x. }
+  Else {
+    Have: (x_4 = x_5) /\ (y_1 = y_2).
+    (* Block In *)
+    Have: (ta_tmp_0=false).
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+    If tmp_0 != 0
+    Then {
+      Have: x_5 = x_3.
+      If 4 <= x_3
+      Then { Have: x_3 = x_2. Have: (1 + x_2) = x. }
+      Else { Have: x_3 = x. }
+    }
+    Else { Have: (x_5 = x) /\ (y_2 = y). }
+  }
+}
+Prove: 0 <= x.
+Prover Z3 4.15.4 returns Valid (Qed:42ms) (10ms) (33302)
+Prover Alt-Ergo  returns Valid (Qed:42ms) (7ms) (64)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 13):
+Let x_4 = 100 * w.
+Let x_5 = 1 + w.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(tmp_1_0) /\ is_sint32(w) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(y) /\ is_sint32(10 * w) /\ is_sint32(x_5).
+  (* Invariant *)
+  Have: 0 <= x_3.
+  (* Invariant *)
+  Have: x_3 <= w.
+  (* Invariant *)
+  Have: y <= x_4.
+  (* Invariant *)
+  Have: 0 <= (y + x_4).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_1_0 != 0.
+  (* Then *)
+  Have: y <= 9999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  If tmp_0 != 0
+  Then {
+    Have: x_3 = x_2.
+    If 4 <= x_2
+    Then { Have: x_2 = x_1. Have: (1 + x_1) = x. }
+    Else { Have: x_2 = x. }
+  }
+  Else { Have: x_3 = x. }
+  (* Invariant *)
+  Have: 0 <= x.
+}
+Prove: x <= x_5.
+Prover Z3 4.15.4 returns Valid (Qed:41ms) (10ms) (31518)
+Prover Alt-Ergo  returns Valid (Qed:41ms) (7ms) (58)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 14):
+Let x_4 = 1 + w.
+Let x_5 = 100 * w.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(tmp_1_0) /\ is_sint32(w) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(y) /\ is_sint32(y_1) /\ is_sint32(y_2) /\ is_sint32(y_3) /\
+      is_sint32(y_4) /\ is_sint32(10 * w) /\ is_sint32(x_4).
+  (* Invariant *)
+  Have: 0 <= x_3.
+  (* Invariant *)
+  Have: x_3 <= w.
+  (* Invariant *)
+  Have: y_4 <= x_5.
+  (* Invariant *)
+  Have: 0 <= (y_4 + x_5).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_1_0 != 0.
+  (* Then *)
+  Have: y_4 <= 9999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  If tmp_0 != 0
+  Then {
+    Have: (x_3 = x_2) /\ (y_4 = y_5).
+    If 4 <= x_2
+    Then {
+      Have: (x_2 = x_1) /\ (y_5 = y_1).
+      Have: (1 + x_1) = x.
+      Have: (1 + y_1) = y.
+    }
+    Else { Have: (x_2 = x) /\ (y_5 = y). }
+  }
+  Else {
+    Have: (x_3 = x) /\ (y_4 = y_3).
+    If (10 * w) < y_3
+    Then {
+      Have: y_3 = y_6.
+      If (10 * x) <= w
+      Then { Have: y_6 = y_2. Have: (y + y_2) = 0. }
+      Else { Have: y_6 = y. }
+    }
+    Else { Have: y_3 = y. }
+  }
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: x <= x_4.
+}
+Prove: y <= (100 + x_5).
+Prover Z3 4.15.4 returns Valid (Qed:84ms) (10ms) (35067)
+Prover Alt-Ergo  returns Valid (Qed:84ms) (8ms) (96)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 15):
+Let x_6 = 100 * w.
+Let x_7 = 1 + w.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(tmp_0_0) /\ is_sint32(tmp_1_0) /\
+      is_sint32(w) /\ is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(x_3) /\ is_sint32(x_4) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(y_2) /\ is_sint32(y_3) /\ is_sint32(y_4) /\ is_sint32(y_5) /\
+      is_sint32(10 * w) /\ is_sint32(x_7).
+  (* Invariant *)
+  Have: 0 <= x_4.
+  (* Invariant *)
+  Have: x_4 <= w.
+  (* Invariant *)
+  Have: y_5 <= x_6.
+  (* Invariant *)
+  Have: 0 <= (y_5 + x_6).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_1_0 != 0.
+  (* Then *)
+  Have: y_5 <= 9999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483646).
+  If tmp_0_0 != 0
+  Then {
+    Have: (x_4 = x_1) /\ (y_5 = y_1).
+    Have: (1 + x_1) = x.
+    Have: (100 + y_1) = y.
+  }
+  Else {
+    Have: (x_4 = x_5) /\ (y_5 = y_6).
+    (* Block In *)
+    Have: (ta_tmp_0=false).
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+    If tmp_0 != 0
+    Then {
+      Have: (x_5 = x_3) /\ (y_6 = y_7).
+      If 4 <= x_3
+      Then {
+        Have: (x_3 = x_2) /\ (y_7 = y_2).
+        Have: (1 + x_2) = x.
+        Have: (1 + y_2) = y.
+      }
+      Else { Have: (x_3 = x) /\ (y_7 = y). }
+    }
+    Else {
+      Have: (x_5 = x) /\ (y_6 = y_4).
+      If (10 * w) < y_4
+      Then {
+        Have: y_4 = y_8.
+        If (10 * x) <= w
+        Then { Have: y_8 = y_3. Have: (y + y_3) = 0. }
+        Else { Have: y_8 = y. }
+      }
+      Else { Have: y_4 = y. }
+    }
+  }
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: x <= x_7.
+  (* Invariant *)
+  Have: y <= (100 + x_6).
+}
+Prove: (-100) <= (y + x_6).
+Prover Z3 4.15.4 returns Valid (Qed:109ms) (10ms) (37071)
+Prover Alt-Ergo  returns Valid (Qed:109ms) (9ms) (115)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 34):
+Let x_1 = 100 * w.
+Assume {
+  Type: is_sint32(tmp_1_0) /\ is_sint32(w) /\ is_sint32(x) /\ is_sint32(y) /\
+      is_sint32(10 * w).
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: x <= w.
+  (* Invariant *)
+  Have: y <= x_1.
+  (* Invariant *)
+  Have: 0 <= (y + x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+  If tmp_1_0 != 0
+  Then { (* Else *) Have: 10000 <= y. }
+}
+Prove: (y <= 2) /\ (4 <= x).
+Prover Z3 4.15.4 returns Timeout (Qed:8ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:8ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 17) (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 17) (2/4):
+Call Result at line 19
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 17) (3/4):
+Call Result at line 20
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c, line 17) (4/4):
+Call Result at line 23
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-lit_gcnr2008/loop-lit_gcnr2008.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

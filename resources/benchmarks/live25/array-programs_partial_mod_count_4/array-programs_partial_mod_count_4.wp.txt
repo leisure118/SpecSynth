@@ -1,0 +1,479 @@
+[kernel] Parsing output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 25 goals scheduled
+[wp] Proved goals:   25 / 25
+  Qed:            17
+  Alt-Ergo :       8 (8ms-18ms-42ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 3):
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 6):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 6):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 7):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_1, shift_sint32(a, 0), 1000000).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(1 + i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1) /\ (i <= 500000).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((i_2 <= 500000) ->
+      (a_1[shift_sint32(a, i_2)] = (1 + i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((500001 <= i_2) ->
+      (a_1[shift_sint32(a, i_2)] = (i_2 % 4))))).
+  (* Then *)
+  Have: i_1 <= 999999.
+  If 500001 <= i_1
+  Then {
+    Have: a_1[shift_sint32(a, i_1) <- to_sint32(to_uint32(i_1) % 4)] =
+        Mint_0.
+  }
+  Else { Have: a_1[shift_sint32(a, i_1) <- 1 + i_1] = Mint_0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: Mint_0[shift_sint32(a, i)] = (1 + i).
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (30ms) (195699)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (15ms) (268)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 7):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 8):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_1, shift_sint32(a, 0), 1000000).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(1 + i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1) /\ (500001 <= i).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((i_2 <= 500000) ->
+      (a_1[shift_sint32(a, i_2)] = (1 + i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((500001 <= i_2) ->
+      (a_1[shift_sint32(a, i_2)] = (i_2 % 4))))).
+  (* Then *)
+  Have: i_1 <= 999999.
+  If 500001 <= i_1
+  Then {
+    Have: a_1[shift_sint32(a, i_1) <- to_sint32(to_uint32(i_1) % 4)] =
+        Mint_0.
+  }
+  Else { Have: a_1[shift_sint32(a, i_1) <- 1 + i_1] = Mint_0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i_1) -> ((0 <= i_2) -> ((i_2 <= 500000) ->
+      (Mint_0[shift_sint32(a, i_2)] = (1 + i_2))))).
+}
+Prove: Mint_0[shift_sint32(a, i)] = (i % 4).
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (40ms) (353285)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (22ms) (523)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 8):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 18):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 18):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 19):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 1000000).
+Let a_2 = a_1[shift_sint32(a, i_2)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(j_1) /\
+      is_sint32(j_2) /\ is_sint32(1 + i_2) /\ is_sint32(a_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 500000) /\ (i <= 999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((i_3 <= 500000) ->
+      (a_1[shift_sint32(a, i_3)] = (1 + i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((500001 <= i_3) ->
+      (a_1[shift_sint32(a, i_3)] = (i_3 % 4))))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 500000) ->
+      ((i_3 <= 999999) -> (a_1[shift_sint32(a, i_3)] = (1 + i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((500001 <= i_3) ->
+      ((i_3 <= 999999) -> (a_1[shift_sint32(a, i_3)] = (i_3 % 4))))).
+  (* Invariant *)
+  Have: (((i_2 <= 500000) -> (j_2 = 0))) /\
+      (((500001 <= i_2) -> (j_2 <= ((i_2 - 500001) / 4)))).
+  (* Then *)
+  Have: i_2 <= 999999.
+  If a_2 = 0
+  Then { Have: j_2 = j_1. Have: (1 + j_1) = j. }
+  Else { Have: j_2 = j. }
+  (* Assertion *)
+  Have: j <= 124999.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a_1[shift_sint32(a, i)] = (1 + i).
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (20ms) (131396)
+Prover Alt-Ergo  returns Valid (Qed:20ms) (11ms) (143)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 19):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 1000000).
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 500000) /\ (i <= 999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((i_2 <= 500000) ->
+      (a_1[shift_sint32(a, i_2)] = (1 + i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((500001 <= i_2) ->
+      (a_1[shift_sint32(a, i_2)] = (i_2 % 4))))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+}
+Prove: a_1[shift_sint32(a, i)] = (1 + i).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (95954)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (50)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 20):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 1000000).
+Let a_2 = a_1[shift_sint32(a, i_2)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(j_1) /\
+      is_sint32(j_2) /\ is_sint32(1 + i_2) /\ is_sint32(a_2).
+  (* Goal *)
+  When: (0 <= i) /\ (500001 <= i) /\ (i <= 999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((i_3 <= 500000) ->
+      (a_1[shift_sint32(a, i_3)] = (1 + i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((500001 <= i_3) ->
+      (a_1[shift_sint32(a, i_3)] = (i_3 % 4))))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 500000) ->
+      ((i_3 <= 999999) -> (a_1[shift_sint32(a, i_3)] = (1 + i_3))))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((500001 <= i_3) ->
+      ((i_3 <= 999999) -> (a_1[shift_sint32(a, i_3)] = (i_3 % 4))))).
+  (* Invariant *)
+  Have: (((i_2 <= 500000) -> (j_2 = 0))) /\
+      (((500001 <= i_2) -> (j_2 <= ((i_2 - 500001) / 4)))).
+  (* Then *)
+  Have: i_2 <= 999999.
+  If a_2 = 0
+  Then { Have: j_2 = j_1. Have: (1 + j_1) = j. }
+  Else { Have: j_2 = j. }
+  (* Assertion *)
+  Have: j <= 124999.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a_1[shift_sint32(a, i)] = (i % 4).
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (20ms) (131692)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (12ms) (169)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 20):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 1000000).
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (500001 <= i) /\ (i <= 999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((i_2 <= 500000) ->
+      (a_1[shift_sint32(a, i_2)] = (1 + i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((500001 <= i_2) ->
+      (a_1[shift_sint32(a, i_2)] = (i_2 % 4))))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 500000) ->
+      ((i_2 <= 999999) -> (a_1[shift_sint32(a, i_2)] = (1 + i_2))))).
+}
+Prove: a_1[shift_sint32(a, i)] = (i % 4).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (97351)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (81)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 21):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 1000000).
+Let a_2 = a_1[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(j_1) /\
+      is_sint32(j_2) /\ is_sint32(1 + i) /\ is_sint32(a_2).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((i_2 <= 500000) ->
+      (a_1[shift_sint32(a, i_2)] = (1 + i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> ((500001 <= i_2) ->
+      (a_1[shift_sint32(a, i_2)] = (i_2 % 4))))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 500000) ->
+      ((i_2 <= 999999) -> (a_1[shift_sint32(a, i_2)] = (1 + i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((500001 <= i_2) ->
+      ((i_2 <= 999999) -> (a_1[shift_sint32(a, i_2)] = (i_2 % 4))))).
+  (* Invariant *)
+  Have: (((i <= 500000) -> (j_2 = 0))) /\
+      (((500001 <= i) -> (j_2 <= ((i - 500001) / 4)))).
+  (* Then *)
+  Have: i <= 999999.
+  If a_2 = 0
+  Then { Have: j_2 = j_1. Have: (1 + j_1) = j. }
+  Else { Have: j_2 = j. }
+  (* Assertion *)
+  Have: j <= 124999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (((i <= 499999) -> (j = 0))) /\
+    (((500000 <= i) -> (j <= ((i - 500000) / 4)))).
+Prover Alt-Ergo  returns Valid (Qed:17ms) (42ms) (1229)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 21):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 27):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 1000000).
+Let a_2 = a_1[shift_sint32(a, i_1)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(j_1) /\
+      is_sint32(j_2) /\ is_sint32(a_2).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> ((i_2 <= 500000) ->
+      (a_1[shift_sint32(a, i_2)] = (1 + i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> ((500001 <= i_2) ->
+      (a_1[shift_sint32(a, i_2)] = (i_2 % 4))))).
+  (* Else *)
+  Have: 1000000 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 500000) ->
+      ((i_2 <= 999999) -> (a_1[shift_sint32(a, i_2)] = (1 + i_2))))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((500001 <= i_2) ->
+      ((i_2 <= 999999) -> (a_1[shift_sint32(a, i_2)] = (i_2 % 4))))).
+  (* Invariant *)
+  Have: (((i_1 <= 500000) -> (j_2 = 0))) /\
+      (((500001 <= i_1) -> (j_2 <= ((i_1 - 500001) / 4)))).
+  (* Then *)
+  Have: i_1 <= 999999.
+  If a_2 = 0
+  Then { Have: j_2 = j_1. Have: (1 + j_1) = j. }
+  Else { Have: j_2 = j. }
+}
+Prove: j <= 124999.
+Prover Alt-Ergo  returns Valid (Qed:14ms) (27ms) (705)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 9) (1/4):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 9) (2/4):
+Effect at line 12
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 9) (3/4):
+Effect at line 13
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 9) (4/4):
+Effect at line 15
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 22):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 12):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 12):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 25):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c, line 25):
+output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:3: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-programs_partial_mod_count_4/array-programs_partial_mod_count_4.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

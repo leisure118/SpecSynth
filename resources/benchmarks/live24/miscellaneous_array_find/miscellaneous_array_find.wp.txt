@@ -1,0 +1,209 @@
+[kernel] Parsing output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:            13
+  Alt-Ergo :       4 (7ms-9ms-13ms)
+------------------------------------------------------------
+  Function array_find
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 5) in 'array_find':
+Let x = Mint_0[shift_sint32(arr_0, array_find_0)].
+Assume {
+  Type: is_sint32(array_find_0) /\ is_sint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: array_find_0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(arr_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 <= array_find_0.
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < array_find_0) ->
+      (Mint_0[shift_sint32(arr_0, i)] != x))).
+}
+Prove: (-1) <= array_find_0.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (65986)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (19)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 6) in 'array_find':
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(n) /\ is_sint32(x) /\
+      is_sint32(Mint_0[shift_sint32(arr_0, -1)]).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: n <= i_1.
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(arr_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(arr_0, i_2)] != x))).
+}
+Prove: Mint_0[shift_sint32(arr_0, i)] != x.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (123131)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (13ms) (53)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 7) in 'array_find':
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (0.55ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 13):
+Let x_1 = Mint_0[shift_sint32(arr_0, i_1)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(n) /\ is_sint32(x) /\
+      is_sint32(1 + i_1) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(arr_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(arr_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(arr_0, i_2)] != x))).
+  (* Then *)
+  Have: i_1 < n.
+  (* Else *)
+  Have: x_1 != x.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: Mint_0[shift_sint32(arr_0, i)] != x.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (30ms) (262391)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (68)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'array_find' (1/4):
+Effect at line 17
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'array_find' (2/4):
+Effect at line 17
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'array_find' (3/4):
+Effect at line 19
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'array_find' (4/4):
+Effect at line 22
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 27):
+Let x = arr_0[index_0].
+Assume {
+  Type: is_sint32(index_0) /\ is_sint32(x).
+  (* Initializer *)
+  Init: arr_0[0] = 1.
+  (* Initializer *)
+  Init: arr_0[1] = 2.
+  (* Initializer *)
+  Init: arr_0[2] = 3.
+  (* Initializer *)
+  Init: arr_0[3] = 4.
+  (* Initializer *)
+  Init: arr_0[4] = 5.
+  (* Call 'array_find' *)
+  Have: ((-1) <= index_0) /\ (index_0 <= 4) /\
+      (((index_0 = (-1)) ->
+       (forall i : Z. ((0 <= i) -> ((i <= 4) -> (arr_0[i] != 3)))))) /\
+      (((0 <= index_0) ->
+       ((x = 3) /\
+        (forall i : Z. ((0 <= i) -> ((i < index_0) -> (arr_0[i] != 3))))))).
+}
+Prove: index_0 = 2.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (30418)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (7ms) (64)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 2) in 'array_find'' in 'main' at initialization of 'index' (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 26)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 3) in 'array_find'' in 'main' at initialization of 'index' (file output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c, line 26)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/miscellaneous_array_find/miscellaneous_array_find.acsl.c:24: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

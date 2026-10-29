@@ -86,44 +86,16 @@ npm run build:web
 
 `spectool` 现在支持直接调用大模型生成 ACSL。页面中选择源码文件、函数和模型后，可通过“AI 生成”或“大模型生成并注入”自动生成函数契约与循环规约，并复用原有注入器生成带 ACSL 的源码。模型列表来自 `configs/models_config.yaml`，密钥按对应平台从 `.env` 中读取，例如 `qwen-turbo` 使用 `aliyun_API_KEY`。
 
-### 使用 Qwen3.5-4B 微调模型
+### 服务器部署的模型与网络配置
 
-模型选项 `qwen35-4b-ft` 对应 GPU 服务器上的 LoRA 微调服务，调用时始终使用这个模型名。Mac 本机运行 API 时，默认通过已有 SSH 转发访问 `http://127.0.0.1:18001/v1`；可用 `QWEN35_4B_API_BASE_URL` 覆盖。先检查 `curl http://127.0.0.1:18001/v1/models` 是否列出 `qwen35-4b-ft`，再启动项目并在模型选项中选择它。
+项目不再默认连接开发电脑的代理、SSH 转发或 Docker Desktop 宿主机地址。复制 `.env.example` 并填写服务器配置：
 
-### 使用 Qwen3.5-9B 微调模型
+- `XUANJIAN_AGENT_PROXY` 默认留空，直接访问模型服务；确实需要代理时填写服务器可达的代理地址。
+- 微调模型使用对应的 `QWEN35_*_API_BASE_URL`；Docker 服务使用对应的 `QWEN35_*_DOCKER_BASE_URL`，填写容器可达的模型服务地址（以 `/v1` 结尾）。未配置地址的微调模型不能调用。
+- 前后端同源部署无需额外跨域配置；分开部署时，在 `ACSL_AGENT_ALLOWED_ORIGINS` 中填写实际前端域名，多个以逗号分隔。
+- Codex、Claude Code 的程序和认证，以及验证器，需要在服务器单独安装与配置。
 
-模型选项 `qwen35-9b-ft` 对应 GPU 服务器上的 9B LoRA 服务（GPU 1、服务器本机端口 8002）。在 Mac 新开终端并保持 SSH 转发运行：
-
-**验证状态（2026-10-10）：当前 vLLM 0.31.0 服务虽列出并接受 `qwen35-9b-ft`，但多组确定性请求中，基座与 LoRA 的文本及 token logprobs 完全相同；4B 服务也复现此现象。因此不能把当前响应视为已确认应用微调权重。正在核查 LoRA 权重，并计划用 PEFT 合并后的独立权重服务验证。此前的 Frama-C `Pass` 只证明生成的规约，不证明 LoRA 已生效。**
-
-```bash
-ssh -p 8000 -N -L 18002:127.0.0.1:8002 test3@10.102.128.126
-curl http://127.0.0.1:18002/v1/models
-```
-
-Mac 本机调用地址为 `http://127.0.0.1:18002/v1`，容器默认使用 `http://host.docker.internal:18002/v1`。可分别通过 `QWEN35_9B_API_BASE_URL` 和 `.env` 中的 `QWEN35_9B_DOCKER_BASE_URL` 覆盖。请求模型名须为 `qwen35-9b-ft`。服务器端的 `base_model_name_or_path` 是已失效的训练路径；目前服务使用 `/home/test3/Users/yuxingcai/data/qwen35/base/Qwen3.5-9B` 作为基座，尚未通过权重哈希证明它与训练时的基座完全相同。一次单函数实测获得 Frama-C `Pass`，但生成的 `max2` 契约较弱，`Pass` 不代表已证明完整的最大值语义。
-
-### 使用独立的 Qwen3.5-9B mix64 实验模型
-
-模型选项 `qwen35-9b-mix64` 使用服务器端口 `8003`，Mac 通过 SSH 转发端口 `18003` 调用；它与原有 `qwen35-9b-ft` 选项分别配置。`SCF-Qwen9B/training_output_mix64/adapter_model.safetensors` 与先前 9B 适配器的 SHA-256 一致，但先前的 vLLM LoRA 服务尚未证实应用微调权重。新服务应加载 PEFT 合并后的完整模型目录 `/home/test3/Users/yuxingcai/data/qwen35/merged/Qwen3.5-9B-mix64`，不使用 `--enable-lora`。请检查 `/v1/models` 中 `root` 指向该目录后再做批量实验。
-
-Mac 新开终端并保持转发运行：
-
-```bash
-ssh -p 8000 -N -L 18003:127.0.0.1:8003 test3@10.102.128.126
-curl http://127.0.0.1:18003/v1/models
-```
-
-Mac 本机 API 默认使用 `http://127.0.0.1:18003/v1`；Docker Compose 中的 autospec、termination 服务默认使用 `http://host.docker.internal:18003/v1`。可分别通过 `QWEN35_9B_MIX64_API_BASE_URL` 和 `.env` 中的 `QWEN35_9B_MIX64_DOCKER_BASE_URL` 覆盖。首次运行前，在容器中验证 `curl -fsS "$QWEN35_9B_MIX64_API_BASE_URL/models"`。GPU 1 的显存不足以保证原 9B 服务与新的完整 9B 服务按现有显存配置同时运行；先确认 GPU 空闲，保留旧端口配置供切换。
-
-`single`、`inter-modular`、`batch` 和 `termination` 的实际分析由 Docker 容器执行。容器需要能访问模型 API；Compose 默认使用 `http://host.docker.internal:18001/v1`，也可在 `.env` 中用 `QWEN35_4B_DOCKER_BASE_URL` 指定一个容器可达的地址。当前 SSH 转发若只监听 Mac 的 `127.0.0.1`，容器不一定能通过 `host.docker.internal` 访问。运行完整分析前，先启动 Docker Desktop，并在容器中检查：
-
-```bash
-docker compose run --rm -T autospec bash -lc 'curl -fsS "$QWEN35_4B_API_BASE_URL/models"'
-docker compose run --rm -T termination bash -lc 'curl -fsS "$QWEN35_4B_API_BASE_URL/models"'
-```
-
-如果容器访问失败，需要改用容器可达的模型地址，例如网关配置完成后的 `http://10.102.128.126:8001/v1`，并写入 `.env` 的 `QWEN35_4B_DOCKER_BASE_URL`。对统一容器版本可执行 `docker compose -f docker-compose.unified.yml exec acsl-agent sh -lc 'curl -fsS "$QWEN35_4B_API_BASE_URL/models"'` 做同样检查。模型生成的 ACSL 仍需通过项目原有的注入、Frama-C/WP 验证流程；模型能返回文本不代表规约正确。
+模型选项及模型名保持不变。历史微调服务尚未证实加载 LoRA 权重；模型服务可访问、模型生成的规约通过验证，均不等于已确认微调权重生效。
 
 spectool 的验证器固定使用 Docker 容器，不检测也不调用本机的 `frama-c`、`Alt-Ergo`、`Z3` 或 `veri-clang`。后端会探测现有 `docker-compose.yml` 中的 `autospec`、`termination` 服务，并在容器内执行 Frama-C/WP；上传与输出目录通过仓库挂载映射到容器内 `/app/runtime/spectool/`。可用状态可通过 `GET /api/v1/spectool/capabilities` 查询，其中 `verify_runner` 就绪时固定为 `container`，`container_service` 会显示实际服务名。
 
@@ -148,3 +120,15 @@ runtime/runs/<task_id>/
 - 本提交版源码包仅包含作品主体代码、配置、样例与脚本。
 - 外部依赖、运行缓存和历史产物不包含在本目录中。
 - 结果判定以系统实际生成的验证工件与 Frama-C/WP 输出为准。
+
+
+## 历史基准实验结果
+
+项目页提供 LiveFMBench 2025、LiveFMBench 2024 和 autobench 的实验结果入口。导入快照与源码、日志位于 `resources/benchmarks/`，随项目部署，不依赖下载目录。接口为 `/api/v1/benchmarks`、`/api/v1/benchmarks/{id}` 和 `/api/v1/benchmarks/{id}/file?file=...`；前端支持通过 `#/benchmarks/{id}?file=...` 直接定位文件。
+
+汇总采用实验包 scripts 中的修正版报告（违规 admit 按失败计），逐文件目标通过率采用 results.csv。autobench 原始清单为 262 条、报告分母为 257，页面分别显示，保留全部记录；LiveFMBench 2024 为较早的 284 文件版本。历史结果不会自动触发模型调用或重新验证。更新快照可执行 `python scripts/import_benchmark_results.py <实验包目录>`。
+
+
+### 原始基准源码
+
+基准工作台已附带原始 C 源码，独立保存于 `resources/benchmarks/<id>/original/`，不覆盖实验规约代码或历史分数。可在代码区切换“原始源码 / 实验规约代码”，重跑配置会记录选中的输入版本。重新导入实验结果后，执行 `python scripts/import_benchmark_sources.py <dataset_test目录>` 补充原始源码索引。导入器按唯一文件名匹配，并兼容文件名中的直引号/弯引号差异；不会用近似文件名误配未找到的案例。

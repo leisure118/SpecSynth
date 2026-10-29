@@ -1,0 +1,979 @@
+[kernel] Parsing output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 48 goals scheduled
+[wp] Proved goals:   48 / 48
+  Qed:            29
+  Alt-Ergo :      19 (7ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 10):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (a[i_2] = 42))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a[i <- 42][i_1] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29213)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (64)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 20):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a[i_3] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) -> (a[i_3] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (b[i_3] = 42))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a[i] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30295)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (42)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 20):
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) -> (a[i_2] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: a[i] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28475)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (32)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 21):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (a[i_3] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) -> (a[i_3] = 42))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) -> (b[i_3] = 42))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: b[i <- a[i]][i_1] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30822)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (81)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 30):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) -> (a[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (a[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> (b[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (b[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (b_1[i_4] = (42 + i_4)))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 <= 99999) ->
+      (b_1[i_4] = 42))).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: a[i] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (32457)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (57)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 30):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a[i_3] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) -> (a[i_3] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (b[i_3] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+}
+Prove: a[i] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29983)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (43)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 31):
+Let x = b[i].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> (a[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (a[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) -> (b_1[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (b_1[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i) -> (b[i_4] = (42 + i_4)))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i <= i_4) -> ((i_4 <= 99999) -> (b[i_4] = 42))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: b[i <- i + x][i_1] = (42 + i_1).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (33581)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (9ms) (94)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (0.62ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 32):
+Let x = b[i].
+Let m = b[i <- i + x].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(x) /\
+      is_sint32(1 + i).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> (a[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (a[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) -> (b_1[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (b_1[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i) -> (b[i_4] = (42 + i_4)))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i <= i_4) -> ((i_4 <= 99999) -> (b[i_4] = 42))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= i) -> ((0 <= i_4) ->
+      (m[i_4] = (42 + i_4)))).
+}
+Prove: m[i_1] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (34148)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (9ms) (104)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 32):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a[i_3] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) -> (a[i_3] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (b[i_3] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+}
+Prove: b[i] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29971)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (43)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 41):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(i_4) /\ is_sint32(a[i_4]) /\ is_sint32(1 + i_4).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_1) -> (a[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (a[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) -> (b[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) ->
+      (b_1[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_3 <= i_5) -> ((i_5 <= 99999) ->
+      (b_1[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) ->
+      (b_1[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) -> (b_2[i_5] = i_5))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_4 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Then *)
+  Have: i_4 <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: a[i] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (35005)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (8ms) (77)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 41):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) -> (a[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (a[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> (b[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (b[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (b_1[i_4] = (42 + i_4)))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 <= 99999) ->
+      (b_1[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+}
+Prove: a[i] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (32145)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (58)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 42):
+Let x = a[i].
+Let x_1 = b[i].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(i) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) -> (a[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (a[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> (b_1[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b_1[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_4 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_4.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i) -> (b[i_5] = i_5))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i <= i_5) -> ((i_5 <= 99999) ->
+      (b[i_5] = (42 + i_5)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: b[i <- x_1 - x][i_1] = i_1.
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (36169)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (10ms) (118)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (0.91ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 43):
+Let x = a[i].
+Let x_1 = b[i].
+Let m = b[i <- x_1 - x].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(i) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) -> (a[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (a[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> (b_1[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b_1[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_4 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_4.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i) -> (b[i_5] = i_5))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i <= i_5) -> ((i_5 <= 99999) ->
+      (b[i_5] = (42 + i_5)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_5 <= i) -> ((0 <= i_5) -> (m[i_5] = i_5))).
+}
+Prove: m[i_1] = (42 + i_1).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (36948)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (10ms) (125)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 43):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) -> (a[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (a[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> (b_1[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (b_1[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      (b[i_4] = (42 + i_4)))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 <= 99999) -> (b[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+}
+Prove: b[i] = (42 + i).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (32269)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (59)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 53):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(i_4) /\ is_sint32(x) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_1) -> (a[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (a[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) -> (b_1[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b_1[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_3 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) -> (b[i_5] = i_5))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_4 <= i_5) -> ((i_5 <= 99999) ->
+      (b[i_5] = (42 + i_5)))).
+  (* Else *)
+  Have: 100000 <= i_4.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b[i_5] = i_5))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Assertion *)
+  Have: b[x] = x.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: b[i] = i.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (35907)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (8ms) (101)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 53):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i_4).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_1) -> (a[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (a[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) -> (b_1[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b_1[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_3 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) -> (b[i_5] = i_5))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_4 <= i_5) -> ((i_5 <= 99999) ->
+      (b[i_5] = (42 + i_5)))).
+  (* Else *)
+  Have: 100000 <= i_4.
+}
+Prove: b[i] = i.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (34430)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (9ms) (75)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 54):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(i_4) /\ is_sint32(x) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_1) -> (a[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (a[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) -> (b[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) ->
+      (b_1[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_3 <= i_5) -> ((i_5 <= 99999) ->
+      (b_1[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) ->
+      (b_1[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) -> (b_2[i_5] = i_5))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_4 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Else *)
+  Have: 100000 <= i_4.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b_2[i_5] = i_5))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Assertion *)
+  Have: b_2[x] = x.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: a[i] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (35877)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (8ms) (95)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 54):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i_4).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_1) -> (a[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (a[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_2) -> (b[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b[i_5] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_3) ->
+      (b_1[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_3 <= i_5) -> ((i_5 <= 99999) ->
+      (b_1[i_5] = 42))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) ->
+      (b_1[i_5] = (42 + i_5)))).
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 100000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_4) -> (b_2[i_5] = i_5))).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((i_4 <= i_5) -> ((i_5 <= 99999) ->
+      (b_2[i_5] = (42 + i_5)))).
+  (* Else *)
+  Have: 100000 <= i_4.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 99999) -> (b_2[i_5] = i_5))).
+}
+Prove: a[i] = 42.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (34890)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (74)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 59):
+Let x_1 = b[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(x) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i) -> (a[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (a[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) -> (b_1[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (b_1[i_4] = 42))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (b_2[i_4] = (42 + i_4)))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_2 <= i_4) -> ((i_4 <= 99999) ->
+      (b_2[i_4] = 42))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) ->
+      (b_2[i_4] = (42 + i_4)))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) -> (b[i_4] = i_4))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_3 <= i_4) -> ((i_4 <= 99999) ->
+      (b[i_4] = (42 + i_4)))).
+  (* Else *)
+  Have: 100000 <= i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) -> (b[i_4] = i_4))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+}
+Prove: x_1 = x.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (35400)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (8ms) (74)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_standard_copyInitSum3_ground/array-examples_standard_copyInitSum3_ground.acsl.c:3: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

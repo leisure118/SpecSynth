@@ -1,0 +1,116 @@
+[kernel] Parsing output/autobench_v2/209/209.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:             7
+  Alt-Ergo :       4 (7ms-11ms-20ms)
+------------------------------------------------------------
+  Function factorial
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/209/209.acsl.c, line 9) in 'factorial':
+Let x = L_factorial(i - 1).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(x).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: L_factorial(0) = 1.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + n)).
+  (* Else *)
+  Have: n < i.
+}
+Prove: x = L_factorial(n).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29064)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (16)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/209/209.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/209/209.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/209/209.acsl.c, line 19):
+Let x = L_factorial(i - 1).
+Let x_1 = i * x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(1 + i) /\ is_sint32(x) /\
+      is_sint32(x_1).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: L_factorial(0) = 1.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + n)).
+  (* Then *)
+  Have: i <= n.
+}
+Prove: x_1 = L_factorial(i).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (29607)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (192)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/209/209.acsl.c, line 19):
+Assume { Type: is_sint32(n). (* Invariant *) Have: 0 <= n. }
+Prove: L_factorial(0) = 1.
+Prover Z3 4.15.4 returns Valid (10ms) (27855)
+Prover Alt-Ergo  returns Valid (7ms) (21)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/209/209.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'factorial':
+Effect at line 23
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/209/209.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/209/209.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/209/209.acsl.c, line 33):
+Let x = L_factorial(5). Assume { Type: is_sint32(x). }
+Prove: x = 120.
+Prover Z3 4.15.4 returns Valid (Qed:0.90ms) (10ms) (28042)
+Prover Alt-Ergo  returns Valid (Qed:0.90ms) (20ms) (196)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/209/209.acsl.c, line 8) in 'factorial'' in 'main' at initialization of 't' (file output/autobench_v2/209/209.acsl.c, line 32)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/209/209.acsl.c:31: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

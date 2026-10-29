@@ -1,0 +1,183 @@
+[kernel] Parsing output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c:46: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 23 goals scheduled
+[wp] Proved goals:   23 / 23
+  Qed:            21
+  Alt-Ergo :       2 (8ms-11ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 54) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 54) (2/2):
+Effect at line 58
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function mapsum
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 24):
+Let x_1 = 1 + i.
+Let x_2 = Mint_0[shift_sint32(x, i)].
+Let x_3 = L_sum_i_plus_x(Mint_0, x, i).
+Let x_4 = i + x_3 + x_2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint64(x_3) /\
+      is_sint64(x_4).
+  (* Heap *)
+  Type: region(x.base) <= 0.
+  (* Invariant *)
+  Have: L_sum_i_plus_x(Mint_0, x, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Then *)
+  Have: i <= 9999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x_4 = L_sum_i_plus_x(Mint_0, x, x_1).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (141707)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (11ms) (128)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 24):
+Assume { (* Heap *) Type: region(x.base) <= 0. }
+Prove: L_sum_i_plus_x(Mint_0, x, 0) = 0.
+Prover Z3 4.15.4 returns Valid (10ms) (66241)
+Prover Alt-Ergo  returns Valid (8ms) (56)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (1/4):
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid (0.73ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (2/4):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (3/4):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (0.66ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (4/4):
+Effect at line 31
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c:33: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

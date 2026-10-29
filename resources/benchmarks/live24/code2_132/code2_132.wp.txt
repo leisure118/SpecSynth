@@ -1,0 +1,66 @@
+[kernel] Parsing output/live24/code2_132/code2_132.acsl.c (with preprocessing)
+[kernel:typing:implicit-function-declaration] output/live24/code2_132/code2_132.acsl.c:7: Warning: 
+  Calling undeclared function unknown. Old style K&R code?
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/live24/code2_132/code2_132.acsl.c:1: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 5 goals scheduled
+[wp] Proved goals:    5 / 5
+  Qed:             4
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_132/code2_132.acsl.c, line 4):
+Let x = 2 * i.
+Let x_1 = t + x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(t) /\ is_sint32(tmp_0) /\ is_sint32(x) /\
+      is_sint32(48 + t) /\ is_sint32(x_1).
+  (* Residual *)
+  When: t <= 8.
+  (* Residual *)
+  When: 0 < t.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: 0 <= x_1.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (28685)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (6ms) (17)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_132/code2_132.acsl.c, line 4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/code2_132/code2_132.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_132/code2_132.acsl.c, line 5) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_132/code2_132.acsl.c, line 5) (2/2):
+Call Result at line 7
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/code2_132/code2_132.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/live24/code2_132/code2_132.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.

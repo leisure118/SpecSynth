@@ -1,0 +1,244 @@
+[kernel] Parsing output/live24/lower_bound/lower_bound.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:             7
+  Alt-Ergo :       6 (9ms-42ms)
+------------------------------------------------------------
+  Function lower_bound
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/lower_bound/lower_bound.acsl.c, line 65) in 'lower_bound':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/lower_bound/lower_bound.acsl.c, line 66) in 'lower_bound':
+Assume {
+  Type: is_uint32(lower_bound_0) /\ is_uint32(n) /\ is_uint32(right_0) /\
+      is_sint32(v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, n, n, v).
+  (* Invariant *)
+  Have: (0 <= lower_bound_0) /\ (right_0 <= n) /\ (lower_bound_0 <= right_0).
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, right_0, n, v).
+  (* Else *)
+  Have: right_0 <= lower_bound_0.
+  (* Assertion *)
+  Have: P_LowerBound_1_(Mint_0, a, lower_bound_0, n, v).
+}
+Prove: lower_bound_0 <= n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (68921)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (42)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/lower_bound/lower_bound.acsl.c, line 74):
+Let x = Mint_0
+          [shift_sint32(a,
+             to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)))].
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(left_1) /\ is_uint32(middle_0) /\
+      is_uint32(n) /\ is_uint32(right_1) /\ is_uint32(right_0) /\
+      is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, n, n, v).
+  (* Invariant *)
+  Have: (0 <= left_1) /\ (right_1 <= n) /\ (left_1 <= right_1).
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, right_1, n, v).
+  (* Then *)
+  Have: left_1 < right_1.
+  If x < v
+  Then {
+    Have: (right_0 = right_1) /\
+        (to_uint32(left_1 + (to_uint32(right_0 - left_1) / 2)) = middle_0).
+    Have: to_uint32(1 + middle_0) = left_0.
+  }
+  Else {
+    Have: (left_1 = left_0) /\
+        (to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)) = right_0).
+  }
+}
+Prove: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+Prover Z3 4.15.4 returns Valid (Qed:21ms) (20ms) (106749)
+Prover Alt-Ergo  returns Valid (Qed:21ms) (36ms) (465)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/lower_bound/lower_bound.acsl.c, line 74):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/lower_bound/lower_bound.acsl.c, line 75):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/lower_bound/lower_bound.acsl.c, line 75):
+Prove: true.
+Prover Qed returns Valid (0.75ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/lower_bound/lower_bound.acsl.c, line 76):
+Let x = to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)).
+Let x_1 = Mint_0[shift_sint32(a, x)].
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(n) /\ is_uint32(right_0) /\
+      is_sint32(v) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: v <= x_1.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, n, n, v).
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, right_0, n, v).
+  (* Then *)
+  Have: left_0 < right_0.
+  (* Invariant *)
+  Have: (x <= n) /\ (left_0 <= x).
+}
+Prove: P_LowerBound_1_(Mint_0, a, x, n, v).
+Prover Alt-Ergo  returns Valid (Qed:10ms) (35ms) (476)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/lower_bound/lower_bound.acsl.c, line 76):
+Assume {
+  Type: is_uint32(n) /\ is_sint32(v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: P_LowerBound_1_(Mint_0, a, n, n, v).
+Prover Z3 4.15.4 returns Valid (Qed:0.91ms) (10ms) (33146)
+Prover Alt-Ergo  returns Valid (Qed:0.91ms) (16ms) (50)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/lower_bound/lower_bound.acsl.c, line 89):
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(n) /\ is_uint32(right_0) /\
+      is_sint32(v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, n, n, v).
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, right_0, n, v).
+  (* Else *)
+  Have: right_0 <= left_0.
+}
+Prove: P_LowerBound_1_(Mint_0, a, left_0, n, v).
+Prover Alt-Ergo  returns Valid (Qed:5ms) (13ms) (41)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/lower_bound/lower_bound.acsl.c, line 77):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'lower_bound':
+Effect at line 80
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/lower_bound/lower_bound.acsl.c, line 80):
+Let x = Mint_0
+          [shift_sint32(a,
+             to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)))].
+Assume {
+  Type: is_uint32(left_1) /\ is_uint32(left_0) /\ is_uint32(middle_0) /\
+      is_uint32(n) /\ is_uint32(right_1) /\ is_uint32(right_0) /\
+      is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: P_Increasing_2_(Mint_0, a, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, n, n, v).
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_1 <= n) /\ (left_0 <= right_1).
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, right_1, n, v).
+  (* Then *)
+  Have: left_0 < right_1.
+  If x < v
+  Then {
+    Have: (right_0 = right_1) /\
+        (to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)) = middle_0).
+    Have: to_uint32(1 + middle_0) = left_1.
+  }
+  Else {
+    Have: (left_0 = left_1) /\
+        (to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)) = right_0).
+  }
+  (* Invariant *)
+  Have: (0 <= left_1) /\ (right_0 <= n) /\ (left_1 <= right_0).
+  (* Invariant *)
+  Have: P_LowerBound_1_(Mint_0, a, right_0, n, v).
+}
+Prove: (left_0 + right_0) < (left_1 + right_1).
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (20ms) (105175)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (42ms) (561)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/lower_bound/lower_bound.acsl.c, line 80):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------

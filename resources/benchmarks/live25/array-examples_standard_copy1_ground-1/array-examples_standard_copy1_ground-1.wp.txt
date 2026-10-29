@@ -1,0 +1,228 @@
+[kernel] Parsing output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c:19: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 20 goals scheduled
+[wp] Proved goals:   20 / 20
+  Qed:            16
+  Alt-Ergo :       4 (7ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (0.59ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 24):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= a) /\ (a <= 100000).
+  (* Else *)
+  Have: 100000 <= a.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a2_0[i_2] = a1_0[i_2]))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a2_0[i <- a1_0[i]][i_1] = a1_0[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (29889)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (77)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 34):
+Let x_1 = a2_0[x].
+Let x_2 = a1_0[x].
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(x_2) /\
+      is_sint32(x_1) /\ is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= a) /\ (a <= 100000).
+  (* Else *)
+  Have: 100000 <= a.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a2_0[i_2] = a1_0[i_2]))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      (a2_0[i_2] = a1_0[i_2]))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+  (* Assertion *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: a2_0[i] = a1_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (31021)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (64)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 34):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= a) /\ (a <= 100000).
+  (* Else *)
+  Have: 100000 <= a.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a2_0[i_2] = a1_0[i_2]))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: a2_0[i] = a1_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29076)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (44)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 39):
+Let x_1 = a1_0[x].
+Let x_2 = a2_0[x].
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= a) /\ (a <= 100000).
+  (* Else *)
+  Have: 100000 <= a.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a2_0[i_1] = a1_0[i_1]))).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 99999) ->
+      (a2_0[i_1] = a1_0[i_1]))).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 100000).
+  (* Then *)
+  Have: x <= 99999.
+}
+Prove: x_2 = x_1.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30310)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (50)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_standard_copy1_ground-1/array-examples_standard_copy1_ground-1.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

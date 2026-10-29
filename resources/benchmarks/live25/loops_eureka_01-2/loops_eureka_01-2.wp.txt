@@ -1,0 +1,771 @@
+[kernel] Parsing output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 43 goals scheduled
+[wp] Proved goals:   43 / 43
+  Qed:            33
+  Alt-Ergo :       9 (7ms-11ms-17ms)
+  Z3 4.15.4:       1 (10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 14):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Residual *)
+  When: i != 0.
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (0 <= distance_0[i_2]))).
+  (* Then *)
+  Have: i <= 4.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: 0 <= distance_0[i <- 899][i_1].
+Prover Z3 4.15.4 returns Valid (Qed:23ms) (10ms) (29363)
+Prover Alt-Ergo  returns Valid (Qed:23ms) (11ms) (86)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 28):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j) /\
+      is_sint32(1 + i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (0 <= distance_1[i_3]))).
+  (* Else *)
+  Have: 5 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_1[i_3]))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_2[i_3]))).
+  (* Then *)
+  Have: i_2 <= 4.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 20).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_0[i_3]))).
+  (* Else *)
+  Have: 20 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: 0 <= distance_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (31202)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (12ms) (55)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 28):
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (0 <= distance_0[i_2]))).
+  (* Else *)
+  Have: 5 <= i_1.
+}
+Prove: 0 <= distance_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (28478)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (11ms) (30)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (22ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 36):
+Let x = Weight_0[j].
+Let x_1 = Source_0[j].
+Let x_2 = distance_2[x_1].
+Let x_3 = Dest_0[j].
+Let x_4 = distance_2[x_3].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(x_3) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(distance_1[x_1]) /\
+      is_sint32(x_4) /\ is_sint32(x_2) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Initializer *)
+  Init: Source_0[0] = 0.
+  (* Initializer *)
+  Init: Source_0[1] = 4.
+  (* Initializer *)
+  Init: forall i_3 : Z. ((2 <= i_3) -> ((i_3 <= 3) -> (Source_0[i_3] = 1))).
+  (* Initializer *)
+  Init: forall i_3 : Z. ((4 <= i_3) -> ((i_3 <= 5) -> (Source_0[i_3] = 0))).
+  (* Initializer *)
+  Init: Source_0[6] = 1.
+  (* Initializer *)
+  Init: Source_0[7] = 3.
+  (* Initializer *)
+  Init: forall i_3 : Z. ((8 <= i_3) -> ((i_3 <= 9) -> (Source_0[i_3] = 4))).
+  (* Initializer *)
+  Init: forall i_3 : Z. ((10 <= i_3) -> ((i_3 <= 11) ->
+      (Source_0[i_3] = 2))).
+  (* Initializer *)
+  Init: Source_0[12] = 3.
+  (* Initializer *)
+  Init: forall i_3 : Z. ((13 <= i_3) -> ((i_3 <= 14) ->
+      (Source_0[i_3] = 0))).
+  (* Initializer *)
+  Init: Source_0[15] = 3.
+  (* Initializer *)
+  Init: Source_0[16] = 1.
+  (* Initializer *)
+  Init: forall i_3 : Z. ((17 <= i_3) -> ((i_3 <= 18) ->
+      (Source_0[i_3] = 2))).
+  (* Initializer *)
+  Init: Source_0[19] = 3.
+  (* Initializer *)
+  Init: Dest_0[0] = 1.
+  (* Initializer *)
+  Init: Dest_0[1] = 3.
+  (* Initializer *)
+  Init: Dest_0[2] = 4.
+  (* Initializer *)
+  Init: forall i_3 : Z. ((3 <= i_3) -> ((i_3 <= 4) -> (Dest_0[i_3] = 1))).
+  (* Initializer *)
+  Init: Dest_0[5] = 4.
+  (* Initializer *)
+  Init: Dest_0[6] = 3.
+  (* Initializer *)
+  Init: Dest_0[7] = 4.
+  (* Initializer *)
+  Init: Dest_0[8] = 3.
+  (* Initializer *)
+  Init: forall i_3 : Z. ((9 <= i_3) -> ((i_3 <= 12) -> (Dest_0[i_3] = 0))).
+  (* Initializer *)
+  Init: Dest_0[13] = 2.
+  (* Initializer *)
+  Init: Dest_0[14] = 3.
+  (* Initializer *)
+  Init: Dest_0[15] = 0.
+  (* Initializer *)
+  Init: Dest_0[16] = 2.
+  (* Initializer *)
+  Init: Dest_0[17] = 1.
+  (* Initializer *)
+  Init: Dest_0[18] = 0.
+  (* Initializer *)
+  Init: Dest_0[19] = 4.
+  (* Initializer *)
+  Init: Weight_0[0] = 0.
+  (* Initializer *)
+  Init: Weight_0[1] = 1.
+  (* Initializer *)
+  Init: Weight_0[2] = 2.
+  (* Initializer *)
+  Init: Weight_0[3] = 3.
+  (* Initializer *)
+  Init: Weight_0[4] = 4.
+  (* Initializer *)
+  Init: Weight_0[5] = 5.
+  (* Initializer *)
+  Init: Weight_0[6] = 6.
+  (* Initializer *)
+  Init: Weight_0[7] = 7.
+  (* Initializer *)
+  Init: Weight_0[8] = 8.
+  (* Initializer *)
+  Init: Weight_0[9] = 9.
+  (* Initializer *)
+  Init: Weight_0[10] = 10.
+  (* Initializer *)
+  Init: Weight_0[11] = 11.
+  (* Initializer *)
+  Init: Weight_0[12] = 12.
+  (* Initializer *)
+  Init: Weight_0[13] = 13.
+  (* Initializer *)
+  Init: Weight_0[14] = 14.
+  (* Initializer *)
+  Init: Weight_0[15] = 15.
+  (* Initializer *)
+  Init: Weight_0[16] = 16.
+  (* Initializer *)
+  Init: Weight_0[17] = 17.
+  (* Initializer *)
+  Init: Weight_0[18] = 18.
+  (* Initializer *)
+  Init: Weight_0[19] = 19.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (0 <= distance_3[i_3]))).
+  (* Else *)
+  Have: 5 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_3[i_3]))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_4[i_3]))).
+  (* Then *)
+  Have: i_2 <= 4.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 20).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_2[i_3]))).
+  (* Then *)
+  Have: j <= 19.
+  If (x + x_2) < x_4
+  Then {
+    Have: distance_2 = distance_1.
+    Have: distance_1[x_3 <- x + distance_1[x_1]] = distance_0.
+  }
+  Else { Have: distance_2 = distance_0. }
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: 0 <= distance_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:76ms) (10ms) (55482)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 36):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (0 <= distance_1[i_3]))).
+  (* Else *)
+  Have: 5 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_1[i_3]))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_0[i_3]))).
+  (* Then *)
+  Have: i_2 <= 4.
+}
+Prove: 0 <= distance_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (29921)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (12ms) (37)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (18ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 52):
+Let x = Dest_0[i_3].
+Let x_1 = distance_0[x].
+Let x_2 = Weight_0[i_3].
+Let x_3 = Source_0[i_3].
+Let x_4 = distance_0[x_3].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(x) /\
+      is_sint32(x_3) /\ is_sint32(x_2) /\ is_sint32(x_1) /\ is_sint32(x_4) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Initializer *)
+  Init: Source_0[0] = 0.
+  (* Initializer *)
+  Init: Source_0[1] = 4.
+  (* Initializer *)
+  Init: forall i_4 : Z. ((2 <= i_4) -> ((i_4 <= 3) -> (Source_0[i_4] = 1))).
+  (* Initializer *)
+  Init: forall i_4 : Z. ((4 <= i_4) -> ((i_4 <= 5) -> (Source_0[i_4] = 0))).
+  (* Initializer *)
+  Init: Source_0[6] = 1.
+  (* Initializer *)
+  Init: Source_0[7] = 3.
+  (* Initializer *)
+  Init: forall i_4 : Z. ((8 <= i_4) -> ((i_4 <= 9) -> (Source_0[i_4] = 4))).
+  (* Initializer *)
+  Init: forall i_4 : Z. ((10 <= i_4) -> ((i_4 <= 11) ->
+      (Source_0[i_4] = 2))).
+  (* Initializer *)
+  Init: Source_0[12] = 3.
+  (* Initializer *)
+  Init: forall i_4 : Z. ((13 <= i_4) -> ((i_4 <= 14) ->
+      (Source_0[i_4] = 0))).
+  (* Initializer *)
+  Init: Source_0[15] = 3.
+  (* Initializer *)
+  Init: Source_0[16] = 1.
+  (* Initializer *)
+  Init: forall i_4 : Z. ((17 <= i_4) -> ((i_4 <= 18) ->
+      (Source_0[i_4] = 2))).
+  (* Initializer *)
+  Init: Source_0[19] = 3.
+  (* Initializer *)
+  Init: Dest_0[0] = 1.
+  (* Initializer *)
+  Init: Dest_0[1] = 3.
+  (* Initializer *)
+  Init: Dest_0[2] = 4.
+  (* Initializer *)
+  Init: forall i_4 : Z. ((3 <= i_4) -> ((i_4 <= 4) -> (Dest_0[i_4] = 1))).
+  (* Initializer *)
+  Init: Dest_0[5] = 4.
+  (* Initializer *)
+  Init: Dest_0[6] = 3.
+  (* Initializer *)
+  Init: Dest_0[7] = 4.
+  (* Initializer *)
+  Init: Dest_0[8] = 3.
+  (* Initializer *)
+  Init: forall i_4 : Z. ((9 <= i_4) -> ((i_4 <= 12) -> (Dest_0[i_4] = 0))).
+  (* Initializer *)
+  Init: Dest_0[13] = 2.
+  (* Initializer *)
+  Init: Dest_0[14] = 3.
+  (* Initializer *)
+  Init: Dest_0[15] = 0.
+  (* Initializer *)
+  Init: Dest_0[16] = 2.
+  (* Initializer *)
+  Init: Dest_0[17] = 1.
+  (* Initializer *)
+  Init: Dest_0[18] = 0.
+  (* Initializer *)
+  Init: Dest_0[19] = 4.
+  (* Initializer *)
+  Init: Weight_0[0] = 0.
+  (* Initializer *)
+  Init: Weight_0[1] = 1.
+  (* Initializer *)
+  Init: Weight_0[2] = 2.
+  (* Initializer *)
+  Init: Weight_0[3] = 3.
+  (* Initializer *)
+  Init: Weight_0[4] = 4.
+  (* Initializer *)
+  Init: Weight_0[5] = 5.
+  (* Initializer *)
+  Init: Weight_0[6] = 6.
+  (* Initializer *)
+  Init: Weight_0[7] = 7.
+  (* Initializer *)
+  Init: Weight_0[8] = 8.
+  (* Initializer *)
+  Init: Weight_0[9] = 9.
+  (* Initializer *)
+  Init: Weight_0[10] = 10.
+  (* Initializer *)
+  Init: Weight_0[11] = 11.
+  (* Initializer *)
+  Init: Weight_0[12] = 12.
+  (* Initializer *)
+  Init: Weight_0[13] = 13.
+  (* Initializer *)
+  Init: Weight_0[14] = 14.
+  (* Initializer *)
+  Init: Weight_0[15] = 15.
+  (* Initializer *)
+  Init: Weight_0[16] = 16.
+  (* Initializer *)
+  Init: Weight_0[17] = 17.
+  (* Initializer *)
+  Init: Weight_0[18] = 18.
+  (* Initializer *)
+  Init: Weight_0[19] = 19.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (0 <= distance_1[i_4]))).
+  (* Else *)
+  Have: 5 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 4) ->
+      (0 <= distance_1[i_4]))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 4) ->
+      (0 <= distance_0[i_4]))).
+  (* Else *)
+  Have: 5 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 20).
+  (* Then *)
+  Have: i_3 <= 19.
+  (* Else *)
+  Have: x_1 <= (x_2 + x_4).
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: 0 <= distance_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:25ms) (10ms) (44402)
+Prover Alt-Ergo  returns Valid (Qed:25ms) (17ms) (292)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 52):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (0 <= distance_1[i_3]))).
+  (* Else *)
+  Have: 5 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_1[i_3]))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4) ->
+      (0 <= distance_0[i_3]))).
+  (* Else *)
+  Have: 5 <= i_2.
+}
+Prove: 0 <= distance_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (29922)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (12ms) (41)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 67):
+Let x = distance_0[i_4].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(i_4) /\ is_sint32(x) /\ is_sint32(1 + i_4).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < i_1) ->
+      (0 <= distance_1[i_5]))).
+  (* Else *)
+  Have: 5 <= i_1.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 4) ->
+      (0 <= distance_1[i_5]))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= 4) ->
+      (0 <= distance_0[i_5]))).
+  (* Else *)
+  Have: 5 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 20).
+  (* Else *)
+  Have: 20 <= i_3.
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 5).
+  (* Then *)
+  Have: i_4 <= 4.
+  (* Assertion *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: 0 <= distance_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:23ms) (10ms) (31563)
+Prover Alt-Ergo  returns Valid (Qed:23ms) (10ms) (68)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 67):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (0 <= distance_1[i_4]))).
+  (* Else *)
+  Have: 5 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 4) ->
+      (0 <= distance_1[i_4]))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 4) ->
+      (0 <= distance_0[i_4]))).
+  (* Else *)
+  Have: 5 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 20).
+  (* Else *)
+  Have: 20 <= i_3.
+}
+Prove: 0 <= distance_0[i].
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (30402)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (7ms) (55)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 73):
+Let x = distance_0[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i) /\
+      is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 5).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (0 <= distance_1[i_4]))).
+  (* Else *)
+  Have: 5 <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 4) ->
+      (0 <= distance_1[i_4]))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 4) ->
+      (0 <= distance_0[i_4]))).
+  (* Else *)
+  Have: 5 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 20).
+  (* Else *)
+  Have: 20 <= i_3.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Then *)
+  Have: i <= 4.
+}
+Prove: 0 <= x.
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (10ms) (30878)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (11ms) (55)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 15) (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 15) (2/4):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 15) (3/4):
+Effect at line 20
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 15) (4/4):
+Effect at line 23
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 29) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 29) (2/3):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 29) (3/3):
+Effect at line 40
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 37) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 37) (2/3):
+Effect at line 40
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 37) (3/3):
+Effect at line 46
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 68):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 71):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c, line 71):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops_eureka_01-2/loops_eureka_01-2.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

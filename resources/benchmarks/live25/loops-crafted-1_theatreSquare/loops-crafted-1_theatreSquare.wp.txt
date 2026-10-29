@@ -1,0 +1,767 @@
+[kernel] Parsing output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c:105: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 65 goals scheduled
+[wp] Proved goals:   65 / 65
+  Qed:            53
+  Alt-Ergo :      10 (5ms-7ms)
+  Z3 4.15.4:       2 (7.1s)
+------------------------------------------------------------
+  Function correct_version
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 12) in 'correct_version':
+Let x_1 = a * j.
+Let x_2 = a + m.
+Let x_3 = a * i.
+Let x_4 = a + n.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(m) /\
+      is_sint32(n) /\ is_sint32(x) /\ is_sint32(x_3) /\ is_sint32(x_1) /\
+      is_sint32(j * x).
+  (* Pre-condition *)
+  Have: 0 < a.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: 0 < x_4.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x_3 < x_4.
+  (* Else *)
+  Have: n <= x_3.
+  (* Invariant *)
+  Have: 0 < x_2.
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: x_1 < x_2.
+  (* Else *)
+  Have: m <= x_1.
+  (* Invariant *)
+  Have: (x <= i) /\ (0 <= x).
+  (* Else *)
+  Have: i <= x.
+}
+Prove: (((a + m - 1) / a) * ((a + n - 1) / a)) = (i * j).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (7.1s) (40170386)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 19):
+Let x = b + n.
+Let x_1 = b - b_1.
+Let x_2 = 1 + i.
+Assume {
+  Type: is_sint32(b_1) /\ is_sint32(b) /\ is_sint32(i) /\ is_sint32(m) /\
+      is_sint32(n) /\ is_sint32(x_2) /\ is_sint32(x_1).
+  (* Pre-condition *)
+  Have: b_1 < b.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: b_1 < x.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i * x_1) = b_1.
+  (* Invariant *)
+  Have: (2 * b_1) < x.
+  (* Then *)
+  Have: b_1 < n.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (x_2 * x_1) = b.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (7620)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (63)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 20):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(m) /\ is_sint32(n).
+  (* Pre-condition *)
+  Have: 0 < a.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+}
+Prove: 0 < (a + n).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (27918)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (5ms) (20)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 31):
+Let x = l + m.
+Let x_1 = l - l_1.
+Let x_2 = i * x_1.
+Let x_3 = l + n.
+Let x_4 = 1 + j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(l_1) /\ is_sint32(l) /\
+      is_sint32(m) /\ is_sint32(n) /\ is_sint32(x_4) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Pre-condition *)
+  Have: l_1 < l.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: l_1 < x_3.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (l_1 + x_2) < x_3.
+  (* Else *)
+  Have: n <= x_2.
+  (* Invariant *)
+  Have: l_1 < x.
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: (j * x_1) = l_1.
+  (* Invariant *)
+  Have: (2 * l_1) < x.
+  (* Then *)
+  Have: l_1 < m.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: (x_4 * x_1) = l.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (7823)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (215)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 32):
+Let x = a * i.
+Let x_1 = a + n.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(x).
+  (* Pre-condition *)
+  Have: 0 < a.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: 0 < x_1.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x < x_1.
+  (* Else *)
+  Have: n <= x.
+}
+Prove: 0 < (a + m).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28971)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (35)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 44):
+Let x_1 = y - y_1.
+Let x_2 = a * x_1.
+Let x_3 = a + m.
+Let x_4 = a * i.
+Let x_5 = a + n.
+Let x_6 = 1 + x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1) /\ is_sint32(x_6) /\
+      is_sint32(x_4) /\ is_sint32(x_1) /\ is_sint32(x_2).
+  (* Pre-condition *)
+  Have: 0 < a.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: 0 < x_5.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x_4 < x_5.
+  (* Else *)
+  Have: n <= x_4.
+  (* Invariant *)
+  Have: 0 < x_3.
+  (* Invariant *)
+  Have: y_1 <= y.
+  (* Invariant *)
+  Have: x_2 < x_3.
+  (* Else *)
+  Have: m <= x_2.
+  (* Invariant *)
+  Have: (x <= i) /\ (0 <= x).
+  (* Invariant *)
+  Have: (x * x_1) = y_1.
+  (* Then *)
+  Have: x < i.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: (x_6 * x_1) = y.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (7932)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (403)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'correct_version' (1/3):
+Effect at line 24
+Prove: true.
+Prover Qed returns Valid (0.92ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'correct_version' (2/3):
+Effect at line 36
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'correct_version' (3/3):
+Effect at line 48
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 118):
+Prove: true.
+Prover Qed returns Valid (33ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 8) in 'correct_version'' in 'main' at call 'correct_version' (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 115)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 9) in 'correct_version'' in 'main' at call 'correct_version' (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 115)
+:
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 10) in 'correct_version'' in 'main' at call 'correct_version' (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 115)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 56) in 'student_version'' in 'main' at call 'student_version' (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 116)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 57) in 'student_version'' in 'main' at call 'student_version' (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 116)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 58) in 'student_version'' in 'main' at call 'student_version' (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 116)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function student_version
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 60) in 'student_version':
+Let x_1 = a * j.
+Let x_2 = a + m.
+Let x_3 = a * i.
+Let x_4 = a + n.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(m) /\
+      is_sint32(n) /\ is_sint32(x) /\ is_sint32(x_3) /\ is_sint32(x_1) /\
+      is_sint32(j * x).
+  (* Pre-condition *)
+  Have: 0 < a.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: 0 < x_4.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x_3 < x_4.
+  (* Else *)
+  Have: n <= x_3.
+  (* Invariant *)
+  Have: 0 < x_2.
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: x_1 < x_2.
+  (* Else *)
+  Have: m <= x_1.
+  (* Invariant *)
+  Have: (x <= i) /\ (0 <= x).
+  (* Else *)
+  Have: i <= x.
+}
+Prove: (((a + m - 1) / a) * ((a + n - 1) / a)) = (i * j).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (7s) (40170386)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid (0.93ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 67):
+Let x = b + n.
+Let x_1 = b - b_1.
+Let x_2 = 1 + i.
+Assume {
+  Type: is_sint32(b_1) /\ is_sint32(b) /\ is_sint32(i) /\ is_sint32(m) /\
+      is_sint32(n) /\ is_sint32(x_2) /\ is_sint32(x_1).
+  (* Pre-condition *)
+  Have: b_1 < b.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: b_1 < x.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i * x_1) = b_1.
+  (* Invariant *)
+  Have: (2 * b_1) < x.
+  (* Then *)
+  Have: b_1 < n.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (x_2 * x_1) = b.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (7620)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (63)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 67):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 68):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 68):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(m) /\ is_sint32(n).
+  (* Pre-condition *)
+  Have: 0 < a.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+}
+Prove: 0 < (a + n).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (27918)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (20)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 78):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 78):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 79):
+Let x = l + m.
+Let x_1 = l - l_1.
+Let x_2 = i * x_1.
+Let x_3 = l + n.
+Let x_4 = 1 + j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(l_1) /\ is_sint32(l) /\
+      is_sint32(m) /\ is_sint32(n) /\ is_sint32(x_4) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Pre-condition *)
+  Have: l_1 < l.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: l_1 < x_3.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (l_1 + x_2) < x_3.
+  (* Else *)
+  Have: n <= x_2.
+  (* Invariant *)
+  Have: l_1 < x.
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: (j * x_1) = l_1.
+  (* Invariant *)
+  Have: (2 * l_1) < x.
+  (* Then *)
+  Have: l_1 < m.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: (x_4 * x_1) = l.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (7823)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (215)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 79):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 80):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 80):
+Let x = a * i.
+Let x_1 = a + n.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(x).
+  (* Pre-condition *)
+  Have: 0 < a.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: 0 < x_1.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x < x_1.
+  (* Else *)
+  Have: n <= x.
+}
+Prove: 0 < (a + m).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28971)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (35)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 91):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 91):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 92):
+Let x_1 = y - y_1.
+Let x_2 = a * x_1.
+Let x_3 = a + m.
+Let x_4 = a * i.
+Let x_5 = a + n.
+Let x_6 = 1 + x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(i) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1) /\ is_sint32(x_6) /\
+      is_sint32(x_4) /\ is_sint32(x_1) /\ is_sint32(x_2).
+  (* Pre-condition *)
+  Have: 0 < a.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: 0 < x_5.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x_4 < x_5.
+  (* Else *)
+  Have: n <= x_4.
+  (* Invariant *)
+  Have: 0 < x_3.
+  (* Invariant *)
+  Have: y_1 <= y.
+  (* Invariant *)
+  Have: x_2 < x_3.
+  (* Else *)
+  Have: m <= x_2.
+  (* Invariant *)
+  Have: (x <= i) /\ (0 <= x).
+  (* Invariant *)
+  Have: (x * x_1) = y_1.
+  (* Then *)
+  Have: x < i.
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: (x_6 * x_1) = y.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (7932)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (7ms) (403)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 92):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 69):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 81):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 93):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'student_version' (1/3):
+Effect at line 72
+Prove: true.
+Prover Qed returns Valid (0.95ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'student_version' (2/3):
+Effect at line 84
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'student_version' (3/3):
+Effect at line 96
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 84):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 84):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 96):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c, line 96):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loops-crafted-1_theatreSquare/loops-crafted-1_theatreSquare.acsl.c:103: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

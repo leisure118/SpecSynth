@@ -1,0 +1,160 @@
+[kernel] Parsing output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:            16
+  Alt-Ergo :       1 (23ms)
+------------------------------------------------------------
+  Function func_to_recursive_line_20_to_25_0
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 6) in 'func_to_recursive_line_20_to_25_0':
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 16):
+Let x = Mint_0[k].
+Let x_1 = Mint_0[i].
+Let x_2 = Mint_0[j].
+Let m = Mint_0[i <- to_uint32(1 + x_1)].
+Let x_3 = m[j].
+Let m_1 = m[j <- to_uint32(2 + x_3)].
+Let x_4 = m_1[k].
+Let x_5 = to_uint32(3 + x_4).
+Let m_2 = m_1[k <- x_5].
+Let x_6 = m_2[i].
+Let x_7 = m_2[j].
+Assume {
+  Type: is_uint32(x_1) /\ is_uint32(x_2) /\ is_uint32(x) /\ is_uint32(x_3) /\
+      is_uint32(x_4) /\ is_uint32(x_6) /\ is_uint32(x_7).
+  (* Heap *)
+  Type: (region(i.base) <= 0) /\ (region(j.base) <= 0) /\
+      (region(k.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, i, 1) /\ valid_rw(Malloc_0, j, 1) /\
+      valid_rw(Malloc_0, k, 1).
+  (* Pre-condition *)
+  Have: (j != i) /\ (k != i) /\ (k != j).
+  (* Pre-condition *)
+  Have: x = (x_1 + x_2).
+  (* Then *)
+  Have: x <= 268435454.
+}
+Prove: (x_6 + x_7) = x_5.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (30ms) (178891)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (23ms) (189)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 5) in 'func_to_recursive_line_20_to_25_0' (1/4):
+Effect at line 13
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 5) in 'func_to_recursive_line_20_to_25_0' (2/4):
+Effect at line 14
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 5) in 'func_to_recursive_line_20_to_25_0' (3/4):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 5) in 'func_to_recursive_line_20_to_25_0' (4/4):
+Call Effect at line 18
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 5) in 'func_to_recursive_line_20_to_25_0' (1/4):
+Effect at line 13
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 5) in 'func_to_recursive_line_20_to_25_0' (2/4):
+Effect at line 14
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 5) in 'func_to_recursive_line_20_to_25_0' (3/4):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 5) in 'func_to_recursive_line_20_to_25_0' (4/4):
+Call Effect at line 18
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 2) in 'func_to_recursive_line_20_to_25_0'' in 'func_to_recursive_line_20_to_25_0' at call 'func_to_recursive_line_20_to_25_0' (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 18)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 3) in 'func_to_recursive_line_20_to_25_0'' in 'func_to_recursive_line_20_to_25_0' at call 'func_to_recursive_line_20_to_25_0' (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 18)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 4) in 'func_to_recursive_line_20_to_25_0'' in 'func_to_recursive_line_20_to_25_0' at call 'func_to_recursive_line_20_to_25_0' (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 18)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 2) in 'func_to_recursive_line_20_to_25_0'' in 'main' at call 'func_to_recursive_line_20_to_25_0' (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 29)
+:
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 3) in 'func_to_recursive_line_20_to_25_0'' in 'main' at call 'func_to_recursive_line_20_to_25_0' (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 29)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 4) in 'func_to_recursive_line_20_to_25_0'' in 'main' at call 'func_to_recursive_line_20_to_25_0' (file output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c, line 29)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/recursified_loop-crafted_recursified_simple_vardep_1/recursified_loop-crafted_recursified_simple_vardep_1.acsl.c:24: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

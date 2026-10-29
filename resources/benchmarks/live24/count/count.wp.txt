@@ -1,0 +1,410 @@
+[kernel] Parsing output/live24/count/count.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 23 goals scheduled
+[wp] Proved goals:   23 / 23
+  Qed:             4
+  Alt-Ergo :      19 (8ms-16ms-52ms)
+------------------------------------------------------------
+  Axiomatic 'Count'
+------------------------------------------------------------
+
+Lemma Count_Empty:
+Assume: 'Unchanged_Transitive' 'Unchanged_Symmetric' 'Unchanged_Extend'
+  'Unchanged_Shrink'
+Prove: (n_0<=m_0) -> (is_sint32 v_0)
+       -> ((L_Count_1_ Mint_0 a_0 m_0 n_0 v_0)=0)
+Prover Z3 4.15.4 returns Valid (10ms) (85333)
+Prover Alt-Ergo  returns Valid (9ms) (31)
+
+------------------------------------------------------------
+
+Lemma Count_Hit:
+Assume: 'Count_Empty' 'Unchanged_Transitive' 'Unchanged_Symmetric'
+  'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: let x_0 = (n_0-1) in
+       let x_1 = Mint_0[(shift_sint32 a_0 x_0)] in
+       (x_1=v_0) -> (m_0<n_0) -> (is_sint32 v_0) -> (is_sint32 x_1)
+       -> ((1+(L_Count_1_ Mint_0 a_0 m_0 x_0 v_0))=
+           (L_Count_1_ Mint_0 a_0 m_0 n_0 v_0))
+Prover Z3 4.15.4 returns Valid (20ms) (149357)
+Prover Alt-Ergo  returns Valid (10ms) (74)
+
+------------------------------------------------------------
+
+Lemma Count_Miss:
+Assume: 'Count_Hit' 'Count_Empty' 'Unchanged_Transitive'
+  'Unchanged_Symmetric' 'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: let x_0 = (n_0-1) in
+       let x_1 = Mint_0[(shift_sint32 a_0 x_0)] in
+       (x_1!=v_0) -> (m_0<n_0) -> (is_sint32 v_0) -> (is_sint32 x_1)
+       -> ((L_Count_1_ Mint_0 a_0 m_0 x_0 v_0)=
+           (L_Count_1_ Mint_0 a_0 m_0 n_0 v_0))
+Prover Z3 4.15.4 returns Valid (20ms) (105278)
+Prover Alt-Ergo  returns Valid (10ms) (94)
+
+------------------------------------------------------------
+
+Lemma Count_One:
+Assume: 'Count_Miss' 'Count_Hit' 'Count_Empty' 'Unchanged_Transitive'
+  'Unchanged_Symmetric' 'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: let x_0 = (1+n_0) in
+       (m_0<=n_0) -> (is_sint32 v_0)
+       -> (((L_Count_1_ Mint_0 a_0 m_0 n_0 v_0)+
+            (L_Count_1_ Mint_0 a_0 n_0 x_0 v_0))=
+           (L_Count_1_ Mint_0 a_0 m_0 x_0 v_0))
+Prover Z3 4.15.4 returns Valid (20ms) (166378)
+Prover Alt-Ergo  returns Valid (20ms) (282)
+
+------------------------------------------------------------
+
+Lemma Count_Single:
+Assume: 'Count_One' 'Count_Miss' 'Count_Hit' 'Count_Empty'
+  'Unchanged_Transitive' 'Unchanged_Symmetric' 'Unchanged_Extend'
+  'Unchanged_Shrink'
+Prove: let x_0 = Mint_1[(shift_sint32 a_0 m_0)] in
+       let x_1 = Mint_0[(shift_sint32 b_0 n_0)] in
+       (x_0=x_1) -> (is_sint32 v_0) -> (is_sint32 x_1) -> (is_sint32 x_0)
+       -> ((L_Count_1_ Mint_1 a_0 m_0 (1+m_0) v_0)=
+           (L_Count_1_ Mint_0 b_0 n_0 (1+n_0) v_0))
+Prover Alt-Ergo  returns Valid (13ms) (226)
+
+------------------------------------------------------------
+
+Lemma Count_Single_Bounds:
+Assume: 'Count_Single' 'Count_One' 'Count_Miss' 'Count_Hit' 'Count_Empty'
+  'Unchanged_Transitive' 'Unchanged_Symmetric' 'Unchanged_Extend'
+  'Unchanged_Shrink'
+Prove: let x_0 = (L_Count_1_ Mint_0 a_0 n_0 (1+n_0) v_0) in
+       (is_sint32 v_0) -> ((0<=x_0) /\ (x_0<=1))
+Prover Alt-Ergo  returns Valid (10ms) (117)
+
+------------------------------------------------------------
+
+Lemma Count_Single_Shift:
+Assume: 'Count_Single_Bounds' 'Count_Single' 'Count_One' 'Count_Miss'
+  'Count_Hit' 'Count_Empty' 'Unchanged_Transitive' 'Unchanged_Symmetric'
+  'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: (0<=n_0) -> (is_sint32 v_0)
+       -> ((L_Count_1_ Mint_0 (shift_sint32 a_0 n_0) 0 1 v_0)=
+           (L_Count_1_ Mint_0 a_0 n_0 (1+n_0) v_0))
+Prover Z3 4.15.4 returns Valid (150ms) (1200394)
+Prover Alt-Ergo  returns Valid (52ms) (1441)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Axiomatic 'UnchangedLemmas'
+------------------------------------------------------------
+
+Lemma Unchanged_Extend:
+Assume: 'Unchanged_Shrink'
+Prove: let a_1 = (shift_sint32 a_0 n_0) in
+       let x_0 = Mint_1[a_1] in
+       let x_1 = Mint_0[a_1] in
+       (x_0=x_1) -> (P_Unchanged_2_ Mint_0 Mint_1 a_0 n_0) -> (is_sint32 x_1)
+       -> (is_sint32 x_0) -> (P_Unchanged_2_ Mint_0 Mint_1 a_0 (1+n_0))
+Prover Alt-Ergo  returns Valid (9ms) (87)
+
+------------------------------------------------------------
+
+Lemma Unchanged_Shrink:
+Prove: (q_0<=n_0) -> (m_0<=p_0) -> (p_0<=q_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 p_0 q_0)
+Prover Alt-Ergo  returns Valid (8ms) (59)
+
+------------------------------------------------------------
+
+Lemma Unchanged_Symmetric:
+Assume: 'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: (P_Unchanged_1_ Mint_1 Mint_0 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 m_0 n_0)
+Prover Alt-Ergo  returns Valid (10ms) (46)
+
+------------------------------------------------------------
+
+Lemma Unchanged_Transitive:
+Assume: 'Unchanged_Symmetric' 'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: (P_Unchanged_1_ Mint_0 Mint_2 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_2 Mint_1 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 m_0 n_0)
+Prover Alt-Ergo  returns Valid (9ms) (54)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function count
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/count/count.acsl.c, line 104):
+Let x = L_Count_1_(Mint_0, a, 0, i, v).
+Let x_1 = 1 + i.
+Let x_2 = L_Count_1_(Mint_0, a, i, x_1, v).
+Let x_3 = to_uint32(x_1).
+Let x_4 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x_4) /\
+      is_uint32(x).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: L_Count_1_(Mint_0, a, 0, 0, v) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x <= i.
+  (* Then *)
+  Have: i < n.
+  (* Assertion *)
+  Have: if (x_4 = v) then (x_2 = 1) else (x_2 = 0).
+  (* Assertion *)
+  Have: (x + x_2) = L_Count_1_(Mint_0, a, 0, x_3, v).
+}
+Prove: x_3 <= n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (30ms) (227778)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (15ms) (241)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/count/count.acsl.c, line 104):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/count/count.acsl.c, line 105):
+Let x = 1 + i.
+Let x_1 = to_uint32(x).
+Let x_2 = Mint_0[shift_sint32(a, i)].
+Let x_3 = L_Count_1_(Mint_0, a, i, x, v).
+Let x_4 = L_Count_1_(Mint_0, a, 0, i, v).
+Let x_5 = x_4 + x_3.
+Assume {
+  Type: is_uint32(counted_0) /\ is_uint32(counted_1) /\ is_uint32(i) /\
+      is_uint32(n) /\ is_sint32(v) /\ is_sint32(x_2) /\ is_uint32(x_4).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: L_Count_1_(Mint_0, a, 0, 0, v) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x_5 = L_Count_1_(Mint_0, a, 0, x_1, v).
+  (* Invariant *)
+  Have: x_4 <= i.
+  (* Then *)
+  Have: i < n.
+  (* Assertion *)
+  Have: if (x_2 = v) then (x_3 = 1) else (x_3 = 0).
+  If x_2 = v
+  Then {
+    Have: (counted_1 + L_Count_1_(Mint_0, a, i, x, x_2))
+            = L_Count_1_(Mint_0, a, 0, x_1, x_2).
+    Have: to_uint32(1 + counted_1) = counted_0.
+  }
+  Else { Have: x_4 = counted_0. }
+  (* Invariant *)
+  Have: x_1 <= n.
+}
+Prove: x_5 = counted_0.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (25ms) (469)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/count/count.acsl.c, line 105):
+Assume {
+  Type: is_uint32(n) /\ is_sint32(v).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: L_Count_1_(Mint_0, a, 0, 0, v) = 0.
+Prover Alt-Ergo  returns Valid (9ms) (40)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/count/count.acsl.c, line 106):
+Let x = 1 + i.
+Let x_1 = to_uint32(x).
+Let x_2 = Mint_0[shift_sint32(a, i)].
+Let x_3 = L_Count_1_(Mint_0, a, i, x, v).
+Let x_4 = L_Count_1_(Mint_0, a, 0, i, v).
+Let x_5 = x_4 + x_3.
+Assume {
+  Type: is_uint32(counted_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(v) /\ is_sint32(x_2) /\ is_uint32(x_4) /\ is_uint32(x_5).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: L_Count_1_(Mint_0, a, 0, 0, v) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x_5 = L_Count_1_(Mint_0, a, 0, x_1, v).
+  (* Invariant *)
+  Have: x_4 <= i.
+  (* Then *)
+  Have: i < n.
+  (* Assertion *)
+  Have: if (x_2 = v) then (x_3 = 1) else (x_3 = 0).
+  If x_2 = v
+  Then {
+    Let x_6 = counted_0 + L_Count_1_(Mint_0, a, i, x, x_2).
+    Have: x_6 = L_Count_1_(Mint_0, a, 0, x_1, x_2).
+    Have: x_6 = to_uint32(1 + counted_0).
+  }
+  Else { Have: x_3 = 0. }
+  (* Invariant *)
+  Have: x_1 <= n.
+}
+Prove: x_5 <= x_1.
+Prover Alt-Ergo  returns Valid (Qed:5ms) (23ms) (318)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/count/count.acsl.c, line 106):
+Prove: true.
+Prover Qed returns Valid (0.88ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/count/count.acsl.c, line 111):
+Let x = L_Count_1_(Mint_0, a, 0, i, v).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Let x_2 = L_Count_1_(Mint_0, a, i, 1 + i, v).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x_1) /\
+      is_uint32(x).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: L_Count_1_(Mint_0, a, 0, 0, v) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x <= i.
+  (* Then *)
+  Have: i < n.
+}
+Prove: if (x_1 = v) then (x_2 = 1) else (x_2 = 0).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (20ms) (279)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/count/count.acsl.c, line 112):
+Let x = Mint_0[shift_sint32(a, i)].
+Let x_1 = 1 + i.
+Let x_2 = L_Count_1_(Mint_0, a, i, x_1, v).
+Let x_3 = L_Count_1_(Mint_0, a, 0, i, v).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x) /\
+      is_uint32(x_3).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: L_Count_1_(Mint_0, a, 0, 0, v) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x_3 <= i.
+  (* Then *)
+  Have: i < n.
+  (* Assertion *)
+  Have: if (x = v) then (x_2 = 1) else (x_2 = 0).
+}
+Prove: (x_3 + x_2) = L_Count_1_(Mint_0, a, 0, to_uint32(x_1), v).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (15ms) (233)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/count/count.acsl.c, line 117):
+Let x = L_Count_1_(Mint_0, a, 0, i, v).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_uint32(x).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: L_Count_1_(Mint_0, a, 0, 0, v) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x <= i.
+  (* Else *)
+  Have: n <= i.
+}
+Prove: x = L_Count_2_(Mint_0, a, i, v).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (4962)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (16)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/count/count.acsl.c, line 107):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/count/count.acsl.c, line 110):
+Let x = L_Count_1_(Mint_0, a, 0, i, v).
+Let x_1 = 1 + i.
+Let x_2 = L_Count_1_(Mint_0, a, i, x_1, v).
+Let x_3 = x + x_2.
+Let x_4 = to_uint32(x_1).
+Let x_5 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(counted_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(v) /\ is_sint32(x_5) /\ is_uint32(x) /\ is_uint32(x_3).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: L_Count_1_(Mint_0, a, 0, 0, v) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x_3 = L_Count_1_(Mint_0, a, 0, x_4, v).
+  (* Invariant *)
+  Have: x <= i.
+  (* Then *)
+  Have: i < n.
+  (* Assertion *)
+  Have: if (x_5 = v) then (x_2 = 1) else (x_2 = 0).
+  If x_5 = v
+  Then {
+    Let x_6 = counted_0 + L_Count_1_(Mint_0, a, i, x_1, x_5).
+    Have: x_6 = L_Count_1_(Mint_0, a, 0, x_4, x_5).
+    Have: x_6 = to_uint32(1 + counted_0).
+  }
+  Else { Have: x_2 = 0. }
+  (* Invariant *)
+  Have: x_4 <= n.
+  (* Invariant *)
+  Have: x_3 <= x_4.
+}
+Prove: i < x_4.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (40ms) (229537)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (25ms) (321)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/count/count.acsl.c, line 110):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/count/count.acsl.c:100: Warning: 
+  No 'assigns' specification for function 'count'.
+  Callers assumptions might be imprecise.

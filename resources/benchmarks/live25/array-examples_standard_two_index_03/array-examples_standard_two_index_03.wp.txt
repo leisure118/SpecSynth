@@ -1,0 +1,259 @@
+[kernel] Parsing output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c:22: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 24 goals scheduled
+[wp] Proved goals:   24 / 24
+  Qed:            20
+  Alt-Ergo :       4 (8ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 29):
+Let x = 3 * j.
+Let x_1 = 1 + x.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(1 + j) /\
+      is_sint32(x_1) /\ is_sint32(4 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 3333).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      (b[1 + (3 * i_2)] = a[i_2]))).
+  (* Then *)
+  Have: j <= 3332.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: a[j <- b[x_1]][i] = b[1 + (3 * i)].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30682)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (81)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 44):
+Let x = 3 * j.
+Let x_1 = 1 + x.
+Let x_2 = b[x_1].
+Let x_3 = a[j].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(j_1) /\ is_sint32(x_3) /\
+      is_sint32(1 + j) /\ is_sint32(x_1) /\ is_sint32(1 + (3 * j_1)) /\
+      is_sint32(4 + x) /\ is_sint32(x_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 3332).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j_1) /\ (j_1 <= 3333).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j_1) ->
+      (b[1 + (3 * i_2)] = a[i_2]))).
+  (* Else *)
+  Have: 3333 <= j_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 3332) ->
+      (b[1 + (3 * i_2)] = a[i_2]))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 3333).
+  (* Then *)
+  Have: j <= 3332.
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: b[1 + (3 * i)] = a[i].
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (32139)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (9ms) (79)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 44):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(1 + (3 * j)).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 3332).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 3333).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      (b[1 + (3 * i_2)] = a[i_2]))).
+  (* Else *)
+  Have: 3333 <= j.
+}
+Prove: b[1 + (3 * i)] = a[i].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29521)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (45)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 50):
+Let x = a[j].
+Let x_1 = 1 + (3 * j).
+Let x_2 = b[x_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(j_1) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(1 + (3 * j_1)) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Invariant *)
+  Have: (0 <= j_1) /\ (j_1 <= 3333).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < j_1) ->
+      (b[1 + (3 * i_1)] = a[i_1]))).
+  (* Else *)
+  Have: 3333 <= j_1.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 3332) ->
+      (b[1 + (3 * i_1)] = a[i_1]))).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 3333).
+  (* Then *)
+  Have: j <= 3332.
+}
+Prove: x_2 = x.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (31046)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (61)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-examples_standard_two_index_03/array-examples_standard_two_index_03.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

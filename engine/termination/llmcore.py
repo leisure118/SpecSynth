@@ -12,16 +12,19 @@ def _clean_api_key(env_name: str) -> str | None:
 def _resolve_runtime_model():
     model_name = os.environ.get("TERMINATION_LLM_MODEL", "qwen-turbo")
     local_models = {
-        "qwen35-4b-ft": ("QWEN35_4B_API_BASE_URL", 18001),
-        "qwen35-9b-ft": ("QWEN35_9B_API_BASE_URL", 18002),
-        "qwen35-9b-mix64": ("QWEN35_9B_MIX64_API_BASE_URL", 18003),
+        "qwen35-4b-ft": "QWEN35_4B_API_BASE_URL",
+        "qwen35-9b-ft": "QWEN35_9B_API_BASE_URL",
+        "qwen35-9b-mix64": "QWEN35_9B_MIX64_API_BASE_URL",
     }
     if model_name in local_models:
-        env_name, port = local_models[model_name]
+        env_name = local_models[model_name]
+        base_url = os.environ.get(env_name, "").strip()
+        if not base_url:
+            raise RuntimeError(f"Missing model service address: {env_name}")
         return (
             model_name,
             "EMPTY",
-            os.environ.get(env_name, f"http://127.0.0.1:{port}/v1"),
+            base_url,
         )
 
     openai_like_models = {
@@ -83,7 +86,7 @@ def generate_loop_variant_llm(context_prompt: str) -> str:
             model=MODEL_NAME,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": context_prompt},
+                {"role": "user", "content": context_prompt + "\n\n" + os.environ.get("XUANJIAN_AGENT_INSTRUCTIONS", "")},
             ],
             temperature=0.1,
             max_tokens=100,

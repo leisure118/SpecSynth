@@ -1,0 +1,1498 @@
+[kernel] Parsing output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:11: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+[wp] 64 goals scheduled
+[wp] Proved goals:   64 / 64
+  Qed:            44
+  Alt-Ergo :      20 (9ms-11ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 18):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 18):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Then *)
+  Have: i < SIZE_0.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_1[shift_sint64(a, i) <- 1][shift_sint64(a, i_1)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (96914)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (11ms) (140)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 28):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 28):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 29):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Let a_2 = a_1[shift_sint64(a, i)].
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(1 + i) /\ is_sint64(a_2) /\ is_sint64(i + a_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Then *)
+  Have: i < SIZE_0.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_2 = 1.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (98395)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (9ms) (78)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 29):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 30):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(1 + i_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_1[shift_sint64(a, i_3)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_3)] = 1))).
+  (* Invariant *)
+  Have: (i_2 <= SIZE_0) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: a_1[shift_sint64(a, i_2)] = 1.
+  (* Then *)
+  Have: i_2 < SIZE_0.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (20ms) (127973)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (9ms) (90)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 30):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (96262)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (63)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 39):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 39):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 40):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, i).
+Let x = i + i_1.
+Let x_1 = sum_0 - i_1.
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_1, x_1).
+Let a_4 = shift_sint64(a, i_1).
+Let a_5 = a_3[a_4].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint64(sum_0) /\
+      is_sint32(1 + i_1) /\ is_sint32(x_1) /\ is_sint64(a_5) /\
+      is_sint64(sum_0 + a_5).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: ((2 + i_1) <= sum_0) /\ (sum_0 <= (99999 + i_1)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(x_1)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: i_1 <= sum_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (x <= sum_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_3[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: sum_0 <= x.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint64(a, i_2)] = 1))).
+  (* Invariant *)
+  Have: (i_1 <= i) /\ (0 <= i_1).
+  (* Then *)
+  Have: i_1 < i.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: a_2[a_4] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (99210)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (10ms) (96)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 40):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 41):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, i).
+Let x = i + i_2.
+Let x_1 = sum_0 - i_2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_2) /\ is_sint64(sum_0) /\
+      is_sint32(1 + i_2) /\ is_sint64(1 + sum_0) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ ((i_1 + i_2) < sum_0).
+  (* Call 'unknown' *)
+  Have: ((2 + i_2) <= sum_0) /\ (sum_0 <= (99999 + i_2)).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(x_1)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: i_2 <= sum_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (x <= sum_0).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (havoc(Mint_undef_0, Mint_0, a_1, x_1)[shift_sint64(a, i_3)] = 1))).
+  (* Else *)
+  Have: sum_0 <= x.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_2[shift_sint64(a, i_3)] = 1))).
+  (* Invariant *)
+  Have: (i_2 <= i) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: a_2[shift_sint64(a, i_2)] = 1.
+  (* Invariant *)
+  Have: (i_2 < i) /\ ((-1) <= i_2).
+}
+Prove: a_2[shift_sint64(a, i_1)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (20ms) (129202)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (10ms) (107)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 41):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (96992)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (9ms) (64)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 50):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 50):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 51):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = 2 * SIZE_0.
+Let x_1 = 3 * SIZE_0.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Let x_2 = (-2) * SIZE_0.
+Let x_3 = sum_0 - x.
+Let a_2 = a_1[shift_sint64(a, x_3)].
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint64(sum_0) /\
+      is_sint64(x) /\ is_sint32(x_3) /\ is_sint32(1 + sum_0 - x) /\
+      is_sint64(a_2) /\ is_sint64(sum_0 + a_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_1[shift_sint64(a, i_1)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_1)] = 1))).
+  (* Invariant *)
+  Have: (x <= sum_0) /\ (sum_0 <= x_1).
+  (* Then *)
+  Have: sum_0 < x_1.
+  (* Invariant *)
+  Have: x <= (1 + sum_0).
+}
+Prove: a_2 = 1.
+Prover Alt-Ergo  returns Valid (Qed:12ms) (10ms) (100)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 51):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 52):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = 3 * SIZE_0.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Let x_1 = (-2) * SIZE_0.
+Let x_2 = sum_0 - 1 - (2 * SIZE_0).
+Let x_3 = 2 * SIZE_0.
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint64(sum_0) /\
+      is_sint64(x_3) /\ is_sint64(sum_0 - 1) /\ is_sint32(sum_0 - x_3) /\
+      is_sint32(x_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Invariant *)
+  Have: (x_3 < sum_0) /\ (sum_0 <= (1 + x)).
+  (* Invariant *)
+  Have: a_1[shift_sint64(a, x_2)] = 1.
+  (* Then *)
+  Have: sum_0 <= x.
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (20ms) (129052)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (11ms) (111)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 52):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint64(2 * SIZE_0).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (97222)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (9ms) (66)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 61):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 61):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 62):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = 3 * SIZE_0.
+Let x_1 = 2 * SIZE_0.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Let x_2 = -sum_0.
+Let x_3 = x - sum_0.
+Let a_2 = a_1[shift_sint64(a, x_3)].
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint64(sum_0) /\
+      is_sint64(x_1) /\ is_sint64(x) /\ is_sint32(x_3) /\
+      is_sint32(1 + x - sum_0) /\ is_sint64(a_2) /\ is_sint64(sum_0 - a_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_1[shift_sint64(a, i_1)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_1)] = 1))).
+  (* Invariant *)
+  Have: (x_1 <= sum_0) /\ (sum_0 <= x).
+  (* Then *)
+  Have: x_1 < sum_0.
+  (* Invariant *)
+  Have: sum_0 <= (1 + x).
+}
+Prove: a_2 = 1.
+Prover Alt-Ergo  returns Valid (Qed:16ms) (10ms) (97)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 62):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 63):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = 2 * SIZE_0.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Let x_1 = -sum_0.
+Let x_2 = 3 * SIZE_0.
+Let x_3 = x_2 - 1 - sum_0.
+Let x_4 = 1 + sum_0.
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint64(sum_0) /\
+      is_sint64(x) /\ is_sint64(x_2) /\ is_sint64(x_4) /\
+      is_sint32(x_2 - sum_0) /\ is_sint32(x_3).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Invariant *)
+  Have: (sum_0 < x_2) /\ (x <= x_4).
+  (* Invariant *)
+  Have: a_1[shift_sint64(a, x_3)] = 1.
+  (* Then *)
+  Have: x <= sum_0.
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (20ms) (129614)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (10ms) (113)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 63):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint64(2 * SIZE_0) /\
+      is_sint64(3 * SIZE_0).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (97452)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (9ms) (70)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 72):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 72):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 73):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = 2 * SIZE_0.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Let x_1 = -sum_0.
+Let x_2 = x - sum_0.
+Let a_2 = a_1[shift_sint64(a, x_2)].
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint64(sum_0) /\
+      is_sint64(x) /\ is_sint64(3 * SIZE_0) /\ is_sint32(x_2) /\
+      is_sint32(1 + x - sum_0) /\ is_sint64(a_2) /\ is_sint64(sum_0 - a_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_1[shift_sint64(a, i_1)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_1)] = 1))).
+  (* Invariant *)
+  Have: (SIZE_0 <= sum_0) /\ (sum_0 <= x).
+  (* Then *)
+  Have: SIZE_0 < sum_0.
+  (* Invariant *)
+  Have: sum_0 <= (1 + x).
+}
+Prove: a_2 = 1.
+Prover Alt-Ergo  returns Valid (Qed:18ms) (10ms) (94)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 73):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 74):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Let x = -sum_0.
+Let x_1 = 2 * SIZE_0.
+Let x_2 = x_1 - 1 - sum_0.
+Let x_3 = 1 + sum_0.
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint64(sum_0) /\
+      is_sint64(x_1) /\ is_sint64(3 * SIZE_0) /\ is_sint64(x_3) /\
+      is_sint32(x_1 - sum_0) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Invariant *)
+  Have: (sum_0 < x_1) /\ (SIZE_0 <= x_3).
+  (* Invariant *)
+  Have: a_1[shift_sint64(a, x_2)] = 1.
+  (* Then *)
+  Have: SIZE_0 <= sum_0.
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (20ms) (129578)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (11ms) (109)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 74):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint64(2 * SIZE_0) /\
+      is_sint64(3 * SIZE_0).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (97452)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (9ms) (70)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 83):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (16ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 83):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 84):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = i + sum_0.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), x).
+Let a_2 = a_1[shift_sint64(a, i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint64(sum_0) /\
+      is_sint32(1 + i) /\ is_sint32(x) /\ is_sint64((2 * i) + (2 * sum_0)) /\
+      is_sint64((3 * i) + (3 * sum_0)) /\ is_sint64(a_2) /\
+      is_sint64(sum_0 - a_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: (2 <= x) /\ (x <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(x)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= x).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: x <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (0 <= sum_0).
+  (* Then *)
+  Have: 0 < sum_0.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_2 = 1.
+Prover Z3 4.15.4 returns Valid (Qed:22ms) (20ms) (99492)
+Prover Alt-Ergo  returns Valid (Qed:22ms) (10ms) (91)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 84):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 85):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = i + sum_0.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), x).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint64(sum_0) /\
+      is_sint32(1 + i) /\ is_sint32(x) /\ is_sint64(sum_0 - 1) /\
+      is_sint64((2 * i) + (2 * sum_0)) /\ is_sint64((3 * i) + (3 * sum_0)).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < x).
+  (* Call 'unknown' *)
+  Have: (2 <= x) /\ (x <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(x)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= x).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_1[shift_sint64(a, i_3)] = 1))).
+  (* Else *)
+  Have: x <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_1[shift_sint64(a, i_3)] = 1))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (0 <= sum_0).
+  (* Invariant *)
+  Have: (0 < sum_0) /\ ((-1) <= i).
+  (* Invariant *)
+  Have: a_1[shift_sint64(a, i)] = 1.
+}
+Prove: a_1[shift_sint64(a, i_1)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:22ms) (20ms) (129254)
+Prover Alt-Ergo  returns Valid (Qed:22ms) (10ms) (105)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 85):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint64(2 * SIZE_0) /\
+      is_sint64(3 * SIZE_0).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (i_1 <= SIZE_0) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+  (* Else *)
+  Have: SIZE_0 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint64(a, i_2)] = 1))).
+}
+Prove: a_1[shift_sint64(a, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (97452)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (9ms) (70)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 93):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 20) (1/3):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 20) (2/3):
+Effect at line 23
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 20) (3/3):
+Effect at line 25
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, SIZE_0).
+Let x = i - 1.
+Let a_3 = shift_sint64(a, x).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: (2 <= SIZE_0) /\ (SIZE_0 <= 99999).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + SIZE_0)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint64(a, i_1)] = 1))).
+  (* Then *)
+  Have: i <= SIZE_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[a_3 <- 1][shift_sint64(a, i_1)] = 1))).
+}
+Prove: included(a_3, 1, a_1, SIZE_0).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (68939)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (11ms) (141)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 31):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 42):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 53):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 64):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 75):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 86):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 23):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 23):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 34):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 34):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 45):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 45):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 56):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 56):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 67):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 67):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 78):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 78):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 89):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c, line 89):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:15: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-crafted_zero_sum_const_m3/array-crafted_zero_sum_const_m3.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

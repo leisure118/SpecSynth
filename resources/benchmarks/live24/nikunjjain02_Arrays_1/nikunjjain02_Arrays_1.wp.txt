@@ -1,0 +1,222 @@
+[kernel] Parsing output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:             7
+  Alt-Ergo :       6 (6ms-15ms-22ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 24):
+Assume {
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 5).
+  (* Call 'reset' *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 5) -> (a[i_1] = 0))).
+}
+Prove: a[i] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (18891)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (17)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 3) in 'reset'' in 'main' at call 'reset' (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 23)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function reset
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 5) in 'reset':
+Let a = shift_sint32(array_0, 0).
+Assume {
+  Type: is_uint64(i) /\ is_uint64(length_0).
+  (* Heap *)
+  Type: (region(array_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < length_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, length_0).
+  (* Invariant *)
+  Have: 0 <= length_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= length_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (havoc(Mint_undef_0, Mint_0, a, length_0)[shift_sint32(array_0, i_2)] =
+       0))).
+  (* Else *)
+  Have: length_0 <= i.
+}
+Prove: havoc(Mint_undef_0, Mint_0, a, i)[shift_sint32(array_0, i_1)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (94041)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (17ms) (56)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 10):
+Let a = shift_sint32(array_0, 0).
+Assume {
+  Type: is_uint64(i) /\ is_uint64(length_0).
+  (* Heap *)
+  Type: (region(array_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, length_0).
+  (* Invariant *)
+  Have: 0 <= length_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= length_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (havoc(Mint_undef_0, Mint_0, a, length_0)[shift_sint32(array_0, i_1)] =
+       0))).
+  (* Then *)
+  Have: i < length_0.
+}
+Prove: to_uint64(1 + i) <= length_0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (76248)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (20ms) (62)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 11):
+Let x = to_uint64(1 + i).
+Let a = shift_sint32(array_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, length_0).
+Assume {
+  Type: is_uint64(i) /\ is_uint64(length_0).
+  (* Heap *)
+  Type: (region(array_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, length_0).
+  (* Invariant *)
+  Have: 0 <= length_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= length_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_1[shift_sint32(array_0, i_2)] = 0))).
+  (* Then *)
+  Have: i < length_0.
+  (* Invariant *)
+  Have: x <= length_0.
+}
+Prove: a_1[shift_sint32(array_0, i) <- 0][shift_sint32(array_0, i_1)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (94785)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (17ms) (121)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 12) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 12) (2/3):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 12) (3/3):
+Effect at line 17
+Let x = to_uint64(1 + i).
+Let a = shift_sint32(array_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, length_0).
+Let a_2 = shift_sint32(array_0, i).
+Assume {
+  Type: is_uint64(i) /\ is_uint64(length_0).
+  (* Heap *)
+  Type: (region(array_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, length_0).
+  (* Invariant *)
+  Have: 0 <= length_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= length_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_1[shift_sint32(array_0, i_1)] = 0))).
+  (* Then *)
+  Have: i < length_0.
+  (* Invariant *)
+  Have: x <= length_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_1[a_2 <- 0][shift_sint32(array_0, i_1)] = 0))).
+}
+Prove: included(a_2, 1, a, length_0).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (20ms) (68101)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (22ms) (128)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 4) in 'reset':
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (0.67ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 15):
+Let x = to_uint64(1 + i).
+Let a = shift_sint32(array_0, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, length_0).
+Assume {
+  Type: is_uint64(i) /\ is_uint64(length_0).
+  (* Heap *)
+  Type: (region(array_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, length_0).
+  (* Invariant *)
+  Have: 0 <= length_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= length_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_1[shift_sint32(array_0, i_1)] = 0))).
+  (* Then *)
+  Have: i < length_0.
+  (* Invariant *)
+  Have: x <= length_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_1[shift_sint32(array_0, i) <- 0][shift_sint32(array_0, i_1)] = 0))).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (77889)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (73)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/nikunjjain02_Arrays_1/nikunjjain02_Arrays_1.acsl.c:20: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

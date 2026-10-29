@@ -1,0 +1,96 @@
+[kernel] Parsing output/autobench_v2/177/177.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             9
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/177/177.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/177/177.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/177/177.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/177/177.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/177/177.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/177/177.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (0.78ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/177/177.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/177/177.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/177/177.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/177/177.acsl.c, line 33):
+Let x = 1 + i.
+Let x_1 = n * x.
+Let x_2 = 1 + k.
+Assume {
+  Type: is_sint32(flag_0) /\ is_sint32(i) /\ is_sint32(k) /\ is_sint32(n) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_1 - n).
+  If flag_0 = 1
+  Then { Have: n = 1. }
+  Else { Have: n = 2. }
+  (* Invariant *)
+  Have: (k < 0) \/ ((-1) <= k).
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (k < 0) \/ (i <= x_2).
+  (* Invariant *)
+  Have: x_1 = (n + (i * n)).
+  (* Then *)
+  Have: i <= k.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: i <= x_2.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (29339)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (7ms) (58)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/177/177.acsl.c:11: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

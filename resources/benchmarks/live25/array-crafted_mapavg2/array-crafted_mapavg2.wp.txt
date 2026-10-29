@@ -1,0 +1,211 @@
+[kernel] Parsing output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c:46: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 26 goals scheduled
+[wp] Proved goals:   26 / 26
+  Qed:            24
+  Alt-Ergo :       2 (10ms-11ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 54) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 54) (2/2):
+Effect at line 58
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 14) in 'mapavg'' in 'main' at call 'mapavg' (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 48)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 14) in 'mapavg'' in 'main' at call 'mapavg' (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 50)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 14) in 'mapavg'' in 'main' at call 'mapavg' (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 61)
+:
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function mapavg
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 24):
+Let x_1 = 1 + i.
+Let x_2 = Mint_0[shift_sint32(x, i)].
+Let x_3 = L_sum_ix(Mint_0, x, i).
+Let x_4 = i + x_3 + x_2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint64(x_3) /\
+      is_sint64(x_4).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 1000).
+  (* Invariant *)
+  Have: L_sum_ix(Mint_0, x, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000).
+  (* Then *)
+  Have: i <= 999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x_4 = L_sum_ix(Mint_0, x, x_1).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (140522)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (11ms) (152)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 24):
+Assume {
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 1000).
+}
+Prove: L_sum_ix(Mint_0, x, 0) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:0.67ms) (10ms) (64955)
+Prover Alt-Ergo  returns Valid (Qed:0.67ms) (10ms) (73)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapavg' (1/4):
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapavg' (2/4):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (0.66ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapavg' (3/4):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapavg' (4/4):
+Effect at line 31
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-crafted_mapavg2/array-crafted_mapavg2.acsl.c:33: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

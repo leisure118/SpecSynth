@@ -1,0 +1,86 @@
+[kernel] Parsing output/live24/axiom_pop_of_push/axiom_pop_of_push.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             2
+  Alt-Ergo :       4 (8ms-12ms-23ms)
+------------------------------------------------------------
+  Axiomatic 'StackEquality'
+------------------------------------------------------------
+
+Lemma StackEqual_Reflexive:
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_0 Mint_0 Mint_1 s_0 s_0)
+Prover Z3 4.15.4 returns Valid (10ms) (31834)
+Prover Alt-Ergo  returns Valid (8ms) (37)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Symmetric:
+Assume: 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_1 Mint_2 Mint_3 Mptr_0 Mint_0 Mint_1 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 t_0 s_0)
+Prover Alt-Ergo  returns Valid (9ms) (73)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Transitive:
+Assume: 'StackEqual_Symmetric' 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_2 Mint_4 Mint_5 t_0 u_0)
+       -> (P_StackEqual Mptr_2 Mint_4 Mint_5 Mptr_1 Mint_2 Mint_3 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 s_0 u_0)
+Prover Alt-Ergo  returns Valid (9ms) (94)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function axiom_pop_of_push
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/axiom_pop_of_push/axiom_pop_of_push.acsl.c, line 158):
+Let a = shiftfield_F1_Stack_size(s).
+Let m = Mint_1[a <- v_2].
+Let x = L_StackCapacity(m, s).
+Let m_1 = Mint_1[a <- v_1].
+Let x_1 = L_StackSize(m_1, s).
+Let x_2 = L_StackSize(Mint_1, s).
+Let x_3 = Mint_1[a].
+Let m_2 = Mint_0[shift_sint32(Mptr_0[shiftfield_F1_Stack_obj(s)], x_3) <- v].
+Let a_1 = L_StackStorage(Mptr_0, s).
+Assume {
+  Type: is_uint32(x_3) /\ is_sint32(L_StackTop(Mptr_0, m_2, m, s)).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ framed(Mptr_0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (!P_StackFull(Mint_1, s)) /\ valid_rw(Malloc_0, s, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_1, s).
+  (* Call 'stack_push' *)
+  Have: (x = L_StackCapacity(Mint_1, s)) /\
+      ((1 + x_2) = L_StackSize(m, s)) /\ (!P_StackEmpty(m, s)) /\
+      P_StackInvariant(Malloc_0, Mptr_0, m, s) /\
+      P_Unchanged_2_(m_2, Mint_0, a_1, x_2).
+  (* Call 'stack_pop' *)
+  Have: (x = L_StackCapacity(m_1, s)) /\ (x_1 = x_2) /\
+      (!P_StackFull(m_1, s)) /\ P_StackInvariant(Malloc_0, Mptr_0, m_1, s) /\
+      P_Unchanged_2_(m_2, m_2, a_1, x_1).
+}
+Prove: P_StackEqual(Mptr_0, m_2, m_1, Mptr_0, Mint_0, Mint_1, s, s).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (23ms) (416)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_push'' in 'axiom_pop_of_push' at call 'stack_push' (file output/live24/axiom_pop_of_push/axiom_pop_of_push.acsl.c, line 156)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_pop'' in 'axiom_pop_of_push' at call 'stack_pop' (file output/live24/axiom_pop_of_push/axiom_pop_of_push.acsl.c, line 157)
+:
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/axiom_pop_of_push/axiom_pop_of_push.acsl.c:154: Warning: 
+  No 'assigns' specification for function 'axiom_pop_of_push'.
+  Callers assumptions might be imprecise.

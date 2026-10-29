@@ -1,0 +1,174 @@
+[kernel] Parsing output/live24/stack_top_wd/stack_top_wd.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:             9
+  Alt-Ergo :       4 (9ms-11ms-15ms)
+  Z3 4.15.4:       1 (20ms)
+------------------------------------------------------------
+  Axiomatic 'StackEquality'
+------------------------------------------------------------
+
+Lemma StackEqual_Reflexive:
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_0 Mint_0 Mint_1 s_0 s_0)
+Prover Z3 4.15.4 returns Valid (10ms) (31834)
+Prover Alt-Ergo  returns Valid (9ms) (37)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Symmetric:
+Assume: 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_1 Mint_2 Mint_3 Mptr_0 Mint_0 Mint_1 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 t_0 s_0)
+Prover Alt-Ergo  returns Valid (15ms) (73)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Transitive:
+Assume: 'StackEqual_Symmetric' 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_2 Mint_4 Mint_5 t_0 u_0)
+       -> (P_StackEqual Mptr_2 Mint_4 Mint_5 Mptr_1 Mint_2 Mint_3 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 s_0 u_0)
+Prover Alt-Ergo  returns Valid (9ms) (94)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/stack_top_wd/stack_top_wd.acsl.c, line 133):
+Let a = global(L_s1_98).
+Let a_1 = global(L_s2_99).
+Let m = Mint_1[shiftfield_F1_Stack_capacity(a) <- 3]
+          [shiftfield_F1_Stack_size(a) <- 3]
+          [shiftfield_F1_Stack_capacity(a_1) <- 3]
+          [shiftfield_F1_Stack_size(a_1) <- 3].
+Let a_2 = global(L_arr1_100).
+Let a_3 = shift_sint32(a_2, 0).
+Let a_4 = global(L_arr2_101).
+Let a_5 = shift_sint32(a_4, 0).
+Let m_1 = Mptr_0[shiftfield_F1_Stack_obj(a) <- a_3]
+            [shiftfield_F1_Stack_obj(a_1) <- a_5].
+Let m_2 = Malloc_0[L_s1_98 <- 3][L_s2_99 <- 3][L_arr1_100 <- 3][L_arr2_101
+            <- 3].
+Assume {
+  Type: is_sint32(result_0).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Initializer *)
+  Init: Mint_0[a_3] = 1.
+  (* Initializer *)
+  Init: Mint_0[shift_sint32(a_2, 1)] = 2.
+  (* Initializer *)
+  Init: Mint_0[shift_sint32(a_2, 2)] = 3.
+  (* Initializer *)
+  Init: Mint_0[a_5] = 1.
+  (* Initializer *)
+  Init: Mint_0[shift_sint32(a_4, 1)] = 2.
+  (* Initializer *)
+  Init: Mint_0[shift_sint32(a_4, 2)] = 3.
+  (* Admit *)
+  Have: P_StackInvariant(m_2, m_1, m, a).
+  (* Admit *)
+  Have: P_StackInvariant(m_2, m_1, m, a_1).
+  (* Call 'stack_top_wd' *)
+  Have: ((0 < L_StackSize(m, a)) -> ((0 < L_StackSize(m, a_1)) ->
+      ((L_StackTop(m_1, Mint_0, m, a_1) = L_StackTop(m_1, Mint_0, m, a)) <->
+       (result_0 = 1)))).
+}
+Prove: result_0 = 1.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (77634)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_top_wd'' in 'main' at initialization of 'result' (file output/live24/stack_top_wd/stack_top_wd.acsl.c, line 132)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function stack_top_wd
+------------------------------------------------------------
+
+Goal Post-condition 'result_eq' in 'stack_top_wd':
+Let x = L_StackTop(Mptr_0, Mint_0, Mint_1, t).
+Let x_1 = L_StackTop(Mptr_0, Mint_0, Mint_1, s).
+Assume {
+  Type: is_sint32(stack_top_1) /\ is_sint32(stack_top_0).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Goal *)
+  When: (0 < L_StackSize(Mint_1, s)) /\ (0 < L_StackSize(Mint_1, t)).
+  (* Pre-condition 'valid' *)
+  Have: valid_rw(Malloc_0, s, 3) /\ valid_rw(Malloc_0, t, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_1, s) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_1, t).
+  (* Call 'stack_top' *)
+  Have: ((!P_StackEmpty(Mint_1, s)) -> (x_1 = stack_top_0)).
+  (* Call 'stack_top' *)
+  Have: ((!P_StackEmpty(Mint_1, t)) -> (x = stack_top_1)).
+}
+Prove: (x = x_1) <-> (stack_top_0 = stack_top_1).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (12ms) (119)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_top_wd' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_top_wd' (2/2):
+Call Result at line 118
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_top_wd' (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_top_wd' (2/4):
+Call Result at line 118
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_top_wd' (3/4):
+Call Result at line 118
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_top_wd' (4/4):
+Effect at line 118
+Prove: true.
+Prover Qed returns Valid (0.61ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_top'' in 'stack_top_wd' at call 'stack_top' (file output/live24/stack_top_wd/stack_top_wd.acsl.c, line 118)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_top'' in 'stack_top_wd' at call 'stack_top' (file output/live24/stack_top_wd/stack_top_wd.acsl.c, line 118)
+:
+Prove: true.
+Prover Qed returns Valid (0.64ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/stack_top_wd/stack_top_wd.acsl.c:120: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

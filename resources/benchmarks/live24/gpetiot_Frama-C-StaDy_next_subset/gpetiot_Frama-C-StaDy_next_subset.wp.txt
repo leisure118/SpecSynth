@@ -1,0 +1,409 @@
+[kernel] Parsing output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 26 goals scheduled
+[wp] Proved goals:   26 / 26
+  Qed:            19
+  Alt-Ergo :       7 (10ms-16ms-34ms)
+------------------------------------------------------------
+  Function nextSubset
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 14) in 'nextSubset':
+Prove: true.
+Prover Qed returns Valid (15ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 15) in 'nextSubset':
+Let a = shift_sint32(s, k).
+Let m = Mint_0[a <- 1].
+Let x = 1 + k.
+Let a_1 = shift_sint32(s, x).
+Let x_1 = -k.
+Let a_2 = havoc(Mint_undef_0, m, a_1, i - 1 - k).
+Let a_3 = havoc(Mint_undef_0, m, a_1, n - 1 - k).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(k) /\ is_sint32(n) /\ is_sint32(n - 1) /\
+      is_sint32(x) /\ is_sint32(a_3[a]).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: k != (-1).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(s, 0), n).
+  (* Pre-condition *)
+  Have: P_is_dset(Mint_0, s, n).
+  (* Invariant *)
+  Have: (k < n) /\ ((-1) <= k).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((k < i_1) ->
+      (Mint_0[shift_sint32(s, i_1)] = 1))).
+  If 0 <= k
+  Then { (* Then *) Have: Mint_0[a] = 0. }
+  (* Invariant *)
+  Have: (k < i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < i) -> ((k < i_1) ->
+      (a_3[shift_sint32(s, i_1)] = 0))).
+  (* Else *)
+  Have: n <= i.
+  (* Assertion *)
+  Have: P_is_dset(a_2, s, i).
+}
+Prove: (a_2[a] = 1) /\ (0 <= k).
+Prover Z3 4.15.4 returns Valid (Qed:33ms) (20ms) (128381)
+Prover Alt-Ergo  returns Valid (Qed:33ms) (16ms) (292)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (0.68ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 21):
+Let x = Mint_0[shift_sint32(s, k)].
+Assume {
+  Type: is_sint32(k) /\ is_sint32(n) /\ is_sint32(k - 1) /\
+      is_sint32(n - 1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (k <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(s, 0), n).
+  (* Pre-condition *)
+  Have: P_is_dset(Mint_0, s, n).
+  (* Invariant *)
+  Have: (k < n) /\ ((-1) <= k).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((k < i_1) ->
+      (Mint_0[shift_sint32(s, i_1)] = 1))).
+  (* Then *)
+  Have: 0 <= k.
+  (* Else *)
+  Have: x != 0.
+}
+Prove: Mint_0[shift_sint32(s, i)] = 1.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (263297)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (11ms) (150)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 30):
+Let a = shift_sint32(s, k).
+Let x = 1 + k.
+Let a_1 = havoc(Mint_undef_0, Mint_0[a <- 1], shift_sint32(s, x), n - 1 - k).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(k) /\ is_sint32(n) /\ is_sint32(n - 1) /\
+      is_sint32(1 + i) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: 0 <= k.
+  (* Goal *)
+  When: (i_1 <= i) /\ (k < i_1).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(s, 0), n).
+  (* Pre-condition *)
+  Have: P_is_dset(Mint_0, s, n).
+  (* Invariant *)
+  Have: (k < n) /\ ((-1) <= k).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < n) -> ((k < i_2) ->
+      (Mint_0[shift_sint32(s, i_2)] = 1))).
+  (* Then *)
+  Have: Mint_0[a] = 0.
+  (* Else *)
+  Have: k != (-1).
+  (* Invariant *)
+  Have: (k < i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < i) -> ((k < i_2) ->
+      (a_1[shift_sint32(s, i_2)] = 0))).
+  (* Then *)
+  Have: i < n.
+}
+Prove: a_1[shift_sint32(s, i) <- 0][shift_sint32(s, i_1)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (30ms) (240106)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (15ms) (239)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 35):
+Let a = shift_sint32(s, k).
+Let m = Mint_0[a <- 1].
+Let x = 1 + k.
+Let a_1 = shift_sint32(s, x).
+Let x_1 = -k.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(k) /\ is_sint32(n) /\ is_sint32(n - 1) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: 0 <= k.
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(s, 0), n).
+  (* Pre-condition *)
+  Have: P_is_dset(Mint_0, s, n).
+  (* Invariant *)
+  Have: (k < n) /\ ((-1) <= k).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((k < i_1) ->
+      (Mint_0[shift_sint32(s, i_1)] = 1))).
+  (* Then *)
+  Have: Mint_0[a] = 0.
+  (* Else *)
+  Have: k != (-1).
+  (* Invariant *)
+  Have: (k < i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < i) -> ((k < i_1) ->
+      (havoc(Mint_undef_0, m, a_1, n - 1 - k)[shift_sint32(s, i_1)] = 0))).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_is_dset(havoc(Mint_undef_0, m, a_1, i - 1 - k), s, i).
+Prover Alt-Ergo  returns Valid (Qed:12ms) (34ms) (839)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 31) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 31) (2/3):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 31) (3/3):
+Effect at line 34
+Let a = shift_sint32(s, k).
+Let x = 1 + k.
+Let a_1 = shift_sint32(s, x).
+Let x_1 = n - 1 - k.
+Let a_2 = havoc(Mint_undef_0, Mint_0[a <- 1], a_1, x_1).
+Let x_2 = i - 1.
+Let a_3 = shift_sint32(s, x_2).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(k) /\ is_sint32(n) /\ is_sint32(x_2) /\
+      is_sint32(n - 1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: 0 <= k.
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(s, 0), n).
+  (* Pre-condition *)
+  Have: P_is_dset(Mint_0, s, n).
+  (* Invariant *)
+  Have: (k < n) /\ ((-1) <= k).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((k < i_1) ->
+      (Mint_0[shift_sint32(s, i_1)] = 1))).
+  (* Then *)
+  Have: Mint_0[a] = 0.
+  (* Else *)
+  Have: k != (-1).
+  (* Invariant *)
+  Have: ((2 + k) <= i) /\ (i <= (1 + n)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((k < i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint32(s, i_1)] = 0))).
+  (* Then *)
+  Have: i <= n.
+  (* Invariant *)
+  Have: k < i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < i) -> ((k < i_1) ->
+      (a_2[a_3 <- 0][shift_sint32(s, i_1)] = 0))).
+}
+Prove: included(a_3, 1, a_1, x_1).
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (72502)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (15ms) (217)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 13) in 'nextSubset' (1/7):
+Effect at line 25
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 13) in 'nextSubset' (2/7):
+Effect at line 25
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 13) in 'nextSubset' (3/7):
+Effect at line 26
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 13) in 'nextSubset' (4/7):
+Effect at line 27
+Let a = shift_sint32(s, k).
+Let a_1 = shift_sint32(s, 0).
+Assume {
+  Type: is_sint32(k) /\ is_sint32(n) /\ is_sint32(n - 1).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: 0 <= k.
+  (* Goal *)
+  When: !invalid(Malloc_0, a, 1).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_is_dset(Mint_0, s, n).
+  (* Invariant *)
+  Have: (k < n) /\ ((-1) <= k).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((k < i) ->
+      (Mint_0[shift_sint32(s, i)] = 1))).
+  (* Then *)
+  Have: Mint_0[a] = 0.
+  (* Else *)
+  Have: k != (-1).
+}
+Prove: included(a, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (68120)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (90)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 13) in 'nextSubset' (5/7):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 13) in 'nextSubset' (6/7):
+Effect at line 34
+Let a = shift_sint32(s, 0).
+Let x = 1 + k.
+Let a_1 = shift_sint32(s, x).
+Let x_1 = n - 1 - k.
+Assume {
+  (* Residual *)
+  When: 0 <= k.
+  Have: !invalid(Malloc_0, a_1, x_1).
+  Type: is_sint32(k) /\ is_sint32(n) /\ is_sint32(n - 1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, n).
+  (* Pre-condition *)
+  Have: P_is_dset(Mint_0, s, n).
+  (* Invariant *)
+  Have: (k < n) /\ ((-1) <= k).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((k < i) ->
+      (Mint_0[shift_sint32(s, i)] = 1))).
+  (* Then *)
+  Have: Mint_0[shift_sint32(s, k)] = 0.
+  (* Else *)
+  Have: k != (-1).
+}
+Prove: included(a_1, x_1, a, n).
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (68274)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (11ms) (107)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 13) in 'nextSubset' (7/7):
+Effect at line 36
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/gpetiot_Frama-C-StaDy_next_subset/gpetiot_Frama-C-StaDy_next_subset.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------

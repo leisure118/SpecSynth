@@ -1,0 +1,382 @@
+[kernel] Parsing output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:             6
+  Alt-Ergo :       8 (7ms-20ms-39ms)
+------------------------------------------------------------
+  Function lower_bound
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 5) in 'lower_bound':
+Assume {
+  Type: is_uint32(lower_bound_0) /\ is_uint32(n) /\ is_uint32(right_0) /\
+      is_sint32(val_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 <= i) -> ((i < n) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= lower_bound_0) /\ (right_0 <= n) /\ (lower_bound_0 <= right_0).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < lower_bound_0) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_0 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+  (* Else *)
+  Have: right_0 <= lower_bound_0.
+}
+Prove: lower_bound_0 <= n.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (68415)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (35)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 6) in 'lower_bound':
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(n) /\ is_uint32(right_0) /\
+      is_sint32(val_0) /\ is_sint32(Mint_0[shift_sint32(a, left_0)]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < left_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((right_0 <= i_1) ->
+      (val_0 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Else *)
+  Have: right_0 <= left_0.
+}
+Prove: Mint_0[shift_sint32(a, i)] < val_0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (126815)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (80)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 7) in 'lower_bound':
+Let x = Mint_0[shift_sint32(a, lower_bound_0)].
+Assume {
+  Type: is_uint32(lower_bound_0) /\ is_uint32(n) /\ is_uint32(right_0) /\
+      is_sint32(val_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 <= i) -> ((i < n) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= lower_bound_0) /\ (right_0 <= n) /\ (lower_bound_0 <= right_0).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < lower_bound_0) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_0 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+  (* Else *)
+  Have: right_0 <= lower_bound_0.
+}
+Prove: (n = lower_bound_0) \/ (val_0 <= x).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (96737)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (59)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 15):
+Let x = Mint_0
+          [shift_sint32(a,
+             to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)))].
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(left_1) /\ is_uint32(middle_0) /\
+      is_uint32(n) /\ is_uint32(right_1) /\ is_uint32(right_0) /\
+      is_sint32(val_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 <= i) -> ((i < n) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_1) /\ (right_1 <= n) /\ (left_1 <= right_1).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < left_1) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_1 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+  (* Then *)
+  Have: left_1 < right_1.
+  If x < val_0
+  Then {
+    Have: (right_0 = right_1) /\
+        (to_uint32(left_1 + (to_uint32(right_0 - left_1) / 2)) = middle_0).
+    (* Assertion *)
+    Have: forall i : Z. ((0 <= i) -> ((i <= middle_0) ->
+        (Mint_0[shift_sint32(a, i)] < val_0))).
+    Have: to_uint32(1 + middle_0) = left_0.
+  }
+  Else {
+    Have: (left_1 = left_0) /\
+        (to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)) = right_0).
+  }
+}
+Prove: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (20ms) (107504)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (39ms) (712)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 16):
+Let x = Mint_0
+          [shift_sint32(a,
+             to_uint32(left_1 + (to_uint32(right_0 - left_1) / 2)))].
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(left_1) /\ is_uint32(middle_0) /\
+      is_uint32(n) /\ is_uint32(right_0) /\ is_uint32(right_1) /\
+      is_sint32(val_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < left_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_1) /\ (right_0 <= n) /\ (left_1 <= right_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_1) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((right_0 <= i_1) ->
+      (val_0 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: left_1 < right_0.
+  If x < val_0
+  Then {
+    Have: (right_1 = right_0) /\
+        (to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)) = middle_0).
+    (* Assertion *)
+    Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= middle_0) ->
+        (Mint_0[shift_sint32(a, i_1)] < val_0))).
+    Have: to_uint32(1 + middle_0) = left_0.
+  }
+  Else {
+    Have: (left_1 = left_0) /\
+        (to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)) = right_1).
+  }
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_1 <= n) /\ (left_0 <= right_1).
+}
+Prove: Mint_0[shift_sint32(a, i)] < val_0.
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (20ms) (135391)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (39ms) (713)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 17):
+Let x = Mint_0
+          [shift_sint32(a,
+             to_uint32(left_1 + (to_uint32(right_0 - left_1) / 2)))].
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(left_1) /\ is_uint32(middle_0) /\
+      is_uint32(n) /\ is_uint32(right_0) /\ is_uint32(right_1) /\
+      is_sint32(val_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i < n) /\ (right_1 <= i).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_1) /\ (right_0 <= n) /\ (left_1 <= right_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_1) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((right_0 <= i_1) ->
+      (val_0 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: left_1 < right_0.
+  If x < val_0
+  Then {
+    Have: (right_1 = right_0) /\
+        (to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)) = middle_0).
+    (* Assertion *)
+    Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= middle_0) ->
+        (Mint_0[shift_sint32(a, i_1)] < val_0))).
+    Have: to_uint32(1 + middle_0) = left_0.
+  }
+  Else {
+    Have: (left_1 = left_0) /\
+        (to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)) = right_1).
+  }
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_1 <= n) /\ (left_0 <= right_1).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+}
+Prove: val_0 <= Mint_0[shift_sint32(a, i)].
+Prover Alt-Ergo  returns Valid (Qed:13ms) (15ms) (196)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (0.60ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 24):
+Let x = to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)).
+Let x_1 = Mint_0[shift_sint32(a, x)].
+Assume {
+  Type: is_uint32(left_0) /\ is_uint32(n) /\ is_uint32(right_0) /\
+      is_sint32(val_0) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= x).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((right_0 <= i_1) ->
+      (val_0 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: left_0 < right_0.
+  (* Then *)
+  Have: x_1 < val_0.
+}
+Prove: Mint_0[shift_sint32(a, i)] < val_0.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (20ms) (132007)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (20ms) (372)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'lower_bound':
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 21):
+Let x = Mint_0
+          [shift_sint32(a,
+             to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)))].
+Assume {
+  Type: is_uint32(left_1) /\ is_uint32(left_0) /\ is_uint32(middle_0) /\
+      is_uint32(n) /\ is_uint32(right_1) /\ is_uint32(right_0) /\
+      is_sint32(val_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 <= i) -> ((i < n) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_1 <= n) /\ (left_0 <= right_1).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < left_0) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_1 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+  (* Then *)
+  Have: left_0 < right_1.
+  If x < val_0
+  Then {
+    Have: (right_0 = right_1) /\
+        (to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)) = middle_0).
+    (* Assertion *)
+    Have: forall i : Z. ((0 <= i) -> ((i <= middle_0) ->
+        (Mint_0[shift_sint32(a, i)] < val_0))).
+    Have: to_uint32(1 + middle_0) = left_1.
+  }
+  Else {
+    Have: (left_0 = left_1) /\
+        (to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)) = right_0).
+  }
+  (* Invariant *)
+  Have: (0 <= left_1) /\ (right_0 <= n) /\ (left_1 <= right_0).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < left_1) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_0 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+}
+Prove: (left_0 + right_0) < (left_1 + right_1).
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (20ms) (107463)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (25ms) (431)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/arepina_lower_bound/arepina_lower_bound.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------

@@ -1,0 +1,99 @@
+[kernel] Parsing output/autobench_v2/84/84.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             5
+  Alt-Ergo :       3 (6ms-13ms-23ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/84/84.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/84/84.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/84/84.acsl.c, line 7):
+Let x = y * (y - 1).
+Let x_1 = 1 + y.
+Let x_2 = x / 2.
+Assume {
+  Type: is_sint32(y) /\ is_sint32(x_1) /\ is_sint32(x_2 - 50) /\
+      is_sint32(y + x_2 - 50).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Then *)
+  Have: x <= 99.
+  (* Invariant *)
+  Have: (-1) <= y.
+}
+Prove: ((y * x_1) / 2) = (y + x_2).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (38162)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (23ms) (771)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/84/84.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/84/84.acsl.c, line 16):
+Let x = y * (y - 1).
+Assume {
+  Type: is_sint32(y) /\ is_sint32((x / 2) - 50).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Else *)
+  Have: 100 <= x.
+}
+Prove: 0 < y.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (28167)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (22)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/84/84.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/84/84.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/84/84.acsl.c, line 11):
+Let x = 1 + y.
+Let x_1 = (y * x) / 2.
+Assume {
+  Type: is_sint32(y) /\ is_sint32(x) /\ is_sint32(x_1 - 50) /\
+      is_sint32(x_1 - 50 - y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: x_1 = (y + ((y * (y - 1)) / 2)).
+  (* Then *)
+  Have: x_1 <= (49 + y).
+  (* Invariant *)
+  Have: (-1) <= y.
+}
+Prove: y <= 100.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (34297)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (12ms) (256)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/84/84.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

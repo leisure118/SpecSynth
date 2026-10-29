@@ -1,0 +1,166 @@
+[kernel] Parsing output/live24/stack_size_wd/stack_size_wd.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 16 goals scheduled
+[wp] Proved goals:   16 / 16
+  Qed:            10
+  Alt-Ergo :       4 (15ms-23ms-46ms)
+  Z3 4.15.4:       2 (10ms)
+------------------------------------------------------------
+  Axiomatic 'StackEquality'
+------------------------------------------------------------
+
+Lemma StackEqual_Reflexive:
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_0 Mint_0 Mint_1 s_0 s_0)
+Prover Z3 4.15.4 returns Valid (10ms) (31834)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Symmetric:
+Assume: 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_1 Mint_2 Mint_3 Mptr_0 Mint_0 Mint_1 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 t_0 s_0)
+Prover Alt-Ergo  returns Valid (15ms) (73)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Transitive:
+Assume: 'StackEqual_Symmetric' 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_2 Mint_4 Mint_5 t_0 u_0)
+       -> (P_StackEqual Mptr_2 Mint_4 Mint_5 Mptr_1 Mint_2 Mint_3 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 s_0 u_0)
+Prover Alt-Ergo  returns Valid (17ms) (94)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/stack_size_wd/stack_size_wd.acsl.c, line 137):
+Let a = global(L_s1_100).
+Let a_1 = global(L_s2_101).
+Let m = Mint_0[shiftfield_F1_Stack_capacity(a) <- 5]
+          [shiftfield_F1_Stack_size(a) <- 5]
+          [shiftfield_F1_Stack_capacity(a_1) <- 5]
+          [shiftfield_F1_Stack_size(a_1) <- 5].
+Let x = L_StackSize(m, a_1).
+Let x_1 = L_StackSize(m, a).
+Assume {
+  Type: is_sint32(result_0).
+  (* Call 'stack_size_wd' *)
+  Have: (((x = x_1) -> (result_0 = 1))) /\ (((result_0 = 1) -> (x = x_1))).
+}
+Prove: result_0 = 1.
+Prover Z3 4.15.4 returns Valid (Qed:52ms) (10ms) (37427)
+Prover Alt-Ergo  returns Valid (Qed:52ms) (15ms) (109)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/stack_size_wd/stack_size_wd.acsl.c, line 111) in 'stack_size_wd'' in 'main' at initialization of 'result' (file output/live24/stack_size_wd/stack_size_wd.acsl.c, line 136)
+:
+Let a = global(L_s1_100).
+Let a_1 = global(L_s2_101).
+Assume { (* Heap *) Type: framed(Mptr_0) /\ linked(Malloc_0). }
+Prove: P_StackInvariant(Malloc_0[L_a_98 <- 5][L_b_99 <- 5][L_s1_100 <- 3]
+                          [L_s2_101 <- 3],
+         Mptr_0[shiftfield_F1_Stack_obj(a)
+           <- shift_sint32(global(L_a_98), 0)][shiftfield_F1_Stack_obj(a_1)
+           <- shift_sint32(global(L_b_99), 0)],
+         Mint_0[shiftfield_F1_Stack_capacity(a) <- 5]
+           [shiftfield_F1_Stack_size(a) <- 5]
+           [shiftfield_F1_Stack_capacity(a_1) <- 5]
+           [shiftfield_F1_Stack_size(a_1) <- 5], a).
+Prover Z3 4.15.4 returns Valid (Qed:60ms) (10ms) (33647)
+Prover Alt-Ergo  returns Valid (Qed:60ms) (46ms) (961)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/stack_size_wd/stack_size_wd.acsl.c, line 112) in 'stack_size_wd'' in 'main' at initialization of 'result' (file output/live24/stack_size_wd/stack_size_wd.acsl.c, line 136)
+:
+Let a = global(L_s1_100).
+Let a_1 = global(L_s2_101).
+Assume { (* Heap *) Type: framed(Mptr_0) /\ linked(Malloc_0). }
+Prove: P_StackInvariant(Malloc_0[L_a_98 <- 5][L_b_99 <- 5][L_s1_100 <- 3]
+                          [L_s2_101 <- 3],
+         Mptr_0[shiftfield_F1_Stack_obj(a)
+           <- shift_sint32(global(L_a_98), 0)][shiftfield_F1_Stack_obj(a_1)
+           <- shift_sint32(global(L_b_99), 0)],
+         Mint_0[shiftfield_F1_Stack_capacity(a) <- 5]
+           [shiftfield_F1_Stack_size(a) <- 5]
+           [shiftfield_F1_Stack_capacity(a_1) <- 5]
+           [shiftfield_F1_Stack_size(a_1) <- 5], a_1).
+Prover Z3 4.15.4 returns Valid (Qed:57ms) (10ms) (33647)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function stack_size_wd
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/stack_size_wd/stack_size_wd.acsl.c, line 114) in 'stack_size_wd':
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/stack_size_wd/stack_size_wd.acsl.c, line 115) in 'stack_size_wd':
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_size_wd' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_size_wd' (2/2):
+Call Result at line 120
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_size_wd' (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_size_wd' (2/4):
+Call Result at line 120
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_size_wd' (3/4):
+Call Result at line 120
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_size_wd' (4/4):
+Effect at line 120
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_size'' in 'stack_size_wd' at call 'stack_size' (file output/live24/stack_size_wd/stack_size_wd.acsl.c, line 120)
+:
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_size'' in 'stack_size_wd' at call 'stack_size' (file output/live24/stack_size_wd/stack_size_wd.acsl.c, line 120)
+:
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/stack_size_wd/stack_size_wd.acsl.c:122: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

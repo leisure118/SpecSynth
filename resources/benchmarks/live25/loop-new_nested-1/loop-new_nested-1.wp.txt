@@ -1,0 +1,195 @@
+[kernel] Parsing output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:            12
+  Alt-Ergo :       3 (11ms-13ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 17):
+Let x = i * m.
+Let x_1 = m + x.
+Let x_2 = 1 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(k) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(x_2) /\ is_sint32(x) /\ is_sint32(k - x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= m) /\ (m <= 2147483646).
+  (* Then *)
+  Have: 10 <= n.
+  (* Then *)
+  Have: n <= 10000.
+  (* Then *)
+  Have: 10 <= m.
+  (* Then *)
+  Have: m <= 10000.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: (x <= k) /\ (k <= x_1).
+  (* Else *)
+  Have: x_1 <= k.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (m * x_2) = x_1.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (7787)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (13ms) (51)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 23):
+Let x = i * m.
+Let x_1 = m + x.
+Let x_2 = -x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(k) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(x) /\ is_sint32(k - x) /\ is_sint32(1 + k - x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= m) /\ (m <= 2147483646).
+  (* Then *)
+  Have: 10 <= n.
+  (* Then *)
+  Have: n <= 10000.
+  (* Then *)
+  Have: 10 <= m.
+  (* Then *)
+  Have: m <= 10000.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: 0 <= m.
+  (* Invariant *)
+  Have: (x <= k) /\ (k <= x_1).
+  (* Then *)
+  Have: k < x_1.
+}
+Prove: x <= (1 + k).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (30335)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (11ms) (50)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 32):
+Let x = i * m.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(m) /\ is_sint32(n) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= m) /\ (m <= 2147483646).
+  (* Then *)
+  Have: 10 <= n.
+  (* Then *)
+  Have: n <= 10000.
+  (* Then *)
+  Have: 10 <= m.
+  (* Then *)
+  Have: m <= 10000.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: 100 <= x.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (29164)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (11ms) (34)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-new_nested-1/loop-new_nested-1.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

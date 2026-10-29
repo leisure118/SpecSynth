@@ -1,0 +1,243 @@
+[kernel] Parsing output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c:43: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 28 goals scheduled
+[wp] Proved goals:   28 / 28
+  Qed:            26
+  Alt-Ergo :       2 (19ms-22ms)
+------------------------------------------------------------
+  Function bAnd
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 13) in 'bAnd':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bAnd' (1/4):
+Effect at line 19
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bAnd' (2/4):
+Effect at line 25
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bAnd' (3/4):
+Effect at line 25
+Prove: true.
+Prover Qed returns Valid (0.86ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bAnd' (4/4):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 51):
+Let m = x_1[0 <- x_1[1]][1 <- x_1[0]].
+Let x_2 = 1 + i.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_2).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100).
+  (* Else *)
+  Have: 100 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 99).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) -> (m[1 + i_3] = x[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 99) -> (m[i_3] = x[i_3]))).
+  (* Then *)
+  Have: i <= 98.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x[i <- x[x_2]][i_1] = m[1 + i_1].
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (32033)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (22ms) (158)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 52):
+Let x_2 = 1 + i.
+Let m = x[i <- x[x_2]].
+Let m_1 = x_1[0 <- x_1[1]][1 <- x_1[0]].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_2).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 99).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100).
+  (* Else *)
+  Have: 100 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 99).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (m_1[1 + i_3] = x[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 99) -> (m_1[i_3] = x[i_3]))).
+  (* Then *)
+  Have: i <= 98.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (m[i_3] = m_1[1 + i_3]))).
+}
+Prove: m[i_1] = m_1[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (32558)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (19ms) (140)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 11) in 'bAnd'' in 'main' at call 'bAnd' (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 45)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 11) in 'bAnd'' in 'main' at call 'bAnd' (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 47)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 11) in 'bAnd'' in 'main' at call 'bAnd' (file output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c, line 60)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-crafted_bAnd1/array-crafted_bAnd1.acsl.c:30: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,103 @@
+[kernel] Parsing output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Alt-Ergo :       2 (10ms-16ms)
+------------------------------------------------------------
+  Function f
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c, line 11):
+Let x_1 = Mint_0[shift_sint32(t, i)].
+Assume {
+  Type: is_sint32(found_0) /\ is_sint32(found_1) /\ is_sint32(i) /\
+      is_sint32(x) /\ is_sint32(1 + i) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(t.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(t, 0), 5).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Invariant *)
+  Have: (exists i_1 : Z. (Mint_0[shift_sint32(t, i_1)] = x) /\ (0 <= i_1) /\
+         (i_1 < i)) <-> (found_1 != 0).
+  (* Then *)
+  Have: i <= 4.
+  If x_1 = x
+  Then { Have: found_0 = 1. }
+  Else { Have: found_1 = found_0. }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (exists i_1 : Z. (Mint_0[shift_sint32(t, i_1)] = x) /\ (i_1 <= i) /\
+        (0 <= i_1)) <-> (found_0 != 0).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (16ms) (363)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c, line 19):
+Assume {
+  Type: is_sint32(found_0) /\ is_sint32(i).
+  (* Heap *)
+  Type: (region(t.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(t, 0), 5).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Invariant *)
+  Have: (exists i_1 : Z. (Mint_0[shift_sint32(t, i_1)] = x) /\ (0 <= i_1) /\
+         (i_1 < i)) <-> (found_0 != 0).
+  (* Else *)
+  Have: 5 <= i.
+}
+Prove: (exists i_1 : Z. (Mint_0[shift_sint32(t, i_1)] = x) /\ (0 <= i_1) /\
+        (i_1 <= 4)) <-> (found_0 != 0).
+Prover Alt-Ergo  returns Valid (Qed:1ms) (10ms) (136)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'f'.
+  Callers assumptions might be imprecise.
+[wp] output/live24/gpetiot_Frama-C-StaDy_inv_insuf_ok/gpetiot_Frama-C-StaDy_inv_insuf_ok.acsl.c:5: Warning: 
+  Memory model hypotheses for function 'f':
+  /*@ behavior wp_typed:
+        requires \separated(t + (..), &found); */
+  void f(int *t, int x);

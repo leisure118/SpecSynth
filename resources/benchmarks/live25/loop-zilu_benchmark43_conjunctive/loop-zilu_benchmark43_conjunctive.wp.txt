@@ -1,0 +1,64 @@
+[kernel] Parsing output/live25/loop-zilu_benchmark43_conjunctive/loop-zilu_benchmark43_conjunctive.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-zilu_benchmark43_conjunctive/loop-zilu_benchmark43_conjunctive.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             5
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark43_conjunctive/loop-zilu_benchmark43_conjunctive.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark43_conjunctive/loop-zilu_benchmark43_conjunctive.acsl.c, line 13):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= y) /\ (y <= 2147483646).
+  (* Then *)
+  Have: x <= 99.
+  (* Then *)
+  Have: y <= 99.
+}
+Prove: (x <= 100) /\ (y <= 100).
+Prover Z3 4.15.4 returns Valid (Qed:0.72ms) (10ms) (28110)
+Prover Alt-Ergo  returns Valid (Qed:0.72ms) (7ms) (22)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-zilu_benchmark43_conjunctive/loop-zilu_benchmark43_conjunctive.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark43_conjunctive/loop-zilu_benchmark43_conjunctive.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-zilu_benchmark43_conjunctive/loop-zilu_benchmark43_conjunctive.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-zilu_benchmark43_conjunctive/loop-zilu_benchmark43_conjunctive.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-zilu_benchmark43_conjunctive/loop-zilu_benchmark43_conjunctive.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

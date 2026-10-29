@@ -1,0 +1,317 @@
+[kernel] Parsing output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c:23: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 19 goals scheduled
+[wp] Proved goals:   19 / 19
+  Qed:            11
+  Alt-Ergo :       8 (8ms-10ms-16ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 15):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(2 + i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((a[i_1] = 10) -> (((i_1 % 2) = 0) -> ((0 <= i_1) ->
+      ((i_1 < i) -> (b[i_1] = 20))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+}
+Prove: ((-2) <= i) /\ (i <= 99998).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (30290)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (73)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 16):
+Let x = 2 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((a[i_1] = 10) -> (((i_1 % 2) = 0) -> ((0 <= i_1) ->
+      ((i_1 < i) -> (b[i_1] = 20))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+}
+Prove: (x % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (31304)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (113)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 17):
+Let x = 2 + i_1.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(v) /\ is_sint32(x).
+  (* Goal *)
+  When: ((i % 2) = 0) /\ (a[i_1 <- v][i] = 10) /\ (0 <= i) /\
+      (i <= (1 + i_1)).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((a[i_2] = 10) -> (((i_2 % 2) = 0) -> ((0 <= i_2) ->
+      ((i_2 < i_1) -> (b_1[i_2] = 20))))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 10
+  Then { Have: b_1 = b_2. Have: b_2[i_1 <- 20] = b. }
+  Else { Have: b_1 = b. }
+  (* Invariant *)
+  Have: ((-2) <= i_1) /\ (i_1 <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: b[i] = 20.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (34276)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (16ms) (576)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 28):
+Let x = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x) /\ is_sint32(b[i]) /\
+      is_sint32(2 + i).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((a[i_2] = 10) -> (((i_2 % 2) = 0) -> ((0 <= i_2) ->
+      ((i_2 < i_1) -> (b[i_2] = 20))))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((a[i_2] = 10) -> (((i_2 % 2) = 0) -> ((0 <= i_2) ->
+      ((i_2 <= 99999) -> (b[i_2] = 20))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Then *)
+  Have: i <= 99999.
+  If x = 10
+  Then { (* Assertion *) Have: b[i] = 20. }
+}
+Prove: ((-2) <= i) /\ (i <= 99998).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (32588)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (131)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 29):
+Let x = a[i].
+Let x_1 = 2 + i.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x) /\ is_sint32(b[i]) /\
+      is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((a[i_2] = 10) -> (((i_2 % 2) = 0) -> ((0 <= i_2) ->
+      ((i_2 < i_1) -> (b[i_2] = 20))))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((a[i_2] = 10) -> (((i_2 % 2) = 0) -> ((0 <= i_2) ->
+      ((i_2 <= 99999) -> (b[i_2] = 20))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Then *)
+  Have: i <= 99999.
+  If x = 10
+  Then { (* Assertion *) Have: b[i] = 20. }
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+}
+Prove: (x_1 % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (34359)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (11ms) (168)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (0.62ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 30):
+Let x = 2 + i_2.
+Let x_1 = a[i_2].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(x_1) /\
+      is_sint32(b[i_2]) /\ is_sint32(x).
+  (* Goal *)
+  When: (a[i] = 10) /\ ((i % 2) = 0) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((a[i_3] = 10) -> (((i_3 % 2) = 0) -> ((0 <= i_3) ->
+      ((i_3 < i_1) -> (b[i_3] = 20))))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((a[i_3] = 10) -> (((i_3 % 2) = 0) -> ((0 <= i_3) ->
+      ((i_3 <= 99999) -> (b[i_3] = 20))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (i_2 % 2) = 0.
+  (* Then *)
+  Have: i_2 <= 99999.
+  If x_1 = 10
+  Then { (* Assertion *) Have: b[i_2] = 20. }
+  (* Invariant *)
+  Have: ((-2) <= i_2) /\ (i_2 <= 99998).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: b[i] = 20.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (34077)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (11ms) (210)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 30):
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (a[i] = 10) /\ ((i % 2) = 0) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((a[i_2] = 10) -> (((i_2 % 2) = 0) -> ((0 <= i_2) ->
+      ((i_2 < i_1) -> (b[i_2] = 20))))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: b[i] = 20.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (30051)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (92)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 37):
+Let x = b[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (i_1 % 2) = 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((a[i_2] = 10) -> (((i_2 % 2) = 0) -> ((0 <= i_2) ->
+      ((i_2 < i_1) -> (b[i_2] = 20))))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((a[i_2] = 10) -> (((i_2 % 2) = 0) -> ((0 <= i_2) ->
+      ((i_2 <= 99999) -> (b[i_2] = 20))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Then *)
+  Have: i <= 99999.
+  (* Then *)
+  Have: a[i] = 10.
+}
+Prove: x = 20.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (31361)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (101)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_monotonic/array-industry-pattern_array_monotonic.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

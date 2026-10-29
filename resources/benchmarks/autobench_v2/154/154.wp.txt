@@ -1,0 +1,110 @@
+[kernel] Parsing output/autobench_v2/154/154.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/autobench_v2/154/154.acsl.c:26: Warning: 
+  Calling function unknown2 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/154/154.acsl.c:11: Warning: 
+  Neither code nor specification for function unknown2, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             7
+  Alt-Ergo :       2 (6ms-7ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/154/154.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/154/154.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/154/154.acsl.c, line 20):
+Let x = 2000 * i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(k) /\ is_sint32(n) /\ is_sint32(tmp_0) /\
+      is_sint32(1 + i) /\ is_sint32(4000 + k).
+  (* Residual *)
+  When: (tmp_0 % 2) = 0.
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: n <= 9.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x <= k.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x <= (2000 + k).
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (29251)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (7ms) (18)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/154/154.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/154/154.acsl.c, line 36):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(k) /\ is_sint32(n).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: n <= 9.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (2000 * i) <= k.
+  (* Else *)
+  Have: n <= i.
+}
+Prove: i < k.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28431)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (25)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/154/154.acsl.c, line 21) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/154/154.acsl.c, line 21) (2/2):
+Call Result at line 26
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/154/154.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/154/154.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/154/154.acsl.c:3: Warning: 
+  No 'assigns' specification for function 'unknown2'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/154/154.acsl.c:11: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

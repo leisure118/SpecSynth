@@ -1,0 +1,68 @@
+[kernel] Parsing output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c:17: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 7 goals scheduled
+[wp] Proved goals:    7 / 7
+  Qed:             6
+  Alt-Ergo :       1 (9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c, line 11):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(1 + x).
+  (* Residual *)
+  When: x <= 39.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 40).
+}
+Prove: (-1) <= x.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (27660)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (17)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c, line 12) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c, line 12) (2/3):
+Call Result at line 14
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c, line 12) (3/3):
+Call Result at line 17
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-lit_mine2017-ex4.7/loop-lit_mine2017-ex4.7.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

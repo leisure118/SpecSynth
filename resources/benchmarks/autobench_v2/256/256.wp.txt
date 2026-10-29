@@ -1,0 +1,534 @@
+[kernel] Parsing output/autobench_v2/256/256.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 30 goals scheduled
+[wp] Proved goals:   30 / 30
+  Qed:            20
+  Alt-Ergo :      10 (8ms-12ms-20ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 71):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/256/256.acsl.c, line 14) in 'time_components_to_comparable_u64'' in 'main' at call 'time_components_to_comparable_u64' (file output/autobench_v2/256/256.acsl.c, line 70)
+:
+Prove: true.
+Prover Qed returns Valid (0.91ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/256/256.acsl.c, line 15) in 'time_components_to_comparable_u64'' in 'main' at call 'time_components_to_comparable_u64' (file output/autobench_v2/256/256.acsl.c, line 70)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/256/256.acsl.c, line 16) in 'time_components_to_comparable_u64'' in 'main' at call 'time_components_to_comparable_u64' (file output/autobench_v2/256/256.acsl.c, line 70)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/256/256.acsl.c, line 17) in 'time_components_to_comparable_u64'' in 'main' at call 'time_components_to_comparable_u64' (file output/autobench_v2/256/256.acsl.c, line 70)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/256/256.acsl.c, line 18) in 'time_components_to_comparable_u64'' in 'main' at call 'time_components_to_comparable_u64' (file output/autobench_v2/256/256.acsl.c, line 70)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/autobench_v2/256/256.acsl.c, line 19) in 'time_components_to_comparable_u64'' in 'main' at call 'time_components_to_comparable_u64' (file output/autobench_v2/256/256.acsl.c, line 70)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function time_components_to_comparable_u64
+------------------------------------------------------------
+
+Goal Post-condition (file output/autobench_v2/256/256.acsl.c, line 21) in 'time_components_to_comparable_u64':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 32):
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+}
+Prove: to_uint64(256 * na_min_0) <= 16383.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29101)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (66)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 34):
+Let x = to_uint64(256 * na_min_0).
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+  (* Assertion *)
+  Have: x <= 16383.
+}
+Prove: to_uint64(na_sec_0 + x) <= 32767.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29387)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (80)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 37):
+Let x = to_uint64(256 * na_min_0).
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+  (* Assertion *)
+  Have: x <= 16383.
+  (* Assertion *)
+  Have: to_uint64(na_sec_0 + x) <= 32767.
+}
+Prove: to_uint64(65536 * na_hour_0) <= 2097151.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29654)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (97)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 39):
+Let x = to_uint64(65536 * na_hour_0).
+Let x_1 = to_uint64(256 * na_min_0).
+Let x_2 = to_uint64(na_sec_0 + x_1).
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+  (* Assertion *)
+  Have: x_1 <= 16383.
+  (* Assertion *)
+  Have: x_2 <= 32767.
+  (* Assertion *)
+  Have: x <= 2097151.
+}
+Prove: to_uint64(x + x_2) <= 4194303.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29950)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (12ms) (143)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 42):
+Let x = to_uint64(65536 * na_hour_0).
+Let x_1 = to_uint64(256 * na_min_0).
+Let x_2 = to_uint64(na_sec_0 + x_1).
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+  (* Assertion *)
+  Have: x_1 <= 16383.
+  (* Assertion *)
+  Have: x_2 <= 32767.
+  (* Assertion *)
+  Have: x <= 2097151.
+  (* Assertion *)
+  Have: to_uint64(x + x_2) <= 4194303.
+}
+Prove: to_uint64(16777216 * na_day_0) <= 536870911.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (30207)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (173)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 44):
+Let x = to_uint64(16777216 * na_day_0).
+Let x_1 = to_uint64(65536 * na_hour_0).
+Let x_2 = to_uint64(256 * na_min_0).
+Let x_3 = to_uint64(na_sec_0 + x_2).
+Let x_4 = to_uint64(x_1 + x_3).
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+  (* Assertion *)
+  Have: x_2 <= 16383.
+  (* Assertion *)
+  Have: x_3 <= 32767.
+  (* Assertion *)
+  Have: x_1 <= 2097151.
+  (* Assertion *)
+  Have: x_4 <= 4194303.
+  (* Assertion *)
+  Have: x <= 536870911.
+}
+Prove: to_uint64(x + x_4) <= 1073741823.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (30521)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (13ms) (189)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 47):
+Let x = to_uint64(16777216 * na_day_0).
+Let x_1 = to_uint64(65536 * na_hour_0).
+Let x_2 = to_uint64(256 * na_min_0).
+Let x_3 = to_uint64(na_sec_0 + x_2).
+Let x_4 = to_uint64(x_1 + x_3).
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+  (* Assertion *)
+  Have: x_2 <= 16383.
+  (* Assertion *)
+  Have: x_3 <= 32767.
+  (* Assertion *)
+  Have: x_1 <= 2097151.
+  (* Assertion *)
+  Have: x_4 <= 4194303.
+  (* Assertion *)
+  Have: x <= 536870911.
+  (* Assertion *)
+  Have: to_uint64(x + x_4) <= 1073741823.
+}
+Prove: to_uint64(4294967296 * na_month_0) <= 68719476735.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (30818)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (11ms) (190)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 49):
+Let x = to_uint64(4294967296 * na_month_0).
+Let x_1 = to_uint64(16777216 * na_day_0).
+Let x_2 = to_uint64(65536 * na_hour_0).
+Let x_3 = to_uint64(256 * na_min_0).
+Let x_4 = to_uint64(na_sec_0 + x_3).
+Let x_5 = to_uint64(x_2 + x_4).
+Let x_6 = to_uint64(x_1 + x_5).
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+  (* Assertion *)
+  Have: x_3 <= 16383.
+  (* Assertion *)
+  Have: x_4 <= 32767.
+  (* Assertion *)
+  Have: x_2 <= 2097151.
+  (* Assertion *)
+  Have: x_5 <= 4194303.
+  (* Assertion *)
+  Have: x_1 <= 536870911.
+  (* Assertion *)
+  Have: x_6 <= 1073741823.
+  (* Assertion *)
+  Have: x <= 68719476735.
+}
+Prove: to_uint64(x + x_6) <= 137438953471.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (31100)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (16ms) (242)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 52):
+Let x = to_uint64(4294967296 * na_month_0).
+Let x_1 = to_uint64(16777216 * na_day_0).
+Let x_2 = to_uint64(65536 * na_hour_0).
+Let x_3 = to_uint64(256 * na_min_0).
+Let x_4 = to_uint64(na_sec_0 + x_3).
+Let x_5 = to_uint64(x_2 + x_4).
+Let x_6 = to_uint64(x_1 + x_5).
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+  (* Assertion *)
+  Have: x_3 <= 16383.
+  (* Assertion *)
+  Have: x_4 <= 32767.
+  (* Assertion *)
+  Have: x_2 <= 2097151.
+  (* Assertion *)
+  Have: x_5 <= 4194303.
+  (* Assertion *)
+  Have: x_1 <= 536870911.
+  (* Assertion *)
+  Have: x_6 <= 1073741823.
+  (* Assertion *)
+  Have: x <= 68719476735.
+  (* Assertion *)
+  Have: to_uint64(x + x_6) <= 137438953471.
+}
+Prove: to_uint64(1099511627776 * na_year_0) <= 18014398509481983.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (31400)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (14ms) (294)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/256/256.acsl.c, line 54):
+Let x = to_uint64(1099511627776 * na_year_0).
+Let x_1 = to_uint64(4294967296 * na_month_0).
+Let x_2 = to_uint64(16777216 * na_day_0).
+Let x_3 = to_uint64(65536 * na_hour_0).
+Let x_4 = to_uint64(256 * na_min_0).
+Let x_5 = to_uint64(na_sec_0 + x_4).
+Let x_6 = to_uint64(x_3 + x_5).
+Let x_7 = to_uint64(x_2 + x_6).
+Let x_8 = to_uint64(x_1 + x_7).
+Assume {
+  Type: is_uint8(na_day_0) /\ is_uint8(na_hour_0) /\ is_uint8(na_min_0) /\
+      is_uint8(na_month_0) /\ is_uint8(na_sec_0) /\ is_uint16(na_year_0).
+  (* Pre-condition *)
+  Have: na_sec_0 <= 59.
+  (* Pre-condition *)
+  Have: na_min_0 <= 59.
+  (* Pre-condition *)
+  Have: na_hour_0 <= 23.
+  (* Pre-condition *)
+  Have: na_day_0 <= 31.
+  (* Pre-condition *)
+  Have: na_month_0 <= 12.
+  (* Pre-condition *)
+  Have: na_year_0 <= 9999.
+  (* Assertion *)
+  Have: na_sec_0 <= 63.
+  (* Assertion *)
+  Have: x_4 <= 16383.
+  (* Assertion *)
+  Have: x_5 <= 32767.
+  (* Assertion *)
+  Have: x_3 <= 2097151.
+  (* Assertion *)
+  Have: x_6 <= 4194303.
+  (* Assertion *)
+  Have: x_2 <= 536870911.
+  (* Assertion *)
+  Have: x_7 <= 1073741823.
+  (* Assertion *)
+  Have: x_1 <= 68719476735.
+  (* Assertion *)
+  Have: x_8 <= 137438953471.
+  (* Assertion *)
+  Have: x <= 18014398509481983.
+}
+Prove: to_uint64(x + x_8) <= 36028797018963967.
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (31687)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (20ms) (365)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (1/11):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (2/11):
+Effect at line 31
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (3/11):
+Effect at line 33
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (4/11):
+Effect at line 36
+Prove: true.
+Prover Qed returns Valid (0.89ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (5/11):
+Effect at line 38
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (6/11):
+Effect at line 41
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (7/11):
+Effect at line 43
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (8/11):
+Effect at line 46
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (9/11):
+Effect at line 48
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (10/11):
+Effect at line 51
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'time_components_to_comparable_u64' (11/11):
+Effect at line 53
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/256/256.acsl.c:60: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

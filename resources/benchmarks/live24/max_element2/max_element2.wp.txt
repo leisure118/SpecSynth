@@ -1,0 +1,188 @@
+[kernel] Parsing output/live24/max_element2/max_element2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             5
+  Alt-Ergo :       5 (9ms-11ms-18ms)
+------------------------------------------------------------
+  Function max_element2
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/max_element2/max_element2.acsl.c, line 58):
+Let x = Mint_0[shift_sint32(a, max_0)].
+Let x_1 = Mint_0[shift_sint32(a, 0)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(n) /\ is_sint32(x_1) /\
+      is_sint32(Mint_0[shift_sint32(a, i)]) /\ is_sint32(x).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: P_UpperBound_2_(Mint_0, a, 0, x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: P_UpperBound_2_(Mint_0, a, i, x).
+  (* Then *)
+  Have: i < n.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (127076)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (89)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/max_element2/max_element2.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (0.55ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/max_element2/max_element2.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/max_element2/max_element2.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/max_element2/max_element2.acsl.c, line 60):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, max_1)].
+Let x_2 = Mint_0[shift_sint32(a, i)].
+Let x_3 = Mint_0[shift_sint32(a, 0)].
+Let x_4 = Mint_0[shift_sint32(a, max_0)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(n) /\ is_sint32(x_3) /\ is_sint32(x_2) /\ is_sint32(x_4) /\
+      is_sint32(x_1).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: P_UpperBound_2_(Mint_0, a, 0, x_3).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: P_UpperBound_2_(Mint_0, a, i, x_1).
+  (* Then *)
+  Have: i < n.
+  If x_1 < x_2
+  Then { Have: max_0 = i. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+}
+Prove: P_UpperBound_2_(Mint_0, a, x, x_4).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (18ms) (260)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/max_element2/max_element2.acsl.c, line 60):
+Let x = Mint_0[shift_sint32(a, 0)].
+Assume {
+  Type: is_uint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Then *)
+  Have: 0 < n.
+}
+Prove: P_UpperBound_2_(Mint_0, a, 0, x).
+Prover Z3 4.15.4 returns Valid (Qed:0.86ms) (10ms) (35761)
+Prover Alt-Ergo  returns Valid (Qed:0.86ms) (9ms) (45)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/max_element2/max_element2.acsl.c, line 69):
+Let x = Mint_0[shift_sint32(a, max_0)].
+Let x_1 = Mint_0[shift_sint32(a, 0)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(n) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: P_UpperBound_2_(Mint_0, a, 0, x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: P_UpperBound_2_(Mint_0, a, i, x).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_MaxElement(Mint_0, a, i, max_0).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (51)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/max_element2/max_element2.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/max_element2/max_element2.acsl.c, line 64):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, max_0)].
+Let x_2 = Mint_0[shift_sint32(a, max_1)].
+Let x_3 = Mint_0[shift_sint32(a, i)].
+Let x_4 = Mint_0[shift_sint32(a, 0)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(n) /\ is_sint32(x_4) /\ is_sint32(x_3) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: P_UpperBound_2_(Mint_0, a, 0, x_4).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: P_UpperBound_2_(Mint_0, a, i, x_2).
+  (* Then *)
+  Have: i < n.
+  If x_2 < x_3
+  Then { Have: max_0 = i. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: P_UpperBound_2_(Mint_0, a, x, x_1).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (175706)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (11ms) (123)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/max_element2/max_element2.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/max_element2/max_element2.acsl.c:53: Warning: 
+  No 'assigns' specification for function 'max_element2'.
+  Callers assumptions might be imprecise.

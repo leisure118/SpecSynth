@@ -1,0 +1,87 @@
+[kernel] Parsing output/autobench_v2/26/26.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Alt-Ergo :       2 (6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/26/26.acsl.c, line 8):
+Assume {
+  Type: is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x - 1).
+  (* Pre-condition *)
+  Have: x_1 != 1.
+  (* Invariant *)
+  Have: x <= x_1.
+  (* Invariant *)
+  Have: (x = x_1) \/ (0 < x).
+  (* Then *)
+  Have: 2 <= x.
+}
+Prove: x <= (1 + x_1).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (28217)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (21)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/26/26.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/26/26.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/26/26.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/26/26.acsl.c, line 18):
+Assume {
+  Type: is_sint32(n) /\ is_sint32(x).
+  (* Pre-condition *)
+  Have: n != 1.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (x = n) \/ (0 < x).
+  (* Else *)
+  Have: x <= 1.
+  (* Then *)
+  Have: x != 1.
+}
+Prove: n <= 0.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (28180)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (22)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/26/26.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/26/26.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/26/26.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/26/26.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,221 @@
+[kernel] Parsing output/live25/heap-data_calendar/heap-data_calendar.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/heap-data_calendar/heap-data_calendar.acsl.c:23: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/heap-data_calendar/heap-data_calendar.acsl.c:31: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: node*)
+[wp] 12 goals scheduled
+[wp] [Timeout] typed_main_loop_assigns_part6 (Qed 87ms) (Alt-Ergo) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part2 (Qed 220ms) (Alt-Ergo)
+[wp] Proved goals:   10 / 12
+  Qed:            10
+  Timeout:         2
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/heap-data_calendar/heap-data_calendar.acsl.c:31: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (0.92ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 20) (1/6):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/heap-data_calendar/heap-data_calendar.acsl.c:31: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 20) (2/6):
+Effect at line 22
+Assume {
+  Type: is_sint32(ev1_0) /\ is_sint32(ev2_0) /\ is_sint32(tmp_0).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Residual *)
+  When: ev2_0 <= 3.
+  (* Residual *)
+  When: ev1_0 <= 3.
+  (* Residual *)
+  When: 0 <= ev2_0.
+  (* Residual *)
+  When: 0 <= ev1_0.
+  (* Goal *)
+  When: !invalid(Malloc_0, p, 3).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Else *)
+  Have: tmp_0 != 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= ev1_0) /\ (ev1_0 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= ev2_0) /\ (ev2_0 <= 2147483646).
+  If ev1_0 = 0
+  Then {
+    If ev2_0 = 2
+    Then { Have: p = p_1. }
+    Else {
+      If ev2_0 = 3
+      Then { Have: p = p_1. }
+      Else {
+        (* Call 'malloc' *)
+        Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+        (* Admit *)
+        Have: valid_rw(Malloc_0, p_1, 3).
+      }
+    }
+  }
+  Else {
+    If ev1_0 = 1
+    Then {
+      If ev2_0 = 3
+      Then { Have: p = p_1. }
+      Else {
+        (* Call 'malloc' *)
+        Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+        (* Admit *)
+        Have: valid_rw(Malloc_0, p_1, 3).
+      }
+    }
+    Else {
+      (* Call 'malloc' *)
+      Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+      (* Admit *)
+      Have: valid_rw(Malloc_0, p_1, 3).
+    }
+  }
+}
+Prove: p = p_1.
+Prover Z3 4.15.4 returns Unknown (Qed:220ms)
+Prover Alt-Ergo  returns Timeout (Qed:220ms) (1')
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 20) (3/6):
+Call Result at line 23
+Prove: true.
+Prover Qed returns Valid (15ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 20) (4/6):
+Call Result at line 25
+Prove: true.
+Prover Qed returns Valid (18ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 20) (5/6):
+Call Result at line 26
+Prove: true.
+Prover Qed returns Valid (15ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 20) (6/6):
+Call Effect at line 31
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/heap-data_calendar/heap-data_calendar.acsl.c:31: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Assume {
+  Type: is_sint32(ev1_0) /\ is_sint32(ev2_0) /\ is_sint32(tmp_0).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Else *)
+  Have: tmp_0 != 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= ev1_0) /\ (ev1_0 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= ev2_0) /\ (ev2_0 <= 2147483646).
+  (* Else *)
+  Have: 0 <= ev1_0.
+  (* Else *)
+  Have: ev1_0 <= 3.
+  (* Else *)
+  Have: 0 <= ev2_0.
+  (* Else *)
+  Have: ev2_0 <= 3.
+  If ev1_0 = 0
+  Then {
+    (* Else *)
+    Have: ev2_0 != 2.
+    Have: (ta_ev1_0=true) /\ (ta_ev2_0=true) /\ (ta_tmp_0=true).
+  }
+  Else { Have: (ta_ev1_0=true) /\ (ta_ev2_0=true) /\ (ta_tmp_0=true). }
+  If ev1_0 = 1
+  Then { (* Else *) Have: ev2_0 != 3. }
+  If ev1_0 = 0
+  Then {
+    Have: (ta_ev1_0=true) /\ (ta_ev2_0=true) /\ (ta_tmp_0=true).
+    (* Else *)
+    Have: ev2_0 != 3.
+  }
+  Else { Have: (ta_ev1_0=true) /\ (ta_ev2_0=true) /\ (ta_tmp_0=true). }
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, p, 3).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Unknown (Qed:87ms)
+Prover Alt-Ergo  returns Timeout (Qed:87ms) (1')
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/heap-data_calendar/heap-data_calendar.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/heap-data_calendar/heap-data_calendar.acsl.c:15: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

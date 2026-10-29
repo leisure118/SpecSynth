@@ -1,0 +1,311 @@
+[kernel] Parsing output/live24/remove_copy/remove_copy.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:             7
+  Alt-Ergo :       8 (8ms-16ms)
+------------------------------------------------------------
+  Axiomatic 'SomeNone'
+------------------------------------------------------------
+
+Lemma NoneEqual_NotSomeEqual:
+Assume: 'NotSomeEqual_NoneEqual'
+Prove: (is_sint32 v_0) -> (P_NoneEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+       -> (not (P_SomeEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+Prover Alt-Ergo  returns Valid (8ms) (51)
+
+------------------------------------------------------------
+
+Lemma NotSomeEqual_NoneEqual:
+Prove: (is_sint32 v_0) -> (not (P_SomeEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+       -> (P_NoneEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+Prover Alt-Ergo  returns Valid (9ms) (51)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function remove_copy
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/remove_copy/remove_copy.acsl.c, line 52):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = a_2[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(k) /\ is_uint32(n) /\ is_sint32(v) /\
+      is_sint32(a_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (k <= i) /\ (0 <= k).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < k) ->
+      (a_2[shift_sint32(b, i_1)] != v))).
+  (* Then *)
+  Have: i < n.
+  If a_3 != v
+  Then { Have: (ta_tmp_0=false). }
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (20ms) (148160)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (10ms) (107)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/remove_copy/remove_copy.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/remove_copy/remove_copy.acsl.c, line 53):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = a_2[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(k) /\ is_uint32(k_1) /\ is_uint32(k_2) /\
+      is_uint32(n) /\ is_sint32(v) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (k_2 <= i) /\ (0 <= k_2).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < k_2) ->
+      (a_2[shift_sint32(b, i_1)] != v))).
+  (* Then *)
+  Have: i < n.
+  If a_3 != v
+  Then { Have: (ta_tmp_0=false) /\ (k_2 = k_1). Have: to_uint32(1 + k_1) = k.
+  }
+  Else { Have: k_2 = k. }
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: (0 <= k) /\ (k <= x).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (149710)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (14ms) (195)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/remove_copy/remove_copy.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (0.62ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/remove_copy/remove_copy.acsl.c, line 54):
+Let x = to_uint32(1 + i_1).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_1, a_1, n).
+Let a_3 = a_2[shift_sint32(a, i_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(k) /\ is_uint32(k_1) /\ is_uint32(k_2) /\
+      is_uint32(n) /\ is_uint32(tmp_0) /\ is_sint32(v) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < k).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: (k_2 <= i_1) /\ (0 <= k_2).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < k_2) ->
+      (a_2[shift_sint32(b, i_2)] != v))).
+  (* Then *)
+  Have: i_1 < n.
+  If a_3 != v
+  Then {
+    Have: (ta_tmp_0=false) /\ (k_2 = k_1).
+    Have: tmp_0 = k_1.
+    Have: to_uint32(1 + k_1) = k.
+    Have: a_2[shift_sint32(b, k_1) <- a_3] = Mint_0.
+  }
+  Else { Have: (k_2 = k) /\ (a_2 = Mint_0). }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= x).
+}
+Prove: Mint_0[shift_sint32(b, i)] != v.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (50ms) (608885)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (16ms) (244)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/remove_copy/remove_copy.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/remove_copy/remove_copy.acsl.c, line 63):
+Let a_1 = shift_sint32(b, 0).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(k) /\ is_uint32(n) /\ is_sint32(v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (k <= i) /\ (0 <= k).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < k) ->
+      (havoc(Mint_undef_0, Mint_0, a_1, n)[shift_sint32(b, i_1)] != v))).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_NoneEqual_2_(havoc(Mint_undef_0, Mint_0, a_1, i), b, k, v).
+Prover Alt-Ergo  returns Valid (Qed:5ms) (13ms) (132)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/remove_copy/remove_copy.acsl.c, line 55) (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/remove_copy/remove_copy.acsl.c, line 55) (2/4):
+Effect at line 58
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/remove_copy/remove_copy.acsl.c, line 55) (3/4):
+Effect at line 60
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/remove_copy/remove_copy.acsl.c, line 55) (4/4):
+Effect at line 60
+Let x = to_uint32(1 + tmp_0).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(b, tmp_0).
+Let a_4 = a_2[shift_sint32(a, i)].
+Let x_1 = to_uint32(1 + i).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint32(tmp_0) /\ is_sint32(v) /\
+      is_sint32(a_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (tmp_0 <= i) /\ (0 <= tmp_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < tmp_0) ->
+      (a_2[shift_sint32(b, i_1)] != v))).
+  (* Then *)
+  Have: i < n.
+  (* Then *)
+  Have: a_4 != v.
+  (* Invariant *)
+  Have: x_1 <= n.
+  (* Invariant *)
+  Have: x <= x_1.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_2[a_3 <- a_4][shift_sint32(b, i_1)] != v))).
+}
+Prove: included(a_3, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (70885)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (13ms) (186)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/remove_copy/remove_copy.acsl.c, line 58):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = a_2[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(k) /\ is_uint32(k_1) /\ is_uint32(k_2) /\
+      is_uint32(n) /\ is_uint32(tmp_0) /\ is_sint32(v) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (k_2 <= i) /\ (0 <= k_2).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < k_2) ->
+      (a_2[shift_sint32(b, i_1)] != v))).
+  (* Then *)
+  Have: i < n.
+  If a_3 != v
+  Then {
+    Have: (ta_tmp_0=false) /\ (k_2 = k_1).
+    Have: tmp_0 = k_1.
+    Have: to_uint32(1 + k_1) = k.
+    Have: a_2[shift_sint32(b, k_1) <- a_3] = Mint_1.
+  }
+  Else { Have: (k_2 = k) /\ (a_2 = Mint_1). }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= k) /\ (k <= x).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < k) ->
+      (Mint_1[shift_sint32(b, i_1)] != v))).
+}
+Prove: i < x.
+Prover Alt-Ergo  returns Valid (Qed:6ms) (12ms) (151)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/remove_copy/remove_copy.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/remove_copy/remove_copy.acsl.c:46: Warning: 
+  No 'assigns' specification for function 'remove_copy'.
+  Callers assumptions might be imprecise.

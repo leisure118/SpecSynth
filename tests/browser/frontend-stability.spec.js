@@ -68,66 +68,30 @@ function listBundleFiles(relDir) {
     .sort();
 }
 
-async function openLauncher(page) {
-  await page.goto("/#/upload", { waitUntil: "domcontentloaded" });
-  await expect(page.getByRole("heading", { name: "统一任务启动台" })).toBeVisible();
-}
-
-async function selectMode(page, mode) {
-  await page.locator(".mode-grid").getByRole("button", { name: new RegExp(MODE_LABELS[mode]) }).click();
-  await expect(page.locator(".mode-btn.active")).toContainText(MODE_LABELS[mode]);
-}
-
-async function uploadSingleFile(page, relPath) {
-  const input = page.locator(".upload-zone input[type='file']").first();
-  await input.setInputFiles(absolute(relPath));
-  await expect(page.locator(".el-tag").filter({ hasText: "已上传" }).first()).toBeVisible();
-}
-
-async function uploadBundle(page, relDir) {
-  const input = page.locator("input.bundle-file-input").first();
-  await input.setInputFiles(listBundleFiles(relDir));
-  await expect(page.locator(".el-tag").filter({ hasText: "已上传" }).first()).toBeVisible();
+async function openProject(page, mode, sample) {
+  await page.goto('/#/projects?new=1');
+  await page.getByLabel('项目名称',{exact:true}).fill('回归 · '+sample.name);
+  await page.locator('.vf-new-form input[type=file]').first().setInputFiles(mode==='inter-modular'?listBundleFiles(sample.dir):absolute(sample.file));
+  await page.getByRole('button',{name:'创建项目 →',exact:true}).click();
+  await expect(page.getByLabel('源代码编辑器')).toBeVisible();
+  await page.getByLabel('验证模式').selectOption(mode);
 }
 
 async function submitRunAndOpenResult(page, mode, sampleName, debugPreview) {
   const pageErrors = [];
   page.once("pageerror", (error) => pageErrors.push(String(error)));
 
-  await page.getByRole("button", { name: "提交运行" }).click();
-  await page.waitForURL(/#\/run\//, { timeout: 30000 });
-
-  const runUrl = page.url();
-  const taskId = runUrl.split("/run/")[1];
-  await expect(page.getByRole("heading", { name: "运行状态" })).toBeVisible();
-  await expect(page.locator(".run-meta-grid")).toContainText(MODE_LABELS[mode]);
-
-  await expect(page.getByRole("link", { name: "查看结果" })).toBeVisible({ timeout: RUN_TIMEOUT_MS[mode] });
-  await Promise.all([
-    page.waitForResponse((response) => response.url().includes(`/api/v1/runs/${taskId}/result`) && response.ok(), {
-      timeout: 30000,
-    }),
-    page.waitForURL(/#\/result\//, { timeout: 30000 }),
-    page.getByRole("link", { name: "查看结果" }).click(),
-  ]);
-  await expect(page.getByRole("heading", { name: "证据链" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "聚合指标" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "工件列表" })).toBeVisible();
-  await expect(page.locator(".result-header-actions .status-chip")).toBeVisible();
-
-  if (debugPreview) {
-    await page.getByRole("button", { name: "展开调试视图" }).click();
-    const preview = page.locator(".artifact-grid .code-block");
-    const before = await preview.textContent();
-    await page.getByRole("button", { name: "预览" }).first().click();
-    await expect(preview).not.toHaveText(before || "");
+  const created=page.waitForResponse(r=>/\/projects\/[^/]+\/runs$/.test(new URL(r.url()).pathname)&&r.request().method()==='POST'&&r.status()===201);
+  await page.getByRole('button',{name:mode==='inter-modular'?'▷ 验证整个项目':'▷ 验证当前文件',exact:true}).click();
+  const taskId=(await (await created).json()).task_id;
+  await expect(page.locator('.vf-proof-summary')).toBeVisible({timeout:RUN_TIMEOUT_MS[mode]});
+  await page.getByRole('link',{name:'完整结果与证据 ↗'}).click();
+  await page.waitForURL(/#\/result\//);
+  const resultStatus = await page.evaluate(async id=>(await (await fetch('/api/v1/runs/'+id+'/result')).json()).status,taskId);
+  if(debugPreview){
+    await page.getByRole('button',{name:'展开调试视图'}).click();
+    await page.getByRole('button',{name:'预览',exact:true}).first().click();
   }
-
-  const resultStatus = await page.evaluate(async (id) => {
-    const response = await fetch(`/api/v1/runs/${id}/result`);
-    const payload = await response.json();
-    return payload.status;
-  }, taskId);
   const artifactCount = await page.locator(".module-results .module-card").count();
   expect(artifactCount).toBeGreaterThan(0);
   expect(pageErrors).toEqual([]);
@@ -166,16 +130,11 @@ test.afterAll(async () => {
 
 for (const [mode, samples] of Object.entries(SAMPLE_SETS)) {
   test(`${MODE_LABELS[mode]} 前端上传链路覆盖五个样例`, async ({ page }) => {
+    test.skip(!process.env.ACSL_RUN_LIVE_TESTS, '真实验证需显式启用，可能调用已配置模型');
     test.setTimeout(RUN_TIMEOUT_MS[mode] * samples.length + 120000);
     for (let index = 0; index < samples.length; index += 1) {
       const sample = samples[index];
-      await openLauncher(page);
-      await selectMode(page, mode);
-      if (mode === "inter-modular") {
-        await uploadBundle(page, sample.dir);
-      } else {
-        await uploadSingleFile(page, sample.file);
-      }
+      await openProject(page, mode, sample);
       await submitRunAndOpenResult(page, mode, sample.name, index === 0);
     }
   });

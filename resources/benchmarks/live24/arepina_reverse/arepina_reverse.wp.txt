@@ -1,0 +1,197 @@
+[kernel] Parsing output/live24/arepina_reverse/arepina_reverse.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:             7
+  Alt-Ergo :       4 (10ms-25ms)
+------------------------------------------------------------
+  Function reverse
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 7) in 'reverse':
+Let a_1 = shift_sint32(res_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, size_0).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(size_0) /\ is_sint32(size_0 - 1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < size_0).
+  (* Pre-condition *)
+  Have: 0 <= size_0.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, size_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, size_0).
+  (* Pre-condition *)
+  Have: separated(a_3, size_0, a_1, size_0).
+  (* Invariant *)
+  Have: (i_1 < size_0) /\ ((-1) <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 < i_2) -> ((i_2 < size_0) ->
+      (a_2[shift_sint32(a, size_0 - 1 - i_2)] =
+       a_2[shift_sint32(res_0, i_2)]))).
+  (* Else *)
+  Have: i_1 < 0.
+}
+Prove: a_2[shift_sint32(a, size_0 - 1 - i)] = a_2[shift_sint32(res_0, i)].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (30ms) (204793)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (69)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 13):
+Let a_1 = shift_sint32(res_0, 0).
+Let x = 1 + i_1.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(i - 1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (-1) <= i_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: separated(a_3, x, a_1, x).
+  (* Invariant *)
+  Have: (i <= i_1) /\ ((-1) <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i < i_2) -> ((i_2 <= i_1) ->
+      (a_2[shift_sint32(a, i_1 - i_2)] = a_2[shift_sint32(res_0, i_2)]))).
+  (* Then *)
+  Have: 0 <= i.
+}
+Prove: i <= x.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (67578)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (13ms) (21)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 14):
+Let x = 1 + i.
+Let a_1 = shift_sint32(res_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Let a_4 = a_2[shift_sint32(res_0, i_1) <- a_2[shift_sint32(a, i - i_1)]].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(i_1 - 1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Goal *)
+  When: (i_1 <= i_2) /\ (i_2 <= i).
+  (* Pre-condition *)
+  Have: (-1) <= i.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: separated(a_3, x, a_1, x).
+  (* Invariant *)
+  Have: (i_1 <= i) /\ ((-1) <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_1 < i_3) -> ((i_3 <= i) ->
+      (a_2[shift_sint32(a, i - i_3)] = a_2[shift_sint32(res_0, i_3)]))).
+  (* Then *)
+  Have: 0 <= i_1.
+  (* Invariant *)
+  Have: i_1 <= x.
+}
+Prove: a_4[shift_sint32(a, i - i_2)] = a_4[shift_sint32(res_0, i_2)].
+Prover Alt-Ergo  returns Valid (Qed:4ms) (23ms) (265)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 15) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 15) (2/2):
+Effect at line 19
+Let a_1 = shift_sint32(res_0, 0).
+Let x = 1 + i_1.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = 1 + i.
+Let a_3 = shift_sint32(res_0, x_1).
+Let a_4 = a_2[a_3 <- a_2[shift_sint32(a, i_1 - 1 - i)]].
+Let a_5 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Pre-condition *)
+  Have: (-1) <= i_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_5, x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: separated(a_5, x, a_1, x).
+  (* Invariant *)
+  Have: (i < i_1) /\ ((-2) <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i_1) -> (((2 + i) <= i_2) ->
+      (a_2[shift_sint32(a, i_1 - i_2)] = a_2[shift_sint32(res_0, i_2)]))).
+  (* Then *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i < i_2) -> ((i_2 <= i_1) ->
+      (a_4[shift_sint32(a, i_1 - i_2)] = a_4[shift_sint32(res_0, i_2)]))).
+}
+Prove: included(a_3, 1, a_1, x).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (70697)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (25ms) (162)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 6) in 'reverse' (1/2):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 6) in 'reverse' (2/2):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/arepina_reverse/arepina_reverse.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------

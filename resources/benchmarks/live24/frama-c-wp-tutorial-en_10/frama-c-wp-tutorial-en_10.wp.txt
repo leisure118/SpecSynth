@@ -1,0 +1,196 @@
+[kernel] Parsing output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] [Timeout] typed_order_3_ensures (Qed 28ms) (Z3)
+[wp] Proved goals:   10 / 11
+  Qed:             7
+  Alt-Ergo :       3 (9ms-13ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 34):
+Let x = 45 - y - z.
+Let x_1 = y + z.
+Assume {
+  Type: is_sint32(y) /\ is_sint32(z) /\ is_sint32(x).
+  (* Call 'order_3' *)
+  Have: (((y * y) + (z * z) + (x * x)) = 725) /\ (y <= z) /\
+      (45 <= (z + (2 * y))) /\ ((y = 10) \/ (y = 15) \/ (y = 20)) /\
+      ((z = 10) \/ (z = 15) \/ (z = 20)) /\
+      ((x_1 = 25) \/ (x_1 = 30) \/ (x_1 = 35)).
+}
+Prove: (y = 15) /\ (z = 20) /\ (x_1 = 35).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30178)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (13ms) (222)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 2) in 'order_3'' in 'main' at call 'order_3' (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 33)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function order_3
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 4) in 'order_3':
+Let x = Mint_3[c].
+Let x_1 = Mint_3[b].
+Let x_2 = Mint_3[a].
+Let x_3 = Mint_5[c].
+Let x_4 = Mint_5[a].
+Let x_5 = Mint_5[b].
+Let x_6 = Mint_1[b].
+Let x_7 = Mint_1[a].
+Let x_8 = Mint_1[c].
+Let x_9 = Mint_0[a].
+Let x_10 = Mint_0[b].
+Let x_11 = Mint_0[c].
+Assume {
+  Type: is_sint32(x_7) /\ is_sint32(x_6) /\ is_sint32(x_8) /\
+      is_sint32(x_9) /\ is_sint32(x_10) /\ is_sint32(x_11) /\
+      is_sint32(Mint_2[b]) /\ is_sint32(x_2) /\ is_sint32(x_1) /\
+      is_sint32(x) /\ is_sint32(Mint_4[c]) /\ is_sint32(x_4) /\
+      is_sint32(x_5) /\ is_sint32(x_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+  If x_6 < x_7
+  Then { Have: Mint_1[b <- x_7][a <- x_6] = Mint_5. }
+  Else { Have: Mint_5 = Mint_1. }
+  (* Assertion *)
+  Have: x_4 <= x_5.
+  If x_3 < x_4
+  Then {
+    Have: Mint_5 = Mint_4.
+    Have: Mint_4[c <- Mint_4[a]][a <- Mint_4[c]] = Mint_3.
+  }
+  Else { Have: Mint_5 = Mint_3. }
+  (* Assertion *)
+  Have: (x_2 <= x_1) /\ (x_2 <= x).
+  If x < x_1
+  Then {
+    Have: Mint_3 = Mint_2.
+    Have: Mint_2[b <- Mint_2[c]][c <- Mint_2[b]] = Mint_0.
+  }
+  Else { Have: Mint_3 = Mint_0. }
+}
+Prove: ((x_9 + x_10 + x_11) = (x_7 + x_6 + x_8)) /\
+    (((x_9 * x_9) + (x_10 * x_10) + (x_11 * x_11))
+       = ((x_7 * x_7) + (x_6 * x_6) + (x_8 * x_8))) /\ (x_9 <= x_10) /\
+    (x_10 <= x_11) /\ ((x_9 = x_7) \/ (x_9 = x_6) \/ (x_9 = x_8)) /\
+    ((x_10 = x_7) \/ (x_10 = x_6) \/ (x_10 = x_8)) /\
+    ((x_11 = x_7) \/ (x_11 = x_6) \/ (x_11 = x_8)).
+Prover Z3 4.15.4 returns Timeout (Qed:28ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:28ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 18):
+Let x = Mint_0[b].
+Let x_1 = Mint_0[a].
+Let m = Mint_0[b <- x_1][a <- x].
+Let x_2 = m[b].
+Assume {
+  Type: is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(Mint_0[c]) /\
+      is_sint32(x_2) /\ is_sint32(m[c]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: x < x_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+}
+Prove: x <= x_2.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (20ms) (176875)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (9ms) (48)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 24):
+Let x = Mint_0[a].
+Let x_1 = Mint_0[b].
+Let x_2 = Mint_1[b].
+Let x_3 = Mint_1[a].
+Let x_4 = Mint_0[c].
+Let m = Mint_0[c <- x][a <- x_4].
+Let x_5 = m[b].
+Let x_6 = m[c].
+Assume {
+  Type: is_sint32(x_3) /\ is_sint32(x_2) /\ is_sint32(Mint_1[c]) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_4) /\ is_sint32(x_5) /\
+      is_sint32(x_6).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\
+      (region(c.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: x_4 < x.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1) /\ valid_rw(Malloc_0, b, 1) /\
+      valid_rw(Malloc_0, c, 1).
+  If x_2 < x_3
+  Then { Have: Mint_1[b <- x_3][a <- x_2] = Mint_0. }
+  Else { Have: Mint_0 = Mint_1. }
+  (* Assertion *)
+  Have: x <= x_1.
+}
+Prove: (x_4 <= x_5) /\ (x_4 <= x_6).
+Prover Z3 4.15.4 returns Valid (Qed:18ms) (20ms) (179499)
+Prover Alt-Ergo  returns Valid (Qed:18ms) (10ms) (96)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 3) in 'order_3' (1/6):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 3) in 'order_3' (2/6):
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 3) in 'order_3' (3/6):
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 3) in 'order_3' (4/6):
+Effect at line 22
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 3) in 'order_3' (5/6):
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c, line 3) in 'order_3' (6/6):
+Effect at line 28
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/frama-c-wp-tutorial-en_10/frama-c-wp-tutorial-en_10.acsl.c:31: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

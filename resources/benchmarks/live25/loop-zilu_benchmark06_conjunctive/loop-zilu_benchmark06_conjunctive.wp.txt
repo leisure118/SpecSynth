@@ -1,0 +1,99 @@
+[kernel] Parsing output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             8
+  Alt-Ergo :       1 (12ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c, line 17):
+Let x_2 = x + y.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(j_1) /\
+      is_sint32(tmp_4_0) /\ is_sint32(unknown_0) /\ is_sint32(x_1) /\
+      is_sint32(x) /\ is_sint32(y_1) /\ is_sint32(y) /\ is_sint32(x_2) /\
+      is_sint32(x + y - unknown_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= j_1) /\ (j_1 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= i) /\ (i <= 2147483646).
+  (* Call 'unknown' *)
+  Have: (x_2 <= (2147483646 + unknown_0)) /\
+      (unknown_0 <= (2147483648 + x + y)).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= x_2) /\ (x_2 <= 2147483646).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_4_0) /\ (tmp_4_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_4_0 != 0.
+  If j = i
+  Then { Have: (1 + x) = x_1. Have: (1 + y_1) = y. }
+  Else { Have: (1 + y) = y_1. Have: (1 + x_1) = x. }
+}
+Prove: x_2 = (x_1 + y_1).
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (10ms) (31889)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (12ms) (62)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c, line 19) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c, line 19) (2/2):
+Call Result at line 22
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (15ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-zilu_benchmark06_conjunctive/loop-zilu_benchmark06_conjunctive.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

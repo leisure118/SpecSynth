@@ -1,0 +1,291 @@
+[kernel] Parsing output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c:47: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 30 goals scheduled
+[wp] Proved goals:   30 / 30
+  Qed:            26
+  Alt-Ergo :       4 (9ms-16ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (22ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 58):
+Let m = x_1[0 <- x_1[1]][1 <- x_1[0]].
+Let x_2 = 1 + i.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_2).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: x_1[999] = x[999].
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) -> (m[1 + i_3] = x[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 999) -> (m[i_3] = x[i_3]))).
+  (* Then *)
+  Have: i <= 998.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x[i <- x[x_2]][i_1] = m[1 + i_1].
+Prover Z3 4.15.4 returns Valid (Qed:18ms) (10ms) (32375)
+Prover Alt-Ergo  returns Valid (Qed:18ms) (9ms) (188)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 59):
+Let x_2 = 1 + i.
+Let m = x[i <- x[x_2]].
+Let m_1 = x_1[0 <- x_1[1]][1 <- x_1[0]].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_2).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: x_1[999] = x[999].
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (m_1[1 + i_3] = x[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 999) ->
+      (m_1[i_3] = x[i_3]))).
+  (* Then *)
+  Have: i <= 998.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (m[i_3] = m_1[1 + i_3]))).
+}
+Prove: m[i_1] = m_1[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (32831)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (10ms) (188)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 71):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 60) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 60) (2/2):
+Effect at line 64
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 15) in 'xor'' in 'main' at call 'xor' (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 49)
+:
+Prove: true.
+Prover Qed returns Valid (0.93ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 15) in 'xor'' in 'main' at call 'xor' (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 51)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 15) in 'xor'' in 'main' at call 'xor' (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 67)
+:
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function xor
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 25):
+Let a = shift_sint32(x, 0).
+Let x_1 = Mint_0[a].
+Let x_2 = 1 + i.
+Let x_3 = Mint_0[shift_sint32(x, i)].
+Let x_4 = L_xor_all(Mint_0, x, i).
+Let x_5 = lxor(x_4, x_3).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_2) /\ is_sint32(x_1) /\ is_sint32(x_3) /\
+      is_sint64(x_4) /\ is_sint64(x_5).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1000).
+  Have: x_1 = L_xor_all(Mint_0, x, 1).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= 1000).
+  (* Then *)
+  Have: i <= 999.
+}
+Prove: L_xor_all(Mint_0, x, x_2) = x_5.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (158018)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (16ms) (307)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 25):
+Let a = shift_sint32(x, 0).
+Let x_1 = Mint_0[a].
+Assume {
+  Type: is_sint32(x_1).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1000).
+}
+Prove: x_1 = L_xor_all(Mint_0, x, 1).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (20ms) (138733)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (16ms) (284)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'xor' (1/4):
+Effect at line 22
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'xor' (2/4):
+Effect at line 29
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'xor' (3/4):
+Effect at line 29
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'xor' (4/4):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-crafted_xor2/array-crafted_xor2.acsl.c:34: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

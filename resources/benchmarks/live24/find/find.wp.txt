@@ -1,0 +1,166 @@
+[kernel] Parsing output/live24/find/find.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             4
+  Alt-Ergo :       5 (9ms-14ms)
+------------------------------------------------------------
+  Function find
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/find/find.acsl.c, line 16):
+Let x = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] != v))).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x != v.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (95610)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (14ms) (65)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/find/find.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/find/find.acsl.c, line 17):
+Let x = to_uint32(1 + i_1).
+Let x_1 = Mint_0[shift_sint32(a, i_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] != v))).
+  (* Then *)
+  Have: i_1 < n.
+  (* Else *)
+  Have: x_1 != v.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: Mint_0[shift_sint32(a, i)] != v.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (40ms) (263436)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (11ms) (77)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/find/find.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/find/find.acsl.c, line 23):
+Let x = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] != x))).
+  (* Then *)
+  Have: i < n.
+}
+Prove: exists i_1 : Z. (Mint_0[shift_sint32(a, i_1)] = x) /\ (0 <= i_1) /\
+    (i_1 < n).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (20ms) (95750)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (36)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/find/find.acsl.c, line 27):
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(n).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] != v))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: Mint_0[shift_sint32(a, i)] != v.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (100ms) (662784)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (13ms) (35)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/find/find.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/find/find.acsl.c, line 21):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] != v))).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 != v.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_sint32(a, i_1)] != v))).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (96769)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (71)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/find/find.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/find/find.acsl.c:13: Warning: 
+  No 'assigns' specification for function 'find'.
+  Callers assumptions might be imprecise.

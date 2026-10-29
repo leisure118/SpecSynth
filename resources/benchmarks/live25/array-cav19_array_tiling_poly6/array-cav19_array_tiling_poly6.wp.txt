@@ -1,0 +1,605 @@
+[kernel] Parsing output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: Warning: 
+  Cast with incompatible pointers types (source: sint64*) (target: sint8*)
+[wp] output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+[wp] 30 goals scheduled
+[wp] Proved goals:   30 / 30
+  Qed:            20
+  Alt-Ergo :      10 (7ms-13ms-22ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 12):
+Assume {
+  Type: is_sint32(S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+}
+Prove: (0 < S) /\ (S <= 2305843009213693951).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (27543)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (7ms) (14)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 14):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 14):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 15):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), S).
+Let x = 1 + i.
+Assume {
+  Type: is_sint32(S) /\ is_sint64(i) /\ is_sint64(x).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_1[shift_sint64(a, i_2)] = ((i_2 - 1) * (1 + i_2))))).
+  (* Then *)
+  Have: i < S.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_1[shift_sint64(a, i) <- (i - 1) * x][shift_sint64(a, i_1)] =
+    ((i_1 - 1) * (1 + i_1)).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (30ms) (183144)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (17ms) (498)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 15):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 22):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 22):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 23):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Let a_4 = shift_sint64(a, i).
+Let a_5 = a_2[a_4].
+Assume {
+  Type: is_sint32(S) /\ is_sint64(i_2) /\ is_sint64(i) /\ is_sint64(1 + i) /\
+      is_sint64(a_5).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_3[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Else *)
+  Have: S <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < S) ->
+      (a_3[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_2[shift_sint64(a, i_3)] = (-1)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < S) -> ((i <= i_3) ->
+      (a_2[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Then *)
+  Have: i < S.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_2[a_4 <- a_5 - (i * i)][shift_sint64(a, i_1)] = (-1).
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (80ms) (696828)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (17ms) (558)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 23):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 24):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = shift_sint64(a, i).
+Let a_4 = a_2[a_3].
+Let a_5 = a_2[a_3 <- a_4 - (i * i)].
+Let a_6 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Assume {
+  Type: is_sint32(S) /\ is_sint64(i_2) /\ is_sint64(i) /\ is_sint64(1 + i) /\
+      is_sint64(a_4).
+  (* Goal *)
+  When: (i_1 < S) /\ (i < i_1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_6[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Else *)
+  Have: S <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < S) ->
+      (a_6[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_2[shift_sint64(a, i_3)] = (-1)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < S) -> ((i <= i_3) ->
+      (a_2[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Then *)
+  Have: i < S.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (a_5[shift_sint64(a, i_3)] = (-1)))).
+}
+Prove: a_5[shift_sint64(a, i_1)] = ((i_1 - 1) * (1 + i_1)).
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (20ms) (133222)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (15ms) (750)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 24):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), S).
+Assume {
+  Type: is_sint32(S) /\ is_sint64(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_1[shift_sint64(a, i_2)] = ((i_2 - 1) * (1 + i_2))))).
+  (* Else *)
+  Have: S <= i_1.
+}
+Prove: a_1[shift_sint64(a, i)] = ((i - 1) * (1 + i)).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (95620)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (9ms) (62)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 31):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 31):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 32):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Assume {
+  Type: is_sint32(S) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i_3) /\
+      is_sint64(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i < S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_3[shift_sint64(a, i_4)] = ((i_4 - 1) * (1 + i_4))))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < S) ->
+      (a_3[shift_sint64(a, i_4)] = ((i_4 - 1) * (1 + i_4))))).
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_2[shift_sint64(a, i_4)] = (-1)))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 < S) -> ((i_2 <= i_4) ->
+      (a_2[shift_sint64(a, i_4)] = ((i_4 - 1) * (1 + i_4))))).
+  (* Else *)
+  Have: S <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < S) ->
+      (a_2[shift_sint64(a, i_4)] = (-1)))).
+  (* Invariant *)
+  Have: (i_3 <= S) /\ (0 <= i_3).
+  (* Then *)
+  Have: i_3 < S.
+  (* Assertion *)
+  Have: a_2[shift_sint64(a, i_3)] = (-1).
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: a_2[shift_sint64(a, i)] = (-1).
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (20ms) (131040)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (11ms) (115)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 32):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Assume {
+  Type: is_sint32(S) /\ is_sint64(i_1) /\ is_sint64(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i < S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_3[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < S) ->
+      (a_3[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_2[shift_sint64(a, i_3)] = (-1)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < S) -> ((i_2 <= i_3) ->
+      (a_2[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Else *)
+  Have: S <= i_2.
+}
+Prove: a_2[shift_sint64(a, i)] = (-1).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (99225)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (12ms) (79)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 37):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Let a_4 = a_2[shift_sint64(a, i)].
+Assume {
+  Type: is_sint32(S) /\ is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64(i) /\
+      is_sint64(a_4).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_3[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < S) ->
+      (a_3[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_2[shift_sint64(a, i_3)] = (-1)))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < S) -> ((i_2 <= i_3) ->
+      (a_2[shift_sint64(a, i_3)] = ((i_3 - 1) * (1 + i_3))))).
+  (* Else *)
+  Have: S <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < S) ->
+      (a_2[shift_sint64(a, i_3)] = (-1)))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Then *)
+  Have: i < S.
+}
+Prove: a_4 = (-1).
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (20ms) (100818)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (9ms) (88)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 16) (1/3):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 16) (2/3):
+Effect at line 19
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 16) (3/3):
+Effect at line 20
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let x = i - 1.
+Let a_3 = shift_sint64(a, x).
+Assume {
+  Type: is_sint32(S) /\ is_sint64(i) /\ is_sint64(x).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + S)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint64(a, i_1)] = ((i_1 - 1) * (1 + i_1))))).
+  (* Then *)
+  Have: i <= S.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[a_3 <- i * (i - 2)][shift_sint64(a, i_1)] =
+       ((i_1 - 1) * (1 + i_1))))).
+}
+Prove: included(a_3, 1, a_1, S).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (79079)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (14ms) (209)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 25) (1/3):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 25) (2/3):
+Effect at line 28
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 25) (3/3):
+Effect at line 29
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let x = i - 1.
+Let a_3 = shift_sint64(a, x).
+Let a_4 = a_2[a_3].
+Let a_5 = a_2[a_3 <- a_4 - (x * x)].
+Let a_6 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Assume {
+  Type: is_sint32(S) /\ is_sint64(i_1) /\ is_sint64(i) /\ is_sint64(x) /\
+      is_sint64(a_4).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_6[shift_sint64(a, i_2)] = ((i_2 - 1) * (1 + i_2))))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < S) ->
+      (a_6[shift_sint64(a, i_2)] = ((i_2 - 1) * (1 + i_2))))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + S)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i) ->
+      (a_2[shift_sint64(a, i_2)] = (-1)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let x_1 = 1 + i_2 in ((i_2 < S) -> ((i <= x_1) ->
+      (a_2[shift_sint64(a, i_2)] = ((i_2 - 1) * x_1)))).
+  (* Then *)
+  Have: i <= S.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_5[shift_sint64(a, i_2)] = (-1)))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < S) -> ((i <= i_2) ->
+      (a_5[shift_sint64(a, i_2)] = ((i_2 - 1) * (1 + i_2))))).
+}
+Prove: included(a_3, 1, a_1, S).
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (20ms) (102267)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (22ms) (554)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 33):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 19):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 19):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 28):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 28):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 36):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c, line 36):
+output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-cav19_array_tiling_poly6/array-cav19_array_tiling_poly6.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

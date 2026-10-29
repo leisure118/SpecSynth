@@ -1,0 +1,679 @@
+[kernel] Parsing output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:11: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 24 goals scheduled
+[wp] Proved goals:   24 / 24
+  Qed:            16
+  Alt-Ergo :       8 (12ms-27ms-78ms)
+------------------------------------------------------------
+  Function ReadFromPort
+------------------------------------------------------------
+
+Goal Assigns nothing in 'ReadFromPort':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'ReadFromPort' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'ReadFromPort' (2/2):
+Call Result at line 11
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 27):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 29):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 29):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 30):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = SIZE_0 / 2.
+Let x_1 = 2 * i_1.
+Assume {
+  Type: is_sint32(ReadFromPort_0) /\ is_sint32(ReadFromPort_1) /\
+      is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint32(1 + i_1).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Else *)
+  Have: (SIZE_0 % 2) = 0.
+  (* Invariant *)
+  Have: (-1) <= SIZE_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= (1 + x)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((3 + i_2) <= x_1) ->
+      (havoc(Mint_undef_0, Mint_1, shift_sint32(a, 0), SIZE_0)
+         [shift_sint32(a, i_2)] != 0))).
+  (* Then *)
+  Have: i_1 <= x.
+  If ReadFromPort_1 != 0
+  Then {
+    Have: havoc(Mint_undef_0, Mint_1, shift_sint32(a, 0), SIZE_0)
+            [shift_sint32(a, x_1 - 2) <- ReadFromPort_1] = Mint_2.
+  }
+  Else {
+    Have: havoc(Mint_undef_0, Mint_1, shift_sint32(a, 0), SIZE_0)
+            [shift_sint32(a, x_1 - 2) <- 10] = Mint_2.
+  }
+  If ReadFromPort_0 != 0
+  Then {
+    Have: Mint_2 = Mint_3.
+    Have: Mint_3[shift_sint32(a, x_1 - 1) <- ReadFromPort_0] = Mint_0.
+  }
+  Else {
+    Have: Mint_2 = Mint_4.
+    Have: Mint_4[shift_sint32(a, x_1 - 1) <- 10] = Mint_0.
+  }
+}
+Prove: Mint_0[shift_sint32(a, i)] != 0.
+Prover Z3 4.15.4 returns Valid (Qed:53ms) (240ms) (2184998)
+Prover Alt-Ergo  returns Valid (Qed:53ms) (78ms) (1899)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 30):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 56):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 56):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 57):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), SIZE_0).
+Let a_2 = a_1[shift_sint32(a, i_2)].
+Let x = SIZE_0 / 2.
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(1 + i_2) /\ is_sint32(a_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Else *)
+  Have: (SIZE_0 % 2) = 0.
+  (* Invariant *)
+  Have: (-1) <= SIZE_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= (1 + x)).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> (((3 + i_3) <= (2 * i_1)) ->
+      (a_1[shift_sint32(a, i_3)] != 0))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < SIZE_0) ->
+      (a_1[shift_sint32(a, i_3)] != 0))).
+  (* Invariant *)
+  Have: (i_2 <= SIZE_0) /\ (0 <= i_2).
+  (* Then *)
+  Have: i_2 < SIZE_0.
+  (* Assertion *)
+  Have: a_2 != 0.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a_1[shift_sint32(a, i)] != 0.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (20ms) (129697)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (12ms) (164)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 57):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = SIZE_0 / 2.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), SIZE_0).
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < SIZE_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Else *)
+  Have: (SIZE_0 % 2) = 0.
+  (* Invariant *)
+  Have: (-1) <= SIZE_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= (1 + x)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((3 + i_2) <= (2 * i_1)) ->
+      (a_1[shift_sint32(a, i_2)] != 0))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+}
+Prove: a_1[shift_sint32(a, i)] != 0.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (20ms) (97787)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (22ms) (148)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 63):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), SIZE_0).
+Let x = SIZE_0 / 2.
+Let a_2 = a_1[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(SIZE_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(a_2).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Else *)
+  Have: (SIZE_0 % 2) = 0.
+  (* Invariant *)
+  Have: (-1) <= SIZE_0.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= (1 + x)).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((3 + i_2) <= (2 * i_1)) ->
+      (a_1[shift_sint32(a, i_2)] != 0))).
+  (* Else *)
+  Have: x < i_1.
+  (* Invariant *)
+  Have: 0 <= SIZE_0.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < SIZE_0) ->
+      (a_1[shift_sint32(a, i_2)] != 0))).
+  (* Invariant *)
+  Have: (i <= SIZE_0) /\ (0 <= i).
+  (* Then *)
+  Have: i < SIZE_0.
+}
+Prove: a_2 != 0.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (98990)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (15ms) (142)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 31) (1/6):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 31) (2/6):
+Effect at line 34
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 31) (3/6):
+Effect at line 39
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let x_1 = SIZE_0 / 2.
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(a, x - 4).
+Assume {
+  Type: is_sint32(ReadFromPort_0) /\ is_sint32(ReadFromPort_1) /\
+      is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Else *)
+  Have: (SIZE_0 % 2) = 0.
+  (* Invariant *)
+  Have: (-1) <= SIZE_0.
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((5 + i_1) <= x) ->
+      (havoc(Mint_undef_0, Mint_0, a_1, SIZE_0)[shift_sint32(a, i_1)] != 0))).
+  (* Then *)
+  Have: i <= (1 + x_1).
+  (* Then *)
+  Have: ReadFromPort_1 != 0.
+  If ReadFromPort_0 != 0
+  Then {
+    Have: havoc(Mint_undef_0, Mint_0, a_1, SIZE_0)[a_2 <- ReadFromPort_1]
+            [shift_sint32(a, x - 3) <- ReadFromPort_0] = Mint_1.
+  }
+  Else {
+    Have: havoc(Mint_undef_0, Mint_0, a_1, SIZE_0)[a_2 <- ReadFromPort_1]
+            [shift_sint32(a, x - 3) <- 10] = Mint_1.
+  }
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((3 + i_1) <= x) ->
+      (Mint_1[shift_sint32(a, i_1)] != 0))).
+}
+Prove: included(a_2, 1, a_1, SIZE_0).
+Prover Z3 4.15.4 returns Valid (Qed:26ms) (30ms) (129099)
+Prover Alt-Ergo  returns Valid (Qed:26ms) (21ms) (338)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 31) (4/6):
+Effect at line 43
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let x_1 = SIZE_0 / 2.
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(a, x - 4).
+Assume {
+  Type: is_sint32(ReadFromPort_0) /\ is_sint32(SIZE_0) /\ is_sint32(i) /\
+      is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Else *)
+  Have: (SIZE_0 % 2) = 0.
+  (* Invariant *)
+  Have: (-1) <= SIZE_0.
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((5 + i_1) <= x) ->
+      (havoc(Mint_undef_0, Mint_0, a_1, SIZE_0)[shift_sint32(a, i_1)] != 0))).
+  (* Then *)
+  Have: i <= (1 + x_1).
+  If ReadFromPort_0 != 0
+  Then {
+    Have: havoc(Mint_undef_0, Mint_0, a_1, SIZE_0)[a_2 <- 10]
+            [shift_sint32(a, x - 3) <- ReadFromPort_0] = Mint_1.
+  }
+  Else {
+    Have: havoc(Mint_undef_0, Mint_0, a_1, SIZE_0)[a_2 <- 10]
+            [shift_sint32(a, x - 3) <- 10] = Mint_1.
+  }
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((3 + i_1) <= x) ->
+      (Mint_1[shift_sint32(a, i_1)] != 0))).
+}
+Prove: included(a_2, 1, a_1, SIZE_0).
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (20ms) (128777)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (23ms) (344)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 31) (5/6):
+Effect at line 48
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let a_1 = shift_sint32(a, x - 3).
+Let x_1 = SIZE_0 / 2.
+Let a_2 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32(ReadFromPort_0) /\ is_sint32(ReadFromPort_1) /\
+      is_sint32(SIZE_0) /\ is_sint32(i) /\ is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_1, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Else *)
+  Have: (SIZE_0 % 2) = 0.
+  (* Invariant *)
+  Have: (-1) <= SIZE_0.
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((5 + i_1) <= x) ->
+      (havoc(Mint_undef_0, Mint_0, a_2, SIZE_0)[shift_sint32(a, i_1)] != 0))).
+  (* Then *)
+  Have: i <= (1 + x_1).
+  If ReadFromPort_1 != 0
+  Then {
+    Have: havoc(Mint_undef_0, Mint_0, a_2, SIZE_0)[shift_sint32(a, x - 4)
+            <- ReadFromPort_1] = Mint_1.
+  }
+  Else {
+    Have: havoc(Mint_undef_0, Mint_0, a_2, SIZE_0)[shift_sint32(a, x - 4)
+            <- 10] = Mint_1.
+  }
+  (* Then *)
+  Have: ReadFromPort_0 != 0.
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((3 + i_1) <= x) ->
+      (Mint_1[a_1 <- ReadFromPort_0][shift_sint32(a, i_1)] != 0))).
+}
+Prove: included(a_1, 1, a_2, SIZE_0).
+Prover Z3 4.15.4 returns Valid (Qed:26ms) (30ms) (99777)
+Prover Alt-Ergo  returns Valid (Qed:26ms) (20ms) (349)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 31) (6/6):
+Effect at line 52
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let a_1 = shift_sint32(a, x - 3).
+Let x_1 = SIZE_0 / 2.
+Let a_2 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32(ReadFromPort_0) /\ is_sint32(SIZE_0) /\ is_sint32(i) /\
+      is_sint32(i - 1).
+  (* Heap *)
+  Type: linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_1, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= SIZE_0) /\ (SIZE_0 <= 2147483646).
+  (* Then *)
+  Have: 2 <= SIZE_0.
+  (* Then *)
+  Have: SIZE_0 <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(4 * to_uint64(SIZE_0)))) ->
+      (null = malloc_0)).
+  (* Else *)
+  Have: (SIZE_0 % 2) = 0.
+  (* Invariant *)
+  Have: (-1) <= SIZE_0.
+  (* Invariant *)
+  Have: (2 <= i) /\ (i <= (2 + x_1)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((5 + i_1) <= x) ->
+      (havoc(Mint_undef_0, Mint_0, a_2, SIZE_0)[shift_sint32(a, i_1)] != 0))).
+  (* Then *)
+  Have: i <= (1 + x_1).
+  If ReadFromPort_0 != 0
+  Then {
+    Have: havoc(Mint_undef_0, Mint_0, a_2, SIZE_0)[shift_sint32(a, x - 4)
+            <- ReadFromPort_0] = Mint_1.
+  }
+  Else {
+    Have: havoc(Mint_undef_0, Mint_0, a_2, SIZE_0)[shift_sint32(a, x - 4)
+            <- 10] = Mint_1.
+  }
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((3 + i_1) <= x) ->
+      (Mint_1[a_1 <- 10][shift_sint32(a, i_1)] != 0))).
+}
+Prove: included(a_1, 1, a_2, SIZE_0).
+Prover Z3 4.15.4 returns Valid (Qed:30ms) (20ms) (99447)
+Prover Alt-Ergo  returns Valid (Qed:30ms) (23ms) (349)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 58):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 34):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 34):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 61):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c, line 61):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:23: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-tiling_pnr2/array-tiling_pnr2.acsl.c:16: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

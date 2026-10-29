@@ -1,0 +1,241 @@
+[kernel] Parsing output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c:26: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 19 goals scheduled
+[wp] Proved goals:   19 / 19
+  Qed:            15
+  Alt-Ergo :       4 (8ms-12ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 20):
+Let a_1 = a[i <- s][i_1].
+Let x = a_1.F1_S_n.
+Let x_1 = a_1.F1_S_p.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(q) /\ is_sint32(v) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in let x_2 = a_2.F1_S_n in
+      let x_3 = a_2.F1_S_p in ((0 <= i_2) -> ((i_2 < i) ->
+      ((((x_2 = 0) -> (x_3 = 10))) /\ (((x_2 != 0) -> (x_3 = 20)))))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= q) /\ (q <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v = 0
+  Then { Have: ({ F1_S_p = 10 ; F1_S_n = 0 }) = s. }
+  Else { Have: ({ F1_S_p = 20 ; F1_S_n = v }) = s. }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (((x = 0) -> (x_1 = 10))) /\ (((x != 0) -> (x_1 = 20))).
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (31574)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (12ms) (215)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 43):
+Let m = a[3 <- { F1_S_p = 30 ; F1_S_n = 40 }].
+Let a_1 = m[i_2].
+Let a_2 = m[i].
+Let x = a_2.F1_S_n.
+Let x_1 = a_2.F1_S_p.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2) /\
+      IsS1_S(a_1) /\ is_sint32(a_1.F1_S_p) /\ is_sint32(a_1.F1_S_n).
+  (* Goal *)
+  When: (i != 3) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_3 = a[i_3] in let x_2 = a_3.F1_S_n in
+      let x_3 = a_3.F1_S_p in ((0 <= i_3) -> ((i_3 < i_1) ->
+      ((((x_2 = 0) -> (x_3 = 10))) /\ (((x_2 != 0) -> (x_3 = 20)))))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_3 = m[i_3] in let x_2 = a_3.F1_S_n in
+      let x_3 = a_3.F1_S_p in ((i_3 != 3) -> ((0 <= i_3) ->
+      ((i_3 <= 99999) ->
+      ((((x_2 = 0) -> (x_3 = 10))) /\ (((x_2 != 0) -> (x_3 = 20))))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Then *)
+  Have: i_2 <= 99999.
+  If i_2 != 3
+  Then {
+    If (a_1.F1_S_n) = 0
+    Then { (* Assertion *) Have: (a_1.F1_S_p) = 10. }
+  }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: (((x = 0) -> (x_1 = 10))) /\ (((x != 0) -> (x_1 = 20))).
+Prover Z3 4.15.4 returns Valid (Qed:21ms) (10ms) (33438)
+Prover Alt-Ergo  returns Valid (Qed:21ms) (10ms) (164)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 43):
+Let a_1 = a[3 <- { F1_S_p = 30 ; F1_S_n = 40 }][i].
+Let x = a_1.F1_S_n.
+Let x_1 = a_1.F1_S_p.
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (i != 3) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in let x_2 = a_2.F1_S_n in
+      let x_3 = a_2.F1_S_p in ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((((x_2 = 0) -> (x_3 = 10))) /\ (((x_2 != 0) -> (x_3 = 20)))))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: (((x = 0) -> (x_1 = 10))) /\ (((x != 0) -> (x_1 = 20))).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (30117)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (73)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 52):
+Let m = a[3 <- { F1_S_p = 30 ; F1_S_n = 40 }].
+Let a_1 = m[i].
+Let x = a_1.F1_S_p.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ IsS1_S(a_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in let x_1 = a_2.F1_S_n in
+      let x_2 = a_2.F1_S_p in ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((((x_1 = 0) -> (x_2 = 10))) /\ (((x_1 != 0) -> (x_2 = 20)))))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = m[i_2] in let x_1 = a_2.F1_S_n in
+      let x_2 = a_2.F1_S_p in ((i_2 != 3) -> ((0 <= i_2) ->
+      ((i_2 <= 99999) ->
+      ((((x_1 = 0) -> (x_2 = 10))) /\ (((x_1 != 0) -> (x_2 = 20))))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+  (* Then *)
+  Have: i != 3.
+  (* Then *)
+  Have: (a_1.F1_S_n) = 0.
+}
+Prove: x = 10.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (31864)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (55)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 21) (1/5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 21) (2/5):
+Call Result at line 26
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 21) (3/5):
+Call Result at line 28
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 21) (4/5):
+Effect at line 31
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 21) (5/5):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_of_struct_single_elem_init/array-industry-pattern_array_of_struct_single_elem_init.acsl.c:15: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

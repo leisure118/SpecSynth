@@ -1,0 +1,217 @@
+[kernel] Parsing output/live24/reverse_copy/reverse_copy.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             5
+  Alt-Ergo :       5 (9ms-15ms-22ms)
+------------------------------------------------------------
+  Function reverse_copy
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/reverse_copy/reverse_copy.acsl.c, line 51):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Admit *)
+  Have: valid_rd(Malloc_0, a_3, n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Admit *)
+  Have: separated(a_3, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(a, n - 1 - i_1)] = a_2[shift_sint32(b, i_1)]))).
+  (* Then *)
+  Have: i < n.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (30ms) (249831)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (82)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/reverse_copy/reverse_copy.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/reverse_copy/reverse_copy.acsl.c, line 52):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(a, 0).
+Let a_4 = a_2[shift_sint32(b, i)
+            <- a_2[shift_sint32(a, to_uint32(to_uint32(n - 1) - i))]].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < x).
+  (* Admit *)
+  Have: valid_rd(Malloc_0, a_3, n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Admit *)
+  Have: separated(a_3, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint32(a, n - 1 - i_2)] = a_2[shift_sint32(b, i_2)]))).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: a_4[shift_sint32(a, n - 1 - i_1)] = a_4[shift_sint32(b, i_1)].
+Prover Alt-Ergo  returns Valid (Qed:4ms) (19ms) (345)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/reverse_copy/reverse_copy.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/reverse_copy/reverse_copy.acsl.c, line 59):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Admit *)
+  Have: valid_rd(Malloc_0, a_3, n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Admit *)
+  Have: separated(a_3, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(a, n - 1 - i_1)] = a_2[shift_sint32(b, i_1)]))).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_Reverse_1_(havoc(Mint_undef_0, Mint_0, a_1, i), Mint_0, a, i, b).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (22ms) (406)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/reverse_copy/reverse_copy.acsl.c, line 53) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/reverse_copy/reverse_copy.acsl.c, line 53) (2/3):
+Effect at line 56
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/reverse_copy/reverse_copy.acsl.c, line 53) (3/3):
+Effect at line 57
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(b, i).
+Let a_4 = a_2[a_3 <- a_2[shift_sint32(a, to_uint32(to_uint32(n - 1) - i))]].
+Let a_5 = shift_sint32(a, 0).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Admit *)
+  Have: valid_rd(Malloc_0, a_5, n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Admit *)
+  Have: separated(a_5, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(a, n - 1 - i_1)] = a_2[shift_sint32(b, i_1)]))).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_4[shift_sint32(a, n - 1 - i_1)] = a_4[shift_sint32(b, i_1)]))).
+}
+Prove: included(a_3, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (70401)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (13ms) (210)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/reverse_copy/reverse_copy.acsl.c, line 56):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = a_2[shift_sint32(b, i)
+            <- a_2[shift_sint32(a, to_uint32(to_uint32(n - 1) - i))]].
+Let a_4 = shift_sint32(a, 0).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Admit *)
+  Have: valid_rd(Malloc_0, a_4, n).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Admit *)
+  Have: separated(a_4, n, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(a, n - 1 - i_1)] = a_2[shift_sint32(b, i_1)]))).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_3[shift_sint32(a, n - 1 - i_1)] = a_3[shift_sint32(b, i_1)]))).
+}
+Prove: i < x.
+Prover Alt-Ergo  returns Valid (Qed:5ms) (11ms) (127)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/reverse_copy/reverse_copy.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/reverse_copy/reverse_copy.acsl.c:45: Warning: 
+  No 'assigns' specification for function 'reverse_copy'.
+  Callers assumptions might be imprecise.

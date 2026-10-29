@@ -53,6 +53,9 @@ class BaseChatClass:
         used_timeout = self.config.params.get('timeout', 60) # 从 config 中获取 timeout
         
         # 下面这一步是把用户的问题也添加到对话列表中，这样下一次问问题的时候就能形成上下文了
+        instructions = os.environ.get("XUANJIAN_AGENT_INSTRUCTIONS", "")
+        if instructions:
+            prompt = str(prompt) + "\n\n" + instructions
         self.conversation_list.append({"role":"user", "content":prompt})
 
         request_messages = self.conversation_list

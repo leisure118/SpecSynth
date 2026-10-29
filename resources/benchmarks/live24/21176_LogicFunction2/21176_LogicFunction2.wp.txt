@@ -1,0 +1,130 @@
+[kernel] Parsing output/live24/21176_LogicFunction2/21176_LogicFunction2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] [Timeout] typed_main_call_check_requires (Z3)
+[wp] Proved goals:   11 / 12
+  Qed:             9
+  Alt-Ergo :       1 (7ms)
+  Z3 4.15.4:       1 (10ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function check
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/21176_LogicFunction2/21176_LogicFunction2.acsl.c, line 26):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(a_1) /\ is_sint32(a_2) /\
+      is_sint32(fmax_0) /\ is_sint32(fmin_0) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(y_2).
+  (* Pre-condition *)
+  Have: a_2 <= 0.
+  If y_2 < x_2
+  Then {
+    Have: (a_2 = a) /\ (x_2 = x) /\ (y_2 = y).
+    (* Call 'func' *)
+    Have: L_ax_b(a, x, 4) = fmin_0.
+    (* Call 'func' *)
+    Have: L_ax_b(a, y, 4) = fmax_0.
+  }
+  Else {
+    Have: (a_2 = a_1) /\ (x_2 = x_1) /\ (y_2 = y_1).
+    (* Call 'func' *)
+    Have: L_ax_b(a_1, y_1, 4) = fmin_0.
+    (* Call 'func' *)
+    Have: L_ax_b(a_1, x_1, 4) = fmax_0.
+  }
+}
+Prove: fmin_0 <= fmax_0.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (55654)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (2/3):
+Call Result at line 19
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (3/3):
+Call Result at line 23
+Prove: true.
+Prover Qed returns Valid (0.75ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (1/5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (2/5):
+Call Result at line 19
+Prove: true.
+Prover Qed returns Valid (0.65ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (3/5):
+Call Result at line 20
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (4/5):
+Call Result at line 23
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (5/5):
+Call Result at line 24
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function func
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/21176_LogicFunction2/21176_LogicFunction2.acsl.c, line 7) in 'func':
+Let x_1 = 4 + (a * x).
+Assume { Type: is_sint32(a) /\ is_sint32(x) /\ is_sint32(x_1). }
+Prove: x_1 = L_ax_b(a, x, 4).
+Prover Z3 4.15.4 returns Valid (Qed:0.73ms) (10ms) (15105)
+Prover Alt-Ergo  returns Valid (Qed:0.73ms) (7ms) (56)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'func':
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/21176_LogicFunction2/21176_LogicFunction2.acsl.c, line 13) in 'check'' in 'main' at call 'check' (file output/live24/21176_LogicFunction2/21176_LogicFunction2.acsl.c, line 33)
+:
+Assume { Type: is_sint32(L_ax_b(3, 4, 4)). }
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (15s)
+Prover Alt-Ergo  returns Timeout (15s)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/21176_LogicFunction2/21176_LogicFunction2.acsl.c:28: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

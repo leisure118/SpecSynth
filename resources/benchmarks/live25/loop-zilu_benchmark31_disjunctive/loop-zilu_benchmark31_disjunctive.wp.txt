@@ -1,0 +1,54 @@
+[kernel] Parsing output/live25/loop-zilu_benchmark31_disjunctive/loop-zilu_benchmark31_disjunctive.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-zilu_benchmark31_disjunctive/loop-zilu_benchmark31_disjunctive.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 4 goals scheduled
+[wp] Proved goals:    4 / 4
+  Qed:             3
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-zilu_benchmark31_disjunctive/loop-zilu_benchmark31_disjunctive.acsl.c, line 13):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(unknown_0) /\ is_sint32(unknown_1) /\ is_sint32(x) /\
+      is_sint32(y) /\ is_sint32(1 + y) /\ is_sint32(x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_1) /\ (unknown_1 <= 2147483646).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+  (* Else *)
+  Have: unknown_1 < 0.
+  (* Else *)
+  Have: x < 0.
+}
+Prove: (x_1 < 0) \/ ((-1) <= y).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28932)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (17)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-zilu_benchmark31_disjunctive/loop-zilu_benchmark31_disjunctive.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-zilu_benchmark31_disjunctive/loop-zilu_benchmark31_disjunctive.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-zilu_benchmark31_disjunctive/loop-zilu_benchmark31_disjunctive.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-zilu_benchmark31_disjunctive/loop-zilu_benchmark31_disjunctive.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

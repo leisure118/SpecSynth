@@ -1,0 +1,272 @@
+[kernel] Parsing output/autobench_v2/164/164.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/autobench_v2/164/164.acsl.c:27: Warning: 
+  Calling function unknown1 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/164/164.acsl.c:8: Warning: 
+  Neither code nor specification for function unknown1, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 24 goals scheduled
+[wp] Proved goals:   24 / 24
+  Qed:            20
+  Alt-Ergo :       4 (6ms-7ms-9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/164/164.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/164/164.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/164/164.acsl.c, line 14):
+Let x = 4 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(x).
+  (* Then *)
+  Have: (2 + m) <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 4) = 0.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: i <= j.
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Else *)
+  Have: m <= j.
+  (* Invariant *)
+  Have: (-4) <= i.
+}
+Prove: (x % 4) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (31094)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (107)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/164/164.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/164/164.acsl.c, line 20):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j_1) /\ is_sint32(j) /\ is_sint32(j_2) /\
+      is_sint32(j_3) /\ is_sint32(k) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(tmp_0).
+  (* Then *)
+  Have: (2 + m) <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 4) = 0.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: i <= j_1.
+  (* Invariant *)
+  Have: 0 <= j_1.
+  (* Then *)
+  Have: j_1 < m.
+  If tmp_0 != 0
+  Then {
+    Let x = 1 + j_1.
+    Have: x = j.
+    Have: (j_2 = j) /\ (x = j_2).
+    Have: (j_3 = j) /\ (x = j_3).
+    (* Invariant *)
+    Have: (0 <= k) /\ (k <= x).
+    (* Else *)
+    Have: j_1 < k.
+  }
+  Else { (* Assertion *) Have: i <= (4 + j_1 + n). Have: (2 + j_1) = j. }
+}
+Prove: i <= j.
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (32427)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (6ms) (44)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/164/164.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (0.85ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/164/164.acsl.c, line 21):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j_1) /\ is_sint32(j) /\ is_sint32(j_2) /\
+      is_sint32(j_3) /\ is_sint32(k) /\ is_sint32(m) /\ is_sint32(n) /\
+      is_sint32(tmp_0).
+  (* Then *)
+  Have: (2 + m) <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 4) = 0.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: i <= j_1.
+  (* Invariant *)
+  Have: 0 <= j_1.
+  (* Then *)
+  Have: j_1 < m.
+  If tmp_0 != 0
+  Then {
+    Let x = 1 + j_1.
+    Have: x = j.
+    Have: (j_2 = j) /\ (x = j_2).
+    Have: (j_3 = j) /\ (x = j_3).
+    (* Invariant *)
+    Have: (0 <= k) /\ (k <= x).
+    (* Else *)
+    Have: j_1 < k.
+  }
+  Else { (* Assertion *) Have: i <= (4 + j_1 + n). Have: (2 + j_1) = j. }
+  (* Invariant *)
+  Have: i <= j.
+}
+Prove: 0 <= j.
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (10ms) (31507)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (6ms) (26)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/164/164.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (0.60ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/164/164.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/164/164.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/164/164.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/164/164.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/164/164.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/164/164.acsl.c, line 40):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(m) /\ is_sint32(n).
+  (* Then *)
+  Have: (2 + m) <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: (i % 4) = 0.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: i <= j.
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Then *)
+  Have: j < m.
+}
+Prove: i <= (4 + j + n).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28882)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (30)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/164/164.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/164/164.acsl.c, line 23) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/164/164.acsl.c, line 23) (2/2):
+Call Result at line 27
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/164/164.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/164/164.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/164/164.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/164/164.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (18ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/164/164.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/164/164.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/164/164.acsl.c, line 36):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/164/164.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'unknown1'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/164/164.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

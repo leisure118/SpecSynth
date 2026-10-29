@@ -1,0 +1,101 @@
+[kernel] Parsing output/autobench_v2/10/10.acsl.c (with preprocessing)
+[kernel:typing:implicit-function-declaration] output/autobench_v2/10/10.acsl.c:13: Warning: 
+  Calling undeclared function unknown. Old style K&R code?
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/autobench_v2/10/10.acsl.c:5: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             7
+  Alt-Ergo :       2 (6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/10/10.acsl.c, line 8):
+Let x_1 = x + y.
+Let x_2 = 2 + y_1.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(2 + x) /\ is_sint32(x + y - y_1).
+  (* Pre-condition *)
+  Have: (y_1 <= x_1) /\ (x_1 <= x_2).
+  (* Pre-condition *)
+  Have: (0 <= y) /\ (y <= 2).
+  (* Invariant *)
+  Have: y <= y_1.
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: y <= x_2.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28941)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (16)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/10/10.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/10/10.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/10/10.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/10/10.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/10/10.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/10/10.acsl.c, line 19):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1).
+  (* Pre-condition *)
+  Have: (0 <= x_1) /\ (x_1 <= 2).
+  (* Pre-condition *)
+  Have: (0 <= y) /\ (y <= 2).
+  (* Invariant *)
+  Have: y <= 0.
+}
+Prove: x != 4.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (27775)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (13)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/10/10.acsl.c, line 11) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/10/10.acsl.c, line 11) (2/2):
+Call Result at line 13
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/10/10.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/autobench_v2/10/10.acsl.c:13: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.

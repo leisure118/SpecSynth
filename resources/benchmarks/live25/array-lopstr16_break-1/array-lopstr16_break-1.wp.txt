@@ -1,0 +1,415 @@
+[kernel] Parsing output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:18: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:29: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 18 goals scheduled
+[wp] [Timeout] typed_main_loop_assigns_part3 (Qed 7ms) (Z3) (Stronger, 2 warnings)
+[wp] Proved goals:   17 / 18
+  Qed:            11
+  Alt-Ergo :       4 (9ms-12ms)
+  Z3 4.15.4:       2 (140ms-190ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 20):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 21):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0) /\
+      (forall i_2 : Z. region(s_1[i_2].F4_S_n.base) <= 0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i) /\ (c <= 5).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      ((s_1[i_2].F4_S_n) = null))).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Loop assigns ... *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (((i_2 < 0) \/ (1000000 <= i_2)) ->
+      ((s_1[i_2].F4_S_n) = (s[i_2].F4_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      ((s[i_2].F4_S_n) != null))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_s_0[i <- { Init_F4_S_n = v_1 }] = Init_s_0.
+  (* Admit *)
+  Have: null != v.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (s[i <- { F4_S_n = v }][i_1].F4_S_n) != null.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (30ms) (377466)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (89)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 34):
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i_1) /\ is_sint32(i_2) /\
+      is_sint32(1 + i_2).
+  (* Heap *)
+  Type: forall i_3 : Z. region(s_1[i_3].F4_S_n.base) <= 0.
+  (* Goal *)
+  When: (0 <= i) /\ (c <= 5) /\ (i <= 999999).
+  (* Initializer *)
+  Init: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      ((s_1[i_3].F4_S_n) = null))).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Loop assigns ... *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (((i_3 < 0) \/ (1000000 <= i_3)) ->
+      ((s_1[i_3].F4_S_n) = (s[i_3].F4_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      ((s[i_3].F4_S_n) != null))).
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      ((s[i_3].F4_S_n) != null))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Then *)
+  Have: i_2 <= 999999.
+  (* Assertion *)
+  Have: (s[i_2].F4_S_n) != null.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: (s[i].F4_S_n) != null.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (30ms) (236586)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (9ms) (68)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 34):
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i_1).
+  (* Heap *)
+  Type: forall i_2 : Z. region(s_1[i_2].F4_S_n.base) <= 0.
+  (* Goal *)
+  When: (0 <= i) /\ (c <= 5) /\ (i <= 999999).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      ((s_1[i_2].F4_S_n) = null))).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Loop assigns ... *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (((i_2 < 0) \/ (1000000 <= i_2)) ->
+      ((s_1[i_2].F4_S_n) = (s[i_2].F4_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((s[i_2].F4_S_n) != null))).
+  Have: 1000000 <= i_1.
+}
+Prove: (s[i].F4_S_n) != null.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (88342)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (9ms) (45)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 41):
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i_1) /\ is_sint32(i).
+  (* Heap *)
+  Type: forall i_2 : Z. region(s_1[i_2].F4_S_n.base) <= 0.
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      ((s_1[i_2].F4_S_n) = null))).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Loop assigns ... *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (((i_2 < 0) \/ (1000000 <= i_2)) ->
+      ((s_1[i_2].F4_S_n) = (s[i_2].F4_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((s[i_2].F4_S_n) != null))).
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      ((s[i_2].F4_S_n) != null))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+  (* Then *)
+  Have: c <= 5.
+}
+Prove: (s[i].F4_S_n) != null.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (20ms) (89341)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (12ms) (49)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 22) (1/4):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 22) (2/4):
+Effect at line 25
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i_1) /\ is_sint32(1 + i_1).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0) /\
+      (forall i_4 : Z. region(s[i_4].F4_S_n.base) <= 0).
+  (* Goal *)
+  When: (0 <= i_2) /\ (0 <= i_3) /\ (0 <= i) /\ (i_2 <= 999999) /\
+      (i_3 <= 999999) /\ (i <= 999999).
+  (* Initializer *)
+  Init: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 999999) ->
+      ((s[i_4].F4_S_n) = null))).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Loop assigns ... *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 999999) ->
+      (((i_4 < 0) \/ (1000000 <= i_4)) ->
+      ((s[i_4].F4_S_n) = (s_1[i_4].F4_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      ((s_1[i_4].F4_S_n) != null))).
+  (* Then *)
+  Have: i_1 <= 999999.
+  (* Else *)
+  Have: c <= 5.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_s_0[i_1 <- { Init_F4_S_n = v }] = Init_s_0.
+  (* Admit *)
+  Have: null != v_1.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= i_1) -> ((0 <= i_4) ->
+      ((s_1[i_1 <- { F4_S_n = v_1 }][i_4].F4_S_n) != null))).
+}
+Prove: exists i_4 : Z. (i_4 <= i) /\ (0 <= i_4) /\ (i <= i_4) /\
+    (i_4 <= 999999).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (190ms) (1581134)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 22) (3/4):
+Call Effect at line 29
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0) /\
+      (forall i_1 : Z. region(s[i_1].F4_S_n.base) <= 0).
+  (* Initializer *)
+  Init: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      ((s[i_1].F4_S_n) = null))).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Loop assigns ... *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      (((i_1 < 0) \/ (1000000 <= i_1)) ->
+      ((s[i_1].F4_S_n) = (s_1[i_1].F4_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      ((s_1[i_1].F4_S_n) != null))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Else *)
+  Have: c <= 5.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_s_0[i <- { Init_F4_S_n = v }] = Init_s_0.
+  (* Admit *)
+  Have: null != v_1.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      ((s_1[i <- { F4_S_n = v_1 }][i_1].F4_S_n) != null))).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (Qed:7ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:7ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 22) (4/4):
+Call Result at line 29
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = i - 1.
+Assume {
+  Type: is_sint32(c) /\ is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: is_sint32(fc_heap_status_0) /\
+      (forall i_1 : Z. region(s[i_1].F4_S_n.base) <= 0).
+  (* Goal *)
+  When: (0 < i) /\ (i <= 1000000).
+  (* Initializer *)
+  Init: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      ((s[i_1].F4_S_n) = null))).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= c) /\ (c <= 2147483646).
+  (* Loop assigns ... *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      (((i_1 < 0) \/ (1000000 <= i_1)) ->
+      ((s[i_1].F4_S_n) = (s_1[i_1].F4_S_n))))).
+  (* Invariant *)
+  Have: i <= 1000001.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      ((s_1[i_1].F4_S_n) != null))).
+  (* Else *)
+  Have: c <= 5.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_s_0[x <- { Init_F4_S_n = v }] = Init_s_0.
+  (* Admit *)
+  Have: null != v_1.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      ((s_1[x <- { F4_S_n = v_1 }][i_1].F4_S_n) != null))).
+}
+Prove: exists i_1 : Z. (0 <= i_1) /\ (i_1 < i) /\ (i_1 <= 999999) /\
+    (i <= (1 + i_1)).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (140ms) (1093632)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 25):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 25):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:29: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-lopstr16_break-1/array-lopstr16_break-1.acsl.c:15: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

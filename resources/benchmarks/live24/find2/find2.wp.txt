@@ -1,0 +1,202 @@
+[kernel] Parsing output/live24/find2/find2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:             7
+  Alt-Ergo :       7 (11ms-21ms)
+------------------------------------------------------------
+  Axiomatic 'SomeNone'
+------------------------------------------------------------
+
+Lemma NoneEqual_NotSomeEqual:
+Assume: 'NotSomeEqual_NoneEqual'
+Prove: (is_sint32 v_0) -> (P_NoneEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+       -> (not (P_SomeEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+Prover Alt-Ergo  returns Valid (14ms) (51)
+
+------------------------------------------------------------
+
+Lemma NotSomeEqual_NoneEqual:
+Prove: (is_sint32 v_0) -> (not (P_SomeEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+       -> (P_NoneEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+Prover Alt-Ergo  returns Valid (11ms) (51)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function find2
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/find2/find2.acsl.c, line 43):
+Let x = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_2_(Mint_0, a, 0, v).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_NoneEqual_2_(Mint_0, a, i, v).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x != v.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (20ms) (98623)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (21ms) (88)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/find2/find2.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/find2/find2.acsl.c, line 44):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_2_(Mint_0, a, 0, v).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_NoneEqual_2_(Mint_0, a, i, v).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 != v.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: P_NoneEqual_2_(Mint_0, a, x, v).
+Prover Alt-Ergo  returns Valid (Qed:14ms) (17ms) (140)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/find2/find2.acsl.c, line 44):
+Assume {
+  Type: is_uint32(n) /\ is_sint32(v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: P_NoneEqual_2_(Mint_0, a, 0, v).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (36509)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (15ms) (50)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/find2/find2.acsl.c, line 50):
+Let x = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_2_(Mint_0, a, 0, x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_NoneEqual_2_(Mint_0, a, i, x).
+  (* Then *)
+  Have: i < n.
+}
+Prove: P_SomeEqual_2_(Mint_0, a, 1 + i, x).
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (20ms) (98348)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (17ms) (91)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/find2/find2.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/find2/find2.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find2' (1/3):
+Effect at line 48
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find2' (2/3):
+Effect at line 51
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find2' (3/3):
+Effect at line 55
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/find2/find2.acsl.c, line 48):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_2_(Mint_0, a, 0, v).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_NoneEqual_2_(Mint_0, a, i, v).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 != v.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_2_(Mint_0, a, x, v).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (20ms) (99530)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (15ms) (98)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/find2/find2.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------

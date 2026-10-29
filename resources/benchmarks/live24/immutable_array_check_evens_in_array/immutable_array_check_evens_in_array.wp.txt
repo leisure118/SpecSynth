@@ -1,0 +1,167 @@
+[kernel] Parsing output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:            11
+  Alt-Ergo :       3 (10ms-14ms-17ms)
+------------------------------------------------------------
+  Function areElementsEven
+------------------------------------------------------------
+
+Goal Post-condition (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 5) in 'areElementsEven':
+Let x = Mint_0[shift_sint32(a, p)].
+Assume {
+  Type: is_sint32(n) /\ is_sint32(p) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: p < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 <= p.
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < p) ->
+      ((Mint_0[shift_sint32(a, i)] % 2) = 0))).
+  (* Then *)
+  Have: (x % 2) != 0.
+}
+Prove: exists i : Z. ((Mint_0[shift_sint32(a, i)] % 2) != 0) /\ (0 <= i) /\
+    (i < n).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (20ms) (94568)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (10ms) (69)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 11):
+Let x = Mint_0[shift_sint32(a, p)].
+Assume {
+  Type: is_sint32(n) /\ is_sint32(p) /\ is_sint32(1 + p) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= p).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (p <= n) /\ (0 <= p).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < p) ->
+      ((Mint_0[shift_sint32(a, i_1)] % 2) = 0))).
+  (* Then *)
+  Have: p < n.
+  (* Else *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: (-1) <= p.
+}
+Prove: (Mint_0[shift_sint32(a, i)] % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (40ms) (271897)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (17ms) (123)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'areElementsEven' (1/3):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'areElementsEven' (2/3):
+Effect at line 17
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'areElementsEven' (3/3):
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 26):
+Assume {
+  Type: is_sint32(res_0).
+  (* Initializer *)
+  Init: arr_0[0] = 2.
+  (* Initializer *)
+  Init: arr_0[1] = 4.
+  (* Initializer *)
+  Init: arr_0[2] = 6.
+  (* Initializer *)
+  Init: arr_0[3] = 8.
+  (* Initializer *)
+  Init: arr_0[4] = 10.
+  (* Call 'areElementsEven' *)
+  Have: (forall i : Z. ((0 <= i) -> ((i <= 4) -> ((arr_0[i] % 2) = 0)))) <->
+      (res_0 = 1).
+}
+Prove: res_0 = 1.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (36004)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (16ms) (168)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 2) in 'areElementsEven'' in 'main' at initialization of 'res' (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 25)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 3) in 'areElementsEven'' in 'main' at initialization of 'res' (file output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c, line 25)
+:
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/immutable_array_check_evens_in_array/immutable_array_check_evens_in_array.acsl.c:23: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,121 @@
+[kernel] Parsing output/autobench_v2/131/131.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             8
+  Alt-Ergo :       2 (6ms-7ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/131/131.acsl.c, line 12):
+Assume {
+  Type: is_sint32(x1_0) /\ is_sint32(x2_0) /\ is_sint32(x2_1) /\
+      is_sint32(x3_0) /\ is_sint32(x3_1) /\ is_sint32(x1_0 - 1).
+  (* Residual *)
+  When: 0 < x3_0.
+  (* Residual *)
+  When: 0 < x2_0.
+  (* Pre-condition *)
+  Have: (0 < x2_1) /\ (0 < x3_1).
+  (* Invariant *)
+  Have: (0 <= x1_0) /\ (x1_0 <= 1).
+  (* Then *)
+  Have: 0 < x1_0.
+}
+Prove: x1_0 <= 2.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (28873)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (6ms) (33)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/131/131.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/131/131.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/131/131.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/autobench_v2/131/131.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/autobench_v2/131/131.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/autobench_v2/131/131.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/autobench_v2/131/131.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/autobench_v2/131/131.acsl.c, line 18):
+Assume {
+  Type: is_sint32(x1_1) /\ is_sint32(x1_0) /\ is_sint32(x2_0) /\
+      is_sint32(x2_1) /\ is_sint32(x2_2) /\ is_sint32(x2_3) /\
+      is_sint32(x3_0) /\ is_sint32(x3_1) /\ is_sint32(x3_2) /\
+      is_sint32(x3_3) /\ is_sint32(x3_4).
+  (* Pre-condition *)
+  Have: (0 < x2_3) /\ (0 < x3_4).
+  (* Invariant *)
+  Have: (0 <= x1_1) /\ (x1_1 <= 1).
+  (* Invariant *)
+  Have: ((x1_1 = 1) -> ((0 < x2_2) /\ (0 < x3_3))).
+  (* Then *)
+  Have: 0 < x1_1.
+  If 0 < x2_2
+  Then {
+    Have: (x2_2 = x2_4) /\ (x3_3 = x3_2).
+    If 0 < x3_2
+    Then {
+      Have: (x2_4 = x2_1) /\ (x3_2 = x3_1) /\ ((1 + x1_0) = x1_1).
+      Have: (1 + x2_0) = x2_1.
+      Have: (1 + x3_0) = x3_1.
+    }
+    Else { Have: (x1_0 = x1_1) /\ (x2_4 = x2_0) /\ (x3_2 = x3_0). }
+  }
+  Else { Have: (x1_0 = x1_1) /\ (x2_2 = x2_0) /\ (x3_3 = x3_0). }
+  (* Invariant *)
+  Have: (0 <= x1_0) /\ (x1_0 <= 1).
+  (* Invariant *)
+  Have: ((x1_0 = 1) -> ((0 < x2_0) /\ (0 < x3_0))).
+  (* Invariant *)
+  Have: ((x1_0 <= 0) -> (0 <= x3_0)).
+}
+Prove: x1_0 < x1_1.
+Prover Z3 4.15.4 returns Valid (Qed:29ms) (10ms) (32982)
+Prover Alt-Ergo  returns Valid (Qed:29ms) (7ms) (75)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/autobench_v2/131/131.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/autobench_v2/131/131.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

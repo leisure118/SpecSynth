@@ -1,0 +1,84 @@
+[kernel] Parsing output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             7
+  Alt-Ergo :       2 (6ms-12ms)
+------------------------------------------------------------
+  Function f
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c, line 3) in 'f':
+Let x = 2 + z.
+Assume { Type: is_uint32(z). (* Pre-condition *) Have: z <= 4294967293. }
+Prove: x = to_uint32(x).
+Prover Z3 4.15.4 returns Valid (Qed:0.81ms) (10ms) (27549)
+Prover Alt-Ergo  returns Valid (Qed:0.81ms) (6ms) (25)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'f':
+Effect at line 7
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c, line 12):
+Let x_1 = x - 2.
+Assume {
+  Type: is_uint32(x) /\ is_uint32(x_1).
+  (* Invariant *)
+  Have: (x_1 % 2) = 0.
+  (* Then *)
+  Have: x <= 268435456.
+}
+Prove: (x % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:0.76ms) (10ms) (29503)
+Prover Alt-Ergo  returns Valid (Qed:0.76ms) (12ms) (93)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c, line 2) in 'f'' in 'main' at call 'f' (file output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c, line 17)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-acceleration_functions_1-1/loop-acceleration_functions_1-1.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

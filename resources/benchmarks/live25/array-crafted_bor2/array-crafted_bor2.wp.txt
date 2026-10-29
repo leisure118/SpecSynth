@@ -1,0 +1,203 @@
+[kernel] Parsing output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c:52: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] Warning: No definition for 'or_fold' interpreted as reads nothing
+[wp] 24 goals scheduled
+[wp] Proved goals:   24 / 24
+  Qed:            21
+  Alt-Ergo :       3 (12ms-14ms)
+------------------------------------------------------------
+  Function bor
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 21) in 'bor':
+Let x_1 = Mint_0[shift_sint32(x, 0)].
+Let x_2 = L_or_fold(x, 1000).
+Assume {
+  Type: is_sint32(i) /\ is_sint64(L_or_fold(x, i)) /\ is_sint32(x_1) /\
+      is_sint32(Mint_0[shift_sint32(x, i)]).
+  (* Heap *)
+  Type: region(x.base) <= 0.
+  Have: x_1 = L_or_fold(x, 1).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= 1000).
+  (* Else *)
+  Have: 1000 <= i.
+}
+Prove: to_sint32(x_2) = x_2.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (161895)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (14ms) (185)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 30):
+Let x_1 = Mint_0[shift_sint32(x, 0)].
+Let x_2 = 1 + i.
+Let x_3 = L_or_fold(x, i).
+Let x_4 = Mint_0[shift_sint32(x, i)].
+Let x_5 = lor(x_3, x_4).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_2) /\ is_sint64(x_3) /\ is_sint32(x_1) /\
+      is_sint32(x_4) /\ is_sint64(x_5).
+  (* Heap *)
+  Type: region(x.base) <= 0.
+  Have: x_1 = L_or_fold(x, 1).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= 1000).
+  (* Then *)
+  Have: i <= 999.
+}
+Prove: L_or_fold(x, x_2) = x_5.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (20ms) (162164)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (13ms) (184)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 30):
+Let x_1 = Mint_0[shift_sint32(x, 0)].
+Assume { Type: is_sint32(x_1). (* Heap *) Type: region(x.base) <= 0. }
+Prove: x_1 = L_or_fold(x, 1).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (20ms) (142733)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (12ms) (100)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bor' (1/4):
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bor' (2/4):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bor' (3/4):
+Effect at line 34
+Prove: true.
+Prover Qed returns Valid (0.89ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bor' (4/4):
+Effect at line 37
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 68):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 60) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 60) (2/2):
+Effect at line 64
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-crafted_bor2/array-crafted_bor2.acsl.c:39: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

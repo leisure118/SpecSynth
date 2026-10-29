@@ -1,0 +1,741 @@
+[kernel] Parsing output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c:48: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 45 goals scheduled
+[wp] Proved goals:   45 / 45
+  Qed:            31
+  Alt-Ergo :      13 (6ms-12ms-28ms)
+  Z3 4.15.4:       1 (140ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 51):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(ret_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10).
+  (* Else *)
+  Have: 10 <= i_1.
+  (* Call 'max' *)
+  Have: (0 <= ret_0) /\
+      ((ret_0 = 0) \/
+       (exists i_2 : Z. (x[i_2] = ret_0) /\ (0 <= i_2) /\ (i_2 <= 9))) /\
+      (forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (x[i_2] <= ret_0)))).
+}
+Prove: x[i] <= ret_0.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29435)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (38)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 53):
+Let x_1 = x[1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(ret_0) /\ is_sint32(x_1) /\
+      is_sint32(x[9]).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10).
+  (* Else *)
+  Have: 10 <= i_1.
+  (* Call 'max' *)
+  Have: (0 <= ret_0) /\
+      ((ret_0 = 0) \/
+       (exists i_2 : Z. (x[i_2] = ret_0) /\ (0 <= i_2) /\ (i_2 <= 9))) /\
+      (forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (x[i_2] <= ret_0)))).
+}
+Prove: x[0 <- x_1][1 <- x[0]][i] <= ret_0.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (30760)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (144)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 54):
+Let x_1 = x[1].
+Let m = x[0 <- x_1][1 <- x[0]].
+Let x_2 = x[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x[9]) /\
+      is_sint32(x_2).
+  (* Goal *)
+  When: x_2 != 0.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10).
+  (* Else *)
+  Have: 10 <= i_1.
+  (* Call 'max' *)
+  Have: (0 <= i) /\ (0 <= x_2) /\ (i <= 9) /\
+      (forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (x[i_2] <= x_2)))).
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (m[i_2] <= x_2))).
+}
+Prove: exists i_2 : Z. (m[i_2] = x_2) /\ (0 <= i_2) /\ (i_2 <= 9).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (50ms) (221216)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (10ms) (149)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 59):
+Let x_2 = x_1[1].
+Let m = x_1[0 <- x_2][1 <- x_1[0]].
+Let x_3 = x_1[9].
+Let x_4 = x[9].
+Let x_5 = 1 + i.
+Let m_1 = x[i <- x[x_5]].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(max_0) /\
+      is_sint32(max_1) /\ is_sint32(x_4) /\ is_sint32(x_2) /\
+      is_sint32(x_3) /\ is_sint32(x_5) /\ is_sint32(m_1[9]).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10).
+  (* Else *)
+  Have: 10 <= i_2.
+  (* Call 'max' *)
+  Have: (0 <= max_1) /\
+      ((max_1 = 0) \/
+       (exists i_3 : Z. (x_1[i_3] = max_1) /\ (0 <= i_3) /\ (i_3 <= 9))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9) -> (x_1[i_3] <= max_1)))).
+  (* Assertion *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9) -> (m[i_3] <= max_1))).
+  (* Assertion *)
+  Have: ((max_1 != 0) ->
+      (exists i_3 : Z. (m[i_3] = max_1) /\ (0 <= i_3) /\ (i_3 <= 9))).
+  (* Call 'max' *)
+  Have: (0 <= max_0) /\
+      ((max_0 = 0) \/
+       (exists i_3 : Z. (m[i_3] = max_0) /\ (0 <= i_3) /\ (i_3 <= 9))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9) -> (m[i_3] <= max_0)))).
+  (* Loop assigns ... *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) -> (m[1 + i_3] = x[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 8) -> (m[i_3] = x[i_3]))).
+  (* Then *)
+  Have: i <= 8.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: m_1[i_1] = m[1 + i_1].
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (38632)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (20ms) (458)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 60):
+Let x_2 = 1 + i.
+Let m = x[i <- x[x_2]].
+Let x_3 = x_1[1].
+Let m_1 = x_1[0 <- x_3][1 <- x_1[0]].
+Let x_4 = x_1[9].
+Let x_5 = x[9].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(max_0) /\
+      is_sint32(max_1) /\ is_sint32(x_5) /\ is_sint32(x_3) /\
+      is_sint32(x_4) /\ is_sint32(x_2) /\ is_sint32(m[9]).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 8).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10).
+  (* Else *)
+  Have: 10 <= i_2.
+  (* Call 'max' *)
+  Have: (0 <= max_1) /\
+      ((max_1 = 0) \/
+       (exists i_3 : Z. (x_1[i_3] = max_1) /\ (0 <= i_3) /\ (i_3 <= 9))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9) -> (x_1[i_3] <= max_1)))).
+  (* Assertion *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9) -> (m_1[i_3] <= max_1))).
+  (* Assertion *)
+  Have: ((max_1 != 0) ->
+      (exists i_3 : Z. (m_1[i_3] = max_1) /\ (0 <= i_3) /\ (i_3 <= 9))).
+  (* Call 'max' *)
+  Have: (0 <= max_0) /\
+      ((max_0 = 0) \/
+       (exists i_3 : Z. (m_1[i_3] = max_0) /\ (0 <= i_3) /\ (i_3 <= 9))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9) -> (m_1[i_3] <= max_0)))).
+  (* Loop assigns ... *)
+  Have: x_4 = x_5.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (m_1[1 + i_3] = x[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 8) -> (m_1[i_3] = x[i_3]))).
+  (* Then *)
+  Have: i <= 8.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (m[i_3] = m_1[1 + i_3]))).
+}
+Prove: m[i_1] = m_1[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (38742)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (14ms) (282)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 61):
+Let x_2 = 1 + i.
+Let m = x[i <- x[x_2]].
+Let x_3 = x_1[1].
+Let m_1 = x_1[0 <- x_3][1 <- x_1[0]].
+Let x_4 = x_1[9].
+Let x_5 = x[9].
+Let x_6 = m[9].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(max_0) /\
+      is_sint32(max_1) /\ is_sint32(x_5) /\ is_sint32(x_3) /\
+      is_sint32(x_4) /\ is_sint32(x_2) /\ is_sint32(x_6).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10).
+  (* Else *)
+  Have: 10 <= i_1.
+  (* Call 'max' *)
+  Have: (0 <= max_1) /\
+      ((max_1 = 0) \/
+       (exists i_2 : Z. (x_1[i_2] = max_1) /\ (0 <= i_2) /\ (i_2 <= 9))) /\
+      (forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (x_1[i_2] <= max_1)))).
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (m_1[i_2] <= max_1))).
+  (* Assertion *)
+  Have: ((max_1 != 0) ->
+      (exists i_2 : Z. (m_1[i_2] = max_1) /\ (0 <= i_2) /\ (i_2 <= 9))).
+  (* Call 'max' *)
+  Have: (0 <= max_0) /\
+      ((max_0 = 0) \/
+       (exists i_2 : Z. (m_1[i_2] = max_0) /\ (0 <= i_2) /\ (i_2 <= 9))) /\
+      (forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (m_1[i_2] <= max_0)))).
+  (* Loop assigns ... *)
+  Have: x_4 = x_5.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (m_1[1 + i_2] = x[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i <= i_2) -> ((i_2 <= 8) -> (m_1[i_2] = x[i_2]))).
+  (* Then *)
+  Have: i <= 8.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((0 <= i_2) ->
+      (m[i_2] = m_1[1 + i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i < i_2) -> ((i_2 <= 8) -> (m[i_2] = m_1[i_2]))).
+}
+Prove: x_6 = x_4.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (38902)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (7ms) (95)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 70):
+Let x_2 = x_1[1].
+Let m = x_1[0 <- x_2][1 <- x_1[0]].
+Let x_3 = x_1[9].
+Let x_4 = x[9].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(max_0) /\
+      is_sint32(ret_0) /\ is_sint32(x_4) /\ is_sint32(x_2) /\ is_sint32(x_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10).
+  (* Else *)
+  Have: 10 <= i_1.
+  (* Call 'max' *)
+  Have: (0 <= ret_0) /\
+      ((ret_0 = 0) \/
+       (exists i_3 : Z. (x_1[i_3] = ret_0) /\ (0 <= i_3) /\ (i_3 <= 9))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9) -> (x_1[i_3] <= ret_0)))).
+  (* Assertion *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9) -> (m[i_3] <= ret_0))).
+  (* Assertion *)
+  Have: ((ret_0 != 0) ->
+      (exists i_3 : Z. (m[i_3] = ret_0) /\ (0 <= i_3) /\ (i_3 <= 9))).
+  (* Call 'max' *)
+  Have: (0 <= max_0) /\
+      ((max_0 = 0) \/
+       (exists i_3 : Z. (m[i_3] = max_0) /\ (0 <= i_3) /\ (i_3 <= 9))) /\
+      (forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9) -> (m[i_3] <= max_0)))).
+  (* Loop assigns ... *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 9).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (m[1 + i_3] = x[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_2 <= i_3) -> ((i_3 <= 8) -> (m[i_3] = x[i_3]))).
+  (* Else *)
+  Have: 9 <= i_2.
+}
+Prove: x[9 <- x_2][i] <= ret_0.
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (10ms) (36802)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (28ms) (618)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 72):
+Let x_2 = x_1[1].
+Let m = x[9 <- x_2].
+Let m_1 = x_1[0 <- x_2][1 <- x_1[0]].
+Let x_3 = x_1[9].
+Let x_4 = x[9].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(ret_0) /\
+      is_sint32(ret2_0) /\ is_sint32(ret5_0) /\ is_sint32(x_4) /\
+      is_sint32(x_2) /\ is_sint32(x_3).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10).
+  (* Else *)
+  Have: 10 <= i.
+  (* Call 'max' *)
+  Have: (0 <= ret_0) /\
+      ((ret_0 = 0) \/
+       (exists i_2 : Z. (x_1[i_2] = ret_0) /\ (0 <= i_2) /\ (i_2 <= 9))) /\
+      (forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (x_1[i_2] <= ret_0)))).
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (m_1[i_2] <= ret_0))).
+  (* Assertion *)
+  Have: ((ret_0 != 0) ->
+      (exists i_2 : Z. (m_1[i_2] = ret_0) /\ (0 <= i_2) /\ (i_2 <= 9))).
+  (* Call 'max' *)
+  Have: (0 <= ret2_0) /\
+      ((ret2_0 = 0) \/
+       (exists i_2 : Z. (m_1[i_2] = ret2_0) /\ (0 <= i_2) /\ (i_2 <= 9))) /\
+      (forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (m_1[i_2] <= ret2_0)))).
+  (* Loop assigns ... *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (m_1[1 + i_2] = x[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 <= i_2) -> ((i_2 <= 8) ->
+      (m_1[i_2] = x[i_2]))).
+  (* Else *)
+  Have: 9 <= i_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (m[i_2] <= ret_0))).
+  (* Call 'max' *)
+  Have: (0 <= ret5_0) /\
+      ((ret5_0 = 0) \/
+       (exists i_2 : Z. (m[i_2] = ret5_0) /\ (0 <= i_2) /\ (i_2 <= 9))) /\
+      (forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9) -> (m[i_2] <= ret5_0)))).
+}
+Prove: (ret2_0 = ret_0) /\ (ret5_0 = ret_0).
+Prover Z3 4.15.4 returns Valid (Qed:16ms) (140ms) (671121)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 63) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 63) (2/2):
+Effect at line 67
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (0.78ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 66):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 11) in 'max'' in 'main' at call 'max' (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 50)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 11) in 'max'' in 'main' at call 'max' (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 55)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 11) in 'max'' in 'main' at call 'max' (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 71)
+:
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 13) in 'max':
+Assume {
+  Type: is_sint32(i) /\ is_sint64(ret_0).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10).
+  (* Invariant *)
+  Have: (0 <= ret_0) /\ (ret_0 <= 2147483647).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(x, i_1)] <= ret_0))).
+  (* Invariant *)
+  Have: (ret_0 = 0) \/
+      (exists i_1 : Z. (Mint_0[shift_sint32(x, i_1)] = ret_0) /\
+       (0 <= i_1) /\ (i_1 < i)).
+  (* Else *)
+  Have: 10 <= i.
+}
+Prove: 0 <= to_sint32(ret_0).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (94421)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (49)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 14) in 'max':
+Assume {
+  Type: is_sint32(i_1) /\ is_sint64(ret_0).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10).
+  (* Invariant *)
+  Have: (0 <= ret_0) /\ (ret_0 <= 2147483647).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(x, i_2)] <= ret_0))).
+  (* Invariant *)
+  Have: (ret_0 = 0) \/
+      (exists i_2 : Z. (Mint_0[shift_sint32(x, i_2)] = ret_0) /\
+       (0 <= i_2) /\ (i_2 < i_1)).
+  (* Else *)
+  Have: 10 <= i_1.
+}
+Prove: Mint_0[shift_sint32(x, i)] <= to_sint32(ret_0).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (125000)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (66)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 15) in 'max':
+Let x_1 = to_sint32(ret_0).
+Assume {
+  Type: is_sint32(i) /\ is_sint64(ret_0).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10).
+  (* Invariant *)
+  Have: (0 <= ret_0) /\ (ret_0 <= 2147483647).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(x, i_1)] <= ret_0))).
+  (* Invariant *)
+  Have: (ret_0 = 0) \/
+      (exists i_1 : Z. (Mint_0[shift_sint32(x, i_1)] = ret_0) /\
+       (0 <= i_1) /\ (i_1 < i)).
+  (* Else *)
+  Have: 10 <= i.
+}
+Prove: (x_1 = 0) \/
+    (exists i_1 : Z. (Mint_0[shift_sint32(x, i_1)] = x_1) /\ (0 <= i_1) /\
+     (i_1 <= 9)).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (118)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 24):
+Let x_1 = Mint_0[shift_sint32(x, i)].
+Assume {
+  Type: is_sint32(i) /\ is_sint64(ret_0) /\ is_sint32(1 + i) /\
+      is_sint32(x_1) /\ is_sint64(x_1).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: ret_0 < x_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10).
+  (* Invariant *)
+  Have: (0 <= ret_0) /\ (ret_0 <= 2147483647).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(x, i_1)] <= ret_0))).
+  (* Invariant *)
+  Have: (ret_0 = 0) \/
+      (exists i_1 : Z. (Mint_0[shift_sint32(x, i_1)] = ret_0) /\
+       (0 <= i_1) /\ (i_1 < i)).
+  (* Then *)
+  Have: i <= 9.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (0 <= x_1) /\ (x_1 <= 2147483647).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (125154)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (57)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 25):
+Let x_1 = Mint_0[shift_sint32(x, i_1)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint64(ret_0) /\ is_sint64(ret_1) /\
+      is_sint32(1 + i_1) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10).
+  (* Invariant *)
+  Have: (0 <= ret_1) /\ (ret_1 <= 2147483647).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(x, i_2)] <= ret_1))).
+  (* Invariant *)
+  Have: (ret_1 = 0) \/
+      (exists i_2 : Z. (Mint_0[shift_sint32(x, i_2)] = ret_1) /\
+       (0 <= i_2) /\ (i_2 < i_1)).
+  (* Then *)
+  Have: i_1 <= 9.
+  If ret_1 < x_1
+  Then { Have: x_1 = ret_0. }
+  Else { Have: ret_1 = ret_0. }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+  (* Invariant *)
+  Have: (0 <= ret_0) /\ (ret_0 <= 2147483647).
+}
+Prove: Mint_0[shift_sint32(x, i)] <= ret_0.
+Prover Alt-Ergo  returns Valid (Qed:8ms) (14ms) (237)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 26):
+Let x_1 = Mint_0[shift_sint32(x, i)].
+Assume {
+  Type: is_sint32(i) /\ is_sint64(ret_0) /\ is_sint64(ret_1) /\
+      is_sint32(1 + i) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10).
+  (* Invariant *)
+  Have: (0 <= ret_1) /\ (ret_1 <= 2147483647).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(x, i_1)] <= ret_1))).
+  (* Invariant *)
+  Have: (ret_1 = 0) \/
+      (exists i_1 : Z. (Mint_0[shift_sint32(x, i_1)] = ret_1) /\
+       (0 <= i_1) /\ (i_1 < i)).
+  (* Then *)
+  Have: i <= 9.
+  If ret_1 < x_1
+  Then { Have: x_1 = ret_0. }
+  Else { Have: ret_1 = ret_0. }
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: (0 <= ret_0) /\ (ret_0 <= 2147483647).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      (Mint_0[shift_sint32(x, i_1)] <= ret_0))).
+}
+Prove: (ret_0 = 0) \/
+    (exists i_1 : Z. (Mint_0[shift_sint32(x, i_1)] = ret_0) /\ (i_1 <= i) /\
+     (0 <= i_1)).
+Prover Alt-Ergo  returns Valid (Qed:9ms) (14ms) (238)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max' (1/4):
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max' (2/4):
+Effect at line 30
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max' (3/4):
+Effect at line 30
+Prove: true.
+Prover Qed returns Valid (0.53ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max' (4/4):
+Effect at line 33
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/reducercommutativity_max10-1/reducercommutativity_max10-1.acsl.c:35: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,74 @@
+[kernel] Parsing output/live24/code2_126/code2_126.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             7
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_126/code2_126.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_126/code2_126.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live24/code2_126/code2_126.acsl.c, line 9):
+Let x = i + y.
+Let x_1 = -j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(y) /\ is_sint32(y - 1) /\
+      is_sint32(i + y - j) /\ is_sint32(i + y - 1 - j).
+  (* Pre-condition *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: j <= x.
+  (* Then *)
+  Have: x != j.
+}
+Prove: j < x.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (28628)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (16)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live24/code2_126/code2_126.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live24/code2_126/code2_126.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.60ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live24/code2_126/code2_126.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live24/code2_126/code2_126.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live24/code2_126/code2_126.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (0.92ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live24/code2_126/code2_126.acsl.c:4: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

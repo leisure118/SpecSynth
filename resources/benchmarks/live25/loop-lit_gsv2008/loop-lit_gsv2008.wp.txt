@@ -1,0 +1,80 @@
+[kernel] Parsing output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c:11: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             7
+  Alt-Ergo :       1 (8ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c, line 15):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(unknown_0) /\ is_sint32(x) /\ is_sint32(y) /\
+      is_sint32(1 + y) /\ is_sint32(x_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+  (* Then *)
+  Have: (-999) <= unknown_0.
+  (* Invariant *)
+  Have: (-999) <= y.
+  (* Then *)
+  Have: x < 0.
+  (* Invariant *)
+  Have: (-1000) <= y.
+}
+Prove: (0 <= y) \/ (x_1 < 0).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (28748)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (17)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.93ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/loop-lit_gsv2008/loop-lit_gsv2008.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

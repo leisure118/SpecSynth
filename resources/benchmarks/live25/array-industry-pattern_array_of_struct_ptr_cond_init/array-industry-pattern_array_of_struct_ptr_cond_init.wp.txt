@@ -1,0 +1,692 @@
+[kernel] Parsing output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:19: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:40: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: _S*)
+[wp] 25 goals scheduled
+[wp] [Timeout] typed_main_loop_invariant_3_preserved (Qed 15ms) (Z3) (Stronger, 3 warnings)
+[wp] [Timeout] typed_main_loop_invariant_2_preserved (Qed 15ms) (Z3) (Stronger, 3 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part2 (Qed 28ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part4 (Qed 6ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part5 (Qed 9ms) (Z3) (Stronger, 3 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part6 (Qed 12ms) (Z3) (Stronger, 3 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part7 (Qed 13ms) (Z3) (Stronger, 2 warnings)
+[wp] Proved goals:   18 / 25
+  Qed:            13
+  Alt-Ergo :       5 (9ms-10ms-13ms)
+  Timeout:         7
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 26):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:40: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (0.67ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 27):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:40: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = Mint_0[shiftfield_F4__S_n(s1_0)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_1) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_1, a_1[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a_1[i_2] in
+      ((Mint_1[shiftfield_F4__S_n(a_2)] = 1) -> ((0 <= i_2) -> ((i_2 < i) ->
+      (Mptr_0[shiftfield_F4__S_p(a_2)] != null)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_1, shift_S4__S(s1_0, 0), 2).
+  If x = 1
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+    (* Admit *)
+    Have: valid_rw(Malloc_0, shift_sint32(v, 0), 1).
+  }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: valid_rw(Malloc_0, a[i <- s1_0][i_1], 2).
+Prover Z3 4.15.4 returns Timeout (Qed:15ms) (43.1s)
+Prover Alt-Ergo  returns Timeout (Qed:15ms) (1')
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 28):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:40: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let m = a[i <- s1_0].
+Let x = Mint_0[shiftfield_F4__S_n(s1_0)].
+Let a_2 = m[i_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_1) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Goal *)
+  When: (Mint_0[shiftfield_F4__S_n(a_2)] = 1) /\ (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      valid_rw(Malloc_0, a_1[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_3 = a_1[i_2] in
+      ((Mint_1[shiftfield_F4__S_n(a_3)] = 1) -> ((0 <= i_2) -> ((i_2 < i) ->
+      (Mptr_1[shiftfield_F4__S_p(a_3)] != null)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_S4__S(s1_0, 0), 2).
+  If x = 1
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+    (* Return Effects *)
+    Have: Mptr_2[shiftfield_F4__S_p(s1_0) <- v] = Mptr_0.
+    (* Admit *)
+    Have: valid_rw(Malloc_1, shift_sint32(v, 0), 1).
+  }
+  Else { Have: Mptr_3[shiftfield_F4__S_p(s1_0) <- null] = Mptr_0. }
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((0 <= i_2) ->
+      valid_rw(Malloc_1, m[i_2], 2))).
+}
+Prove: Mptr_0[shiftfield_F4__S_p(a_2)] != null.
+Prover Z3 4.15.4 returns Timeout (Qed:15ms) (43.0s)
+Prover Alt-Ergo  returns Timeout (Qed:15ms) (1')
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 51):
+Let x = Mint_0[shiftfield_F4__S_n(a[i_2])].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_1 = a[i_3] in
+      ((Mint_0[shiftfield_F4__S_n(a_1)] = 1) -> ((0 <= i_3) ->
+      ((i_3 < i_1) -> (Mptr_0[shiftfield_F4__S_p(a_1)] != null)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_1 = a[i_3] in
+      ((Mint_0[shiftfield_F4__S_n(a_1)] = 1) -> ((0 <= i_3) ->
+      ((i_3 <= 99999) -> (Mptr_0[shiftfield_F4__S_p(a_1)] != null)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Then *)
+  Have: i_2 <= 99999.
+  If x = 1
+  Then { (* Assertion *) Have: Mptr_0[shiftfield_F4__S_p(a[i_2])] != null. }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: valid_rw(Malloc_0, a[i], 2).
+Prover Z3 4.15.4 returns Valid (Qed:24ms) (20ms) (159323)
+Prover Alt-Ergo  returns Valid (Qed:24ms) (9ms) (67)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 51):
+Assume {
+  Type: is_sint32(i_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_1 = a[i_2] in
+      ((Mint_0[shiftfield_F4__S_n(a_1)] = 1) -> ((0 <= i_2) ->
+      ((i_2 < i_1) -> (Mptr_0[shiftfield_F4__S_p(a_1)] != null)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+}
+Prove: valid_rw(Malloc_0, a[i], 2).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (106301)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (42)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 52):
+Let x = Mint_0[shiftfield_F4__S_n(a[i_2])].
+Let a_1 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (Mint_0[shiftfield_F4__S_n(a_1)] = 1) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_2 = a[i_3] in
+      ((Mint_0[shiftfield_F4__S_n(a_2)] = 1) -> ((0 <= i_3) ->
+      ((i_3 < i_1) -> (Mptr_0[shiftfield_F4__S_p(a_2)] != null)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      valid_rw(Malloc_0, a[i_3], 2))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_2 = a[i_3] in
+      ((Mint_0[shiftfield_F4__S_n(a_2)] = 1) -> ((0 <= i_3) ->
+      ((i_3 <= 99999) -> (Mptr_0[shiftfield_F4__S_p(a_2)] != null)))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Then *)
+  Have: i_2 <= 99999.
+  If x = 1
+  Then { (* Assertion *) Have: Mptr_0[shiftfield_F4__S_p(a[i_2])] != null. }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: Mptr_0[shiftfield_F4__S_p(a_1)] != null.
+Prover Z3 4.15.4 returns Valid (Qed:22ms) (30ms) (306949)
+Prover Alt-Ergo  returns Valid (Qed:22ms) (10ms) (125)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 52):
+Let a_1 = a[i].
+Assume {
+  Type: is_sint32(i_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (Mint_0[shiftfield_F4__S_n(a_1)] = 1) /\ (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in
+      ((Mint_0[shiftfield_F4__S_n(a_2)] = 1) -> ((0 <= i_2) ->
+      ((i_2 < i_1) -> (Mptr_0[shiftfield_F4__S_p(a_2)] != null)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+}
+Prove: Mptr_0[shiftfield_F4__S_p(a_1)] != null.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (30ms) (137481)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (13ms) (70)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 61):
+Let a_1 = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in
+      ((Mint_0[shiftfield_F4__S_n(a_2)] = 1) -> ((0 <= i_2) ->
+      ((i_2 < i_1) -> (Mptr_0[shiftfield_F4__S_p(a_2)] != null)))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      valid_rw(Malloc_0, a[i_2], 2))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_2 = a[i_2] in
+      ((Mint_0[shiftfield_F4__S_n(a_2)] = 1) -> ((0 <= i_2) ->
+      ((i_2 <= 99999) -> (Mptr_0[shiftfield_F4__S_p(a_2)] != null)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+  (* Then *)
+  Have: Mint_0[shiftfield_F4__S_n(a_1)] = 1.
+}
+Prove: Mptr_0[shiftfield_F4__S_p(a_1)] != null.
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (20ms) (138793)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (10ms) (79)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 29) (1/7):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:40: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 29) (2/7):
+Call Effect at line 34
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+Let m = a_1[i <- s1_0].
+Let x = Mint_0[shiftfield_F4__S_n(s1_0)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, a[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_2 = a[i_1] in
+      ((Mint_1[shiftfield_F4__S_n(a_2)] = 1) -> ((0 <= i_1) -> ((i_1 < i) ->
+      (Mptr_0[shiftfield_F4__S_p(a_2)] != null)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_S4__S(s1_0, 0), 2).
+  If x = 1
+  Then {
+    (* Call 'malloc' *)
+    Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+    (* Return Effects *)
+    Have: Mptr_1[shiftfield_F4__S_p(s1_0) <- v] = Mptr_2.
+    (* Admit *)
+    Have: valid_rw(Malloc_1, shift_sint32(v, 0), 1).
+  }
+  Else { Have: Mptr_3[shiftfield_F4__S_p(s1_0) <- null] = Mptr_2. }
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      valid_rw(Malloc_1, m[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_2 = m[i_1] in
+      ((Mint_0[shiftfield_F4__S_n(a_2)] = 1) -> ((i_1 <= i) -> ((0 <= i_1) ->
+      (Mptr_2[shiftfield_F4__S_p(a_2)] != null)))).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (Qed:28ms) (53.8s)
+Prover Alt-Ergo  returns Timeout (Qed:28ms) (1')
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 29) (3/7):
+Call Result at line 34
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 29) (4/7):
+Effect at line 37
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+Assume {
+  Type: is_sint32(i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, a[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_1 = a[i_1] in
+      ((Mint_0[shiftfield_F4__S_n(a_1)] = 1) -> ((0 <= i_1) -> ((i_1 < i) ->
+      (Mptr_0[shiftfield_F4__S_p(a_1)] != null)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_S4__S(s1_0, 0), 2).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (Qed:6ms) (53.3s)
+Prover Alt-Ergo  returns Timeout (Qed:6ms) (1')
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 29) (5/7):
+Call Effect at line 40
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:40: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let m = a_1[i <- s1_0].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, a[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_2 = a[i_1] in
+      ((Mint_0[shiftfield_F4__S_n(a_2)] = 1) -> ((0 <= i_1) -> ((i_1 < i) ->
+      (Mptr_0[shiftfield_F4__S_p(a_2)] != null)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_S4__S(s1_0, 0), 2).
+  (* Then *)
+  Have: Mint_1[shiftfield_F4__S_n(s1_0)] = 1.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  (* Admit *)
+  Have: valid_rw(Malloc_1, shift_sint32(v, 0), 1).
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      valid_rw(Malloc_1, m[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_2 = m[i_1] in
+      ((Mint_1[shiftfield_F4__S_n(a_2)] = 1) -> ((i_1 <= i) -> ((0 <= i_1) ->
+      (Mptr_1[shiftfield_F4__S_p(s1_0) <- v][shiftfield_F4__S_p(a_2)] !=
+       null)))).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (Qed:9ms) (50.9s)
+Prover Alt-Ergo  returns Timeout (Qed:9ms) (1')
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 29) (6/7):
+Call Result at line 40
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:40: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let m = a_1[i <- s1_0].
+Let a_2 = shiftfield_F4__S_p(s1_0).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, a[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_3 = a[i_1] in
+      ((Mint_0[shiftfield_F4__S_n(a_3)] = 1) -> ((0 <= i_1) -> ((i_1 < i) ->
+      (Mptr_0[shiftfield_F4__S_p(a_3)] != null)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_S4__S(s1_0, 0), 2).
+  (* Then *)
+  Have: Mint_1[shiftfield_F4__S_n(s1_0)] = 1.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_1, 4)) -> (null = malloc_1)).
+  (* Admit *)
+  Have: valid_rw(Malloc_1, shift_sint32(v, 0), 1).
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      valid_rw(Malloc_1, m[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_3 = m[i_1] in
+      ((Mint_1[shiftfield_F4__S_n(a_3)] = 1) -> ((i_1 <= i) -> ((0 <= i_1) ->
+      (Mptr_1[a_2 <- v][shiftfield_F4__S_p(a_3)] != null)))).
+}
+Prove: invalid(Malloc_0, a_2, 1).
+Prover Z3 4.15.4 returns Timeout (Qed:12ms) (52.2s)
+Prover Alt-Ergo  returns Timeout (Qed:12ms) (1')
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 29) (7/7):
+Effect at line 45
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+Let m = a_1[i <- s1_0].
+Let a_2 = shiftfield_F4__S_p(s1_0).
+Let x = Mint_0[shiftfield_F4__S_n(s1_0)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      valid_rw(Malloc_0, a[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_3 = a[i_1] in
+      ((Mint_1[shiftfield_F4__S_n(a_3)] = 1) -> ((0 <= i_1) -> ((i_1 < i) ->
+      (Mptr_0[shiftfield_F4__S_p(a_3)] != null)))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, shift_S4__S(s1_0, 0), 2).
+  (* Else *)
+  Have: x != 1.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 <= i) -> ((0 <= i_1) ->
+      valid_rw(Malloc_1, m[i_1], 2))).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_3 = m[i_1] in
+      ((Mint_0[shiftfield_F4__S_n(a_3)] = 1) -> ((i_1 <= i) -> ((0 <= i_1) ->
+      (Mptr_1[a_2 <- null][shiftfield_F4__S_p(a_3)] != null)))).
+}
+Prove: invalid(Malloc_0, a_2, 1).
+Prover Z3 4.15.4 returns Timeout (Qed:13ms) (1')
+Prover Alt-Ergo  returns Timeout (Qed:13ms) (1')
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 32):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:40: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 32):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:34: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: _S*)
+output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:40: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:17: Warning: 
+  No 'assigns' specification for function 'user_read'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/live25/array-industry-pattern_array_of_struct_ptr_cond_init/array-industry-pattern_array_of_struct_ptr_cond_init.acsl.c:22: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,191 @@
+[kernel] Parsing output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:            13
+  Alt-Ergo :       4 (7ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.88ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 16):
+Let x = 100 + i.
+Let x_1 = y - 100.
+Assume {
+  Type: is_sint32(y) /\ is_sint32(x_1) /\ is_sint32(y - 99) /\
+      is_sint32(1 + y).
+  (* Goal *)
+  When: (0 <= i) /\ (x <= y).
+  (* Invariant *)
+  Have: (100 <= y) /\ (y <= 100100).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((101 + i_1) <= y) ->
+      ((a[i_1].F1__S_n) = (100 + i_1)))).
+  (* Then *)
+  Have: y <= 100099.
+  (* Invariant *)
+  Have: 99 <= y.
+}
+Prove: (a[x_1 <- { F1__S_n = y }][i].F1__S_n) = x.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (30373)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (73)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 28):
+Let x = a[i_1].F1__S_n.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(y) /\ is_sint32(x) /\
+      is_sint32(y - 100) /\ is_sint32(1 + i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (100 <= y) /\ (y <= 100100).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((101 + i_2) <= y) ->
+      ((a[i_2].F1__S_n) = (100 + i_2)))).
+  (* Else *)
+  Have: 100100 <= y.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 99999) ->
+      ((a[i_2].F1__S_n) = (100 + i_2)))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Then *)
+  Have: i_1 <= 99999.
+  (* Assertion *)
+  Have: 100 <= x.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: (a[i].F1__S_n) = (100 + i).
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (30974)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (54)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 28):
+Assume {
+  Type: is_sint32(y) /\ is_sint32(y - 100).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Invariant *)
+  Have: (100 <= y) /\ (y <= 100100).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((101 + i_1) <= y) ->
+      ((a[i_1].F1__S_n) = (100 + i_1)))).
+  (* Else *)
+  Have: 100100 <= y.
+}
+Prove: (a[i].F1__S_n) = (100 + i).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (29062)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (34)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 34):
+Let x = a[i].F1__S_n.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(y) /\ is_sint32(x) /\ is_sint32(y - 100).
+  (* Invariant *)
+  Have: (100 <= y) /\ (y <= 100100).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((101 + i_1) <= y) ->
+      ((a[i_1].F1__S_n) = (100 + i_1)))).
+  (* Else *)
+  Have: 100100 <= y.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 99999) ->
+      ((a[i_1].F1__S_n) = (100 + i_1)))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Then *)
+  Have: i <= 99999.
+}
+Prove: 100 <= x.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (30117)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (45)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/live25/array-lopstr16_scalar_loopdep/array-lopstr16_scalar_loopdep.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

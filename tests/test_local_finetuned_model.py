@@ -1,3 +1,5 @@
+import pytest
+
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -33,6 +35,7 @@ def test_mix64_model_has_independent_endpoint(monkeypatch):
 
 
 def test_finetuned_chat_uses_adapter_name_and_disables_thinking(monkeypatch):
+    monkeypatch.setenv("QWEN35_4B_API_BASE_URL", "http://model-gateway:8001/v1")
     requests = []
 
     class FakeOpenAI:
@@ -64,6 +67,7 @@ def test_finetuned_chat_uses_adapter_name_and_disables_thinking(monkeypatch):
 
 
 def test_spectool_generation_uses_finetuned_adapter(monkeypatch):
+    monkeypatch.setenv("QWEN35_4B_API_BASE_URL", "http://model-gateway:8001/v1")
     requests = []
 
     class FakeOpenAI:
@@ -93,8 +97,15 @@ def test_spectool_generation_uses_finetuned_adapter(monkeypatch):
 
 
 def test_termination_normalizes_wrapped_variant(monkeypatch):
+    monkeypatch.setenv("QWEN35_4B_API_BASE_URL", "http://model-gateway:8001/v1")
     monkeypatch.setenv("TERMINATION_LLM_MODEL", "qwen35-4b-ft")
     from engine.termination.llmcore import _normalize_loop_variant
 
     assert _normalize_loop_variant("/*@ loop variant n - i; */") == "loop variant n - i;"
     assert _normalize_loop_variant("n - i") == "loop variant n - i;"
+
+
+def test_finetuned_model_requires_deployment_endpoint(monkeypatch):
+    monkeypatch.delenv("QWEN35_4B_API_BASE_URL", raising=False)
+    with pytest.raises(ValueError, match="QWEN35_4B_API_BASE_URL"):
+        ConfigLoader.get_model_config("qwen35-4b-ft", str(CONFIG_PATH))

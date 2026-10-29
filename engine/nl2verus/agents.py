@@ -34,7 +34,8 @@ def skills():
             continue
         text = path.read_text(encoding='utf-8')
         key = 'local-' + path.parent.name
-        rows[key] = {'id': key, 'name': path.parent.name, 'description': '项目扩展 Skill', 'content': text}
+        rows[key] = {'id': key, 'name': 'NL → Verus Baseline' if path.parent.name=='verus-baseline' else path.parent.name,
+                     'description': '默认英文 Skill · 完整实现、规约、循环证明与诊断修复' if path.parent.name=='verus-baseline' else '项目扩展 Skill', 'content': text}
     extra = Path(__file__).resolve().parents[2] / 'runtime' / 'generation-skills.json'
     if extra.is_file():
         rows.update(json.loads(extra.read_text()))
@@ -81,7 +82,13 @@ def capabilities():
         models=[public_profile(p) for p in profiles if p['protocol']==protocol]
         models+=model_presets(protocol,models)
         rows.append({'id':key,'name':name,'available':installed,'message':message if installed else '平台 Agent SDK 尚未安装','models':models,'protocol':protocol})
-    return {'agents':rows,'skills':[{k:v for k,v in row.items() if k!='content'} for row in skills().values()]}
+    codex=next(a for a in rows if a['id']=='codex')
+    preferred=next((m for m in codex['models'] if m['configured'] and m.get('is_default')),None)
+    return {'agents':rows,'skills':[{k:v for k,v in row.items() if k!='content'} for row in skills().values()],
+            'defaults':{'agent_id':'codex' if preferred and codex['available'] else 'direct',
+                        'model_id':preferred['id'] if preferred else None,
+                        'skill_ids':['local-verus-baseline'],
+                        'execution':'api' if preferred and codex['available'] else 'reference'}}
 
 
 def validate_selection(agent, model, skill_ids):
@@ -132,21 +139,22 @@ def _sdk_generate(agent,prompt,profile,timeout=240):
             if out.tell()>2_000_000:
                 raise ProviderError('agent_output','Agent 输出超过限制。')
             out.seek(0)
-            try: code=json.load(out)['code']
+            try: result=json.load(out);code=result['code']
             except (ValueError,KeyError,TypeError):
                 raise ProviderError('agent_output','Agent 未返回完整结果。') from None
-    return {'code':_clean_code(code,[profile['api_key']]),'model_name':profile['model'],'usage':{},'finish_reason':'stop'}
+    return {'code':_clean_code(code,[profile['api_key']]),'model_name':profile['model'],'usage':result.get('usage',{}),'finish_reason':'stop'}
 
 
 def _chat_generate(prompt,profile,harness=False):
-    from openai import OpenAI
+    from openai import OpenAI, omit
     from .b3_runner import verify_b3_candidate
     from .verifier import verify_code
     messages=[{'role':'user','content':prompt}]
     events=[]; usage={'prompt_tokens':0,'completion_tokens':0,'total_tokens':0}
     tools=[{'type':'function','function':{'name':'verify_verus','description':'Check a complete Verus candidate and return verifier diagnostics.','parameters':{'type':'object','properties':{'code':{'type':'string'}},'required':['code'],'additionalProperties':False}}}]
     try:
-        with OpenAI(api_key=profile['api_key'],base_url=profile['base_url'],timeout=120,max_retries=0) as client:
+        with OpenAI(api_key=profile.get('api_key') or 'not-required',base_url=profile['base_url'],timeout=120,max_retries=0,
+                    **({'default_headers':{'Authorization':omit}} if profile.get('auth_mode')=='none' else {})) as client:
             for turn in range(5 if harness else 1):
                 response=client.chat.completions.create(model=profile['model'],messages=messages,max_tokens=8192,**({'tools':tools,'tool_choice':'auto' if turn<4 else 'none'} if harness else {}))
                 if response.usage:

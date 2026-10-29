@@ -132,3 +132,12 @@ runtime/runs/<task_id>/
 ### 原始基准源码
 
 基准工作台已附带原始 C 源码，独立保存于 `resources/benchmarks/<id>/original/`，不覆盖实验规约代码或历史分数。可在代码区切换“原始源码 / 实验规约代码”，重跑配置会记录选中的输入版本。重新导入实验结果后，执行 `python scripts/import_benchmark_sources.py <dataset_test目录>` 补充原始源码索引。导入器按唯一文件名匹配，并兼容文件名中的直引号/弯引号差异；不会用近似文件名误配未找到的案例。
+
+
+### Rust 工作台：Codex 与第三方 API
+
+Rust 项目中选择「Agent API 生成与验证」，再独立选择 Agent、已配置模型与 Skill。Codex 使用平台独立运行时和 Responses API，不读取本机 Codex 登录信息。第三方端点必须实际支持 `/v1/responses`（包括流式响应）；只支持 Chat Completions 的端点应选择模型直连或内置 Harness。
+
+通过「＋ API 模型」添加多个服务配置；下拉框选择的配置决定实际 Base URL、Model ID、协议与认证方式。使用「编辑当前 API」可以修改当前配置；编辑时 API Key 留空保留原值，明确切换「无需认证」会清除原密钥。Base URL 可填 `/v1`，完整的 `/chat/completions` 或 `/responses` 地址也会规范化为 Base URL。私有配置保存在忽略提交的 `runtime/generation-models.json`。
+
+可将 Responses 配置设为默认模型，新 Rust 任务即默认使用 Codex 和该模型；已有任务保留之前的明确选择。默认英文 Skill 在 `skills/verus/verus-baseline/SKILL.md`，每次生成与修复都会加载其指令，并在运行记录中保存内容快照。RAG 仍需另行配置 embedding；生成结果由实际 Verus 验证器判断是否通过。

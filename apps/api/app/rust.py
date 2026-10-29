@@ -36,6 +36,8 @@ class ModelProfileBody(BaseModel):
     base_url: str = Field(min_length=1,max_length=500)
     api_key: str = Field(default='',max_length=4000,repr=False)
     protocol: Literal['chat','responses','anthropic']='chat'
+    auth_mode: Literal['api_key','none']='api_key'
+    is_default: bool = False
 
 
 @router.get('/models')

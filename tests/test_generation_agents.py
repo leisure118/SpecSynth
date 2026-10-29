@@ -21,7 +21,7 @@ def test_model_write_only_and_preserve_key(configured):
     app=FastAPI();app.include_router(rust.router);client=TestClient(app)
     response=client.post('/api/v1/rust/models',json=configured)
     assert response.status_code==200
-    assert 'secret-api-key' not in response.text and 'api_key' not in response.text
+    assert 'secret-api-key' not in response.text and 'api_key' not in response.json()
     assert 'secret-api-key' not in client.get('/api/v1/rust/models').text
     assert profiles.PROFILES_PATH.stat().st_mode & 0o077 == 0
     missing=dict(configured);missing.pop('model')
@@ -122,3 +122,50 @@ def test_presets_are_selectable_but_not_configured(configured,monkeypatch):
     models=next(a for a in agents.capabilities()['agents'] if a['id']=='deepseek-harness')['models']
     assert len([m for m in models if m['model']=='deepseek-flash'])==1
     assert next(m for m in models if m['id']=='my-flash')['configured'] is True
+
+
+def test_no_auth_profile_is_configured_and_edit_switches_real_endpoint(configured,monkeypatch):
+    app=FastAPI();app.include_router(rust.router);client=TestClient(app)
+    first=dict(configured,id='lab',api_key='',auth_mode='none',protocol='responses',is_default=True,
+               model='deepseek-v4-flash-0731',base_url='http://models.internal:8888/v1/chat/completions')
+    saved=client.post('/api/v1/rust/models',json=first)
+    assert saved.status_code==200,saved.text
+    assert saved.json()['configured'] is True and saved.json()['base_url']=='http://models.internal:8888/v1'
+    monkeypatch.setattr(agents.shutil,'which',lambda _: '/usr/bin/node')
+    # Runtime availability is deployment dependent, so validate routing through the runner directly.
+    class Runner:
+        def __init__(self,**kw):self.kw=kw
+    seen=[]
+    monkeypatch.setattr(agents,'_sdk_generate',lambda agent,prompt,p:seen.append((agent,p['model'],p['base_url'],p['auth_mode'])) or {'code':GOOD})
+    for model,url in [('deepseek-v4-flash-0731','http://models.internal:8888/v1'),('another-model','http://other.internal:8000/v1')]:
+        first.update(model=model,base_url=url)
+        assert client.post('/api/v1/rust/models',json=first).status_code==200
+        runner=agents.make_runner({'agent_id':'codex','model_id':'lab','managed_profile':True},Runner)
+        runner.kw['generate']('TASK','lab',snapshot=None)
+    assert seen==[('codex','deepseek-v4-flash-0731','http://models.internal:8888/v1','none'),('codex','another-model','http://other.internal:8000/v1','none')]
+    # An explicitly unauthenticated edit clears any previously stored credential.
+    profiles.save_profile(configured)
+    configured.update(auth_mode='none',api_key='')
+    profiles.save_profile(configured)
+    assert profiles.configured_profiles()['test']['api_key']==''
+
+
+def test_multiple_models_keep_distinct_routes_and_single_default(configured,monkeypatch):
+    first=dict(configured,id='first',protocol='responses',is_default=True)
+    second=dict(configured,id='second',model='second-model',base_url='https://second.example/v1',protocol='responses',is_default=True)
+    profiles.save_profile(first);profiles.save_profile(second)
+    rows=profiles.configured_profiles()
+    assert rows['first']['is_default'] is False and rows['second']['is_default'] is True
+    # Capability catalog must expose both profiles to Codex, not only the default.
+    models=next(a for a in agents.capabilities()['agents'] if a['id']=='codex')['models']
+    assert {m['id'] for m in models if m['configured']}=={'first','second'}
+    assert next(m for m in models if m['id']=='second')['base_url']=='https://second.example/v1'
+
+    seen=[]
+    class Runner:
+        def __init__(self,**kw):self.kw=kw
+    monkeypatch.setattr(agents,'_sdk_generate',lambda agent,prompt,p:seen.append((p['id'],p['model'],p['base_url'])) or {'code':GOOD})
+    for selected in ('first','second'):
+        runner=agents.make_runner({'agent_id':'codex','model_id':selected,'managed_profile':True},Runner)
+        runner.kw['generate']('TASK',selected,snapshot=None)
+    assert seen==[('first','test-model','https://models.example/v1'),('second','second-model','https://second.example/v1')]

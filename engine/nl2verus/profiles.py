@@ -39,7 +39,7 @@ def all_profiles(snapshot=None):
 
 
 def public_profile(row):
-    return {k: row[k] for k in ('id','name','model','base_url','protocol')} | {'configured': bool(row.get('api_key')), 'editable': not row.get('legacy', False)}
+    return {k: row[k] for k in ('id','name','model','base_url','protocol')} | {'auth_mode': row.get('auth_mode','api_key'), 'is_default': bool(row.get('is_default')),  'configured': row.get('auth_mode')=='none' or bool(row.get('api_key')), 'editable': not row.get('legacy', False)}
 
 
 def save_profile(body):
@@ -50,14 +50,24 @@ def save_profile(body):
     if u.scheme not in ('http','https') or not u.hostname or u.username or u.password or u.query or u.fragment:
         raise ValueError('请输入有效的 API Base URL，不要在地址中填写密钥。')
     row['base_url'] = row['base_url'].rstrip('/')
+    for suffix in ('/chat/completions','/responses'):
+        row['base_url'] = row['base_url'].removesuffix(suffix)
+    if row.get('auth_mode','api_key') not in ('api_key','none'):
+        raise ValueError('请选择有效的认证方式。')
     with LOCK:
         rows = configured_profiles()
         if len(rows)>=40 and row['id'] not in rows:
             raise ValueError('最多配置 40 个模型。')
-        if not row.get('api_key'):
-            row['api_key'] = rows.get(row['id'],{}).get('api_key','')
-        if not row['api_key']:
-            raise ValueError('新配置需要填写 API Key。')
+        if row.get('auth_mode')=='none':
+            row['api_key']=''
+        else:
+            if not row.get('api_key'):
+                row['api_key'] = rows.get(row['id'],{}).get('api_key','')
+            if not row['api_key']:
+                raise ValueError('新配置需要填写 API Key，或明确选择无需认证。')
+        if row.get('is_default'):
+            for existing in rows.values():
+                if existing['protocol']==row['protocol']: existing['is_default']=False
         rows[row['id']] = row
         PROFILES_PATH.parent.mkdir(parents=True, exist_ok=True)
         tmp = PROFILES_PATH.with_suffix('.tmp')

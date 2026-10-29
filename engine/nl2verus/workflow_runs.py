@@ -257,7 +257,7 @@ class WorkflowRuns:
                            "verification": None, "error": None, "created_at": _now(), "finished_at": None}
                 run["attempts"].append(attempt)
                 run.update(phase="generating" if round_number == 0 else "repairing",
-                           provider_calls=round_number + 1, repair_rounds=round_number,
+                           provider_calls=run["provider_calls"] + 1, repair_rounds=round_number,
                            updated_at=_now(), revision=run["revision"] + 1)
             try:
                 generated = self._generate(prompt, model_id, snapshot=config)
@@ -269,7 +269,12 @@ class WorkflowRuns:
                                      usage=_safe_usage(error), finished_at=_now())
                 self._finish(run_id, "provider_error", message)
                 return
+            with self._lock:
+                self._runs[run_id]['provider_calls'] += max(0,generated.get('provider_calls',1)-1)
             code = generated["code"]
+            self._attempt_update(run_id, round_number, agent_events=generated.get('agent_events',[]),
+                                 effective_prompt=generated.get('effective_prompt',prompt),
+                                 agent_provider_calls=generated.get('provider_calls',1))
             self._attempt_update(run_id, round_number, code=code, status="generated",
                                  model_name=generated.get("model_name", model_id), usage=generated.get("usage") or {},
                                  finish_reason=generated.get("finish_reason"), output_token_limit=generated.get("output_token_limit"))

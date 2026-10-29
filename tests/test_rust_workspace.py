@@ -133,3 +133,43 @@ def test_service_restart_never_replays_generation(system):
     assert recovered.status=='unavailable' and result['status']=='Unavailable'
     assert result['engine_detail']['attempts'][0]['code']==GOOD
     assert '重启' in result['summary']
+
+
+def test_api_agent_selection_and_skills_are_persisted(system,monkeypatch,tmp_path):
+    import json
+    from engine.nl2verus import agents,profiles,platform_provider
+    client,store,_=system
+    monkeypatch.setattr(profiles,'PROFILES_PATH',tmp_path/'model-profiles.json')
+    monkeypatch.setattr(profiles,'legacy_profiles',lambda snapshot=None:{})
+    monkeypatch.setattr(platform_provider,'get_config',lambda:platform_provider.PlatformConfig({}))
+    profiles.save_profile({'id':'experiment','name':'Experiment','model':'model-under-test','protocol':'chat','base_url':'https://example.com/v1','api_key':'PRIVATE-KEY-DO-NOT-RECORD'})
+    seen=[]
+    monkeypatch.setattr(agents,'_chat_generate',lambda prompt,profile,harness:seen.append((prompt,harness)) or {'code':GOOD,'finish_reason':'stop','model_name':profile['model'],'agent_events':[{'tool':'verify_verus','status':'verified'}],'provider_calls':2})
+    def verify(code,timeout):
+        return {'status':'verified','verified':True,'verified_count':1,'error_count':0,'message':'verified','stdout':'1 verified, 0 errors','stderr':'','exit_code':0,'verus_version':verifier.VERUS_VERSION}
+    monkeypatch.setattr(rust,'WorkflowRuns',lambda **kwargs:WorkflowRuns(**kwargs,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
+    p=make(client)
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'experiment','agent_id':'deepseek-harness','skill_ids':['verus-proof'],'description':'Increment x safely','max_repair_rounds':0})
+    assert response.status_code==201,response.text
+    task_id=response.json()['task_id'];result=wait(store,task_id)
+    assert result['status']=='Pass' and result['result_code']==GOOD
+    workflow=result['engine_detail']['workflow']
+    assert workflow['selection']['agent_id']=='deepseek-harness'
+    assert workflow['selection']['skill_ids']==['verus-proof']
+    assert workflow['selection']['skill_snapshot'][0]['sha256']
+    assert workflow['provider_calls']==2
+    assert 'For each loop' in workflow['attempts'][0]['effective_prompt'] and seen[0][1] is True
+    assert 'PRIVATE-KEY-DO-NOT-RECORD' not in json.dumps(result)
+    assert 'PRIVATE-KEY-DO-NOT-RECORD' not in store.read_task(task_id).model_dump_json()
+    assert client.get('/api/v1/projects/'+p['id']).json()['files'][0]['content']==GOOD
+
+
+def test_dataset_label_cannot_hide_modified_task(system,monkeypatch):
+    from engine.nl2verus.dataset import load_tasks
+    client,store,_=system
+    caps={'generation_configured':True,'embedding_configured':False,'models':[{'id':'fake','configured':True}]}
+    monkeypatch.setattr(rust,'provider_status',lambda:caps)
+    p=make(client);row=load_tasks()[0]
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'fake','sample_id':row['sample_id'],'description':'Modified task','function_signature':row.get('function_signature','')})
+    assert response.status_code==422
+    assert not client.get('/api/v1/projects/'+p['id']).json()['runs']

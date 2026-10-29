@@ -115,3 +115,7 @@ export function prepareRust(payload) { return request('/rust/prepare', {method:'
 export function getDatasetStats() { return request('/rust/dataset/stats') }
 export function getDatasetTasks(filters) { return request('/rust/dataset/tasks?'+new URLSearchParams(filters)) }
 export function getDatasetTask(id) { return request('/rust/dataset/tasks/'+encodeURIComponent(id)) }
+
+export function configureGenerationModel(payload) { return request('/rust/models', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}) }
+
+export function configureGenerationSkill(payload) { return request('/rust/skills', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}) }

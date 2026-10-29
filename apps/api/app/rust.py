@@ -7,7 +7,11 @@ from collections import Counter
 from math import ceil
 from pathlib import PurePosixPath
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
+from pydantic import BaseModel, Field
+from typing import Literal
+from engine.nl2verus import agents
+from engine.nl2verus.profiles import all_profiles, public_profile, save_profile
 from engine.nl2verus import verifier
 from engine.nl2verus.b3_runner import candidate_problem, verify_b3_candidate
 from engine.nl2verus.dataset import load_tasks, summarize_task
@@ -22,7 +26,63 @@ router = APIRouter(prefix='/api/v1/rust', tags=['rust'])
 
 @router.get('/status')
 def rust_status():
-    return {'verifier': verifier.verifier_info(), 'provider': provider_status()}
+    return {'verifier': verifier.verifier_info(), 'provider': provider_status(), **agents.capabilities()}
+
+
+class ModelProfileBody(BaseModel):
+    id: str = Field(min_length=1,max_length=64)
+    name: str = Field(min_length=1,max_length=100)
+    model: str = Field(min_length=1,max_length=160,pattern=r'^[A-Za-z0-9][A-Za-z0-9._:/-]*$')
+    base_url: str = Field(min_length=1,max_length=500)
+    api_key: str = Field(default='',max_length=4000,repr=False)
+    protocol: Literal['chat','responses','anthropic']='chat'
+
+
+@router.get('/models')
+def generation_models():
+    return {'items':[public_profile(p) for p in all_profiles().values()]}
+
+
+@router.post('/models')
+async def configure_model(request: Request):
+    # Keep raw validation inputs (especially API keys) out of HTTP error details.
+    if request.headers.get('content-type','').split(';')[0] != 'application/json':
+        raise HTTPException(415,'请使用 JSON 提交配置。')
+    origin=request.headers.get('origin')
+    if origin and origin.rstrip('/')!=str(request.base_url).rstrip('/'):
+        raise HTTPException(403,'模型配置仅允许同源页面提交。')
+    try:
+        raw=await request.body()
+        if len(raw)>64000:raise ValueError('too large')
+        body=ModelProfileBody.model_validate_json(raw)
+        return save_profile(body.model_dump())
+    except (ValueError,OSError):
+        raise HTTPException(422,'无法保存配置；请检查编号、API 地址和密钥。') from None
+
+
+class SkillBody(BaseModel):
+    id: str = Field(min_length=1,max_length=64,pattern=r'^[a-z0-9][a-z0-9-]*$')
+    name: str = Field(min_length=1,max_length=100)
+    content: str = Field(min_length=1,max_length=48000)
+
+
+@router.post('/skills')
+def configure_skill(body: SkillBody):
+    from engine.nl2verus.profiles import ROOT, LOCK
+    import os
+    path=ROOT/'runtime/generation-skills.json'
+    with LOCK:
+        rows=json.loads(path.read_text()) if path.is_file() else {}
+        key='uploaded-'+body.id
+        if len(rows)>=30 and key not in rows:
+            raise HTTPException(422,'最多保存 30 个自定义 Skill。')
+        rows[key]={'id':key,'name':body.name,'description':'自定义 Skill · 作为生成指令上下文加载','content':body.content}
+        path.parent.mkdir(parents=True,exist_ok=True)
+        temp=path.with_suffix('.tmp')
+        fd=os.open(temp,os.O_WRONLY|os.O_CREAT|os.O_TRUNC,0o600)
+        with os.fdopen(fd,'w') as stream:json.dump(rows,stream,ensure_ascii=False)
+        os.replace(temp,path)
+    return {k:v for k,v in rows[key].items() if k!='content'}
 
 
 @router.get('/examples')
@@ -73,6 +133,11 @@ def prepare(request: WorkflowRequest):
 
 
 def validate_generation(payload):
+    if payload.get('agent_id','direct') != 'direct' or payload.get('managed_profile') or payload.get('skill_ids'):
+        agents.validate_selection(payload.get('agent_id','direct'),payload['model_id'],payload.get('skill_ids',[]))
+        if payload['rag_enabled'] and not provider_status().get('embedding_configured'):
+            raise ValueError('向量检索尚未配置，请关闭 RAG 或配置 embedding。')
+        return
     capabilities = provider_status()
     if not capabilities.get('generation_configured'):
         raise ValueError('Rust 生成模型尚未配置，请设置 NL2VERUS_CONFIG；仍可直接验证 Rust 文件。')
@@ -102,13 +167,14 @@ def execute_rust(manager, task, payload):
     try:
         if task.mode == 'rust-generate':
             manager._advance_phase(task, 'generation', 'running', '生成候选并根据验证诊断修复')
-            runner = WorkflowRuns()
+            runner = agents.make_runner(payload.rust_workflow, WorkflowRuns)
             try:
-                workflow = runner.submit(WorkflowRunRequest(**payload.rust_workflow))
+                workflow = runner.submit(WorkflowRunRequest(**{k:v for k,v in payload.rust_workflow.items() if k in WorkflowRunRequest.model_fields}))
                 while True:
                     workflow = runner.get(workflow['id'])
                     # Persist each revision so a restart retains all completed rounds.
                     store.write_text_artifact(task.task_id, 'workflow', 'rounds.json', json.dumps(workflow, ensure_ascii=False, indent=2))
+                    workflow['selection']={k:v for k,v in payload.rust_workflow.items() if k in ('agent_id','skill_ids','skill_snapshot','model_profile','sample_id')}
                     task.metadata['rust_workflow'] = workflow
                     task.message = workflow['message']
                     task.updated_at = utcnow()

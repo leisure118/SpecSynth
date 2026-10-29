@@ -64,6 +64,9 @@ class ProjectRun(BaseModel):
     function_signature: str = Field(default='', max_length=4000)
     rag_enabled: bool = False
     max_repair_rounds: int = Field(default=3, ge=0, le=3)
+    agent_id: Literal['direct','codex','claude','deepseek-harness'] = 'direct'
+    skill_ids: list[str] = Field(default_factory=list,max_length=8)
+    sample_id: str | None = Field(default=None,max_length=200)
     model_name: str = 'qwen-turbo'
     timeout_sec: int = Field(default=120, ge=10, le=3600)
 
@@ -156,12 +159,24 @@ def create_workspace_router(manager, store):
                 from .rust import validate_generation
                 try:
                     workflow = WorkflowRunRequest(request_id=uuid.uuid4().hex,
-                        description=body.description, function_signature=body.function_signature,
+                        description=body.description, function_signature=body.function_signature, sample_id=body.sample_id,
                         model_id=body.model_name, rag_enabled=body.rag_enabled,
                         repair_enabled=body.max_repair_rounds > 0,
                         max_repair_rounds=max(1, body.max_repair_rounds),
                         timeout_seconds=min(60, body.timeout_sec)).model_dump()
+                    from engine.nl2verus import agents
+                    from engine.nl2verus.profiles import configured_profiles, all_profiles, public_profile
+                    managed = body.model_name in configured_profiles()
+                    workflow.update(agent_id=body.agent_id,skill_ids=body.skill_ids,managed_profile=managed)
                     validate_generation(workflow)
+                    workflow['skill_snapshot']=agents.snapshot_skills(body.skill_ids)
+                    profile=all_profiles().get(body.model_name)
+                    if profile: workflow['model_profile']=public_profile(profile)
+                    if body.sample_id:
+                        from engine.nl2verus.dataset import load_tasks
+                        row=next((r for r in load_tasks() if r.get('sample_id')==body.sample_id),None)
+                        if not row or row.get('description')!=body.description or (row.get('function_signature') or '')!=body.function_signature:
+                            raise ValueError('数据集任务已修改，请切换为自定义任务后运行。')
                 except ValueError as exc:
                     raise HTTPException(422, str(exc)) from None
             # Snapshot every submitted source; subsequent editor saves cannot change a running task.

@@ -52,7 +52,7 @@ def validate_candidates(original, candidates, rust, entry, mode):
     return candidates
 
 
-def verify_candidates(files, entry, mode, directory, timeout):
+def verify_candidates(files, entry, mode, directory, timeout, function=None):
     if mode.startswith('rust-'):
         from engine.nl2verus.verifier import verify_code
         from engine.nl2verus.b3_runner import verify_b3_candidate
@@ -66,6 +66,8 @@ def verify_candidates(files, entry, mode, directory, timeout):
           '-cpp-extra-args=-I'+container_root]
     if mode=='termination':
         args += ['-wp-no-definitions-terminate','-wp-no-declarations-terminate','-wp-variant-with-terminates']
+    if function:
+        args += ['-wp-fct', function]
     args += [container_root+'/'+path for path in paths]
     name='xuanjian-proof-'+uuid.uuid4().hex[:12]
     cmd=['docker','compose','run','--rm','-T','--name',name,'autospec','bash','-lc',
@@ -87,7 +89,7 @@ def verify_candidates(files, entry, mode, directory, timeout):
 def base_prompt(files, mode, description, signature, instructions):
     rust=mode.startswith('rust-')
     return ('Return ONLY JSON with a files array of {path, content}. Return every input file using its original path. '
-        'Do not use tools or access any files outside the supplied source. Preserve all original requirements and specifications. '
+        'Only access the task workspace and verifier toolchain. Preserve all original requirements and specifications. '
         'Never use assume, admit, external_body, or axioms to bypass proofs. '
         + ('Generate Verus Rust code satisfying the task.' if rust else 'Only ADD ACSL specifications; keep every original C token unchanged. Include meaningful function contracts and loop invariants.')
         + (' Include terminates true and a decreasing loop variant for each loop.' if mode=='termination' else '')
@@ -121,10 +123,10 @@ def execute_agent(manager,task,payload):
     if problem:return manager._unavailable_result(task,problem)
     if sum(len(f['content'].encode()) for f in files)>512*1024:
         raise ValueError('单次 Agent 输入源码不能超过 512 KiB，请拆分项目。')
-    directory=resolve_project_path(task.task_dir)/'agent';directory.mkdir(parents=True,exist_ok=True)
+    directory=resolve_project_path(task.task_dir)/'artifacts'/'agent';directory.mkdir(parents=True,exist_ok=True)
     task.input_file=upload['stored_path'];task.metadata.update(input_manifest=upload.get('manifest',[]),agent=agent)
     store.write_text_artifact(task.task_id,'input','sources.json',json.dumps(files,ensure_ascii=False))
-    deadline=time.monotonic()+(payload.timeout_sec or 120)
+    deadline=time.monotonic()+(payload.timeout_sec or 200)
     attempts=[];candidate=files;diagnostic='';check={'status':'failed','verified':False,'message':'尚未验证'}
     prompt_base=base_prompt(files,task.mode,payload.description,payload.function_signature,payload.agent_instructions)
     for round_number in range(payload.max_repair_rounds+1):
@@ -140,7 +142,9 @@ def execute_agent(manager,task,payload):
         attempt={'id':str(round_number),'round':round_number,'prompt':prompt,'model_name':payload.assistant.get('runner_model') or agent}
         try:
             produced=generate(agent,prompt,directory/f'round-{round_number}',remaining,
-                              payload.model_name if agent=='deepseek-harness' else payload.assistant.get('runner_model',''))
+                              payload.model_name if agent=='deepseek-harness' else payload.assistant.get('runner_model',''), **({'sub_model':payload.assistant['sub_model']} if agent=='deepseek-harness' and payload.assistant.get('sub_model') else {}))
+            runtime_file=directory/f'round-{round_number}'/'harness-runtime.json'
+            if runtime_file.is_file():attempt['agent_runtime']=json.loads(runtime_file.read_text())
             candidate=validate_candidates(files,produced,rust,entry,task.mode)
             attempt['code']=next(f['content'] for f in candidate if f['path']==entry)
             left=int(deadline-time.monotonic())

@@ -5,7 +5,7 @@ import {spawn} from 'node:child_process';
 import {createInterface} from 'node:readline';
 import path from 'node:path';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const require=createRequire(path.join(process.env.ACSL_AGENT_RUNTIME_ROOT||path.join(root,'runtime'),'agent-runtime/package.json'));
+const require=createRequire(path.join(process.env.ACSL_AGENT_RUNTIME_ROOT||path.join(root,'runtime/cli'),'agents/package.json'));
 let input=''; for await(const chunk of process.stdin) input+=chunk;
 const {agent,prompt,profile,workingDirectory}=JSON.parse(input);
 try {

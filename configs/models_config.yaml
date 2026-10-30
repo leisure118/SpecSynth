@@ -6,6 +6,15 @@
 # 这些模板包含共享的平台信息、API URL和认证信息
 # =================================================================
 ConfigTemplates:
+  deepseek_orchestrator_Config:
+    platform: "OpenAI-Compatible"
+    api_key: "EMPTY"
+    base_url: ""
+    base_url_env: "DEEPSEEK_ORCHESTRATOR_BASE_URL"
+    timeout: 120
+    temperature: 0.6
+    max_tokens: 8192
+
   # ID 1: OpenAI 平台基础配置
   OpenAI_Config:
     platform: "OpenAI"
@@ -61,7 +70,7 @@ ConfigTemplates:
 
   qwen35_9b_mix64_Config:
     platform: "OpenAI-Compatible"
-    api_key: "EMPTY"
+    api_key_env: "QWEN_MIX64_API_KEY"
     base_url: ""
     base_url_env: "QWEN35_9B_MIX64_API_BASE_URL"
     timeout: 120
@@ -83,7 +92,7 @@ ConfigTemplates:
 
   qwen35_4b_mix64_Config:
     platform: "OpenAI-Compatible"
-    api_key: "EMPTY"
+    api_key_env: "QWEN_MIX64_API_KEY"
     base_url: ""
     base_url_env: "QWEN35_4B_MIX64_API_BASE_URL"
     timeout: 120
@@ -151,6 +160,9 @@ ConfigTemplates:
 # B. ModelMap: 将用户传入的 model_name 映射到模板，并允许参数覆盖
 # =================================================================
 ModelMap:
+  "deepseek-v4-flash-0731":
+    template_id: "deepseek_orchestrator_Config"
+
   "qwen35-4b-ft":
     template_id: "qwen35_4b_ft_Config"
 

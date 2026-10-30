@@ -24,13 +24,14 @@ def test_finetuned_model_is_selectable_and_resolves_endpoint(monkeypatch):
 
 
 def test_mix64_model_has_independent_endpoint(monkeypatch):
+    monkeypatch.setenv("QWEN_MIX64_API_KEY", "test-private-key")
     monkeypatch.setenv("QWEN35_9B_MIX64_API_BASE_URL", "http://model-gateway:8003/v1")
     config = ConfigLoader.get_model_config("qwen35-9b-mix64", str(CONFIG_PATH))
 
     assert "qwen35-9b-mix64" in get_available_models()
     assert config.model_name == "qwen35-9b-mix64"
     assert config.base_url == "http://model-gateway:8003/v1"
-    assert config.api_key == "EMPTY"
+    assert config.api_key == "test-private-key"
     assert config.params["extra_body"] == {"chat_template_kwargs": {"enable_thinking": False}}
 
 

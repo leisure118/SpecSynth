@@ -436,7 +436,8 @@ def get_visualization(task_id: str) -> dict:
 app.include_router(create_workspace_router(manager, store))
 from .rust import router as rust_router
 app.include_router(rust_router)
-from .skill_library import router as skill_router
+from .skill_library import router as skill_router, ensure_bundled_skills
+ensure_bundled_skills()
 app.include_router(skill_router)
 from .benchmarks import router as benchmark_router
 app.include_router(benchmark_router)

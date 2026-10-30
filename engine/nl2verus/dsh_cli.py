@@ -10,6 +10,8 @@ import shlex
 import signal
 import subprocess
 import tempfile
+import sys
+import re
 
 from .model_provider import MAX_CODE_BYTES, ProviderError
 
@@ -27,19 +29,26 @@ def installed():
         return False
 
 
-def patch_for(profile, workspace):
+def patch_for(profile, workspace, sub_profile=None):
     route = {'api': 'openai-completions', 'baseURL': profile['base_url'],
              'apiKeyEnv': 'DSH_PLATFORM_KEY', 'defaultMaxTokens': 8192,
              'retryPolicy': {'mode': 'normal', 'maxRetries': 0},
              'compat': {'thinkingFormat': 'deepseek'},
              'models': [{'id': profile['model'], 'contextWindow': 1048576, 'maxTokens': 8192}]}
+    providers={'platform-api':route}
+    if sub_profile:
+        providers['platform-subagent']={**route,'baseURL':sub_profile['base_url'],'apiKeyEnv':'DSH_SUBAGENT_KEY','compat':{},'models':[{'id':sub_profile['model'],'contextWindow':32768,'maxTokens':8192}]}
     return [
         {'id': 'agent-default-model', 'config': {'provider': 'platform-api', 'model': profile['model']}},
-        {'id': 'llm-pi-ai', 'config': {'providers': {'platform-api': route}}},
+        {'id': 'llm-pi-ai', 'config': {'providers': providers}},
         {'id': 'sandbox-policy', 'config': {'mode': 'workspace-write', 'workspaceRoot': str(workspace)}},
         {'id': 'approval', 'config': {'policy': 'never'}},
         {'id': 'permission', 'config': {'defaultPreset': 'workspace-write', 'presets': {
             'workspace-write': {'sandbox': 'workspace-write', 'approval': 'never'}}}},
+        {'insert':[{'id':'platform-subagent-audit','name':str(ROOT/'engine/cli_plugins/subagent_audit.mjs')}]},
+        {'id':'tool-subagent','config':{'provider':'spawn','toolName':'subagent','maxDepth':1,'agentOptions':{'provider':'platform-subagent','model':sub_profile['model']} if sub_profile else {}}},
+        {'id':'tool-subagent-fork','disabled':True},
+        {'id':'subagent','config':{'maxActiveSubagents':1}},
         {'id': 'session-telemetry-otel', 'disabled': True},
     ]
 
@@ -91,19 +100,21 @@ def parse_events(text, redact=lambda s: s, *, require_complete=True):
             'complete': complete, 'reason': _redact_event(reason, redact)}
 
 
-def generate(prompt, profile, timeout=240):
+def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_dir=None, sub_profile=None, require_subagent=False):
     from .agents import _clean_code
     from .verifier import verus_path
     node = shutil.which('node')
     if not node or not installed():
         raise ProviderError('agent_missing', '官方 DeepSeek Harness CLI 未安装，请运行安装脚本。')
     entry = PACKAGE / 'lib/bin.js'
-    with tempfile.TemporaryDirectory(prefix='nl2verus-dsh-') as folder:
+    task_root=ROOT/'runtime/harness-tasks' if output_format=='files' else None
+    if task_root is not None:task_root.mkdir(parents=True,exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='nl2verus-dsh-',dir=task_root) as folder:
         base = Path(folder)
         workspace = base / 'workspace'; workspace.mkdir()
         home = base / 'home'; home.mkdir()
         config = base / 'provider.patch.yml'
-        config.write_text(json.dumps(patch_for(profile, workspace)), encoding='utf-8')
+        config.write_text(json.dumps(patch_for(profile, workspace, sub_profile)), encoding='utf-8')
         config.chmod(0o600)
         env = {k: v for k, v in os.environ.items() if k in ('PATH', 'TMPDIR', 'SYSTEMROOT', 'HTTPS_PROXY', 'HTTP_PROXY', 'NO_PROXY', 'SHELL')}
         user_home = Path.home()
@@ -111,6 +122,8 @@ def generate(prompt, profile, timeout=240):
                    DSH_PLATFORM_KEY=profile.get('api_key') or 'not-required',
                    RUSTUP_HOME=os.environ.get('RUSTUP_HOME', str(user_home / '.rustup')),
                    CARGO_HOME=os.environ.get('CARGO_HOME', str(user_home / '.cargo')))
+        env['DSH_SUBAGENT_AUDIT']=str(workspace/'subagent-audit.jsonl')
+        if sub_profile:env['DSH_SUBAGENT_KEY']=sub_profile.get('api_key') or 'not-required'
         verifier_command = [str(verus_path()), str(workspace / 'output.rs'), '--crate-type', 'lib', '--crate-name', 'submission']
         task = (prompt + '\n\nYou are running inside the official DeepSeek Harness. Use your real file tools to create output.rs in the current workspace. '
                 'Use the bash tool to execute this verifier command (arguments are shell quoted):\n' +
@@ -119,9 +132,58 @@ def generate(prompt, profile, timeout=240):
                 'Do not install packages or access the network from tools. Never use assume/admit/external_body. '
                 'Finish within 6 model steps if possible. Keep the final complete Verus source in output.rs. '
                 'The platform independently validates this file; your own success claims do not determine Pass. Return the complete source only.')
+        filename = 'output.rs'
+        if output_format == 'files':
+            filename = 'answer.json'
+            python = ROOT / '.venv/bin/python'
+            verification_command = shlex.join([str(python if python.is_file() else Path(sys.executable)), str(ROOT / 'scripts/harness_verify_c.py'), str(workspace / 'answer.json')])
+            input_dir=workspace/'input';input_dir.mkdir()
+            try:
+                sources=json.JSONDecoder().raw_decode(prompt.split('Original source:\n',1)[1])[0]
+                for source in sources:
+                    path=Path(source['path'])
+                    if path.is_absolute() or '..' in path.parts:raise ValueError('Invalid source path')
+                    target=input_dir/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(source['content'])
+            except (IndexError,ValueError,KeyError,TypeError):
+                sources=[]
+            env['PYTHONPATH']=str(ROOT)
+            # Give the isolated CLI only plugin discovery and the daemon socket,
+            # never the developer's Docker registry credentials or contexts.
+            docker_config=workspace/'.docker';docker_config.mkdir()
+            plugin_dirs=[user_home/'.docker/cli-plugins',Path('/Applications/Docker.app/Contents/Resources/cli-plugins')]
+            (docker_config/'config.json').write_text(json.dumps({'cliPluginsExtraDirs':[str(p) for p in plugin_dirs if p.is_dir()]}))
+            env['DOCKER_CONFIG']=str(docker_config)
+            docker_socket=user_home/'.docker/run/docker.sock'
+            if os.environ.get('DOCKER_HOST'):env['DOCKER_HOST']=os.environ['DOCKER_HOST']
+            elif docker_socket.exists():env['DOCKER_HOST']='unix://'+str(docker_socket)
+            tool_command=shlex.join([str(python if python.is_file() else Path(sys.executable)), '-m', 'engine.harness_spectool'])
+            task = (prompt + '\n\nYou are inside the official DeepSeek Harness CLI. Use real file tools to write the candidate C/header files in this workspace, preserving their relative paths. '
+                    'Write answer.json with the candidate files, then use bash to run the platform Frama-C verification tool: ' + verification_command + '\nInspect the actual diagnostics and update the candidate as needed. '
+                    'Only add ACSL annotations; preserve all original C tokens and assertions. Never add admit or axioms. '
+                    'Do not install packages or access the network from tools. Do not read files outside this workspace except the verifier/toolchain. '
+                    'Finally use a file tool to write answer.json containing ONLY a JSON object with a files array of {path, content}, including every original input file. '
+                    'The platform independently checks original source preservation and executes Frama-C; your success claims are not proof. '
+                    '\nSkill execution environment: input/ is the only original source directory; output/ is the intermediate output directory. '
+                    'The spectool commands shown in Skills are available using this exact prefix instead of PYTHONPATH=spectool python3 -m spectool.cli: ' + tool_command +
+                    '\nWhen the three spec Skills are attached: execute spec-split first (list-layers, init-contracts and stub/inline slices), '
+                    'then spec-orchestrate in bottom-up layer order, applying spec-bottomup to each function. '
+                    'You MUST use the native subagent tool to delegate spec-bottomup work. Its model is fixed by the platform; do not try to change the main model or use fork. '
+                    'Pass the worker the input slice, inline reference, complete spec-bottomup instructions and exact verification command. '
+                    'When only waiting for a child, end your turn so the runtime can deliver its completion; do not poll. '
+                    'Never claim a subagent was launched without native tool evidence. Never reuse an unproved callee contract. '
+                    'Platform proof policy overrides permissive admit/fallback examples: no new admit, assume, axiom or unproved fallback contracts. '
+                    'Store contracts.json, per-function .acsl.c/.wp.txt and summary.json under output/. '
+                    'Merge annotations back into the original project paths for answer.json, preserving original tokens and assertions. '
+                    'Finish only after running the platform final verification command given above. Do not stop after writing a plan.')
+        if sub_profile:
+            task += ('\nThe configured Qwen subagent is a text-only specification worker: its tool schemas are deliberately empty because this deployed endpoint does not support automatic tool calls. '
+                     'Do not ask it to read files, run commands, call send_message, or invoke any tool. Include the complete source and the generation rules from spec-bottomup in its task. '
+                     'Ask it to return annotations or complete annotated source as plain text/JSON. The official runtime delivers its final answer to you automatically. '
+                     'You, the main DeepSeek agent, must execute spec-split, tool-based injection, Frama-C verification, contract collection and repairs using that answer. '
+                     'If the child fails, report the failure; never fabricate its output or replace its generation with your own.')
         cmd = [node, str(entry), '--profile', 'headless', '--patch', str(config), '--json', '-']
         def redact(value):
-            for sensitive, replacement in [(profile.get('api_key'), '[REDACTED]'), (profile['base_url'], '[MODEL_ENDPOINT]'), (str(base), '[TASK]')]:
+            for sensitive, replacement in [((sub_profile or {}).get('api_key'), '[REDACTED]'), ((sub_profile or {}).get('base_url'), '[SUBAGENT_ENDPOINT]'), (profile.get('api_key'), '[REDACTED]'), (profile['base_url'], '[MODEL_ENDPOINT]'), (str(base), '[TASK]')]:
                 if sensitive: value = value.replace(sensitive, replacement)
             value = re.sub(r'https?://[^\s<>"\\]+', '[URL]', value)
             return value
@@ -157,6 +219,22 @@ def generate(prompt, profile, timeout=240):
             error.agent_events = result['agent_events']
             error.provider_calls = result['provider_calls']
             raise error
+        audit_file=workspace/'subagent-audit.jsonl'
+        child_events=[json.loads(line) for line in audit_file.read_text().splitlines()] if audit_file.exists() else []
+        runtime.update(subagent_events=child_events,subagent_model=(sub_profile or profile)['model'],subagent_inherits_main=not bool(sub_profile))
+        if artifact_dir is not None:
+            evidence=Path(artifact_dir);evidence.mkdir(parents=True,exist_ok=True)
+            (evidence/'harness-events.jsonl').write_text('\n'.join(json.dumps(e,ensure_ascii=False) for e in native_events))
+            if audit_file.exists():(evidence/'subagent-audit.jsonl').write_text(redact(audit_file.read_text()))
+            archive=evidence/'workspace';archive.mkdir(parents=True,exist_ok=True)
+            budget=16*1024*1024
+            for source in workspace.rglob('*'):
+                if '.docker' in source.parts or '.platform-proofs' in source.parts or source.is_symlink() or not source.is_file() or source.suffix not in ('.c','.h','.json','.txt','.md'):continue
+                size=source.stat().st_size
+                if size>budget:continue
+                budget-=size
+                destination=archive/source.relative_to(workspace);destination.parent.mkdir(parents=True,exist_ok=True)
+                destination.write_text(redact(source.read_text(errors='replace')))
         if timed_out:
             fail('agent_timeout', '官方 DeepSeek Harness 超过运行时限，已停止；已保留工具与错误记录。')
         if oversized:
@@ -170,8 +248,10 @@ def generate(prompt, profile, timeout=240):
             fail('agent_failed', '官方 DeepSeek Harness 执行失败（' + error_code + '）' + ('：' + detail if detail else '；请展开 CLI 诊断。'))
         if not result['agent_events']:
             fail('agent_tools', '官方 Harness 未执行工具，未将普通文本当作 Agent 工作结果。')
-        target = workspace / 'output.rs'
+        if require_subagent and (not any(e.get('type')=='end' and e.get('stop_reason')=='completed' for e in child_events) or not any(e.get('tool')=='subagent' and e.get('status')=='completed' for e in result['agent_events'])):
+            fail('agent_delegation','原生 Sub-agent 未正常完成任务，未回退为主模型自行处理。')
+        target = workspace / filename
         if target.is_symlink() or not target.is_file() or target.stat().st_size > MAX_CODE_BYTES:
             fail('agent_output', '官方 Harness 未创建有效的 output.rs 文件。')
-        code = _clean_code(target.read_text(), [profile.get('api_key')])
+        code = _clean_code(target.read_text(), [profile.get('api_key')]) if output_format=='verus' else target.read_text()
         return dict(result, code=code, model_name=profile['model'], finish_reason='stop', agent_runtime=runtime)

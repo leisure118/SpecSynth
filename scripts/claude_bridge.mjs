@@ -4,14 +4,14 @@ import {fileURLToPath} from 'node:url';
 import {readFile, realpath} from 'node:fs/promises';
 import path from 'node:path';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const runtimeRoot=process.env.ACSL_AGENT_RUNTIME_ROOT||path.join(root,'runtime');
-const require=createRequire(path.join(runtimeRoot,'agent-runtime/package.json'));
+const runtimeRoot=process.env.ACSL_AGENT_RUNTIME_ROOT||path.join(root,'runtime/cli');
+const require=createRequire(path.join(runtimeRoot,'agents/package.json'));
 let input='';for await(const chunk of process.stdin)input+=chunk;
 const {prompt,profile,workingDirectory,verifierCommand,homeDirectory}=JSON.parse(input);
 const emit=event=>process.stdout.write(JSON.stringify(event)+'\n');
 const packageRoot=path.dirname(require.resolve('@anthropic-ai/claude-agent-sdk'));
 const meta=JSON.parse(await readFile(path.join(packageRoot,'package.json'),'utf8'));
-const nativeRoot=path.join(runtimeRoot,'agent-runtime/node_modules/@anthropic-ai','claude-agent-sdk-'+process.platform+'-'+process.arch);
+const nativeRoot=path.join(runtimeRoot,'agents/node_modules/@anthropic-ai','claude-agent-sdk-'+process.platform+'-'+process.arch);
 const binary=path.join(nativeRoot,process.platform==='win32'?'claude.exe':'claude');
 emit({type:'runtime',package:'@anthropic-ai/claude-agent-sdk',sdk_version:meta.version,cli_version:meta.claudeCodeVersion,binary});
 try {

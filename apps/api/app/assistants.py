@@ -7,14 +7,14 @@ AGENTS = {
     'default': 'Use the existing verification workflow and preserve the original requirements.',
     'codex': 'Codex',
     'claude-code': 'Claude Code',
-    'deepseek-harness': 'DeepSeek Harness',
+    'deepseek-harness': 'DeepSeek Harness CLI',
 }
 AgentId = Literal['default', 'codex', 'claude-code', 'deepseek-harness']
 
 class Skill(BaseModel):
     id: str = Field(min_length=1, max_length=80)
     name: str = Field(min_length=1, max_length=80)
-    instructions: str = Field(min_length=1, max_length=6000)
+    instructions: str = Field(min_length=1, max_length=24000)
     agents: list[AgentId] = Field(default_factory=lambda: list(AGENTS), max_length=4)
     enabled: bool = True
 
@@ -26,6 +26,8 @@ class SkillReference(BaseModel):
 class AssistantConfig(BaseModel):
     agent: AgentId = 'default'
     runner_model: str = Field(default='', max_length=120)
+    workflow: Literal['standard'] = 'standard'
+    sub_model: Literal['', 'qwen35-4b-mix64', 'qwen35-9b-mix64'] = ''
     skill_refs: list[SkillReference] = Field(default_factory=list,max_length=12)
     skills: list[Skill] = Field(default_factory=list, max_length=12)
 
@@ -34,6 +36,10 @@ class AssistantConfig(BaseModel):
     def migrate_legacy(cls, value):
         if isinstance(value, dict):
             value = dict(value)
+            if value.get('sub_model') in (None,'qwen35-4b-ft','qwen35-9b-ft'):
+                value['sub_model']=''
+            if value.get('workflow') == 'hierarchical-c':
+                value['workflow'] = 'standard'
             if value.get('agent') in ('spec', 'proof', 'repair'):
                 value['agent'] = 'default'
             value['skills'] = [dict(s, agents=list(AGENTS)) if any(a in ('spec', 'proof', 'repair') for a in s.get('agents', [])) else s for s in value.get('skills', [])]

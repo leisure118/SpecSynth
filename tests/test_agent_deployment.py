@@ -31,7 +31,7 @@ def test_server_env_profiles_need_no_workstation_credentials(monkeypatch,tmp_pat
 
 def test_runtime_binaries_live_outside_mounted_data(monkeypatch,tmp_path):
     monkeypatch.setenv('ACSL_AGENT_RUNTIME_ROOT',str(tmp_path/'image-dependencies'))
-    assert agent_runtime.runtime_directory('agent-runtime')==tmp_path/'image-dependencies/agent-runtime'
+    assert agent_runtime.runtime_directory('agent-runtime')==tmp_path/'image-dependencies/agents'
     assert claude_cli.package_paths()[1].is_relative_to(tmp_path/'image-dependencies')
     for name in ('docker-compose.unified.yml','docker-compose.unified.offline.yml'):
         service=yaml.safe_load((ROOT/name).read_text())['services']['acsl-agent']

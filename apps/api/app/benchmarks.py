@@ -56,7 +56,7 @@ class BenchmarkRunRequest(BaseModel):
     source_variant: Literal['original', 'annotated'] = 'annotated'
     model_name: str = Field(default='qwen-turbo', max_length=120)
     assistant: AssistantConfig = Field(default_factory=AssistantConfig)
-    timeout_sec: int = Field(default=120, ge=10, le=3600)
+    timeout_sec: int = Field(default=200, ge=10, le=3600)
     max_repair_rounds: int = Field(default=0, ge=0, le=3)
     description: str = Field(default='', max_length=16000)
 

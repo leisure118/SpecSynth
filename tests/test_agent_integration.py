@@ -132,3 +132,54 @@ def test_default_without_skills_preserves_legacy_prompt_and_cache():
 def test_legacy_run_api_rejects_unregistered_agent():
     from apps.api.app.schemas import RunRequest
     with pytest.raises(ValueError):RunRequest(file_id='example',assistant={'agent':'arbitrary-shell'})
+
+
+def test_retired_hierarchy_migrates_to_official_cli():
+    config=assistants.AssistantConfig(agent='deepseek-harness',workflow='hierarchical-c')
+    assert config.workflow=='standard'
+
+
+def test_c_harness_launches_official_runtime(monkeypatch,tmp_path):
+    from engine.nl2verus import dsh_cli
+    from engine.autospec.src.config_manager import ConfigLoader
+    files=[{'path':'main.c','content':'int main(){return 0;}'}]
+    monkeypatch.setattr(ConfigLoader,'get_model_config',lambda *a:SimpleNamespace(model_name='selected',base_url='https://example.invalid/v1',api_key='private'))
+    seen=[]
+    def launch(prompt,profile,**kwargs):
+        seen.append((profile,kwargs))
+        return {'code':json.dumps({'files':files}),'agent_runtime':{'package':'@deepseek-ai/dsh'}}
+    monkeypatch.setattr(dsh_cli,'generate',launch)
+    assert agent_runners._generate('deepseek-harness','task',tmp_path,12,'model')==files
+    assert 11 <= seen[0][1]['timeout'] <= 12
+    assert {k:v for k,v in seen[0][1].items() if k!='timeout'}=={'output_format':'files','artifact_dir':tmp_path,'sub_profile':None,'require_subagent':True}
+    assert 'private' not in (tmp_path/'harness-runtime.json').read_text()
+    def fail(*a,**k):raise RuntimeError('secret provider error')
+    monkeypatch.setattr(dsh_cli,'generate',fail)
+    with pytest.raises(agent_runners.AgentCallError,match='未回退'):
+        agent_runners._generate('deepseek-harness','task',tmp_path,12,'model')
+
+
+def test_official_c_pipeline_binds_three_versioned_skills(library):
+    refs=skill_library.ensure_bundled_skills()
+    snapshot=skill_library.resolve_assistant(assistants.AssistantConfig(agent='deepseek-harness'))
+    assert [s.name for s in snapshot.skills]==['spec-split','spec-orchestrate','spec-bottomup']
+    assert len(refs)==3
+    prompt=snapshot.prompt('C')
+    assert all(name in prompt for name in ('spec-split','spec-orchestrate','spec-bottomup'))
+
+
+def test_contract_tool_rejects_forged_proof_claim(monkeypatch,tmp_path):
+    from engine.harness_spectool.commands import save_contract
+    source=tmp_path/'leaf.acsl.c'
+    source.write_text('/* === Target: leaf === */\n/*@ assigns \\nothing; ensures \\result==1; */\nint leaf(void) { return 0; }')
+    db=tmp_path/'contracts.json';db.write_text(json.dumps({'leaf':{'contract':None,'status':'pending'}}))
+    monkeypatch.setattr(agent_execution,'verify_candidates',lambda *a,**k:{'verified':False})
+    with pytest.raises(SystemExit):
+        save_contract.run(SimpleNamespace(acsl=str(source),db=str(db),func='leaf',proved='999/999'))
+    assert json.loads(db.read_text())['leaf']['status']=='pending'
+
+
+@pytest.mark.parametrize('model',['','qwen35-4b-mix64','qwen35-9b-mix64'])
+def test_optional_subagent_configuration(model):
+    assert assistants.AssistantConfig(agent='deepseek-harness',sub_model=model).sub_model==model
+    assert assistants.AssistantConfig(agent='deepseek-harness').sub_model==''

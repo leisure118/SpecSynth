@@ -76,7 +76,7 @@ class ProjectRun(BaseModel):
     sample_id: str | None = Field(default=None,max_length=200)
     source_name: str = Field(default='',max_length=240)
     model_name: str = 'qwen-turbo'
-    timeout_sec: int = Field(default=120, ge=10, le=3600)
+    timeout_sec: int = Field(default=200, ge=10, le=3600)
     execution: Literal['live', 'replay'] = 'live'
     assistant: AssistantConfig | None = None
 

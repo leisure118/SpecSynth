@@ -195,7 +195,9 @@ def test_cli_patch_switches_model_route_without_credentials(configured):
     assert next(x for x in p if x['id']=='sandbox-policy')['config']['mode']=='workspace-write'
 
 
-def test_official_cli_process_identity_and_private_config(configured,monkeypatch,tmp_path):
+@pytest.mark.parametrize('child_stop',[None,'completed','error'])
+@pytest.mark.parametrize('output_format',['verus','files'])
+def test_official_cli_process_identity_and_private_config(configured,monkeypatch,tmp_path,output_format,child_stop):
     package=tmp_path/'official';(package/'lib').mkdir(parents=True)
     (package/'lib/bin.js').write_text('// pinned upstream entry')
     monkeypatch.setattr(dsh_cli,'PACKAGE',package)
@@ -208,17 +210,27 @@ def test_official_cli_process_identity_and_private_config(configured,monkeypatch
             config_path=cmd[cmd.index('--patch')+1]
             captured['patch']=json.loads(__import__('pathlib').Path(config_path).read_text())
             self.out=kw['stdout']
-            __import__('pathlib').Path(kw['cwd'],'output.rs').write_text(GOOD)
+            if child_stop:
+                __import__('pathlib').Path(kw['cwd'],'subagent-audit.jsonl').write_text(json.dumps({'type':'end','id':'child','stop_reason':child_stop})+'\n')
+            __import__('pathlib').Path(kw['cwd'],'output.rs' if output_format=='verus' else 'answer.json').write_text(GOOD if output_format=='verus' else json.dumps({'files':[{'path':'main.c','content':'int main(){return 0;}'}]}))
         def communicate(self,payload,timeout):
             captured['prompt']=payload.decode()
             events=[{'type':'session','sessionId':'official-session'},
                     {'type':'tool_call','callId':'1','tool':'write','input':{'content':configured['api_key']}},
                     {'type':'tool_result','callId':'1','status':'completed'},
+                    *([{'type':'tool_call','callId':'2','tool':'subagent'},{'type':'tool_result','callId':'2','status':'completed'}] if child_stop else []),
                     {'type':'status','phase':'turn_end','reason':{'kind':'completed'}},
                     {'type':'final','text':GOOD}]
             self.out.write(('\n'.join(json.dumps(e) for e in events)).encode())
     monkeypatch.setattr(dsh_cli.subprocess,'Popen',Process)
-    result=dsh_cli.generate('task',configured)
+    if child_stop=='error':
+        with pytest.raises(agents.ProviderError,match='未正常完成'):
+            dsh_cli.generate('task',configured,output_format=output_format,require_subagent=True)
+        return
+    result=dsh_cli.generate('task',configured,output_format=output_format,require_subagent=bool(child_stop))
+    if output_format=='files':
+        assert json.loads(result['code'])['files'][0]['path']=='main.c'
+        assert 'harness_verify_c.py' in captured['prompt']
     assert captured['cmd'][1]==str(package/'lib/bin.js')
     assert captured['cmd'][-2:]==['--json','-']
     assert captured['env']['DSH_PLATFORM_KEY']==configured['api_key']
@@ -227,3 +239,20 @@ def test_official_cli_process_identity_and_private_config(configured,monkeypatch
     assert result['agent_runtime']['session_id']=='official-session'
     assert result['agent_runtime']['package']=='@deepseek-ai/dsh'
     assert result['agent_runtime']['events'][1]['input']['content']=='[REDACTED]'
+
+
+@pytest.mark.parametrize('child_model',['','qwen35-4b-mix64','qwen35-9b-mix64'])
+def test_native_child_route_is_fixed_or_inherits_main(configured,child_model):
+    child={'model':child_model,'base_url':'https://child.invalid/v1','api_key':'private-child-key'} if child_model else None
+    patch=dsh_cli.patch_for(configured,'/tmp/workspace',child)
+    main=next(p for p in patch if p.get('id')=='agent-default-model')['config']
+    tool=next(p for p in patch if p.get('id')=='tool-subagent')['config']
+    providers=next(p for p in patch if p.get('id')=='llm-pi-ai')['config']['providers']
+    assert main=={'provider':'platform-api','model':configured['model']}
+    assert tool['provider']=='spawn' and tool['maxDepth']==1
+    if child:
+        assert tool['agentOptions']=={'provider':'platform-subagent','model':child_model}
+        assert providers['platform-subagent']['apiKeyEnv']=='DSH_SUBAGENT_KEY'
+        assert child['api_key'] not in json.dumps(patch)
+    else:
+        assert tool['agentOptions']=={} and 'platform-subagent' not in providers

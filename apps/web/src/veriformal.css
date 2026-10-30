@@ -180,3 +180,22 @@ html{font-size:16px;scroll-behavior:smooth}body{font-family:var(--font);color:va
 
 /* Only the available configuration panel scrolls, never a shorter nested box. */
 .vf-rust-workspace .vf-verification{overflow:hidden}.vf-rust-workspace .vf-agent-section{flex:1 1 0;min-height:0;overflow-y:auto;background:#fcfcff}.vf-rust-workspace .vf-agent-section>.vf-agent-config{max-height:none;height:auto;overflow:visible;overscroll-behavior:auto;border-bottom:0;padding-bottom:16px}
+.vf-live-agent-feedback{border:1px solid #d9d4ff;border-radius:12px;background:#faf9ff;padding:14px;margin:12px 0;font-size:13px;line-height:1.6}.vf-live-agent-feedback header{display:flex;justify-content:space-between;gap:8px}.vf-live-agent-feedback header span,.vf-live-agent-feedback time{color:#827ba9;font-size:12px}.vf-live-agent-feedback ol{padding-left:20px;max-height:190px;overflow:auto}.vf-live-agent-feedback pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:280px;overflow:auto;background:white;border-radius:8px;padding:10px;font-size:12px}
+
+/* Keep configuration secondary so process, logs and history retain the viewing area. */
+.vf-workspace-settings{flex:0 0 auto;min-height:0;border-bottom:1px solid var(--border);background:#faf9ff}
+.vf-workspace-settings>summary{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 16px;cursor:pointer;list-style:none;font-size:13px}
+.vf-workspace-settings>summary::-webkit-details-marker{display:none}
+.vf-workspace-settings>summary strong{font-size:13px}
+.vf-workspace-settings>summary span{grid-row:2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--text-sec)}
+.vf-workspace-settings>summary b{grid-column:2;grid-row:1 / 3;align-self:center;font-size:12px;font-weight:500;color:var(--primary)}
+.vf-workspace-settings-body{max-height:min(34vh,300px);overflow:auto;overscroll-behavior:contain}
+.vf-workspace-settings-body>.vf-agent-config{max-height:none;overflow:visible;flex-shrink:1}
+.vf-verification-heading{gap:10px}
+.vf-verification-heading .vf-result-expand{margin-left:auto;border:1px solid var(--border);border-radius:7px;background:white;padding:5px 9px;color:var(--primary);font:inherit;cursor:pointer}
+.vf-verification-body{flex:1 1 0;min-height:0;overscroll-behavior:contain;font-size:13px}
+.vf-verification-body>.vf-run-log{font-size:13px;line-height:1.85;margin:0}
+.vf-workspace-grid>.vf-verification.vf-verification-expanded{position:fixed;inset:12px;z-index:1000;display:flex;width:auto;max-width:none;max-height:none;background:#faf9ff;box-shadow:0 0 0 100vmax #17134d66}
+.vf-verification-expanded .vf-verification-body{padding:20px 28px}
+.vf-verification-expanded .vf-live-agent-feedback pre{max-height:48vh;font-size:14px}
+@media(max-width:900px){.vf-workspace-grid>.vf-verification.vf-verification-expanded{inset:6px}.vf-verification-expanded .vf-verification-body{padding:16px}.vf-workspace-settings-body{max-height:30vh}}

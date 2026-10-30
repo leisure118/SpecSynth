@@ -185,4 +185,20 @@ NL2VERUS_MODEL_PROTOCOLS=chat,responses,anthropic
 
 在 Rust 项目中选择 Agent、已配置模型与 Skill 后，可点击「保存为项目默认」。这些选择由项目接口保存，其他浏览器刷新也能加载；保存不会修改源码版本。选中的 Skill 正文作为任务指令上下文传入，当前不声称官方 CLI 的原生 Skill 加载工具已执行。
 
-以上部署适配针对 Rust/Verus 工作台。C/ACSL 的 `apps/api/app/agent_runners.py` 是另一套适配器，仍有独立的 CLI/认证与模型配置，不会因本节的 Rust 设置自动完成接入。多人公网服务的用户认证、队列配额和任务隔离也不由安装脚本提供。
+C/ACSL 与 Rust/Verus 共用上述运行时目录；C 项目仍保留独立的模型与 Skill 设置，原生 Qwen 子模型使用下文的路由配置。多人公网服务的用户认证、队列配额和任务隔离也不由安装脚本提供。
+
+### C 项目：官方 DeepSeek Harness CLI
+
+C 项目验证配置选择「DeepSeek Harness CLI」，并选择已配置的模型和项目 Skill。平台使用与 Rust 工作台相同的官方 `@deepseek-ai/dsh` 固定版本运行时，分层编排与 Sub-agent 派发均由官方 Harness 承载，原来的 Python 自建模型循环已移除。已有项目的 `hierarchical-c` 设置读取时自动迁移为标准 CLI 流程。
+
+运行 `python3 scripts/install_agent_runtime.py` 安装项目隔离运行时，重启后端并刷新网页。CLI 在隔离任务目录中通过真实工具生成候选与调用 Frama-C，平台随后独立检查源码 token、原始断言与 Frama-C 证明结果。运行记录保存官方事件和工具调用证据；执行失败不会回退为直连 API。
+
+C 工作台未保存 Agent 配置时默认选择官方 CLI；其默认模型为部署的 `deepseek-v4-flash-0731`。首次选择时自动绑定 `spec-split`、`spec-orchestrate`、`spec-bottomup` 的固定版本；运行快照包含完整 Skill 内容。官方 CLI 获得平台提供的 `engine.harness_spectool` 工具入口，执行切片、分层、合约填充、注解注入和容器验证。中间目录与官方事件保存在每轮 `agent` 工件内。工具保存合约前重新执行 Frama-C，不信任模型自报的 `--proved`。
+
+### 统一 CLI 目录与原生 Sub-agent
+
+全部运行时集中在 `runtime/cli/`：`deepseek/` 保存官方 Harness，`agents/` 保存隔离 SDK 和配套二进制，`codex/`、`claude/` 可分别放入后续导入的 `codex`、`claude` 可执行文件。统一调用入口是 `python3 runtime/cli/run.py deepseek|codex|claude [参数]`；安装入口仍为 `python3 scripts/install_agent_runtime.py`。
+
+C 工作台以 `deepseek-v4-flash-0731` 为主模型，Sub-agent 下拉框可选 `qwen35-4b-mix64`、`qwen35-9b-mix64`，空值继承主模型。官方 Harness 的原生 `subagent` 工具负责派发和结果回收，项目设置、执行快照和运行时元数据记录所选模型。子 Agent 采用独立上下文和固定路由；选择 Qwen 后不会静默改用 DeepSeek。默认总超时为 200 秒，覆盖主 Agent、子 Agent 和平台验证。
+
+私网 Qwen 服务可复用部署环境的 `XUANJIAN_QWEN_SSH_TARGET`、`XUANJIAN_QWEN_SSH_PORT`：平台只在任务期间建立临时本地转发，结束或超时自动关闭。现有 mix64 部署未开启自动工具调用解析，因此 Qwen 原生子 Agent 使用无工具的规约生成模式，返回文本/JSON；主 DeepSeek Agent 执行注入、WP 验证、合约收集与修复。子任务的官方生命周期 `stop_reason` 被单独记录，未正常结束时不将派发成功视为运行成功。

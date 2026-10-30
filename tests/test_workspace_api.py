@@ -167,7 +167,7 @@ def test_replay_cannot_be_requested_for_normal_or_live_example_projects(client,m
 
 def test_assistant_persistence_binding_and_run_snapshot(client):
     p = project(client)
-    config = {'agent':'default', 'runner_model':'', 'skill_refs':[], 'skills':[
+    config = {'agent':'default', 'runner_model':'', 'workflow':'standard', 'sub_model':'', 'skill_refs':[], 'skills':[
         {'id':'bounds','name':'Bounds','instructions':'Check each array index.', 'agents':['default'], 'enabled':True},
         {'id':'other','name':'Other','instructions':'Do not include this.', 'agents':['codex'], 'enabled':True},
         {'id':'off','name':'Off','instructions':'Disabled instruction.', 'agents':['default'], 'enabled':False}]}

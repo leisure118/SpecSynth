@@ -5,8 +5,8 @@ import threading
 import uuid
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-from .assistants import AgentId, AGENTS, AssistantConfig, Skill
-from .config import RUNTIME_DIR
+from .assistants import AgentId, AGENTS, AssistantConfig, Skill, SkillReference
+from .config import RUNTIME_DIR, ROOT_DIR
 from .storage import JsonStore, utcnow
 
 SKILLS_DIR = RUNTIME_DIR/'skills'
@@ -15,7 +15,7 @@ router=APIRouter(prefix='/api/v1/skills',tags=['skills'])
 
 class SkillBody(BaseModel):
     name: str = Field(min_length=1,max_length=80)
-    instructions: str = Field(min_length=1,max_length=6000)
+    instructions: str = Field(min_length=1,max_length=24000)
     agents: list[AgentId] = Field(default_factory=lambda:list(AGENTS),min_length=1,max_length=4)
     enabled: bool = True
     version: int | None = Field(default=None,ge=1)
@@ -35,6 +35,21 @@ def write(record):
 
 def public(record):
     return record['versions'][-1] | {'archived':record.get('archived',False)}
+
+
+def ensure_bundled_skills():
+    """Import portable user-provided skills once; never overwrite edited versions."""
+    refs=[]
+    with _LOCK:
+        for name in ('spec-split','spec-orchestrate','spec-bottomup'):
+            identifier=uuid.uuid5(uuid.NAMESPACE_URL,'xuanjian:skills:'+name).hex
+            path=ROOT_DIR/'resources'/'skills'/name/'SKILL.md'
+            if not path.is_file():continue
+            if not (SKILLS_DIR/(identifier+'.json')).is_file():
+                snapshot={'id':identifier,'name':name,'instructions':path.read_text(),'agents':['deepseek-harness'],'enabled':True,'version':1,'updated_at':utcnow().isoformat()}
+                write({'id':identifier,'versions':[snapshot],'archived':False})
+            refs.append({'id':identifier,'version':1,'enabled':True})
+    return refs
 
 
 @router.get('')
@@ -85,9 +100,11 @@ def archive_skill(identifier:str):
 
 def resolve_assistant(config:AssistantConfig|None):
     if config is None:return None
+    if config.agent=='deepseek-harness' and not config.skills and not config.skill_refs:
+        config=config.model_copy(update={'skill_refs':[SkillReference(**r) for r in ensure_bundled_skills()]})
     skills=[s.model_dump() for s in config.skills]
     for ref in config.skill_refs:
         item=get_skill(ref.id,ref.version)
         skills.append(Skill(**{k:item[k] for k in ('id','name','instructions','agents','enabled')}).model_dump() | {'enabled':ref.enabled and item['enabled']})
     # Clear references in the executable snapshot; the project retains pinned bindings.
-    return AssistantConfig(agent=config.agent,runner_model=config.runner_model,skills=skills)
+    return AssistantConfig(agent=config.agent,runner_model=config.runner_model,workflow=config.workflow,sub_model=config.sub_model,skills=skills)

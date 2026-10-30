@@ -16,14 +16,14 @@ from .config import ROOT_DIR, RUNTIME_DIR, get_available_models, MODELS_CONFIG_P
 class AgentCallError(ValueError):
     pass
 
-NAMES = {'default':'默认验证流程','codex':'Codex','claude-code':'Claude Code','deepseek-harness':'DeepSeek Harness'}
+NAMES = {'default':'默认验证流程','codex':'Codex','claude-code':'Claude Code','deepseek-harness':'DeepSeek Harness CLI'}
 SCHEMA = {'type':'object','properties':{'files':{'type':'array','items':{'type':'object','properties':{'path':{'type':'string'},'content':{'type':'string'}},'required':['path','content'],'additionalProperties':False}}},'required':['files'],'additionalProperties':False}
 
 
 def executable(agent):
-    name = 'codex' if agent == 'codex' else 'claude'
-    configured = os.getenv('XUANJIAN_'+name.upper()+'_EXECUTABLE')
-    return shutil.which(configured or name)
+    from engine.cli_runtime import command
+    args=command(agent)
+    return args[0] if args and len(args)==1 else args[-1] if args else None
 
 
 def runner_default_model(agent):
@@ -53,7 +53,7 @@ def deepseek_model():
     from dotenv import load_dotenv
     load_dotenv(ROOT_DIR/'.env', override=False)
     configured = os.getenv('DEEPSEEK_HARNESS_MODEL')
-    for name in ([configured] if configured else get_available_models()):
+    for name in ([configured] if configured else list(dict.fromkeys(['deepseek-v4-flash-0731']+get_available_models()))):
         if not name or (not configured and 'deepseek' not in name.lower()):
             continue
         try:
@@ -100,8 +100,10 @@ def _status(bucket):
                       'message':'已检测到登录记录；真实连接将在任务执行时验证。' if authenticated else '请先在运行后端的账号下登录。' if path else '未找到可执行程序。',
                       'model_policy':'runner','default_model':runner_default_model(agent),'models':runner_models(agent),'connection_verified':False})
     model = deepseek_model()
-    items.append({'id':'deepseek-harness','name':NAMES['deepseek-harness'],'installed':True,'authenticated':None,'ready':bool(model),
-                  'message':'内置生成—验证—修复循环；凭证已配置，连接将在执行时验证。' if model else '请配置 DeepSeek 模型服务与凭证。',
+    from engine.nl2verus.dsh_cli import installed
+    cli_installed = installed() and bool(shutil.which('node'))
+    items.append({'id':'deepseek-harness','name':NAMES['deepseek-harness'],'installed':cli_installed,'authenticated':None,'ready':bool(model and cli_installed),
+                  'message':'官方 DeepSeek Harness CLI；凭证已配置，候选由 Frama-C 独立验证。' if model and cli_installed else '请运行 python3 scripts/install_agent_runtime.py 安装官方 CLI。' if not cli_installed else '请配置 DeepSeek 模型服务与凭证。',
                   'model_policy':'platform','default_model':model})
     return items
 
@@ -113,9 +115,10 @@ def record_agent_connection(agent,success):
     path=RUNTIME_DIR/'agents'/'connections.json'
     with _CONNECTION_LOCK:
         data=JsonStore._read_json(path) if path.is_file() else {}
-        data[agent]={'connection_verified':bool(success),'last_checked_at':utcnow().isoformat()}
+        data[agent]={'connection_verified':bool(success),'last_checked_at':utcnow().isoformat(),'runtime':'official-dsh' if agent=='deepseek-harness' else agent}
         path.parent.mkdir(parents=True,exist_ok=True)
         JsonStore._write_json(path,data)
+
 
 
 def agent_status():
@@ -126,12 +129,22 @@ def agent_status():
     items=[]
     for raw in _status(int(time.monotonic()//20)):
         entry=dict(raw);last=connections.get(entry['id'])
-        if last:
+        if last and (entry['id']!='deepseek-harness' or last.get('runtime')=='official-dsh'):
             entry.update(last)
             if last['connection_verified']:entry['message']='最近一次调用已连通；候选仍须通过验证器检查。'
             else:entry['message']='最近一次调用未成功，请检查代理、登录或模型设置后重试。'
         items.append(entry)
-    return {'items':items}
+    from .skill_library import ensure_bundled_skills
+    from engine.autospec.src.config_manager import ConfigLoader
+    sub_models=[]
+    for name in ('qwen35-4b-mix64','qwen35-9b-mix64'):
+        try:
+            config=ConfigLoader.get_model_config(name,str(MODELS_CONFIG_PATH));configured=bool(config.base_url)
+        except (ValueError,OSError):configured=False
+        sub_models.append({'id':name,'configured':configured,'transport':'ssh' if os.getenv('XUANJIAN_QWEN_SSH_TARGET') else 'direct'})
+    for item in items:
+        if item['id']=='deepseek-harness':item['sub_models']=sub_models
+    return {'items':items,'defaults':{'agent':'deepseek-harness','model':'deepseek-v4-flash-0731','sub_model':'','timeout_sec':200,'skill_refs':ensure_bundled_skills()}}
 
 
 def require_agent(agent):
@@ -153,25 +166,34 @@ def agent_environment():
     return env
 
 
-def _generate(agent, prompt, directory: Path, timeout, model=''):
+def _generate(agent, prompt, directory: Path, timeout, model='',sub_model=''):
     """Only return a candidate; never treat runner success as verification success."""
     directory.mkdir(parents=True, exist_ok=True)
     if agent == 'deepseek-harness':
         from engine.autospec.src.config_manager import ConfigLoader
-        from openai import OpenAI
+        from engine.nl2verus.dsh_cli import generate as run_harness
         model = model or deepseek_model()
-        if not model or 'deepseek' not in model.lower():
-            raise ValueError('DeepSeek Harness 需要选择 DeepSeek 模型。')
+        if not model:
+            raise ValueError('请选择已配置的模型。')
         config = ConfigLoader.get_model_config(model, str(MODELS_CONFIG_PATH))
+        profile = {'model':config.model_name,'base_url':config.base_url,'api_key':config.api_key}
+        sub_profile=None
+        if sub_model:
+            if sub_model not in ('qwen35-4b-mix64','qwen35-9b-mix64'):raise ValueError('不支持的 Sub-agent 模型。')
+            child=ConfigLoader.get_model_config(sub_model,str(MODELS_CONFIG_PATH))
+            if not child.base_url:raise ValueError('Sub-agent 模型服务地址未配置。')
+            sub_profile={'model':child.model_name,'base_url':child.base_url,'api_key':child.api_key}
         try:
-            import httpx
-            proxy=agent_environment().get('XUANJIAN_AGENT_PROXY')
-            options={'http_client':httpx.Client(proxy=proxy)} if proxy else {}
-            with OpenAI(api_key=config.api_key, base_url=config.base_url, timeout=max(1,min(timeout,120)), max_retries=0, **options) as client:
-                result = client.chat.completions.create(model=config.model_name,messages=[{'role':'user','content':prompt}],max_tokens=8192,temperature=0.1)
-            output=result.choices[0].message.content
+            from contextlib import nullcontext
+            from engine.cli_model_transport import model_route
+            route=model_route(sub_profile,enabled=True) if sub_profile else nullcontext(None)
+            started=time.monotonic()
+            with route as child_route:
+                result = run_harness(prompt, profile, timeout=max(1,timeout-(time.monotonic()-started)), output_format='files', artifact_dir=directory,sub_profile=child_route,require_subagent=True)
         except Exception:
-            raise AgentCallError('DeepSeek 服务调用失败，请检查网络、凭证和模型配置。') from None
+            raise AgentCallError('官方 DeepSeek Harness CLI 执行失败，请检查运行时、网络和模型配置；未回退直连 API。') from None
+        (directory/'harness-runtime.json').write_text(json.dumps({k:v for k,v in result.items() if k!='code'},ensure_ascii=False))
+        output = result['code']
     else:
         binary = executable(agent)
         if not binary:
@@ -214,9 +236,9 @@ def _generate(agent, prompt, directory: Path, timeout, model=''):
     return output['files']
 
 
-def generate(agent,prompt,directory,timeout,model=''):
+def generate(agent,prompt,directory,timeout,model='',sub_model=''):
     try:
-        output=_generate(agent,prompt,directory,timeout,model)
+        output=_generate(agent,prompt,directory,timeout,model,sub_model=sub_model) if sub_model else _generate(agent,prompt,directory,timeout,model)
     except Exception:
         record_agent_connection(agent,False)
         raise

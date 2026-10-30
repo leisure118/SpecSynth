@@ -9,7 +9,7 @@ Rust 项目默认进入自然语言生成。左侧选择 NL2VBench 任务、填�
 | Agent | API 格式 | 行为 |
 | --- | --- | --- |
 | 模型直连 | OpenAI Chat Completions | 保留原 NL2Verus 的生成、验证、反馈修复流程 |
-| DeepSeek Harness | OpenAI Chat Completions，需支持 tools | 本项目内置的轻量 Harness，并非 DeepSeek 官方发布的 CLI；模型可以调用受限的 `verify_verus` 工具 |
+| DeepSeek Harness CLI | OpenAI Chat Completions，需支持 tools 与流式响应 | 官方 `@deepseek-ai/dsh` 固定版本 `0.2.1-rc.5`；使用 headless 模式，CLI 自己调用文件和 Bash 工具，生成 output.rs 并运行 Verus |
 | Codex | OpenAI Responses | 使用项目私有运行时；不读取用户登录目录；禁用 shell、浏览器和联网工具 |
 | Claude Code | Anthropic Messages | 官方 Agent SDK；临时配置目录，禁用内置工具和用户配置 |
 
@@ -29,7 +29,7 @@ Agent 与模型不能任意组合：Chat Completions 的中转接口不能直接
 
 数据集任务只导入描述与接口；参考答案不会进入模型输入。编辑描述或接口后会切换到自定义任务。RAG 沿用原始独立索引及匹配的 embedding 配置，传入 sample_id 排除当前样本，不降级伪装为向量检索。
 
-每次运行保存项目输入版本、任务、Agent、公开模型配置、Skill 内容快照、每轮提示词、候选代码、Verus 诊断和最终结果。Harness 每次生成最多发出 5 次模型调用、每次最多处理 3 个验证工具调用；外层最多追加 3 轮修复。Codex / Claude 单轮运行最多等待 240 秒；验证器超时单独设置。SDK 自身可能有协议探测和重试，不应用外层轮数作为严格的费用上限。
+每次运行保存项目输入版本、任务、Agent、公开模型配置、Skill 内容快照、每轮提示词、候选代码、Verus 诊断和最终结果。官方 Harness 在临时任务目录内运行，使用 workspace-write 沙箱和 never 审批策略，不能升级工具权限；每次调用最长 240 秒，模型适配器重试为 0，但不承诺固定模型调用次数。外层最多追加 3 轮修复。Codex / Claude 单轮运行最多等待 240 秒；验证器超时单独设置。SDK 自身可能有协议探测和重试，不应用外层轮数作为严格的费用上限。
 
 “生成完成”不等于验证通过。最终通过状态仅由固定版本 Verus 返回，证明绕过标记仍会被原有检查阻止。模型失败、配置缺失和超时不会显示为 Pass。所有新增 Agent 需要对应的可用 API，安装成功不代表模型服务已连通。
 
@@ -48,3 +48,13 @@ Verus 编辑器保持统一字体颜色，用浅蓝标示 spec 函数、requires
 模型下拉框分为“已配置 API”和“模型预设 · 待配置 API”。预设可以直接选中，但不代表已经连通服务，也不会通过配置校验发出付费请求。“配置此模型”会预填名称、协议、Model ID 和官方 Base URL；使用第三方服务时可以改成其实际地址和模型标识。自部署或微调模型可使用“自定义 / 自训练模型”。
 
 模型名称和 ID 于 2026-10-29 核对：[OpenAI 模型目录](https://developers.openai.com/api/docs/models)、[Claude 模型目录](https://platform.claude.com/docs/en/models/overview)、[DeepSeek API](https://api-docs.deepseek.com/)、[DeepSeek 的 Anthropic 接口](https://api-docs.deepseek.com/guides/anthropic_api/)。预设目录只表示配置模板，第三方模型支持情况以服务商为准。
+
+## 官方 DeepSeek Harness CLI 接入
+
+安装脚本会独立安装 `configs/deepseek-runtime/package-lock.json` 锁定的运行时到 `runtime/deepseek-runtime`。需要 Node.js，使用 `dsh --profile headless --patch <private-config> --json -`，任务通过 stdin 传入。模型配置每次根据当前选择生成；API Key 只通过子进程环境传递，CLI 不读取用户登录目录。无认证网关使用 SDK 必需的固定占位字符串 `not-required`，不使用用户账号凭据。Skill 正文随任务作为指令上下文传入，目前不声称原生 Skill 加载工具已执行。
+
+平台不改写官方 Agent 循环。CLI 使用真实文件工具写入 output.rs，通过 Bash 调用指定 Verus，读取诊断后自主修改。平台读取该文件后继续独立验证与证明绕过检查，CLI 的成功声明不是 Pass 依据。启动失败、异常退出、没有工具调用或输出文件缺失均明确失败，不会切换至自建循环或直接 API 生成。
+
+每轮保存 agent_runtime：官方包与版本、上游地址、入口文件 SHA-256、CLI 命令模板、会话 ID，以及 CLI 原生 JSON 事件投影（移除思考内容、脱敏凭据和模型地址）。它不是无损原始会话日志；字符串也受上游事件投影的长度限制。页面在“候选与修复记录”中可展开查看。旧版自建 Harness 的历史记录没有这项身份信息，不能据此算作官方 Harness 实验。Codex 当前仍为关闭内置工具的受限模式，尚不能与本次 CLI 工具配置直接作公平对比。
+
+上游：[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)。

@@ -4,13 +4,14 @@ from types import SimpleNamespace
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from engine.nl2verus import agents, profiles
+from engine.nl2verus import agents, profiles, dsh_cli
 from apps.api.app import rust
 
 GOOD='use vstd::prelude::*;\nverus! { fn inc(x:u64)->(r:u64) requires x<100, ensures r==x+1, {x+1} }'
 
 @pytest.fixture
 def configured(tmp_path,monkeypatch):
+    monkeypatch.setattr(dsh_cli,'installed',lambda:True)
     monkeypatch.setattr(profiles,'PROFILES_PATH',tmp_path/'profiles.json')
     monkeypatch.setattr(profiles,'legacy_profiles',lambda snapshot=None:{})
     monkeypatch.setattr(agents.provider,'provider_status',lambda **k:{'embedding_configured':False})
@@ -61,30 +62,6 @@ def test_skills_frozen_and_applied(configured,monkeypatch):
     configured['model']='another-model';profiles.save_profile(configured)
     with pytest.raises(ValueError,match='变更'):
         agents.make_runner({'agent_id':'direct','model_id':'test','managed_profile':True,'model_profile':{'wrong':'snapshot'}},Runner)
-
-
-@pytest.mark.parametrize('tool_finish',['tool_calls','stop'])
-def test_harness_actually_calls_verus_tool(configured,monkeypatch,tool_finish):
-    import openai
-    from engine.nl2verus import verifier,b3_runner
-    checks=[]; requests=[]
-    monkeypatch.setattr(b3_runner,'verify_b3_candidate',lambda code,verify:verify(code))
-    monkeypatch.setattr(verifier,'verify_code',lambda code,timeout:checks.append(code) or {'status':'verified','verified':True,'message':'ok'})
-    call=SimpleNamespace(id='tool1',function=SimpleNamespace(name='verify_verus',arguments=json.dumps({'code':GOOD})))
-    message=SimpleNamespace(tool_calls=[call],model_dump=lambda **k:{'role':'assistant','tool_calls':[{'id':'tool1','type':'function','function':{'name':'verify_verus','arguments':json.dumps({'code':GOOD})}}]})
-    final=SimpleNamespace(tool_calls=None,refusal=None,content='```rust\n'+GOOD+'\n```')
-    responses=iter([SimpleNamespace(choices=[SimpleNamespace(message=message,finish_reason=tool_finish)],usage=None),SimpleNamespace(choices=[SimpleNamespace(message=final,finish_reason='stop')],usage=None)])
-    class FakeClient:
-        def __init__(self,**kwargs):self.chat=SimpleNamespace(completions=SimpleNamespace(create=self.create))
-        def create(self,**kwargs):requests.append(dict(kwargs));return next(responses)
-        def __enter__(self):return self
-        def __exit__(self,*args):pass
-    monkeypatch.setattr(openai,'OpenAI',FakeClient)
-    result=agents._chat_generate('task',configured,True)
-    assert checks==[GOOD] and result['code']==GOOD and result['provider_calls']==2
-    assert result['agent_events']==[{'tool':'verify_verus','status':'verified','verified':True}]
-    assert any(m.get('role')=='tool' for m in requests[-1]['messages'])
-    assert requests[0]['tool_choice']=={'type':'function','function':{'name':'verify_verus'}}
 
 
 def test_sensitive_output_blocked():
@@ -173,28 +150,80 @@ def test_multiple_models_keep_distinct_routes_and_single_default(configured,monk
     assert seen==[('first','test-model','https://models.example/v1'),('second','second-model','https://second.example/v1')]
 
 
-def test_harness_does_not_accept_plain_answer_without_tool_execution(configured,monkeypatch):
-    import openai
-    message=SimpleNamespace(tool_calls=None,refusal=None,content=GOOD)
-    response=SimpleNamespace(choices=[SimpleNamespace(message=message,finish_reason='stop')],usage=None)
-    class FakeClient:
-        def __init__(self,**kwargs):self.chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **k:response))
-        def __enter__(self):return self
-        def __exit__(self,*a):pass
-    monkeypatch.setattr(openai,'OpenAI',FakeClient)
-    with pytest.raises(agents.ProviderError,match='没有完成验证工具调用'):
-        agents._chat_generate('task',configured,True)
+def test_official_harness_dispatch_never_calls_direct_api(configured,monkeypatch):
+    profiles.save_profile(configured)
+    seen=[]
+    monkeypatch.setattr(agents,'_chat_generate',lambda *a:pytest.fail('must launch official CLI'))
+    monkeypatch.setattr(dsh_cli,'generate',lambda prompt,profile:seen.append(profile['model']) or {'code':GOOD})
+    class Runner:
+        def __init__(self,**kw):self.kw=kw
+    runner=agents.make_runner({'agent_id':'deepseek-harness','model_id':'test'},Runner)
+    assert runner.kw['generate']('task','test',snapshot=None)['code']==GOOD
+    assert seen==['test-model']
 
 
-def test_harness_rejects_truncated_tool_calls_before_verifying(configured,monkeypatch):
-    import openai
-    from engine.nl2verus import b3_runner
-    monkeypatch.setattr(b3_runner,'verify_b3_candidate',lambda *a,**k:pytest.fail('truncated call must not execute'))
-    message=SimpleNamespace(tool_calls=[SimpleNamespace(id='truncated',function=SimpleNamespace(name='verify_verus',arguments=json.dumps({'code':GOOD})))])
-    response=SimpleNamespace(choices=[SimpleNamespace(message=message,finish_reason='length')],usage=None)
-    class FakeClient:
-        def __init__(self,**kwargs):self.chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **k:response))
-        def __enter__(self):return self
-        def __exit__(self,*a):pass
-    monkeypatch.setattr(openai,'OpenAI',FakeClient)
-    with pytest.raises(agents.ProviderError):agents._chat_generate('task',configured,True)
+def test_official_harness_disabled_without_runtime(configured,monkeypatch):
+    profiles.save_profile(configured)
+    monkeypatch.setattr(dsh_cli,'installed',lambda:False)
+    with pytest.raises(ValueError,match='不可用'):agents.validate_selection('deepseek-harness','test',[])
+
+
+def test_native_cli_events_require_completion_and_real_tools():
+    events=[{'type':'session','sessionId':'real-session'},
+            {'type':'status','phase':'step_start'},
+            {'type':'tool_call','callId':'1','tool':'bash','input':{'command':'verus output.rs'}},
+            {'type':'tool_result','callId':'1','status':'completed','result':'verification results:: 1 verified, 0 errors'},
+            {'type':'status','phase':'step_end','usage':{'inputTokens':10,'outputTokens':2,'totalTokens':12}},
+            {'type':'status','phase':'turn_end','reason':{'kind':'completed'}},
+            {'type':'final','text':GOOD}]
+    encode=lambda rows:'\n'.join(json.dumps(e) for e in rows)
+    result=dsh_cli.parse_events(encode(events))
+    assert result['provider_calls']==1 and result['usage']['total_tokens']==12
+    assert result['session_id']=='real-session' and result['agent_events'][0]['tool']=='bash'
+    assert result['native_events'][2]==events[2]
+    with pytest.raises(agents.ProviderError):dsh_cli.parse_events(encode(events[:-1]))
+    with pytest.raises(agents.ProviderError):dsh_cli.parse_events(encode([e for e in events if not e['type'].startswith('tool_')]))
+    events[-2]['reason']={'kind':'error'}
+    with pytest.raises(agents.ProviderError):dsh_cli.parse_events(encode(events))
+
+
+def test_cli_patch_switches_model_route_without_credentials(configured):
+    p=dsh_cli.patch_for(configured,'/tmp/task')
+    route=next(x for x in p if x['id']=='llm-pi-ai')['config']['providers']['platform-api']
+    assert route['baseURL']==configured['base_url'] and route['models'][0]['id']==configured['model']
+    assert 'secret-api-key' not in json.dumps(p)
+    assert next(x for x in p if x['id']=='sandbox-policy')['config']['mode']=='workspace-write'
+
+
+def test_official_cli_process_identity_and_private_config(configured,monkeypatch,tmp_path):
+    package=tmp_path/'official';(package/'lib').mkdir(parents=True)
+    (package/'lib/bin.js').write_text('// pinned upstream entry')
+    monkeypatch.setattr(dsh_cli,'PACKAGE',package)
+    monkeypatch.setattr(dsh_cli,'installed',lambda:True)
+    captured={}
+    class Process:
+        returncode=0
+        def __init__(self,cmd,**kw):
+            captured.update(cmd=cmd,**kw)
+            config_path=cmd[cmd.index('--patch')+1]
+            captured['patch']=json.loads(__import__('pathlib').Path(config_path).read_text())
+            self.out=kw['stdout']
+            __import__('pathlib').Path(kw['cwd'],'output.rs').write_text(GOOD)
+        def communicate(self,payload,timeout):
+            captured['prompt']=payload.decode()
+            events=[{'type':'session','sessionId':'official-session'},
+                    {'type':'tool_call','callId':'1','tool':'write','input':{'content':configured['api_key']}},
+                    {'type':'tool_result','callId':'1','status':'completed'},
+                    {'type':'status','phase':'turn_end','reason':{'kind':'completed'}},
+                    {'type':'final','text':GOOD}]
+            self.out.write(('\n'.join(json.dumps(e) for e in events)).encode())
+    monkeypatch.setattr(dsh_cli.subprocess,'Popen',Process)
+    result=dsh_cli.generate('task',configured)
+    assert captured['cmd'][1]==str(package/'lib/bin.js')
+    assert captured['cmd'][-2:]==['--json','-']
+    assert captured['env']['DSH_PLATFORM_KEY']==configured['api_key']
+    assert configured['api_key'] not in json.dumps(captured['patch'])
+    assert configured['api_key'] not in json.dumps(result)
+    assert result['agent_runtime']['session_id']=='official-session'
+    assert result['agent_runtime']['package']=='@deepseek-ai/dsh'
+    assert result['agent_runtime']['events'][1]['input']['content']=='[REDACTED]'

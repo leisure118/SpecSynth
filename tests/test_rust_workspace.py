@@ -144,14 +144,15 @@ def test_service_restart_never_replays_generation(system):
 
 def test_api_agent_selection_and_skills_are_persisted(system,monkeypatch,tmp_path):
     import json
-    from engine.nl2verus import agents,profiles,platform_provider
+    from engine.nl2verus import agents,profiles,platform_provider,dsh_cli
     client,store,_=system
     monkeypatch.setattr(profiles,'PROFILES_PATH',tmp_path/'model-profiles.json')
     monkeypatch.setattr(profiles,'legacy_profiles',lambda snapshot=None:{})
     monkeypatch.setattr(platform_provider,'get_config',lambda:platform_provider.PlatformConfig({}))
     profiles.save_profile({'id':'experiment','name':'Experiment','model':'model-under-test','protocol':'chat','base_url':'https://example.com/v1','api_key':'PRIVATE-KEY-DO-NOT-RECORD'})
     seen=[]
-    monkeypatch.setattr(agents,'_chat_generate',lambda prompt,profile,harness:seen.append((prompt,harness)) or {'code':GOOD,'finish_reason':'stop','model_name':profile['model'],'agent_events':[{'tool':'verify_verus','status':'verified'}],'provider_calls':2})
+    monkeypatch.setattr(dsh_cli,'installed',lambda:True)
+    monkeypatch.setattr(dsh_cli,'generate',lambda prompt,profile:seen.append((prompt,True)) or {'code':GOOD,'finish_reason':'stop','model_name':profile['model'],'agent_events':[{'tool':'verify_verus','status':'verified'}],'provider_calls':2})
     def verify(code,timeout):
         return {'status':'verified','verified':True,'verified_count':1,'error_count':0,'message':'verified','stdout':'1 verified, 0 errors','stderr':'','exit_code':0,'verus_version':verifier.VERUS_VERSION}
     monkeypatch.setattr(rust,'WorkflowRuns',lambda **kwargs:WorkflowRuns(**kwargs,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))

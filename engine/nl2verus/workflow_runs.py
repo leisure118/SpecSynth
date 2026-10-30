@@ -289,6 +289,7 @@ class WorkflowRuns:
                 self._runs[run_id]['provider_calls'] += max(0,generated.get('provider_calls',1)-1)
             code = generated["code"]
             self._attempt_update(run_id, round_number, agent_events=generated.get('agent_events',[]),
+                                 agent_runtime=generated.get('agent_runtime'),
                                  effective_prompt=generated.get('effective_prompt',prompt),
                                  agent_provider_calls=generated.get('provider_calls',1))
             self._attempt_update(run_id, round_number, code=code, status="generated",

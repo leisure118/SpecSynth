@@ -1,23 +1,18 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
 import './VerificationFlow.css'
-const markup="<div class=\"viz-dotted-background\">\n<div id=\"xuanjian-dual-preview\" aria-label=\"C 与 Rust 双轨形式化验证流程\">\n  \n  <div class=\"x-toolbar\">\n    <div class=\"x-languages\" aria-label=\"选择演示语言\">\n      <button type=\"button\" data-language=\"c\" aria-pressed=\"true\">C / ACSL</button>\n      <button type=\"button\" data-language=\"rust\" aria-pressed=\"false\">Rust / Verus</button>\n    </div>\n    <div class=\"x-playback\"><button type=\"button\" data-action=\"outcome\" aria-label=\"切换演示结果\">首次通过</button><button type=\"button\" data-action=\"auto\" aria-pressed=\"true\">交替演示</button><button type=\"button\" data-action=\"play\" aria-label=\"暂停动画\">暂停</button></div>\n  </div>\n  <div class=\"x-stage\"><svg class=\"x-scene\" role=\"img\" aria-label=\"C 源码或自然语言任务经过 Agent 生成，由 Frama-C 或 Verus 验证，诊断返回修复\" xmlns=\"http://www.w3.org/2000/svg\"></svg></div>\n  <div class=\"x-caption\"><div class=\"x-caption-main\"><span class=\"x-live-dot\"></span><output aria-live=\"polite\">任务进入生成核心</output></div><span class=\"x-route-label\">C → ACSL → Frama-C / WP</span></div>\n  <footer class=\"x-foot\"><div class=\"x-legend\"><span><i class=\"x-spec\"></i>规约</span><span><i class=\"x-exec\"></i>实现</span><span><i class=\"x-proof\"></i>证明</span></div><span>流程示意 · 非实时任务</span><details class=\"x-credits\"><summary>标识来源</summary><div><a href=\"https://www.frama-c.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Frama-C 官网原图</a><a href=\"https://verus-lang.github.io/verus/verus/logo.html\" target=\"_blank\" rel=\"noopener noreferrer\">Verus Contributors · 官方原图等比缩放</a><a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener noreferrer\">Verus 标识：CC BY 4.0</a></div></details></footer>\n</div>\n</div>"
-
+const markup="<div class=\"viz-dotted-background\">\n<div id=\"xuanjian-dual-preview\" aria-label=\"C 与 Rust 双轨形式化验证流程\">\n  \n  <div class=\"x-toolbar\">\n    <div class=\"x-languages\" aria-label=\"选择演示语言\">\n      <button type=\"button\" data-language=\"c\" aria-pressed=\"true\">C / ACSL</button>\n      <button type=\"button\" data-language=\"rust\" aria-pressed=\"false\">Rust / Verus</button>\n    </div>\n    <div class=\"x-playback\"><button type=\"button\" data-action=\"auto\" aria-pressed=\"true\">交替演示</button><button type=\"button\" data-action=\"play\" aria-label=\"暂停动画\">暂停</button></div>\n  </div>\n  <div class=\"x-stage\"><svg class=\"x-scene\" role=\"img\" aria-label=\"C 源码或自然语言任务经过 Agent 生成，由 Frama-C 或 Verus 验证，诊断返回修复\" xmlns=\"http://www.w3.org/2000/svg\"></svg></div>\n  <div class=\"x-caption\"><div class=\"x-caption-main\"><span class=\"x-live-dot\"></span><output aria-live=\"polite\">任务进入生成核心</output></div><span class=\"x-route-label\">C → ACSL → Frama-C / WP</span></div>\n  <footer class=\"x-foot\"><div class=\"x-legend\"><span><i class=\"x-spec\"></i>规约</span><span><i class=\"x-exec\"></i>实现</span><span><i class=\"x-proof\"></i>证明</span></div><span>流程示意 · 非实时任务</span></footer>\n</div>\n</div>"
 function mountFlow(root){
 
 const svg=root.querySelector('.x-scene');
 const stage=root.querySelector('.x-stage');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const saved=null;
-const state={language:saved?.modelContent?.language==='rust'?'rust':'c',outcome:saved?.modelContent?.outcome==='repair'?'repair':'pass',auto:saved?.privateContent?.auto!==false,playing:!reduced,complete:false,speed:1,accent:'#70348b'};
+const state={language:saved?.modelContent?.language==='rust'?'rust':'c',auto:saved?.privateContent?.auto!==false,playing:!reduced,speed:1,accent:'#70348b'};
 let clock=reduced?3800:700,last=performance.now(),phase=-1,scene=null,lastLang='',frame=0;
-const sequence=[{language:'c',outcome:'pass'},{language:'rust',outcome:'repair'},{language:'c',outcome:'repair'},{language:'rust',outcome:'pass'}];
-const logos={c:'/brand/verification-frama-c.png',rust:'/brand/verification-verus.svg'};
-const labels=['任务进入生成核心','生成实现、规约与证明','验证器检查证明目标','未通过 · 存在未证明目标','诊断返回生成核心','只修复高亮的证明行','修复完成 · 再次验证','当前规约下验证通过'];
+const labels=['任务进入生成核心','生成实现、规约与证明','验证器检查证明目标','诊断返回 · 补充证明','重新检查验证目标','在当前规约下验证通过'];
 const content={c:{source:'program.c',route:'C → ACSL → Frama-C / WP',code:[['int max(...) {','none'],['  /*@ requires n > 0;','spec'],['      ensures maximal; */','spec'],['  for (...) { ... }','exec'],['  /*@ invariant ...; */','proof'],['  return best;','exec']]},rust:{source:'task.txt',route:'自然语言 → Verus → 机器验证',code:[['fn max(a: &Vec<i32>)','none'],['  requires a.len() > 0,','spec'],['  ensures maximal(a,r),','spec'],['  let mut best = 0;','exec'],['  invariant ...','proof'],['  decreases ...','proof']]}};
 function remember(){}
-function controls(){root.querySelectorAll('[data-language]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.language===state.language)));root.querySelector('[data-action="outcome"]').textContent=state.outcome==='pass'?'首次通过':'未通过 → 修复';root.querySelector('[data-action="auto"]').setAttribute('aria-pressed',String(state.auto));const b=root.querySelector('[data-action="play"]');b.textContent=state.complete?'重播':state.playing?'暂停':'播放';b.setAttribute('aria-label',state.complete?'重新播放动画':state.playing?'暂停动画':'播放动画');}
-function duration(){return state.outcome==='pass'?7800:12200;}
-function phaseAt(t){if(t<1450)return 0;if(t<4000)return 1;if(t<5200)return 2;if(state.outcome==='pass')return 7;if(t<6100)return 3;if(t<7900)return 4;if(t<8900)return 5;if(t<10000)return 6;return 7;}
+function controls(){root.querySelectorAll('[data-language]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.language===state.language)));root.querySelector('[data-action="auto"]').setAttribute('aria-pressed',String(state.auto));const b=root.querySelector('[data-action="play"]');b.textContent=state.playing?'暂停':'播放';b.setAttribute('aria-label',state.playing?'暂停动画':'播放动画');}
 function draw(){
 const width=Math.max(280,Math.round(stage.getBoundingClientRect().width));
 const small=width<520,s=width/720,height=Math.round(475*s)+(small?34:0),oy=small?15:0;
@@ -82,14 +77,14 @@ svg.innerHTML=`<title>玄鉴：C 与 Rust 的生成、验证和修复闭环</tit
   <path d="M548 220 L610 197 L677 225 L614 249 Z" fill="var(--x-soft)" stroke="var(--x-line)"/>
   <path d="M548 220 V228 L614 257 L677 233 V225 L614 249 Z" fill="var(--x-purple)" opacity=".15"/>
   <path d="M580 155 L638 169 L638 222 L580 208 Z" fill="url(#xj-glass)" stroke="var(--x-line)"/>
-  <image href="${logos.c}" x="584" y="164" width="51" height="24" preserveAspectRatio="xMidYMid meet" aria-label="Frama-C 官方标识"/>
+  <path d="M589 169 l36 9 M589 180 l24 6" class="x-struct" opacity=".5"/>
   <g data-goals="c"><circle cx="591" cy="196" r="3"/><circle cx="607" cy="200" r="3"/><circle cx="623" cy="204" r="3"/></g>
  </g>
  <g data-engine="rust">
   <path d="M554 355 L617 333 L682 360 L619 384 Z" fill="var(--x-soft)" stroke="var(--x-line)"/>
   <path d="M554 355 V363 L619 392 L682 368 V360 L619 384 Z" fill="var(--x-purple)" opacity=".15"/>
   <path d="M587 290 L645 304 L645 357 L587 343 Z" fill="url(#xj-glass)" stroke="var(--x-line)"/>
-  <image href="${logos.rust}" x="599" y="296" width="29" height="29" preserveAspectRatio="xMidYMid meet" aria-label="Verus 官方标识"/>
+  <path d="M596 304 l36 9 M596 315 l24 6" class="x-struct" opacity=".5"/>
   <g data-goals="rust"><circle cx="598" cy="331" r="3"/><circle cx="614" cy="335" r="3"/><circle cx="630" cy="339" r="3"/></g>
  </g>
  <path data-feedback="c" d="M675 226 C712 260 705 427 563 435 C456 442 370 424 328 365" class="x-wire" style="stroke:var(--x-purple);stroke-width:1.35;opacity:.95"/>
@@ -97,8 +92,6 @@ svg.innerHTML=`<title>玄鉴：C 与 Rust 的生成、验证和修复闭环</tit
  <g data-particles><circle data-dot-glow r="8" fill="var(--x-purple)" opacity=".25" filter="url(#xj-glow)"/><circle data-dot r="2.8" fill="var(--x-purple)"/></g>
  <path data-proof-patch d="M305 285 L457 319" stroke="var(--x-orange)" stroke-width="2" opacity="0"/>
 </g>
-<g data-verdict="c" transform="translate(${pos(666,187).join(' ')})" opacity="0"><circle r="10" style="fill:var(--x-paper);stroke:var(--x-green);stroke-width:1.3"/><text text-anchor="middle" y="4" font-size="14">✓</text></g>
-<g data-verdict="rust" transform="translate(${pos(674,321).join(' ')})" opacity="0"><circle r="10" style="fill:var(--x-paper);stroke:var(--x-green);stroke-width:1.3"/><text text-anchor="middle" y="4" font-size="14">✓</text></g>
 ${text(49,114,'C 源码',{size:small?12:13})}
 ${text(59,260,'自然语言 + 接口',{size:small?11:13})}
 ${text(382,90,'生成核心',{anchor:'middle',size:small?12:14})}
@@ -113,56 +106,38 @@ lastLang='';phase=-1;paint();
 function point(path,progress){return path.getPointAtLength(path.getTotalLength()*Math.max(0,Math.min(1,progress)));}
 function paint(){
  if(!scene)return;
- const t=Math.min(clock,duration()-1);
- const next=phaseAt(t);
- const repaired=state.outcome==='repair'&&t>=7900;
- const renderKey=state.language+':'+state.outcome+':'+repaired;
- root.dataset.language=state.language;root.dataset.outcome=state.outcome;root.dataset.stage=String(next);
- if(lastLang!==renderKey){
+ const t=clock%9600;
+ const next=t<1450?0:t<4000?1:t<5100?2:t<6900?3:t<7900?4:5;
+ if(lastLang!==state.language){
   const data=content[state.language];
   svg.querySelector('[data-code-heading]').textContent=state.language==='c'?'C + ACSL':'VERUS';
   root.querySelector('.x-route-label').textContent=data.route;
-  svg.querySelectorAll('[data-code-row]').forEach((row,i)=>{const maxChars=Math.floor(166*scene.s/6.75);const value=repaired&&i===4?(state.language==='c'?'  /*@ invariant bounds; */':'  invariant 0 <= i,'):data.code[i][0];row.querySelector('text').textContent=value.length>maxChars?value.slice(0,maxChars-1)+'…':value;row.querySelector('rect').style.fill=data.code[i][1]==='none'?'transparent':`var(--x-${data.code[i][1]})`;});
+  svg.querySelectorAll('[data-code-row]').forEach((row,i)=>{const maxChars=Math.floor(166*scene.s/6.75);row.querySelector('text').textContent=data.code[i][0].length>maxChars?data.code[i][0].slice(0,maxChars-1)+'…':data.code[i][0];row.querySelector('rect').style.fill=data.code[i][1]==='none'?'transparent':`var(--x-${data.code[i][1]})`;});
   svg.querySelectorAll('[data-code-bar]').forEach((row,i)=>row.style.fill=data.code[i][1]==='none'?'var(--x-line)':`var(--x-${data.code[i][1]})`);
-  ['c','rust'].forEach(lang=>{svg.querySelector(`[data-source="${lang}"]`).style.opacity=state.language===lang?'1':'.4';svg.querySelector(`[data-engine="${lang}"]`).style.opacity=state.language===lang?'1':'.45';[scene.in[lang],scene.out[lang]].forEach(el=>{el.style.stroke=lang===state.language?'var(--x-purple)':'var(--x-line)';el.style.strokeOpacity=lang===state.language?'.75':'.5';});});
-  lastLang=renderKey;controls();
+  ['c','rust'].forEach(lang=>{svg.querySelector(`[data-source="${lang}"]`).style.opacity=state.language===lang?'1':'.4';svg.querySelector(`[data-engine="${lang}"]`).style.opacity=state.language===lang?'1':'.45';[scene.in[lang],scene.out[lang]].forEach(el=>{el.style.stroke=lang===state.language?'var(--x-purple)':'var(--x-line)';el.style.strokeOpacity=lang===state.language?'.75':'.5';});scene.feedback[lang].style.stroke=lang===state.language?'var(--x-purple)':'var(--x-line)';scene.feedback[lang].style.opacity=lang===state.language?'.95':'.45';});
+  lastLang=state.language;controls();
  }
- if(next!==phase){root.querySelector('output').textContent=next===7?(state.outcome==='pass'?'首次验证通过 · 流程结束':'修复后验证通过 · 流程结束'):labels[next];root.querySelector('.x-live-dot').style.background=next>=3&&next<=5?'var(--x-orange)':next===7?'var(--x-green)':'var(--x-purple)';phase=next;}
+ if(next!==phase){root.querySelector('output').textContent=labels[next];root.querySelector('.x-live-dot').style.background=next===3?'var(--x-orange)':next===5?'var(--x-green)':'var(--x-purple)';phase=next;}
  const progress=Math.min(1,Math.max(0,(t-1450)/2250));
  svg.querySelectorAll('[data-code-row]').forEach((row,i)=>row.style.opacity=String(t<1450?(i===0?.55:.08):Math.max(.08,Math.min(1,progress*6-i+1))));
  svg.querySelectorAll('[data-code-bar]').forEach((row,i)=>row.style.opacity=String(t<1450?.2:Math.max(.1,Math.min(1,progress*6-i+1))));
- scene.float.setAttribute('transform',`translate(0 ${state.playing&&phase!==7?Math.sin(clock/1500)*2.5:0})`);
+ scene.float.setAttribute('transform',`translate(0 ${state.playing?Math.sin(clock/1500)*2.5:0})`);
  scene.scan.setAttribute('y',String(40+((t-1450+9600)%2100)/2100*145));scene.scan.style.opacity=phase===1?'.85':'.06';
- if(phase===7)scene.scan.style.opacity='0';
- scene.patch.style.opacity=phase===5?String(Math.sin((t-7900)/1000*Math.PI)):'0';
- svg.querySelectorAll('[data-code-row]').forEach((row,i)=>{const rect=row.querySelector('rect');rect.style.stroke=phase===5&&i===4?'var(--x-orange)':'none';rect.style.strokeWidth='1';row.querySelector('text').style.fontWeight=phase===5&&i===4?'500':'400';});
- ['c','rust'].forEach(lang=>{
-  const active=lang===state.language;
-  const feedbackActive=active&&state.outcome==='repair'&&phase>=3&&phase<=5;
-  scene.feedback[lang].style.stroke=feedbackActive?'var(--x-purple)':'var(--x-line)';scene.feedback[lang].style.opacity=feedbackActive?'.95':'.4';
-  svg.querySelectorAll(`[data-goals="${lang}"] circle`).forEach((circle,i)=>{circle.style.fill=!active||phase<2?'var(--x-line)':phase===2?(i===0?'var(--x-purple)':'var(--x-line)'):state.outcome==='repair'&&phase>=3&&phase<=6&&i===2?'var(--x-orange)':'var(--x-green)';circle.style.opacity=active&&phase>=2?'1':'.6';});
-  const verdict=svg.querySelector(`[data-verdict="${lang}"]`);const visible=active&&(phase===7||(state.outcome==='repair'&&phase>=3&&phase<=5));
-  verdict.style.opacity=visible?'1':'0';const color=phase===7?'var(--x-green)':'var(--x-orange)';verdict.querySelector('circle').style.stroke=color;verdict.querySelector('text').style.fill=color;verdict.querySelector('text').textContent=phase===7?'✓':'!';verdict.setAttribute('aria-label',phase===7?'验证通过':'未通过，需要修复');
- });
+ scene.patch.style.opacity=phase===3?String(Math.sin((t-5100)/1800*Math.PI)):'0';
+ ['c','rust'].forEach(lang=>svg.querySelectorAll(`[data-goals="${lang}"] circle`).forEach((circle,i)=>{const active=lang===state.language;circle.style.fill=!active||phase<2?'var(--x-line)':phase<4&&i===2?'var(--x-orange)':'var(--x-green)';circle.style.opacity=active&&phase>=2?'1':'.6';}));
  let p=null,color='var(--x-purple)';
  if(t<1450)p=point(scene.in[state.language],t/1450);
- else if(phase===2)p=point(scene.out[state.language],(t-4000)/1200);
- else if(phase===4){p=point(scene.feedback[state.language],(t-6100)/1800);color='var(--x-orange)';}
- else if(phase===6){p=point(scene.out[state.language],(t-8900)/1100);color='var(--x-green)';}
+ else if(t>=4000&&t<5100)p=point(scene.out[state.language],(t-4000)/1100);
+ else if(t>=5100&&t<6900){p=point(scene.feedback[state.language],(t-5100)/1800);color='var(--x-orange)';}
+ else if(t>=6900&&t<7900){p=point(scene.out[state.language],(t-6900)/1000);color='var(--x-green)';}
  scene.particle.style.opacity=p?'1':'0';if(p){for(const el of [scene.dot,scene.glow]){el.setAttribute('cx',String(p.x));el.setAttribute('cy',String(p.y));el.style.fill=color;}}
 }
-root.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>{state.language=button.dataset.language;state.auto=false;state.complete=false;clock=1900;lastLang='';controls();paint();remember();}));
-root.querySelector('[data-action="outcome"]').addEventListener('click',()=>{state.outcome=state.outcome==='pass'?'repair':'pass';state.auto=false;state.complete=false;clock=1900;lastLang='';phase=-1;controls();paint();remember();});
-root.querySelector('[data-action="auto"]').addEventListener('click',()=>{state.auto=!state.auto;if(state.auto&&state.complete){clock=0;state.complete=false;state.playing=true;}controls();remember();});
-root.querySelector('[data-action="play"]').addEventListener('click',()=>{if(state.complete){clock=0;state.complete=false;state.playing=true;}else state.playing=!state.playing;last=performance.now();controls();paint();remember();});
-function tick(now){const delta=Math.min(80,now-last);last=now;if(state.playing){clock+=delta*state.speed;if(clock>=duration()){if(state.auto){const index=sequence.findIndex(item=>item.language===state.language&&item.outcome===state.outcome);Object.assign(state,sequence[(index+1)%sequence.length]);clock=0;lastLang='';phase=-1;}else{clock=duration()-1;state.complete=true;state.playing=false;controls();}}paint();}frame=requestAnimationFrame(tick);}
+root.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>{state.language=button.dataset.language;state.auto=false;clock=1900;lastLang='';controls();paint();remember();}));
+root.querySelector('[data-action="auto"]').addEventListener('click',()=>{state.auto=!state.auto;controls();remember();});
+root.querySelector('[data-action="play"]').addEventListener('click',()=>{state.playing=!state.playing;last=performance.now();controls();paint();remember();});
+function tick(now){const delta=Math.min(80,now-last);last=now;if(state.playing){clock+=delta*state.speed;if(clock>=9600){clock%=9600;if(state.auto){state.language=state.language==='c'?'rust':'c';lastLang='';}}paint();}frame=requestAnimationFrame(tick);}
 const observer=new ResizeObserver(draw);observer.observe(stage);controls();draw();frame=requestAnimationFrame(tick);
 
 return ()=>{cancelAnimationFrame(frame);observer.disconnect();};
 }
-
-export default defineComponent({
- name:'VerificationFlow',
- setup(){const host=ref(null);let dispose;onMounted(()=>{dispose=mountFlow(host.value.querySelector('#xuanjian-dual-preview'))});onBeforeUnmount(()=>dispose?.());return {host,markup}},
- template:'<div ref="host" class="vf-verification-flow" v-html="markup"></div>'
-})
+export default defineComponent({name:'VerificationFlow',setup(){const host=ref(null);let dispose;onMounted(()=>{dispose=mountFlow(host.value.querySelector('#xuanjian-dual-preview'))});onBeforeUnmount(()=>dispose?.());return {host,markup}},template:'<div ref="host" class="vf-verification-flow" v-html="markup"></div>'})

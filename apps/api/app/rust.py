@@ -118,6 +118,20 @@ def dataset_tasks(query: str = Query('', max_length=200), category: str = Query(
             'total': len(items), 'pages': ceil(len(items) / page_size)}
 
 
+@router.get('/dataset/tree')
+def dataset_tree():
+    from engine.nl2verus.dataset import task_catalog
+    return task_catalog(load_tasks())
+
+
+@router.get('/dataset/tasks/{sample_id}/input')
+def dataset_input(sample_id: str):
+    for task in load_tasks():
+        if task.get('sample_id') == sample_id:
+            return summarize_task(task)
+    raise HTTPException(404, '数据集任务不存在。')
+
+
 @router.get('/dataset/tasks/{sample_id}')
 def dataset_task(sample_id: str):
     for task in load_tasks():

@@ -41,3 +41,27 @@ def summarize_task(task: dict[str, Any]) -> dict[str, Any]:
         "description": description,
         "function_signature": signature,
     }
+
+
+def task_folder(sample_id: str) -> str:
+    """Group actual filename prefixes without dropping any task identifier."""
+    import re
+    parts = sample_id.split('_')
+    if parts[0] == 'VerusBench' and len(parts) > 1:
+        return '/'.join(parts[:2])
+    if parts[0] == 'VeriCoding' and len(parts) > 1:
+        match = re.match(r'[A-Za-z]+', parts[1])
+        return 'VeriCoding/' + match.group(0) if match else 'VeriCoding'
+    return parts[0]
+
+
+def task_catalog(tasks):
+    groups = {}
+    for task in tasks:
+        sample_id = str(task['sample_id'])
+        folder = task_folder(sample_id)
+        groups.setdefault(folder, []).append({'sample_id': sample_id, 'name': sample_id + '.txt',
+                                            'category': task.get('category') or 'Uncategorized'})
+    return {'total': sum(map(len, groups.values())), 'groups': [
+        {'path': path, 'count': len(files), 'files': files}
+        for path, files in sorted(groups.items())]}

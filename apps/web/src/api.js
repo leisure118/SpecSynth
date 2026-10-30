@@ -125,3 +125,6 @@ export function getBenchmarkFile(id,file){return request("/benchmarks/"+encodeUR
 
 export function getBenchmarkRuns(id,file){return request('/benchmarks/'+encodeURIComponent(id)+'/runs?file='+encodeURIComponent(file))}
 export function submitBenchmarkRun(id,body){return request('/benchmarks/'+encodeURIComponent(id)+'/runs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})}
+
+export function getDatasetTree() { return request('/rust/dataset/tree') }
+export function getDatasetInput(id) { return request('/rust/dataset/tasks/'+encodeURIComponent(id)+'/input') }

@@ -274,3 +274,21 @@ def test_generated_filename_preserves_task_and_upload_identity_without_paths():
     assert rust.generated_filename({'source_name':'../../input-spec.md'},'main.rs')=='input-spec.verus.rs'
     assert rust.generated_filename({'source_name':'数组求和.txt'},'main.rs')=='数组求和.verus.rs'
     assert rust.generated_filename({'function_signature':'fn increment(x: u64)'},'main.rs')=='increment.verus.rs'
+
+
+def test_project_generation_config_is_shared_without_changing_sources(system,monkeypatch,tmp_path):
+    from engine.nl2verus import profiles
+    client,store,_=system
+    monkeypatch.setattr(profiles,'PROFILES_PATH',tmp_path/'model-profiles.json')
+    monkeypatch.setattr(profiles,'legacy_profiles',lambda snapshot=None:{})
+    profiles.save_profile({'id':'harness-model','name':'DeepSeek','model':'test-deepseek','base_url':'http://model.internal/v1','api_key':'','auth_mode':'none','protocol':'chat'})
+    p=make(client)
+    response=client.put('/api/v1/projects/'+p['id']+'/generation-config',json={'agent_id':'deepseek-harness','model_id':'harness-model','skill_ids':['local-verus-baseline']})
+    assert response.status_code==200,response.text
+    again=client.get('/api/v1/projects/'+p['id']).json()
+    assert again['generation_config']['agent_id']=='deepseek-harness'
+    assert again['generation_config']['model_id']=='harness-model'
+    assert again['revision']==1 and again['files']==p['files'] and not again['runs']
+    wrong=client.put('/api/v1/projects/'+p['id']+'/generation-config',json={'agent_id':'codex','model_id':'harness-model','skill_ids':[]})
+    assert wrong.status_code==422
+    assert client.get('/api/v1/projects/'+p['id']).json()['generation_config']['agent_id']=='deepseek-harness'

@@ -81,6 +81,12 @@ class ProjectRun(BaseModel):
     assistant: AssistantConfig | None = None
 
 
+class GenerationConfig(BaseModel):
+    agent_id: Literal['direct','codex','claude','deepseek-harness']
+    model_id: str = Field(min_length=1,max_length=200)
+    skill_ids: list[str] = Field(default_factory=list,max_length=8)
+
+
 class ExampleImport(BaseModel):
     demo_case_id: str
     mode: Literal['single', 'termination', 'inter-modular'] | None = None
@@ -190,6 +196,23 @@ def create_workspace_router(manager, store):
     @router.get('/{project_id}')
     def get_project(project_id: str):
         return with_status(_read(project_id))
+
+    @router.put('/{project_id}/generation-config')
+    def save_generation_config(project_id: str, body: GenerationConfig):
+        from engine.nl2verus.agents import validate_selection
+        with _LOCK:
+            project = _read(project_id)
+            if project.get('language') != 'Rust':
+                raise HTTPException(422, '此配置用于 Rust / Verus 自然语言生成。')
+            try:
+                validate_selection(body.agent_id, body.model_id, body.skill_ids)
+            except ValueError as exc:
+                raise HTTPException(422, str(exc)) from None
+            settings = body.model_dump() | {'updated_at': utcnow().isoformat()}
+            project['generation_config'] = settings
+            _write(project)
+        return settings
+
 
     @router.put('/{project_id}')
     def save_project(project_id: str, body: ProjectSave):

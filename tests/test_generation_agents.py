@@ -63,7 +63,8 @@ def test_skills_frozen_and_applied(configured,monkeypatch):
         agents.make_runner({'agent_id':'direct','model_id':'test','managed_profile':True,'model_profile':{'wrong':'snapshot'}},Runner)
 
 
-def test_harness_actually_calls_verus_tool(configured,monkeypatch):
+@pytest.mark.parametrize('tool_finish',['tool_calls','stop'])
+def test_harness_actually_calls_verus_tool(configured,monkeypatch,tool_finish):
     import openai
     from engine.nl2verus import verifier,b3_runner
     checks=[]; requests=[]
@@ -72,7 +73,7 @@ def test_harness_actually_calls_verus_tool(configured,monkeypatch):
     call=SimpleNamespace(id='tool1',function=SimpleNamespace(name='verify_verus',arguments=json.dumps({'code':GOOD})))
     message=SimpleNamespace(tool_calls=[call],model_dump=lambda **k:{'role':'assistant','tool_calls':[{'id':'tool1','type':'function','function':{'name':'verify_verus','arguments':json.dumps({'code':GOOD})}}]})
     final=SimpleNamespace(tool_calls=None,refusal=None,content='```rust\n'+GOOD+'\n```')
-    responses=iter([SimpleNamespace(choices=[SimpleNamespace(message=message,finish_reason='tool_calls')],usage=None),SimpleNamespace(choices=[SimpleNamespace(message=final,finish_reason='stop')],usage=None)])
+    responses=iter([SimpleNamespace(choices=[SimpleNamespace(message=message,finish_reason=tool_finish)],usage=None),SimpleNamespace(choices=[SimpleNamespace(message=final,finish_reason='stop')],usage=None)])
     class FakeClient:
         def __init__(self,**kwargs):self.chat=SimpleNamespace(completions=SimpleNamespace(create=self.create))
         def create(self,**kwargs):requests.append(dict(kwargs));return next(responses)
@@ -83,6 +84,7 @@ def test_harness_actually_calls_verus_tool(configured,monkeypatch):
     assert checks==[GOOD] and result['code']==GOOD and result['provider_calls']==2
     assert result['agent_events']==[{'tool':'verify_verus','status':'verified','verified':True}]
     assert any(m.get('role')=='tool' for m in requests[-1]['messages'])
+    assert requests[0]['tool_choice']=={'type':'function','function':{'name':'verify_verus'}}
 
 
 def test_sensitive_output_blocked():
@@ -169,3 +171,30 @@ def test_multiple_models_keep_distinct_routes_and_single_default(configured,monk
         runner=agents.make_runner({'agent_id':'codex','model_id':selected,'managed_profile':True},Runner)
         runner.kw['generate']('TASK',selected,snapshot=None)
     assert seen==[('first','test-model','https://models.example/v1'),('second','second-model','https://second.example/v1')]
+
+
+def test_harness_does_not_accept_plain_answer_without_tool_execution(configured,monkeypatch):
+    import openai
+    message=SimpleNamespace(tool_calls=None,refusal=None,content=GOOD)
+    response=SimpleNamespace(choices=[SimpleNamespace(message=message,finish_reason='stop')],usage=None)
+    class FakeClient:
+        def __init__(self,**kwargs):self.chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **k:response))
+        def __enter__(self):return self
+        def __exit__(self,*a):pass
+    monkeypatch.setattr(openai,'OpenAI',FakeClient)
+    with pytest.raises(agents.ProviderError,match='没有完成验证工具调用'):
+        agents._chat_generate('task',configured,True)
+
+
+def test_harness_rejects_truncated_tool_calls_before_verifying(configured,monkeypatch):
+    import openai
+    from engine.nl2verus import b3_runner
+    monkeypatch.setattr(b3_runner,'verify_b3_candidate',lambda *a,**k:pytest.fail('truncated call must not execute'))
+    message=SimpleNamespace(tool_calls=[SimpleNamespace(id='truncated',function=SimpleNamespace(name='verify_verus',arguments=json.dumps({'code':GOOD})))])
+    response=SimpleNamespace(choices=[SimpleNamespace(message=message,finish_reason='length')],usage=None)
+    class FakeClient:
+        def __init__(self,**kwargs):self.chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **k:response))
+        def __enter__(self):return self
+        def __exit__(self,*a):pass
+    monkeypatch.setattr(openai,'OpenAI',FakeClient)
+    with pytest.raises(agents.ProviderError):agents._chat_generate('task',configured,True)

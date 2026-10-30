@@ -1,4 +1,5 @@
-import { mkdir } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -43,3 +44,13 @@ await esbuild.build({
   },
   logLevel: "info",
 });
+
+// Content-based versions invalidate browser caches whenever JS or CSS changes.
+const indexPath = path.join(repoRoot, "apps", "web", "index.html");
+let html = await readFile(indexPath, "utf8");
+for (const asset of ["main.js", "main.css"]) {
+  const digest = createHash("sha256").update(await readFile(path.join(outdir, asset))).digest("hex").slice(0, 16);
+  const escaped = asset.replace(".", "\\.");
+  html = html.replace(new RegExp("/dist/" + escaped + "(?:\\?[^\"']*)?", "g"), "/dist/" + asset + "?v=" + digest);
+}
+if (html !== await readFile(indexPath, "utf8")) await writeFile(indexPath, html);

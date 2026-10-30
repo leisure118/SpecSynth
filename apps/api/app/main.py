@@ -444,6 +444,14 @@ from .benchmarks import create_benchmark_runs_router
 app.include_router(create_benchmark_runs_router(manager,store))
 
 
+@app.middleware("http")
+async def revalidate_web_bundles(request, call_next):
+    response = await call_next(request)
+    if request.url.path in ("/dist/main.js", "/dist/main.css"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
+
+
 if WEB_DIR.exists():
     if (WEB_DIR / "brand").exists():
         app.mount("/brand", StaticFiles(directory=str(WEB_DIR / "brand")), name="web-brand")
@@ -461,5 +469,5 @@ def serve_web(full_path: str) -> FileResponse:
         raise HTTPException(status_code=404, detail="Static source assets are not exposed.")
     index_path = WEB_DIR / "index.html"
     if index_path.exists():
-        return FileResponse(index_path)
+        return FileResponse(index_path, headers={"Cache-Control": "no-store"})
     raise HTTPException(status_code=404, detail="Web assets have not been generated yet.")

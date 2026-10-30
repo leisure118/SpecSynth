@@ -74,6 +74,7 @@ class ProjectRun(BaseModel):
     agent_id: Literal['direct','codex','claude','deepseek-harness'] = 'direct'
     skill_ids: list[str] = Field(default_factory=list,max_length=8)
     sample_id: str | None = Field(default=None,max_length=200)
+    source_name: str = Field(default='',max_length=240)
     model_name: str = 'qwen-turbo'
     timeout_sec: int = Field(default=120, ge=10, le=3600)
     execution: Literal['live', 'replay'] = 'live'
@@ -332,7 +333,7 @@ def create_workspace_router(manager, store):
                     from engine.nl2verus import agents
                     from engine.nl2verus.profiles import configured_profiles, all_profiles, public_profile
                     managed = body.model_name in configured_profiles()
-                    workflow.update(agent_id=body.agent_id,skill_ids=body.skill_ids,managed_profile=managed)
+                    workflow.update(agent_id=body.agent_id,skill_ids=body.skill_ids,managed_profile=managed,source_name=body.source_name)
                     validate_generation(workflow)
                     workflow['skill_snapshot']=agents.snapshot_skills(body.skill_ids)
                     profile=all_profiles().get(body.model_name)

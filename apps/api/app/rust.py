@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import time
 from collections import Counter
 from math import ceil
@@ -172,6 +173,17 @@ def validate_generation(payload):
         raise ValueError('向量检索尚未配置，请关闭 RAG 或配置 embedding。')
 
 
+def generated_filename(workflow, entry_path):
+    name = workflow.get('sample_id') or workflow.get('source_name')
+    if not name:
+        function = re.search(r'\bfn\s+([A-Za-z_]\w*)', workflow.get('function_signature') or '')
+        name = function.group(1) if function else entry_path
+    stem = PurePosixPath(str(name).replace('\\', '/')).name
+    stem = re.sub(r'\.(txt|md|markdown|json|rs)$', '', stem, flags=re.IGNORECASE)
+    stem = re.sub(r'[^\w.-]+', '-', stem, flags=re.UNICODE).lstrip('.').rstrip('. -')[:120] or 'custom-task'
+    return stem + '.verus.rs'
+
+
 def execute_rust(manager, task, payload):
     store = manager.store
     upload = store.read_upload(payload.file_id)
@@ -200,7 +212,7 @@ def execute_rust(manager, task, payload):
                     workflow = runner.get(workflow['id'])
                     # Persist only changed revisions; polling must not rewrite large prompts repeatedly.
                     if workflow['revision'] != saved_revision:
-                        workflow['selection']={k:v for k,v in payload.rust_workflow.items() if k in ('agent_id','skill_ids','skill_snapshot','model_profile','sample_id')}
+                        workflow['selection']={k:v for k,v in payload.rust_workflow.items() if k in ('agent_id','skill_ids','skill_snapshot','model_profile','sample_id','source_name')}
                         store.write_text_artifact(task.task_id, 'workflow', 'rounds.json', json.dumps(workflow, ensure_ascii=False, indent=2))
                         task.metadata['rust_workflow'] = workflow
                         task.message = workflow['message']
@@ -242,14 +254,15 @@ def execute_rust(manager, task, payload):
     for phase in task.phases:
         if phase.status in ('pending', 'running'):
             phase.status = 'failed'
-    store.write_text_artifact(task.task_id, 'output', PurePosixPath(entry['path']).name, result_code)
+    output_name = generated_filename(payload.rust_workflow or {}, entry['path']) if task.mode == 'rust-generate' else PurePosixPath(entry['path']).name
+    store.write_text_artifact(task.task_id, 'output', output_name, result_code)
     store.write_text_artifact(task.task_id, 'logs', 'verus.log', raw)
     for attempt in attempts:
         store.write_text_artifact(task.task_id, 'rounds', f"round-{attempt['round']}.rs", attempt.get('code', ''))
     result = manager._build_result(task, status=status, summary=check['message'], source_code=source,
         result_code=result_code, command=None, logs={'raw': raw, 'summary': [check['message']]}, specifications={},
         engine_detail={'language': 'Rust', 'verifier': 'Verus', 'version': verifier.VERUS_VERSION,
-                       'verification': check, 'workflow': workflow, 'attempts': attempts},
+                       'verification': check, 'workflow': workflow, 'attempts': attempts, 'generated_filename': output_name},
         proof_stats={'scope': 'proof-goals', 'unit': 'goals', 'proved_goals': proved,
                      'total_goals': total, 'open_goals': errors, 'pass_rate': proved/total if total else 0},
         failure_analysis={'category': 'none' if status == 'Pass' else check['status'],

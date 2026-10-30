@@ -1,0 +1,24 @@
+const fs=require('node:fs'),assert=require('node:assert/strict');
+(async()=>{
+const {displayedRunId,matchingRunResult,generatedFileName}=await import('data:text/javascript;base64,'+Buffer.from(fs.readFileSync('apps/web/src/workspaceRun.js','utf8')).toString('base64'));
+const old={task_id:'old',status:'Invalid'},latest={task_id:'new',status:'Pass'};
+assert.equal(displayedRunId('new','old',{new:{status:'running'}}),'new');
+assert.equal(displayedRunId('new','old',{new:{status:'queued'}}),'new');
+assert.equal(displayedRunId('new','old',{new:{status:'pass'}}),'old');
+assert.equal(displayedRunId('new','old',{new:{status:'pass'}},'new'),'new');
+assert.equal(matchingRunResult({task_id:'new',status:'running'},old),null);
+assert.equal(matchingRunResult({task_id:'new',status:'queued'},latest),null);
+assert.equal(matchingRunResult({task_id:'new',status:'pass'},old),null);
+assert.equal(matchingRunResult({task_id:'new',status:'pass'},latest),latest);
+const input={sample_id:'VerusBench_Diffy_brs1'};
+assert.equal(generatedFileName(input),'VerusBench_Diffy_brs1.verus.rs');
+assert.equal(generatedFileName({source_name:'search_spec.md'}),'search_spec.verus.rs');
+assert.equal(generatedFileName({source_name:'数组求和.txt'}),'数组求和.verus.rs');
+assert.equal(generatedFileName({function_signature:'fn binary_search(v: &Vec<u64>) -> usize'}),'binary_search.verus.rs');
+assert.equal(generatedFileName({source_name:'../../search.json'}),'search.verus.rs');
+const files=[{id:'one',name:generatedFileName(input)}];
+assert.equal(generatedFileName(input,files,'two'),'VerusBench_Diffy_brs1.verus-2.rs');
+assert.equal(generatedFileName(input,files,'one'),files[0].name);
+assert.equal(generatedFileName(input,[{id:'old',name:'generated-29_abcdef.rs'}],'old'),'VerusBench_Diffy_brs1.verus.rs');
+console.log('Current-run isolation, stale-result suppression and source-based output names passed.');
+})().catch(e=>{console.error(e);process.exitCode=1});

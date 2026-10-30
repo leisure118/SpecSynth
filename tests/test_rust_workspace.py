@@ -94,10 +94,13 @@ def test_generation_repairs_and_persists(system,monkeypatch):
     monkeypatch.setattr(rust,'provider_status',lambda:caps)
     monkeypatch.setattr(rust,'WorkflowRuns',lambda:WorkflowRuns(config=lambda:None,status=lambda **k:caps,generate=generate,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
     p=make(client)
-    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'fake','description':'increment safely','function_signature':'fn inc(x: u64) -> (r: u64)'})
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'fake','description':'increment safely','function_signature':'fn inc(x: u64) -> (r: u64)','source_name':'uploaded-spec.md'})
     assert response.status_code==201,response.text
     result=wait(store,response.json()['task_id'])
     assert result['status']=='Pass'
+    assert result['engine_detail']['workflow']['selection']['source_name']=='uploaded-spec.md'
+    assert result['engine_detail']['generated_filename']=='uploaded-spec.verus.rs'
+    assert any(a['name']=='uploaded-spec.verus.rs' for a in result['artifacts'])
     stages=result['engine_detail']['workflow']['stages']
     assert [s['phase'] for s in stages]==['preparing','generating','verifying','repairing','verifying']
     assert all(s['started_at'] and s['finished_at'] for s in stages)
@@ -264,3 +267,10 @@ def test_live_progress_is_visible_while_model_and_verifier_are_running(system,mo
     finally:
         release_model.set();release_verifier.set()
     assert wait(store,task_id)['status']=='Pass'
+
+
+def test_generated_filename_preserves_task_and_upload_identity_without_paths():
+    assert rust.generated_filename({'sample_id':'VerusBench_Diffy_brs1'},'main.rs')=='VerusBench_Diffy_brs1.verus.rs'
+    assert rust.generated_filename({'source_name':'../../input-spec.md'},'main.rs')=='input-spec.verus.rs'
+    assert rust.generated_filename({'source_name':'数组求和.txt'},'main.rs')=='数组求和.verus.rs'
+    assert rust.generated_filename({'function_signature':'fn increment(x: u64)'},'main.rs')=='increment.verus.rs'

@@ -1,4 +1,20 @@
 ARG BASE_IMAGE=python:3.13-slim
+ARG NODE_IMAGE=node:24-bookworm-slim
+FROM ${NODE_IMAGE} AS agent-node
+
+# Build the platform-native official CLIs independently from mutable user data.
+FROM agent-node AS agent-runtime
+ARG NPM_REGISTRY=
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends python3 make g++ ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+COPY configs/agent-runtime/ /tmp/agent-install/configs/agent-runtime/
+COPY configs/deepseek-runtime/ /tmp/agent-install/configs/deepseek-runtime/
+COPY scripts/install_agent_runtime.py /tmp/agent-install/scripts/install_agent_runtime.py
+RUN if [ -n "$NPM_REGISTRY" ]; then npm config set registry "$NPM_REGISTRY"; fi \
+    && python3 /tmp/agent-install/scripts/install_agent_runtime.py --runtime-root /opt/acsl-agent/agents \
+    && rm -rf /root/.npm /tmp/agent-install
+
 FROM ${BASE_IMAGE}
 
 ARG APT_MIRROR=
@@ -32,12 +48,18 @@ RUN if [ -n "$APT_MIRROR" ]; then \
         gcc \
         g++ \
         make \
-        nodejs \
-        npm \
+        git \
+        ripgrep \
+        bubblewrap \
         ca-certificates \
         curl \
     && (apt-get install -y --no-install-recommends frama-c || apt-get install -y --no-install-recommends frama-c-base) \
     && rm -rf /var/lib/apt/lists/*
+
+COPY --from=agent-node /usr/local/bin/node /usr/local/bin/node
+COPY --from=agent-node /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+RUN ln -sf /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+    && ln -sf /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
 WORKDIR /app
 
@@ -50,7 +72,23 @@ RUN if [ -n "$NPM_REGISTRY" ]; then npm config set registry "$NPM_REGISTRY"; fi 
 
 COPY . .
 
-RUN npm run build:web
+# Keep executables outside /app/runtime: Compose mounts that path for user data.
+ENV ACSL_AGENT_RUNTIME_ROOT=/opt/acsl-agent/agents
+COPY --from=agent-runtime /opt/acsl-agent/agents /opt/acsl-agent/agents
+RUN python scripts/install_agent_runtime.py --check \
+    && npm run build:web
+
+# The fixed Verus release is installed for this image's architecture, not copied
+# from a developer's macOS runtime. Linux arm64 needs a separately supplied build.
+ARG INSTALL_VERUS=1
+ENV RUSTUP_HOME=/opt/rustup CARGO_HOME=/opt/cargo
+ENV PATH="/opt/cargo/bin:${PATH}"
+RUN if [ "$INSTALL_VERUS" = "1" ]; then \
+        curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs -o /tmp/rustup-init.sh \
+        && sh /tmp/rustup-init.sh -y --profile minimal --default-toolchain none \
+        && python scripts/install_verus.py \
+        && rm /tmp/rustup-init.sh; \
+    fi
 
 ENV ACSL_AGENT_LOCAL_TOOLCHAIN=1
 ENV PATH="/app/third_party/autospec_llvm/bin:/opt/clang/bin:/root/.opam/default/bin:${PATH}"

@@ -71,18 +71,20 @@ def model_presets(protocol, configured):
 def capabilities():
     from .profiles import all_profiles, public_profile, ROOT
     from .dsh_cli import installed as dsh_installed
+    from .claude_cli import installed as claude_installed
     profiles = list(all_profiles().values())
-    runtime = ROOT / 'runtime' / 'agent-runtime' / 'node_modules'
+    from .agent_runtime import runtime_directory
+    runtime = runtime_directory('agent-runtime') / 'node_modules'
     specs = [('direct','模型直连','chat','原 NL2Verus 单次生成，按设置验证与修复'),
              ('deepseek-harness','DeepSeek Harness CLI','chat','官方 dsh CLI · 独立 Agent 运行时；支持兼容工具调用的模型'),
              ('codex','Codex','responses','平台独立运行时 · 需要 Responses API'),
-             ('claude','Claude Code','anthropic','平台独立 SDK · 需要 Anthropic Messages API')]
+             ('claude','Claude Code CLI','anthropic','官方 Claude Code CLI · 支持任务文件与 Verus 工具；需要 Messages API')]
     rows=[]
     for key,name,protocol,message in specs:
-        installed = key == 'direct' or (key == 'deepseek-harness' and dsh_installed()) or (key in ('codex','claude') and (runtime / ('@openai/codex-sdk' if key=='codex' else '@anthropic-ai/claude-agent-sdk')).is_dir())
+        installed = key == 'direct' or (key == 'deepseek-harness' and dsh_installed()) or (key=='claude' and claude_installed()) or (key=='codex' and (runtime/'@openai/codex-sdk').is_dir())
         models=[public_profile(p) for p in profiles if p['protocol']==protocol]
         models+=model_presets(protocol,models)
-        rows.append({'id':key,'name':name,'available':installed,'message':message if installed else '平台 Agent SDK 尚未安装','models':models,'protocol':protocol})
+        rows.append({'id':key,'name':name,'available':installed,'message':message if installed else '服务端 Agent 运行时未安装；请运行 python scripts/install_agent_runtime.py','models':models,'protocol':protocol})
     codex=next(a for a in rows if a['id']=='codex')
     preferred=next((m for m in codex['models'] if m['configured'] and m.get('is_default')),None)
     return {'agents':rows,'skills':[{k:v for k,v in row.items() if k!='content'} for row in skills().values() if row['id'] not in SKILLS],
@@ -127,7 +129,7 @@ def _sdk_generate(agent,prompt,profile,timeout=240):
         raise ProviderError('agent_missing','平台 Node.js 运行时不可用。')
     with tempfile.TemporaryDirectory(prefix='nl2verus-agent-') as folder:
         data={'agent':agent,'prompt':prompt,'profile':profile,'workingDirectory':folder}
-        env={k:v for k,v in os.environ.items() if k in ('PATH','TMPDIR','SYSTEMROOT','HTTPS_PROXY','HTTP_PROXY','NO_PROXY')}
+        env={k:v for k,v in os.environ.items() if k in ('PATH','TMPDIR','SYSTEMROOT','HTTPS_PROXY','HTTP_PROXY','NO_PROXY','ACSL_AGENT_RUNTIME_ROOT')}
         with tempfile.TemporaryFile() as out, tempfile.TemporaryFile() as err:
             proc=subprocess.Popen([node,str(ROOT/'scripts/agent_bridge.mjs')],cwd=folder,env=env,stdin=subprocess.PIPE,stdout=out,stderr=err,start_new_session=True)
             try:
@@ -164,6 +166,7 @@ def _chat_generate(prompt,profile):
 def make_runner(payload,runner_class):
     from .profiles import all_profiles, public_profile
     from .dsh_cli import generate as dsh_generate
+    from .claude_cli import generate as claude_generate
     agent=payload.get('agent_id','direct');selected=payload.get('skill_snapshot',[])
     if agent=='direct' and not selected and not payload.get('managed_profile') and not payload.get('model_profile'):
         return runner_class()
@@ -174,7 +177,7 @@ def make_runner(payload,runner_class):
         prompt=augment(prompt,selected)
         if agent!='direct' or not profile.get('legacy'):
             prompt+='\nReturn complete Verus Rust source only. Preserve the task semantics; no assume/admit/external_body.'
-        result=(provider.generate_code(prompt,model_id,snapshot=snapshot) if agent=='direct' and profile.get('legacy') else _sdk_generate(agent,prompt,profile) if agent in ('codex','claude') else dsh_generate(prompt,profile) if agent=='deepseek-harness' else _chat_generate(prompt,profile))
+        result=(provider.generate_code(prompt,model_id,snapshot=snapshot) if agent=='direct' and profile.get('legacy') else _sdk_generate(agent,prompt,profile) if agent=='codex' else claude_generate(prompt,profile) if agent=='claude' else dsh_generate(prompt,profile) if agent=='deepseek-harness' else _chat_generate(prompt,profile))
         result['effective_prompt']=prompt
         return result
     def status(*,snapshot):

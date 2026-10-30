@@ -1,10 +1,12 @@
 services:
   acsl-agent:
+    platform: ${ACSL_AGENT_IMAGE_PLATFORM:-linux/amd64}
     image: acslagent-unified:latest
     build:
       context: .
       dockerfile: Dockerfile.unified
       args:
+        INSTALL_VERUS: ${ACSL_AGENT_INSTALL_VERUS:-1}
         BASE_IMAGE: ${ACSL_AGENT_BASE_IMAGE:-python:3.13-slim}
         APT_MIRROR: ${ACSL_AGENT_APT_MIRROR:-}
         PIP_INDEX_URL: ${ACSL_AGENT_PIP_INDEX_URL:-}
@@ -17,6 +19,7 @@ services:
     env_file:
       - .env
     environment:
+      ACSL_AGENT_RUNTIME_ROOT: /opt/acsl-agent/agents
       ACSL_AGENT_LOCAL_TOOLCHAIN: "1"
       ACSL_AGENT_ALLOWED_ORIGINS: ${ACSL_AGENT_ALLOWED_ORIGINS:-}
       QWEN35_4B_API_BASE_URL: ${QWEN35_4B_DOCKER_BASE_URL:-}

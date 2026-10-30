@@ -293,3 +293,30 @@ def test_project_generation_config_is_shared_without_changing_sources(system,mon
     wrong=client.put('/api/v1/projects/'+p['id']+'/generation-config',json={'agent_id':'codex','model_id':'harness-model','skill_ids':[]})
     assert wrong.status_code==422
     assert client.get('/api/v1/projects/'+p['id']).json()['generation_config']['agent_id']=='deepseek-harness'
+
+
+def test_official_cli_failure_keeps_identity_and_tool_evidence(system,monkeypatch,tmp_path):
+    from engine.nl2verus import dsh_cli,profiles,platform_provider
+    from engine.nl2verus.model_provider import ProviderError
+    client,store,_=system
+    monkeypatch.setattr(profiles,'PROFILES_PATH',tmp_path/'profiles.json')
+    monkeypatch.setattr(profiles,'legacy_profiles',lambda snapshot=None:{})
+    monkeypatch.setattr(platform_provider,'get_config',lambda:platform_provider.PlatformConfig({}))
+    monkeypatch.setattr(dsh_cli,'installed',lambda:True)
+    profiles.save_profile({'id':'official','name':'DeepSeek','model':'test-model','protocol':'chat','base_url':'http://models.internal/v1','auth_mode':'none','api_key':''})
+    def generate(*args):
+        error=ProviderError('output_limit','官方 DeepSeek Harness 输出预算已耗尽。')
+        error.agent_runtime={'name':'DeepSeek Harness','version':'0.2.1-rc.5','session_id':'failed-official-session','terminal_reason':{'kind':'max-tokens'}}
+        error.agent_events=[{'tool':'write','status':'completed'}];error.provider_calls=3
+        raise error
+    monkeypatch.setattr(dsh_cli,'generate',generate)
+    monkeypatch.setattr(rust,'WorkflowRuns',lambda **kwargs:WorkflowRuns(**kwargs,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
+    p=make(client)
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'official','agent_id':'deepseek-harness','description':'Increment safely','max_repair_rounds':0})
+    assert response.status_code==201,response.text
+    result=wait(store,response.json()['task_id'])
+    wf=result['engine_detail']['workflow']
+    assert wf['outcome']=='output_limit' and wf['provider_calls']==3
+    assert wf['attempts'][0]['agent_runtime']['session_id']=='failed-official-session'
+    assert wf['attempts'][0]['agent_events'][0]['tool']=='write'
+    assert result['status']!='Pass'

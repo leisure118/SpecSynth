@@ -136,7 +136,7 @@ runtime/runs/<task_id>/
 
 ### Rust 工作台：Codex 与第三方 API
 
-Rust 项目中选择「Agent API 生成与验证」，再独立选择 Agent、已配置模型与 Skill。Codex 使用平台独立运行时和 Responses API，不读取本机 Codex 登录信息。第三方端点必须实际支持 `/v1/responses`（包括流式响应）；只支持 Chat Completions 的端点应选择模型直连或内置 Harness。
+Rust 项目中选择「Agent API 生成与验证」，再独立选择 Agent、已配置模型与 Skill。Codex 使用平台独立运行时和 Responses API，不读取本机 Codex 登录信息。第三方端点必须实际支持 `/v1/responses`（包括流式响应）；只支持 Chat Completions 的端点可选择模型直连或官方 DeepSeek Harness CLI；Claude Code 则需要 Anthropic Messages 协议。
 
 通过「＋ API 模型」添加多个服务配置；下拉框选择的配置决定实际 Base URL、Model ID、协议与认证方式。使用「编辑当前 API」可以修改当前配置；编辑时 API Key 留空保留原值，明确切换「无需认证」会清除原密钥。Base URL 可填 `/v1`，完整的 `/chat/completions` 或 `/responses` 地址也会规范化为 Base URL。私有配置保存在忽略提交的 `runtime/generation-models.json`。
 
@@ -148,12 +148,41 @@ NL2VBench 文件浏览器按文件名前缀组织全部任务，VeriCoding 与 V
 
 配置页使用右侧完整可用高度，只有内容实际超出时才滚动。常规模型面板不直接展示 API 地址，地址在编辑配置窗口查看。提交新运行后立即显示本次任务，历史文件的浏览不会替换进行中的进度。生成文件沿用数据集任务名或上传文件名（例如 `VerusBench_Diffy_brs1.verus.rs`），重复输出使用序号区分；原始文件名同时写入运行记录和生成产物。
 
-### 内置 DeepSeek Harness
+### Rust Agent 的可迁移安装与部署
 
-`deepseek-harness` 是平台自建的 Python 工具调用循环，不是 DeepSeek 官方 CLI。它与 Codex 使用独立的适配器；Codex 走平台管理的运行时和 Responses API，内置 Harness 走 OpenAI 兼容 Chat Completions API，模型服务、Model ID 和 Skill 可以保持一致。
+Rust/Verus 工作台使用项目管理的官方 Agent 运行时，不依赖开发者的全局 CLI 或个人登录记录：Codex SDK/CLI、Claude Agent SDK 内附的 Claude Code CLI、DeepSeek 官方 `dsh`。依赖版本和完整性由 `configs/agent-runtime/package-lock.json` 与 `configs/deepseek-runtime/package-lock.json` 锁定。可执行文件按部署机器的操作系统和 CPU 架构安装，因此不把一台 Mac 的二进制直接提交为所有服务器的依赖。
 
-Harness 将自然语言、函数接口和选中的 Skill 作为上下文，首个请求明确要求模型调用 `verify_verus(code)`。平台校验工具名称、完整 JSON 参数和候选代码，再实际执行固定版本的 Verus，把诊断以工具结果返回模型。模型可据此修改候选并再次调用工具，最终返回完整源文件。每次生成/修复会话最多 5 次模型请求、每个工具回复最多 3 个调用；不做隐藏的网络重试。兼容部分 vLLM 服务将完整工具调用的结束标记写为 `stop`，但截断调用仍被拒绝，没有工具执行记录的普通文本回答不会被记为成功的 Harness 执行。
+同事更新代码后，本机部署执行（需要 Node.js >=24.9 和已安装的 Python 依赖）：
 
-最终源文件仍经过平台外层的独立 Verus 检查，必要时按界面的修复上限追加修复。运行记录保存 Agent、模型、Skill 快照、实际模型请求次数和内部工具调用结果。对比不同 Agent 时，需要同时比较模型请求与验证工具次数，而不只比较外层修复轮数。
+```sh
+python scripts/install_agent_runtime.py
+python scripts/install_agent_runtime.py --check
+```
 
-在 Rust 项目中选择 Agent、已配置模型与 Skill 后，可点击「保存为项目默认」。这些选择由项目接口保存，其他浏览器刷新也能加载；保存不会修改源码版本。模型地址和认证信息仍保存在忽略提交的私有运行配置中。
+Docker 使用更新后的统一镜像构建流程，自动安装三套运行时和固定版本 Verus。CLI 位于 `/opt/acsl-agent/agents`，不会被 `./runtime:/app/runtime` 数据卷遮住。镜像构建排除本机 runtime、.env 和 tools/verus，避免复制私人配置、历史任务及错误架构的二进制。默认使用 Linux amd64，因为固定 Verus 发布包没有 Linux arm64 版本。
+
+```sh
+docker compose -f docker-compose.unified.yml up -d --build
+docker compose -f docker-compose.unified.yml exec acsl-agent python scripts/install_agent_runtime.py --check
+```
+
+部署管理员在服务器的 `.env` 配置一次模型服务，网页用户通过后端共享调用，无需自行安装 CLI 或登录厂商账号：
+
+```dotenv
+NL2VERUS_MODEL_BASE_URL=http://YOUR_MODEL_SERVER:8888/v1
+NL2VERUS_MODEL_ID=deepseek-v4-flash-0731
+NL2VERUS_MODEL_NAME=deepseek-v4-flash
+NL2VERUS_MODEL_AUTH_MODE=none
+NL2VERUS_MODEL_API_KEY=
+NL2VERUS_MODEL_PROTOCOLS=chat,responses,anthropic
+```
+
+只有服务实际支持的协议才能列入 `NL2VERUS_MODEL_PROTOCOLS`。DeepSeek Harness 走 Chat Completions，Codex 走 Responses，Claude Code 走 Messages；它们使用同一个 Model ID，但不能把接口协议仅靠修改名称混用。服务器必须能访问模型地址，开发机能访问内网服务不代表公网服务器也能访问。需要密钥时将 AUTH_MODE 设为 api_key，在服务器填写密钥，不提交到 Git。
+
+环境变量配置会自动作为部署模型出现，不要求复制个人的 `runtime/generation-models.json`；也可以由管理员在页面配置，存入服务器 runtime 数据卷。该文件不是源码，也不是 CLI。`--check` 只检查依赖，既不代表 API 已连通，也不代表 Verus 已就绪。
+
+官方 Harness 的 Agent 循环由上游 CLI 执行。Claude Code 通过官方 SDK 启动随项目安装的原生 CLI，允许任务目录内的 Read/Write/Edit，以及任务中指定的 Verus Bash 命令；没有改成平台自己调用模型的循环。所有最终输出仍由平台独立 Verus 检查。失败也保存脱敏身份、会话、退出原因和工具事件，不会退回直连 API。输出预算耗尽与网络/API 失败分别报告。
+
+在 Rust 项目中选择 Agent、已配置模型与 Skill 后，可点击「保存为项目默认」。这些选择由项目接口保存，其他浏览器刷新也能加载；保存不会修改源码版本。选中的 Skill 正文作为任务指令上下文传入，当前不声称官方 CLI 的原生 Skill 加载工具已执行。
+
+以上部署适配针对 Rust/Verus 工作台。C/ACSL 的 `apps/api/app/agent_runners.py` 是另一套适配器，仍有独立的 CLI/认证与模型配置，不会因本节的 Rust 设置自动完成接入。多人公网服务的用户认证、队列配额和任务隔离也不由安装脚本提供。

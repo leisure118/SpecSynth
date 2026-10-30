@@ -5,7 +5,7 @@ import {spawn} from 'node:child_process';
 import {createInterface} from 'node:readline';
 import path from 'node:path';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const require=createRequire(path.join(root,'runtime/agent-runtime/package.json'));
+const require=createRequire(path.join(process.env.ACSL_AGENT_RUNTIME_ROOT||path.join(root,'runtime'),'agent-runtime/package.json'));
 let input=''; for await(const chunk of process.stdin) input+=chunk;
 const {agent,prompt,profile,workingDirectory}=JSON.parse(input);
 try {
@@ -35,21 +35,7 @@ try {
       if(event.type==='turn.failed'||event.type==='error'){child.kill();throw new Error('turn failed')}
     }
     await completed;if(!finished)throw new Error('incomplete turn');
-  } else {
-    const {query}=await import(require.resolve('@anthropic-ai/claude-agent-sdk'));
-    const abortController=new AbortController();
-    for await(const message of query({prompt,options:{model:profile.model,cwd:workingDirectory,abortController,
-      env:{PATH:process.env.PATH,HOME:workingDirectory,CLAUDE_CONFIG_DIR:workingDirectory,ANTHROPIC_API_KEY:profile.api_key,ANTHROPIC_BASE_URL:profile.base_url,DISABLE_TELEMETRY:'1',DISABLE_ERROR_REPORTING:'1',MAX_RETRIES:'0'},
-      settingSources:[],tools:[],mcpServers:{},persistSession:false,maxTurns:4,
-      systemPrompt:'Return only complete Verus Rust source. Do not execute commands or modify files.'}})) {
-      if(message.type==='system'&&message.subtype==='api_retry'){abortController.abort();throw new Error('API retry stopped')}
-      if(message.type==='assistant'&&message.error){abortController.abort();throw new Error('API failed')}
-      if(message.type==='result') {
-        if(message.is_error||message.subtype!=='success')throw new Error('agent failed');
-        code=message.result;
-      }
-    }
-  }
+  } else { throw new Error('Unsupported bridge: use the official tool-enabled Claude adapter.'); }
   if(!code)throw new Error('empty result');
   process.stdout.write(JSON.stringify({code,usage}));
 } catch {

@@ -1,4 +1,4 @@
-"""Optional local mock smoke test; no external API or real credentials. Requires installed Agent runtimes."""
+"""Optional local Codex Responses mock smoke test; no external API or real credentials. Requires installed Agent runtimes."""
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from pathlib import Path
 import threading,tempfile,subprocess,json,os,time
@@ -22,7 +22,7 @@ class Handler(BaseHTTPRequestHandler):
   self.send_response(200);self.send_header('Content-Type',kind);self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw)
  def log_message(self,*a):pass
 server=ThreadingHTTPServer(('127.0.0.1',0),Handler);threading.Thread(target=server.serve_forever,daemon=True).start()
-for agent,model,prefix in [('codex','gpt-4o','/v1'),('claude','claude-sonnet-4-5','')]:
+for agent,model,prefix in [('codex','gpt-4o','/v1')]:
  before=len(seen)
  with tempfile.TemporaryDirectory() as folder:
   data={'agent':agent,'prompt':'Generate complete Verus for increment with precondition x<100 and ensures r=x+1. Return code only.','profile':{'api_key':'test-key-not-a-real-credential','base_url':f'http://127.0.0.1:{server.server_port}'+prefix,'model':model},'workingDirectory':folder}

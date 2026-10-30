@@ -1,10 +1,12 @@
 services:
   acsl-agent:
+    platform: ${ACSL_AGENT_IMAGE_PLATFORM:-linux/amd64}
     image: acslagent-unified:offline
     container_name: acsl-agent-unified
     env_file:
       - .env
     environment:
+      ACSL_AGENT_RUNTIME_ROOT: /opt/acsl-agent/agents
       ACSL_AGENT_LOCAL_TOOLCHAIN: "1"
       ACSL_AGENT_ALLOWED_ORIGINS: ${ACSL_AGENT_ALLOWED_ORIGINS:-}
       QWEN35_4B_API_BASE_URL: ${QWEN35_4B_DOCKER_BASE_URL:-}

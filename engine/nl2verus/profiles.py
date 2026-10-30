@@ -30,16 +30,39 @@ def legacy_profiles(snapshot=None):
     return rows
 
 
+def environment_profiles():
+    """Deployment-owned settings. No model request or local secret file required."""
+    base=os.environ.get('NL2VERUS_MODEL_BASE_URL','').strip().rstrip('/')
+    model=os.environ.get('NL2VERUS_MODEL_ID','').strip()
+    if not base or not model:return {}
+    base=base.removesuffix('/chat/completions').removesuffix('/responses').removesuffix('/messages')
+    parsed=urlsplit(base)
+    if parsed.scheme not in ('http','https') or not parsed.hostname or parsed.username or parsed.password or parsed.query or parsed.fragment:return {}
+    key=os.environ.get('NL2VERUS_MODEL_API_KEY','')
+    auth=os.environ.get('NL2VERUS_MODEL_AUTH_MODE') or ('api_key' if key else 'none')
+    if auth not in ('api_key','none'):return {}
+    protocols={s.strip() for s in os.environ.get('NL2VERUS_MODEL_PROTOCOLS','chat').split(',')}
+    name=os.environ.get('NL2VERUS_MODEL_NAME') or model
+    rows={}
+    for protocol in ('chat','responses','anthropic'):
+        if protocol not in protocols:continue
+        endpoint=base.removesuffix('/v1') if protocol=='anthropic' else base
+        ident='deployment-'+protocol
+        rows[ident]={'id':ident,'name':name,'model':model,'base_url':endpoint,'api_key':key if auth=='api_key' else '',
+                     'protocol':protocol,'auth_mode':auth,'is_default':True,'environment':True}
+    return rows
+
+
 def all_profiles(snapshot=None):
     try:
         rows = legacy_profiles(snapshot)
     except Exception:
         rows = {}
-    return rows | configured_profiles()
+    return rows | environment_profiles() | configured_profiles()
 
 
 def public_profile(row):
-    return {k: row[k] for k in ('id','name','model','base_url','protocol')} | {'auth_mode': row.get('auth_mode','api_key'), 'is_default': bool(row.get('is_default')),  'configured': row.get('auth_mode')=='none' or bool(row.get('api_key')), 'editable': not row.get('legacy', False)}
+    return {k: row[k] for k in ('id','name','model','base_url','protocol')} | {'auth_mode': row.get('auth_mode','api_key'), 'is_default': bool(row.get('is_default')),  'configured': row.get('auth_mode')=='none' or bool(row.get('api_key')), 'editable': not row.get('legacy', False) and not row.get('environment', False)}
 
 
 def save_profile(body):

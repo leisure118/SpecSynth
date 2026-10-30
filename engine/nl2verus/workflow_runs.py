@@ -281,9 +281,17 @@ class WorkflowRuns:
                     raise ValueError("Invalid provider result")
             except Exception as error:
                 message = _safe_error(error, "generating")
-                self._attempt_update(run_id, round_number, status="provider_error", error=message,
-                                     usage=_safe_usage(error), finished_at=_now())
-                self._finish(run_id, "provider_error", message)
+                from .model_provider import ProviderError
+                evidence = {}
+                outcome = 'output_limit' if isinstance(error, ProviderError) and error.code == 'output_limit' else 'provider_error'
+                if isinstance(error, ProviderError) and getattr(error, 'agent_runtime', None):
+                    evidence = {'agent_runtime': error.agent_runtime, 'agent_events': error.agent_events,
+                                'agent_provider_calls': error.provider_calls}
+                    with self._lock:
+                        self._runs[run_id]['provider_calls'] += max(0, error.provider_calls - 1)
+                self._attempt_update(run_id, round_number, status=outcome, error=message,
+                                     usage=_safe_usage(error), finished_at=_now(), **evidence)
+                self._finish(run_id, outcome, message)
                 return
             with self._lock:
                 self._runs[run_id]['provider_calls'] += max(0,generated.get('provider_calls',1)-1)

@@ -88,9 +88,11 @@ def verdict_of(result_type):
     return "Unknown"
 
 
-def run_framac_with_wp(cfile, timeout=8):
+def run_framac_with_wp(cfile, timeout=8, subprocess_timeout=SUBPROCESS_TIMEOUT, binary=None):
     """Run `frama-c -wp ...` on a single annotated C file.
 
+    ``timeout`` is the per-goal WP timeout; ``subprocess_timeout`` bounds the
+    whole invocation. ``binary`` overrides the module-level ``FRAMAC_BIN``.
     Returns a dict:
         {result_type, stdout, stderr, elapsed_sec, returncode, timed_out}
     Raises FileNotFoundError if the frama-c binary is missing (caller maps this
@@ -99,8 +101,9 @@ def run_framac_with_wp(cfile, timeout=8):
     if not os.path.exists(cfile):
         raise FileNotFoundError("input C file not found: %s" % cfile)
 
+    executable = binary or FRAMAC_BIN
     cmd = [
-        FRAMAC_BIN, "-wp",
+        executable, "-wp",
         "-wp-rte",
         "-wp-precond-weakening",
         "-wp-prover", "Alt-Ergo,Z3",
@@ -121,11 +124,11 @@ def run_framac_with_wp(cfile, timeout=8):
         )
     except FileNotFoundError:
         raise FileNotFoundError(
-            "frama-c binary '%s' not found on PATH (run inside the acslagent image)" % FRAMAC_BIN
+            "frama-c binary '%s' not found on PATH" % executable
         )
 
     try:
-        out, err = proc.communicate(timeout=SUBPROCESS_TIMEOUT)
+        out, err = proc.communicate(timeout=subprocess_timeout)
     except subprocess.TimeoutExpired:
         timed_out = True
         try:

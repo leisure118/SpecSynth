@@ -443,6 +443,11 @@ def test_openharmony_nullable_contracts_are_guarded_once(
     ensures: list[str],
 ) -> None:
     source_path = Path(__file__).resolve().parents[2] / "openharmony验证样例" / sample_name
+    if not source_path.exists():
+        bundled = Path(__file__).resolve().parents[1] / "resources" / "demo_cases" / "openharmony" / (Path(sample_name).stem + "_verified.c")
+        if not bundled.exists():
+            pytest.skip("external OpenHarmony sample is not installed")
+        source_path = bundled
     source = source_path.read_text(encoding="utf-8")
     question = source.replace("\nvoid OH_", "\n/* @ >>> INFILL <<< */\nvoid OH_", 1)
     valid_body = [

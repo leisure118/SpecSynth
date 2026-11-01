@@ -119,7 +119,7 @@ def example(monkeypatch, execution='replay'):
     def lookup(key):
         if key!=case['id']:raise KeyError(key)
         return case
-    monkeypatch.setattr(workspace,'get_demo_case',lookup)
+    monkeypatch.setattr('acsl.application.projects.get_demo_case',lookup)
     return case
 
 
@@ -189,7 +189,7 @@ def test_assistant_persistence_binding_and_run_snapshot(client):
 
 
 def test_external_agent_configuration_does_not_silently_run_default(client,monkeypatch):
-    from apps.api.app import agent_runners
+    from acsl.adapters import agent_runtime as agent_runners
     def unavailable(agent):
         raise ValueError("Agent is unavailable")
     monkeypatch.setattr(agent_runners,"require_agent",unavailable)

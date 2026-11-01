@@ -11,7 +11,8 @@ ACSL AGENT 是一个面向 C 程序的形式化规约自动生成与验证系统
 
 ```text
 ACSLAgent/
-├─ apps/         前后端应用
+├─ apps/         前端与 FastAPI 接口层
+├─ acsl/         分层后端：domain / contracts / application / adapters / infrastructure
 ├─ configs/      模型与 demo 配置
 ├─ engine/       规约生成、验证与终止性分析引擎
 ├─ resources/    演示样例与静态资源
@@ -23,6 +24,26 @@ ACSLAgent/
 ├─ docker-compose.unified.yml
 └─ Dockerfile.unified
 ```
+
+后端依赖方向：`apps/api`（HTTP）→ `acsl.application`（用例）→ `acsl.domain`；外部能力通过 `acsl.adapters` 接入，`engine/` 只保存语言算法与验证实现。分层规则由 `tests/test_architecture.py` 检查。
+
+## 架构总览
+
+平台采用 **共享运行内核 + 语言能力包** 的结构，C / Rust 共用编排、事件、规约、配置、评测与前端工作台；语言差异收敛到语言能力层。
+
+```mermaid
+flowchart LR
+  E["工作台 · 数据集 · 工具箱"] --> K["共享内核<br/>编排 · 事件 · 规约"]
+  K --> L["C / Rust 语言能力"]
+  K --> A["Agent / 模型"]
+  L --> V["验证器"]
+  K -. legacy .-> X["AutoSpec"]
+
+  classDef core fill:#eef0ff,stroke:#4b5bd6,stroke-width:2px,color:#111
+  class K core
+```
+
+完整的当前模块、验证路径与重构重点见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
 ## 环境要求
 
@@ -53,6 +74,8 @@ docker pull junjiehu1905/termination_analysis:latest
 ```powershell
 python scripts/run_api.py
 ```
+
+C 工作台的“仅验证”会优先使用本机 `frama-c` + `alt-ergo`/`z3`，不需要 AutoSpec 镜像；完整的 AutoSpec 生成流水线仍使用对应镜像。共享验证器的运行时选择见 `.env.example` 中的 `ACSL_VERIFIER_RUNTIME`。
 
 访问地址：
 

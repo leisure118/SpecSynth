@@ -4,7 +4,11 @@ import time
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from apps.api.app import workspace, config, storage, service, rust
+from apps.api.app import workspace, rust
+from acsl.adapters.storage import JsonStore
+from acsl.application import rust_execution
+from acsl.application.runs.manager import RunManager
+from acsl.infrastructure.settings import settings
 from engine.nl2verus import verifier
 from engine.nl2verus.workflow_runs import WorkflowRuns, WorkflowRunRequest
 
@@ -15,13 +19,11 @@ def system(tmp_path, monkeypatch):
     runs = tmp_path/'runs'
     runs.mkdir()
     monkeypatch.setattr(workspace, 'PROJECTS_DIR', tmp_path/'projects')
-    monkeypatch.setattr(config, 'RUNS_DIR', runs)
-    monkeypatch.setattr(storage, 'RUNS_DIR', runs)
-    monkeypatch.setattr(storage, 'UPLOADS_DIR', runs/'uploads')
-    monkeypatch.setattr(service, 'RUNS_DIR', runs)
+    monkeypatch.setattr(settings, 'runs_dir', runs)
+    monkeypatch.setattr(settings, 'uploads_dir', runs/'uploads')
     monkeypatch.setattr(workspace, 'get_available_models', lambda: ['test'])
-    store=storage.JsonStore()
-    manager=service.RunManager(store)
+    store=JsonStore()
+    manager=RunManager(store)
     app=FastAPI();app.include_router(workspace.create_workspace_router(manager,store))
     return TestClient(app),store,manager
 
@@ -91,8 +93,8 @@ def test_generation_repairs_and_persists(system,monkeypatch):
         checks.append(code);ok=len(checks)==2
         return {'status':'verified' if ok else 'failed','verified':ok,'verified_count':1 if ok else 0,'error_count':0 if ok else 1,'exit_code':0 if ok else 1,'verus_version':verifier.VERUS_VERSION,'message':'ok' if ok else 'postcondition failed','stderr':''}
     caps={'generation_configured':True,'embedding_configured':False,'default_model_id':'fake','models':[{'id':'fake','configured':True}]}
-    monkeypatch.setattr(rust,'provider_status',lambda:caps)
-    monkeypatch.setattr(rust,'WorkflowRuns',lambda:WorkflowRuns(config=lambda:None,status=lambda **k:caps,generate=generate,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
+    monkeypatch.setattr(rust_execution,'provider_status',lambda:caps)
+    monkeypatch.setattr(rust_execution,'WorkflowRuns',lambda:WorkflowRuns(config=lambda:None,status=lambda **k:caps,generate=generate,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
     p=make(client)
     response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'fake','description':'increment safely','function_signature':'fn inc(x: u64) -> (r: u64)','source_name':'uploaded-spec.md'})
     assert response.status_code==201,response.text
@@ -134,7 +136,7 @@ def test_service_restart_never_replays_generation(system):
     from apps.api.app.schemas import RunTask,PhaseState
     from apps.api.app.storage import utcnow
     client,store,manager=system
-    task=RunTask(task_id='interrupted',mode='rust-generate',title='Rust',source_type='upload',status='running',engine='live',created_at=utcnow(),updated_at=utcnow(),task_dir=str(storage.RUNS_DIR/'interrupted'),phases=[PhaseState(key='generation',label='generate',status='running')],metadata={'worker_pid':-1,'rust_workflow':{'attempts':[{'round':0,'code':GOOD}]}})
+    task=RunTask(task_id='interrupted',mode='rust-generate',title='Rust',source_type='upload',status='running',engine='live',created_at=utcnow(),updated_at=utcnow(),task_dir=str(settings.runs_dir/'interrupted'),phases=[PhaseState(key='generation',label='generate',status='running')],metadata={'worker_pid':-1,'rust_workflow':{'attempts':[{'round':0,'code':GOOD}]}})
     store.create_task(task)
     recovered,result=manager.ensure_materialized(task.task_id)
     assert recovered.status=='unavailable' and result['status']=='Unavailable'
@@ -155,7 +157,7 @@ def test_api_agent_selection_and_skills_are_persisted(system,monkeypatch,tmp_pat
     monkeypatch.setattr(dsh_cli,'generate',lambda prompt,profile:seen.append((prompt,True)) or {'code':GOOD,'finish_reason':'stop','model_name':profile['model'],'agent_events':[{'tool':'verify_verus','status':'verified'}],'provider_calls':2})
     def verify(code,timeout):
         return {'status':'verified','verified':True,'verified_count':1,'error_count':0,'message':'verified','stdout':'1 verified, 0 errors','stderr':'','exit_code':0,'verus_version':verifier.VERUS_VERSION}
-    monkeypatch.setattr(rust,'WorkflowRuns',lambda **kwargs:WorkflowRuns(**kwargs,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
+    monkeypatch.setattr(rust_execution,'WorkflowRuns',lambda **kwargs:WorkflowRuns(**kwargs,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
     p=make(client)
     response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'experiment','agent_id':'deepseek-harness','skill_ids':['verus-proof'],'description':'Increment x safely','max_repair_rounds':0})
     assert response.status_code==201,response.text
@@ -176,14 +178,15 @@ def test_dataset_label_cannot_hide_modified_task(system,monkeypatch):
     from engine.nl2verus.dataset import load_tasks
     client,store,_=system
     caps={'generation_configured':True,'embedding_configured':False,'models':[{'id':'fake','configured':True}]}
-    monkeypatch.setattr(rust,'provider_status',lambda:caps)
+    monkeypatch.setattr(rust_execution,'provider_status',lambda:caps)
     p=make(client);row=load_tasks()[0]
     response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'fake','sample_id':row['sample_id'],'description':'Modified task','function_signature':row.get('function_signature','')})
     assert response.status_code==422
     assert not client.get('/api/v1/projects/'+p['id']).json()['runs']
 
 def test_external_agent_failed_proof_repairs_then_persists(system,monkeypatch):
-    from apps.api.app import agent_execution, agent_runners
+    from acsl.application import agent_execution
+    from acsl.adapters import agent_runtime as agent_runners
     client,store,_=system
     monkeypatch.setattr(agent_runners,'require_agent',lambda _:None)
     monkeypatch.setattr(agent_execution,'verifier_preflight',lambda *a:None)
@@ -210,7 +213,8 @@ def test_external_agent_failed_proof_repairs_then_persists(system,monkeypatch):
 
 
 def test_external_agent_cannot_report_pass_without_verifier(system,monkeypatch):
-    from apps.api.app import agent_execution,agent_runners
+    from acsl.application import agent_execution
+    from acsl.adapters import agent_runtime as agent_runners
     client,store,_=system
     monkeypatch.setattr(agent_runners,'require_agent',lambda _:None)
     monkeypatch.setattr(agent_execution,'verifier_preflight',lambda *a:None)
@@ -223,7 +227,8 @@ def test_external_agent_cannot_report_pass_without_verifier(system,monkeypatch):
 
 
 def test_unavailable_verifier_never_calls_agent(system,monkeypatch):
-    from apps.api.app import agent_execution,agent_runners
+    from acsl.application import agent_execution
+    from acsl.adapters import agent_runtime as agent_runners
     client,store,_=system
     monkeypatch.setattr(agent_runners,'require_agent',lambda _:None)
     monkeypatch.setattr(agent_execution,'verifier_preflight',lambda *a:'Verifier unavailable')
@@ -239,14 +244,14 @@ def test_live_progress_is_visible_while_model_and_verifier_are_running(system,mo
     client,store,_=system
     generated=threading.Event();release_model=threading.Event();verifying=threading.Event();release_verifier=threading.Event()
     caps={'generation_configured':True,'embedding_configured':False,'default_model_id':'fake','models':[{'id':'fake','configured':True}]}
-    monkeypatch.setattr(rust,'provider_status',lambda:caps)
+    monkeypatch.setattr(rust_execution,'provider_status',lambda:caps)
     def generate(*args,**kwargs):
         generated.set();assert release_model.wait(10)
         return {'code':GOOD,'model_name':'fake','usage':{},'finish_reason':'stop'}
     def verify(*args):
         verifying.set();assert release_verifier.wait(10)
         return {'status':'verified','verified':True,'verified_count':1,'error_count':0,'message':'ok','stderr':'','stdout':'1 verified, 0 errors','exit_code':0,'verus_version':verifier.VERUS_VERSION}
-    monkeypatch.setattr(rust,'WorkflowRuns',lambda:WorkflowRuns(config=lambda:None,status=lambda **k:caps,generate=generate,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
+    monkeypatch.setattr(rust_execution,'WorkflowRuns',lambda:WorkflowRuns(config=lambda:None,status=lambda **k:caps,generate=generate,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
     project=make(client)
     response=client.post('/api/v1/projects/'+project['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'fake','description':'increment safely','max_repair_rounds':0})
     assert response.status_code==201
@@ -310,7 +315,7 @@ def test_official_cli_failure_keeps_identity_and_tool_evidence(system,monkeypatc
         error.agent_events=[{'tool':'write','status':'completed'}];error.provider_calls=3
         raise error
     monkeypatch.setattr(dsh_cli,'generate',generate)
-    monkeypatch.setattr(rust,'WorkflowRuns',lambda **kwargs:WorkflowRuns(**kwargs,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
+    monkeypatch.setattr(rust_execution,'WorkflowRuns',lambda **kwargs:WorkflowRuns(**kwargs,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
     p=make(client)
     response=client.post('/api/v1/projects/'+p['id']+'/runs',json={'revision':1,'entry_path':'src/lib.rs','mode':'rust-generate','model_name':'official','agent_id':'deepseek-harness','description':'Increment safely','max_repair_rounds':0})
     assert response.status_code==201,response.text

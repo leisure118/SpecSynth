@@ -45,9 +45,10 @@ def test_missing_source_and_bad_path_never_submit(runner):
     assert not submissions
 
 def test_generation_resolves_pinned_skills_and_uses_registered_model(runner,monkeypatch):
-    from apps.api.app import config,skill_library,agent_runners
+    from acsl.infrastructure import settings as settings_module
+    from acsl.adapters import agent_runtime as agent_runners
     client,submissions,_,_=runner
-    monkeypatch.setattr(config,'get_available_models',lambda:['deepseek-test'])
+    monkeypatch.setattr(settings_module,'get_available_models',lambda:['deepseek-test'])
     monkeypatch.setattr(agent_runners,'require_agent',lambda agent:None)
     r=client.post('/api/v1/benchmarks/autobench_v2/runs',json={'file':'103.c','action':'generate','model_name':'deepseek-test','assistant':{'agent':'deepseek-harness','skills':[{'id':'bounds','name':'bounds','instructions':'Preserve bounds','agents':['deepseek-harness']}]}})
     assert r.status_code==201,r.text
@@ -63,7 +64,7 @@ def test_invalid_settings_rejected_before_execution(runner):
     assert not submissions
 
 def test_direct_verification_rejects_assumptions_without_running_tool(tmp_path,monkeypatch):
-    from apps.api.app import agent_execution
+    from acsl.application import agent_execution
     source=tmp_path/'source.c';source.write_text('int main(){\n//@ admit 0;\nreturn 0;\n}')
     monkeypatch.setattr(agent_execution,'resolve_project_path',lambda _:source)
     def unexpected(*a,**kw):raise AssertionError('Blocked source must never reach verifier')

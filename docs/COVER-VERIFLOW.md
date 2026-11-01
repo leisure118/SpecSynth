@@ -4,11 +4,11 @@
 
 ## 复用范围
 
-使用用户提供的 `VeriFlow-source-49f7912/ui` 为界面来源。`apps/web/src/styles/veriflow/` 保存原始 `home.css`、`home-overrides.css`、`projects.css`；仅将字体 URL 调整为本项目的 `/fonts/`。布局来源为 VeriFlow 的 `HomePage.tsx`、`ProjectsPage.tsx`，迁移到当前 Vue 路由和组件生命周期，而非加载另一套 React 应用或用 iframe 包住网站。Manrope 字体及其 OFL 许可证一并保留。
+使用用户提供的 `VeriFlow-source-49f7912/ui` 为界面来源。`apps/web/src/styles/veriflow/` 保存原始 `home.css`、`home-overrides.css`、`projects.css`；将字体 URL 调整为本项目的 `/fonts/`，并清除旧紫色字面量。布局来源为 VeriFlow 的 `HomePage.tsx`、`ProjectsPage.tsx`，迁移到当前 Vue 路由和组件生命周期，而非加载另一套 React 应用或用 iframe 包住网站。Manrope 字体及其 OFL 许可证一并保留。
 
 首页复用了导航、hero、技术栏、三步流程、案例区、原则区、底部 CTA 的布局结构。首屏替换为玄鉴已确认的 C/Rust 双轨 SVG 动效，随组件卸载释放动画帧与 ResizeObserver。项目页沿用 VeriFlow 的 heading/content 间距体系；工作台使用白色面板、紧凑边界和统一选择态。
 
-`cover-veriflow.css` 是定制主题层。主色石墨黑 `#272A2E`，点缀铜橙 `#C77845`，正文 `#272A2E`，背景 `#FAFAFA`，边框 `#E1E3E5`。现有 CSS 中旧蓝紫品牌字面量同步收敛为中性色。代码语义颜色独立：spec 浅蓝、exec 浅绿、proof 浅橙。
+`cover-veriflow.css` 是定制主题层。主色炭黑 `#252C32`，交互亮青 `#00A9BE`，C 路径朱红 `#EF624E`，正文 `#272A2E`，背景冷白 `#F7F9FA`，边框 `#E1E3E5`。现有 CSS 中旧蓝紫品牌字面量同步收敛为中性色。代码语义颜色独立：spec 浅蓝、exec 浅绿、proof 浅橙。
 
 ## 功能与部署
 
@@ -45,3 +45,5 @@ ACSL_AGENT_TEST_BASE_URL=http://127.0.0.1:8010 PLAYWRIGHT_CHANNEL=chrome npx pla
 - X.509 图谱能进入，但函数详情接口因本地证据包缺失返回 503；对应测试未通过。未进行真实模型生成与 Verus 验证，不将模拟或回放结果冒充真实执行。
 
 浏览器测试修正了旧的控件定位和缺失夹具：配置区需先展开、Rust 文件需显式打开、任务页为自然语言文档、历史重跑记录使用固定夹具。项目下拉操作菜单改为原生可聚焦菜单，消除复制后浮层不稳定。
+
+K 主题统一用于首页、项目/数据集、工作台和弹窗。大按钮保持炭黑白字；亮青用于下划线、选中态与焦点，深青文字用于保证小字号对比度。C/Rust 动效分别使用朱红/亮青，非当前路径降低不透明度。代码 spec/exec/proof 与通过/失败状态维持独立语义色，不因品牌调整而改成同一种颜色。

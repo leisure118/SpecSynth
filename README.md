@@ -206,4 +206,4 @@ C 工作台以 `deepseek-v4-flash-0731` 为主模型，Sub-agent 下拉框可选
 
 ## VeriFlow 界面迁移分支
 
-`feat/cover-veriflow` 使用 VeriFlow 的页面结构，接入本平台现有 C/Rust 功能，并采用石墨黑与铜橙主题。范围、复用来源、测试方式与环境限制见 [迁移说明](docs/COVER-VERIFLOW.md)。
+`feat/cover-veriflow` 使用 VeriFlow 的页面结构，接入本平台现有 C/Rust 功能，并采用 K 的炭黑、亮青与朱红主题。范围、复用来源、测试方式与环境限制见 [迁移说明](docs/COVER-VERIFLOW.md)。

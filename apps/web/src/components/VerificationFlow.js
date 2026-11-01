@@ -7,7 +7,7 @@ const svg=root.querySelector('.x-scene');
 const stage=root.querySelector('.x-stage');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const saved=null;
-const state={language:saved?.modelContent?.language==='rust'?'rust':'c',auto:saved?.privateContent?.auto!==false,playing:!reduced,speed:1,accent:'#70348b'};
+const state={language:saved?.modelContent?.language==='rust'?'rust':'c',auto:saved?.privateContent?.auto!==false,playing:!reduced,speed:1,accent:'#34454e'};
 let clock=reduced?3800:700,last=performance.now(),phase=-1,scene=null,lastLang='',frame=0;
 const labels=['任务进入生成核心','生成实现、规约与证明','验证器检查证明目标','诊断返回 · 补充证明','重新检查验证目标','在当前规约下验证通过'];
 const content={c:{source:'program.c',route:'C → ACSL → Frama-C / WP',code:[['int max(...) {','none'],['  /*@ requires n > 0;','spec'],['      ensures maximal; */','spec'],['  for (...) { ... }','exec'],['  /*@ invariant ...; */','proof'],['  return best;','exec']]},rust:{source:'task.txt',route:'自然语言 → Verus → 机器验证',code:[['fn max(a: &Vec<i32>)','none'],['  requires a.len() > 0,','spec'],['  ensures maximal(a,r),','spec'],['  let mut best = 0;','exec'],['  invariant ...','proof'],['  decreases ...','proof']]}};
@@ -114,10 +114,10 @@ function paint(){
   root.querySelector('.x-route-label').textContent=data.route;
   svg.querySelectorAll('[data-code-row]').forEach((row,i)=>{const maxChars=Math.floor(166*scene.s/6.75);row.querySelector('text').textContent=data.code[i][0].length>maxChars?data.code[i][0].slice(0,maxChars-1)+'…':data.code[i][0];row.querySelector('rect').style.fill=data.code[i][1]==='none'?'transparent':`var(--x-${data.code[i][1]})`;});
   svg.querySelectorAll('[data-code-bar]').forEach((row,i)=>row.style.fill=data.code[i][1]==='none'?'var(--x-line)':`var(--x-${data.code[i][1]})`);
-  ['c','rust'].forEach(lang=>{svg.querySelector(`[data-source="${lang}"]`).style.opacity=state.language===lang?'1':'.4';svg.querySelector(`[data-engine="${lang}"]`).style.opacity=state.language===lang?'1':'.45';[scene.in[lang],scene.out[lang]].forEach(el=>{el.style.stroke=lang===state.language?'var(--x-copper, var(--x-purple))':'var(--x-line)';el.style.strokeOpacity=lang===state.language?'.75':'.5';});scene.feedback[lang].style.stroke=lang===state.language?'var(--x-copper, var(--x-purple))':'var(--x-line)';scene.feedback[lang].style.opacity=lang===state.language?'.95':'.45';});
+  ['c','rust'].forEach(lang=>{svg.querySelector(`[data-source="${lang}"]`).style.setProperty('--x-purple',`var(--x-${lang}, #34454e)`);svg.querySelector(`[data-engine="${lang}"]`).style.setProperty('--x-purple',`var(--x-${lang}, #34454e)`);svg.querySelector(`[data-source="${lang}"]`).style.opacity=state.language===lang?'1':'.4';svg.querySelector(`[data-engine="${lang}"]`).style.opacity=state.language===lang?'1':'.45';[scene.in[lang],scene.out[lang]].forEach(el=>{el.style.stroke=lang===state.language?`var(--x-${lang}, var(--x-purple))`:'var(--x-line)';el.style.strokeOpacity=lang===state.language?'1':'.45';});scene.feedback[lang].style.stroke=lang===state.language?`var(--x-${lang}, var(--x-purple))`:'var(--x-line)';scene.feedback[lang].style.opacity=lang===state.language?'1':'.35';[scene.in[lang],scene.out[lang],scene.feedback[lang]].forEach(el=>el.style.strokeWidth=lang===state.language?'1.8':'1');});
   lastLang=state.language;controls();
  }
- if(next!==phase){root.querySelector('output').textContent=labels[next];root.querySelector('.x-live-dot').style.background=next===3?'var(--x-orange)':next===5?'var(--x-green)':'var(--x-purple)';phase=next;}
+ if(next!==phase){root.querySelector('output').textContent=labels[next];root.querySelector('.x-live-dot').style.background=next===5?'var(--x-green)':`var(--x-${state.language}, var(--x-purple))`;phase=next;}
  const progress=Math.min(1,Math.max(0,(t-1450)/2250));
  svg.querySelectorAll('[data-code-row]').forEach((row,i)=>row.style.opacity=String(t<1450?(i===0?.55:.08):Math.max(.08,Math.min(1,progress*6-i+1))));
  svg.querySelectorAll('[data-code-bar]').forEach((row,i)=>row.style.opacity=String(t<1450?.2:Math.max(.1,Math.min(1,progress*6-i+1))));
@@ -125,10 +125,10 @@ function paint(){
  scene.scan.setAttribute('y',String(40+((t-1450+9600)%2100)/2100*145));scene.scan.style.opacity=phase===1?'.85':'.06';
  scene.patch.style.opacity=phase===3?String(Math.sin((t-5100)/1800*Math.PI)):'0';
  ['c','rust'].forEach(lang=>svg.querySelectorAll(`[data-goals="${lang}"] circle`).forEach((circle,i)=>{const active=lang===state.language;circle.style.fill=!active||phase<2?'var(--x-line)':phase<4&&i===2?'var(--x-orange)':'var(--x-green)';circle.style.opacity=active&&phase>=2?'1':'.6';}));
- let p=null,color='var(--x-purple)';
+ let p=null,color=`var(--x-${state.language}, var(--x-purple))`;
  if(t<1450)p=point(scene.in[state.language],t/1450);
  else if(t>=4000&&t<5100)p=point(scene.out[state.language],(t-4000)/1100);
- else if(t>=5100&&t<6900){p=point(scene.feedback[state.language],(t-5100)/1800);color='var(--x-orange)';}
+ else if(t>=5100&&t<6900){p=point(scene.feedback[state.language],(t-5100)/1800);color=`var(--x-${state.language}, var(--x-orange))`;}
  else if(t>=6900&&t<7900){p=point(scene.out[state.language],(t-6900)/1000);color='var(--x-green)';}
  scene.particle.style.opacity=p?'1':'0';if(p){for(const el of [scene.dot,scene.glow]){el.setAttribute('cx',String(p.x));el.setAttribute('cy',String(p.y));el.style.fill=color;}}
 }

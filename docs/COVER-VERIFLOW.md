@@ -8,7 +8,7 @@
 
 首页复用了导航、hero、技术栏、三步流程、案例区、原则区、底部 CTA 的布局结构。首屏替换为玄鉴已确认的 C/Rust 双轨 SVG 动效，随组件卸载释放动画帧与 ResizeObserver。项目页沿用 VeriFlow 的 heading/content 间距体系；工作台使用白色面板、紧凑边界和统一选择态。
 
-`cover-veriflow.css` 是定制主题层。主色 `#9B5032`，正文 `#272A2E`，背景 `#FAF9F7`，边框 `#E4DFD9`。现有 CSS 中旧蓝紫品牌字面量同步收敛为中性色。代码语义颜色独立：spec 浅蓝、exec 浅绿、proof 浅橙。
+`cover-veriflow.css` 是定制主题层。主色石墨黑 `#272A2E`，点缀铜橙 `#C77845`，正文 `#272A2E`，背景 `#FAFAFA`，边框 `#E1E3E5`。现有 CSS 中旧蓝紫品牌字面量同步收敛为中性色。代码语义颜色独立：spec 浅蓝、exec 浅绿、proof 浅橙。
 
 ## 功能与部署
 

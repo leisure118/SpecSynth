@@ -1,0 +1,430 @@
+Frama-C 证明目标 15/15
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function lower_bound
+[wp] 15 goals scheduled
+[wp] Proved goals:   15 / 15
+  Qed:             6
+  Alt-Ergo :       8 (42ms-70ms-110ms)
+  Z3 4.8.12:       1 (140ms)
+------------------------------------------------------------
+  Function lower_bound
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 5) in 'lower_bound':
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(lower_bound_0) /\
+      is_uint32(n) /\ is_uint32(right_0) /\ is_sint32(val_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 <= i) -> ((i < n) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= lower_bound_0) /\ (right_0 <= n) /\ (lower_bound_0 <= right_0).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < lower_bound_0) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_0 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+  (* Else *)
+  Have: right_0 <= lower_bound_0.
+}
+Prove: lower_bound_0 <= n.
+Prover Z3 4.8.12 returns Valid (Qed:10ms) (140ms) (85255)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (42ms) (35)
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 6) in 'lower_bound':
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(left_0) /\ is_uint32(n) /\
+      is_uint32(right_0) /\ is_sint32(val_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < left_0).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((right_0 <= i_1) ->
+      (val_0 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Else *)
+  Have: right_0 <= left_0.
+}
+Prove: Mint_0[shift_sint32(a, i)] < val_0.
+Prover Z3 4.8.12 returns Valid (Qed:6ms) (150ms) (86811)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (50ms) (55)
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 7) in 'lower_bound':
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(left_0) /\ is_uint32(n) /\
+      is_uint32(right_0) /\ is_sint32(val_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (left_0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((right_0 <= i_1) ->
+      (val_0 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Else *)
+  Have: right_0 <= left_0.
+}
+Prove: val_0 <= Mint_0[shift_sint32(a, i)].
+Prover Z3 4.8.12 returns Valid (Qed:7ms) (150ms) (86883)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (53ms) (55)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 15):
+Let a_1 = shift_sint32(a,
+            to_uint32(left_2 + (to_uint32(right_1 - left_2) / 2))).
+Let x = Mint_0[a_1].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(left_0) /\ is_uint32(left_1) /\
+      is_uint32(left_2) /\ is_uint32(middle_0) /\ is_uint32(middle_1) /\
+      is_uint32(n) /\ is_uint32(right_1) /\ is_uint32(right_0) /\
+      is_sint32(val_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 <= i) -> ((i < n) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_2) /\ (right_1 <= n) /\ (left_2 <= right_1).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < left_2) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_1 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+  (* Then *)
+  Have: left_2 < right_1.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  If x < val_0
+  Then {
+    Have: (left_2 = left_1) /\ (right_0 = right_1) /\
+        (to_uint32(left_1 + (to_uint32(right_0 - left_1) / 2)) = middle_0).
+    (* Assertion *)
+    Have: forall i : Z. ((0 <= i) -> ((i <= middle_0) ->
+        (Mint_0[shift_sint32(a, i)] < val_0))).
+    Have: to_uint32(1 + middle_0) = left_0.
+  }
+  Else {
+    Have: (left_2 = left_0) /\ (right_0 = middle_1) /\
+        (to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)) = middle_1).
+  }
+}
+Prove: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+Prover Alt-Ergo  returns Valid (Qed:34ms) (96ms) (664)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 15):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 16):
+Let a_1 = shift_sint32(a,
+            to_uint32(left_2 + (to_uint32(right_0 - left_2) / 2))).
+Let x = Mint_0[a_1].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(left_0) /\ is_uint32(left_1) /\
+      is_uint32(left_2) /\ is_uint32(middle_0) /\ is_uint32(middle_1) /\
+      is_uint32(n) /\ is_uint32(right_0) /\ is_uint32(right_1) /\
+      is_sint32(val_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < left_0).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_2) /\ (right_0 <= n) /\ (left_2 <= right_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_2) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((right_0 <= i_1) ->
+      (val_0 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: left_2 < right_0.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  If x < val_0
+  Then {
+    Have: (left_2 = left_1) /\ (right_1 = right_0) /\
+        (to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)) = middle_0).
+    (* Assertion *)
+    Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= middle_0) ->
+        (Mint_0[shift_sint32(a, i_1)] < val_0))).
+    Have: to_uint32(1 + middle_0) = left_0.
+  }
+  Else {
+    Have: (left_2 = left_0) /\ (right_1 = middle_1) /\
+        (to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)) = middle_1).
+  }
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_1 <= n) /\ (left_0 <= right_1).
+}
+Prove: Mint_0[shift_sint32(a, i)] < val_0.
+Prover Alt-Ergo  returns Valid (Qed:38ms) (110ms) (1054)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.73ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 17):
+Let a_1 = shift_sint32(a,
+            to_uint32(left_2 + (to_uint32(right_0 - left_2) / 2))).
+Let x = Mint_0[a_1].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(left_0) /\ is_uint32(left_1) /\
+      is_uint32(left_2) /\ is_uint32(middle_0) /\ is_uint32(middle_1) /\
+      is_uint32(n) /\ is_uint32(right_0) /\ is_uint32(right_1) /\
+      is_sint32(val_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i < n) /\ (right_1 <= i).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_2) /\ (right_0 <= n) /\ (left_2 <= right_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_2) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((right_0 <= i_1) ->
+      (val_0 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: left_2 < right_0.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  If x < val_0
+  Then {
+    Have: (left_2 = left_1) /\ (right_1 = right_0) /\
+        (to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)) = middle_0).
+    (* Assertion *)
+    Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= middle_0) ->
+        (Mint_0[shift_sint32(a, i_1)] < val_0))).
+    Have: to_uint32(1 + middle_0) = left_0.
+  }
+  Else {
+    Have: (left_2 = left_0) /\ (right_1 = middle_1) /\
+        (to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)) = middle_1).
+  }
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_1 <= n) /\ (left_0 <= right_1).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+}
+Prove: val_0 <= Mint_0[shift_sint32(a, i)].
+Prover Alt-Ergo  returns Valid (Qed:46ms) (67ms) (319)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 23):
+Let a_1 = shift_sint32(a,
+            to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2))).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(left_0) /\ is_uint32(n) /\
+      is_uint32(right_0) /\ is_sint32(val_0) /\ is_sint32(Mint_0[a_1]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 <= i) -> ((i < n) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < left_0) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_0 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+  (* Then *)
+  Have: left_0 < right_0.
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (76ms) (481)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 24):
+Let x = to_uint32(left_0 + (to_uint32(right_0 - left_0) / 2)).
+Let a_1 = shift_sint32(a, x).
+Let x_1 = Mint_0[a_1].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(left_0) /\ is_uint32(n) /\
+      is_uint32(right_0) /\ is_sint32(val_0) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= x).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_2,i_1 : Z. ((0 <= i_2) -> ((i_2 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(a, i_2)] <= Mint_0[shift_sint32(a, i_1)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_0 <= n) /\ (left_0 <= right_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < left_0) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < n) -> ((right_0 <= i_1) ->
+      (val_0 <= Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: left_0 < right_0.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Then *)
+  Have: x_1 < val_0.
+}
+Prove: Mint_0[shift_sint32(a, i)] < val_0.
+Prover Z3 4.8.12 returns Valid (Qed:13ms) (150ms) (122564)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (63ms) (323)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'lower_bound':
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 21):
+Let a_1 = shift_sint32(a,
+            to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2))).
+Let x = Mint_0[a_1].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(left_1) /\ is_uint32(left_0) /\
+      is_uint32(middle_0) /\ is_uint32(middle_1) /\ is_uint32(n) /\
+      is_uint32(right_1) /\ is_uint32(right_0) /\ is_sint32(val_0) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: forall i_1,i : Z. ((0 <= i_1) -> ((i_1 <= i) -> ((i < n) ->
+      (Mint_0[shift_sint32(a, i_1)] <= Mint_0[shift_sint32(a, i)])))).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= left_0) /\ (right_1 <= n) /\ (left_0 <= right_1).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < left_0) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_1 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+  (* Then *)
+  Have: left_0 < right_1.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  If x < val_0
+  Then {
+    Have: (right_0 = right_1) /\
+        (to_uint32(left_0 + (to_uint32(right_1 - left_0) / 2)) = middle_0).
+    (* Assertion *)
+    Have: forall i : Z. ((0 <= i) -> ((i <= middle_0) ->
+        (Mint_0[shift_sint32(a, i)] < val_0))).
+    Have: to_uint32(1 + middle_0) = left_1.
+  }
+  Else {
+    Have: (left_0 = left_1) /\ (right_0 = middle_1) /\
+        (to_uint32(left_1 + (to_uint32(right_1 - left_1) / 2)) = middle_1).
+  }
+  (* Invariant *)
+  Have: (0 <= left_1) /\ (right_0 <= n) /\ (left_1 <= right_0).
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> ((i < left_1) ->
+      (Mint_0[shift_sint32(a, i)] < val_0))).
+  (* Invariant *)
+  Have: forall i : Z. ((i < n) -> ((right_0 <= i) ->
+      (val_0 <= Mint_0[shift_sint32(a, i)]))).
+}
+Prove: (left_0 + right_0) < (left_1 + right_1).
+Prover Z3 4.8.12 returns Valid (Qed:35ms) (140ms) (113625)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arepina_lower_bound/round-3/proof/arepina_lower_bound.c, line 21):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T20:00:28+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

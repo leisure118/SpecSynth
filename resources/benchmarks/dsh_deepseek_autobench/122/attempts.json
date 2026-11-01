@@ -1,0 +1,22 @@
+[
+  {
+    "round": 1,
+    "verification": {
+      "status": "failed",
+      "verified": false,
+      "verified_count": 9,
+      "error_count": 1,
+      "stdout": "[kernel] Parsing resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c (with preprocessing)\n[wp] Running WP plugin...\n[rte:annot] annotating function foo\n[wp] 10 goals scheduled\n[wp] [Timeout] typed_foo_assert_rte_signed_overflow (Qed 6ms) (Z3 15s)\n[wp] Proved goals:    9 / 10\n  Qed:             9\n  Timeout:         1\n------------------------------------------------------------\n  Function foo\n------------------------------------------------------------\n\nGoal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 9):\nProve: true.\nProver Qed returns Valid (7ms)\n\n------------------------------------------------------------\n\nGoal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 9):\nProve: true.\nProver Qed returns Valid\n\n------------------------------------------------------------\n\nGoal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 10):\nProve: true.\nProver Qed returns Valid (2ms)\n\n------------------------------------------------------------\n\nGoal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 10):\nProve: true.\nProver Qed returns Valid (0.50ms)\n\n------------------------------------------------------------\n\nGoal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 15):\nAssume {\n  Type: is_sint32(size_0) /\\ is_sint32(sn_0) /\\ is_sint32(1 + sn_0).\n  (* Pre-condition *)\n  Have: 0 < size_0.\n  (* Invariant *)\n  Have: (sn_0 <= size_0) /\\ (0 <= sn_0).\n  (* Then *)\n  Have: sn_0 < size_0.\n}\nProve: sn_0 <= 2147483645.\nProver Z3 4.8.12 returns Timeout (Qed:6ms) (15s)\nProver Alt-Ergo  returns Timeout (Qed:6ms) (15s)\n\n------------------------------------------------------------\n\nGoal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 16):\nProve: true.\nProver Qed returns Valid (4ms)\n\n------------------------------------------------------------\n\nGoal Assertion (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 20):\nProve: true.\nProver Qed returns Valid (2ms)\n\n------------------------------------------------------------\n\nGoal Loop assigns (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 11):\nProve: true.\nProver Qed returns Valid\n\n------------------------------------------------------------\n\nGoal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 14):\nProve: true.\nProver Qed returns Valid (1ms)\n\n------------------------------------------------------------\n\nGoal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c, line 14):\nProve: true.\nProver Qed returns Valid (8ms)\n\n------------------------------------------------------------\n[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_autobench/122/round-1/proof/122.c:4: Warning: \n  No 'assigns' specification for function 'foo'.\n  Callers assumptions might be imprecise.\n",
+      "stderr": "time=\"2026-11-01T19:57:52+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n",
+      "message": "Frama-C 证明目标 9/10"
+    }
+  },
+  {
+    "round": 2,
+    "verification": {
+      "status": "unavailable",
+      "verified": false,
+      "message": "DeepSeek Harness CLI：官方 Harness 未创建有效的 output.rs 文件。"
+    }
+  }
+]

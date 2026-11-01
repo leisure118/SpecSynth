@@ -1,0 +1,56 @@
+[kernel] Parsing output/ops-4.6/live25/loop-invariants_even/loop-invariants_even.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/loop-invariants_even/loop-invariants_even.acsl.c:18: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 5 goals scheduled
+[wp] Proved goals:    5 / 5
+  Qed:             4
+  Alt-Ergo :       1 (50ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-invariants_even/loop-invariants_even.acsl.c, line 15):
+Assume {
+  Type: is_uint32(x) /\ is_sint32(tmp_0).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: (to_uint32(2 + x) % 2) = 0.
+Prover Alt-Ergo  returns Valid (Qed:3ms) (50ms) (524)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-invariants_even/loop-invariants_even.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-invariants_even/loop-invariants_even.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-invariants_even/loop-invariants_even.acsl.c, line 16) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-invariants_even/loop-invariants_even.acsl.c, line 16) (2/2):
+Call Result at line 18
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-invariants_even/loop-invariants_even.acsl.c:12: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

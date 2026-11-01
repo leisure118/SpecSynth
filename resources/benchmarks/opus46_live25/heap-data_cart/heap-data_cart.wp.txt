@@ -1,0 +1,862 @@
+[kernel] Parsing output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:55: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:58: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: node*)
+[wp] 27 goals scheduled
+[wp] [Timeout] typed_main_loop_invariant_2_preserved (Qed 41ms) (Z3)
+[wp] [Timeout] typed_main_loop_invariant_preserved (Qed 17ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_invariant_5_preserved (Qed 52ms) (Z3)
+[wp] [Timeout] typed_main_loop_assigns_part4 (Qed 11ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part6 (Qed 15ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part7 (Qed 12ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_part8 (Qed 17ms) (Z3) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_loop_assigns_2_part2 (Qed 54ms) (Z3)
+[wp] [Timeout] typed_main_loop_assigns_2_part4 (Qed 26ms) (Z3)
+[wp] [Timeout] typed_main_loop_assigns_2_part5 (Qed 17ms) (Z3)
+[wp] Proved goals:   17 / 27
+  Qed:             9
+  Alt-Ergo :       7 (27ms-54ms-164ms)
+  Z3 4.15.4:       1 (20ms)
+  Timeout:        10
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 51):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:58: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Assume {
+  Type: is_sint32(stock_0) /\ is_sint32(tmp_2_0).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Residual *)
+  When: 0 <= stock_0.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_2_0) /\ (tmp_2_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_2_0 != 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= stock_0) /\ (stock_0 <= 2147483646).
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, l, 3).
+  (* Admit *)
+  Have: separated(l, 3, l_1, 3).
+}
+Prove: P_inv_list(Mptr_0[shiftfield_F4_node_next(l) <- l_1],
+         Mint_0[shiftfield_F4_node_stock(l) <- stock_0]
+           [shiftfield_F4_node_order(l) <- 0], l).
+Prover Z3 4.15.4 returns Timeout (Qed:17ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:17ms) (30s)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 51):
+Assume { (* Heap *) Type: framed(Mptr_0). }
+Prove: P_inv_list(Mptr_0, Mint_0, null).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (20ms) (81045)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 67):
+Let a = Mptr_0[shiftfield_F4_node_next(i)].
+Let a_1 = shiftfield_F4_node_stock(i).
+Let m = Mint_0[a_1 <- v].
+Let a_2 = shiftfield_F4_node_order(i).
+Let m_1 = m[a_2 <- v_1].
+Let x = Mint_0[shiftfield_F4_node_order(l)].
+Let x_1 = Mint_0[shiftfield_F4_node_stock(l)].
+Assume {
+  Type: is_sint32(order_0) /\ is_sint32(v_1) /\ is_sint32(v) /\
+      is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: order_0 <= v.
+  (* Residual *)
+  When: 0 <= order_0.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Invariant *)
+  Have: (null = l) \/ valid_rw(Malloc_0, l, 3).
+  (* Invariant *)
+  Have: (null = l) \/ (x <= x_1).
+  (* Invariant *)
+  Have: (null = l) \/
+      P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(l)]).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_1, l).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, i, 3).
+  (* Invariant *)
+  Have: v_1 <= v.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_1, a).
+  (* Then *)
+  Have: null != i.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= order_0) /\ (order_0 <= 2147483646).
+  (* Admit *)
+  Have: separated(i, 3, a, 3).
+}
+Prove: P_inv_list(Mptr_0, m[a_2 <- order_0][a_1 <- v], l).
+Prover Z3 4.15.4 returns Timeout (Qed:41ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:41ms) (30s)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 67):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 68):
+Let a = shiftfield_F4_node_stock(i).
+Let m = Mint_0[a <- v_1].
+Let a_1 = shiftfield_F4_node_order(i).
+Let m_1 = m[a_1 <- order_0][a <- v_1].
+Let a_2 = Mptr_0[shiftfield_F4_node_next(i)].
+Let m_2 = m[a_1 <- v].
+Let x = Mint_0[shiftfield_F4_node_order(l)].
+Let x_1 = Mint_0[shiftfield_F4_node_stock(l)].
+Assume {
+  Type: is_sint32(order_0) /\ is_sint32(v) /\ is_sint32(v_1) /\
+      is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(m_1[shiftfield_F4_node_order(a_2)]) /\
+      is_sint32(m_1[shiftfield_F4_node_stock(a_2)]).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: order_0 <= v_1.
+  (* Residual *)
+  When: 0 <= order_0.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Invariant *)
+  Have: (null = l) \/ valid_rw(Malloc_0, l, 3).
+  (* Invariant *)
+  Have: (null = l) \/ (x <= x_1).
+  (* Invariant *)
+  Have: (null = l) \/
+      P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(l)]).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, l).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, i, 3).
+  (* Invariant *)
+  Have: v <= v_1.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, a_2).
+  (* Then *)
+  Have: null != i.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= order_0) /\ (order_0 <= 2147483646).
+  (* Admit *)
+  Have: separated(i, 3, a_2, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_1, l).
+}
+Prove: (a_2 = null) \/ valid_rw(Malloc_0, a_2, 3).
+Prover Alt-Ergo  returns Valid (Qed:73ms) (48ms) (187)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 68):
+Assume {
+  Type: is_sint32(Mint_0[shiftfield_F4_node_order(i)]) /\
+      is_sint32(Mint_0[shiftfield_F4_node_stock(i)]).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, i).
+}
+Prove: (null = i) \/ valid_rw(Malloc_0, i, 3).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (29ms) (40)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 69):
+Let a = Mptr_0[shiftfield_F4_node_next(i)].
+Let a_1 = shiftfield_F4_node_stock(i).
+Let m = Mint_0[a_1 <- v].
+Let a_2 = shiftfield_F4_node_order(i).
+Let m_1 = m[a_2 <- order_0][a_1 <- v].
+Let m_2 = m[a_2 <- v_1].
+Let x = Mint_0[shiftfield_F4_node_order(l)].
+Let x_1 = Mint_0[shiftfield_F4_node_stock(l)].
+Let x_2 = m_1[shiftfield_F4_node_order(a)].
+Let x_3 = m_1[shiftfield_F4_node_stock(a)].
+Assume {
+  Type: is_sint32(order_0) /\ is_sint32(v_1) /\ is_sint32(v) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: order_0 <= v.
+  (* Residual *)
+  When: 0 <= order_0.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Invariant *)
+  Have: (null = l) \/ valid_rw(Malloc_0, l, 3).
+  (* Invariant *)
+  Have: (null = l) \/ (x <= x_1).
+  (* Invariant *)
+  Have: (null = l) \/
+      P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(l)]).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, l).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, i, 3).
+  (* Invariant *)
+  Have: v_1 <= v.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, a).
+  (* Then *)
+  Have: null != i.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= order_0) /\ (order_0 <= 2147483646).
+  (* Admit *)
+  Have: separated(i, 3, a, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_1, l).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+}
+Prove: (a = null) \/ (x_2 <= x_3).
+Prover Alt-Ergo  returns Valid (Qed:66ms) (164ms) (1428)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 69):
+Let x = Mint_0[shiftfield_F4_node_order(i)].
+Let x_1 = Mint_0[shiftfield_F4_node_stock(i)].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, i).
+  (* Invariant *)
+  Have: (null = i) \/ valid_rw(Malloc_0, i, 3).
+}
+Prove: (null = i) \/ (x <= x_1).
+Prover Alt-Ergo  returns Valid (Qed:5ms) (27ms) (80)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 70):
+Let a = Mptr_0[shiftfield_F4_node_next(i)].
+Let a_1 = shiftfield_F4_node_stock(i).
+Let m = Mint_0[a_1 <- v].
+Let a_2 = shiftfield_F4_node_order(i).
+Let m_1 = m[a_2 <- order_0][a_1 <- v].
+Let x = m_1[shiftfield_F4_node_order(a)].
+Let x_1 = m_1[shiftfield_F4_node_stock(a)].
+Let m_2 = m[a_2 <- v_1].
+Let x_2 = Mint_0[shiftfield_F4_node_order(l)].
+Let x_3 = Mint_0[shiftfield_F4_node_stock(l)].
+Assume {
+  Type: is_sint32(order_0) /\ is_sint32(v_1) /\ is_sint32(v) /\
+      is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: order_0 <= v.
+  (* Residual *)
+  When: 0 <= order_0.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Invariant *)
+  Have: (null = l) \/ valid_rw(Malloc_0, l, 3).
+  (* Invariant *)
+  Have: (null = l) \/ (x_2 <= x_3).
+  (* Invariant *)
+  Have: (null = l) \/
+      P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(l)]).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, l).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, i, 3).
+  (* Invariant *)
+  Have: v_1 <= v.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, a).
+  (* Then *)
+  Have: null != i.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= order_0) /\ (order_0 <= 2147483646).
+  (* Admit *)
+  Have: separated(i, 3, a, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_1, l).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+  (* Invariant *)
+  Have: (a = null) \/ (x <= x_1).
+}
+Prove: (a = null) \/
+    P_inv_list(Mptr_0, m_1, Mptr_0[shiftfield_F4_node_next(a)]).
+Prover Z3 4.15.4 returns Timeout (Qed:52ms) (24.6s)
+Prover Alt-Ergo  returns Timeout (Qed:52ms) (30s)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 70):
+Let x = Mint_0[shiftfield_F4_node_order(i)].
+Let x_1 = Mint_0[shiftfield_F4_node_stock(i)].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, i).
+  (* Invariant *)
+  Have: (null = i) \/ valid_rw(Malloc_0, i, 3).
+  (* Invariant *)
+  Have: (null = i) \/ (x <= x_1).
+}
+Prove: (null = i) \/
+    P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(i)]).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (29ms) (50)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 84):
+Let m = Mint_0[shiftfield_F4_node_stock(null) <- v]
+          [shiftfield_F4_node_order(null) <- v_1].
+Let x = m[shiftfield_F4_node_order(i)].
+Let x_1 = m[shiftfield_F4_node_stock(i)].
+Let x_2 = Mint_0[shiftfield_F4_node_order(i_1)].
+Let x_3 = Mint_0[shiftfield_F4_node_stock(i_1)].
+Assume {
+  Type: is_sint32(v_1) /\ is_sint32(v) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, i_1).
+  (* Invariant *)
+  Have: (null = i_1) \/ valid_rw(Malloc_0, i_1, 3).
+  (* Invariant *)
+  Have: (null = i_1) \/ (x_2 <= x_3).
+  (* Invariant *)
+  Have: (null = i_1) \/
+      P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(i_1)]).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m, i_1).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m, i).
+  (* Then *)
+  Have: null != i.
+  (* Assertion *)
+  Have: x <= x_1.
+}
+Prove: P_inv_list(Mptr_0, m, Mptr_0[shiftfield_F4_node_next(i)]).
+Prover Alt-Ergo  returns Valid (Qed:16ms) (33ms) (112)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 84):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 88):
+Let m = Mint_0[shiftfield_F4_node_stock(null) <- v]
+          [shiftfield_F4_node_order(null) <- v_1].
+Let x = Mint_0[shiftfield_F4_node_order(i_1)].
+Let x_1 = Mint_0[shiftfield_F4_node_stock(i_1)].
+Let x_2 = m[shiftfield_F4_node_order(i)].
+Let x_3 = m[shiftfield_F4_node_stock(i)].
+Assume {
+  Type: is_sint32(v_1) /\ is_sint32(v) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(x_3).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, i_1).
+  (* Invariant *)
+  Have: (null = i_1) \/ valid_rw(Malloc_0, i_1, 3).
+  (* Invariant *)
+  Have: (null = i_1) \/ (x <= x_1).
+  (* Invariant *)
+  Have: (null = i_1) \/
+      P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(i_1)]).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m, i_1).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m, i).
+  (* Then *)
+  Have: null != i.
+}
+Prove: x_2 <= x_3.
+Prover Alt-Ergo  returns Valid (Qed:14ms) (47ms) (357)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 52) (1/8):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:58: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 52) (2/8):
+Call Result at line 54
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 52) (3/8):
+Call Result at line 55
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 52) (4/8):
+Call Effect at line 58
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:58: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Assume {
+  Type: is_sint32(stock_0) /\ is_sint32(tmp_2_0).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_2_0) /\ (tmp_2_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_2_0 != 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= stock_0) /\ (stock_0 <= 2147483646).
+  (* Else *)
+  Have: 0 <= stock_0.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, l_1, 3).
+  (* Admit *)
+  Have: separated(l_1, 3, l, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0[shiftfield_F4_node_next(l_1) <- l],
+          Mint_0[shiftfield_F4_node_stock(l_1) <- stock_0]
+            [shiftfield_F4_node_order(l_1) <- 0], l_1).
+}
+Prove: false.
+Prover Z3 4.15.4 returns Timeout (Qed:11ms) (24.5s)
+Prover Alt-Ergo  returns Timeout (Qed:11ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 52) (5/8):
+Call Result at line 58
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:58: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 52) (6/8):
+Effect at line 61
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:58: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Let a = shiftfield_F4_node_stock(p).
+Assume {
+  Type: is_sint32(stock_0) /\ is_sint32(tmp_2_0).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_2_0) /\ (tmp_2_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_2_0 != 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= stock_0) /\ (stock_0 <= 2147483646).
+  (* Else *)
+  Have: 0 <= stock_0.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, p, 3).
+  (* Admit *)
+  Have: separated(p, 3, l, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0[shiftfield_F4_node_next(p) <- l],
+          Mint_0[a <- stock_0][shiftfield_F4_node_order(p) <- 0], p).
+}
+Prove: invalid(Malloc_0, a, 1).
+Prover Z3 4.15.4 returns Timeout (Qed:15ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:15ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 52) (7/8):
+Effect at line 62
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:58: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Let a = shiftfield_F4_node_order(p).
+Assume {
+  Type: is_sint32(stock_0) /\ is_sint32(tmp_2_0).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_2_0) /\ (tmp_2_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_2_0 != 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= stock_0) /\ (stock_0 <= 2147483646).
+  (* Else *)
+  Have: 0 <= stock_0.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, p, 3).
+  (* Admit *)
+  Have: separated(p, 3, l, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0[shiftfield_F4_node_next(p) <- l],
+          Mint_0[shiftfield_F4_node_stock(p) <- stock_0][a <- 0], p).
+}
+Prove: invalid(Malloc_0, a, 1).
+Prover Z3 4.15.4 returns Timeout (Qed:12ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:12ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 52) (8/8):
+Effect at line 63
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:58: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Let a = shiftfield_F4_node_next(p).
+Assume {
+  Type: is_sint32(stock_0) /\ is_sint32(tmp_2_0).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0) /\ is_sint32(fc_heap_status_0).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_2_0) /\ (tmp_2_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_2_0 != 0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= stock_0) /\ (stock_0 <= 2147483646).
+  (* Else *)
+  Have: 0 <= stock_0.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, p, 3).
+  (* Admit *)
+  Have: separated(p, 3, l, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0[a <- l],
+          Mint_0[shiftfield_F4_node_stock(p) <- stock_0]
+            [shiftfield_F4_node_order(p) <- 0], p).
+}
+Prove: invalid(Malloc_0, a, 1).
+Prover Z3 4.15.4 returns Timeout (Qed:17ms) (21.9s)
+Prover Alt-Ergo  returns Timeout (Qed:17ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 71) (1/5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 71) (2/5):
+Effect at line 73
+Let a = Mptr_0[shiftfield_F4_node_next(i)].
+Let a_1 = shiftfield_F4_node_stock(i).
+Let m = Mint_0[a_1 <- v_1].
+Let a_2 = shiftfield_F4_node_order(i).
+Let m_1 = m[a_2 <- order_0][a_1 <- v_1].
+Let a_3 = shiftfield_F4_node_order(a).
+Let x = m_1[a_3].
+Let a_4 = shiftfield_F4_node_stock(a).
+Let x_1 = m_1[a_4].
+Let m_2 = m[a_2 <- v].
+Let x_2 = Mint_0[shiftfield_F4_node_order(l)].
+Let x_3 = Mint_0[shiftfield_F4_node_stock(l)].
+Assume {
+  Type: is_sint32(order_0) /\ is_sint32(v) /\ is_sint32(v_1) /\
+      is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: order_0 <= v_1.
+  (* Residual *)
+  When: 0 <= order_0.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Invariant *)
+  Have: (null = l) \/ valid_rw(Malloc_0, l, 3).
+  (* Invariant *)
+  Have: (null = l) \/ (x_2 <= x_3).
+  (* Invariant *)
+  Have: (null = l) \/
+      P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(l)]).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, l).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, i, 3).
+  (* Invariant *)
+  Have: v <= v_1.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, a).
+  (* Then *)
+  Have: null != i.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= order_0) /\ (order_0 <= 2147483646).
+  (* Admit *)
+  Have: separated(i, 3, a, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_1, l).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+  (* Invariant *)
+  Have: (a = null) \/ (x <= x_1).
+  (* Invariant *)
+  Have: (a = null) \/
+      P_inv_list(Mptr_0, m_1, Mptr_0[shiftfield_F4_node_next(a)]).
+}
+Prove: (((!invalid(Malloc_0, a_2, 1)) -> ((a_3 = a_2) \/ (a_4 = a_2)))) /\
+    (((!invalid(Malloc_0, a_1, 1)) -> ((a_3 = a_1) \/ (a_4 = a_1)))).
+Prover Z3 4.15.4 returns Timeout (Qed:54ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:54ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 71) (3/5):
+Call Result at line 74
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 71) (4/5):
+Effect at line 78
+Let a = Mptr_0[shiftfield_F4_node_next(i)].
+Let a_1 = shiftfield_F4_node_stock(i).
+Let m = Mint_0[a_1 <- v_1].
+Let a_2 = shiftfield_F4_node_order(i).
+Let m_1 = m[a_2 <- order_0][a_1 <- v_1].
+Let a_3 = shiftfield_F4_node_order(a).
+Let x = m_1[a_3].
+Let a_4 = shiftfield_F4_node_stock(a).
+Let x_1 = m_1[a_4].
+Let m_2 = m[a_2 <- v].
+Let x_2 = Mint_0[shiftfield_F4_node_order(l)].
+Let x_3 = Mint_0[shiftfield_F4_node_stock(l)].
+Assume {
+  Type: is_sint32(order_0) /\ is_sint32(v) /\ is_sint32(v_1) /\
+      is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Invariant *)
+  Have: (null = l) \/ valid_rw(Malloc_0, l, 3).
+  (* Invariant *)
+  Have: (null = l) \/ (x_2 <= x_3).
+  (* Invariant *)
+  Have: (null = l) \/
+      P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(l)]).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, l).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, i, 3).
+  (* Invariant *)
+  Have: v <= v_1.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, a).
+  (* Then *)
+  Have: null != i.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= order_0) /\ (order_0 <= 2147483646).
+  (* Else *)
+  Have: 0 <= order_0.
+  (* Else *)
+  Have: order_0 <= v_1.
+  (* Admit *)
+  Have: separated(i, 3, a, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_1, l).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+  (* Invariant *)
+  Have: (a = null) \/ (x <= x_1).
+  (* Invariant *)
+  Have: (a = null) \/
+      P_inv_list(Mptr_0, m_1, Mptr_0[shiftfield_F4_node_next(a)]).
+}
+Prove: (a_3 = a_2) \/ (a_4 = a_2).
+Prover Z3 4.15.4 returns Timeout (Qed:26ms) (25s)
+Prover Alt-Ergo  returns Timeout (Qed:26ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 71) (5/5):
+Effect at line 79
+Let a = Mptr_0[shiftfield_F4_node_next(i)].
+Let a_1 = shiftfield_F4_node_stock(i).
+Let m = Mint_0[a_1 <- v_1].
+Let a_2 = shiftfield_F4_node_order(i).
+Let m_1 = m[a_2 <- order_0][a_1 <- v_1].
+Let a_3 = shiftfield_F4_node_order(a).
+Let x = m_1[a_3].
+Let a_4 = shiftfield_F4_node_stock(a).
+Let x_1 = m_1[a_4].
+Let m_2 = m[a_2 <- v].
+Let x_2 = Mint_0[shiftfield_F4_node_order(l)].
+Let x_3 = Mint_0[shiftfield_F4_node_stock(l)].
+Assume {
+  Type: is_sint32(order_0) /\ is_sint32(v) /\ is_sint32(v_1) /\
+      is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_1, 1).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, null).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, Mint_0, l).
+  (* Invariant *)
+  Have: (null = l) \/ valid_rw(Malloc_0, l, 3).
+  (* Invariant *)
+  Have: (null = l) \/ (x_2 <= x_3).
+  (* Invariant *)
+  Have: (null = l) \/
+      P_inv_list(Mptr_0, Mint_0, Mptr_0[shiftfield_F4_node_next(l)]).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, l).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, i, 3).
+  (* Invariant *)
+  Have: v <= v_1.
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_2, a).
+  (* Then *)
+  Have: null != i.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= order_0) /\ (order_0 <= 2147483646).
+  (* Else *)
+  Have: 0 <= order_0.
+  (* Else *)
+  Have: order_0 <= v_1.
+  (* Admit *)
+  Have: separated(i, 3, a, 3).
+  (* Invariant *)
+  Have: P_inv_list(Mptr_0, m_1, l).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+  (* Invariant *)
+  Have: (a = null) \/ (x <= x_1).
+  (* Invariant *)
+  Have: (a = null) \/
+      P_inv_list(Mptr_0, m_1, Mptr_0[shiftfield_F4_node_next(a)]).
+}
+Prove: (a_3 = a_1) \/ (a_4 = a_1).
+Prover Z3 4.15.4 returns Timeout (Qed:17ms) (24.7s)
+Prover Alt-Ergo  returns Timeout (Qed:17ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c, line 85):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/heap-data_cart/heap-data_cart.acsl.c:48: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,542 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[wp] runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 37 goals scheduled
+[wp] [Timeout] typed_main_loop_invariant_2_preserved (Qed 15ms) (Z3 15s) (Stronger)
+[wp] [Timeout] typed_main_loop_invariant_4_established (Qed 3ms) (Z3 15s) (Stronger)
+[wp] Proved goals:   35 / 37
+  Qed:            30
+  Alt-Ergo :       5 (45ms-60ms)
+  Timeout:         2
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 22):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 22):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.97ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 24):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (18ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 24):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 25):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let x_1 = to_sint32(x).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Let a_2 = a_1[shift_sint32(a, x) <- 0].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32(1 + i) /\
+      is_sint32_chunk(a_1) /\ is_sint32_chunk(a_2) /\
+      is_sint32_chunk(a_2[shift_sint32(a, 1 + x) <- 0]).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100001).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_1[shift_sint32(a, i_1)] = 0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 200001) ->
+      valid_rw(Malloc_0, shift_sint32(a, i_1), 1))).
+  (* Then *)
+  Have: i <= 100000.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, x_1), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= i.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 1073741823.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, to_sint32(1 + x_1)), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483646.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: i <= 99999.
+Prover Z3 4.8.12 returns Timeout (Qed:15ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:15ms) (15s)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 25):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 26):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let x_1 = to_sint32(x).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Let x_2 = 1 + x.
+Let a_2 = a_1[shift_sint32(a, x) <- 0].
+Let a_3 = a_2[shift_sint32(a, x_2) <- 0].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32(1 + i) /\
+      is_sint32_chunk(a_1) /\ is_sint32_chunk(a_2) /\ is_sint32_chunk(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= x_2).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_1[shift_sint32(a, i_2)] = 0))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 200001) ->
+      valid_rw(Malloc_0, shift_sint32(a, i_2), 1))).
+  (* Then *)
+  Have: i <= 100000.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, x_1), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= i.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 1073741823.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, to_sint32(1 + x_1)), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483646.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: i <= 99999.
+}
+Prove: a_3[shift_sint32(a, i_1)] = 0.
+Prover Alt-Ergo  returns Valid (Qed:13ms) (60ms) (319)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 26):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 27):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i_1.
+Let x_1 = 1 + x.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Let a_2 = a_1[shift_sint32(a, x) <- 0].
+Let a_3 = a_2[shift_sint32(a, x_1) <- 0].
+Let x_2 = to_sint32(x).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i_1) /\ is_sint32(1 + i_1) /\
+      is_sint32_chunk(a_1) /\ is_sint32_chunk(a_2) /\ is_sint32_chunk(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 200001).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_1[shift_sint32(a, i_2)] = 0))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 200001) ->
+      valid_rw(Malloc_0, shift_sint32(a, i_2), 1))).
+  (* Then *)
+  Have: i_1 <= 100000.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, x_2), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= i_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= 1073741823.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, to_sint32(1 + x_2)), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= 2147483646.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+  (* Invariant *)
+  Have: i_1 <= 99999.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= x_1) ->
+      (a_3[shift_sint32(a, i_2)] = 0))).
+}
+Prove: valid_rw(Malloc_0, shift_sint32(a, i), 1).
+Prover Alt-Ergo  returns Valid (Qed:11ms) (50ms) (114)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 27):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Assume {
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 200001).
+}
+Prove: valid_rw(Malloc_0, shift_sint32(a, i), 1).
+Prover Z3 4.8.12 returns Timeout (Qed:3ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:3ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 32):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32_chunk(a_1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100001).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_1[shift_sint32(a, i_1)] = 0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 200001) ->
+      valid_rw(Malloc_0, shift_sint32(a, i_1), 1))).
+  (* Then *)
+  Have: i <= 100000.
+}
+Prove: valid_rw(Malloc_0, shift_sint32(a, to_sint32(x)), 1).
+Prover Alt-Ergo  returns Valid (Qed:11ms) (59ms) (80)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 32):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 32):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 33):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let x_1 = to_sint32(x).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32_chunk(a_1) /\
+      is_sint32_chunk(a_1[shift_sint32(a, x) <- 0]).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100001).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_1[shift_sint32(a, i_1)] = 0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 200001) ->
+      valid_rw(Malloc_0, shift_sint32(a, i_1), 1))).
+  (* Then *)
+  Have: i <= 100000.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, x_1), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= i.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 1073741823.
+}
+Prove: valid_rw(Malloc_0, shift_sint32(a, to_sint32(1 + x_1)), 1).
+Prover Alt-Ergo  returns Valid (Qed:10ms) (55ms) (129)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 33):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 33):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 33):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let x_1 = to_sint32(x).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32_chunk(a_1) /\
+      is_sint32_chunk(a_1[shift_sint32(a, x) <- 0]).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100001).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (a_1[shift_sint32(a, i_1)] = 0))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 200001) ->
+      valid_rw(Malloc_0, shift_sint32(a, i_1), 1))).
+  (* Then *)
+  Have: i <= 100000.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, x_1), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= i.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 1073741823.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, to_sint32(1 + x_1)), 1).
+}
+Prove: x_1 <= 2147483646.
+Prover Z3 4.8.12 returns Valid (Qed:11ms) (150ms) (147843)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (45ms) (77)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 31):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 36):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 36):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 37):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 37):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 41):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 41):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 42):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.92ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 41):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 28) (1/4):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 28) (2/4):
+Effect at line 31
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 28) (3/4):
+Effect at line 32
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 28) (4/4):
+Effect at line 33
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 38):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 31):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 31):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 41):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c, line 41):
+runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:22: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-j07lzhsx/workspace/.platform-proofs/tmpej80vhwp/candidate.c:18: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T13:56:47+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

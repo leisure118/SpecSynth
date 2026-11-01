@@ -1,0 +1,232 @@
+[kernel] Parsing output/ops-4.6/autobench/178/178.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/autobench/178/178.acsl.c:20: Warning: 
+  Calling function unknown1 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[kernel:typing:no-proto] output/ops-4.6/autobench/178/178.acsl.c:49: Warning: 
+  Calling function unknown3 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[kernel:typing:no-proto] output/ops-4.6/autobench/178/178.acsl.c:43: Warning: 
+  Calling function unknown2 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/ops-4.6/autobench/178/178.acsl.c:8: Warning: 
+  Neither code nor specification for function unknown1, generating default assigns from the prototype
+[kernel:annot:missing-spec] output/ops-4.6/autobench/178/178.acsl.c:8: Warning: 
+  Neither code nor specification for function unknown2, generating default assigns from the prototype
+[kernel:annot:missing-spec] output/ops-4.6/autobench/178/178.acsl.c:8: Warning: 
+  Neither code nor specification for function unknown3, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 26 goals scheduled
+[wp] Proved goals:   26 / 26
+  Qed:            24
+  Alt-Ergo :       2 (8ms-14ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 17):
+Let x = -j.
+Assume {
+  Type: is_sint32(flag_0) /\ is_sint32(i) /\ is_sint32(j_1) /\
+      is_sint32(j) /\ is_sint32(tmp_0) /\ is_sint32(1 + j_1) /\
+      is_sint32(j_1 - j) /\ is_sint32(j_1 - 1 - j) /\ is_sint32(i + j_1 - j).
+  (* Residual *)
+  When: flag_0 != 0.
+  (* Invariant *)
+  Have: j < j_1.
+  (* Invariant *)
+  Have: i <= j.
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: i <= (1 + j).
+Prover Alt-Ergo  returns Valid (Qed:8ms) (8ms) (16)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 37):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 39):
+Let x_3 = 2 * x.
+Let x_4 = 1 + x_3.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(tmp_1_0) /\ is_sint32(w) /\
+      is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(z) /\
+      is_sint32(x_3) /\ is_sint32(x_4).
+  (* Invariant *)
+  Have: 0 <= x_2.
+  (* Invariant *)
+  Have: i <= j.
+  (* Invariant *)
+  Have: 0 <= x_1.
+  (* Invariant *)
+  Have: (w % 2) = 1.
+  (* Invariant *)
+  Have: (z % 2) = 0.
+  (* Then *)
+  Have: tmp_1_0 != 0.
+  (* Invariant *)
+  Have: 0 <= x.
+}
+Prove: (x_4 % 2) = 1.
+Prover Alt-Ergo  returns Valid (Qed:9ms) (14ms) (170)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/178/178.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/178/178.acsl.c, line 58):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/178/178.acsl.c, line 18) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/178/178.acsl.c, line 18) (2/2):
+Call Result at line 20
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/178/178.acsl.c, line 41) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/178/178.acsl.c, line 41) (2/3):
+Call Result at line 43
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/178/178.acsl.c, line 41) (3/3):
+Call Result at line 49
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/178/178.acsl.c, line 47) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/178/178.acsl.c, line 47) (2/2):
+Call Result at line 49
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/178/178.acsl.c:3: Warning: 
+  No 'assigns' specification for function 'unknown1'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/ops-4.6/autobench/178/178.acsl.c:4: Warning: 
+  No 'assigns' specification for function 'unknown2'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/ops-4.6/autobench/178/178.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'unknown3'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/ops-4.6/autobench/178/178.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

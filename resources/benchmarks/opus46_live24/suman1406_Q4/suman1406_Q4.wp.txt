@@ -1,0 +1,103 @@
+[kernel] Parsing output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c:17: Warning: 
+  Calling function unknown2 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 7 goals scheduled
+[wp] Proved goals:    7 / 7
+  Qed:             4
+  Alt-Ergo :       3 (6ms-8ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 13):
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(w) /\ is_sint32(x) /\ is_sint32(y) /\
+      is_sint32(z) /\ is_sint32(1 + w) /\ is_sint32(1 + x).
+  (* Residual *)
+  When: (w % 2) = 1.
+  (* Invariant *)
+  Have: ((w = 1) /\ (x = 0)) \/ ((w = 2) /\ (x = 1)).
+  (* Invariant *)
+  Have: ((y = 0) /\ (z = 0)) \/ ((y = 1) /\ (z = 1)).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: ((w = 0) /\ (x = (-1))) \/ ((w = 1) /\ (x = 0)).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (30699)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (8ms) (80)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 14):
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(w) /\ is_sint32(w_1) /\
+      is_sint32(w_2) /\ is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint32(y) /\ is_sint32(z) /\ is_sint32(1 + y) /\ is_sint32(1 + z).
+  (* Residual *)
+  When: (z % 2) = 0.
+  (* Invariant *)
+  Have: ((w_2 = 1) /\ (x_2 = 0)) \/ ((w_2 = 2) /\ (x_2 = 1)).
+  (* Invariant *)
+  Have: ((y = 0) /\ (z = 0)) \/ ((y = 1) /\ (z = 1)).
+  (* Then *)
+  Have: tmp_0 != 0.
+  If (w_2 % 2) = 1
+  Then {
+    Have: (w_2 = w_1) /\ (x_2 = x_1).
+    Have: (1 + x_1) = x.
+    Have: (1 + w_1) = w.
+  }
+  Else { Have: (w_2 = w) /\ (x_2 = x). }
+  (* Invariant *)
+  Have: ((w = 1) /\ (x = 0)) \/ ((w = 2) /\ (x = 1)).
+}
+Prove: ((y = (-1)) /\ (z = (-1))) \/ ((y = 0) /\ (z = 0)).
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (31588)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (8ms) (127)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 27):
+Assume {
+  Type: is_sint32(w) /\ is_sint32(x) /\ is_sint32(y) /\ is_sint32(z).
+  (* Invariant *)
+  Have: ((w = 1) /\ (x = 0)) \/ ((w = 2) /\ (x = 1)).
+  (* Invariant *)
+  Have: ((y = 0) /\ (z = 0)) \/ ((y = 1) /\ (z = 1)).
+}
+Prove: x <= 1.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (28914)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (19)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 15) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c, line 15) (2/2):
+Call Result at line 17
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live24/suman1406_Q4/suman1406_Q4.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

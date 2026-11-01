@@ -7,7 +7,6 @@ from .config import ROOT_DIR
 DATA_DIR = ROOT_DIR / 'resources' / 'benchmarks'
 router = APIRouter(prefix='/api/v1/benchmarks', tags=['benchmarks'])
 
-@lru_cache(maxsize=4)
 def snapshot(benchmark_id):
     if benchmark_id not in {x['id'] for x in catalog()['items']}:
         raise HTTPException(404, '基准不存在')
@@ -30,7 +29,7 @@ def file_detail(benchmark_id: str, file: str):
     result = {k:v for k,v in row.items() if k!='artifacts'}
     for kind in ('source','log'):
         relative = row['artifacts'].get(kind)
-        result[kind] = (DATA_DIR / relative).read_text(errors='replace') if relative else None
+        result[kind] = (DATA_DIR / relative).read_text(errors='replace') if relative and (DATA_DIR / relative).is_file() else None
     original_relative=row['artifacts'].get('original_source')
     result['original_source']=(DATA_DIR/original_relative).read_text(errors='replace') if original_relative else None
     result['annotated_source']=result['source']
@@ -57,7 +56,7 @@ class BenchmarkRunRequest(BaseModel):
     model_name: str = Field(default='qwen-turbo', max_length=120)
     assistant: AssistantConfig = Field(default_factory=AssistantConfig)
     timeout_sec: int = Field(default=200, ge=10, le=3600)
-    max_repair_rounds: int = Field(default=0, ge=0, le=3)
+    max_repair_rounds: int = Field(default=3, ge=0, le=3)
     description: str = Field(default='', max_length=16000)
 
 

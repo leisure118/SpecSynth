@@ -1,0 +1,410 @@
+[kernel] Parsing output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c:51: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 29 goals scheduled
+[wp] Proved goals:   29 / 29
+  Qed:            24
+  Alt-Ergo :       5 (34ms-101ms-138ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 60):
+Let x_2 = x_1[1].
+Let x_3 = x_1[0].
+Let m = x_1[0 <- x_2][1 <- x_3].
+Let x_4 = x_1[4].
+Let x_5 = x_1[2].
+Let x_6 = x_1[3].
+Let x_7 = 1 + i.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_3) /\ is_sint32(x_2) /\
+      is_sint32(x_5) /\ is_sint32(x_6) /\ is_sint32(x_4) /\ is_sint32(x_7) /\
+      is_sint32((if ((x_3 % 2) = 0) then 1 else (-1))
+        + (if ((x_2 % 2) = 0) then 1 else (-1))
+        + (if ((x_5 % 2) = 0) then 1 else (-1))
+        + (if ((x_6 % 2) = 0) then 1 else (-1))
+        + (if ((x_4 % 2) = 0) then 1 else (-1))).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Else *)
+  Have: 5 <= i_2.
+  (* Loop assigns ... *)
+  Have: x_4 = x[4].
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) -> (m[1 + i_3] = x[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 4) -> (m[i_3] = x[i_3]))).
+  (* Then *)
+  Have: i <= 3.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x[i <- x[x_7]][i_1] = m[1 + i_1].
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (40163)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (138ms) (3733)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 61):
+Let x_2 = 1 + i.
+Let m = x[i <- x[x_2]].
+Let x_3 = x_1[1].
+Let x_4 = x_1[0].
+Let m_1 = x_1[0 <- x_3][1 <- x_4].
+Let x_5 = x_1[4].
+Let x_6 = x_1[2].
+Let x_7 = x_1[3].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_4) /\ is_sint32(x_3) /\
+      is_sint32(x_6) /\ is_sint32(x_7) /\ is_sint32(x_5) /\ is_sint32(x_2) /\
+      is_sint32((if ((x_4 % 2) = 0) then 1 else (-1))
+        + (if ((x_3 % 2) = 0) then 1 else (-1))
+        + (if ((x_6 % 2) = 0) then 1 else (-1))
+        + (if ((x_7 % 2) = 0) then 1 else (-1))
+        + (if ((x_5 % 2) = 0) then 1 else (-1))).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 4).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5).
+  (* Else *)
+  Have: 5 <= i_2.
+  (* Loop assigns ... *)
+  Have: x_5 = x[4].
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 4).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (m_1[1 + i_3] = x[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i <= i_3) -> ((i_3 <= 4) -> (m_1[i_3] = x[i_3]))).
+  (* Then *)
+  Have: i <= 3.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (m[i_3] = m_1[1 + i_3]))).
+}
+Prove: m[i_1] = m_1[i_1].
+Prover Alt-Ergo  returns Valid (Qed:14ms) (34ms) (541)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 70):
+Let x_2 = x[1].
+Let x_3 = x[0].
+Let m = x[0 <- x_2][1 <- x_3].
+Let x_4 = x[4].
+Let x_5 = x_1[0].
+Let x_6 = x_1[1].
+Let x_7 = x_1[2].
+Let x_8 = x_1[3].
+Let x_9 = x[2].
+Let x_10 = x[3].
+Let x_11 = x_5 % 2.
+Let x_12 = x_6 % 2.
+Let x_13 = x_7 % 2.
+Let x_14 = x_8 % 2.
+Let x_15 = x_2 % 2.
+Let x_16 = x_3 % 2.
+Let x_17 = x_9 % 2.
+Let x_18 = x_10 % 2.
+Let x_19 = x_4 % 2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_5) /\ is_sint32(x_6) /\
+      is_sint32(x_7) /\ is_sint32(x_8) /\ is_sint32(x_3) /\ is_sint32(x_2) /\
+      is_sint32(x_9) /\ is_sint32(x_10) /\ is_sint32(x_4) /\
+      is_sint32((if (x_11 = 0) then 1 else (-1))
+        + (if (x_12 = 0) then 1 else (-1)) + (if (x_13 = 0) then 1 else (-1))
+        + (if (x_14 = 0) then 1 else (-1))
+        + (if (x_15 = 0) then 1 else (-1))) /\
+      is_sint32((if (x_16 = 0) then 1 else (-1))
+        + (if (x_15 = 0) then 1 else (-1)) + (if (x_17 = 0) then 1 else (-1))
+        + (if (x_18 = 0) then 1 else (-1))
+        + (if (x_19 = 0) then 1 else (-1))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Else *)
+  Have: 5 <= i.
+  (* Loop assigns ... *)
+  Have: x_4 = x_1[4].
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 4).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (m[1 + i_2] = x_1[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 <= i_2) -> ((i_2 <= 4) ->
+      (m[i_2] = x_1[i_2]))).
+  (* Else *)
+  Have: 4 <= i_1.
+}
+Prove: ((if (x_16 = 0) then 1 else (-1)) + (if (x_17 = 0) then 1 else (-1))
+        + (if (x_18 = 0) then 1 else (-1))
+        + (if (x_19 = 0) then 1 else (-1)))
+         = ((if (x_11 = 0) then 1 else (-1))
+            + (if (x_12 = 0) then 1 else (-1))
+            + (if (x_13 = 0) then 1 else (-1))
+            + (if (x_14 = 0) then 1 else (-1))).
+Prover Z3 4.15.4 returns Valid (Qed:18ms) (10ms) (47736)
+Prover Alt-Ergo  returns Valid (Qed:18ms) (133ms) (2184)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 62) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 62) (2/2):
+Effect at line 66
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 11) in 'sep'' in 'main' at call 'sep' (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 53)
+:
+Prove: true.
+Prover Qed returns Valid (0.93ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 11) in 'sep'' in 'main' at call 'sep' (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 55)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 11) in 'sep'' in 'main' at call 'sep' (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 69)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function sep
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 13) in 'sep':
+Let a = shift_sint32(x, 0).
+Let x_1 = Mint_0[a].
+Let x_2 = Mint_0[shift_sint32(x, 1)].
+Let x_3 = Mint_0[shift_sint32(x, 2)].
+Let x_4 = Mint_0[shift_sint32(x, 3)].
+Let x_5 = Mint_0[shift_sint32(x, 4)].
+Let x_6 = x_5 % 2.
+Let x_7 = x_1 % 2.
+Let x_8 = x_2 % 2.
+Let x_9 = x_3 % 2.
+Let x_10 = x_4 % 2.
+Let x_11 = (if (x_7 = 0) then 1 else (-1)) + (if (x_8 = 0) then 1 else (-1))
+    + (if (x_9 = 0) then 1 else (-1)) + (if (x_10 = 0) then 1 else (-1))
+    + (if (x_6 = 0) then 1 else (-1)).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\
+      is_sint32(x_4) /\ is_sint32(x_5) /\
+      is_sint64((if (x_6 = 0) then 1 else (-1))
+        + (if (0 < i) then (if (x_7 = 0) then 1 else (-1)) else 0)
+        + (if (2 <= i) then (if (x_8 = 0) then 1 else (-1)) else 0)
+        + (if (3 <= i) then (if (x_9 = 0) then 1 else (-1)) else 0)
+        + (if (4 <= i) then (if (x_10 = 0) then 1 else (-1)) else 0)).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 5).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Else *)
+  Have: 5 <= i.
+}
+Prove: x_11 = to_sint32(x_11).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (40ms) (236469)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (125ms) (1900)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 20):
+Let x_1 = Mint_0[shift_sint32(x, i)].
+Let a = shift_sint32(x, 0).
+Let x_2 = Mint_0[a].
+Let x_3 = Mint_0[shift_sint32(x, 1)].
+Let x_4 = Mint_0[shift_sint32(x, 2)].
+Let x_5 = Mint_0[shift_sint32(x, 3)].
+Let x_6 = Mint_0[shift_sint32(x, 4)].
+Let x_7 = x_2 % 2.
+Let x_8 = x_3 % 2.
+Let x_9 = x_4 % 2.
+Let x_10 = x_5 % 2.
+Assume {
+  Type: is_sint32(i) /\ is_sint64(ret_0) /\ is_sint32(1 + i) /\
+      is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(x_4) /\ is_sint32(x_5) /\
+      is_sint32(x_6) /\ is_sint32(x_1) /\
+      is_sint64((if (0 < i) then (if (x_7 = 0) then 1 else (-1)) else 0)
+        + (if (2 <= i) then (if (x_8 = 0) then 1 else (-1)) else 0)
+        + (if (3 <= i) then (if (x_9 = 0) then 1 else (-1)) else 0)
+        + (if (4 <= i) then (if (x_10 = 0) then 1 else (-1)) else 0)).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 5).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5).
+  (* Then *)
+  Have: i <= 4.
+  If (x_1 % 2) = 0
+  Then {
+    Have: (1 + (if (0 < i) then (if (x_7 = 0) then 1 else (-1)) else 0)
+           + (if (2 <= i) then (if (x_8 = 0) then 1 else (-1)) else 0)
+           + (if (3 <= i) then (if (x_9 = 0) then 1 else (-1)) else 0)
+           + (if (4 <= i) then (if (x_10 = 0) then 1 else (-1)) else 0))
+            = ret_0.
+  }
+  Else {
+    Have: ((if (0 < i) then (if (x_7 = 0) then 1 else (-1)) else 0)
+           + (if (2 <= i) then (if (x_8 = 0) then 1 else (-1)) else 0)
+           + (if (3 <= i) then (if (x_9 = 0) then 1 else (-1)) else 0)
+           + (if (4 <= i) then (if (x_10 = 0) then 1 else (-1)) else 0))
+            = (1 + ret_0).
+  }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: ((if (x_7 = 0) then 1 else (-1))
+        + (if (0 < i) then (if (x_8 = 0) then 1 else (-1)) else 0)
+        + (if (2 <= i) then (if (x_9 = 0) then 1 else (-1)) else 0)
+        + (if (3 <= i) then (if (x_10 = 0) then 1 else (-1)) else 0)
+        + (if (4 <= i) then (if ((x_6 % 2) = 0) then 1 else (-1)) else 0))
+         = ret_0.
+Prover Alt-Ergo  returns Valid (Qed:24ms) (77ms) (1706)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sep' (1/2):
+Effect at line 29
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sep' (2/2):
+Effect at line 36
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/reducercommutativity_sep05-1/reducercommutativity_sep05-1.acsl.c:38: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

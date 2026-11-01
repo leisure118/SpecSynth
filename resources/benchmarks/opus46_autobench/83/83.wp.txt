@@ -1,0 +1,85 @@
+[kernel] Parsing output/ops-4.6/autobench/83/83.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Alt-Ergo :       2 (10ms-11ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/83/83.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/83/83.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/83/83.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/83/83.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/83/83.acsl.c, line 16):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: ((y = 0) -> (x = (-5000))).
+  (* Else *)
+  Have: 0 <= x.
+}
+Prove: 0 < y.
+Prover Alt-Ergo  returns Valid (Qed:1ms) (11ms) (18)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/83/83.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/autobench/83/83.acsl.c, line 11):
+Let x_1 = x + y.
+Let x_2 = y + (if (y = 0) then 1 else 0).
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(1 + y) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: ((y = 0) -> (x = (-5000))).
+  (* Then *)
+  Have: x < 0.
+  (* Invariant *)
+  Have: (-1) <= y.
+  (* Invariant *)
+  Have: ((y = (-1)) -> (x_1 = (-5000))).
+}
+Prove: if (y = (-1)) then (2 <= x_2) else (0 < x_2).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (42)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/autobench/83/83.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/83/83.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

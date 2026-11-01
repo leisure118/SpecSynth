@@ -1,5 +1,6 @@
 """Agent candidate -> real verifier -> bounded feedback loop."""
 from __future__ import annotations
+from engine.nl2verus.harness_session import case_session
 import json
 from pathlib import Path, PurePosixPath
 import re
@@ -73,11 +74,16 @@ def verify_candidates(files, entry, mode, directory, timeout, function=None):
     cmd=['docker','compose','run','--rm','-T','--name',name,'autospec','bash','-lc',
          'export PATH=/root/.opam/default/bin:$PATH; '+shlex.join(args)]
     try:
-        code,out,err=run_process(cmd,cwd=ROOT_DIR,timeout=timeout)
+        from .proof_limits import proof_slot
+        with proof_slot(timeout) as remaining:
+            code,out,err=run_process(cmd,cwd=ROOT_DIR,timeout=remaining)
     except TimeoutError:
         # Killing the CLI alone does not terminate its Docker container.
         subprocess.run(['docker','rm','-f',name],capture_output=True,timeout=10)
         return {'status':'timeout','verified':False,'message':'Frama-C 验证超时，容器已回收。','verified_count':0,'error_count':0}
+    infrastructure=('unknown flag:', 'Cannot connect to the Docker daemon', 'docker: command not found', 'is not a docker command', 'failed to connect to the docker API')
+    if code and any(marker.lower() in (out+'\n'+err).lower() for marker in infrastructure):
+        return {'status':'unavailable','verified':False,'verified_count':0,'error_count':0,'stdout':out,'stderr':err,'message':'Docker/Compose 验证环境不可用，未执行 Frama-C；请修复环境后重试。'}
     match=re.search(r'Proved goals:\s*(\d+)\s*/\s*(\d+)',out+'\n'+err)
     proved,total=map(int,match.groups()) if match else (0,0)
     passed=code==0 and total>0 and proved==total
@@ -109,6 +115,7 @@ def verifier_preflight(manager,rust,mode):
     return None if detail['ready'] else detail['summary']
 
 
+@case_session()
 def execute_agent(manager,task,payload):
     store=manager.store;upload=store.read_upload(payload.file_id)
     if not upload:
@@ -126,7 +133,13 @@ def execute_agent(manager,task,payload):
     directory=resolve_project_path(task.task_dir)/'artifacts'/'agent';directory.mkdir(parents=True,exist_ok=True)
     task.input_file=upload['stored_path'];task.metadata.update(input_manifest=upload.get('manifest',[]),agent=agent)
     store.write_text_artifact(task.task_id,'input','sources.json',json.dumps(files,ensure_ascii=False))
-    deadline=time.monotonic()+(payload.timeout_sec or 200)
+    from .agent_progress import AgentProgress
+    progress=AgentProgress(task,store) if agent in ('deepseek-harness','codex','claude-code') else None
+    from .time_budget import c_budget
+    budget=c_budget(files,payload.timeout_sec,getattr(payload,'adaptive_timeout',True)) if not rust else {'requested_sec':payload.timeout_sec or 200,'effective_sec':payload.timeout_sec or 200,'adaptive':False,'reasons':[]}
+    task.metadata['time_budget']=budget;store.write_task(task)
+    deadline=time.monotonic()+budget['effective_sec']
+    proof_reserve=min(60,max(15,int(budget['effective_sec']*.15))) if not rust else 0
     attempts=[];candidate=files;diagnostic='';check={'status':'failed','verified':False,'message':'尚未验证'}
     prompt_base=base_prompt(files,task.mode,payload.description,payload.function_signature,payload.agent_instructions)
     for round_number in range(payload.max_repair_rounds+1):
@@ -136,33 +149,47 @@ def execute_agent(manager,task,payload):
         prompt=prompt_base+'\nOriginal source:\n'+json.dumps(files,ensure_ascii=False)
         if attempts:
             prompt+='\nPrevious candidate:\n'+json.dumps(candidate,ensure_ascii=False)+'\nVerifier diagnostics:\n'+diagnostic[-16000:]
-        task.message=f'{agent} 第 {round_number+1} 轮：生成与验证'
+        operation='首次生成与验证' if round_number==0 else f'修复现有规约 {round_number}/{payload.max_repair_rounds}'
+        task.message=f'{agent}：{operation}（总预算 {budget["effective_sec"]} 秒）'
         task.updated_at=utcnow();store.write_task(task)
         manager._advance_phase(task,'generation' if rust else 'generate_specifications','running',task.message)
-        attempt={'id':str(round_number),'round':round_number,'prompt':prompt,'model_name':payload.assistant.get('runner_model') or agent}
+        attempt={'id':str(round_number),'round':round_number,'prompt':prompt,'model_name':payload.model_name}
         try:
-            produced=generate(agent,prompt,directory/f'round-{round_number}',remaining,
-                              payload.model_name if agent=='deepseek-harness' else payload.assistant.get('runner_model',''), **({'sub_model':payload.assistant['sub_model']} if agent=='deepseek-harness' and payload.assistant.get('sub_model') else {}))
+            from contextlib import nullcontext
+            with (progress.watch(directory/f'round-{round_number}',round_number,reuse=agent=='deepseek-harness' and round_number>0) if progress else nullcontext()):
+                produced=generate(agent,prompt,directory/f'round-{round_number}',max(1,remaining-proof_reserve),
+                                  payload.model_name, **({'sub_model':payload.assistant['sub_model']} if agent=='deepseek-harness' and payload.assistant.get('sub_model') else {}))
             runtime_file=directory/f'round-{round_number}'/'harness-runtime.json'
+            if not runtime_file.is_file():runtime_file=directory/f'round-{round_number}'/'cli-runtime.json'
             if runtime_file.is_file():attempt['agent_runtime']=json.loads(runtime_file.read_text())
             candidate=validate_candidates(files,produced,rust,entry,task.mode)
             attempt['code']=next(f['content'] for f in candidate if f['path']==entry)
+            if progress:progress.update({'id':'candidate','label':'平台检查源码与原始断言','status':'completed'})
             left=int(deadline-time.monotonic())
             if left<1:raise TimeoutError('生成完成时任务已超时，未执行验证。')
             manager._advance_phase(task,'verus' if rust else 'formal_verifying','running','正在执行实际验证器')
+            if progress:progress.update({'id':'platform-proof','label':'平台独立 Frama-C 验证','status':'running'})
             check=verify_candidates(candidate,entry,task.mode,directory/f'proof-{round_number}',left)
         except AgentCallError as exc:
-            check={'status':'unavailable','verified':False,'message':str(exc)}
+            failure_code=getattr(exc,'code','agent_failed')
+            failure_status='timeout' if failure_code=='agent_timeout' else 'blocked' if failure_code in ('agent_delegation','agent_output','agent_tools','output_limit') else 'unavailable'
+            check={'status':failure_status,'verified':False,'message':str(exc),'code':failure_code}
+            runtime_file=directory/f'round-{round_number}'/'harness-runtime.json'
+            if not runtime_file.is_file():runtime_file=directory/f'round-{round_number}'/'cli-runtime.json'
+            if runtime_file.is_file():attempt['agent_runtime']=json.loads(runtime_file.read_text())
         except TimeoutError as exc:
             check={'status':'timeout','verified':False,'message':str(exc)}
         except (ValueError,OSError) as exc:
             check={'status':'blocked','verified':False,'message':str(exc)}
+        if progress and any(step['id']==f'{round_number}:platform-proof' for step in progress.state['steps']):
+            progress.update({'id':'platform-proof','label':'平台独立 Frama-C 验证','status':'completed' if check.get('verified') else 'failed','detail':check['message']})
         attempt.update(verification=check,status=check['status']);attempts.append(attempt)
         diagnostic='\n'.join(str(check.get(k,'')) for k in ('message','stdout','stderr'))
         store.write_text_artifact(task.task_id,'agent',f'round-{round_number}.json',json.dumps(attempt,ensure_ascii=False))
         task.metadata['agent_attempts']=attempts;store.write_task(task)
-        if check.get('verified') or check['status'] in ('timeout','unavailable'):break
+        if check.get('verified') or check['status'] in ('timeout','unavailable') or 'code' not in attempt:break
     status='Pass' if check.get('verified') else 'Unavailable' if check['status']=='unavailable' else 'Timeout' if check['status']=='timeout' else 'Invalid' if check['status'] in ('blocked','compile_error') else 'Fail'
+    if progress:progress.finish(bool(check.get('verified')))
     code=next(f['content'] for f in candidate if f['path']==entry)
     proved=int(check.get('verified_count') or 0);errors=int(check.get('error_count') or 0);total=proved+errors
     for phase in task.phases:phase.status='completed' if status=='Pass' else 'failed'

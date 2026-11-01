@@ -1,0 +1,103 @@
+[kernel] Parsing output/ops-4.6/live24/corinnt_alphabet-letter/corinnt_alphabet-letter.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             8
+  Alt-Ergo :       1 (5ms)
+------------------------------------------------------------
+  Function alphabet_letter
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/corinnt_alphabet-letter/corinnt_alphabet-letter.acsl.c, line 4) in 'alphabet_letter':
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/corinnt_alphabet-letter/corinnt_alphabet-letter.acsl.c, line 5) in 'alphabet_letter':
+Assume {
+  Type: is_sint8(c) /\ is_sint32(alphabet_letter_0).
+  (* Goal *)
+  When: ((c <= 64) \/ (91 <= c)) /\ ((c <= 96) \/ (123 <= c)).
+  If 97 <= c
+  Then {
+    If c <= 122
+    Then { Have: alphabet_letter_0 = 1. }
+    Else {
+      If 65 <= c
+      Then {
+        If c <= 90
+        Then { Have: alphabet_letter_0 = 1. }
+        Else { Have: alphabet_letter_0 = 0. }
+      }
+      Else { Have: alphabet_letter_0 = 0. }
+    }
+  }
+  Else {
+    If 65 <= c
+    Then {
+      If c <= 90
+      Then { Have: alphabet_letter_0 = 1. }
+      Else { Have: alphabet_letter_0 = 0. }
+    }
+    Else { Have: alphabet_letter_0 = 0. }
+  }
+}
+Prove: alphabet_letter_0 = 0.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (10ms) (28525)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (5ms) (26)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'alphabet_letter' (1/4):
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'alphabet_letter' (2/4):
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'alphabet_letter' (3/4):
+Effect at line 9
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'alphabet_letter' (4/4):
+Effect at line 9
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/corinnt_alphabet-letter/corinnt_alphabet-letter.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/corinnt_alphabet-letter/corinnt_alphabet-letter.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/corinnt_alphabet-letter/corinnt_alphabet-letter.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live24/corinnt_alphabet-letter/corinnt_alphabet-letter.acsl.c:11: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

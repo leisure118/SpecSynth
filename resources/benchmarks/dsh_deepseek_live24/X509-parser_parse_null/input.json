@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "X509-parser_parse_null.c",
+      "content": "#include <stdint.h>\n#include <unistd.h>\n#include <string.h>\ntypedef uint8_t\t  u8;\ntypedef uint16_t u16;\ntypedef uint32_t u32;\ntypedef uint64_t u64;\n#define X509_FILE_NUM 0 \n#define X509_FILE_LINE_NUM_ERR ((X509_FILE_NUM * 100000) + __LINE__)\n/*@\n  predicate bmatch(u8 *b1, u8 *b2, u32 n) =\n    \\forall integer i; 0 <= i < n ==> b1[i] == b2[i];\n  \n  predicate bdiffer(u8 *b1, u8 *b2, u32 n) =\n    ! bmatch(b1, b2, n);\n*/\n/*@\n  requires \\valid_read(b1 + (0 .. n-1));\n  requires \\valid_read(b2 + (0 .. n-1));\n  requires n >= 0;\n  ensures \\result == 0 <==> bmatch(b1, b2, n);\n  ensures \\result == 1 <==> bdiffer(b1, b2, n);\n  assigns \\nothing;\n*/\nint bufs_differ(const u8 *b1, const u8 *b2, u32 n)\n{\n\tint ret = 0;\n\tu32 i = 0;\n\t/*@\n\t  loop invariant 0 <= i <= n;\n\t  loop invariant bmatch(b1, b2, i);\n\t  loop assigns i;\n\t  loop variant n - i;\n\t*/\n\tfor (i = 0; i < n; i++) {\n\t\tif(b1[i] != b2[i]) {\n\t\t\tret = 1;\n\t\t\tbreak;\n\t\t}\n\t}\n\treturn ret;\n}\nstatic const u8 null_encoded_val[] = { 0x05, 0x00 };\nint parse_null(const u8 *buf, u32 len, u32 *parsed)\n{\n\tint ret;\n\tif ((len == 0) || (buf == NULL) || (parsed == NULL)) {\n\t\tret = -X509_FILE_LINE_NUM_ERR;\n\t\tgoto out;\n\t}\n\tif (len != sizeof(null_encoded_val)) {\n\t\tret = -X509_FILE_LINE_NUM_ERR;\n\t\tgoto out;\n\t}\n\tret = bufs_differ(buf, null_encoded_val, sizeof(null_encoded_val));\n\tif (ret) {\n\t\tret = -X509_FILE_LINE_NUM_ERR;\n\t\tgoto out;\n\t}\n\tret = 0;\n\t*parsed = sizeof(null_encoded_val);\nout:\n\treturn ret;\n}\nint main() {\n  const u8 b[] = { 0x05, 0x00 };\n  u32 parsed;\n  int ret = parse_null(b, sizeof(null_encoded_val), &parsed);\n  //@ assert parsed == sizeof(null_encoded_val);\n  //@ assert ret == 0;\n  return 0;\n}"
+    }
+  ],
+  "sha256": "f31e25b034e082cb29df8a674ded5d4e5b9b11f9292700f0fd351314deb92342"
+}

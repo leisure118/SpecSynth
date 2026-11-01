@@ -1,0 +1,285 @@
+[kernel] Parsing output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:            11
+  Alt-Ergo :       4 (6ms-7ms)
+  Z3 4.15.4:       2 (40ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 13):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: IsArray_S1_S(s_1).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      ((s_1[i_2].F1_S_n) = 0))).
+  (* Loop assigns ... *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (((i_2 < 0) \/ (500001 <= i_2)) ->
+      ((s_1[i_2].F1_S_n) = (s[i_2].F1_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      ((s[i_2].F1_S_n) = 10))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Else *)
+  Have: i <= 500000.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (s[i <- { F1_S_n = 10 }][i_1].F1_S_n) = 10.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (31504)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (69)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (0.89ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 25):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(s[i_2].F1_S_n) /\
+      is_sint32(1 + i_2).
+  (* Heap *)
+  Type: IsArray_S1_S(s_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 500000).
+  (* Initializer *)
+  Init: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      ((s_1[i_3].F1_S_n) = 0))).
+  (* Loop assigns ... *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (((i_3 < 0) \/ (500001 <= i_3)) ->
+      ((s_1[i_3].F1_S_n) = (s[i_3].F1_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      ((s[i_3].F1_S_n) = 10))).
+  If i_1 <= 999999
+  Then { (* Then *) Have: 500001 <= i_1. }
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 500000) ->
+      ((s[i_3].F1_S_n) = 10))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Then *)
+  Have: i_2 <= 999999.
+  If i_2 <= 500000
+  Then { (* Assertion *) Have: (s[i_2].F1_S_n) = 10. }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: (s[i].F1_S_n) = 10.
+Prover Z3 4.15.4 returns Valid (Qed:12ms) (10ms) (32667)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (7ms) (76)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 25):
+Assume {
+  Type: is_sint32(i_1).
+  (* Heap *)
+  Type: IsArray_S1_S(s_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 500000).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      ((s_1[i_2].F1_S_n) = 0))).
+  (* Loop assigns ... *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (((i_2 < 0) \/ (500001 <= i_2)) ->
+      ((s_1[i_2].F1_S_n) = (s[i_2].F1_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((s[i_2].F1_S_n) = 10))).
+  If i_1 <= 999999
+  Then { (* Then *) Have: 500001 <= i_1. }
+}
+Prove: (s[i].F1_S_n) = 10.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (44)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 32):
+Let x = s[i].F1_S_n.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: IsArray_S1_S(s_1).
+  (* Initializer *)
+  Init: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      ((s_1[i_2].F1_S_n) = 0))).
+  (* Loop assigns ... *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 999999) ->
+      (((i_2 < 0) \/ (500001 <= i_2)) ->
+      ((s_1[i_2].F1_S_n) = (s[i_2].F1_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((s[i_2].F1_S_n) = 10))).
+  If i_1 <= 999999
+  Then { (* Then *) Have: 500001 <= i_1. }
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 500000) ->
+      ((s[i_2].F1_S_n) = 10))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+  (* Then *)
+  Have: i <= 500000.
+}
+Prove: x = 10.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (31852)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (6ms) (50)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 14) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 14) (2/3):
+Effect at line 17
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(1 + i_1).
+  (* Heap *)
+  Type: IsArray_S1_S(s).
+  (* Goal *)
+  When: (0 <= i_2) /\ (0 <= i_3) /\ (0 <= i) /\ (i_2 <= 500000) /\
+      (i_3 <= 500000) /\ (i <= 500000) /\ (i_2 <= 999999).
+  (* Initializer *)
+  Init: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 999999) ->
+      ((s[i_4].F1_S_n) = 0))).
+  (* Loop assigns ... *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 999999) ->
+      (((i_4 < 0) \/ (500001 <= i_4)) ->
+      ((s[i_4].F1_S_n) = (s_1[i_4].F1_S_n))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      ((s_1[i_4].F1_S_n) = 10))).
+  (* Then *)
+  Have: i_1 <= 999999.
+  (* Else *)
+  Have: i_1 <= 500000.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((i_4 <= i_1) -> ((0 <= i_4) ->
+      ((s_1[i_1 <- { F1_S_n = 10 }][i_4].F1_S_n) = 10))).
+}
+Prove: exists i_4 : Z. (i_4 <= i) /\ (0 <= i_4) /\ (i <= i_4) /\
+    (i_4 <= 500000).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (40ms) (235129)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 14) (3/3):
+Effect at line 21
+Let x = i - 1.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x).
+  (* Heap *)
+  Type: IsArray_S1_S(s).
+  (* Goal *)
+  When: (0 < i) /\ (i <= 1000000).
+  (* Initializer *)
+  Init: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      ((s[i_1].F1_S_n) = 0))).
+  (* Loop assigns ... *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 <= 999999) ->
+      (((i_1 < 0) \/ (500001 <= i_1)) ->
+      ((s[i_1].F1_S_n) = (s_1[i_1].F1_S_n))))).
+  (* Invariant *)
+  Have: i <= 1000001.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      ((s_1[i_1].F1_S_n) = 10))).
+  (* Else *)
+  Have: i <= 500001.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      ((s_1[x <- { F1_S_n = 10 }][i_1].F1_S_n) = 10))).
+}
+Prove: exists i_1 : Z. (0 <= i_1) /\ (i_1 < i) /\ (i_1 <= 500000) /\
+    (i <= (1 + i_1)).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (40ms) (210614)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-lopstr16_break-2/array-lopstr16_break-2.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

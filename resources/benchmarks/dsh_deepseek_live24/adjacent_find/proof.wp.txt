@@ -1,0 +1,333 @@
+Frama-C 证明目标 13/17
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c (with preprocessing)
+[kernel:CERT:MSC:37] resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c:27: Warning: 
+  Body of function adjacent_find falls-through. Adding a return statement
+[wp] Running WP plugin...
+[rte:annot] annotating function adjacent_find
+[wp] 17 goals scheduled
+[wp] [Timeout] typed_adjacent_find_assert (Qed 4ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_adjacent_find_assert_rte_mem_access (Qed 4ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_adjacent_find_assert_missing_return (Qed 12ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_adjacent_find_loop_variant_decrease (Qed 7ms) (Alt-Ergo 15s)
+[wp] Proved goals:   13 / 17
+  Qed:            10
+  Alt-Ergo :       3 (62ms-8.6s-15s)
+  Timeout:         4
+------------------------------------------------------------
+  Function adjacent_find
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 29):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 29):
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 30):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 30):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 31):
+Let x = to_uint32(1 + i_1).
+Let a_1 = shift_sint32(a, x).
+Let x_1 = Mint_0[a_1].
+Let a_2 = shift_sint32(a, i_1).
+Let x_2 = Mint_0[a_2].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i_1) /\ is_uint32(n) /\
+      is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 <= i_1.
+  (* Invariant *)
+  Have: i_1 <= n.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, 1 + i_2)] != Mint_0[shift_sint32(a, i_2)]))).
+  (* Then *)
+  Have: x < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Else *)
+  Have: x_1 != x_2.
+}
+Prove: Mint_0[shift_sint32(a, 1 + i)] != Mint_0[shift_sint32(a, i)].
+Prover Alt-Ergo  returns Valid (Qed:10ms) (62ms) (134)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 31):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 36):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(Mint_0[a_1]) /\ is_sint32(Mint_0[shift_sint32(a, x)]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: i <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x < n.
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:4ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 36):
+Let a_1 = shift_sint32(a, i).
+Let x = to_uint32(1 + i).
+Let a_2 = shift_sint32(a, x).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(Mint_0[a_1]) /\ is_sint32(Mint_0[a_2]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: i <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+}
+Prove: valid_rd(Malloc_0, a_2, 1).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (62ms) (216)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 37):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, x).
+Let x_1 = Mint_0[a_1].
+Let a_2 = shift_sint32(a, i).
+Let x_2 = Mint_0[a_2].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: i <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Then *)
+  Have: x_1 = x_2.
+}
+Prove: P_HasEqualNeighbors(Mint_0, a, 2 + i).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:4ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 42):
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n_1) /\
+      is_uint32(n) /\ is_uint32(n_2) /\ is_uint32(retres_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  If 2 <= n
+  Then {
+    Have: (ta_i_0=false) /\ (n = n_1).
+    (* Invariant *)
+    Have: 0 <= n.
+    Have: (n_2 = n_1) /\ (n_2 = n).
+    (* Invariant *)
+    Have: 0 <= i.
+    (* Invariant *)
+    Have: i <= n.
+    (* Invariant *)
+    Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+        (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+    (* Else *)
+    Have: n <= to_uint32(1 + i).
+  }
+}
+Prove: !P_HasEqualNeighbors(Mint_0, a, n).
+Prover Alt-Ergo  returns Valid (Qed:16ms) (70ms) (270)
+
+------------------------------------------------------------
+
+Goal Assertion 'missing_return' (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 43):
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint32(n_1) /\ is_uint32(n_2) /\ is_uint32(retres_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n_1).
+  If 2 <= n_1
+  Then {
+    Have: (ta_i_0=false) /\ (n_1 = n).
+    (* Invariant *)
+    Have: 0 <= n_1.
+    Have: (n_2 = n) /\ (n_2 = n_1).
+    (* Invariant *)
+    Have: 0 <= i.
+    (* Invariant *)
+    Have: i <= n_1.
+    (* Invariant *)
+    Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+        (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+    (* Else *)
+    Have: n_1 <= to_uint32(1 + i).
+  }
+  (* Assertion *)
+  Have: !P_HasEqualNeighbors(Mint_0, a, n_1).
+}
+Prove: false.
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:12ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 32):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'adjacent_find' (1/3):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'adjacent_find' (2/3):
+Effect at line 38
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'adjacent_find' (3/3):
+Effect at line 43
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 35):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, x).
+Let x_1 = Mint_0[a_1].
+Let a_2 = shift_sint32(a, i).
+Let x_2 = Mint_0[a_2].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: i <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Else *)
+  Have: x_1 != x_2.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+}
+Prove: i < x.
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:7ms) (15s)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/adjacent_find/round-5/proof/adjacent_find.c, line 35):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T19:12:58+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

@@ -1,0 +1,333 @@
+[kernel] Parsing output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c:26: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 23 goals scheduled
+[wp] Proved goals:   23 / 23
+  Qed:            18
+  Alt-Ergo :       5 (7ms-8ms-9ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 10):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (a[i_2] = null))).
+  (* Then *)
+  Have: i <= 999999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a[i <- null][i_1] = null.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (122117)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (66)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 19):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 20):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (a_1[i_3] = null))).
+  (* Else *)
+  Have: 1000000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (((i_3 < 0) \/ (500000 <= i_3)) -> (a_1[i_3] = a[i_3])))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 500000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      valid_rw(Malloc_0, a[i_3], 1))).
+  (* Then *)
+  Have: i <= 499999.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 4)) -> (null = malloc_0)).
+  (* Return Effects *)
+  Have: Init_a_0[i <- v_1] = Init_a_0.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, v, 1).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: valid_rw(Malloc_0, a[i <- v][i_1], 1).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (30ms) (427824)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (93)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 31):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(1 + i_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 499999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) -> (a_1[i_4] = null))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 999999) ->
+      (((i_4 < 0) \/ (500000 <= i_4)) -> (a_1[i_4] = a[i_4])))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 500000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      valid_rw(Malloc_0, a[i_4], 1))).
+  (* Else *)
+  Have: 500000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 499999) ->
+      valid_rw(Malloc_0, a[i_4], 1))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 500000).
+  (* Then *)
+  Have: i_3 <= 499999.
+  (* Assertion *)
+  Have: a[i_3] != null.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: valid_rw(Malloc_0, a[i], 1).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (111753)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (71)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 31):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 499999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = null))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (((i_3 < 0) \/ (500000 <= i_3)) -> (a_1[i_3] = a[i_3])))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 500000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      valid_rw(Malloc_0, a[i_3], 1))).
+  (* Else *)
+  Have: 500000 <= i_2.
+}
+Prove: valid_rw(Malloc_0, a[i], 1).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (54)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 37):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = null))).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 999999) ->
+      (((i_3 < 0) \/ (500000 <= i_3)) -> (a_1[i_3] = a[i_3])))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 500000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      valid_rw(Malloc_0, a[i_3], 1))).
+  (* Else *)
+  Have: 500000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 499999) ->
+      valid_rw(Malloc_0, a[i_3], 1))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 500000).
+  (* Then *)
+  Have: i <= 499999.
+}
+Prove: a[i] != null.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (68783)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (85)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 21) (1/2):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 21) (2/2):
+Call Result at line 26
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.92ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 24):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 24):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c:26: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-lopstr16_partial_lesser_bound/array-lopstr16_partial_lesser_bound.acsl.c:6: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

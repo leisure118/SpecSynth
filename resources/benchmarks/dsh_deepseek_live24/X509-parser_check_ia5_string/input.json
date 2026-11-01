@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "X509-parser_check_ia5_string.c",
+      "content": "#include <stdint.h>\n#include <unistd.h>\n#include <string.h>\ntypedef uint8_t\t  u8;\ntypedef uint16_t u16;\ntypedef uint32_t u32;\ntypedef uint64_t u64;\n#define X509_FILE_NUM 1 \n#define X509_FILE_LINE_NUM_ERR ((X509_FILE_NUM * 100000))\nstatic int check_ia5_string(const u8 *buf, u32 len)\n{\n\tint ret;\n\tu32 i;\n\tif ((buf == NULL) || (len == 0)) {\n\t\tret = -X509_FILE_LINE_NUM_ERR;\n\t\tgoto out;\n\t}\n\tfor (i = 0; i < len; i++) {\n\t\tif (buf[i] > 0x7f) {\n\t\t\tret = -X509_FILE_LINE_NUM_ERR;\n\t\t\tgoto out;\n\t\t}\n\t}\n\tret = 0;\nout:\n\treturn ret;\n}\nint main() {\n\tu8 buf[5];\n\tu32 len = 5;\n\tint ret = check_ia5_string(&buf[0], len);\n\t//@ assert ret == -X509_FILE_LINE_NUM_ERR ==> \\exists integer i; 0 <= i < len && buf[i] > 0x7f;\n\t//@ assert ret == 0 ==> \\forall integer i; 0 <= i < len ==> (buf[i] <= 0x7f);\n\treturn ret;\n}"
+    }
+  ],
+  "sha256": "6f53851218749557471612d01d7708a1f98a298684c01137ee86531c8653464a"
+}

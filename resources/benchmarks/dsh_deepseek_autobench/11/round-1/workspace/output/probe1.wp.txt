@@ -1,0 +1,102 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c (with preprocessing)
+[kernel:typing:implicit-function-declaration] runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c:11: Warning: 
+  Calling undeclared function unknown. Old style K&R code?
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[kernel:annot:missing-spec] runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c:5: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] 7 goals scheduled
+[wp] [Timeout] typed_foo_assert_rte_signed_overflow_2 (Qed 3ms) (Z3 15s)
+[wp] [Timeout] typed_foo_assert_rte_signed_overflow (Qed 5ms) (Z3 15s)
+[wp] Proved goals:    5 / 7
+  Qed:             4
+  Alt-Ergo :       1 (29ms)
+  Timeout:         2
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c, line 8):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c, line 12):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(x + y - y_1).
+  (* Pre-condition *)
+  Have: (y_1 <= x_1) /\ (x_1 <= (10 + y_1)).
+  (* Pre-condition *)
+  Have: (0 <= y) /\ (y <= 10).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: x <= 2147483637.
+Prover Z3 4.8.12 returns Timeout (Qed:5ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:5ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c, line 13):
+Let x_1 = x + y_1.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y_1) /\ is_sint32(y) /\
+      is_sint32(10 + x) /\ is_sint32(x + y_1 - y).
+  (* Pre-condition *)
+  Have: (y <= x_1) /\ (x_1 <= (10 + y)).
+  (* Pre-condition *)
+  Have: (0 <= y_1) /\ (y_1 <= 10).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x <= 2147483637.
+}
+Prove: y <= 2147483637.
+Prover Z3 4.8.12 returns Timeout (Qed:3ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:3ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c, line 17):
+Assume {
+  Type: is_sint32(y_1) /\ is_sint32(y) /\ is_sint32(20 + y_1 - y).
+  (* Pre-condition *)
+  Have: ((10 + y_1) <= y) /\ (y <= (20 + y_1)).
+  (* Pre-condition *)
+  Have: (0 <= y_1) /\ (y_1 <= 10).
+}
+Prove: y != 0.
+Prover Z3 4.8.12 returns Valid (Qed:6ms) (110ms) (34618)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (29ms) (11)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c, line 9) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c, line 9) (2/2):
+Call Result at line 11
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c:5: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-jy22wgut/workspace/.platform-proofs/tmpkvhhrshn/candidate.c:11: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T16:06:22+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

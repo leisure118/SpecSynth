@@ -1,0 +1,32 @@
+/* Auto-generated minimal verifiable slice */
+/* Target function: foo */
+/* Mode: stub */
+
+#include <stdint.h>
+#include <unistd.h>
+#include <string.h>
+
+typedef uint8_t  u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+
+
+int foo(int a,int b);
+
+/* === Target: foo === */
+/*@
+  requires -100 <= a <= 100;
+  requires -100 <= b <= 100;
+  assigns \nothing;
+  ensures \result == (a >= 0 ? a + 1 : a + b);
+*/
+int foo(int a,int b){
+if(a>=0){
+a++;
+}
+else{
+a+=b;
+}
+return a;
+}

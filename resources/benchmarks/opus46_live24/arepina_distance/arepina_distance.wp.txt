@@ -1,0 +1,39 @@
+[kernel] Parsing output/ops-4.6/live24/arepina_distance/arepina_distance.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 4 goals scheduled
+[wp] Proved goals:    4 / 4
+  Qed:             2
+  Alt-Ergo :       2 (5ms-7ms)
+------------------------------------------------------------
+  Function distance
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/arepina_distance/arepina_distance.acsl.c, line 3) in 'distance':
+Assume { Type: is_uint32(a) /\ is_uint32(b). (* Goal *) When: b < a. }
+Prove: (b + to_uint32(a - b)) = a.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (5ms) (29)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/arepina_distance/arepina_distance.acsl.c, line 4) in 'distance':
+Assume { Type: is_uint32(a) /\ is_uint32(b). (* Goal *) When: a <= b. }
+Prove: (a + to_uint32(b - a)) = b.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (27851)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (7ms) (29)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance' (1/2):
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance' (2/2):
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid (0.55ms)
+
+------------------------------------------------------------

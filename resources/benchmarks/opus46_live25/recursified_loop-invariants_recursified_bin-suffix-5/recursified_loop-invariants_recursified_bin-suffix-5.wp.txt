@@ -1,0 +1,129 @@
+[kernel] Parsing output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c:15: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] [Timeout] typed_func_to_recursive_line_13_to_14_0_call_func_to_recursive_line_13_to_14_0_requires_2 (Qed 3ms) (Z3)
+[wp] Proved goals:   13 / 14
+  Qed:            13
+  Timeout:         1
+------------------------------------------------------------
+  Function func_to_recursive_line_13_to_14_0
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 11) in 'func_to_recursive_line_13_to_14_0':
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 10) in 'func_to_recursive_line_13_to_14_0' (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 10) in 'func_to_recursive_line_13_to_14_0' (2/4):
+Call Result at line 15
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 10) in 'func_to_recursive_line_13_to_14_0' (3/4):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 10) in 'func_to_recursive_line_13_to_14_0' (4/4):
+Call Effect at line 20
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 10) in 'func_to_recursive_line_13_to_14_0' (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 10) in 'func_to_recursive_line_13_to_14_0' (2/4):
+Call Result at line 15
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 10) in 'func_to_recursive_line_13_to_14_0' (3/4):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (0.85ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 10) in 'func_to_recursive_line_13_to_14_0' (4/4):
+Call Effect at line 20
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 8) in 'func_to_recursive_line_13_to_14_0'' in 'func_to_recursive_line_13_to_14_0' at call 'func_to_recursive_line_13_to_14_0' (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 20)
+:
+Prove: true.
+Prover Qed returns Valid (0.86ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 9) in 'func_to_recursive_line_13_to_14_0'' in 'func_to_recursive_line_13_to_14_0' at call 'func_to_recursive_line_13_to_14_0' (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 20)
+:
+Let x_1 = Mint_0[x].
+Assume {
+  Type: is_sint32(tmp_0) /\ is_uint32(x_1).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, x, 1).
+  (* Pre-condition *)
+  Have: land(5, x_1) = 5.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: land(5, to_uint32(8 + x_1)) = 5.
+Prover Z3 4.15.4 returns Timeout (Qed:3ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:3ms) (15s)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 8) in 'func_to_recursive_line_13_to_14_0'' in 'main' at call 'func_to_recursive_line_13_to_14_0' (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 29)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 9) in 'func_to_recursive_line_13_to_14_0'' in 'main' at call 'func_to_recursive_line_13_to_14_0' (file output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c, line 29)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/recursified_loop-invariants_recursified_bin-suffix-5/recursified_loop-invariants_recursified_bin-suffix-5.acsl.c:26: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

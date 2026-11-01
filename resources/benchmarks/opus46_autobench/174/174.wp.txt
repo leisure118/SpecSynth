@@ -1,0 +1,101 @@
+[kernel] Parsing output/ops-4.6/autobench/174/174.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/autobench/174/174.acsl.c:19: Warning: 
+  Calling function unknown1 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] output/ops-4.6/autobench/174/174.acsl.c:16: Warning: 
+  Neither code nor implicit assigns clause for function unknown1, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Alt-Ergo :       2 (6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/174/174.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/174/174.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/174/174.acsl.c, line 24):
+Let x = -j.
+Assume {
+  Type: is_sint32(flag_0) /\ is_sint32(j_1) /\ is_sint32(j) /\
+      is_sint32(k) /\ is_sint32(n) /\ is_sint32(j_1 - j) /\
+      is_sint32(j_1 - 1 - j).
+  (* Pre-condition *)
+  Have: 0 < n.
+  If flag_0 != 0
+  Then { (* Call 'unknown1' *) Have: 0 <= k. }
+  (* Invariant *)
+  Have: (j < j_1) /\ (j_1 <= (2 + j + n)).
+  (* Invariant *)
+  Have: j_1 <= (1 + (2 * j)).
+  (* Then *)
+  Have: j_1 <= (1 + j + n).
+}
+Prove: 0 <= j.
+Prover Alt-Ergo  returns Valid (Qed:5ms) (6ms) (18)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/174/174.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/174/174.acsl.c, line 33):
+Let x = i + j + k.
+Assume {
+  Type: is_sint32(flag_0) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\
+      is_sint32(n) /\ is_sint32(x).
+  (* Pre-condition *)
+  Have: 0 < n.
+  If flag_0 != 0
+  Then { (* Call 'unknown1' *) Have: 0 <= k. }
+  Else { Have: k = 1. }
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= (1 + n)).
+  (* Invariant *)
+  Have: i <= j.
+  (* Else *)
+  Have: n < i.
+}
+Prove: (2 * n) < x.
+Prover Alt-Ergo  returns Valid (Qed:5ms) (6ms) (34)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/174/174.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/autobench/174/174.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/autobench/174/174.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/174/174.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'unknown1'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/ops-4.6/autobench/174/174.acsl.c:16: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

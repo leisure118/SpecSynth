@@ -1,0 +1,441 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function has_period
+[wp] 21 goals scheduled
+[wp] Proved goals:   21 / 21
+  Qed:            13
+  Alt-Ergo :       8 (42ms-66ms-144ms)
+------------------------------------------------------------
+  Function has_period
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 28) in 'has_period':
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(has_period_0) /\ is_uint32(i) /\
+      is_uint32(l) /\ is_uint32(p) /\ is_uint32(retres_0) /\
+      is_uint32(retres_1) /\ is_uint32(retres_2) /\ is_uint32(retres_3).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Goal *)
+  When: P_is_periodic(Mchar_0, x, p, l).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  If p = l
+  Then { Have: has_period_0 = 1. }
+  Else {
+    If to_uint32(l % p) != 0
+    Then { Have: has_period_0 = 0. }
+    Else {
+      (* Block In *)
+      Have: (ta_i_0=false).
+      (* Invariant *)
+      Have: p < l.
+      (* Invariant *)
+      Have: 0 <= i.
+      (* Invariant *)
+      Have: (i + p) < l.
+      (* Invariant *)
+      Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) -> (is_uint32(i_1) ->
+          (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)])))).
+      If i < to_uint32(to_uint32(l - p) - 1)
+      Then {
+        Let a = shift_sint8(x, to_uint32(i + p)).
+        Let a_1 = shift_sint8(x, i).
+        (* Assertion 'rte,mem_access' *)
+        Have: valid_rd(Malloc_0, a_1, 1).
+        (* Assertion 'rte,mem_access' *)
+        Have: valid_rd(Malloc_0, a, 1).
+        (* Then *)
+        Have: Mchar_0[a] != Mchar_0[a_1].
+        Have: has_period_0 = 0.
+      }
+      Else { Have: has_period_0 = 1. }
+    }
+  }
+}
+Prove: has_period_0 = 1.
+Prover Alt-Ergo  returns Valid (Qed:46ms) (70ms) (587)
+
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 29) in 'has_period':
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(has_period_0) /\ is_uint32(i) /\
+      is_uint32(l) /\ is_uint32(p) /\ is_uint32(retres_0) /\
+      is_uint32(retres_1) /\ is_uint32(retres_2) /\ is_uint32(retres_3).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Goal *)
+  When: !P_is_periodic(Mchar_0, x, p, l).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  If p = l
+  Then { Have: has_period_0 = 1. }
+  Else {
+    If to_uint32(l % p) != 0
+    Then { Have: has_period_0 = 0. }
+    Else {
+      (* Block In *)
+      Have: (ta_i_0=false).
+      (* Invariant *)
+      Have: p < l.
+      (* Invariant *)
+      Have: 0 <= i.
+      (* Invariant *)
+      Have: (i + p) < l.
+      (* Invariant *)
+      Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) -> (is_uint32(i_1) ->
+          (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)])))).
+      If i < to_uint32(to_uint32(l - p) - 1)
+      Then {
+        Let a = shift_sint8(x, to_uint32(i + p)).
+        Let a_1 = shift_sint8(x, i).
+        (* Assertion 'rte,mem_access' *)
+        Have: valid_rd(Malloc_0, a_1, 1).
+        (* Assertion 'rte,mem_access' *)
+        Have: valid_rd(Malloc_0, a, 1).
+        (* Then *)
+        Have: Mchar_0[a] != Mchar_0[a_1].
+        Have: has_period_0 = 0.
+      }
+      Else { Have: has_period_0 = 1. }
+    }
+  }
+}
+Prove: has_period_0 = 0.
+Prover Alt-Ergo  returns Valid (Qed:36ms) (144ms) (4139)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,division_by_zero' (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 33):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 36):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 36):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 37):
+Let x_1 = i + p.
+Let a = shift_sint8(x, to_uint32(x_1)).
+Let x_2 = Mchar_0[a].
+Let a_1 = shift_sint8(x, i).
+Let x_3 = Mchar_0[a_1].
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(x_3) /\ is_sint8(x_2).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x_1 < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_2 = x_3.
+}
+Prove: (p + to_uint32(1 + i)) < l.
+Prover Alt-Ergo  returns Valid (Qed:9ms) (56ms) (195)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 37):
+Assume {
+  Type: is_uint32(l) /\ is_uint32(p).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+}
+Prove: p < l.
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (140ms) (82082)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (42ms) (84)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 38):
+Let x_1 = to_uint32(1 + i_1).
+Let x_2 = i_1 + p.
+Let a = shift_sint8(x, to_uint32(x_2)).
+Let x_3 = Mchar_0[a].
+Let a_1 = shift_sint8(x, i_1).
+Let x_4 = Mchar_0[a_1].
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i_1) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(x_4) /\ is_sint8(x_3).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x_1) /\ is_uint32(i).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: 0 <= i_1.
+  (* Invariant *)
+  Have: x_2 < l.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mchar_0[shift_sint8(x, p + i_2)] = Mchar_0[shift_sint8(x, i_2)]))).
+  (* Then *)
+  Have: i_1 < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: (p + x_1) < l.
+}
+Prove: Mchar_0[shift_sint8(x, i + p)] = Mchar_0[shift_sint8(x, i)].
+Prover Alt-Ergo  returns Valid (Qed:8ms) (56ms) (225)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 38):
+Prove: true.
+Prover Qed returns Valid (0.66ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 39):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 39):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 43):
+Let x_1 = i + p.
+Let a = shift_sint8(x, i).
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(Mchar_0[a]) /\
+      is_sint8(Mchar_0[shift_sint8(x, to_uint32(x_1))]).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x_1 < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+}
+Prove: valid_rd(Malloc_0, a, 1).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (57ms) (246)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 43):
+Let a = shift_sint8(x, i).
+Let x_1 = i + p.
+Let a_1 = shift_sint8(x, to_uint32(x_1)).
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(Mchar_0[a]) /\ is_sint8(Mchar_0[a_1]).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x_1 < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (56ms) (214)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 35):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (1/5):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (2/5):
+Effect at line 33
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (3/5):
+Effect at line 42
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (4/5):
+Effect at line 44
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (5/5):
+Effect at line 46
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 42):
+Let x_1 = to_uint32(1 + i).
+Let x_2 = i + p.
+Let a = shift_sint8(x, to_uint32(x_2)).
+Let x_3 = Mchar_0[a].
+Let a_1 = shift_sint8(x, i).
+Let x_4 = Mchar_0[a_1].
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(x_4) /\ is_sint8(x_3).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: x_2 < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: (p + x_1) < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x_1) -> (is_uint32(i_1) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)])))).
+}
+Prove: i < x_1.
+Prover Z3 4.8.12 returns Valid (Qed:16ms) (150ms) (131587)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (49ms) (168)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpu5we67f5/candidate.c, line 42):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T15:41:04+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

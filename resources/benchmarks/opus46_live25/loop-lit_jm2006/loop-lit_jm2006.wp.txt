@@ -1,0 +1,81 @@
+[kernel] Parsing output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c:10: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             7
+  Alt-Ergo :       1 (15ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c, line 16):
+Let x_1 = j + x.
+Assume {
+  Type: is_sint32(j) /\ is_sint32(x) /\ is_sint32(y) /\ is_sint32(x - 1) /\
+      is_sint32(j + x - y).
+  (* Call 'unknown' *)
+  Have: (x_1 <= (2147483646 + y)) /\ (y <= (2147483648 + j + x)).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= j) /\ (j <= 2147483646).
+  (* Then *)
+  Have: y <= x_1.
+  (* Then *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Then *)
+  Have: x != 0.
+}
+Prove: 0 < x.
+Prover Alt-Ergo  returns Valid (Qed:6ms) (15ms) (17)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1.00ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-lit_jm2006/loop-lit_jm2006.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

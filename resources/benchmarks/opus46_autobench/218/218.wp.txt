@@ -1,0 +1,219 @@
+[kernel] Parsing output/ops-4.6/autobench/218/218.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 16 goals scheduled
+[wp] Proved goals:   16 / 16
+  Qed:            12
+  Alt-Ergo :       4 (11ms-14ms-19ms)
+------------------------------------------------------------
+  Function check
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/autobench/218/218.acsl.c, line 6) in 'check':
+Let x = Mint_0[shift_sint32(b, i)].
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: i < n.
+  (* Goal *)
+  When: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < n) ->
+      (Mint_0[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(b, i_1)] = Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x != x_1.
+}
+Prove: false.
+Prover Alt-Ergo  returns Valid (Qed:9ms) (11ms) (54)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/autobench/218/218.acsl.c, line 7) in 'check':
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: n <= i.
+  (* Goal *)
+  When: (Mint_0[shift_sint32(b, i_1)] != Mint_0[shift_sint32(a, i_1)]) /\
+      (0 <= i_1) /\ (i_1 < n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (Mint_0[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+}
+Prove: false.
+Prover Alt-Ergo  returns Valid (Qed:7ms) (14ms) (50)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/218/218.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/218/218.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/218/218.acsl.c, line 12):
+Let x = Mint_0[shift_sint32(b, i_1)].
+Let x_1 = Mint_0[shift_sint32(a, i_1)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(n) /\ is_sint32(1 + i_1) /\
+      is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(b, i_2)] = Mint_0[shift_sint32(a, i_2)]))).
+  (* Then *)
+  Have: i_1 < n.
+  (* Else *)
+  Have: x = x_1.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: Mint_0[shift_sint32(b, i)] = Mint_0[shift_sint32(a, i)].
+Prover Alt-Ergo  returns Valid (Qed:6ms) (19ms) (86)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/218/218.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/218/218.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (1/3):
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (2/3):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (3/3):
+Effect at line 21
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/autobench/218/218.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/autobench/218/218.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/218/218.acsl.c, line 28):
+Assume {
+  Type: is_sint32(res_0).
+  (* Initializer *)
+  Init: a[0] = 1.
+  (* Initializer *)
+  Init: a[1] = 2.
+  (* Initializer *)
+  Init: a[2] = 3.
+  (* Initializer *)
+  Init: a[3] = 4.
+  (* Initializer *)
+  Init: a[4] = 5.
+  (* Initializer *)
+  Init: b[0] = 1.
+  (* Initializer *)
+  Init: b[1] = 2.
+  (* Initializer *)
+  Init: b[2] = 3.
+  (* Initializer *)
+  Init: b[3] = 4.
+  (* Initializer *)
+  Init: b[4] = 5.
+  (* Call 'check' *)
+  Have: (((forall i : Z. ((0 <= i) -> ((i <= 4) -> (b[i] = a[i])))) ->
+         (res_0 = 1))) /\
+      (((exists i : Z. (b[i] != a[i]) /\ (0 <= i) /\ (i <= 4)) ->
+       (res_0 = 0))).
+}
+Prove: res_0 = 1.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (12ms) (67)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/autobench/218/218.acsl.c, line 2) in 'check'' in 'main' at initialization of 'res' (file output/ops-4.6/autobench/218/218.acsl.c, line 27)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/autobench/218/218.acsl.c, line 3) in 'check'' in 'main' at initialization of 'res' (file output/ops-4.6/autobench/218/218.acsl.c, line 27)
+:
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/autobench/218/218.acsl.c, line 4) in 'check'' in 'main' at initialization of 'res' (file output/ops-4.6/autobench/218/218.acsl.c, line 27)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/218/218.acsl.c:24: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

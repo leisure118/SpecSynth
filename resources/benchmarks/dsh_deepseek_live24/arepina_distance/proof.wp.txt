@@ -1,0 +1,43 @@
+Frama-C 证明目标 4/4
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/arepina_distance/round-2/proof/arepina_distance.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function distance
+[wp] 4 goals scheduled
+[wp] Proved goals:    4 / 4
+  Qed:             2
+  Alt-Ergo :       2 (39ms-44ms)
+------------------------------------------------------------
+  Function distance
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_distance/round-2/proof/arepina_distance.c, line 3) in 'distance':
+Assume { Type: is_uint32(a) /\ is_uint32(b). (* Goal *) When: b < a. }
+Prove: (b + to_uint32(a - b)) = a.
+Prover Z3 4.8.12 returns Valid (Qed:7ms) (130ms) (34891)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (39ms) (32)
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_distance/round-2/proof/arepina_distance.c, line 4) in 'distance':
+Assume { Type: is_uint32(a) /\ is_uint32(b). (* Goal *) When: a <= b. }
+Prove: (a + to_uint32(b - a)) = b.
+Prover Z3 4.8.12 returns Valid (Qed:2ms) (150ms) (34882)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (44ms) (29)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance' (1/2):
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance' (2/2):
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T19:28:25+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "arrays_and_loops_5.c",
+      "content": "/*@\n    requires y > 0;\n    requires \\valid(r);\n    requires x >= 0;\n    assigns *r;\n    ensures *r == x % y;\n    ensures \\result == x / y;\n*/\nint fun(int x, int y , int *r) {\n    *r = x;\n    int d = 0;\n    /*@\n        loop invariant d >= 0;\n        loop invariant *r >= 0;\n        loop invariant *r + y*d == x;\n        loop assigns *r, d;\n        loop variant *r;\n    */\n    while (*r >= y) {\n        *r = *r - y;\n        d = d + 1;\n    }\n    return d;\n}\nint main() {\n    int a = 3;\n    int num = fun(1, 2, &a);\n    //@ assert a == 1;\n    //@ assert num == 0;\n    return 0;\n}"
+    }
+  ]
+}

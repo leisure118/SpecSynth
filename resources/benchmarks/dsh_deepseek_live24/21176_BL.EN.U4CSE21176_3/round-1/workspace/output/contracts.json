@@ -1,0 +1,21 @@
+{
+  "abs": {
+    "layer": 0,
+    "signature": "int abs(int val);",
+    "callees": [],
+    "contract": "/*@\n  requires val != -2147483648;\n  assigns \\nothing;\n  ensures \\result == (val < 0 ? -val : val);\n  ensures \\result >= 0;\n*/",
+    "status": "pass",
+    "proved": "5/5",
+    "source": "output/layer0/abs/abs.acsl.c"
+  },
+  "main": {
+    "layer": 1,
+    "signature": "int main();",
+    "callees": [
+      "abs"
+    ],
+    "contract": null,
+    "status": "pending",
+    "proved": null
+  }
+}

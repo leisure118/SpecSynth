@@ -1,0 +1,37 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-c55hp1vr/workspace/.platform-proofs/tmphq5g2fzt/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[rte:annot] annotating function verify_correct_time_use
+[wp] 2 goals scheduled
+[wp] [Timeout] typed_main_assert_2 (Qed 1ms) (Z3 15s)
+[wp] [Timeout] typed_main_assert (Qed 5ms) (Z3 15s)
+[wp] Proved goals:    0 / 2
+  Qed:             0 (1ms-5ms)
+  Timeout:         2
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-c55hp1vr/workspace/.platform-proofs/tmphq5g2fzt/candidate.c, line 52):
+Assume { Type: is_sint32(result_0). }
+Prove: result_0 = (-1).
+Prover Z3 4.8.12 returns Timeout (Qed:5ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:5ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-c55hp1vr/workspace/.platform-proofs/tmphq5g2fzt/candidate.c, line 55):
+Assume { Type: is_sint32(result_0). }
+Prove: (result_0 = 0) \/ (result_0 < 0).
+Prover Z3 4.8.12 returns Timeout (Qed:1ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:1ms) (15s)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-c55hp1vr/workspace/.platform-proofs/tmphq5g2fzt/candidate.c:32: Warning: 
+  No 'assigns' specification for function 'verify_correct_time_use'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-c55hp1vr/workspace/.platform-proofs/tmphq5g2fzt/candidate.c:48: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T17:39:59+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

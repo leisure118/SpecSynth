@@ -1,0 +1,84 @@
+Frama-C 证明目标 8/8
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function Sqrt
+[rte:annot] annotating function main
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             5
+  Alt-Ergo :       1 (47ms)
+  Z3 4.8.12:       2 (80ms-90ms)
+------------------------------------------------------------
+  Function Sqrt
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 4) in 'Sqrt':
+Let r = of_f64(Sqrt_0).
+Assume {
+  (* Pre-condition *)
+  Have: (.0 <= of_f64(x)) /\ is_finite_f64(x).
+  (* Call 'sqrt' *)
+  Have: (of_f64(sqrt_f64(x)) = r) /\ (.0 <= r) /\ is_finite_f64(Sqrt_0).
+}
+Prove: of_f64(sqrt_f64(x)) = r.
+Prover Z3 4.8.12 returns Valid (Qed:4ms) (90ms) (4014)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'Sqrt':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'Sqrt' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'Sqrt' (2/2):
+Call Result at line 8
+Prove: true.
+Prover Qed returns Valid (0.68ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'finite_arg' in 'sqrt'' in 'Sqrt' at call 'sqrt' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 8)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'arg_positive' in 'sqrt'' in 'Sqrt' at call 'sqrt' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 8)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 14):
+Let a = to_f64(9.0).
+Let r = of_f64(sqrt_f64(a)).
+Assume { (* Call 'Sqrt' *) Have: (r = of_f64(y)) /\ is_finite_f64(a). }
+Prove: r = of_f64(sqrt_f64(a)).
+Prover Z3 4.8.12 returns Valid (Qed:1ms) (80ms) (3974)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 3) in 'Sqrt'' in 'main' at call 'Sqrt' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 13)
+:
+Prove: is_finite_f64(to_f64(9.0)).
+Prover Z3 4.8.12 returns Valid (80ms) (3942)
+Prover Alt-Ergo  returns Valid (47ms) (224)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c:10: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T14:17:46+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

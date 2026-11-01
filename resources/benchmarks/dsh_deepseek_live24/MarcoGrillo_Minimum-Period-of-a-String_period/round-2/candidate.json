@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "MarcoGrillo_Minimum-Period-of-a-String_period.c",
+      "content": "/*@\n   predicate is_periodic(char* x, unsigned int p, unsigned int l) =\n      (\\forall unsigned int i; 0 <= i < (l-p-1) ==>  x[i] == x[i+p]) && (l%p == 0) || (p == l);\n*/\n/*@ \n    requires \\valid(x+(0..l-1));\n    requires l > 0;\n    requires p > 0;\n    assigns \\nothing;\n    ensures is_periodic(x,p,l) ==> \\result == 1;\n    ensures !is_periodic(x,p,l) ==> \\result == 0;\n*/\nunsigned has_period(const char x[], unsigned int p, unsigned l) {\n    if (p == l) return 1;\n    if ((l % p) != 0) return 0;\n        /*@\n            loop assigns i;\n            loop invariant \\forall unsigned int j; 0 <= j < i ==> (x[j] == x[j+p]);\n            loop invariant i <= l-p-1;\n            loop invariant i >= 0;\n        */\n        for (unsigned i = 0 ; i < l-p-1 ; ++i) {\n            if (x[i] != x[i + p])\n                return 0;\n        }     \n    return 1; \n}\n/*@\n    requires \\valid(x+(0..l-1));\n    requires l > 0;\n    assigns \\nothing;\n*/\nunsigned per(const char x[], unsigned l) {\n    unsigned int p;\n    /*@\n        loop invariant 1 <= p <= l;\n        loop assigns p;\n        loop variant l - p;\n    */\n    for(p = 1; p < l; ++p) {\n        if(has_period(x,p,l))\n            return p;\n    }\n    //@ assert is_periodic(x,p,l);\n    return p;\n}"
+    }
+  ]
+}

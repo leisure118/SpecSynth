@@ -1,0 +1,73 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-zxt4iqvi/workspace/.platform-proofs/tmppptt31e8/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             4
+  Alt-Ergo :       2 (33ms-35ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-zxt4iqvi/workspace/.platform-proofs/tmppptt31e8/candidate.c, line 22) in 'foo':
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-zxt4iqvi/workspace/.platform-proofs/tmppptt31e8/candidate.c, line 26):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-zxt4iqvi/workspace/.platform-proofs/tmppptt31e8/candidate.c, line 29):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b).
+  (* Pre-condition *)
+  Have: ((-100) <= a) /\ (a <= 100).
+  (* Pre-condition *)
+  Have: ((-100) <= b) /\ (b <= 100).
+  (* Else *)
+  Have: a < 0.
+}
+Prove: (-2147483648) <= (a + b).
+Prover Z3 4.8.12 returns Valid (Qed:1ms) (130ms) (34871)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (33ms) (21)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-zxt4iqvi/workspace/.platform-proofs/tmppptt31e8/candidate.c, line 29):
+Let x = a + b.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b).
+  (* Pre-condition *)
+  Have: ((-100) <= a) /\ (a <= 100).
+  (* Pre-condition *)
+  Have: ((-100) <= b) /\ (b <= 100).
+  (* Else *)
+  Have: a < 0.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x.
+}
+Prove: x <= 2147483647.
+Prover Z3 4.8.12 returns Valid (Qed:1ms) (140ms) (34980)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (35ms) (14)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'foo' (1/2):
+Effect at line 26
+Prove: true.
+Prover Qed returns Valid (0.85ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'foo' (2/2):
+Effect at line 29
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T13:33:18+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

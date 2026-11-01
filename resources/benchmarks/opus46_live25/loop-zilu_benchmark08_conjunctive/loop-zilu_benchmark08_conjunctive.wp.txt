@@ -1,0 +1,93 @@
+[kernel] Parsing output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             9
+  Alt-Ergo :       1 (11ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 16):
+Let x = i + sum_0.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(sum_0) /\
+      is_sint32(1 + i) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: 0 <= sum_0.
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: 0 <= x.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (11ms) (17)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.85ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-zilu_benchmark08_conjunctive/loop-zilu_benchmark08_conjunctive.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

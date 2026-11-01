@@ -1,0 +1,1 @@
+{"files":[{"path":"128.c","content":"void foo(int y) {\n  int x = 1;\n  \n  /*@\n    loop invariant 1 <= x;\n    loop assigns x;\n    loop variant y - x;\n  */\n  while (x < y) {\n    x = x + x;\n  }\n  // post-condition\n  //@ assert(x >= 1);\n}\n"}]}

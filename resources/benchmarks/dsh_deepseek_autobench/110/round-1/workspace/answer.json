@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "110.c",
+      "content": "/*@\nrequires 1 <= n;\nrequires n <= 2147483645;\n*/\nvoid foo(int n) {\n  int i = 1;\n  int sn = 0;\n  \n  /*@\n  loop invariant 1 <= i <= n+1;\n  loop invariant sn == i - 1;\n  loop assigns i, sn;\n  loop variant n+1 - i;\n  */\n  while (i <= n) {\n    i  = i + 1;\n    sn  = sn + 1;\n  }\n  // post-condition\n  if (sn != n) {\n    //@ assert(sn == 0);\n  }\n}\n"
+    }
+  ]
+}

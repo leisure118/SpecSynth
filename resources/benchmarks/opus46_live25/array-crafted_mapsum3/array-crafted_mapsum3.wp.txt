@@ -1,0 +1,631 @@
+[kernel] Parsing output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 41 goals scheduled
+[wp] [Timeout] typed_main_assert_3 (Qed 6ms) (Z3)
+[wp] [Timeout] typed_main_assert_2 (Qed 8ms) (Z3)
+[wp] [Timeout] typed_main_assert_10 (Qed 29ms) (Z3)
+[wp] Proved goals:   38 / 41
+  Qed:            29
+  Alt-Ergo :       8 (7ms-54ms)
+  Z3 4.15.4:       1 (30ms)
+  Timeout:         3
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 59):
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 68):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let x = Mint_undef_0[a_1].
+Let x_1 = Mint_undef_0[shift_sint32(a, 1)].
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+}
+Prove: (x + x_1 + L_array_sum(a_2, a_1, 2, 10000))
+         = L_array_sum(a_2, a_1, 0, 10000).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (39ms) (1271)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 72):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let x = L_array_sum(a_2, a_1, 2, 10000).
+Let x_1 = Mint_undef_0[a_1].
+Let x_2 = Mint_undef_0[shift_sint32(a, 1)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: (x_1 + x_2 + x) = L_array_sum(a_2, a_1, 0, 10000).
+}
+Prove: L_array_sum(a_2[a_1 <- x_2], a_1, 2, 10000) = x.
+Prover Z3 4.15.4 returns Timeout (Qed:8ms) (2')
+Prover Alt-Ergo  returns Timeout (Qed:8ms) (2')
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 74):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x].
+Let x_1 = L_array_sum(a_4, a_1, 2, 10000).
+Let x_2 = L_array_sum(a_2, a_1, 2, 10000).
+Let x_3 = Mint_undef_0[a_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_3) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: (x_3 + x + x_2) = L_array_sum(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_1 = x_2.
+}
+Prove: L_array_sum(a_4[a_3 <- x_3], a_1, 2, 10000) = x_1.
+Prover Z3 4.15.4 returns Timeout (Qed:6ms) (2')
+Prover Alt-Ergo  returns Timeout (Qed:6ms) (2')
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 75):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x].
+Let x_1 = Mint_undef_0[a_1].
+Let x_2 = L_array_sum(a_4[a_3 <- x_1], a_1, 2, 10000).
+Let x_3 = L_array_sum(a_4, a_1, 2, 10000).
+Let x_4 = L_array_sum(a_2, a_1, 2, 10000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: (x_1 + x + x_4) = L_array_sum(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_3 = x_4.
+  (* Assertion *)
+  Have: x_2 = x_3.
+}
+Prove: x_2 = x_4.
+Prover Alt-Ergo  returns Valid (Qed:12ms) (17ms) (29)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 76):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x].
+Let x_1 = Mint_undef_0[a_1].
+Let a_5 = a_4[a_3 <- x_1].
+Let x_2 = L_array_sum(a_5, a_1, 2, 10000).
+Let x_3 = L_array_sum(a_2, a_1, 2, 10000).
+Let x_4 = L_array_sum(a_4, a_1, 2, 10000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_array_sum(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_4 = x_3.
+  (* Assertion *)
+  Have: x_2 = x_4.
+  (* Assertion *)
+  Have: x_2 = x_3.
+}
+Prove: (x_1 + x + x_2) = L_array_sum(a_5, a_1, 0, 10000).
+Prover Alt-Ergo  returns Valid (Qed:15ms) (30ms) (292)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 77):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 78):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 83):
+Prove: true.
+Prover Qed returns Valid (21ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 83):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 84):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let a_4 = a_2[a_1 <- x].
+Let x_1 = Mint_undef_1[a_1].
+Let a_5 = a_4[a_3 <- x_1].
+Let a_6 = havoc(Mint_undef_0, a_5, a_1, 9999).
+Let x_2 = L_array_sum(a_5, a_1, 2, 10000).
+Let x_3 = L_array_sum(a_2, a_1, 2, 10000).
+Let x_4 = L_array_sum(a_4, a_1, 2, 10000).
+Let x_5 = 1 + i.
+Let a_7 = shift_sint32(a, i_1).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_5) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_2.
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_array_sum(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_4 = x_3.
+  (* Assertion *)
+  Have: x_2 = x_4.
+  (* Assertion *)
+  Have: (x_1 + x + x_2) = L_array_sum(a_5, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 9999) -> (a_6[a_8] = a_5[a_8]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_6[shift_sint32(a, i_3)] = a_5[shift_sint32(a, 1 + i_3)]))).
+  (* Then *)
+  Have: i <= 9998.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_6[shift_sint32(a, i) <- a_6[shift_sint32(a, x_5)]][a_7] = a_5[a_7].
+Prover Alt-Ergo  returns Valid (Qed:26ms) (39ms) (430)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 84):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 85):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let a_4 = a_2[a_1 <- x].
+Let x_1 = Mint_undef_1[a_1].
+Let a_5 = a_4[a_3 <- x_1].
+Let a_6 = havoc(Mint_undef_0, a_5, a_1, 9999).
+Let x_2 = 1 + i.
+Let a_7 = a_6[shift_sint32(a, i) <- a_6[shift_sint32(a, x_2)]].
+Let x_3 = L_array_sum(a_5, a_1, 2, 10000).
+Let x_4 = L_array_sum(a_2, a_1, 2, 10000).
+Let x_5 = L_array_sum(a_4, a_1, 2, 10000).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_2) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_2.
+  (* Assertion *)
+  Have: (x_1 + x + x_4) = L_array_sum(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_5 = x_4.
+  (* Assertion *)
+  Have: x_3 = x_5.
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_array_sum(a_5, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 9999) -> (a_6[a_8] = a_5[a_8]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_6[shift_sint32(a, i_3)] = a_5[shift_sint32(a, 1 + i_3)]))).
+  (* Then *)
+  Have: i <= 9998.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((i < i_3) ->
+      ((i_3 <= 9999) -> (a_7[a_8] = a_5[a_8]))).
+}
+Prove: a_7[shift_sint32(a, i_1)] = a_5[shift_sint32(a, 1 + i_1)].
+Prover Alt-Ergo  returns Valid (Qed:30ms) (54ms) (676)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 85):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 93):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let a_4 = a_2[a_1 <- x].
+Let x_1 = Mint_undef_1[a_1].
+Let a_5 = a_4[a_3 <- x_1].
+Let a_6 = havoc(Mint_undef_0, a_5, a_1, 9999).
+Let x_2 = L_array_sum(a_5, a_1, 2, 10000).
+Let x_3 = L_array_sum(a_2, a_1, 2, 10000).
+Let x_4 = L_array_sum(a_4, a_1, 2, 10000).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9998).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_1.
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_array_sum(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_4 = x_3.
+  (* Assertion *)
+  Have: x_2 = x_4.
+  (* Assertion *)
+  Have: (x_1 + x + x_2) = L_array_sum(a_5, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_7 = shift_sint32(a, i_3) in ((i_2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_6[a_7] = a_5[a_7]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_6[shift_sint32(a, i_3)] = a_5[shift_sint32(a, 1 + i_3)]))).
+  (* Else *)
+  Have: 9999 <= i_2.
+}
+Prove: a_6[shift_sint32(a, 9999) <- x][shift_sint32(a, i)] =
+    a_5[shift_sint32(a, 1 + i)].
+Prover Alt-Ergo  returns Valid (Qed:27ms) (33ms) (359)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 94):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 95):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x].
+Let x_1 = Mint_undef_0[a_1].
+Let a_5 = a_4[a_3 <- x_1].
+Let a_6 = havoc(Mint_undef_1, a_5, a_1, 9999).
+Let a_7 = a_6[shift_sint32(a, 9999) <- x].
+Let x_2 = L_array_sum(a_5, a_1, 2, 10000).
+Let x_3 = L_array_sum(a_2, a_1, 2, 10000).
+Let x_4 = x_1 + x + x_2.
+Let x_5 = L_array_sum(a_4, a_1, 2, 10000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_array_sum(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_5 = x_3.
+  (* Assertion *)
+  Have: x_2 = x_5.
+  (* Assertion *)
+  Have: x_4 = L_array_sum(a_5, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_8 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 9999) -> (a_6[a_8] = a_5[a_8]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_6[shift_sint32(a, i_2)] = a_5[shift_sint32(a, 1 + i_2)]))).
+  (* Else *)
+  Have: 9999 <= i_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9998) ->
+      (a_7[shift_sint32(a, i_2)] = a_5[shift_sint32(a, 1 + i_2)]))).
+}
+Prove: x_4 = L_array_sum(a_7, a_1, 0, 10000).
+Prover Z3 4.15.4 returns Timeout (Qed:29ms) (2')
+Prover Alt-Ergo  returns Timeout (Qed:29ms) (2')
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 97):
+Let a = global(L_x_74).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x].
+Let x_1 = Mint_undef_0[a_1].
+Let a_5 = a_4[a_3 <- x_1].
+Let x_2 = L_array_sum(a_5, a_1, 2, 10000).
+Let x_3 = x_1 + x + x_2.
+Let a_6 = havoc(Mint_undef_1, a_5, a_1, 9999).
+Let a_7 = a_6[shift_sint32(a, 9999) <- x].
+Let x_4 = L_array_sum(a_2, a_1, 2, 10000).
+Let x_5 = L_array_sum(a_4, a_1, 2, 10000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: (x_1 + x + x_4) = L_array_sum(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_5 = x_4.
+  (* Assertion *)
+  Have: x_2 = x_5.
+  (* Assertion *)
+  Have: x_3 = L_array_sum(a_5, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_2 = x_4.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_8 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 9999) -> (a_6[a_8] = a_5[a_8]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_6[shift_sint32(a, i_2)] = a_5[shift_sint32(a, 1 + i_2)]))).
+  (* Else *)
+  Have: 9999 <= i_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9998) ->
+      (a_7[shift_sint32(a, i_2)] = a_5[shift_sint32(a, 1 + i_2)]))).
+  (* Assertion *)
+  Have: x_3 = L_array_sum(a_7, a_1, 0, 10000).
+}
+Prove: to_sint32(49995000 + x_1 + x + x_2)
+         = to_sint32(49995000 + x_1 + x + x_4).
+Prover Alt-Ergo  returns Valid (Qed:26ms) (16ms) (38)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 86) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 86) (2/2):
+Effect at line 90
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 89):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 89):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 31) in 'mapsum'' in 'main' at call 'mapsum' (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 66)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 31) in 'mapsum'' in 'main' at call 'mapsum' (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 79)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 31) in 'mapsum'' in 'main' at call 'mapsum' (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 96)
+:
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function mapsum
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 33) in 'mapsum':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 42):
+Let x_1 = 1 + i.
+Let x_2 = Mint_0[shift_sint32(x, i)].
+Let x_3 = L_array_sum(Mint_0, x, 0, i).
+Let x_4 = (i * (i - 1)) / 2.
+Let x_5 = i + x_2 + x_3 + x_4.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint64(x_3 + x_4) /\ is_sint64(x_5).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10000).
+  (* Invariant *)
+  Have: L_array_sum(Mint_0, x, 0, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Then *)
+  Have: i <= 9999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x_5 = (L_array_sum(Mint_0, x, 0, x_1) + ((i * x_1) / 2)).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (30ms) (292769)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 42):
+Assume {
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(x, 0), 10000).
+}
+Prove: L_array_sum(Mint_0, x, 0, 0) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:0.57ms) (10ms) (78973)
+Prover Alt-Ergo  returns Valid (Qed:0.57ms) (7ms) (32)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (1/4):
+Effect at line 39
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (2/4):
+Effect at line 46
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (3/4):
+Effect at line 46
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (4/4):
+Effect at line 49
+Prove: true.
+Prover Qed returns Valid (0.65ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c, line 46):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-crafted_mapsum3/array-crafted_mapsum3.acsl.c:51: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

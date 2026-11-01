@@ -77,6 +77,7 @@ class ProjectRun(BaseModel):
     source_name: str = Field(default='',max_length=240)
     model_name: str = 'qwen-turbo'
     timeout_sec: int = Field(default=200, ge=10, le=3600)
+    adaptive_timeout: bool = True
     execution: Literal['live', 'replay'] = 'live'
     assistant: AssistantConfig | None = None
 
@@ -111,6 +112,16 @@ def _read(project_id: str):
     if not path.is_file():
         raise HTTPException(404, 'Project not found.')
     return JsonStore._read_json(path)
+
+
+def _hydrate_private_skills(config, previous):
+    if config is None:return None
+    saved={s['id']:s.get('instructions','') for s in (previous or {}).get('skills',[])}
+    for skill in config.skills:
+        if not skill.instructions:
+            skill.instructions=saved.get(skill.id,'')
+            if not skill.instructions:raise HTTPException(422,'此 Skill 缺少后端绑定的正文。')
+    return config
 
 
 def _write(project):
@@ -261,14 +272,15 @@ def create_workspace_router(manager, store):
         import io,json,zipfile
         from fastapi.responses import Response
         from .skill_library import resolve_assistant
+        from .skill_privacy import public_payload
         project=_read(project_id)
         config=resolve_assistant(AssistantConfig(**project['assistant'])) if project.get('assistant') else None
         snapshot={k:project[k] for k in ('name','language','files')}
         if config:snapshot['assistant']=config.model_dump()
         stream=io.BytesIO()
         with zipfile.ZipFile(stream,'w',zipfile.ZIP_DEFLATED) as bundle:
-            for f in project['files']:bundle.writestr('source/'+f['path'],f['content'])
-            bundle.writestr('project.json',json.dumps(snapshot,ensure_ascii=False,indent=2))
+            for f in project['files']:bundle.writestr('source/'+f['path'],public_payload(f['content']))
+            bundle.writestr('project.json',json.dumps(public_payload(snapshot),ensure_ascii=False,indent=2))
         return Response(stream.getvalue(),media_type='application/zip',headers={'Content-Disposition':'attachment; filename="project-'+project_id+'.zip"'})
 
     @router.put('/{project_id}/assistant')
@@ -276,6 +288,7 @@ def create_workspace_router(manager, store):
         with _LOCK:
             project = _read(project_id)
             from .skill_library import resolve_assistant
+            body=_hydrate_private_skills(body,project.get('assistant'))
             resolve_assistant(body)
             project['assistant'] = body.model_dump()
             _write(project)
@@ -288,10 +301,10 @@ def create_workspace_router(manager, store):
         project=_read(project_id)
         if body.revision!=project['revision']:raise HTTPException(409,'源码已更新，请保存并重试。')
         if not any(f['path']==body.entry_path for f in project['files']):raise HTTPException(422,'请选择项目中的文件。')
-        config=resolve_assistant(body.assistant or AssistantConfig(**project.get('assistant',{})))
+        config=resolve_assistant(_hydrate_private_skills(body.assistant or AssistantConfig(**project.get('assistant',{})),project.get('assistant')))
         if config.agent=='default':raise HTTPException(422,'此接口用于外部 Agent 提示词预览。')
         if sum(len(f['content'].encode()) for f in project['files'])>512*1024:raise HTTPException(422,'Agent 输入源码不能超过 512 KiB。')
-        return {'prompt':initial_prompt(project['files'],body.mode,body.description,body.function_signature,config.prompt(project.get('language','C'))),'provider_calls':0}
+        return {'message':'Skill 正文与执行提示词仅由后端加载。','provider_calls':0}
 
     @router.post('/{project_id}/runs', status_code=201)
     def run_project(project_id: str, body: ProjectRun):
@@ -326,6 +339,7 @@ def create_workspace_router(manager, store):
                         raise HTTPException(409, 'This file already has an active verification in this mode.')
             from .skill_library import resolve_assistant
             assistant_config = body.assistant or (AssistantConfig(**project['assistant']) if project.get('assistant') else None)
+            assistant_config=_hydrate_private_skills(assistant_config,project.get('assistant'))
             assistant = resolve_assistant(assistant_config)
             if not rust and (assistant is None or assistant.agent in ('default','deepseek-harness')) and body.model_name not in get_available_models():
                 raise HTTPException(422, 'Unknown model.')
@@ -377,7 +391,7 @@ def create_workspace_router(manager, store):
                 upload = store.create_upload(PurePosixPath(entry['path']).name, entry['content'].encode('utf-8'))
             task = manager.submit(body.mode, RunRequest(file_id=upload['file_id'],
                 demo_case_id=replay_case['id'] if replay_case else None,
-                model_name=body.model_name, timeout_sec=body.timeout_sec,
+                model_name=body.model_name, timeout_sec=body.timeout_sec, adaptive_timeout=body.adaptive_timeout,
                 entry_path=body.entry_path, rust_workflow=workflow, agent_instructions=instructions,
                 assistant=assistant.model_dump() if assistant else None, description=body.description,
                 function_signature=body.function_signature, max_repair_rounds=body.max_repair_rounds))

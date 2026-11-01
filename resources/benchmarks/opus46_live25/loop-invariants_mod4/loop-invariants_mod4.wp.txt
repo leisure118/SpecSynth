@@ -1,0 +1,142 @@
+[kernel] Parsing output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c:14: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             6
+  Alt-Ergo :       4 (17ms-28ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 10):
+Let x_1 = 4 + x.
+Let x_2 = to_uint32(x_1).
+Assume {
+  Type: is_uint32(x) /\ is_sint32(tmp_0).
+  (* Invariant *)
+  Have: (x % 4) = 0.
+  (* Invariant *)
+  Have: x <= 4294967292.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Assertion *)
+  Have: (x = 4294967292) \/ (x <= 4294967291).
+  (* Assertion *)
+  Have: ((x <= 4294967291) -> (x_1 = x_2)).
+  (* Assertion *)
+  Have: ((x = 4294967292) -> (x_2 = 0)).
+}
+Prove: (x_2 % 4) = 0.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (28ms) (155)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 11):
+Let x_1 = 4 + x.
+Let x_2 = to_uint32(x_1).
+Assume {
+  Type: is_uint32(x) /\ is_sint32(tmp_0).
+  (* Invariant *)
+  Have: (x % 4) = 0.
+  (* Invariant *)
+  Have: x <= 4294967292.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Assertion *)
+  Have: (x = 4294967292) \/ (x <= 4294967291).
+  (* Assertion *)
+  Have: ((x <= 4294967291) -> (x_1 = x_2)).
+  (* Assertion *)
+  Have: ((x = 4294967292) -> (x_2 = 0)).
+  (* Invariant *)
+  Have: (x_2 % 4) = 0.
+}
+Prove: x_2 <= 4294967292.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (24ms) (122)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 15):
+Assume {
+  Type: is_uint32(x) /\ is_sint32(tmp_0).
+  (* Invariant *)
+  Have: (x % 4) = 0.
+  (* Invariant *)
+  Have: x <= 4294967292.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: (x = 4294967292) \/ (x <= 4294967291).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (17ms) (22)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 16):
+Let x_1 = 4 + x.
+Assume {
+  Type: is_uint32(x) /\ is_sint32(tmp_0).
+  (* Goal *)
+  When: x <= 4294967291.
+  (* Invariant *)
+  Have: (x % 4) = 0.
+  (* Invariant *)
+  Have: x <= 4294967292.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: x_1 = to_uint32(x_1).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (23ms) (69)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (0.86ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 12) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c, line 12) (2/2):
+Call Result at line 14
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-invariants_mod4/loop-invariants_mod4.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

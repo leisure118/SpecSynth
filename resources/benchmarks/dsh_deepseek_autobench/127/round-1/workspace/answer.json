@@ -1,0 +1,1 @@
+{"files":[{"path":"127.c","content":"/*@ requires x >= 0; */\nvoid foo(int x, int y) {\n  int i = x;\n  int j = y;\n\n  /*@ loop invariant x >= 0;\n      loop invariant y - x == j - i;\n      loop assigns x, y;\n      loop variant x; */\n  while (x != 0) {\n    x  = x - 1;\n    y  = y - 1;\n  }\n  // post-condition\n  if (y != 0) {\n    //@ assert(i != j);\n  }\n}\n"}]}

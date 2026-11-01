@@ -1,0 +1,140 @@
+[kernel] Parsing output/ops-4.6/live24/stack_empty_wd/stack_empty_wd.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:             8
+  Alt-Ergo :       5 (6ms-7ms-9ms)
+------------------------------------------------------------
+  Axiomatic 'StackEquality'
+------------------------------------------------------------
+
+Lemma StackEqual_Reflexive:
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_0 Mint_0 Mint_1 s_0 s_0)
+Prover Alt-Ergo  returns Valid (6ms) (37)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Symmetric:
+Assume: 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_1 Mint_2 Mint_3 Mptr_0 Mint_0 Mint_1 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 t_0 s_0)
+Prover Alt-Ergo  returns Valid (7ms) (73)
+
+------------------------------------------------------------
+
+Lemma StackEqual_Transitive:
+Assume: 'StackEqual_Symmetric' 'StackEqual_Reflexive'
+Prove: (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_2 Mint_4 Mint_5 t_0 u_0)
+       -> (P_StackEqual Mptr_2 Mint_4 Mint_5 Mptr_1 Mint_2 Mint_3 s_0 t_0)
+       -> (P_StackEqual Mptr_0 Mint_0 Mint_1 Mptr_1 Mint_2 Mint_3 s_0 u_0)
+Prover Alt-Ergo  returns Valid (9ms) (94)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function stack_empty_wd
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/stack_empty_wd/stack_empty_wd.acsl.c, line 115) in 'stack_empty_wd':
+Assume {
+  Type: is_sint32(stack_empty_1) /\ is_sint32(stack_empty_0).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition 'valid_s' *)
+  Have: valid_rw(Malloc_0, s, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_0, s).
+  (* Pre-condition 'valid_t' *)
+  Have: valid_rw(Malloc_0, t, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_0, t).
+  (* Call 'stack_empty' *)
+  Have: ((stack_empty_0 != 1) <-> (stack_empty_0 = 0)) /\
+      (P_StackEmpty(Mint_0, s) <-> (stack_empty_0 = 1)).
+  (* Call 'stack_empty' *)
+  Have: ((stack_empty_1 != 1) <-> (stack_empty_1 = 0)) /\
+      (P_StackEmpty(Mint_0, t) <-> (stack_empty_1 = 1)).
+}
+Prove: ((stack_empty_0 = 1) <-> (stack_empty_1 = 1)) <->
+    (stack_empty_0 = stack_empty_1).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (35)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/stack_empty_wd/stack_empty_wd.acsl.c, line 116) in 'stack_empty_wd':
+Assume {
+  Type: is_sint32(stack_empty_1) /\ is_sint32(stack_empty_0).
+  (* Heap *)
+  Type: (region(s.base) <= 0) /\ (region(t.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition 'valid_s' *)
+  Have: valid_rw(Malloc_0, s, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_0, s).
+  (* Pre-condition 'valid_t' *)
+  Have: valid_rw(Malloc_0, t, 3) /\
+      P_StackInvariant(Malloc_0, Mptr_0, Mint_0, t).
+  (* Call 'stack_empty' *)
+  Have: ((stack_empty_0 != 1) <-> (stack_empty_0 = 0)) /\
+      (P_StackEmpty(Mint_0, s) <-> (stack_empty_0 = 1)).
+  (* Call 'stack_empty' *)
+  Have: ((stack_empty_1 != 1) <-> (stack_empty_1 = 0)) /\
+      (P_StackEmpty(Mint_0, t) <-> (stack_empty_1 = 1)).
+}
+Prove: (!((stack_empty_0 = 1) <-> (stack_empty_1 = 1))) <->
+    (stack_empty_0 != stack_empty_1).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (35)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_empty_wd' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_empty_wd' (2/2):
+Call Result at line 121
+Prove: true.
+Prover Qed returns Valid (0.60ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_empty_wd' (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_empty_wd' (2/4):
+Call Result at line 121
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_empty_wd' (3/4):
+Call Result at line 121
+Prove: true.
+Prover Qed returns Valid (0.68ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'stack_empty_wd' (4/4):
+Effect at line 121
+Prove: true.
+Prover Qed returns Valid (0.51ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_empty'' in 'stack_empty_wd' at call 'stack_empty' (file output/ops-4.6/live24/stack_empty_wd/stack_empty_wd.acsl.c, line 121)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'stack_empty'' in 'stack_empty_wd' at call 'stack_empty' (file output/ops-4.6/live24/stack_empty_wd/stack_empty_wd.acsl.c, line 121)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------

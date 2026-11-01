@@ -1,0 +1,495 @@
+Frama-C 证明目标 36/36
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function bufs_differ
+[rte:annot] annotating function main
+[rte:annot] annotating function parse_null
+[wp] 36 goals scheduled
+[wp] Proved goals:   36 / 36
+  Qed:            27
+  Alt-Ergo :       9 (114ms-144ms-198ms)
+------------------------------------------------------------
+  Function bufs_differ
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 21) in 'bufs_differ':
+Let a = shift_uint8(b2_0, i).
+Let x = Mint_0[a].
+Let a_1 = shift_uint8(b1_0, i).
+Let x_1 = Mint_0[a_1].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(x_1) /\ is_uint8(x).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Residual *)
+  When: i < n.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Then *)
+  Have: x != x_1.
+}
+Prove: !P_bmatch(Mint_0, b1_0, b2_0, n).
+Prover Z3 4.8.12 returns Valid (Qed:39ms) (360ms) (113081)
+Prover Alt-Ergo  returns Valid (Qed:39ms) (139ms) (169)
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 22) in 'bufs_differ':
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(bufs_differ_0).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  If i < n
+  Then {
+    Let a = shift_uint8(b2_0, i).
+    Let a_1 = shift_uint8(b1_0, i).
+    (* Assertion 'rte,mem_access' *)
+    Have: valid_rd(Malloc_0, a_1, 1).
+    (* Assertion 'rte,mem_access' *)
+    Have: valid_rd(Malloc_0, a, 1).
+    (* Then *)
+    Have: Mint_0[a] != Mint_0[a_1].
+    Have: bufs_differ_0 = 1.
+  }
+  Else { Have: bufs_differ_0 = 0. }
+}
+Prove: P_bdiffer(Mint_0, b1_0, b2_0, n) <-> (bufs_differ_0 = 1).
+Prover Alt-Ergo  returns Valid (Qed:30ms) (164ms) (307)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 30):
+Let a = shift_uint8(b2_0, i).
+Let x = Mint_0[a].
+Let a_1 = shift_uint8(b1_0, i).
+Let x_1 = Mint_0[a_1].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(x_1) /\ is_uint8(x).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x = x_1.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Alt-Ergo  returns Valid (Qed:13ms) (137ms) (132)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 30):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 31):
+Let x = to_uint32(1 + i).
+Let a = shift_uint8(b2_0, i).
+Let x_1 = Mint_0[a].
+Let a_1 = shift_uint8(b1_0, i).
+Let x_2 = Mint_0[a_1].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(x_2) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: P_bmatch(Mint_0, b1_0, b2_0, x).
+Prover Alt-Ergo  returns Valid (Qed:14ms) (149ms) (219)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 31):
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: P_bmatch(Mint_0, b1_0, b2_0, 0).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (118ms) (63)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 36):
+Let a = shift_uint8(b1_0, i).
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(Mint_0[a]) /\ is_uint8(Mint_0[shift_uint8(b2_0, i)]).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+}
+Prove: valid_rd(Malloc_0, a, 1).
+Prover Alt-Ergo  returns Valid (Qed:12ms) (198ms) (110)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 36):
+Let a = shift_uint8(b1_0, i).
+Let a_1 = shift_uint8(b2_0, i).
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(Mint_0[a]) /\ is_uint8(Mint_0[a_1]).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Alt-Ergo  returns Valid (Qed:14ms) (147ms) (120)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 32):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (1/3):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (2/3):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (3/3):
+Effect at line 37
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 35):
+Let x = to_uint32(1 + i).
+Let a = shift_uint8(b2_0, i).
+Let x_1 = Mint_0[a].
+Let a_1 = shift_uint8(b1_0, i).
+Let x_2 = Mint_0[a_1].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(x_2) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, x).
+}
+Prove: i < x.
+Prover Alt-Ergo  returns Valid (Qed:12ms) (129ms) (142)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 35):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 78):
+Let a = global(L_b_1769).
+Let a_1 = shift_uint8(a, 0).
+Let a_2 = global(K_null_encoded_val_2484).
+Let a_3 = shift_uint8(a_2, 0).
+Assume {
+  Type: is_uint8_chunk(Mint_0).
+  (* Initializer *)
+  Init: Mint_0[a_3] = 5.
+  (* Initializer *)
+  Init: Mint_0[shift_uint8(a_2, 1)] = 0.
+  (* Initializer *)
+  Init: Mint_0[a_1] = 5.
+  (* Initializer *)
+  Init: Mint_0[shift_uint8(a, 1)] = 0.
+}
+Prove: P_bmatch(Mint_0, a_1, a_3, 2).
+Prover Alt-Ergo  returns Valid (Qed:5ms) (114ms) (91)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 80):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 81):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 45) in 'parse_null'' in 'main' at initialization of 'ret' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 79)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 46) in 'parse_null'' in 'main' at initialization of 'ret' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 79)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 47) in 'parse_null'' in 'main' at initialization of 'ret' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 79)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 48) in 'parse_null'' in 'main' at initialization of 'ret' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 79)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function parse_null
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 49) in 'parse_null':
+Prove: true.
+Prover Qed returns Valid (60ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 50) in 'parse_null':
+Prove: true.
+Prover Qed returns Valid (66ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 64):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 71):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 51) in 'parse_null':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 51) in 'parse_null' (1/7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 51) in 'parse_null' (2/7):
+Effect at line 57
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 51) in 'parse_null' (3/7):
+Effect at line 61
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 51) in 'parse_null' (4/7):
+Call Result at line 65
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 51) in 'parse_null' (5/7):
+Effect at line 67
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 51) in 'parse_null' (6/7):
+Effect at line 70
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 51) in 'parse_null' (7/7):
+Effect at line 71
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 18) in 'bufs_differ'' in 'parse_null' at call 'bufs_differ' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 65)
+:
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 19) in 'bufs_differ'' in 'parse_null' at call 'bufs_differ' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 65)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 20) in 'bufs_differ'' in 'parse_null' at call 'bufs_differ' (file resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c, line 65)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_live24/X509-parser_parse_null/round-3/proof/X509-parser_parse_null.c:75: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T17:34:00+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

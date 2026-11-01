@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "12.c",
+      "content": "/*@\n  requires 0 <= x <= 10;\n  requires 0 <= y <= 10;\n*/\nvoid foo(int x, int y) {\n  // variable declarations\n  int z1;\n  int z2;\n  int z3;\n\n  // loop body\n  /*@\n    loop invariant -10 <= x - y <= 10;\n    loop assigns x, y;\n  */\n  while (unknown()) {\n    x  = x + 10;\n    y  = y + 10;\n  }\n  // post-condition\n  if (y == 0) {\n    //@ assert(x != 20);\n  }\n}\n"
+    }
+  ]
+}

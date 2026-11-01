@@ -1,0 +1,797 @@
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function adjacent_difference
+[wp] 26 goals scheduled
+[wp] [Timeout] typed_adjacent_difference_assert_bound (Qed 8ms) (Z3 15s)
+[wp] [Timeout] typed_adjacent_difference_assert_difference (Qed 13ms) (Z3 15s)
+[wp] Proved goals:   24 / 26
+  Qed:             6
+  Alt-Ergo :      18 (41ms-82ms-181ms)
+  Timeout:         2
+------------------------------------------------------------
+  Axiomatic 'AdjacentDifference'
+------------------------------------------------------------
+
+Lemma AdjacentDifference_Section:
+Assume: 'AdjacentDifference_Step'
+Prove: (0<=m_0) -> (m_0<=n_0) -> (is_sint32_chunk Mint_0)
+       -> (P_AdjacentDifference Mint_0 a_0 n_0 b_0)
+       -> (P_AdjacentDifference Mint_0 a_0 m_0 b_0)
+Prover Z3 4.8.12 returns Valid (150ms) (95231)
+Prover Alt-Ergo  returns Valid (48ms) (76)
+
+------------------------------------------------------------
+
+Lemma AdjacentDifference_Step:
+Prove: let x_0 = Mint_0[(shift_sint32 b_0 n_0)] in
+       let x_1 = (1+n_0) in
+       (x_0=(L_Difference Mint_0 a_0 n_0)) -> (is_sint32_chunk Mint_0)
+       -> (is_sint32_chunk Mint_1) -> (P_Unchanged_2_ Mint_0 Mint_1 b_0 n_0)
+       -> (P_AdjacentDifference Mint_1 a_0 n_0 b_0) -> (is_sint32 x_0)
+       -> (P_Unchanged_2_ Mint_0 Mint_1 a_0 x_1)
+       -> (P_AdjacentDifference Mint_0 a_0 x_1 b_0)
+Prover Alt-Ergo  returns Valid (102ms) (744)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Axiomatic 'Difference'
+------------------------------------------------------------
+
+Lemma Difference_Next:
+Assume: 'Difference_Zero'
+Prove: (0<n_0) -> (is_sint32_chunk Mint_0)
+       -> (Mint_0[(shift_sint32 a_0 n_0)]=
+           ((L_Difference Mint_0 a_0 n_0)+Mint_0[(shift_sint32 a_0 (n_0-1))]))
+Prover Z3 4.8.12 returns Valid (140ms) (85386)
+Prover Alt-Ergo  returns Valid (45ms) (33)
+
+------------------------------------------------------------
+
+Lemma Difference_Unchanged:
+Assume: 'Difference_Next' 'Difference_Zero'
+Prove: (0<=n_0) -> (is_sint32_chunk Mint_0) -> (is_sint32_chunk Mint_1)
+       -> (P_Unchanged_2_ Mint_0 Mint_1 a_0 (1+n_0))
+       -> ((L_Difference Mint_1 a_0 n_0)=(L_Difference Mint_0 a_0 n_0))
+Prover Alt-Ergo  returns Valid (51ms) (107)
+
+------------------------------------------------------------
+
+Lemma Difference_Zero:
+Prove: (is_sint32_chunk Mint_0)
+       -> (Mint_0[(shift_sint32 a_0 0)]=(L_Difference Mint_0 a_0 0))
+Prover Z3 4.8.12 returns Valid (140ms) (84059)
+Prover Alt-Ergo  returns Valid (41ms) (30)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function adjacent_difference
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 68) in 'adjacent_difference':
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 74):
+Let a_1 = shift_sint32(b, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+}
+Prove: valid_rw(Malloc_0, a_1, 1).
+Prover Z3 4.8.12 returns Valid (Qed:5ms) (140ms) (95664)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (50ms) (55)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 74):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+}
+Prove: valid_rd(Malloc_0, a_2, 1).
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (130ms) (95952)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (48ms) (63)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 76):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, to_uint32(i - 1)).
+Let a_6 = a_3[a_5].
+Let a_7 = shift_sint32(a, i).
+Let a_8 = a_3[a_7].
+Let a_9 = a_3[a_4 <- a_8 - a_6].
+Let x = 1 + i.
+Let x_1 = L_Difference(a_3, a, i).
+Let x_2 = to_uint32(x).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_3) /\ is_sint32(a_8) /\
+      is_sint32(a_6) /\ is_sint32_chunk(a_9).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_3, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x_1) /\ (x_1 <= 2147483647).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_4, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_7, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_5, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_6 <= (2147483648 + a_8).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_8 <= (2147483647 + a_6).
+  (* Assertion 'difference' *)
+  Have: P_AdjacentDifference(a_9, a, x, b).
+}
+Prove: (0 < x_2) /\ (x_2 <= n).
+Prover Z3 4.8.12 returns Valid (Qed:13ms) (240ms) (411485)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (77ms) (381)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 76):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 77):
+Let x = 1 + i.
+Let x_1 = to_uint32(x).
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, to_uint32(i - 1)).
+Let a_6 = a_3[a_5].
+Let a_7 = shift_sint32(a, i).
+Let a_8 = a_3[a_7].
+Let a_9 = a_3[a_4 <- a_8 - a_6].
+Let x_2 = L_Difference(a_3, a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_3) /\ is_sint32(a_8) /\
+      is_sint32(a_6) /\ is_sint32_chunk(a_9).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_3, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x_2) /\ (x_2 <= 2147483647).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_4, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_7, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_5, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_6 <= (2147483648 + a_8).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_8 <= (2147483647 + a_6).
+  (* Assertion 'difference' *)
+  Have: P_AdjacentDifference(a_9, a, x, b).
+  (* Invariant *)
+  Have: (0 < x_1) /\ (x_1 <= n).
+}
+Prove: P_AdjacentDifference(a_9, a, x_1, b).
+Prover Z3 4.8.12 returns Valid (Qed:15ms) (230ms) (408046)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (77ms) (396)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 77):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(b, 0).
+Let m = Mint_0[a_2 <- Mint_0[a_1]].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(n) /\ is_sint32_chunk(m).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+}
+Prove: P_AdjacentDifference(m, a, 1, b).
+Prover Z3 4.8.12 returns Valid (Qed:4ms) (160ms) (134551)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (54ms) (160)
+
+------------------------------------------------------------
+
+Goal Assertion 'bound' (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 82):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let x = L_Difference(a_3, a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_3) /\
+      is_sint32(a_3[shift_sint32(a, i)]) /\
+      is_sint32(a_3[shift_sint32(a, to_uint32(i - 1))]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_3, a, i, b).
+  (* Then *)
+  Have: i < n.
+}
+Prove: ((-2147483648) <= x) /\ (x <= 2147483647).
+Prover Z3 4.8.12 returns Timeout (Qed:8ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:8ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 83):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let x = L_Difference(a_3, a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_3) /\
+      is_sint32(a_3[shift_sint32(a, i)]) /\
+      is_sint32(a_3[shift_sint32(a, to_uint32(i - 1))]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_3, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483647).
+}
+Prove: valid_rw(Malloc_0, shift_sint32(b, i), 1).
+Prover Alt-Ergo  returns Valid (Qed:8ms) (87ms) (306)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 83):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let x = L_Difference(a_3, a, i).
+Let a_4 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_3) /\ is_sint32(a_3[a_4]) /\
+      is_sint32(a_3[shift_sint32(a, to_uint32(i - 1))]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_3, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483647).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(b, i), 1).
+}
+Prove: valid_rd(Malloc_0, a_4, 1).
+Prover Alt-Ergo  returns Valid (Qed:11ms) (91ms) (338)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 83):
+Let a_1 = shift_sint32(a, i).
+Let a_2 = shift_sint32(b, 0).
+Let a_3 = shift_sint32(a, 0).
+Let m = Mint_0[a_2 <- Mint_0[a_3]].
+Let a_4 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let x = L_Difference(a_4, a, i).
+Let a_5 = shift_sint32(a, to_uint32(i - 1)).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_4) /\ is_sint32(a_4[a_1]) /\
+      is_sint32(a_4[a_5]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_3, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_3, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_4, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483647).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(b, i), 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+}
+Prove: valid_rd(Malloc_0, a_5, 1).
+Prover Alt-Ergo  returns Valid (Qed:11ms) (86ms) (329)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 83):
+Let a_1 = shift_sint32(a, to_uint32(i - 1)).
+Let a_2 = shift_sint32(a, i).
+Let a_3 = shift_sint32(b, 0).
+Let a_4 = shift_sint32(a, 0).
+Let m = Mint_0[a_3 <- Mint_0[a_4]].
+Let a_5 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let x = L_Difference(a_5, a, i).
+Let a_6 = a_5[a_2].
+Let a_7 = a_5[a_1].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_5) /\ is_sint32(a_6) /\
+      is_sint32(a_7).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_4, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_3, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_4, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_5, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483647).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(b, i), 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+}
+Prove: a_7 <= (2147483648 + a_6).
+Prover Alt-Ergo  returns Valid (Qed:10ms) (81ms) (280)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 83):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let a_4 = shift_sint32(a, to_uint32(i - 1)).
+Let a_5 = a_3[a_4].
+Let a_6 = shift_sint32(a, i).
+Let a_7 = a_3[a_6].
+Let x = L_Difference(a_3, a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_3) /\ is_sint32(a_7) /\
+      is_sint32(a_5).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_3, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483647).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(b, i), 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_6, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_4, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_5 <= (2147483648 + a_7).
+}
+Prove: a_7 <= (2147483647 + a_5).
+Prover Alt-Ergo  returns Valid (Qed:11ms) (72ms) (282)
+
+------------------------------------------------------------
+
+Goal Assertion 'difference' (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 84):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let a_4 = shift_sint32(a, i).
+Let a_5 = a_3[a_4].
+Let a_6 = shift_sint32(a, to_uint32(i - 1)).
+Let a_7 = a_3[a_6].
+Let a_8 = shift_sint32(b, i).
+Let x = L_Difference(a_3, a, i).
+Let a_9 = a_3[a_8 <- a_5 - a_7].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_3) /\ is_sint32(a_5) /\
+      is_sint32(a_7) /\ is_sint32_chunk(a_9).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_3, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x) /\ (x <= 2147483647).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_8, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_4, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_6, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_7 <= (2147483648 + a_5).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_5 <= (2147483647 + a_7).
+}
+Prove: P_AdjacentDifference(a_9, a, 1 + i, b).
+Prover Z3 4.8.12 returns Timeout (Qed:13ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:13ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 78) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 78) (2/3):
+Effect at line 81
+Prove: true.
+Prover Qed returns Valid (20ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 78) (3/3):
+Effect at line 83
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = shift_sint32(b, 1).
+Let x = n - 1.
+Let a_4 = havoc(Mint_undef_0, m, a_3, x).
+Let a_5 = shift_sint32(b, i).
+Let a_6 = shift_sint32(a, to_uint32(i - 1)).
+Let a_7 = a_4[a_6].
+Let a_8 = shift_sint32(a, i).
+Let a_9 = a_4[a_8].
+Let a_10 = a_4[a_5 <- a_9 - a_7].
+Let x_1 = 1 + i.
+Let x_2 = to_uint32(x_1).
+Let x_3 = L_Difference(a_4, a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_4) /\ is_sint32(a_9) /\
+      is_sint32(a_7) /\ is_sint32_chunk(a_10).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_5, 1).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_4, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x_3) /\ (x_3 <= 2147483647).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_5, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_8, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_6, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_7 <= (2147483648 + a_9).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_9 <= (2147483647 + a_7).
+  (* Assertion 'difference' *)
+  Have: P_AdjacentDifference(a_10, a, x_1, b).
+  (* Invariant *)
+  Have: (0 < x_2) /\ (x_2 <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_10, a, x_2, b).
+}
+Prove: included(a_5, 1, a_3, x).
+Prover Alt-Ergo  returns Valid (Qed:28ms) (180ms) (515)
+
+------------------------------------------------------------
+
+Goal Assigns (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 67) in 'adjacent_difference' (1/2):
+Effect at line 74
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 67) in 'adjacent_difference' (2/2):
+Effect at line 81
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = shift_sint32(b, 1).
+Let x = n - 1.
+Assume {
+  Have: !invalid(Malloc_0, a_3, x).
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(n) /\ is_sint32_chunk(m).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+}
+Prove: included(a_3, x, a_1, n).
+Prover Alt-Ergo  returns Valid (Qed:12ms) (109ms) (161)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 81):
+Let a_1 = shift_sint32(b, 0).
+Let a_2 = shift_sint32(a, 0).
+Let m = Mint_0[a_1 <- Mint_0[a_2]].
+Let a_3 = havoc(Mint_undef_0, m, shift_sint32(b, 1), n - 1).
+Let a_4 = shift_sint32(b, i).
+Let a_5 = shift_sint32(a, to_uint32(i - 1)).
+Let a_6 = a_3[a_5].
+Let a_7 = shift_sint32(a, i).
+Let a_8 = a_3[a_7].
+Let a_9 = a_3[a_4 <- a_8 - a_6].
+Let x = 1 + i.
+Let x_1 = to_uint32(x).
+Let x_2 = L_Difference(a_3, a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32_chunk(m) /\ is_sint32_chunk(a_3) /\ is_sint32(a_8) /\
+      is_sint32(a_6) /\ is_sint32_chunk(a_9).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_2, n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Pre-condition *)
+  Have: P_AdjacentDifferenceBounds(Mint_0, a, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: P_AdjacentDifference(m, a, 1, b).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_3, a, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'bound' *)
+  Have: ((-2147483648) <= x_2) /\ (x_2 <= 2147483647).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_4, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_7, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_5, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_6 <= (2147483648 + a_8).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_8 <= (2147483647 + a_6).
+  (* Assertion 'difference' *)
+  Have: P_AdjacentDifference(a_9, a, x, b).
+  (* Invariant *)
+  Have: (0 < x_1) /\ (x_1 <= n).
+  (* Invariant *)
+  Have: P_AdjacentDifference(a_9, a, x_1, b).
+}
+Prove: i < x_1.
+Prover Alt-Ergo  returns Valid (Qed:32ms) (181ms) (385)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-nhf2j5z0/workspace/output/layer0/adjacent_difference/adjacent_difference.acsl.c, line 81):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------

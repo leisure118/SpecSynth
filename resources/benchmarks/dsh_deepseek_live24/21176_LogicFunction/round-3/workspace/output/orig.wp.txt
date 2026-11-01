@@ -1,0 +1,117 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmp49r_a4eo/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function check
+[rte:annot] annotating function func
+[rte:annot] annotating function main
+[wp] 6 goals scheduled
+[wp] [Timeout] typed_func_assert_rte_signed_overflow (Z3 15s)
+[wp] [Timeout] typed_func_assert_rte_signed_overflow_2 (Qed 0.97ms) (Z3 15s)
+[wp] [Timeout] typed_func_assert_rte_signed_overflow_3 (Qed 1ms) (Z3 15s)
+[wp] [Timeout] typed_check_assert (Qed 11ms) (Z3 15s)
+[wp] Proved goals:    2 / 6
+  Qed:             1
+  Z3 4.8.12:       1 (100ms-12s-15s)
+  Timeout:         4
+------------------------------------------------------------
+  Function check
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmp49r_a4eo/candidate.c, line 22):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(a_1) /\ is_sint32(fmax_0) /\
+      is_sint32(fmax_1) /\ is_sint32(fmax_2) /\ is_sint32(fmin_0) /\
+      is_sint32(fmin_1) /\ is_sint32(fmin_2) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(y_2).
+  If y_2 < x_2
+  Then {
+    Have: (x_2 = x) /\ (y_2 = y).
+    (* Call 'func' *)
+    Have: L_ax_b(a, x, 4) = fmin_0.
+    (* Call 'func' *)
+    Have: L_ax_b(a, y, 4) = fmax_0.
+  }
+  Else {
+    Have: (x_2 = x_1) /\ (y_2 = y_1).
+    (* Call 'func' *)
+    Have: L_ax_b(a_1, y_1, 4) = fmin_0.
+    (* Call 'func' *)
+    Have: L_ax_b(a_1, x_1, 4) = fmax_0.
+  }
+}
+Prove: fmin_0 <= fmax_0.
+Prover Z3 4.8.12 returns Timeout (Qed:11ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:11ms) (15s)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function func
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmp49r_a4eo/candidate.c, line 7) in 'func':
+Let x_1 = a * x.
+Let x_2 = 4 + x_1.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(x) /\ is_sint32(x_2).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 2147483647.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: to_sint32(x_1) <= 2147483643.
+}
+Prove: x_2 = L_ax_b(a, x, 4).
+Prover Z3 4.8.12 returns Valid (Qed:6ms) (100ms) (20513)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmp49r_a4eo/candidate.c, line 10):
+Assume { Type: is_sint32(a) /\ is_sint32(x). }
+Prove: (-2147483648) <= (a * x).
+Prover Z3 4.8.12 returns Timeout (15s)
+Prover Alt-Ergo  returns Timeout (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmp49r_a4eo/candidate.c, line 10):
+Let x_1 = a * x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+}
+Prove: x_1 <= 2147483647.
+Prover Z3 4.8.12 returns Timeout (Qed:0.97ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:0.97ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmp49r_a4eo/candidate.c, line 10):
+Let x_1 = a * x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 2147483647.
+}
+Prove: to_sint32(x_1) <= 2147483643.
+Prover Z3 4.8.12 returns Timeout (Qed:1ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:1ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'func':
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmp49r_a4eo/candidate.c:12: Warning: 
+  No 'assigns' specification for function 'check'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmp49r_a4eo/candidate.c:24: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T14:44:42+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "arepina_distance_abs.c",
+      "content": "#define SPEC_INT_MIN -2147483648\n#define SPEC_INT_MAX 2147483647\n/*@\n  requires a >= -2147483647;\n  requires b >= -2147483647;\n  assigns \\nothing;\n  ensures \\result == ( (a<0?-a:a) > (b<0?-b:b) ? (a<0?-a:a) - (b<0?-b:b) : (b<0?-b:b) - (a<0?-a:a) );\n  ensures \\result >= 0;\n*/\nunsigned distance_abs(int a, int b)\n{\n   unsigned ua = a < 0 ? -a : a;\n   unsigned ub = b < 0 ? -b : b;\n   return ua > ub ? ua - ub : ub - ua;\n}\n#ifdef OUT_OF_TASK\n#include <stdio.h>\nint main(void)\n{\n   int a = distance_abs(3, 30);\n   int b = distance_abs(-5, -20);\n   int c = distance_abs(7, -10);\n   int d = distance_abs(-2, 15);\n   //@ assert a == 27;\n   //@ assert b == 15;\n   //@ assert c == 17;\n   //@ assert d == 17;\n   return 0;\n}\n#endif\n"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+[kernel] Parsing output/ops-4.6/live25/loop-crafted_simple_vardep_1/loop-crafted_simple_vardep_1.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             4
+  Alt-Ergo :       2 (18ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-crafted_simple_vardep_1/loop-crafted_simple_vardep_1.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-crafted_simple_vardep_1/loop-crafted_simple_vardep_1.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-crafted_simple_vardep_1/loop-crafted_simple_vardep_1.acsl.c, line 15):
+Let x = -j.
+Assume {
+  Type: is_uint32(j) /\ is_uint32(k) /\ is_uint32(k - j).
+  (* Then *)
+  Have: k <= 268435454.
+}
+Prove: (to_uint32(2 + j) + to_uint32(1 + k - j)) = to_uint32(3 + k).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (18ms) (57)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-crafted_simple_vardep_1/loop-crafted_simple_vardep_1.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-crafted_simple_vardep_1/loop-crafted_simple_vardep_1.acsl.c, line 11):
+Let x = -j.
+Let x_1 = to_uint32(2 + j) + to_uint32(1 + k - j).
+Assume {
+  Type: is_uint32(j) /\ is_uint32(k) /\ is_uint32(k - j) /\ is_uint32(x_1).
+  (* Then *)
+  Have: k <= 268435454.
+  Have: x_1 = to_uint32(3 + k).
+}
+Prove: k < x_1.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (19ms) (56)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-crafted_simple_vardep_1/loop-crafted_simple_vardep_1.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-crafted_simple_vardep_1/loop-crafted_simple_vardep_1.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

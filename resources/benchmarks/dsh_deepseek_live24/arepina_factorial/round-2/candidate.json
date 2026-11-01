@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "arepina_factorial.c",
+      "content": "/*@ axiomatic Factorial {\n    logic integer factorial(integer i);\n    axiom nil:\n       factorial(0) == 1;\n    axiom step:\n       \\forall integer i; i >= 0 ==>\n          factorial(i) == factorial(i - 1) * i;\n    lemma non_negative:\n       \\forall integer i; i >= 0 ==>\n          factorial(i) > 0;\n    }\n */\n#define SPEC_ULONG_MAX 18446744073709551615UL\n/*@\n  ensures \\result == factorial(\\old(i));\n  assigns \\nothing;\n*/\nunsigned long factorial(unsigned i)\n{\n   unsigned long f = 1;\n   /*@\n     loop invariant f * factorial(i) == factorial(\\at(i, Pre));\n     loop assigns i, f;\n     loop variant i;\n   */\n   while (i) {\n      f *= i--;\n   }\n   return f;\n}\n#ifdef OUT_OF_TASK\n#include <stdio.h>\nint main(void)\n{\n   int a = factorial(5);\n   int b = factorial(0);\n   //@ assert a == 120;\n   //@ assert b == 1;\n}\n#endif\n"
+    }
+  ]
+}

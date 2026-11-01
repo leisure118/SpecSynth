@@ -1,0 +1,219 @@
+[kernel] Parsing output/ops-4.6/live24/max_element2/max_element2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:             8
+  Alt-Ergo :       5 (8ms-10ms-19ms)
+------------------------------------------------------------
+  Function max_element2
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 62):
+Let x = Mint_0[shift_sint32(a, max_0)].
+Let a_1 = shift_sint32(a, 0).
+Let x_1 = Mint_0[a_1].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(n) /\ is_sint32(x_1) /\
+      is_sint32(Mint_0[shift_sint32(a, i)]) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_1, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, 0, x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, i, x).
+  (* Then *)
+  Have: i < n.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (125880)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (101)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (0.53ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 63):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 64):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, max_1)].
+Let x_2 = Mint_0[shift_sint32(a, i)].
+Let a_1 = shift_sint32(a, 0).
+Let x_3 = Mint_0[a_1].
+Let x_4 = Mint_0[shift_sint32(a, max_0)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(n) /\ is_sint32(x_3) /\ is_sint32(x_2) /\ is_sint32(x_4) /\
+      is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_1, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, 0, x_3).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, i, x_1).
+  (* Then *)
+  Have: i < n.
+  If x_1 < x_2
+  Then { Have: max_0 = i. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+}
+Prove: P_UpperBound_1_(Mint_0, a, 0, x, x_4).
+Prover Alt-Ergo  returns Valid (Qed:8ms) (19ms) (327)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 64):
+Let a_1 = shift_sint32(a, 0).
+Let x = Mint_0[a_1].
+Assume {
+  Type: is_uint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_1, n).
+  (* Then *)
+  Have: 0 < n.
+}
+Prove: P_UpperBound_1_(Mint_0, a, 0, 0, x).
+Prover Alt-Ergo  returns Valid (Qed:0.96ms) (8ms) (57)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 73):
+Let x = Mint_0[shift_sint32(a, max_0)].
+Let a_1 = shift_sint32(a, 0).
+Let x_1 = Mint_0[a_1].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(n) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_1, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, 0, x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, i, x).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_MaxElement(Mint_0, a, i, max_0).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (56)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_element2' (1/3):
+Effect at line 68
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_element2' (2/3):
+Effect at line 74
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max_element2' (3/3):
+Effect at line 76
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 68):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, max_0)].
+Let x_2 = Mint_0[shift_sint32(a, max_1)].
+Let x_3 = Mint_0[shift_sint32(a, i)].
+Let a_1 = shift_sint32(a, 0).
+Let x_4 = Mint_0[a_1].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(max_0) /\ is_uint32(max_1) /\
+      is_uint32(n) /\ is_sint32(x_4) /\ is_sint32(x_3) /\ is_sint32(x_1) /\
+      is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a_1, n).
+  (* Then *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, 0, x_4).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (0 <= max_1) /\ (max_1 < n).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, i, x_2).
+  (* Then *)
+  Have: i < n.
+  If x_2 < x_3
+  Then { Have: max_0 = i. }
+  Else { Have: max_1 = max_0. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: (0 <= max_0) /\ (max_0 < n).
+  (* Invariant *)
+  Have: P_UpperBound_1_(Mint_0, a, 0, x, x_1).
+}
+Prove: i < x.
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (135)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live24/max_element2/max_element2.acsl.c, line 68):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------

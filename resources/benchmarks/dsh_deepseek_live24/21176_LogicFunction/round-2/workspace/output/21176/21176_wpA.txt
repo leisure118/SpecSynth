@@ -1,0 +1,200 @@
+[kernel] Parsing output/21176/21176_acslA.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function check
+[rte:annot] annotating function func
+[rte:annot] annotating function main
+[wp] 19 goals scheduled
+[wp] [Timeout] typed_func_assert_rte_signed_overflow (Z3 15s)
+[wp] [Timeout] typed_func_assert_rte_signed_overflow_2 (Qed 0.93ms) (Z3 15s)
+[wp] [Timeout] typed_func_assert_rte_signed_overflow_3 (Qed 3ms) (Z3 15s)
+[wp] [Timeout] typed_check_assert (Qed 12ms) (Z3 15s)
+[wp] Proved goals:   15 / 19
+  Qed:            14
+  Alt-Ergo :       1 (38ms)
+  Timeout:         4
+------------------------------------------------------------
+  Function check
+------------------------------------------------------------
+
+Goal Assertion (file output/21176/21176_acslA.c, line 25):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(a_1) /\ is_sint32(fmax_0) /\
+      is_sint32(fmax_1) /\ is_sint32(fmax_2) /\ is_sint32(fmin_0) /\
+      is_sint32(fmin_1) /\ is_sint32(fmin_2) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(y_2).
+  If y_2 < x_2
+  Then {
+    Have: (x_2 = x) /\ (y_2 = y).
+    (* Call 'func' *)
+    Have: L_ax_b(a, x, 4) = fmin_0.
+    (* Call 'func' *)
+    Have: L_ax_b(a, y, 4) = fmax_0.
+  }
+  Else {
+    Have: (x_2 = x_1) /\ (y_2 = y_1).
+    (* Call 'func' *)
+    Have: L_ax_b(a_1, y_1, 4) = fmin_0.
+    (* Call 'func' *)
+    Have: L_ax_b(a_1, x_1, 4) = fmax_0.
+  }
+}
+Prove: fmin_0 <= fmax_0.
+Prover Z3 4.8.12 returns Timeout (Qed:12ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:12ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (2/3):
+Call Result at line 18
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (3/3):
+Call Result at line 22
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (1/5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (2/5):
+Call Result at line 18
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (3/5):
+Call Result at line 19
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (4/5):
+Call Result at line 22
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check' (5/5):
+Call Result at line 23
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function func
+------------------------------------------------------------
+
+Goal Post-condition (file output/21176/21176_acslA.c, line 7) in 'func':
+Let x_1 = a * x.
+Let x_2 = 4 + x_1.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(x) /\ is_sint32(x_2).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 2147483647.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: to_sint32(x_1) <= 2147483643.
+}
+Prove: x_2 = L_ax_b(a, x, 4).
+Prover Z3 4.8.12 returns Valid (Qed:5ms) (100ms) (20513)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (38ms) (87)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file output/21176/21176_acslA.c, line 10):
+Assume { Type: is_sint32(a) /\ is_sint32(x). }
+Prove: (-2147483648) <= (a * x).
+Prover Z3 4.8.12 returns Timeout (15s)
+Prover Alt-Ergo  returns Timeout (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file output/21176/21176_acslA.c, line 10):
+Let x_1 = a * x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+}
+Prove: x_1 <= 2147483647.
+Prover Z3 4.8.12 returns Timeout (Qed:0.93ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:0.93ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file output/21176/21176_acslA.c, line 10):
+Let x_1 = a * x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 2147483647.
+}
+Prove: to_sint32(x_1) <= 2147483643.
+Prover Z3 4.8.12 returns Timeout (Qed:3ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:3ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'func':
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid (0.79ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assigns nothing in 'main' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'main' (2/2):
+Call Result at line 34
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'main' (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'main' (2/3):
+Call Result at line 34
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'main' (3/3):
+Effect at line 36
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------

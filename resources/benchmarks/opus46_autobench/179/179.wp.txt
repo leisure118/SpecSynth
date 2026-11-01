@@ -1,0 +1,70 @@
+[kernel] Parsing output/ops-4.6/autobench/179/179.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/autobench/179/179.acsl.c:21: Warning: 
+  Calling function unknown2 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 7 goals scheduled
+[wp] Proved goals:    7 / 7
+  Qed:             6
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/179/179.acsl.c, line 17):
+Let x_1 = 1 + x.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Residual *)
+  When: (x_1 % 2) = 1.
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 1).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: (x <= 0) /\ ((-1) <= x).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (29001)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (116)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/179/179.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/179/179.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/179/179.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/179/179.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/179/179.acsl.c, line 19) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/179/179.acsl.c, line 19) (2/2):
+Call Result at line 21
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/179/179.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

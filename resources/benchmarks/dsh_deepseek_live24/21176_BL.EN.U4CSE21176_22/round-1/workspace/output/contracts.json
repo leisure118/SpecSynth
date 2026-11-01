@@ -1,0 +1,21 @@
+{
+  "reset": {
+    "layer": 0,
+    "signature": "void reset(int* array,size_t length);",
+    "callees": [],
+    "contract": "/*@\n  requires \\valid(array + (0 .. length-1));\n  assigns array[0 .. length-1];\n  ensures \\forall integer j; 0 <= j < length ==> array[j] == 0;\n*/",
+    "status": "pass",
+    "proved": "12/12",
+    "source": "output/layer0/reset/reset.acsl.c"
+  },
+  "main": {
+    "layer": 1,
+    "signature": "int main();",
+    "callees": [
+      "reset"
+    ],
+    "contract": null,
+    "status": "pending",
+    "proved": null
+  }
+}

@@ -1,0 +1,549 @@
+[kernel] Parsing output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c:69: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 39 goals scheduled
+[wp] Proved goals:   39 / 39
+  Qed:            29
+  Alt-Ergo :      10 (9ms-30ms-115ms)
+------------------------------------------------------------
+  Function bor
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 37) in 'bor':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 46):
+Let a = shift_sint32(x, 0).
+Let x_1 = Mint_0[a].
+Let x_2 = 1 + i.
+Let x_3 = Mint_0[shift_sint32(x, i)].
+Let x_4 = L_bor_n(Mint_0, x, i).
+Let x_5 = lor(x_4, x_3).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_2) /\ is_sint32(x_1) /\ is_sint32(x_3) /\
+      is_sint64(x_4) /\ is_sint64(x_5).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a, 10000).
+  Have: x_1 = L_bor_n(Mint_0, x, 1).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= 10000).
+  (* Then *)
+  Have: i <= 9999.
+}
+Prove: L_bor_n(Mint_0, x, x_2) = x_5.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (164385)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (16ms) (291)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 46):
+Let a = shift_sint32(x, 0).
+Let x_1 = Mint_0[a].
+Assume {
+  Type: is_sint32(x_1).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, a, 10000).
+}
+Prove: x_1 = L_bor_n(Mint_0, x, 1).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (144921)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (10ms) (100)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bor' (1/4):
+Effect at line 43
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bor' (2/4):
+Effect at line 50
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bor' (3/4):
+Effect at line 50
+Prove: true.
+Prover Qed returns Valid (0.53ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bor' (4/4):
+Effect at line 53
+Prove: true.
+Prover Qed returns Valid (0.59ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 50):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 74):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 75):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 76):
+Let a = global(L_x_65).
+Let a_1 = shift_sint32(a, 0).
+Let x = Mint_undef_0[a_1].
+Let a_2 = shift_sint32(a, 1).
+Let x_1 = Mint_undef_0[a_2].
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_4 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Goal *)
+  When: (2 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_1.
+}
+Prove: a_3[a_1 <- x_1][a_2 <- x][a_4] = a_3[a_4].
+Prover Alt-Ergo  returns Valid (Qed:13ms) (9ms) (111)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 77):
+Let a = global(L_x_65).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_2[a_5]))).
+}
+Prove: L_bor_n(a_4, a_1, 10000) = L_bor_n(a_2, a_1, 10000).
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (70ms) (873195)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (77ms) (3066)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 79):
+Let a = global(L_x_65).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let x_2 = L_bor_n(a_4, a_1, 10000).
+Let x_3 = L_bor_n(a_2, a_1, 10000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_2[a_5]))).
+  (* Assertion *)
+  Have: x_2 = x_3.
+}
+Prove: to_sint32(x_2) = to_sint32(x_3).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (9ms) (43)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 83):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 83):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 84):
+Let a = global(L_x_65).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let x_1 = Mint_undef_1[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 9999).
+Let x_2 = L_bor_n(a_4, a_1, 10000).
+Let x_3 = L_bor_n(a_2, a_1, 10000).
+Let x_4 = 1 + i.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_4) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_2.
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_4[a_6] = a_2[a_6]))).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Call 'bor' *)
+  Have: to_sint32(x_2) = to_sint32(x_3).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 9999) -> (a_5[a_6] = a_4[a_6]))).
+  (* Then *)
+  Have: i <= 9998.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_5[shift_sint32(a, i) <- a_5[shift_sint32(a, x_4)]]
+         [shift_sint32(a, i_1)] = a_4[shift_sint32(a, 1 + i_1)].
+Prover Alt-Ergo  returns Valid (Qed:10ms) (22ms) (423)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 84):
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 85):
+Let a = global(L_x_65).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let x_1 = Mint_undef_1[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 9999).
+Let x_2 = 1 + i.
+Let a_6 = a_5[shift_sint32(a, i) <- a_5[shift_sint32(a, x_2)]].
+Let x_3 = L_bor_n(a_4, a_1, 10000).
+Let x_4 = L_bor_n(a_2, a_1, 10000).
+Let a_7 = shift_sint32(a, i_1).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_2) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_2.
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_4[a_8] = a_2[a_8]))).
+  (* Assertion *)
+  Have: x_3 = x_4.
+  (* Call 'bor' *)
+  Have: to_sint32(x_3) = to_sint32(x_4).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 9999) -> (a_5[a_8] = a_4[a_8]))).
+  (* Then *)
+  Have: i <= 9998.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (a_6[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+}
+Prove: a_6[a_7] = a_4[a_7].
+Prover Alt-Ergo  returns Valid (Qed:13ms) (18ms) (378)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 85):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 93):
+Let a = global(L_x_65).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let x_1 = Mint_undef_1[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 9999).
+Let x_2 = L_bor_n(a_4, a_1, 10000).
+Let x_3 = L_bor_n(a_2, a_1, 10000).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9998).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Else *)
+  Have: 10000 <= i_1.
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_4[a_6] = a_2[a_6]))).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Call 'bor' *)
+  Have: to_sint32(x_2) = to_sint32(x_3).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((i_2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_5[a_6] = a_4[a_6]))).
+  (* Else *)
+  Have: 9999 <= i_2.
+}
+Prove: a_5[shift_sint32(a, 9999) <- x][shift_sint32(a, i)] =
+    a_4[shift_sint32(a, 1 + i)].
+Prover Alt-Ergo  returns Valid (Qed:10ms) (16ms) (315)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 94):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 95):
+Let a = global(L_x_65).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let x_1 = Mint_undef_1[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 9999).
+Let a_6 = a_5[shift_sint32(a, 9999) <- x].
+Let x_2 = L_bor_n(a_4, a_1, 10000).
+Let x_3 = L_bor_n(a_2, a_1, 10000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((2 <= i_2) ->
+      ((i_2 <= 9999) -> (a_4[a_7] = a_2[a_7]))).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Call 'bor' *)
+  Have: to_sint32(x_2) = to_sint32(x_3).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_5[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 9999) -> (a_5[a_7] = a_4[a_7]))).
+  (* Else *)
+  Have: 9999 <= i_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9998) ->
+      (a_6[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+}
+Prove: L_bor_n(a_6, a_1, 10000) = x_2.
+Prover Alt-Ergo  returns Valid (Qed:11ms) (115ms) (5765)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 97):
+Let a = global(L_x_65).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let x_1 = Mint_undef_1[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 9999).
+Let a_6 = a_5[shift_sint32(a, 9999) <- x].
+Let x_2 = L_bor_n(a_6, a_1, 10000).
+Let x_3 = L_bor_n(a_4, a_1, 10000).
+Let x_4 = L_bor_n(a_2, a_1, 10000).
+Let x_5 = to_sint32(x_3).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Call 'bor' *)
+  Have: x_5 = to_sint32(x_4).
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((2 <= i_2) ->
+      ((i_2 <= 9999) -> (a_4[a_7] = a_2[a_7]))).
+  (* Assertion *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_5[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 9999) -> (a_5[a_7] = a_4[a_7]))).
+  (* Else *)
+  Have: 9999 <= i_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9998) ->
+      (a_6[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Assertion *)
+  Have: x_2 = x_3.
+}
+Prove: to_sint32(x_2) = x_5.
+Prover Alt-Ergo  returns Valid (Qed:11ms) (10ms) (51)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 65):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 86) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 86) (2/2):
+Effect at line 90
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 68):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 68):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 89):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 89):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 35) in 'bor'' in 'main' at call 'bor' (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 71)
+:
+Prove: true.
+Prover Qed returns Valid (0.91ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 35) in 'bor'' in 'main' at call 'bor' (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 78)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 35) in 'bor'' in 'main' at call 'bor' (file output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c, line 96)
+:
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-crafted_bor3/array-crafted_bor3.acsl.c:56: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

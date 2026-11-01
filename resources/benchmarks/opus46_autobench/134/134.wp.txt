@@ -1,0 +1,76 @@
+[kernel] Parsing /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c (with preprocessing)
+[kernel:typing:no-proto] /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c:20: Warning: 
+  Calling function unknown1 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[kernel:annot:missing-spec] /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c:11: Warning: 
+  Neither code nor specification for function unknown1, generating default assigns from the prototype
+[wp] Warning: Missing RTE guards
+[wp] 7 goals scheduled
+[wp] Proved goals:    7 / 7
+  Qed:             6
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c, line 16):
+Let x = t1_0 + t2_0.
+Assume {
+  Type: is_sint32(t1_0) /\ is_sint32(t2_0) /\ is_sint32(tmp_0) /\
+      is_sint32(x).
+  (* Invariant *)
+  Have: 0 < t1_0.
+  (* Invariant *)
+  Have: 0 < t2_0.
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: 0 < x.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (28117)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (14)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (0.68ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c, line 18) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c, line 18) (2/2):
+Call Result at line 20
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'unknown1'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] /Users/hujunjie/code/spectool/output/ops-4.6/autobench/134/134.acsl.c:11: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

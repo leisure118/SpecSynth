@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "100.c",
+      "content": "/*@\nrequires n >= 0;\n*/\nvoid foo(int n) {\n  int x = n;\n  int y = 0;\n    \n  /*@\n    loop invariant 0 <= x;\n    loop invariant y == n - x;\n    loop assigns x, y;\n    loop variant x;\n  */\n  while (x > 0) {\n    y  = y + 1;\n    x  = x - 1;\n  }\n  // post-condition\n  //@ assert(y == n);\n}"
+    }
+  ]
+}

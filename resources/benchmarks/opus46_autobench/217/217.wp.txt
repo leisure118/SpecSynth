@@ -1,0 +1,65 @@
+[kernel] Parsing output/ops-4.6/autobench/217/217.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             4
+  Alt-Ergo :       2 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/217/217.acsl.c, line 16):
+Assume {
+  Type: is_sint32(s).
+  (* Call 'max' *)
+  Have: (34 <= s) /\ (45 <= s) /\ ((s = 34) \/ (s = 45)).
+}
+Prove: s = 45.
+Prover Alt-Ergo  returns Valid (6ms) (14)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/217/217.acsl.c, line 18):
+Assume {
+  Type: is_sint32(t).
+  (* Call 'max' *)
+  Have: ((-43) <= t) /\ (34 <= t) /\ ((t = (-43)) \/ (t = 34)).
+}
+Prove: t = 34.
+Prover Z3 4.15.4 returns Valid (Qed:0.64ms) (4538)
+Prover Alt-Ergo  returns Valid (Qed:0.64ms) (6ms) (14)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/autobench/217/217.acsl.c, line 3) in 'max':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/autobench/217/217.acsl.c, line 4) in 'max':
+Prove: true.
+Prover Qed returns Valid (0.81ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max' (1/2):
+Effect at line 8
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'max' (2/2):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/217/217.acsl.c:14: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

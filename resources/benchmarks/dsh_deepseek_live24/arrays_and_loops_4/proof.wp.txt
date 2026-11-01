@@ -1,0 +1,125 @@
+Frama-C 证明目标 11/11
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[rte:annot] annotating function test
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:             8
+  Alt-Ergo :       3 (36ms-51ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 23):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 3) in 'test'' in 'main' at initialization of 'num' (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 22)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function test
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 5) in 'test':
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 11):
+Let x = a + y.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(y) /\ is_sint32(a - 1) /\
+      is_sint32(1 + y) /\ is_sint32(x).
+  (* Pre-condition *)
+  Have: 0 <= x.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Then *)
+  Have: a != 0.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: y <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= a.
+}
+Prove: 0 < a.
+Prover Z3 4.8.12 returns Valid (Qed:5ms) (160ms) (35543)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (51ms) (15)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 11):
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 16):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(y) /\ is_sint32(a - y).
+  (* Pre-condition *)
+  Have: 0 <= a.
+  (* Invariant *)
+  Have: y <= a.
+  (* Then *)
+  Have: y != a.
+}
+Prove: y <= 2147483646.
+Prover Z3 4.8.12 returns Valid (Qed:4ms) (140ms) (35035)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (43ms) (26)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 17):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(y) /\ is_sint32(1 + y) /\ is_sint32(a - y).
+  (* Pre-condition *)
+  Have: 0 <= a.
+  (* Invariant *)
+  Have: y <= a.
+  (* Then *)
+  Have: y != a.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: y <= 2147483646.
+}
+Prove: y <= (2147483647 + a).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (36ms) (24)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'test':
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_4/round-1/proof/arrays_and_loops_4.c:21: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T20:35:35+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

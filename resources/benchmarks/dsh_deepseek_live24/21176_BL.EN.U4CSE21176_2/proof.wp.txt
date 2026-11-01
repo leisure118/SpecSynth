@@ -1,0 +1,101 @@
+Frama-C 证明目标 9/9
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[rte:annot] annotating function main
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             7
+  Alt-Ergo :       2 (32ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c, line 6) in 'foo':
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c, line 10):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c, line 13):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b).
+  (* Pre-condition *)
+  Have: ((-100) <= a) /\ (a <= 100).
+  (* Pre-condition *)
+  Have: ((-100) <= b) /\ (b <= 100).
+  (* Else *)
+  Have: a < 0.
+}
+Prove: (-2147483648) <= (a + b).
+Prover Z3 4.8.12 returns Valid (Qed:1ms) (120ms) (34871)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (32ms) (21)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c, line 13):
+Let x = a + b.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b).
+  (* Pre-condition *)
+  Have: ((-100) <= a) /\ (a <= 100).
+  (* Pre-condition *)
+  Have: ((-100) <= b) /\ (b <= 100).
+  (* Else *)
+  Have: a < 0.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x.
+}
+Prove: x <= 2147483647.
+Prover Z3 4.8.12 returns Valid (Qed:0.82ms) (130ms) (34980)
+Prover Alt-Ergo  returns Valid (Qed:0.82ms) (33ms) (14)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'foo' (1/2):
+Effect at line 10
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'foo' (2/2):
+Effect at line 13
+Prove: true.
+Prover Qed returns Valid (0.75ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c, line 21):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c, line 3) in 'foo'' in 'main' at initialization of 'r' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c, line 20)
+:
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c, line 4) in 'foo'' in 'main' at initialization of 'r' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c, line 20)
+:
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_2/round-1/proof/21176_BL.EN.U4CSE21176_2.c:17: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T13:37:09+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

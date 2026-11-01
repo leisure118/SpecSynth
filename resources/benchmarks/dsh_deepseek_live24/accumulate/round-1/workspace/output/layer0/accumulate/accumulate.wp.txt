@@ -1,0 +1,342 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function accumulate
+[wp] 18 goals scheduled
+[wp] [Timeout] typed_accumulate_assert_rte_signed_overflow_2 (Qed 4ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_accumulate_assert_rte_signed_overflow (Qed 4ms) (Alt-Ergo 15s)
+[wp] Proved goals:   16 / 18
+  Qed:             5
+  Alt-Ergo :      11 (40ms-2.3s-15s)
+  Timeout:         2
+------------------------------------------------------------
+  Axiomatic 'Accumulate'
+------------------------------------------------------------
+
+Lemma Accumulate_Init:
+Assume: 'Unchanged_Transitive' 'Unchanged_Symmetric' 'Unchanged_Extend'
+  'Unchanged_Shrink'
+Prove: (n_0<=0) -> (is_sint32_chunk Mint_0) -> (is_sint32 init_0)
+       -> ((L_Accumulate Mint_0 a_0 n_0 init_0)=init_0)
+Prover Z3 4.8.12 returns Valid (140ms) (93857)
+Prover Alt-Ergo  returns Valid (43ms) (34)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Axiomatic 'UnchangedLemmas'
+------------------------------------------------------------
+
+Lemma Unchanged_Extend:
+Assume: 'Unchanged_Shrink'
+Prove: let a_1 = (shift_sint32 a_0 n_0) in
+       let x_0 = Mint_1[a_1] in
+       let x_1 = Mint_0[a_1] in
+       (x_0=x_1) -> (is_sint32_chunk Mint_0) -> (is_sint32_chunk Mint_1)
+       -> (P_Unchanged_2_ Mint_0 Mint_1 a_0 n_0) -> (is_sint32 x_1)
+       -> (is_sint32 x_0) -> (P_Unchanged_2_ Mint_0 Mint_1 a_0 (1+n_0))
+Prover Alt-Ergo  returns Valid (45ms) (104)
+
+------------------------------------------------------------
+
+Lemma Unchanged_Shrink:
+Prove: (q_0<=n_0) -> (m_0<=p_0) -> (p_0<=q_0) -> (is_sint32_chunk Mint_0)
+       -> (is_sint32_chunk Mint_1)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 p_0 q_0)
+Prover Alt-Ergo  returns Valid (44ms) (78)
+
+------------------------------------------------------------
+
+Lemma Unchanged_Symmetric:
+Assume: 'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: (is_sint32_chunk Mint_0) -> (is_sint32_chunk Mint_1)
+       -> (P_Unchanged_1_ Mint_1 Mint_0 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 m_0 n_0)
+Prover Alt-Ergo  returns Valid (42ms) (58)
+
+------------------------------------------------------------
+
+Lemma Unchanged_Transitive:
+Assume: 'Unchanged_Symmetric' 'Unchanged_Extend' 'Unchanged_Shrink'
+Prove: (is_sint32_chunk Mint_0) -> (is_sint32_chunk Mint_1)
+       -> (is_sint32_chunk Mint_2)
+       -> (P_Unchanged_1_ Mint_0 Mint_2 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_2 Mint_1 a_0 m_0 n_0)
+       -> (P_Unchanged_1_ Mint_0 Mint_1 a_0 m_0 n_0)
+Prover Alt-Ergo  returns Valid (42ms) (67)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function accumulate
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 63) in 'accumulate':
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 69):
+Let x = L_Accumulate(Mint_0, a, i, init_0).
+Let a_1 = shift_sint32(a, i).
+Let x_1 = Mint_0[a_1].
+Let x_2 = x_1 + x.
+Let x_3 = 1 + i.
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(init_0) /\ is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_2.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= 2147483647.
+  Have: x_2 = L_Accumulate(Mint_0, a, x_3, init_0).
+}
+Prove: to_uint32(x_3) <= n.
+Prover Z3 4.8.12 returns Valid (Qed:7ms) (140ms) (112901)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (47ms) (133)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 69):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 70):
+Let x = 1 + i.
+Let x_1 = to_uint32(x).
+Let x_2 = L_Accumulate(Mint_0, a, i, init_0).
+Let a_1 = shift_sint32(a, i).
+Let x_3 = Mint_0[a_1].
+Let x_4 = x_3 + x_2.
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(init_0) /\ is_sint32(x_3) /\ is_sint32(x_2) /\
+      is_sint32(x_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_4.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_4 <= 2147483647.
+  Have: x_4 = L_Accumulate(Mint_0, a, x, init_0).
+  (* Invariant *)
+  Have: x_1 <= n.
+}
+Prove: x_4 = L_Accumulate(Mint_0, a, x_1, init_0).
+Prover Alt-Ergo  returns Valid (Qed:5ms) (47ms) (142)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 70):
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(n) /\ is_sint32(init_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (40ms) (38)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte_help' (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 75):
+Let x = Mint_0[shift_sint32(a, i)].
+Let x_1 = L_Accumulate(Mint_0, a, i, init_0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(init_0) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+}
+Prove: (x + x_1) = L_Accumulate(Mint_0, a, 1 + i, init_0).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (41ms) (71)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 76):
+Let x = L_Accumulate(Mint_0, a, i, init_0).
+Let a_1 = shift_sint32(a, i).
+Let x_1 = Mint_0[a_1].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(init_0) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: (x_1 + x) = L_Accumulate(Mint_0, a, 1 + i, init_0).
+  (* Then *)
+  Have: i < n.
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (46ms) (120)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 76):
+Let a_1 = shift_sint32(a, i).
+Let x = L_Accumulate(Mint_0, a, i, init_0).
+Let x_1 = Mint_0[a_1].
+Let x_2 = x_1 + x.
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(init_0) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte_help' *)
+  Have: x_2 = L_Accumulate(Mint_0, a, 1 + i, init_0).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+}
+Prove: (-2147483648) <= x_2.
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:4ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 76):
+Let x = L_Accumulate(Mint_0, a, i, init_0).
+Let a_1 = shift_sint32(a, i).
+Let x_1 = Mint_0[a_1].
+Let x_2 = x_1 + x.
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(init_0) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte_help' *)
+  Have: x_2 = L_Accumulate(Mint_0, a, 1 + i, init_0).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_2.
+}
+Prove: x_2 <= 2147483647.
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:4ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 71):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'accumulate':
+Effect at line 74
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 74):
+Let x = 1 + i.
+Let x_1 = to_uint32(x).
+Let x_2 = L_Accumulate(Mint_0, a, i, init_0).
+Let a_1 = shift_sint32(a, i).
+Let x_3 = Mint_0[a_1].
+Let x_4 = x_3 + x_2.
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(init_0) /\ is_sint32(x_3) /\ is_sint32(x_2) /\
+      is_sint32(x_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  Have: L_Accumulate(Mint_0, a, 0, init_0) = init_0.
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: x_4 = L_Accumulate(Mint_0, a, x_1, init_0).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte_help' *)
+  Have: x_4 = L_Accumulate(Mint_0, a, x, init_0).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_4.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_4 <= 2147483647.
+  (* Invariant *)
+  Have: x_1 <= n.
+}
+Prove: i < x_1.
+Prover Alt-Ergo  returns Valid (Qed:7ms) (55ms) (144)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-9u4_oweb/workspace/.platform-proofs/tmp4dd058te/candidate.c, line 74):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T17:57:01+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

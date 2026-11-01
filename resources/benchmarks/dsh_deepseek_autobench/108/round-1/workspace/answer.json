@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "108.c",
+      "content": "/*@\nrequires a <= m;\n*/\nvoid foo(int a, int m, int c) {\n    int j = 0;\n    int k = 0;\n\n    /*@\n    loop invariant a <= m;\n    loop invariant 0 <= k;\n    loop assigns m, k;\n    loop variant c - k;\n    */\n    while (k < c) {\n        if(m < a) {\n            m = a;\n        }\n        k = k + 1;\n    }\n\n    //post-condition\n    //@ assert(a <= m);\n}\n"
+    }
+  ]
+}

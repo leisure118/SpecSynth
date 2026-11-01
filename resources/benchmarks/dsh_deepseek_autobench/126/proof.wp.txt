@@ -1,0 +1,125 @@
+Frama-C 证明目标 10/10
+[kernel] Parsing resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             7
+  Alt-Ergo :       3 (31ms-37ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 10):
+Let x = i + y.
+Let x_1 = -j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(y) /\
+      is_sint32(i + y - j) /\ is_sint32(i + y - 1 - j).
+  (* Pre-condition *)
+  Have: 0 <= i.
+  (* Pre-condition *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: j <= x.
+  (* Then *)
+  Have: x != j.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: j <= (2147483647 + i + y).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= y.
+}
+Prove: j < x.
+Prover Z3 4.8.12 returns Valid (Qed:7ms) (120ms) (35772)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (31ms) (18)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 11):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 11):
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 16):
+Let x = i + y.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(y) /\ is_sint32(i + y - j).
+  (* Pre-condition *)
+  Have: 0 <= i.
+  (* Pre-condition *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: j <= x.
+  (* Then *)
+  Have: x != j.
+}
+Prove: j <= (2147483647 + i + y).
+Prover Z3 4.8.12 returns Valid (Qed:2ms) (120ms) (35273)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (33ms) (14)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 17):
+Let x = i + y.
+Let x_1 = -j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(y) /\
+      is_sint32(i + y - j) /\ is_sint32(i + y - 1 - j).
+  (* Pre-condition *)
+  Have: 0 <= i.
+  (* Pre-condition *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: j <= x.
+  (* Then *)
+  Have: x != j.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: j <= (2147483647 + i + y).
+}
+Prove: (-2147483647) <= y.
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (110ms) (35654)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (37ms) (45)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c, line 15):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_autobench/126/round-2/proof/126.c:5: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T20:33:19+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

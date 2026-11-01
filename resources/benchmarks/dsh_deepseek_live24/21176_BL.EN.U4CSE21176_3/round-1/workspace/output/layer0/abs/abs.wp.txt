@@ -1,0 +1,52 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-xh8j_771/workspace/.platform-proofs/tmpiswygn3n/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function abs
+[wp] 5 goals scheduled
+[wp] Proved goals:    5 / 5
+  Qed:             4
+  Alt-Ergo :       1 (35ms)
+------------------------------------------------------------
+  Function abs
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-xh8j_771/workspace/.platform-proofs/tmpiswygn3n/candidate.c, line 18) in 'abs':
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-xh8j_771/workspace/.platform-proofs/tmpiswygn3n/candidate.c, line 19) in 'abs':
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-xh8j_771/workspace/.platform-proofs/tmpiswygn3n/candidate.c, line 23):
+Assume {
+  Type: is_sint32(val_0).
+  (* Pre-condition *)
+  Have: val_0 != (-2147483648).
+  (* Then *)
+  Have: val_0 < 0.
+}
+Prove: (-2147483647) <= val_0.
+Prover Z3 4.8.12 returns Valid (Qed:0.98ms) (120ms) (34313)
+Prover Alt-Ergo  returns Valid (Qed:0.98ms) (35ms) (21)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'abs' (1/2):
+Effect at line 23
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'abs' (2/2):
+Effect at line 25
+Prove: true.
+Prover Qed returns Valid (0.51ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T13:48:23+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

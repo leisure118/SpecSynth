@@ -1,0 +1,90 @@
+[kernel] Parsing output/ops-4.6/autobench/202/202.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             9
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function fun
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/202/202.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (0.79ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/202/202.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/202/202.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/202/202.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/202/202.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/202/202.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/202/202.acsl.c, line 21):
+Let x = d * y.
+Let x_1 = r + x.
+Let x_2 = 1 + d.
+Assume {
+  Type: is_sint32(d) /\ is_sint32(r) /\ is_sint32(y) /\ is_sint32(x_2) /\
+      is_sint32(r - y) /\ is_sint32(x_1).
+  (* Pre-condition *)
+  Have: 0 <= x_1.
+  (* Pre-condition *)
+  Have: 0 < y.
+  (* Invariant *)
+  Have: 0 <= r.
+  (* Invariant *)
+  Have: 0 <= d.
+  (* Then *)
+  Have: y <= r.
+}
+Prove: (y * x_2) = (y + x).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (43)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/202/202.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/autobench/202/202.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/autobench/202/202.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/202/202.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'fun'.
+  Callers assumptions might be imprecise.

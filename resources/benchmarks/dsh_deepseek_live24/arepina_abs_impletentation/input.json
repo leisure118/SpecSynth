@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "arepina_abs_impletentation.c",
+      "content": "#define SPEC_INT_MIN -2147483648\n#define SPEC_INT_MAX 2147483647\nlong spec_abs1(int a)\n{\n   long abs;\n   abs = a;\n   if (a < 0) {\n      abs = -abs;\n   }\n   return abs;\n}\n#ifdef OUT_OF_TASK\n#include <stdio.h>\nint main(void)\n{\n   int a = spec_abs1(SPEC_INT_MIN+1);\n   //@ assert a == SPEC_INT_MAX;\n}\n#endif"
+    }
+  ],
+  "sha256": "cc02d96180a1f7bf5b40b98d0b63b9ddaf828573f44aea4a49bd13ef6c63b91e"
+}

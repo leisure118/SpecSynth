@@ -1,0 +1,250 @@
+[kernel] Parsing output/ops-4.6/autobench/189/189.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 25 goals scheduled
+[wp] Proved goals:   25 / 25
+  Qed:            15
+  Alt-Ergo :      10 (4ms-6ms-10ms)
+------------------------------------------------------------
+  Global
+------------------------------------------------------------
+
+Lemma gcd_result:
+Assume: 'gcd_step5' 'gcd_step4' 'gcd_step3' 'gcd_step2' 'gcd_step1'
+Prove: (L_gcd_math 98 56)=14
+Prover Alt-Ergo  returns Valid (4ms) (17)
+
+------------------------------------------------------------
+
+Lemma gcd_step1:
+Prove: (L_gcd_math 98 56)=(L_gcd_math 42 56)
+Prover Z3 4.15.4 returns Valid (20196)
+Prover Alt-Ergo  returns Valid (6ms) (20)
+
+------------------------------------------------------------
+
+Lemma gcd_step2:
+Assume: 'gcd_step1'
+Prove: (L_gcd_math 42 56)=(L_gcd_math 42 14)
+Prover Z3 4.15.4 returns Valid (20389)
+Prover Alt-Ergo  returns Valid (5ms) (25)
+
+------------------------------------------------------------
+
+Lemma gcd_step3:
+Assume: 'gcd_step2' 'gcd_step1'
+Prove: (L_gcd_math 42 14)=(L_gcd_math 28 14)
+Prover Alt-Ergo  returns Valid (5ms) (30)
+
+------------------------------------------------------------
+
+Lemma gcd_step4:
+Assume: 'gcd_step3' 'gcd_step2' 'gcd_step1'
+Prove: (L_gcd_math 28 14)=(L_gcd_math 14 14)
+Prover Alt-Ergo  returns Valid (5ms) (36)
+
+------------------------------------------------------------
+
+Lemma gcd_step5:
+Assume: 'gcd_step4' 'gcd_step3' 'gcd_step2' 'gcd_step1'
+Prove: (L_gcd_math 14 14)=14
+Prover Alt-Ergo  returns Valid (6ms) (36)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function gcd
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/autobench/189/189.acsl.c, line 22) in 'gcd':
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b) /\ is_sint32(gcd_0).
+  (* Pre-condition *)
+  Have: 0 <= a.
+  (* Pre-condition *)
+  Have: 0 <= b.
+  If a = 0
+  Then { Have: gcd_0 = b. }
+  Else {
+    If b = 0
+    Then { Have: gcd_0 = a. }
+    Else {
+      If b = a
+      Then { Have: gcd_0 = a. }
+      Else {
+        If b < a
+        Then {
+          Have: (ta_tmp_0=false).
+          (* Call 'gcd' *)
+          Have: L_gcd_math(a - b, b) = gcd_0.
+        }
+        Else { (* Call 'gcd' *) Have: L_gcd_math(a, b - a) = gcd_0. }
+      }
+    }
+  }
+}
+Prove: L_gcd_math(a, b) = gcd_0.
+Prover Alt-Ergo  returns Valid (Qed:10ms) (10ms) (180)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (1/8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (2/8):
+Effect at line 26
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (3/8):
+Effect at line 29
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (4/8):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (5/8):
+Call Result at line 35
+Prove: true.
+Prover Qed returns Valid (0.68ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (6/8):
+Effect at line 35
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (7/8):
+Call Result at line 36
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd' (8/8):
+Effect at line 36
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Recursion variant (1/2):
+Call decreases at line 35
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b).
+  (* Pre-condition *)
+  Have: 0 <= a.
+  (* Pre-condition *)
+  Have: 0 <= b.
+  (* Else *)
+  Have: a != 0.
+  (* Else *)
+  Have: b != 0.
+  (* Else *)
+  Have: b != a.
+  (* Then *)
+  Have: b < a.
+}
+Prove: (0 < b) /\ (0 <= (a + b)).
+Prover Alt-Ergo  returns Valid (Qed:1ms) (5ms) (34)
+
+------------------------------------------------------------
+
+Goal Recursion variant (2/2):
+Call decreases at line 36
+Assume {
+  Type: is_sint32(a) /\ is_sint32(b).
+  (* Pre-condition *)
+  Have: 0 <= a.
+  (* Pre-condition *)
+  Have: 0 <= b.
+  (* Else *)
+  Have: a != 0.
+  (* Else *)
+  Have: b != 0.
+  (* Else *)
+  Have: b != a.
+  (* Else *)
+  Have: a <= b.
+}
+Prove: (0 < a) /\ (0 <= (a + b)).
+Prover Z3 4.15.4 returns Valid (Qed:0.75ms) (31696)
+Prover Alt-Ergo  returns Valid (Qed:0.75ms) (6ms) (35)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/autobench/189/189.acsl.c, line 18) in 'gcd'' in 'gcd' at call 'gcd' (file output/ops-4.6/autobench/189/189.acsl.c, line 35)
+:
+Prove: true.
+Prover Qed returns Valid (0.84ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/autobench/189/189.acsl.c, line 19) in 'gcd'' in 'gcd' at call 'gcd' (file output/ops-4.6/autobench/189/189.acsl.c, line 35)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/autobench/189/189.acsl.c, line 18) in 'gcd'' in 'gcd' at call 'gcd' (file output/ops-4.6/autobench/189/189.acsl.c, line 36)
+:
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/autobench/189/189.acsl.c, line 19) in 'gcd'' in 'gcd' at call 'gcd' (file output/ops-4.6/autobench/189/189.acsl.c, line 36)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/189/189.acsl.c, line 43):
+Let x = L_gcd_math(98, 56). Assume { Type: is_sint32(x). }
+Prove: x = 14.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (2641)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (5ms) (22)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/autobench/189/189.acsl.c, line 18) in 'gcd'' in 'main' at initialization of 'c' (file output/ops-4.6/autobench/189/189.acsl.c, line 42)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/autobench/189/189.acsl.c, line 19) in 'gcd'' in 'main' at initialization of 'c' (file output/ops-4.6/autobench/189/189.acsl.c, line 42)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/189/189.acsl.c:39: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

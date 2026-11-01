@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "X509-parser_time_components_to_comparable_u64.c",
+      "content": "#include <stdint.h>\n#include <unistd.h>\n#include <string.h>\ntypedef uint8_t\t  u8;\ntypedef uint16_t u16;\ntypedef uint32_t u32;\ntypedef uint64_t u64;\nu64 time_components_to_comparable_u64(u16 na_year, u8 na_month, u8 na_day,\n\t\t\t\t      u8 na_hour, u8 na_min, u8 na_sec)\n{\n\tu64 res, tmp;\n\tres = ((u64)na_sec);                        \n\t/*@ assert res < (1ULL << 6); */\n\ttmp = ((u64)na_min) * (1ULL << 8);         \n\t/*@ assert tmp < (1ULL << 14); */\n\tres += tmp;\n\t/*@ assert res < (1ULL << 15); */\n\ttmp = (((u64)na_hour) * (1ULL << 16));    \n\t/*@ assert tmp < (1ULL << 21); */\n\tres += tmp;\n\t/*@ assert res < (1ULL << 22); */\n\ttmp = ((u64)na_day) * (1ULL << 24);      \n\t/*@ assert tmp < (1ULL << 29); */\n\tres += tmp;\n\t/*@ assert res < (1ULL << 30); */\n\ttmp = ((u64)na_month) * (1ULL << 32);    \n\t/*@ assert tmp < (1ULL << 36); */\n\tres += tmp;\n\t/*@ assert res < (1ULL << 37); */\n\ttmp = ((u64)na_year) * (1ULL << 40);  \n\t/*@ assert tmp < (1ULL << 54); */\n\tres += tmp;\n\t/*@ assert res < (1ULL << 55); */\n\treturn res;\n}\nint main(void)\n{\n\tu16 na_year = 2023; \n\tu8 na_month = 12; \n\tu8 na_day = 20;\n\tu8 na_hour = 12; \n\tu8 na_min = 00; \n\tu8 na_sec = 00;\n\tu64 res;\n\tres = time_components_to_comparable_u64(na_year, na_month, na_day, na_hour, na_min, na_sec);\n\t//@ assert res < (1ULL << 55);\n\treturn 0;\n}"
+    }
+  ],
+  "sha256": "a1a4fedf8d24bddbcf47b765413dbc81afae7c95bf391d8a314adb93855adaf4"
+}

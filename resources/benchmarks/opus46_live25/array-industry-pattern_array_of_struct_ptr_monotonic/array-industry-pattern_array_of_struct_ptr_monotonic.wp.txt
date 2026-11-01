@@ -1,0 +1,144 @@
+[kernel] Parsing output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:22: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:24: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:21: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: S*)
+[wp] output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:19: Warning: 
+  Missing assigns clause (assigns 'everything' instead)
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             5
+  Alt-Ergo :       3 (8ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 28):
+Let a_1 = a[i].
+Let x = Mint_0[shiftfield_F4_S_t(a_1)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(2 + i) /\ is_sint32(x).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Then *)
+  Have: i <= 99999.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, 2).
+  If x = 10
+  Then {
+    Let a_2 = Mptr_0[shiftfield_F4_S_p1(a_1)].
+    (* Admit *)
+    Have: valid_rw(Malloc_0, a_2, 1).
+    (* Assertion *)
+    Have: a_2 != null.
+  }
+}
+Prove: ((-2) <= i) /\ (i <= 99998).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (100467)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (10ms) (102)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 29):
+Let a_1 = a[i].
+Let x = Mint_0[shiftfield_F4_S_t(a_1)].
+Let x_1 = 2 + i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Then *)
+  Have: i <= 99999.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, 2).
+  If x = 10
+  Then {
+    Let a_2 = Mptr_0[shiftfield_F4_S_p1(a_1)].
+    (* Admit *)
+    Have: valid_rw(Malloc_0, a_2, 1).
+    (* Assertion *)
+    Have: a_2 != null.
+  }
+  (* Invariant *)
+  Have: ((-2) <= i) /\ (i <= 99998).
+}
+Prove: (x_1 % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (101522)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (9ms) (136)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid (0.64ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 40):
+Let a_1 = a[i].
+Let a_2 = Mptr_0[shiftfield_F4_S_p1(a_1)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (i % 2) = 0.
+  (* Then *)
+  Have: i <= 99999.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, 2).
+  (* Then *)
+  Have: Mint_0[shiftfield_F4_S_t(a_1)] = 10.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_2, 1).
+}
+Prove: a_2 != null.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (71176)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (75)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-industry-pattern_array_of_struct_ptr_monotonic/array-industry-pattern_array_of_struct_ptr_monotonic.acsl.c:16: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

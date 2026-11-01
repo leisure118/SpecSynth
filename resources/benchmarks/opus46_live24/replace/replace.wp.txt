@@ -1,0 +1,294 @@
+[kernel] Parsing output/ops-4.6/live24/replace/replace.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:             5
+  Alt-Ergo :       8 (6ms-11ms-21ms)
+------------------------------------------------------------
+  Function replace
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/replace/replace.acsl.c, line 45):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(w) /\
+      is_sint32(a_2[shift_sint32(a, i)]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(Mint_0, Mint_0, a, 0, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(Mint_0, Mint_0, a, 0, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Replace_2_(a_2, Mint_0, a, i, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(a_2, Mint_0, a, i, n).
+  (* Then *)
+  Have: i < n.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (97212)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (100)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/replace/replace.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/replace/replace.acsl.c, line 46):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_1, a_1, n).
+Let a_3 = a_2[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(w) /\
+      is_sint32(a_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(Mint_1, Mint_1, a, 0, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(Mint_1, Mint_1, a, 0, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Replace_2_(a_2, Mint_1, a, i, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(a_2, Mint_1, a, i, n).
+  (* Then *)
+  Have: i < n.
+  If a_3 = v
+  Then { Have: a_2[shift_sint32(a, i) <- w] = Mint_0. }
+  Else { Have: a_2 = Mint_0. }
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: P_Replace_2_(Mint_0, Mint_1, a, x, v, w).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (21ms) (501)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/replace/replace.acsl.c, line 46):
+Assume {
+  Type: is_uint32(n) /\ is_sint32(v) /\ is_sint32(w).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: P_Replace_2_(Mint_0, Mint_0, a, 0, v, w).
+Prover Alt-Ergo  returns Valid (Qed:0.85ms) (8ms) (84)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/replace/replace.acsl.c, line 47):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_1, a_1, n).
+Let a_3 = a_2[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(w) /\
+      is_sint32(a_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(Mint_1, Mint_1, a, 0, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(Mint_1, Mint_1, a, 0, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Replace_2_(a_2, Mint_1, a, i, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(a_2, Mint_1, a, i, n).
+  (* Then *)
+  Have: i < n.
+  If a_3 = v
+  Then { Have: a_2[shift_sint32(a, i) <- w] = Mint_0. }
+  Else { Have: a_2 = Mint_0. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(Mint_0, Mint_1, a, x, v, w).
+}
+Prove: P_Unchanged_1_(Mint_0, Mint_1, a, x, n).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (14ms) (253)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/replace/replace.acsl.c, line 47):
+Assume {
+  Type: is_uint32(n) /\ is_sint32(v) /\ is_sint32(w).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(Mint_0, Mint_0, a, 0, v, w).
+}
+Prove: P_Unchanged_1_(Mint_0, Mint_0, a, 0, n).
+Prover Alt-Ergo  returns Valid (Qed:1ms) (8ms) (34)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/replace/replace.acsl.c, line 56):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(w).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(Mint_0, Mint_0, a, 0, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(Mint_0, Mint_0, a, 0, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Replace_2_(a_2, Mint_0, a, i, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(a_2, Mint_0, a, i, n).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_Replace_2_(havoc(Mint_undef_0, Mint_0, a_1, i), Mint_0, a, i, v, w).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (24)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/replace/replace.acsl.c, line 48) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/replace/replace.acsl.c, line 48) (2/3):
+Effect at line 51
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/replace/replace.acsl.c, line 48) (3/3):
+Effect at line 53
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = shift_sint32(a, i).
+Let a_4 = a_2[a_3 <- w].
+Let x = to_uint32(1 + i).
+Let a_5 = a_2[a_3].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(w) /\ is_sint32(a_5).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(Mint_0, Mint_0, a, 0, a_5, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(Mint_0, Mint_0, a, 0, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Replace_2_(a_2, Mint_0, a, i, a_5, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(a_2, Mint_0, a, i, n).
+  (* Then *)
+  Have: i < n.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(a_4, Mint_0, a, x, a_5, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(a_4, Mint_0, a, x, n).
+}
+Prove: included(a_3, 1, a_1, n).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (72454)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (121)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live24/replace/replace.acsl.c, line 39) in 'replace':
+Effect at line 51
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live24/replace/replace.acsl.c, line 51):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, n).
+Let a_3 = a_2[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(w) /\
+      is_sint32(a_3).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(Mint_0, Mint_0, a, 0, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(Mint_0, Mint_0, a, 0, n).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Replace_2_(a_2, Mint_0, a, i, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(a_2, Mint_0, a, i, n).
+  (* Then *)
+  Have: i < n.
+  If a_3 = v
+  Then { Have: a_2[shift_sint32(a, i) <- w] = Mint_1. }
+  Else { Have: a_2 = Mint_1. }
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: P_Replace_2_(Mint_1, Mint_0, a, x, v, w).
+  (* Invariant *)
+  Have: P_Unchanged_1_(Mint_1, Mint_0, a, x, n).
+}
+Prove: i < x.
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (114)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live24/replace/replace.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------

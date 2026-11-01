@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "arepina_lower_bound.c",
+      "content": "unsigned lower_bound(const int *a, unsigned n, int val)\n{\n   unsigned left = 0;\n   unsigned right = n;\n   unsigned middle = 0;\n   while (left < right) {\n      middle = left + (right - left) / 2;\n      if (a[middle] < val) {\n         //@ assert \\forall integer i; 0 <= i < middle+1 ==> a[i] < val;\n         left = middle + 1;\n      } else right = middle;\n   }\n   return left;\n}\n#ifdef OUT_OF_TASK\n#include <stdio.h>\n#define ARRAY_SIZE(array) (sizeof(array)/sizeof((array)[0]))\nint main(void)\n{\n   int a[] = {0};\n   int b[] = {0,1};\n   int c[] = {0,1,2,3,4,5};\n   int res;\n   res = lower_bound(a, ARRAY_SIZE(a), 0);\n   printf(\"res: %d\\n\", res);\n   res = lower_bound(b, ARRAY_SIZE(b), 1);\n   printf(\"res: %d\\n\", res);\n   res = lower_bound(c, ARRAY_SIZE(c), 10);\n   printf(\"res: %d\\n\", res);\n}\n#endif"
+    }
+  ],
+  "sha256": "ec54fadd4b3f062eb755c80cfb1ad607f141e280b02553dc2b4dea670787b020"
+}

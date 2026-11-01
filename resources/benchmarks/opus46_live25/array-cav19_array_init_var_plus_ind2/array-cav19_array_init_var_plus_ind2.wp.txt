@@ -1,0 +1,403 @@
+[kernel] Parsing output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:14: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 24 goals scheduled
+[wp] Proved goals:   24 / 24
+  Qed:            18
+  Alt-Ergo :       6 (6ms-8ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 16):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 16):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.75ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 17):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = i + j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\
+      is_sint32(unknown_0) /\ is_sint32(1 + i) /\ is_sint32(x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: k <= 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (0
+         <= havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 100000)
+              [shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: 0 <= x.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (67743)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (23)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 17):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 18):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = -j.
+Assume {
+  Type: is_sint32(j_1) /\ is_sint32(j) /\ is_sint32(k) /\
+      is_sint32(unknown_0) /\ is_sint32(j_1 - j) /\ is_sint32(1 + j_1 - j) /\
+      is_sint32(j + k - j_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+  (* Invariant *)
+  Have: (j <= j_1) /\ (j_1 <= (100000 + j)).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: k <= 0.
+  (* Invariant *)
+  Have: forall i : Z. ((0 <= i) -> (((j + i) < j_1) ->
+      (0
+         <= havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 100000)
+              [shift_sint32(a, i)]))).
+  (* Then *)
+  Have: j_1 <= (99999 + j).
+  (* Invariant *)
+  Have: j <= (1 + j_1).
+  (* Invariant *)
+  Have: 0 <= j_1.
+}
+Prove: (j + k) <= j_1.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (68331)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (25)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 18):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.71ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 19):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 100000).
+Let x = -k_1.
+Let x_1 = k - k_1.
+Assume {
+  Type: is_sint32(j) /\ is_sint32(k_1) /\ is_sint32(k) /\
+      is_sint32(unknown_0) /\ is_sint32(x_1) /\ is_sint32(1 + k - k_1) /\
+      is_sint32(j + k - k_1).
+  (* Goal *)
+  When: (0 <= i) /\ ((i + k_1) <= k).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+  (* Invariant *)
+  Have: (k_1 <= k) /\ (k <= (100000 + k_1)).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: k <= 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((k_1 + i_1) < k) ->
+      (0 <= a_1[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: k <= (99999 + k_1).
+  (* Invariant *)
+  Have: k_1 <= (1 + k).
+  (* Invariant *)
+  Have: k_1 <= (j + k).
+  (* Invariant *)
+  Have: k_1 <= 0.
+}
+Prove: 0 <= a_1[shift_sint32(a, x_1) <- j][shift_sint32(a, i)].
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (10ms) (97134)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (132)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 19):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 31):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 31):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 32):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 32):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 33):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 100000).
+Let a_2 = a_1[shift_sint32(a, l)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(l) /\
+      is_sint32(unknown_0) /\ is_sint32(unknown_1) /\ is_sint32(1 + l) /\
+      is_sint32(a_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i < i_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_1) /\ (unknown_1 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: k <= 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (0 <= a_1[shift_sint32(a, i_2)]))).
+  If i_1 <= 99999
+  Then {
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+    (* Then *)
+    Have: unknown_0 != 0.
+  }
+  (* Invariant *)
+  Have: 0 < l.
+  (* Then *)
+  Have: l < i_1.
+  (* Assertion *)
+  Have: k <= a_2.
+}
+Prove: 0 <= a_1[shift_sint32(a, i)].
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (10ms) (127210)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (8ms) (78)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 33):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 100000).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(k) /\
+      is_sint32(unknown_0) /\ is_sint32(unknown_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < i_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_1) /\ (unknown_1 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: k <= 0.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (0 <= a_1[shift_sint32(a, i_2)]))).
+  If i_1 <= 99999
+  Then {
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+    (* Then *)
+    Have: unknown_0 != 0.
+  }
+}
+Prove: 0 <= a_1[shift_sint32(a, i)].
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (95928)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (7ms) (57)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 38):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 100000).
+Let a_2 = a_1[shift_sint32(a, l)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(l) /\
+      is_sint32(unknown_0) /\ is_sint32(unknown_1) /\ is_sint32(a_2).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= unknown_1) /\ (unknown_1 <= 2147483646).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: k <= 0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (0 <= a_1[shift_sint32(a, i_1)]))).
+  If i <= 99999
+  Then {
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+    (* Then *)
+    Have: unknown_0 != 0.
+  }
+  (* Invariant *)
+  Have: 0 < l.
+  (* Then *)
+  Have: l < i.
+}
+Prove: k <= a_2.
+Prover Z3 4.15.4 returns Valid (Qed:14ms) (10ms) (96807)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (8ms) (64)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 20) (1/3):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 20) (2/3):
+Effect at line 23
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 20) (3/3):
+Effect at line 26
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 34):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 23):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 23):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 37):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c, line 37):
+output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-cav19_array_init_var_plus_ind2/array-cav19_array_init_var_plus_ind2.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

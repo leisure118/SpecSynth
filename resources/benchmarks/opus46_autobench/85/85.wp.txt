@@ -1,0 +1,116 @@
+[kernel] Parsing output/ops-4.6/autobench/85/85.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             7
+  Alt-Ergo :       3 (7ms-12ms-20ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/85/85.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/85/85.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/85/85.acsl.c, line 7):
+Let x_1 = 2 * x.
+Let x_2 = 1 + y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_2) /\ is_sint32(x + y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (y * (y - 1)) = (30000 + x_1).
+  (* Invariant *)
+  Have: y <= 200.
+  (* Then *)
+  Have: x < 0.
+  (* Invariant *)
+  Have: (-1) <= y.
+}
+Prove: (y * x_2) = (30000 + x_1 + (2 * y)).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (29)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/85/85.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/85/85.acsl.c, line 8):
+Let x_1 = 1 + y.
+Let x_2 = 2 * x.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1) /\ is_sint32(x + y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (y * (y - 1)) = (30000 + x_2).
+  (* Invariant *)
+  Have: y <= 200.
+  (* Then *)
+  Have: x < 0.
+  (* Invariant *)
+  Have: (-1) <= y.
+  (* Invariant *)
+  Have: (y * x_1) = (30000 + x_2 + (2 * y)).
+}
+Prove: y <= 199.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (37)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/85/85.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/85/85.acsl.c, line 17):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (y * (y - 1)) = (30000 + (2 * x)).
+  (* Invariant *)
+  Have: y <= 200.
+  (* Else *)
+  Have: 0 <= x.
+}
+Prove: 0 < y.
+Prover Alt-Ergo  returns Valid (Qed:1ms) (20ms) (644)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/85/85.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/autobench/85/85.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/autobench/85/85.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/85/85.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

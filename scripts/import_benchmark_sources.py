@@ -38,8 +38,9 @@ def attach_sources(source, destination):
         index_path.write_text(json.dumps(data,ensure_ascii=False,indent=2))
         summaries.append({'id':bid,'matched':matched,'missing':missing})
     catalog=json.loads((destination/'index.json').read_text())
+    counts={r['id']:r['matched'] for r in summaries}
     for b in catalog:
-        b['original_source_count']=next(r['matched'] for r in summaries if r['id']==b['id'])
+        if b['id'] in counts:b['original_source_count']=counts[b['id']]
     (destination/'index.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2))
     return summaries
 

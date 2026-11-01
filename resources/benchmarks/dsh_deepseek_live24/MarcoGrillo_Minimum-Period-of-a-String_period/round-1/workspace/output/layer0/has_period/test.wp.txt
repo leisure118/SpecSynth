@@ -1,0 +1,222 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function has_period
+[wp] 10 goals scheduled
+[wp] [Timeout] typed_has_period_assert_rte_division_by_zero (Qed 14ms) (Z3 15s)
+[wp] [Timeout] typed_has_period_loop_invariant_2_established (Qed 7ms) (Z3 15s)
+[wp] [Timeout] typed_has_period_assert_rte_mem_access (Qed 18ms) (Z3 15s)
+[wp] [Timeout] typed_has_period_assert_rte_mem_access_2 (Qed 20ms) (Z3 15s)
+[wp] Proved goals:    6 / 10
+  Qed:             4
+  Alt-Ergo :       2 (173ms)
+  Timeout:         4
+------------------------------------------------------------
+  Function has_period
+------------------------------------------------------------
+
+Goal Assertion 'rte,division_by_zero' (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 20):
+Assume { Type: is_uint32(l) /\ is_uint32(p). (* Else *) Have: p != l. }
+Prove: p != 0.
+Prover Z3 4.8.12 returns Timeout (Qed:14ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:14ms) (15s)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 23):
+Let x_1 = i_1 + p.
+Let a = shift_sint8(x, to_uint32(x_1)).
+Let x_2 = Mchar_0[a].
+Let a_1 = shift_sint8(x, i_1).
+Let x_3 = Mchar_0[a_1].
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i_1) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(x_3) /\ is_sint8(x_2).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < to_uint32(1 + i_1)) /\ is_uint32(i).
+  (* Else *)
+  Have: p != l.
+  (* Assertion 'rte,division_by_zero' *)
+  Have: p != 0.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mchar_0[shift_sint8(x, p + i_2)] = Mchar_0[shift_sint8(x, i_2)]))).
+  (* Invariant *)
+  Have: x_1 < l.
+  (* Invariant *)
+  Have: 0 <= i_1.
+  (* Then *)
+  Have: i_1 < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_2 = x_3.
+}
+Prove: Mchar_0[shift_sint8(x, i + p)] = Mchar_0[shift_sint8(x, i)].
+Prover Alt-Ergo  returns Valid (Qed:20ms) (171ms) (338)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 23):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 24):
+Let x_1 = to_uint32(1 + i).
+Let x_2 = i + p.
+Let a = shift_sint8(x, to_uint32(x_2)).
+Let x_3 = Mchar_0[a].
+Let a_1 = shift_sint8(x, i).
+Let x_4 = Mchar_0[a_1].
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(x_4) /\ is_sint8(x_3).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Else *)
+  Have: p != l.
+  (* Assertion 'rte,division_by_zero' *)
+  Have: p != 0.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Invariant *)
+  Have: x_2 < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x_1) -> (is_uint32(i_1) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)])))).
+}
+Prove: (p + x_1) < l.
+Prover Alt-Ergo  returns Valid (Qed:21ms) (174ms) (336)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 24):
+Assume {
+  Type: is_uint32(l) /\ is_uint32(p).
+  (* Else *)
+  Have: p != l.
+  (* Assertion 'rte,division_by_zero' *)
+  Have: p != 0.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+}
+Prove: p < l.
+Prover Z3 4.8.12 returns Timeout (Qed:7ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:7ms) (15s)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 25):
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 25):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 28):
+Let x_1 = i + p.
+Let a = shift_sint8(x, i).
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(Mchar_0[a]) /\
+      is_sint8(Mchar_0[shift_sint8(x, to_uint32(x_1))]).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Else *)
+  Have: p != l.
+  (* Assertion 'rte,division_by_zero' *)
+  Have: p != 0.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Invariant *)
+  Have: x_1 < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+}
+Prove: valid_rd(Malloc_0, a, 1).
+Prover Z3 4.8.12 returns Timeout (Qed:18ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:18ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 28):
+Let a = shift_sint8(x, i).
+Let x_1 = i + p.
+Let a_1 = shift_sint8(x, to_uint32(x_1)).
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(Mchar_0[a]) /\ is_sint8(Mchar_0[a_1]).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Else *)
+  Have: p != l.
+  (* Assertion 'rte,division_by_zero' *)
+  Have: p != 0.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Invariant *)
+  Have: x_1 < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Z3 4.8.12 returns Timeout (Qed:20ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:20ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c, line 22):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-wtofunqn/workspace/.platform-proofs/tmpope24kpq/candidate.c:18: Warning: 
+  No 'assigns' specification for function 'has_period'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T15:36:25+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

@@ -1,0 +1,141 @@
+[kernel] Parsing output/ops-4.6/autobench/93/93.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:            11
+  Alt-Ergo :       2 (8ms-9ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/93/93.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/93/93.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/93/93.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/93/93.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/93/93.acsl.c, line 15):
+Let x_2 = 3 * i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(tmp_0) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(y) /\ is_sint32(y_1) /\ is_sint32(y_2) /\
+      is_sint32(y_3) /\ is_sint32(1 + i) /\ is_sint32(x_2 - y_3) /\
+      is_sint32(3 + x_2 - y).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: y_3 <= x_2.
+  (* Invariant *)
+  Have: 0 <= y_3.
+  (* Then *)
+  Have: i < n.
+  If tmp_0 != 0
+  Then { Have: (y_3 = y_1) /\ ((x + y_1) = x_2). Have: (2 + y_1) = y. }
+  Else { Have: (y_3 = y_2) /\ ((x_1 + y_2) = x_2). Have: (1 + y_2) = y. }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: y <= (3 + x_2).
+Prover Alt-Ergo  returns Valid (Qed:11ms) (8ms) (50)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/93/93.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/93/93.acsl.c, line 16):
+Let x_3 = 3 * i.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(n) /\ is_sint32(tmp_0) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(y_2) /\ is_sint32(1 + i) /\ is_sint32(x_3 - y_2) /\
+      is_sint32(3 + x_3 - x).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: y_2 <= x_3.
+  (* Invariant *)
+  Have: 0 <= y_2.
+  (* Then *)
+  Have: i < n.
+  If tmp_0 != 0
+  Then { Have: (y_2 = y) /\ ((x_1 + y) = x_3). Have: (1 + x_3) = (x + y). }
+  Else {
+    Have: (y_2 = y_1) /\ ((x_2 + y_1) = x_3).
+    Have: (2 + x_3) = (x + y_1).
+  }
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: 0 <= x.
+}
+Prove: x <= (3 + x_3).
+Prover Alt-Ergo  returns Valid (Qed:13ms) (9ms) (52)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/93/93.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/93/93.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/93/93.acsl.c, line 17) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/93/93.acsl.c, line 17) (2/2):
+Call Result at line 22
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/autobench/93/93.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/autobench/93/93.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/93/93.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

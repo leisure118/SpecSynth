@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "X509-parser_verify_correct_time_use.c",
+      "content": "#include <stdint.h>\n#include <unistd.h>\n#include <string.h>\ntypedef uint8_t\t  u8;\ntypedef uint16_t u16;\ntypedef uint32_t u32;\ntypedef uint64_t u64;\ntypedef enum {\n\tCLASS_UNIVERSAL        = 0x00,\n\tCLASS_APPLICATION      = 0x01,\n\tCLASS_CONTEXT_SPECIFIC = 0x02,\n\tCLASS_PRIVATE          = 0x03\n} tag_class;\ntypedef enum {\n\tASN1_TYPE_BOOLEAN         = 0x01,\n\tASN1_TYPE_INTEGER         = 0x02,\n\tASN1_TYPE_BIT_STRING      = 0x03,\n\tASN1_TYPE_OCTET_STRING    = 0x04,\n\tASN1_TYPE_NULL            = 0x05,\n\tASN1_TYPE_OID             = 0x06,\n\tASN1_TYPE_ENUMERATED      = 0x0a,\n\tASN1_TYPE_SEQUENCE        = 0x10,\n\tASN1_TYPE_SET             = 0x11,\n\tASN1_TYPE_PrintableString = 0x13,\n\tASN1_TYPE_T61String       = 0x14,\n\tASN1_TYPE_IA5String       = 0x16,\n\tASN1_TYPE_UTCTime         = 0x17,\n\tASN1_TYPE_GeneralizedTime = 0x18,\n} asn1_type;\n#define X509_FILE_NUM 3\n#define X509_FILE_LINE_NUM_ERR ((X509_FILE_NUM * 100000) + __LINE__)\nint verify_correct_time_use(u8 time_type, u16 yyyy)\n{\n\tint ret;\n\tswitch (time_type) {\n\tcase ASN1_TYPE_UTCTime:\n\t\tret = (yyyy <= 2049) ? 0 : -X509_FILE_LINE_NUM_ERR;\n\t\tbreak;\n\tcase ASN1_TYPE_GeneralizedTime:\n\t\tret = (yyyy >= 2050) ? 0 : -X509_FILE_LINE_NUM_ERR;\n\t\tbreak;\n\tdefault:\n\t\tret = -1;\n\t\tbreak;\n\t}\n\treturn ret;\n}\nint main() {\n\tu8 time_type = ASN1_TYPE_IA5String;\n\tu16 yyyy;\n\tint result = verify_correct_time_use(time_type, yyyy);\n\t//@ assert result == -1;\n\ttime_type = ASN1_TYPE_UTCTime;\n\tresult = verify_correct_time_use(time_type, yyyy);\n\t//@ assert result < 0 || result == 0;\n\treturn 0;\n}"
+    }
+  ],
+  "sha256": "b3d22eed017dc4d9ef077724e00b476aba42b090b8de65e06673bfd0533869f7"
+}

@@ -1,0 +1,554 @@
+Frama-C 证明目标 36/36
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function has_period
+[rte:annot] annotating function per
+[wp] 36 goals scheduled
+[wp] Proved goals:   36 / 36
+  Qed:            26
+  Alt-Ergo :      10 (39ms-69ms)
+------------------------------------------------------------
+  Function has_period
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 10) in 'has_period':
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(has_period_0) /\ is_uint32(i) /\
+      is_uint32(l) /\ is_uint32(p) /\ is_uint32(retres_0) /\
+      is_uint32(retres_1) /\ is_uint32(retres_2) /\ is_uint32(retres_3).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Goal *)
+  When: P_is_periodic(Mchar_0, x, p, l).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  If p = l
+  Then { Have: has_period_0 = 1. }
+  Else {
+    If to_uint32(l % p) != 0
+    Then { Have: has_period_0 = 0. }
+    Else {
+      (* Block In *)
+      Have: (ta_i_0=false).
+      (* Invariant *)
+      Have: p < l.
+      (* Invariant *)
+      Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) -> (is_uint32(i_1) ->
+          (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)])))).
+      (* Invariant *)
+      Have: (i + p) < l.
+      (* Invariant *)
+      Have: 0 <= i.
+      If i < to_uint32(to_uint32(l - p) - 1)
+      Then {
+        Let a = shift_sint8(x, to_uint32(i + p)).
+        Let a_1 = shift_sint8(x, i).
+        (* Assertion 'rte,mem_access' *)
+        Have: valid_rd(Malloc_0, a_1, 1).
+        (* Assertion 'rte,mem_access' *)
+        Have: valid_rd(Malloc_0, a, 1).
+        (* Then *)
+        Have: Mchar_0[a] != Mchar_0[a_1].
+        Have: has_period_0 = 0.
+      }
+      Else { Have: has_period_0 = 1. }
+    }
+  }
+}
+Prove: has_period_0 = 1.
+Prover Alt-Ergo  returns Valid (Qed:43ms) (68ms) (588)
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 11) in 'has_period':
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(has_period_0) /\ is_uint32(i) /\
+      is_uint32(l) /\ is_uint32(p) /\ is_uint32(retres_0) /\
+      is_uint32(retres_1) /\ is_uint32(retres_2) /\ is_uint32(retres_3).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Goal *)
+  When: !P_is_periodic(Mchar_0, x, p, l).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  If p = l
+  Then { Have: has_period_0 = 1. }
+  Else {
+    If to_uint32(l % p) != 0
+    Then { Have: has_period_0 = 0. }
+    Else {
+      (* Block In *)
+      Have: (ta_i_0=false).
+      (* Invariant *)
+      Have: p < l.
+      (* Invariant *)
+      Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) -> (is_uint32(i_1) ->
+          (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)])))).
+      (* Invariant *)
+      Have: (i + p) < l.
+      (* Invariant *)
+      Have: 0 <= i.
+      If i < to_uint32(to_uint32(l - p) - 1)
+      Then {
+        Let a = shift_sint8(x, to_uint32(i + p)).
+        Let a_1 = shift_sint8(x, i).
+        (* Assertion 'rte,mem_access' *)
+        Have: valid_rd(Malloc_0, a_1, 1).
+        (* Assertion 'rte,mem_access' *)
+        Have: valid_rd(Malloc_0, a, 1).
+        (* Then *)
+        Have: Mchar_0[a] != Mchar_0[a_1].
+        Have: has_period_0 = 0.
+      }
+      Else { Have: has_period_0 = 1. }
+    }
+  }
+}
+Prove: has_period_0 = 0.
+Prover Alt-Ergo  returns Valid (Qed:36ms) (69ms) (679)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,division_by_zero' (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 15):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 18):
+Let x_1 = i_1 + p.
+Let a = shift_sint8(x, to_uint32(x_1)).
+Let x_2 = Mchar_0[a].
+Let a_1 = shift_sint8(x, i_1).
+Let x_3 = Mchar_0[a_1].
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i_1) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(x_3) /\ is_sint8(x_2).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < to_uint32(1 + i_1)) /\ is_uint32(i).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mchar_0[shift_sint8(x, p + i_2)] = Mchar_0[shift_sint8(x, i_2)]))).
+  (* Invariant *)
+  Have: x_1 < l.
+  (* Invariant *)
+  Have: 0 <= i_1.
+  (* Then *)
+  Have: i_1 < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_2 = x_3.
+}
+Prove: Mchar_0[shift_sint8(x, i + p)] = Mchar_0[shift_sint8(x, i)].
+Prover Alt-Ergo  returns Valid (Qed:7ms) (58ms) (268)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 19):
+Let x_1 = to_uint32(1 + i).
+Let x_2 = i + p.
+Let a = shift_sint8(x, to_uint32(x_2)).
+Let x_3 = Mchar_0[a].
+Let a_1 = shift_sint8(x, i).
+Let x_4 = Mchar_0[a_1].
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(x_4) /\ is_sint8(x_3).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Invariant *)
+  Have: x_2 < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x_1) -> (is_uint32(i_1) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)])))).
+}
+Prove: (p + x_1) < l.
+Prover Z3 4.8.12 returns Valid (Qed:8ms) (150ms) (158418)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (56ms) (239)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 19):
+Assume {
+  Type: is_uint32(l) /\ is_uint32(p).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+}
+Prove: p < l.
+Prover Alt-Ergo  returns Valid (Qed:3ms) (41ms) (84)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 20):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 23):
+Let x_1 = i + p.
+Let a = shift_sint8(x, i).
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(Mchar_0[a]) /\
+      is_sint8(Mchar_0[shift_sint8(x, to_uint32(x_1))]).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Invariant *)
+  Have: x_1 < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+}
+Prove: valid_rd(Malloc_0, a, 1).
+Prover Z3 4.8.12 returns Valid (Qed:5ms) (140ms) (117897)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (53ms) (244)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 23):
+Let a = shift_sint8(x, i).
+Let x_1 = i + p.
+Let a_1 = shift_sint8(x, to_uint32(x_1)).
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(i) /\ is_uint32(l) /\
+      is_uint32(p) /\ is_sint8(Mchar_0[a]) /\ is_sint8(Mchar_0[a_1]).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Pre-condition *)
+  Have: 0 < l.
+  (* Pre-condition *)
+  Have: 0 < p.
+  (* Else *)
+  Have: p != l.
+  (* Else *)
+  Have: to_uint32(l % p) = 0.
+  (* Invariant *)
+  Have: p < l.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mchar_0[shift_sint8(x, p + i_1)] = Mchar_0[shift_sint8(x, i_1)]))).
+  (* Invariant *)
+  Have: x_1 < l.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Then *)
+  Have: i < to_uint32(to_uint32(l - p) - 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Alt-Ergo  returns Valid (Qed:5ms) (54ms) (215)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (1/5):
+Effect at line 14
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (2/5):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (3/5):
+Effect at line 22
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (4/5):
+Effect at line 24
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'has_period' (5/5):
+Effect at line 26
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function per
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 36):
+Let x_1 = to_uint32(1 + p).
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(l) /\ is_uint32(p).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Invariant *)
+  Have: 0 < l.
+  (* Invariant *)
+  Have: (0 < p) /\ (p <= l).
+  (* Then *)
+  Have: p < l.
+  (* Call 'has_period' *)
+  Have: !P_is_periodic(Mchar_0, x, p, l).
+}
+Prove: (0 < x_1) /\ (x_1 <= l).
+Prover Z3 4.8.12 returns Valid (Qed:6ms) (140ms) (117090)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (43ms) (78)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 36):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 44):
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(l) /\ is_uint32(p).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Invariant *)
+  Have: 0 < l.
+  (* Invariant *)
+  Have: (0 < p) /\ (p <= l).
+  (* Else *)
+  Have: l <= p.
+}
+Prove: P_is_periodic(Mchar_0, x, l, l).
+Prover Z3 4.8.12 returns Valid (Qed:2ms) (100ms) (48123)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (39ms) (41)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 37) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 37) (2/2):
+Call Result at line 41
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'per' (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'per' (2/3):
+Effect at line 40
+Prove: true.
+Prover Qed returns Valid (0.91ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'per' (3/3):
+Effect at line 40
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'per' (1/6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'per' (2/6):
+Effect at line 40
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'per' (3/6):
+Effect at line 40
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'per' (4/6):
+Call Result at line 41
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'per' (5/6):
+Effect at line 42
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'per' (6/6):
+Effect at line 45
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 40):
+Let x_1 = to_uint32(1 + p).
+Assume {
+  Type: is_sint8_chunk(Mchar_0) /\ is_uint32(l) /\ is_uint32(p).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0) /\ sconst(Mchar_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, shift_sint8(x, 0), l).
+  (* Invariant *)
+  Have: 0 < l.
+  (* Invariant *)
+  Have: (0 < p) /\ (p <= l).
+  (* Then *)
+  Have: p < l.
+  (* Call 'has_period' *)
+  Have: !P_is_periodic(Mchar_0, x, p, l).
+  (* Invariant *)
+  Have: (0 < x_1) /\ (x_1 <= l).
+}
+Prove: p < x_1.
+Prover Z3 4.8.12 returns Valid (Qed:11ms) (140ms) (90882)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (42ms) (82)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 40):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 6) in 'has_period'' in 'per' at call 'has_period' (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 41)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 7) in 'has_period'' in 'per' at call 'has_period' (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 41)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 8) in 'has_period'' in 'per' at call 'has_period' (file resources/benchmarks/dsh_deepseek_live24/MarcoGrillo_Minimum-Period-of-a-String_period/round-2/proof/MarcoGrillo_Minimum-Period-of-a-String_period.c, line 41)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T15:52:46+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

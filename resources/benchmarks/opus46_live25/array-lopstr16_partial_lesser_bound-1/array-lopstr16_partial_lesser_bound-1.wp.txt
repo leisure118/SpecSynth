@@ -1,0 +1,267 @@
+[kernel] Parsing output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 23 goals scheduled
+[wp] Proved goals:   23 / 23
+  Qed:            18
+  Alt-Ergo :       5 (6ms-8ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 9):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) -> (a[i_2] = 0))).
+  (* Then *)
+  Have: i <= 9999999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a[i <- 0][i_1] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (29213)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (52)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (0.89ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 19):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (a_1[i_3] = 0))).
+  (* Else *)
+  Have: 10000000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9999999) ->
+      (((i_3 < 0) \/ (5000000 <= i_3)) -> (a_1[i_3] = a[i_3])))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) -> (a[i_3] = 10))).
+  (* Then *)
+  Have: i <= 4999999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a[i <- 10][i_1] = 10.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (30927)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (6ms) (65)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (0.78ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 29):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) -> (a_1[i_4] = 0))).
+  (* Else *)
+  Have: 10000000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 9999999) ->
+      (((i_4 < 0) \/ (5000000 <= i_4)) -> (a_1[i_4] = a[i_4])))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5000000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> (a[i_4] = 10))).
+  (* Else *)
+  Have: 5000000 <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 4999999) -> (a[i_4] = 10))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 5000000).
+  (* Then *)
+  Have: i_3 <= 4999999.
+  (* Assertion *)
+  Have: a[i_3] = 10.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: a[i] = 10.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (31685)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (52)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 29):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 4999999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = 0))).
+  (* Else *)
+  Have: 10000000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9999999) ->
+      (((i_3 < 0) \/ (5000000 <= i_3)) -> (a_1[i_3] = a[i_3])))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (a[i_3] = 10))).
+  (* Else *)
+  Have: 5000000 <= i_2.
+}
+Prove: a[i] = 10.
+Prover Alt-Ergo  returns Valid (Qed:1ms) (8ms) (38)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 35):
+Let x = a[i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> (a_1[i_3] = 0))).
+  (* Else *)
+  Have: 10000000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9999999) ->
+      (((i_3 < 0) \/ (5000000 <= i_3)) -> (a_1[i_3] = a[i_3])))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 5000000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) -> (a[i_3] = 10))).
+  (* Else *)
+  Have: 5000000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 4999999) -> (a[i_3] = 10))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 5000000).
+  (* Then *)
+  Have: i <= 4999999.
+}
+Prove: x = 10.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (31176)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (48)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 20) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 20) (2/2):
+Effect at line 25
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-lopstr16_partial_lesser_bound-1/array-lopstr16_partial_lesser_bound-1.acsl.c:5: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

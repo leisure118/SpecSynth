@@ -195,9 +195,11 @@ def test_cli_patch_switches_model_route_without_credentials(configured):
     assert next(x for x in p if x['id']=='sandbox-policy')['config']['mode']=='workspace-write'
 
 
+@pytest.mark.parametrize('compact',[False,True])
 @pytest.mark.parametrize('child_stop',[None,'completed','error'])
 @pytest.mark.parametrize('output_format',['verus','files'])
-def test_official_cli_process_identity_and_private_config(configured,monkeypatch,tmp_path,output_format,child_stop):
+def test_official_cli_process_identity_and_private_config(configured,monkeypatch,tmp_path,output_format,child_stop,compact):
+    monkeypatch.setenv('XUANJIAN_HARNESS_COMPACT','1' if compact else '0')
     package=tmp_path/'official';(package/'lib').mkdir(parents=True)
     (package/'lib/bin.js').write_text('// pinned upstream entry')
     monkeypatch.setattr(dsh_cli,'PACKAGE',package)
@@ -230,7 +232,10 @@ def test_official_cli_process_identity_and_private_config(configured,monkeypatch
     result=dsh_cli.generate('task',configured,output_format=output_format,require_subagent=bool(child_stop))
     if output_format=='files':
         assert json.loads(result['code'])['files'][0]['path']=='main.c'
-        assert 'harness_verify_c.py' in captured['prompt']
+        if compact:
+            assert 'Do not run an internal proof' in captured['prompt']
+            assert result['agent_runtime']['workflow']=='compact-c-v1'
+        else:assert 'harness_verify_c.py' in captured['prompt']
     assert captured['cmd'][1]==str(package/'lib/bin.js')
     assert captured['cmd'][-2:]==['--json','-']
     assert captured['env']['DSH_PLATFORM_KEY']==configured['api_key']

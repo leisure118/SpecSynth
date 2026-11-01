@@ -1,0 +1,329 @@
+[kernel] Parsing output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c:48: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 31 goals scheduled
+[wp] Proved goals:   31 / 31
+  Qed:            26
+  Alt-Ergo :       5 (8ms-1.4s-6.9s)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 56):
+Let a = global(L_x_52).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(a, 1).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, 10)[a_1 <- Mint_undef_1[a_2]][a_2
+            <- Mint_undef_1[a_1]].
+Let a_4 = havoc(Mint_undef_0, a_3, a_1, 9).
+Let x = 1 + i.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10).
+  (* Else *)
+  Have: 10 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_4[shift_sint32(a, i_3)] = a_3[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_5 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 9) -> (a_4[a_5] = a_3[a_5]))).
+  (* Then *)
+  Have: i <= 8.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_4[shift_sint32(a, i) <- a_4[shift_sint32(a, x)]]
+         [shift_sint32(a, i_1)] = a_3[shift_sint32(a, 1 + i_1)].
+Prover Alt-Ergo  returns Valid (Qed:8ms) (16ms) (244)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 57):
+Let a = global(L_x_52).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(a, 1).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, 10)[a_1 <- Mint_undef_1[a_2]][a_2
+            <- Mint_undef_1[a_1]].
+Let a_4 = havoc(Mint_undef_0, a_3, a_1, 9).
+Let x = 1 + i.
+Let a_5 = a_4[shift_sint32(a, i) <- a_4[shift_sint32(a, x)]].
+Let a_6 = shift_sint32(a, i_1).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 9).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10).
+  (* Else *)
+  Have: 10 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_4[shift_sint32(a, i_3)] = a_3[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_7 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 9) -> (a_4[a_7] = a_3[a_7]))).
+  (* Then *)
+  Have: i <= 8.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (a_5[shift_sint32(a, i_3)] = a_3[shift_sint32(a, 1 + i_3)]))).
+}
+Prove: a_5[a_6] = a_3[a_6].
+Prover Alt-Ergo  returns Valid (Qed:10ms) (17ms) (226)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 66):
+Let a = global(L_x_52).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x][a_3 <- Mint_undef_0[a_1]].
+Let a_5 = havoc(Mint_undef_1, a_4, a_1, 9).
+Let x_1 = to_sint32(L_psum(a_2, a_1, 10)).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10).
+  (* Else *)
+  Have: 10 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_5[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 9) -> (a_5[a_6] = a_4[a_6]))).
+  (* Else *)
+  Have: 9 <= i_1.
+}
+Prove: (to_sint32(L_psum(a_4, a_1, 10)) = x_1) /\
+    (to_sint32(L_psum(a_5[shift_sint32(a, 9) <- x], a_1, 10)) = x_1).
+Prover Alt-Ergo  returns Valid (Qed:11ms) (6.9s) (43278)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 44):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 58) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 58) (2/2):
+Effect at line 62
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 61):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 15) in 'sum'' in 'main' at call 'sum' (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 50)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 15) in 'sum'' in 'main' at call 'sum' (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 52)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 15) in 'sum'' in 'main' at call 'sum' (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 65)
+:
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function sum
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 17) in 'sum':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 26):
+Let x_1 = 1 + i.
+Let x_2 = Mint_0[shift_sint32(x, i)].
+Let x_3 = L_psum(Mint_0, x, i).
+Let x_4 = x_3 + x_2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint64(x_3) /\
+      is_sint64(x_4).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(x, 0), 10).
+  (* Invariant *)
+  Have: L_psum(Mint_0, x, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10).
+  (* Then *)
+  Have: i <= 9.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x_4 = L_psum(Mint_0, x, x_1).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (140489)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (11ms) (145)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 26):
+Assume {
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(x, 0), 10).
+}
+Prove: L_psum(Mint_0, x, 0) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:0.58ms) (10ms) (64961)
+Prover Alt-Ergo  returns Valid (Qed:0.58ms) (8ms) (72)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sum' (1/4):
+Effect at line 23
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sum' (2/4):
+Effect at line 30
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sum' (3/4):
+Effect at line 30
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'sum' (4/4):
+Effect at line 33
+Prove: true.
+Prover Qed returns Valid (0.65ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/reducercommutativity_sum10-1/reducercommutativity_sum10-1.acsl.c:35: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

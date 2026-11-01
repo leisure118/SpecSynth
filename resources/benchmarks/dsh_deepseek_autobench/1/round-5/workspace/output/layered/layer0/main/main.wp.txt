@@ -1,0 +1,159 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[wp] 13 goals scheduled
+[wp] [Timeout] typed_main_assert_rte_signed_overflow_2 (Qed 2ms) (Z3 15s)
+[wp] Proved goals:   12 / 13
+  Qed:             9
+  Alt-Ergo :       3 (32ms-35ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 27):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 28):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(1 + y) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 100000).
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: y <= x.
+  (* Then *)
+  Have: y <= 99999.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 2147483647.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: y <= 2147483646.
+  (* Invariant *)
+  Have: (-1) <= y.
+}
+Prove: 0 < x_1.
+Prover Z3 4.8.12 returns Valid (Qed:4ms) (130ms) (35868)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (35ms) (17)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 29):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 29):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 34):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 100000).
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: y <= x.
+  (* Then *)
+  Have: y <= 99999.
+}
+Prove: (-2147483648) <= (x + y).
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (120ms) (34947)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (32ms) (21)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 34):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 100000).
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: y <= x.
+  (* Then *)
+  Have: y <= 99999.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+}
+Prove: x_1 <= 2147483647.
+Prover Z3 4.8.12 returns Timeout (Qed:2ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:2ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 35):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x - x_1).
+  (* Invariant *)
+  Have: (x_1 <= x) /\ (x <= (100000 + x_1)).
+  (* Invariant *)
+  Have: 0 < x_1.
+  (* Invariant *)
+  Have: x <= (2 * x_1).
+  (* Then *)
+  Have: x <= (99999 + x_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x <= 2147483647.
+}
+Prove: x <= (2147483646 + x_1).
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (130ms) (35510)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (35ms) (26)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 38):
+Prove: true.
+Prover Qed returns Valid (0.92ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 33):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c, line 33):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-o06r7qtz/workspace/.platform-proofs/tmphfpd5gt9/candidate.c:18: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T14:00:53+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

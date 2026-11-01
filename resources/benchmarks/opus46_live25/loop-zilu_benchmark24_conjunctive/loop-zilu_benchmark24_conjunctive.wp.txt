@@ -1,0 +1,108 @@
+[kernel] Parsing output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] Proved goals:   12 / 12
+  Qed:            11
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.59ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 15):
+Let x = 2 * k.
+Let x_1 = (-2) * k.
+Let x_2 = 2 * n.
+Assume {
+  Type: is_sint32(k) /\ is_sint32(n) /\ is_sint32(k - 1) /\
+      is_sint32(x_2 - x) /\ is_sint32(2 + x_2 - x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= n) /\ (n <= 2147483646).
+  (* Then *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (-1) <= n.
+  (* Invariant *)
+  Have: k <= n.
+  (* Invariant *)
+  Have: n <= (1 + x).
+  (* Then *)
+  Have: n < x.
+}
+Prove: k <= (1 + n).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (28978)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (6ms) (18)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (0.55ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-zilu_benchmark24_conjunctive/loop-zilu_benchmark24_conjunctive.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

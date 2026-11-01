@@ -1,0 +1,617 @@
+[kernel] Parsing output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 32 goals scheduled
+[wp] Proved goals:   32 / 32
+  Qed:            25
+  Alt-Ergo :       7 (8ms-10ms-16ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 5):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 10):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 10):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.73ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 11):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 100000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Admit *)
+  Have: separated(a_1, 100000, shift_sint32(b, 0), 100000).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint32(a, i_2)] = i_2))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_2[shift_sint32(a, i) <- i][shift_sint32(a, i_1)] = i_1.
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (111)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 11):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 19):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 19):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 20):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 100000).
+Let a_3 = shift_sint32(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, 100000).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Admit *)
+  Have: separated(a_1, 100000, a_3, 100000).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_2[shift_sint32(a, i_3)] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_4[shift_sint32(b, 99999 - i_3)] = i_3))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_4[shift_sint32(b, 99999 - i) <- i][shift_sint32(b, 99999 - i_1)] =
+    i_1.
+Prover Alt-Ergo  returns Valid (Qed:9ms) (11ms) (129)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 20):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 28):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 28):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 29):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 100000).
+Let a_3 = shift_sint32(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, 100000).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(1 + i_3) /\ is_sint32(a_4[shift_sint32(a, i_3)]).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Admit *)
+  Have: separated(a_1, 100000, a_3, 100000).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_2[shift_sint32(a, i_4)] = i_4))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_4[shift_sint32(b, 99999 - i_4)] = i_4))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) ->
+      (a_4[shift_sint32(a, i_4)] = i_4))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) ->
+      (a_4[shift_sint32(b, 99999 - i_4)] = i_4))).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: a_4[shift_sint32(a, i)] = i.
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (20ms) (207681)
+Prover Alt-Ergo  returns Valid (Qed:13ms) (10ms) (88)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 29):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 100000).
+Let a_3 = shift_sint32(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, 100000).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Admit *)
+  Have: separated(a_1, 100000, a_3, 100000).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_2[shift_sint32(a, i_3)] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_4[shift_sint32(b, 99999 - i_3)] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_2.
+}
+Prove: a_4[shift_sint32(a, i)] = i.
+Prover Alt-Ergo  returns Valid (Qed:9ms) (16ms) (251)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 30):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 100000).
+Let a_3 = shift_sint32(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, 100000).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i_3) /\
+      is_sint32(1 + i_3) /\ is_sint32(a_4[shift_sint32(a, i_3)]) /\
+      is_sint32(a_4[shift_sint32(b, 99999 - i_3)]).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Admit *)
+  Have: separated(a_1, 100000, a_3, 100000).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_1) ->
+      (a_2[shift_sint32(a, i_4)] = i_4))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_2) ->
+      (a_4[shift_sint32(b, 99999 - i_4)] = i_4))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 100000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) ->
+      (a_4[shift_sint32(a, i_4)] = i_4))).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= 99999) ->
+      (a_4[shift_sint32(b, 99999 - i_4)] = i_4))).
+  (* Then *)
+  Have: i_3 <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: a_4[shift_sint32(b, 99999 - i)] = i.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (20ms) (286393)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (9ms) (100)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 30):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 100000).
+Let a_3 = shift_sint32(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, 100000).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 99999).
+  (* Admit *)
+  Have: separated(a_1, 100000, a_3, 100000).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_2[shift_sint32(a, i_3)] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_4[shift_sint32(b, 99999 - i_3)] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      (a_4[shift_sint32(a, i_3)] = i_3))).
+}
+Prove: a_4[shift_sint32(b, 99999 - i)] = i.
+Prover Alt-Ergo  returns Valid (Qed:8ms) (8ms) (64)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 31):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 100000).
+Let a_3 = shift_sint32(b, 0).
+Let a_4 = havoc(Mint_undef_0, a_2, a_3, 100000).
+Let a_5 = a_4[shift_sint32(a, i)].
+Let a_6 = a_4[shift_sint32(b, 99999 - i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i) /\
+      is_sint32(1 + i) /\ is_sint32(a_5) /\ is_sint32(a_6) /\
+      is_sint32(a_5 - a_6).
+  (* Admit *)
+  Have: separated(a_1, 100000, a_3, 100000).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_1) ->
+      (a_2[shift_sint32(a, i_3)] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_4[shift_sint32(b, 99999 - i_3)] = i_3))).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      (a_4[shift_sint32(a, i_3)] = i_3))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 99999) ->
+      (a_4[shift_sint32(b, 99999 - i_3)] = i_3))).
+  (* Then *)
+  Have: i <= 99999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_6 = a_5.
+Prover Alt-Ergo  returns Valid (Qed:11ms) (11ms) (96)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 31):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 38):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 12) (1/3):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 12) (2/3):
+Effect at line 15
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 12) (3/3):
+Effect at line 16
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 21) (1/3):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 21) (2/3):
+Effect at line 24
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 21) (3/3):
+Effect at line 25
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 32):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 15):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 15):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 24):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 24):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 35):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c, line 35):
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:4: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-cav19_array_init_both_ends_multiple_sum/array-cav19_array_init_both_ends_multiple_sum.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

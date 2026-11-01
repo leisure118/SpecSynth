@@ -1,0 +1,91 @@
+[kernel] Parsing output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             8
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 4) in 'max_ptr'' in 'main' at call 'max_ptr' (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 23)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 5) in 'max_ptr'' in 'main' at call 'max_ptr' (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 23)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 6) in 'max_ptr'' in 'main' at call 'max_ptr' (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 23)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function max_ptr
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 8) in 'max_ptr':
+Let x = Mint_0[a].
+Let x_1 = Mint_0[b].
+Let x_2 = Mint_0[b <- x][a <- x_1][b].
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: x < x_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, b, 1).
+  (* Pre-condition *)
+  Have: b != a.
+}
+Prove: x_2 = x.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (24)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 9) in 'max_ptr':
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 7) in 'max_ptr' (1/2):
+Effect at line 14
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c, line 7) in 'max_ptr' (2/2):
+Effect at line 15
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live24/corinnt_max-ptr/corinnt_max-ptr.acsl.c:19: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

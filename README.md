@@ -202,3 +202,8 @@ C 工作台未保存 Agent 配置时默认选择官方 CLI；其默认模型为�
 C 工作台以 `deepseek-v4-flash-0731` 为主模型，Sub-agent 下拉框可选 `qwen35-4b-mix64`、`qwen35-9b-mix64`，空值继承主模型。官方 Harness 的原生 `subagent` 工具负责派发和结果回收，项目设置、执行快照和运行时元数据记录所选模型。子 Agent 采用独立上下文和固定路由；选择 Qwen 后不会静默改用 DeepSeek。默认总超时为 200 秒，覆盖主 Agent、子 Agent 和平台验证。
 
 私网 Qwen 服务可复用部署环境的 `XUANJIAN_QWEN_SSH_TARGET`、`XUANJIAN_QWEN_SSH_PORT`：平台只在任务期间建立临时本地转发，结束或超时自动关闭。现有 mix64 部署未开启自动工具调用解析，因此 Qwen 原生子 Agent 使用无工具的规约生成模式，返回文本/JSON；主 DeepSeek Agent 执行注入、WP 验证、合约收集与修复。子任务的官方生命周期 `stop_reason` 被单独记录，未正常结束时不将派发成功视为运行成功。
+
+
+## VeriFlow 界面迁移分支
+
+`feat/cover-veriflow` 使用 VeriFlow 的页面结构，接入本平台现有 C/Rust 功能，并采用石墨黑与铜橙主题。范围、复用来源、测试方式与环境限制见 [迁移说明](docs/COVER-VERIFLOW.md)。

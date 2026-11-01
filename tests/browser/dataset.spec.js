@@ -8,6 +8,8 @@ async function mockApi(page){
   if(path.endsWith('/overview'))body={demo_cases:[{id:'c-example',title:'C example',description:'C contract demo',modes:['single']} ]};
   else if(path.endsWith('/demo-cases'))body={items:[{id:'c-example',title:'C example',description:'C contract demo',modes:['single']}]};
   else if(path.endsWith('/dataset/stats'))body={total:25,categories:{Simple:13,Loops:12}};
+  else if(path.endsWith('/dataset/tree'))body={total:1,groups:[{path:'NL',count:1,files:[{sample_id:'NL-001',name:'NL-001.txt',category:'Simple'}]}]};
+  else if(path.endsWith('/dataset/tasks/NL-001/input'))body=sample;
   else if(path.endsWith('/dataset/tasks/NL-001'))body=sample;
   else if(path.endsWith('/dataset/tasks')){
    const filtered=url.searchParams.get('query')==='missing';
@@ -50,7 +52,7 @@ test('dataset browsing, filtering, paging and exact reference handoff',async({pa
  await expect(page.getByText('没有匹配任务',{exact:true})).toBeVisible();
  await page.getByRole('searchbox').fill('');
  await page.getByRole('button',{name:'去验证 →',exact:true}).click();
- await expect(page.getByLabel('源代码编辑器')).toHaveValue(sample.verified_verus);
+ await expect(page.getByLabel('Verus 代码编辑器')).toHaveValue(sample.verified_verus);
  expect(sent[0].language).toBe('Rust');expect(sent[0].files[0].content).toBe(sample.verified_verus);
 });
 
@@ -59,8 +61,8 @@ test('generation import uses the task requirements without treating its referenc
  await page.goto('/#/datasets/nl2vbench');
  await page.getByRole('button',{name:'导入生成器 →',exact:true}).click();
  await expect(page.getByLabel('验证模式')).toHaveValue('rust-generate');
- await expect(page.getByPlaceholder('描述要实现的功能、输入条件与预期结果')).toHaveValue(sample.description);
- await expect(page.getByPlaceholder('fn increment(x: u64) -> (r: u64)')).toHaveValue(sample.function_signature);
+ await expect(page.getByLabel('自然语言任务页面')).toContainText(sample.description);
+ await expect(page.getByLabel('自然语言任务页面')).toContainText(sample.function_signature);
  expect(sent[0].files[0].content).not.toBe(sample.verified_verus);
 });
 
@@ -101,5 +103,7 @@ test('project actions and GitHub import are wired to backend endpoints',async({p
  await page.getByLabel('导入语言',{exact:true}).selectOption('Rust');
  await page.getByRole('button',{name:'导入项目',exact:true}).click();
  await expect(page).toHaveURL(new RegExp('/projects/'+'e'.repeat(32)+'$'));
- await expect(page.getByLabel('源代码编辑器')).toHaveValue('use vstd::prelude::*; verus! {}');
+ await page.locator('.vf-project-source-folder > summary').click();
+ await page.getByRole('button',{name:/RS lib.rs/}).click();
+ await expect(page.getByLabel('Verus 代码编辑器')).toHaveValue('use vstd::prelude::*; verus! {}');
 });

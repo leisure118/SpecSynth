@@ -13,3 +13,8 @@ app.use(createPinia())
 app.use(router)
 app.use(ElementPlus)
 app.mount('#app')
+
+import './styles/veriflow/home.css'
+import './styles/veriflow/home-overrides.css'
+import './styles/veriflow/projects.css'
+import './cover-veriflow.css'

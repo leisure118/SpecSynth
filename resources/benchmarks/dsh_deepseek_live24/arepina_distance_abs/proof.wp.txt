@@ -1,0 +1,112 @@
+Frama-C 证明目标 10/10
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/arepina_distance_abs/round-2/proof/arepina_distance_abs.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function distance_abs
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             9
+  Alt-Ergo :       1 (74ms)
+------------------------------------------------------------
+  Function distance_abs
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_distance_abs/round-2/proof/arepina_distance_abs.c, line 7) in 'distance_abs':
+Let x = -a.
+Let x_1 = -b.
+Assume {
+  Type: is_uint32(distance_abs_0) /\ is_uint32(tmp_1_0) /\
+      is_uint32(tmp_1_1) /\ is_uint32(ua_0) /\ is_uint32(ua_1) /\
+      is_uint32(ub_0) /\ is_uint32(ub_1) /\ is_sint32(a) /\ is_sint32(b) /\
+      is_sint32(tmp_0) /\ is_sint32(tmp_1) /\ is_sint32(tmp_2) /\
+      is_sint32(tmp_0_0) /\ is_sint32(tmp_0_1) /\ is_sint32(tmp_0_2).
+  (* Pre-condition *)
+  Have: (-2147483647) <= a.
+  (* Pre-condition *)
+  Have: (-2147483647) <= b.
+  If a < 0
+  Then { Have: (a + tmp_0) = 0. }
+  Else { Have: tmp_0 = a. }
+  If b < 0
+  Then { Have: (b + tmp_0_0) = 0. }
+  Else { Have: tmp_0_0 = b. }
+  If to_uint32(tmp_0_0) < to_uint32(tmp_0)
+  Then {
+    Have: (to_uint32(tmp_0) = ua_0) /\ (to_uint32(tmp_0_0) = ub_0).
+    Have: to_uint32(ua_0 - ub_0) = distance_abs_0.
+  }
+  Else {
+    Have: (to_uint32(tmp_0) = ua_1) /\ (to_uint32(tmp_0_0) = ub_1).
+    Have: to_uint32(ub_1 - ua_1) = distance_abs_0.
+  }
+}
+Prove: (if (if (b < 0) then (0 < (b + (if (a < 0) then x else a)))
+            else (if (a < 0) then ((a + b) < 0) else (b < a)))
+        then ((if (a < 0) then x else a) - (if (b < 0) then x_1 else b))
+        else ((if (b < 0) then x_1 else b) - (if (a < 0) then x else a)))
+         = distance_abs_0.
+Prover Z3 4.8.12 returns Valid (Qed:113ms) (140ms) (50031)
+Prover Alt-Ergo  returns Valid (Qed:113ms) (74ms) (802)
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_distance_abs/round-2/proof/arepina_distance_abs.c, line 8) in 'distance_abs':
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arepina_distance_abs/round-2/proof/arepina_distance_abs.c, line 12):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arepina_distance_abs/round-2/proof/arepina_distance_abs.c, line 13):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance_abs' (1/6):
+Effect at line 12
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance_abs' (2/6):
+Effect at line 12
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance_abs' (3/6):
+Effect at line 13
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance_abs' (4/6):
+Effect at line 13
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance_abs' (5/6):
+Effect at line 14
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'distance_abs' (6/6):
+Effect at line 14
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T19:36:35+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

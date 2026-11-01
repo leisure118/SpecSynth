@@ -1,0 +1,83 @@
+[kernel] Parsing output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Alt-Ergo :       2 (17ms-18ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c, line 16):
+Let x = 2 * i.
+Let x_1 = 3 * i.
+Let x_2 = to_uint32(1 + i).
+Assume {
+  Type: is_uint32(i) /\ is_uint32(x) /\ is_uint32(x_1).
+  (* Then *)
+  Have: i <= 89478484.
+}
+Prove: ((2 * x_2) = to_uint32(2 + x)) /\ ((3 * x_2) = to_uint32(3 + x_1)).
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (29000)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (18ms) (61)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c, line 12):
+Let x = to_uint32(1 + i).
+Let x_1 = 3 * x.
+Let x_2 = 3 * i.
+Let x_3 = 2 * x.
+Let x_4 = 2 * i.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(x_4) /\ is_uint32(x_2) /\ is_uint32(x_3) /\
+      is_uint32(x_1).
+  (* Then *)
+  Have: i <= 89478484.
+  Have: x_3 = to_uint32(2 + x_4).
+  Have: x_1 = to_uint32(3 + x_2).
+}
+Prove: i < x.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (17ms) (70)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-crafted_simple_vardep_2/loop-crafted_simple_vardep_2.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

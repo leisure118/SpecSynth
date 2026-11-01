@@ -1,0 +1,1052 @@
+Frama-C 证明目标 40/42
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c (with preprocessing)
+[kernel:typing:no-proto] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[wp] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: Warning: 
+  Cast with incompatible pointers types (source: sint64*) (target: sint8*)
+[wp] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+[wp] 42 goals scheduled
+[wp] [Timeout] typed_main_assert_rte_mem_access (Qed 9ms) (Alt-Ergo 15s) (Stronger)
+[wp] [Timeout] typed_main_assert_rte_mem_access_2 (Qed 11ms) (Alt-Ergo 15s) (Stronger)
+[wp] Proved goals:   40 / 42
+  Qed:            24
+  Alt-Ergo :      16 (27ms-1.7s-15s)
+  Timeout:         2
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 10):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 12):
+Assume {
+  Type: is_sint32(S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+}
+Prove: (0 < S) /\ (S <= 2305843009213693951).
+Prover Z3 4.8.12 returns Valid (Qed:5ms) (120ms) (34478)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (27ms) (14)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 14):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 14):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 15):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = i_1 - 1.
+Let x_1 = 1 + i_1.
+Let x_2 = to_sint64(x) * x_1.
+Let a_1 = shift_sint64(a, i_1).
+Let a_2 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), S).
+Let a_3 = a_2[a_1 <- x * x_1].
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i_1) /\
+      is_sint64(x_1) /\ is_sint64_chunk(a_2) /\ is_sint64_chunk(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= i_1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((i_2 * i_2) = (1 + a_2[shift_sint64(a, i_2)])))).
+  (* Then *)
+  Have: i_1 < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775807) <= i_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= 9223372036854775806.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775808) <= x_2.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= 9223372036854775807.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: (i * i) = (1 + a_3[shift_sint64(a, i)]).
+Prover Alt-Ergo  returns Valid (Qed:10ms) (75ms) (1494)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 15):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 20):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64_chunk(a_1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      ((i_1 * i_1) = (1 + a_1[shift_sint64(a, i_1)])))).
+  (* Then *)
+  Have: i < S.
+}
+Prove: valid_rw(Malloc_0, shift_sint64(a, i), 1).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:9ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 20):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 20):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 20):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64_chunk(a_1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      ((i_1 * i_1) = (1 + a_1[shift_sint64(a, i_1)])))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint64(a, i), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775807) <= i.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 9223372036854775806.
+}
+Prove: (-9223372036854775808) <= (to_sint64(i - 1) * to_sint64(1 + i)).
+Prover Z3 4.8.12 returns Valid (Qed:9ms) (160ms) (108449)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (45ms) (78)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 20):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = to_sint64(i - 1) * to_sint64(1 + i).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64_chunk(a_1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      ((i_1 * i_1) = (1 + a_1[shift_sint64(a, i_1)])))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint64(a, i), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775807) <= i.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 9223372036854775806.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775808) <= x.
+}
+Prove: x <= 9223372036854775807.
+Prover Alt-Ergo  returns Valid (Qed:9ms) (45ms) (210)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 19):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 22):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 22):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 23):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = shift_sint64(a, i_1).
+Let a_4 = a_2[a_3].
+Let x = i_1 * i_1.
+Let x_1 = to_sint64(x).
+Let a_5 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Let a_6 = a_2[a_3 <- a_4 - x].
+Let a_7 = a_6[shift_sint64(a, i)].
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i_1) /\
+      is_sint64(i_2) /\ is_sint64(1 + i_1) /\ is_sint64_chunk(a_2) /\
+      is_sint64_chunk(a_5) /\ is_sint64(a_4) /\ is_sint64_chunk(a_6).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      ((i_3 * i_3) = (1 + a_5[shift_sint64(a, i_3)])))).
+  (* Else *)
+  Have: S <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = a_5[shift_sint64(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < S) ->
+      (if (i_3 < 0) then (a_8 = (-1)) else ((i_3 * i_3) = (1 + a_8))))).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = a_2[shift_sint64(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < S) ->
+      (if (i_3 < i_1) then (a_8 = (-1)) else ((i_3 * i_3) = (1 + a_8))))).
+  (* Then *)
+  Have: i_1 < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_3, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_3, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775808) <= x.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x <= 9223372036854775807.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= (9223372036854775808 + a_4).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_4 <= (9223372036854775807 + x_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= 9223372036854775806.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: if (i <= i_1) then (a_7 = (-1)) else ((i * i) = (1 + a_7)).
+Prover Alt-Ergo  returns Valid (Qed:15ms) (92ms) (1512)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 23):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint64(a, 0), S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i_1) /\
+      is_sint64_chunk(a_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((i_2 * i_2) = (1 + a_1[shift_sint64(a, i_2)])))).
+  (* Else *)
+  Have: S <= i_1.
+}
+Prove: (i * i) = (1 + a_1[shift_sint64(a, i)]).
+Prover Alt-Ergo  returns Valid (Qed:10ms) (46ms) (60)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 28):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Let a_4 = shift_sint64(a, i).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64(i_1) /\ is_sint64_chunk(a_2) /\ is_sint64_chunk(a_3) /\
+      is_sint64(a_2[a_4]).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((i_2 * i_2) = (1 + a_3[shift_sint64(a, i_2)])))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a_3[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < 0) then (a_5 = (-1)) else ((i_2 * i_2) = (1 + a_5))))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a_2[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < i) then (a_5 = (-1)) else ((i_2 * i_2) = (1 + a_5))))).
+  (* Then *)
+  Have: i < S.
+}
+Prove: valid_rw(Malloc_0, a_4, 1).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:11ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 28):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, i).
+Let a_2 = shift_sint64(a, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_2, S).
+Let a_4 = havoc(Mint_undef_1, Mint_0, a_2, S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64(i_1) /\ is_sint64_chunk(a_3) /\ is_sint64_chunk(a_4) /\
+      is_sint64(a_3[a_1]).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((i_2 * i_2) = (1 + a_4[shift_sint64(a, i_2)])))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a_4[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < 0) then (a_5 = (-1)) else ((i_2 * i_2) = (1 + a_5))))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a_3[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < i) then (a_5 = (-1)) else ((i_2 * i_2) = (1 + a_5))))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Alt-Ergo  returns Valid (Qed:19ms) (50ms) (93)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 28):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, i).
+Let a_2 = shift_sint64(a, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_2, S).
+Let a_4 = havoc(Mint_undef_1, Mint_0, a_2, S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64(i_1) /\ is_sint64_chunk(a_3) /\ is_sint64_chunk(a_4) /\
+      is_sint64(a_3[a_1]).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((i_2 * i_2) = (1 + a_4[shift_sint64(a, i_2)])))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a_4[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < 0) then (a_5 = (-1)) else ((i_2 * i_2) = (1 + a_5))))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a_3[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < i) then (a_5 = (-1)) else ((i_2 * i_2) = (1 + a_5))))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+}
+Prove: (-9223372036854775808) <= (i * i).
+Prover Alt-Ergo  returns Valid (Qed:13ms) (38ms) (19)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 28):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = i * i.
+Let a_1 = shift_sint64(a, i).
+Let a_2 = shift_sint64(a, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_2, S).
+Let a_4 = havoc(Mint_undef_1, Mint_0, a_2, S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64(i_1) /\ is_sint64_chunk(a_3) /\ is_sint64_chunk(a_4) /\
+      is_sint64(a_3[a_1]).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((i_2 * i_2) = (1 + a_4[shift_sint64(a, i_2)])))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a_4[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < 0) then (a_5 = (-1)) else ((i_2 * i_2) = (1 + a_5))))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_5 = a_3[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < i) then (a_5 = (-1)) else ((i_2 * i_2) = (1 + a_5))))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775808) <= x.
+}
+Prove: x <= 9223372036854775807.
+Prover Alt-Ergo  returns Valid (Qed:19ms) (43ms) (73)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 28):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = i * i.
+Let a_1 = shift_sint64(a, i).
+Let a_2 = shift_sint64(a, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_2, S).
+Let a_4 = havoc(Mint_undef_1, Mint_0, a_2, S).
+Let a_5 = a_3[a_1].
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64(i_1) /\ is_sint64_chunk(a_3) /\ is_sint64_chunk(a_4) /\
+      is_sint64(a_5).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((i_2 * i_2) = (1 + a_4[shift_sint64(a, i_2)])))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = a_4[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < 0) then (a_6 = (-1)) else ((i_2 * i_2) = (1 + a_6))))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = a_3[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < i) then (a_6 = (-1)) else ((i_2 * i_2) = (1 + a_6))))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775808) <= x.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x <= 9223372036854775807.
+}
+Prove: to_sint64(x) <= (9223372036854775808 + a_5).
+Prover Alt-Ergo  returns Valid (Qed:12ms) (52ms) (392)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 28):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let x = i * i.
+Let x_1 = to_sint64(x).
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = shift_sint64(a, i).
+Let a_4 = a_2[a_3].
+Let a_5 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64(i_1) /\ is_sint64_chunk(a_2) /\ is_sint64_chunk(a_5) /\
+      is_sint64(a_4).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((i_2 * i_2) = (1 + a_5[shift_sint64(a, i_2)])))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = a_5[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < 0) then (a_6 = (-1)) else ((i_2 * i_2) = (1 + a_6))))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = a_2[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < i) then (a_6 = (-1)) else ((i_2 * i_2) = (1 + a_6))))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_3, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_3, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775808) <= x.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x <= 9223372036854775807.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= (9223372036854775808 + a_4).
+}
+Prove: a_4 <= (9223372036854775807 + x_1).
+Prover Alt-Ergo  returns Valid (Qed:15ms) (51ms) (401)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 27):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 30):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 30):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 31):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i_1) /\
+      is_sint64(i_2) /\ is_sint64(i_3) /\ is_sint64(1 + i_1) /\
+      is_sint64_chunk(a_2) /\ is_sint64_chunk(a_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i < S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_3 <= S) /\ (0 <= i_3).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < i_3) ->
+      ((i_4 * i_4) = (1 + a_3[shift_sint64(a, i_4)])))).
+  (* Else *)
+  Have: S <= i_3.
+  (* Invariant *)
+  Have: forall i_4 : Z. let a_4 = a_3[shift_sint64(a, i_4)] in ((0 <= i_4) ->
+      ((i_4 < S) ->
+      (if (i_4 < 0) then (a_4 = (-1)) else ((i_4 * i_4) = (1 + a_4))))).
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_4 : Z. let a_4 = a_2[shift_sint64(a, i_4)] in ((0 <= i_4) ->
+      ((i_4 < S) ->
+      (if (i_4 < i_2) then (a_4 = (-1)) else ((i_4 * i_4) = (1 + a_4))))).
+  (* Else *)
+  Have: S <= i_2.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < S) ->
+      (a_2[shift_sint64(a, i_4)] = (-1)))).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Then *)
+  Have: i_1 < S.
+  (* Assertion *)
+  Have: a_2[shift_sint64(a, i_1)] = (-1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= 9223372036854775806.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: a_2[shift_sint64(a, i)] = (-1).
+Prover Z3 4.8.12 returns Valid (Qed:16ms) (150ms) (92719)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (53ms) (131)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 31):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i_1) /\
+      is_sint64(i_2) /\ is_sint64_chunk(a_2) /\ is_sint64_chunk(a_3).
+  (* Goal *)
+  When: (0 <= i) /\ (i < S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      ((i_3 * i_3) = (1 + a_3[shift_sint64(a, i_3)])))).
+  (* Else *)
+  Have: S <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_4 = a_3[shift_sint64(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < S) ->
+      (if (i_3 < 0) then (a_4 = (-1)) else ((i_3 * i_3) = (1 + a_4))))).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_4 = a_2[shift_sint64(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < S) ->
+      (if (i_3 < i_1) then (a_4 = (-1)) else ((i_3 * i_3) = (1 + a_4))))).
+  (* Else *)
+  Have: S <= i_1.
+}
+Prove: a_2[shift_sint64(a, i)] = (-1).
+Prover Z3 4.8.12 returns Valid (Qed:14ms) (140ms) (90062)
+Prover Alt-Ergo  returns Valid (Qed:14ms) (46ms) (102)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 36):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Let a_4 = a_2[shift_sint64(a, i)].
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64(i_1) /\ is_sint64(i_2) /\ is_sint64_chunk(a_2) /\
+      is_sint64_chunk(a_3) /\ is_sint64(a_4).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      ((i_3 * i_3) = (1 + a_3[shift_sint64(a, i_3)])))).
+  (* Else *)
+  Have: S <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_5 = a_3[shift_sint64(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < S) ->
+      (if (i_3 < 0) then (a_5 = (-1)) else ((i_3 * i_3) = (1 + a_5))))).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_5 = a_2[shift_sint64(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < S) ->
+      (if (i_3 < i_1) then (a_5 = (-1)) else ((i_3 * i_3) = (1 + a_5))))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < S) ->
+      (a_2[shift_sint64(a, i_3)] = (-1)))).
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Then *)
+  Have: i < S.
+}
+Prove: a_4 = (-1).
+Prover Alt-Ergo  returns Valid (Qed:16ms) (45ms) (98)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 35):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 16) (1/3):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 16) (2/3):
+Effect at line 19
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (18ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 16) (3/3):
+Effect at line 20
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let x = i - 1.
+Let a_3 = shift_sint64(a, x).
+Let x_1 = i - 2.
+Let a_4 = a_2[a_3 <- i * x_1].
+Let x_2 = i * to_sint64(x_1).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64(x) /\ is_sint64_chunk(a_2) /\ is_sint64_chunk(a_4).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + S)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      ((i_1 * i_1) = (1 + a_2[shift_sint64(a, i_1)])))).
+  (* Then *)
+  Have: i <= S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_3, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775806) <= i.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 9223372036854775807.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775808) <= x_2.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= 9223372036854775807.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      ((i_1 * i_1) = (1 + a_4[shift_sint64(a, i_1)])))).
+}
+Prove: included(a_3, 1, a_1, S).
+Prover Z3 4.8.12 returns Valid (Qed:23ms) (160ms) (103160)
+Prover Alt-Ergo  returns Valid (Qed:23ms) (65ms) (1020)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 24) (1/3):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 24) (2/3):
+Effect at line 27
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 24) (3/3):
+Effect at line 28
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Let a_1 = shift_sint64(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, S).
+Let x = i - 1.
+Let a_3 = shift_sint64(a, x).
+Let x_1 = x * x.
+Let a_4 = a_2[a_3].
+Let a_5 = a_2[a_3 <- a_4 - x_1].
+Let x_2 = to_sint64(x_1).
+Let a_6 = havoc(Mint_undef_1, Mint_0, a_1, S).
+Assume {
+  Type: is_sint64_chunk(Mint_0) /\ is_sint32(S) /\ is_sint64(i) /\
+      is_sint64(i_1) /\ is_sint64(x) /\ is_sint64_chunk(a_2) /\
+      is_sint64_chunk(a_6) /\ is_sint64(a_4) /\ is_sint64_chunk(a_5).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 2147483646).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < S) /\ (S <= 2305843009213693951).
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      ((i_2 * i_2) = (1 + a_6[shift_sint64(a, i_2)])))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = a_6[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < 0) then (a_7 = (-1)) else ((i_2 * i_2) = (1 + a_7))))).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + S)).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = a_2[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if ((2 + i_2) <= i) then (a_7 = (-1)) else ((i_2 * i_2) = (1 + a_7))))).
+  (* Then *)
+  Have: i <= S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_3, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_3, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-9223372036854775808) <= x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 9223372036854775807.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= (9223372036854775808 + a_4).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: a_4 <= (9223372036854775807 + x_2).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 9223372036854775807.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = a_5[shift_sint64(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < S) ->
+      (if (i_2 < i) then (a_7 = (-1)) else ((i_2 * i_2) = (1 + a_7))))).
+}
+Prove: included(a_3, 1, a_1, S).
+Prover Alt-Ergo  returns Valid (Qed:20ms) (77ms) (746)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 32):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 19):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 19):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 27):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 27):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 35):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c, line 35):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:12: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_poly6/round-5/proof/array-cav19_array_tiling_poly6.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T19:22:33+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

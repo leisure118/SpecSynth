@@ -1,0 +1,70 @@
+Frama-C 证明目标 6/7
+[kernel] Parsing resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c (with preprocessing)
+[kernel:typing:implicit-function-declaration] resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c:9: Warning: 
+  Calling undeclared function unknown. Old style K&R code?
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[kernel:annot:missing-spec] resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c:1: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] 7 goals scheduled
+[wp] [Timeout] typed_main_assert_rte_signed_overflow (Qed 7ms) (Z3 15s)
+[wp] Proved goals:    6 / 7
+  Qed:             6
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c, line 6):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c, line 10):
+Assume { Type: is_sint32(tmp_0) /\ is_sint32(x). (* Then *) Have: tmp_0 != 0.
+}
+Prove: x <= 2147483646.
+Prover Z3 4.8.12 returns Timeout (Qed:7ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:7ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c, line 11):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c, line 15):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c, line 7) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c, line 7) (2/2):
+Call Result at line 9
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_autobench/116/round-5/proof/116.c:9: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T19:25:45+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

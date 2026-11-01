@@ -1,0 +1,103 @@
+[kernel] Parsing output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Alt-Ergo :       1 (16ms)
+  Z3 4.15.4:       1 (10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (23ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (28ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 14):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j).
+  (* Call 'unknown' *)
+  Have: (0 < i) /\ (i <= 46340).
+  (* Call 'unknown' *)
+  Have: (0 < j) /\ (j <= 46340).
+  (* Else *)
+  Have: (i * i) < (j * j).
+}
+Prove: i <= j.
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (28651)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (22ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c, line 18):
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j_2) /\
+      is_sint32(j_3) /\ is_sint32(j_4) /\ is_sint32(j) /\ is_sint32(j_1) /\
+      is_sint32(j_5) /\ is_sint32(j_1 - j).
+  (* Call 'unknown' *)
+  Have: (0 < i_2) /\ (i_2 <= 46340).
+  (* Call 'unknown' *)
+  Have: (0 < j_5) /\ (j_5 <= 46340).
+  (* Else *)
+  Have: (i_2 * i_2) < (j_5 * j_5).
+  (* Invariant *)
+  Have: i_2 <= j_5.
+  (* Invariant *)
+  Have: j < j_1.
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Then *)
+  Have: 0 < j.
+  If (2 * j) < j_1
+  Then {
+    Have: (j_4 = i) /\ (j = j_4) /\ (j_1 = j_3) /\ ((i_1 + j_4) = j_3) /\
+        ((j_2 + j_4) = j_3).
+  }
+  Else { Have: (j = j_2) /\ ((i + j) = j_1). }
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: i <= j_2.
+}
+Prove: j <= (2 * j_1).
+Prover Alt-Ergo  returns Valid (Qed:30ms) (16ms) (63)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-zilu_benchmark28_linear/loop-zilu_benchmark28_linear.acsl.c:8: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

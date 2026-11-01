@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "arepina_sign.c",
+      "content": "/*@\n  requires \\true;\n  assigns \\nothing;\n  ensures (x > 0) ==> \\result == 1;\n  ensures (x < 0) ==> \\result == -1;\n  ensures (x == 0) ==> \\result == 0;\n  ensures \\result == -1 || \\result == 0 || \\result == 1;\n*/\nint spec_sign(int x)\n{\n   return (x > 0) - (x < 0);\n}\n#ifdef OUT_OF_TASK\n#include <stdio.h>\n/*@\n  assigns \\nothing;\n*/\nint main(void)\n{\n   int a = spec_sign(10);\n   //@ assert a == 1;\n   int b = spec_sign(0);\n   //@ assert b == 0;\n}\n#endif\n"
+    }
+  ]
+}

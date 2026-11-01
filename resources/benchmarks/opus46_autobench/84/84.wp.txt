@@ -1,0 +1,116 @@
+[kernel] Parsing output/ops-4.6/autobench/84/84.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             4
+  Alt-Ergo :       4 (7ms-9ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/84/84.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/84/84.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/84/84.acsl.c, line 7):
+Let x_1 = 2 * x.
+Let x_2 = 1 + y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_2) /\ is_sint32(x + y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (y * y) = (100 + y + x_1).
+  (* Then *)
+  Have: x < 0.
+  (* Invariant *)
+  Have: (-1) <= y.
+}
+Prove: (x_2 * x_2) = (101 + x_1 + (3 * y)).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (34)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/84/84.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/84/84.acsl.c, line 16):
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: (y * y) = (100 + y + (2 * x)).
+  (* Else *)
+  Have: 0 <= x.
+}
+Prove: 0 < y.
+Prover Alt-Ergo  returns Valid (Qed:0.78ms) (10ms) (36)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/84/84.acsl.c, line 8):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/autobench/84/84.acsl.c, line 11):
+Let x_1 = 1 + y.
+Let x_2 = x_1 * x_1.
+Let x_3 = 2 * x.
+Let x_4 = y * y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1) /\ is_sint32(x + y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: x_4 = (100 + y + x_3).
+  (* Then *)
+  Have: x < 0.
+  (* Invariant *)
+  Have: (-1) <= y.
+  (* Invariant *)
+  Have: x_2 = (101 + x_3 + (3 * y)).
+}
+Prove: x_4 < x_2.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (49)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/autobench/84/84.acsl.c, line 11):
+Let x_1 = 1 + y.
+Let x_2 = 2 * x.
+Let x_3 = y * y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1) /\ is_sint32(x + y).
+  (* Invariant *)
+  Have: 0 <= y.
+  (* Invariant *)
+  Have: x_3 = (100 + y + x_2).
+  (* Then *)
+  Have: x < 0.
+  (* Invariant *)
+  Have: (-1) <= y.
+  (* Invariant *)
+  Have: (x_1 * x_1) = (101 + x_2 + (3 * y)).
+}
+Prove: x_3 <= 100.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (171)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/84/84.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

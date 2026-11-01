@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "119.c",
+      "content": "/*@\nassigns \\nothing;\nensures \\true;\n*/\n/*@\nrequires size >= 1;\n*/\nvoid foo(int size) {\n  int i = 1;\n  int sn = 0;\n  \n  /*@\n    loop invariant sn == i - 1;\n    loop invariant 0 <= sn <= size;\n    loop assigns i, sn;\n    loop variant size - i;\n  */\n  while (i <= size) {  \n    i = i + 1;\n    sn = sn + 1;\n  }\n  // post-condition\n  if (sn != 0) {\n    //@ assert(sn == size);\n  }\n}\n"
+    }
+  ]
+}

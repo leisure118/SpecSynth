@@ -55,6 +55,7 @@ class RunRequest(BaseModel):
     max_repair_rounds: int = Field(default=3, ge=0, le=3)
     enable_mutation: bool = False
     timeout_sec: int | None = Field(default=None, ge=10, le=3600)
+    adaptive_timeout: bool = True
 
     @model_validator(mode="after")
     def validate_source(self) -> "RunRequest":

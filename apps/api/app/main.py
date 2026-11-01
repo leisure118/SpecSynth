@@ -115,6 +115,8 @@ def _x509_function_details(function_name: str) -> dict:
     }
 
 app = FastAPI(title=APP_NAME, version="0.1.0")
+from .skill_privacy import SkillPrivacyMiddleware, private_artifact
+app.add_middleware(SkillPrivacyMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(
     CORSMiddleware,
@@ -412,6 +414,7 @@ def get_run_artifact_content(task_id: str, relative_path: str) -> dict:
     task = store.read_task(task_id)
     if task is None:
         raise HTTPException(status_code=404, detail="Task not found.")
+    if private_artifact(relative_path):raise HTTPException(403,'Skill 正文和提示词快照仅供后端执行。')
     normalized_path = relative_path.replace("\\", "/")
     if not normalized_path.startswith("artifacts/"):
         raise HTTPException(status_code=403, detail="Only artifact files can be previewed.")

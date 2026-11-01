@@ -1,0 +1,1404 @@
+[kernel] Parsing output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 64 goals scheduled
+[wp] Proved goals:   64 / 64
+  Qed:            39
+  Alt-Ergo :      24 (18ms-603ms-9.9s)
+  Z3 4.15.4:       1 (60ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 70):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 70):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 71):
+Let a = global(L_x_80).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 10000).
+Let a_2 = a_1[shift_sint32(a, i) <- v][shift_sint32(a, i_1)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(v) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_3 = a_1[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i) -> (((-2147483648) <= a_3) /\ (a_3 <= 2147483646)))).
+  (* Then *)
+  Have: i <= 9999.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: ((-2147483648) <= a_2) /\ (a_2 <= 2147483646).
+Prover Alt-Ergo  returns Valid (Qed:9ms) (25ms) (199)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 71):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 80):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let x = Mint_undef_0[a_1].
+Let a_3 = shift_sint32(a, 1).
+Let x_1 = Mint_undef_0[a_3].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_4 = a_2[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_4) /\ (a_4 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+}
+Prove: x_1 = L_sum_arr(a_2[a_1 <- x_1][a_3 <- x], a_1, 0, 1).
+Prover Alt-Ergo  returns Valid (Qed:12ms) (25ms) (206)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 81):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_1].
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_2, 10000).
+Let x_1 = Mint_undef_0[a_2].
+Let a_4 = a_3[a_2 <- x][a_1 <- x_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_3[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_2, 0, 1).
+}
+Prove: x_1 = L_sum_arr(a_4, a_2, 1, 2).
+Prover Alt-Ergo  returns Valid (Qed:13ms) (30ms) (285)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 82):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let x = Mint_undef_0[a_1].
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x_1 = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x_1][a_3 <- x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_2[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 1, 2).
+}
+Prove: (x + x_1) = L_sum_arr(a_4, a_1, 0, 2).
+Prover Alt-Ergo  returns Valid (Qed:13ms) (29ms) (273)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 83):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 84):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let x = Mint_undef_0[a_1].
+Let a_2 = shift_sint32(a, 1).
+Let x_1 = Mint_undef_0[a_2].
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_4 = a_3[a_1 <- x_1][a_2 <- x].
+Let a_5 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Goal *)
+  When: (2 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = a_3[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i_1) -> (((-2147483648) <= a_6) /\ (a_6 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i_1.
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: (x + x_1) = L_sum_arr(a_4, a_1, 0, 2).
+}
+Prove: a_4[a_5] = a_3[a_5].
+Prover Alt-Ergo  returns Valid (Qed:15ms) (30ms) (305)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 85):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_2[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: (x_1 + x) = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_2[a_5]))).
+}
+Prove: L_sum_arr(a_4, a_1, 2, 10000) = L_sum_arr(a_2, a_1, 2, 10000).
+Prover Alt-Ergo  returns Valid (Qed:18ms) (105ms) (1444)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 86):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_2[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: (x_1 + x) = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_2[a_5]))).
+  (* Assertion *)
+  Have: L_sum_arr(a_4, a_1, 2, 10000) = L_sum_arr(a_2, a_1, 2, 10000).
+}
+Prove: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+Prover Alt-Ergo  returns Valid (Qed:21ms) (623ms) (8318)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 87):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let x = Mint_undef_0[a_1].
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x_1 = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x_1][a_3 <- x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_2[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: (x + x_1) = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_2[a_5]))).
+  (* Assertion *)
+  Have: L_sum_arr(a_4, a_1, 2, 10000) = L_sum_arr(a_2, a_1, 2, 10000).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 0, 1).
+}
+Prove: x_1 = L_sum_arr(a_2, a_1, 1, 2).
+Prover Alt-Ergo  returns Valid (Qed:20ms) (764ms) (10138)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 88):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_1].
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_2, 10000).
+Let x_1 = Mint_undef_0[a_2].
+Let a_4 = a_3[a_2 <- x][a_1 <- x_1].
+Let x_2 = x_1 + x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_3[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_2, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_2, 1, 2).
+  (* Assertion *)
+  Have: x_2 = L_sum_arr(a_4, a_2, 0, 2).
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_3[a_5]))).
+  (* Assertion *)
+  Have: L_sum_arr(a_4, a_2, 2, 10000) = L_sum_arr(a_3, a_2, 2, 10000).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_3, a_2, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_3, a_2, 1, 2).
+}
+Prove: x_2 = L_sum_arr(a_3, a_2, 0, 2).
+Prover Alt-Ergo  returns Valid (Qed:20ms) (227ms) (3069)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 89):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let x = Mint_undef_0[a_1].
+Let a_2 = shift_sint32(a, 1).
+Let x_1 = Mint_undef_0[a_2].
+Let x_2 = x + x_1.
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_4 = a_3[a_1 <- x_1][a_2 <- x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_3[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_2 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_3[a_5]))).
+  (* Assertion *)
+  Have: L_sum_arr(a_4, a_1, 2, 10000) = L_sum_arr(a_3, a_1, 2, 10000).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_3, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_3, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_2 = L_sum_arr(a_3, a_1, 0, 2).
+}
+Prove: (x_1 + L_sum_arr(a_4, a_1, 1, 10000)) = L_sum_arr(a_4, a_1, 0, 10000).
+Prover Alt-Ergo  returns Valid (Qed:19ms) (40ms) (486)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 90):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let x_2 = L_sum_arr(a_4, a_1, 1, 10000).
+Let x_3 = x_1 + x.
+Let x_4 = L_sum_arr(a_4, a_1, 2, 10000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_2[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_2[a_5]))).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_2, a_1, 2, 10000).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: (x + x_2) = L_sum_arr(a_4, a_1, 0, 10000).
+}
+Prove: (x_1 + x_4) = x_2.
+Prover Alt-Ergo  returns Valid (Qed:20ms) (41ms) (470)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 91):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 92):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let x_2 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_3 = x_1 + x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_2[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_2[a_5]))).
+  (* Assertion *)
+  Have: x_2 = L_sum_arr(a_2, a_1, 2, 10000).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: (x_1 + x + x_2) = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x_1 + x_2) = L_sum_arr(a_4, a_1, 1, 10000).
+}
+Prove: (x_1 + L_sum_arr(a_2, a_1, 1, 10000)) = L_sum_arr(a_2, a_1, 0, 10000).
+Prover Alt-Ergo  returns Valid (Qed:21ms) (208ms) (2972)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 93):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let x = L_sum_arr(a_2, a_1, 1, 10000).
+Let x_1 = Mint_undef_0[a_1].
+Let a_3 = shift_sint32(a, 1).
+Let x_2 = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x_2][a_3 <- x_1].
+Let x_3 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_4 = x_1 + x_2.
+Let x_5 = L_sum_arr(a_2, a_1, 2, 10000).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_1 : Z. let a_5 = a_2[shift_sint32(a, i_1)] in ((0 <= i_1) ->
+      ((i_1 < i) -> (((-2147483648) <= a_5) /\ (a_5 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x_2 = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_5 = shift_sint32(a, i_1) in ((2 <= i_1) ->
+      ((i_1 <= 9999) -> (a_4[a_5] = a_2[a_5]))).
+  (* Assertion *)
+  Have: x_3 = x_5.
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_2 = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: (x_1 + x_2 + x_3) = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x_1 + x_3) = L_sum_arr(a_4, a_1, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x) = L_sum_arr(a_2, a_1, 0, 10000).
+}
+Prove: (x_2 + x_5) = x.
+Prover Alt-Ergo  returns Valid (Qed:22ms) (216ms) (3127)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 94):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 95):
+Prove: true.
+Prover Qed returns Valid (20ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 99):
+Prove: true.
+Prover Qed returns Valid (34ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 99):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 100):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let x_1 = Mint_undef_1[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 9999).
+Let x_2 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_3 = L_sum_arr(a_2, a_1, 2, 10000).
+Let x_4 = x_1 + x.
+Let x_5 = 1 + i.
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_5) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_6 = a_2[shift_sint32(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> (((-2147483648) <= a_6) /\ (a_6 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i_2.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_4[a_6] = a_2[a_6]))).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: (x_1 + x + x_2) = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x_1 + x_2) = L_sum_arr(a_4, a_1, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_sum_arr(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x + x_3) = L_sum_arr(a_2, a_1, 1, 10000).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 9999) -> (a_5[a_6] = a_4[a_6]))).
+  (* Then *)
+  Have: i <= 9998.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_5[shift_sint32(a, i) <- a_5[shift_sint32(a, x_5)]]
+         [shift_sint32(a, i_1)] = a_4[shift_sint32(a, 1 + i_1)].
+Prover Alt-Ergo  returns Valid (Qed:43ms) (65ms) (781)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 100):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 101):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let x_1 = Mint_undef_1[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 9999).
+Let x_2 = 1 + i.
+Let a_6 = a_5[shift_sint32(a, i) <- a_5[shift_sint32(a, x_2)]].
+Let x_3 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_4 = L_sum_arr(a_2, a_1, 2, 10000).
+Let x_5 = x_1 + x.
+Let a_7 = shift_sint32(a, i_1).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_2) /\ is_sint32(x_1) /\
+      is_sint32(x).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 10000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = a_2[shift_sint32(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < i_2) -> (((-2147483648) <= a_8) /\ (a_8 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i_2.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_5 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_4[a_8] = a_2[a_8]))).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_5 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x_1 + x_3) = L_sum_arr(a_4, a_1, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x + x_4) = L_sum_arr(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x + x_4) = L_sum_arr(a_2, a_1, 1, 10000).
+  (* Assertion *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 9999) -> (a_5[a_8] = a_4[a_8]))).
+  (* Then *)
+  Have: i <= 9998.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (a_6[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+}
+Prove: a_6[a_7] = a_4[a_7].
+Prover Alt-Ergo  returns Valid (Qed:50ms) (53ms) (639)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 101):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 102):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 102):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 110):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let x_1 = Mint_undef_1[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 9999).
+Let x_2 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_3 = L_sum_arr(a_2, a_1, 2, 10000).
+Let x_4 = x_1 + x.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9998).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_6 = a_2[shift_sint32(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < i_1) -> (((-2147483648) <= a_6) /\ (a_6 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i_1.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_4[a_6] = a_2[a_6]))).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: (x_1 + x + x_2) = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x_1 + x_2) = L_sum_arr(a_4, a_1, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_sum_arr(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x + x_3) = L_sum_arr(a_2, a_1, 1, 10000).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((i_2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_5[a_6] = a_4[a_6]))).
+  (* Else *)
+  Have: 9999 <= i_2.
+}
+Prove: a_5[shift_sint32(a, 9999) <- x][shift_sint32(a, i)] =
+    a_4[shift_sint32(a, 1 + i)].
+Prover Alt-Ergo  returns Valid (Qed:45ms) (45ms) (522)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 111):
+Prove: true.
+Prover Qed returns Valid (20ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 112):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let a_5 = havoc(Mint_undef_1, a_4, a_1, 9999).
+Let a_6 = a_5[shift_sint32(a, 9999) <- x].
+Let x_2 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_3 = L_sum_arr(a_2, a_1, 2, 10000).
+Let x_4 = x_1 + x_2.
+Let x_5 = x_1 + x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = a_2[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i) -> (((-2147483648) <= a_7) /\ (a_7 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_5 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((2 <= i_2) ->
+      ((i_2 <= 9999) -> (a_4[a_7] = a_2[a_7]))).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_5 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: (x_1 + x + x_2) = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_4, a_1, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_sum_arr(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x + x_3) = L_sum_arr(a_2, a_1, 1, 10000).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_5[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 9999) -> (a_5[a_7] = a_4[a_7]))).
+  (* Else *)
+  Have: 9999 <= i_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9998) ->
+      (a_6[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+}
+Prove: x_4 = L_sum_arr(a_6, a_1, 0, 9999).
+Prover Alt-Ergo  returns Valid (Qed:39ms) (9.9s) (115437)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 113):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let x_2 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_3 = x_1 + x_2.
+Let a_5 = havoc(Mint_undef_1, a_4, a_1, 9999).
+Let a_6 = a_5[shift_sint32(a, 9999) <- x].
+Let x_4 = L_sum_arr(a_2, a_1, 2, 10000).
+Let x_5 = x_1 + x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = a_2[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i) -> (((-2147483648) <= a_7) /\ (a_7 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_5 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((2 <= i_2) ->
+      ((i_2 <= 9999) -> (a_4[a_7] = a_2[a_7]))).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_5 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: (x_1 + x + x_2) = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_4, a_1, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x + x_4) = L_sum_arr(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x + x_4) = L_sum_arr(a_2, a_1, 1, 10000).
+  (* Assertion *)
+  Have: x_2 = x_4.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_5[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 9999) -> (a_5[a_7] = a_4[a_7]))).
+  (* Else *)
+  Have: 9999 <= i_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9998) ->
+      (a_6[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_6, a_1, 0, 9999).
+}
+Prove: x = L_sum_arr(a_6, a_1, 9999, 10000).
+Prover Alt-Ergo  returns Valid (Qed:43ms) (64ms) (768)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 114):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 115):
+Prove: true.
+Prover Qed returns Valid (19ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 116):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_1].
+Let a_2 = shift_sint32(a, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_2, 10000).
+Let x_1 = Mint_undef_0[a_2].
+Let a_4 = a_3[a_2 <- x][a_1 <- x_1].
+Let a_5 = havoc(Mint_undef_1, a_4, a_2, 9999).
+Let a_6 = a_5[shift_sint32(a, 9999) <- x].
+Let x_2 = L_sum_arr(a_4, a_2, 2, 10000).
+Let x_3 = x_1 + x_2.
+Let x_4 = L_sum_arr(a_3, a_2, 2, 10000).
+Let x_5 = x_1 + x + x_2.
+Let x_6 = x_1 + x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = a_3[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i) -> (((-2147483648) <= a_7) /\ (a_7 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_2, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_2, 1, 2).
+  (* Assertion *)
+  Have: x_6 = L_sum_arr(a_4, a_2, 0, 2).
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((2 <= i_2) ->
+      ((i_2 <= 9999) -> (a_4[a_7] = a_3[a_7]))).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_3, a_2, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_3, a_2, 1, 2).
+  (* Assertion *)
+  Have: x_6 = L_sum_arr(a_3, a_2, 0, 2).
+  (* Assertion *)
+  Have: x_5 = L_sum_arr(a_4, a_2, 0, 10000).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_4, a_2, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x + x_4) = L_sum_arr(a_3, a_2, 0, 10000).
+  (* Assertion *)
+  Have: (x + x_4) = L_sum_arr(a_3, a_2, 1, 10000).
+  (* Assertion *)
+  Have: x_2 = x_4.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_5[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 9999) -> (a_5[a_7] = a_4[a_7]))).
+  (* Else *)
+  Have: 9999 <= i_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9998) ->
+      (a_6[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_6, a_2, 0, 9999).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_6, a_2, 9999, 10000).
+}
+Prove: x_5 = L_sum_arr(a_6, a_2, 0, 10000).
+Prover Alt-Ergo  returns Valid (Qed:52ms) (66ms) (767)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 117):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 118):
+Prove: true.
+Prover Qed returns Valid (21ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 119):
+Prove: true.
+Prover Qed returns Valid (26ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 121):
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let x_2 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_3 = x_1 + x + x_2.
+Let a_5 = havoc(Mint_undef_1, a_4, a_1, 9999).
+Let a_6 = a_5[shift_sint32(a, 9999) <- x].
+Let x_4 = x_1 + x_2.
+Let x_5 = L_sum_arr(a_2, a_1, 2, 10000).
+Let x_6 = x_1 + x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = a_2[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i) -> (((-2147483648) <= a_7) /\ (a_7 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_6 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((2 <= i_2) ->
+      ((i_2 <= 9999) -> (a_4[a_7] = a_2[a_7]))).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_6 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_4, a_1, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x + x_5) = L_sum_arr(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x + x_5) = L_sum_arr(a_2, a_1, 1, 10000).
+  (* Assertion *)
+  Have: x_2 = x_5.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 9999).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_5[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_7 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 9999) -> (a_5[a_7] = a_4[a_7]))).
+  (* Else *)
+  Have: 9999 <= i_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 9998) ->
+      (a_6[shift_sint32(a, i_2)] = a_4[shift_sint32(a, 1 + i_2)]))).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_6, a_1, 0, 9999).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_6, a_1, 9999, 10000).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_6, a_1, 0, 10000).
+}
+Prove: to_sint32((49995000 + x_1 + x + x_2) / 10000)
+         = to_sint32((49995000 + x_1 + x + x_5) / 10000).
+Prover Alt-Ergo  returns Valid (Qed:60ms) (20ms) (49)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 103) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 103) (2/2):
+Effect at line 107
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 75):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 75):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 106):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 106):
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 40) in 'mapavg'' in 'main' at call 'mapavg' (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 78)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 41) in 'mapavg'' in 'main' at call 'mapavg' (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 78)
+:
+Let a = global(L_x_80).
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 10000).
+Let a_2 = a_1[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_3 = a_1[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i_1) -> (((-2147483648) <= a_3) /\ (a_3 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i_1.
+}
+Prove: ((-2147483648) <= a_2) /\ (a_2 <= 2147483646).
+Prover Alt-Ergo  returns Valid (Qed:8ms) (19ms) (78)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 40) in 'mapavg'' in 'main' at call 'mapavg' (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 96)
+:
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 41) in 'mapavg'' in 'main' at call 'mapavg' (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 96)
+:
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let x_1 = Mint_undef_0[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let x_2 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_3 = L_sum_arr(a_2, a_1, 2, 10000).
+Let x_4 = x_1 + x.
+Let a_5 = a_4[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = a_2[shift_sint32(a, i_2)] in ((0 <= i_2) ->
+      ((i_2 < i_1) -> (((-2147483648) <= a_6) /\ (a_6 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i_1.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_6 = shift_sint32(a, i_2) in ((2 <= i_2) ->
+      ((i_2 <= 9999) -> (a_4[a_6] = a_2[a_6]))).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: (x_1 + x + x_2) = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x_1 + x_2) = L_sum_arr(a_4, a_1, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x + x_3) = L_sum_arr(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x + x_3) = L_sum_arr(a_2, a_1, 1, 10000).
+  (* Assertion *)
+  Have: x_2 = x_3.
+}
+Prove: ((-2147483648) <= a_5) /\ (a_5 <= 2147483646).
+Prover Alt-Ergo  returns Valid (Qed:35ms) (303ms) (3984)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 40) in 'mapavg'' in 'main' at call 'mapavg' (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 120)
+:
+Prove: true.
+Prover Qed returns Valid (14ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 41) in 'mapavg'' in 'main' at call 'mapavg' (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 120)
+:
+Let a = global(L_x_80).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_1, Mint_0, a_1, 10000).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_3].
+Let x_1 = Mint_undef_1[a_1].
+Let a_4 = a_2[a_1 <- x][a_3 <- x_1].
+Let x_2 = L_sum_arr(a_4, a_1, 2, 10000).
+Let x_3 = x_1 + x + x_2.
+Let a_5 = havoc(Mint_undef_0, a_4, a_1, 9999).
+Let a_6 = a_5[shift_sint32(a, 9999) <- x].
+Let x_4 = x_1 + x_2.
+Let x_5 = L_sum_arr(a_2, a_1, 2, 10000).
+Let x_6 = x_1 + x.
+Let a_7 = a_6[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 9999).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 10000).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = a_2[shift_sint32(a, i_3)] in ((0 <= i_3) ->
+      ((i_3 < i_1) -> (((-2147483648) <= a_8) /\ (a_8 <= 2147483646)))).
+  (* Else *)
+  Have: 10000 <= i_1.
+  (* Assertion *)
+  Have: x = L_sum_arr(a_4, a_1, 0, 1).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_4, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_6 = L_sum_arr(a_4, a_1, 0, 2).
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_4[a_8] = a_2[a_8]))).
+  (* Assertion *)
+  Have: x_1 = L_sum_arr(a_2, a_1, 0, 1).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_2, a_1, 1, 2).
+  (* Assertion *)
+  Have: x_6 = L_sum_arr(a_2, a_1, 0, 2).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_4, a_1, 0, 10000).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_4, a_1, 1, 10000).
+  (* Assertion *)
+  Have: (x_1 + x + x_5) = L_sum_arr(a_2, a_1, 0, 10000).
+  (* Assertion *)
+  Have: (x + x_5) = L_sum_arr(a_2, a_1, 1, 10000).
+  (* Assertion *)
+  Have: x_2 = x_5.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 9999).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_5[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_8 = shift_sint32(a, i_3) in ((i_2 <= i_3) ->
+      ((i_3 <= 9999) -> (a_5[a_8] = a_4[a_8]))).
+  (* Else *)
+  Have: 9999 <= i_2.
+  (* Assertion *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 9998) ->
+      (a_6[shift_sint32(a, i_3)] = a_4[shift_sint32(a, 1 + i_3)]))).
+  (* Assertion *)
+  Have: x_4 = L_sum_arr(a_6, a_1, 0, 9999).
+  (* Assertion *)
+  Have: x = L_sum_arr(a_6, a_1, 9999, 10000).
+  (* Assertion *)
+  Have: x_3 = L_sum_arr(a_6, a_1, 0, 10000).
+}
+Prove: ((-2147483648) <= a_7) /\ (a_7 <= 2147483646).
+Prover Alt-Ergo  returns Valid (Qed:65ms) (1.5s) (19085)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function mapavg
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 43) in 'mapavg':
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 51):
+Prove: true.
+Prover Qed returns Valid (0.88ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 52):
+Let x_1 = 1 + i.
+Let x_2 = Mint_0[shift_sint32(x, i)].
+Let x_3 = L_sum_arr(Mint_0, x, 0, i).
+Let x_4 = (i * (i - 1)) / 2.
+Let x_5 = i + x_2 + x_3 + x_4.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2) /\
+      is_sint64(x_3 + x_4) /\ is_sint64(x_5).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(x, 0), 10000).
+  (* Pre-condition *)
+  Have: forall i_1 : Z. let x_6 = Mint_0[shift_sint32(x, i_1)] in
+      ((0 <= i_1) -> ((i_1 <= 9999) ->
+      (((-2147483648) <= x_6) /\ (x_6 <= 2147483646)))).
+  (* Invariant *)
+  Have: L_sum_arr(Mint_0, x, 0, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 10000).
+  (* Then *)
+  Have: i <= 9999.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x_5 = (L_sum_arr(Mint_0, x, 0, x_1) + ((i * x_1) / 2)).
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (60ms) (242322)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 52):
+Assume {
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(x, 0), 10000).
+  (* Pre-condition *)
+  Have: forall i : Z. let x_1 = Mint_0[shift_sint32(x, i)] in ((0 <= i) ->
+      ((i <= 9999) -> (((-2147483648) <= x_1) /\ (x_1 <= 2147483646)))).
+}
+Prove: L_sum_arr(Mint_0, x, 0, 0) = 0.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (18ms) (33)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapavg' (1/4):
+Effect at line 49
+Prove: true.
+Prover Qed returns Valid (0.98ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapavg' (2/4):
+Effect at line 56
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapavg' (3/4):
+Effect at line 56
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapavg' (4/4):
+Effect at line 59
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c, line 56):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-crafted_mapavg3/array-crafted_mapavg3.acsl.c:61: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

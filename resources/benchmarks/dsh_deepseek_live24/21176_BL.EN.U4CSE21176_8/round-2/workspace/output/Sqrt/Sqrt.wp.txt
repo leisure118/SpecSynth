@@ -1,0 +1,83 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-wkizcqnd/workspace/.platform-proofs/tmpqghkbqoe/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function Sqrt
+[rte:annot] annotating function main
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             5
+  Alt-Ergo :       2 (54ms)
+  Z3 4.8.12:       1 (100ms)
+------------------------------------------------------------
+  Function Sqrt
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-wkizcqnd/workspace/.platform-proofs/tmpqghkbqoe/candidate.c, line 4) in 'Sqrt':
+Let r = of_f64(Sqrt_0).
+Assume {
+  (* Pre-condition *)
+  Have: (.0 <= of_f64(x)) /\ is_finite_f64(x).
+  (* Call 'sqrt' *)
+  Have: (of_f64(sqrt_f64(x)) = r) /\ (.0 <= r) /\ is_finite_f64(Sqrt_0).
+}
+Prove: of_f64(sqrt_f64(x)) = r.
+Prover Z3 4.8.12 returns Valid (Qed:5ms) (100ms) (4014)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'Sqrt':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'Sqrt' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'Sqrt' (2/2):
+Call Result at line 8
+Prove: true.
+Prover Qed returns Valid (0.76ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'finite_arg' in 'sqrt'' in 'Sqrt' at call 'sqrt' (file runtime/harness-tasks/nl2verus-dsh-wkizcqnd/workspace/.platform-proofs/tmpqghkbqoe/candidate.c, line 8)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'arg_positive' in 'sqrt'' in 'Sqrt' at call 'sqrt' (file runtime/harness-tasks/nl2verus-dsh-wkizcqnd/workspace/.platform-proofs/tmpqghkbqoe/candidate.c, line 8)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-wkizcqnd/workspace/.platform-proofs/tmpqghkbqoe/candidate.c, line 14):
+Let a = to_f64(9.0).
+Let r = of_f64(sqrt_f64(a)).
+Assume { (* Call 'Sqrt' *) Have: (r = of_f64(y)) /\ is_finite_f64(a). }
+Prove: r = of_f64(sqrt_f64(a)).
+Prover Z3 4.8.12 returns Valid (Qed:1ms) (80ms) (3974)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (55ms) (228)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file runtime/harness-tasks/nl2verus-dsh-wkizcqnd/workspace/.platform-proofs/tmpqghkbqoe/candidate.c, line 3) in 'Sqrt'' in 'main' at call 'Sqrt' (file runtime/harness-tasks/nl2verus-dsh-wkizcqnd/workspace/.platform-proofs/tmpqghkbqoe/candidate.c, line 13)
+:
+Prove: is_finite_f64(to_f64(9.0)).
+Prover Alt-Ergo  returns Valid (Qed:0.62ms) (53ms) (224)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-wkizcqnd/workspace/.platform-proofs/tmpqghkbqoe/candidate.c:10: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T14:16:24+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

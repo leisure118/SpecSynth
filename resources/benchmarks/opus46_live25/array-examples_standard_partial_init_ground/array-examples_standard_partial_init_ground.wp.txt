@@ -1,0 +1,606 @@
+[kernel] Parsing output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c:21: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 44 goals scheduled
+[wp] Proved goals:   44 / 44
+  Qed:            31
+  Alt-Ergo :      13 (9ms-12ms-18ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 26):
+Let x = B[i].
+Let x_1 = A[i].
+Let x_2 = 1 + i.
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(j_1) /\
+      is_sint32(j_2) /\ is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Invariant *)
+  Have: (j_2 <= i) /\ (0 <= j_2).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j_2) -> (i_2 <= C[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j_2) ->
+      ((j_2 + C[i_2]) <= (i + i_2)))).
+  (* Then *)
+  Have: i <= 99999.
+  If x = x_1
+  Then { Have: j_2 = j_1. Have: (1 + j_1) = j. }
+  Else { Have: j_2 = j. }
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: (0 <= j) /\ (j <= x_2).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (9ms) (57)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 27):
+Let x = 1 + i_2.
+Let x_1 = B[i_2].
+Let x_2 = A[i_2].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(j_1) /\
+      is_sint32(j_2) /\ is_sint32(x_2) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Invariant *)
+  Have: (j_2 <= i_2) /\ (0 <= j_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j_2) -> (i_3 <= C_1[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j_2) ->
+      ((j_2 + C_1[i_3]) <= (i_2 + i_3)))).
+  (* Then *)
+  Have: i_2 <= 99999.
+  If x_1 = x_2
+  Then {
+    Have: (C_1 = C_2) /\ (j_2 = j_1).
+    Have: C_2[j_1 <- i_2] = C.
+    Have: (1 + j_1) = j.
+  }
+  Else { Have: (C_1 = C) /\ (j_2 = j). }
+  (* Invariant *)
+  Have: (-1) <= i_2.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= x).
+}
+Prove: i <= C[i].
+Prover Alt-Ergo  returns Valid (Qed:6ms) (16ms) (196)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 28):
+Let x = 1 + i_1.
+Let x_1 = B[i_1].
+Let x_2 = A[i_1].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(j_1) /\
+      is_sint32(j_2) /\ is_sint32(x_2) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Invariant *)
+  Have: (j_2 <= i_1) /\ (0 <= j_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j_2) -> (i_3 <= C_1[i_3]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j_2) ->
+      ((j_2 + C_1[i_3]) <= (i_1 + i_3)))).
+  (* Then *)
+  Have: i_1 <= 99999.
+  If x_1 = x_2
+  Then {
+    Have: (C_1 = C_2) /\ (j_2 = j_1).
+    Have: C_2[j_1 <- i_1] = C.
+    Have: (1 + j_1) = j.
+  }
+  Else { Have: (C_1 = C) /\ (j_2 = j). }
+  (* Invariant *)
+  Have: (-1) <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= x).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j) -> (i_3 <= C[i_3]))).
+}
+Prove: (j + C[i]) <= (1 + i + i_1).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (18ms) (205)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 41):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 43):
+Let x_1 = C[x].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) -> (i_2 <= C[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      ((j + C[i_2]) <= (100000 + i_2)))).
+  (* Invariant *)
+  Have: (x <= j) /\ (0 <= x).
+  (* Then *)
+  Have: x < j.
+  (* Assertion *)
+  Have: (j + x_1) <= (100000 + x).
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: (j + C[i]) <= (100000 + i).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (12ms) (58)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 43):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) -> (i_2 <= C[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      ((j + C[i_2]) <= (100000 + i_2)))).
+}
+Prove: (j + C[i]) <= (100000 + i).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (38)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 44):
+Let x_1 = C[x].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(1 + x).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) -> (i_2 <= C[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      ((j + C[i_2]) <= (100000 + i_2)))).
+  (* Invariant *)
+  Have: (x <= j) /\ (0 <= x).
+  (* Then *)
+  Have: x < j.
+  (* Assertion *)
+  Have: (j + x_1) <= (100000 + x).
+  (* Invariant *)
+  Have: (-1) <= x.
+}
+Prove: i <= C[i].
+Prover Alt-Ergo  returns Valid (Qed:8ms) (11ms) (54)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 44):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) -> (i_2 <= C[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      ((j + C[i_2]) <= (100000 + i_2)))).
+}
+Prove: i <= C[i].
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (36)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 49):
+Let x_1 = C[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < j) -> (i_1 <= C[i_1]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < j) ->
+      ((j + C[i_1]) <= (100000 + i_1)))).
+  (* Invariant *)
+  Have: (x <= j) /\ (0 <= x).
+  (* Then *)
+  Have: x < j.
+}
+Prove: (j + x_1) <= (100000 + x).
+Prover Alt-Ergo  returns Valid (Qed:5ms) (11ms) (44)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 55):
+Let x_2 = C[x_1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(1 + x_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) -> (i_2 <= C[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      ((j + C[i_2]) <= (100000 + i_2)))).
+  (* Invariant *)
+  Have: (x <= j) /\ (0 <= x).
+  (* Else *)
+  Have: j <= x.
+  (* Invariant *)
+  Have: (x_1 <= j) /\ (0 <= x_1).
+  (* Then *)
+  Have: x_1 < j.
+  (* Assertion *)
+  Have: x_1 <= x_2.
+  (* Invariant *)
+  Have: (-1) <= x_1.
+}
+Prove: i <= C[i].
+Prover Alt-Ergo  returns Valid (Qed:8ms) (12ms) (69)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 55):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) -> (i_2 <= C[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      ((j + C[i_2]) <= (100000 + i_2)))).
+  (* Invariant *)
+  Have: (x <= j) /\ (0 <= x).
+  (* Else *)
+  Have: j <= x.
+}
+Prove: i <= C[i].
+Prover Alt-Ergo  returns Valid (Qed:6ms) (12ms) (46)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 56):
+Let x_2 = C[x_1].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(1 + x_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) -> (i_2 <= C[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      ((j + C[i_2]) <= (100000 + i_2)))).
+  (* Invariant *)
+  Have: (x <= j) /\ (0 <= x).
+  (* Else *)
+  Have: j <= x.
+  (* Invariant *)
+  Have: (x_1 <= j) /\ (0 <= x_1).
+  (* Then *)
+  Have: x_1 < j.
+  (* Assertion *)
+  Have: x_1 <= x_2.
+  (* Invariant *)
+  Have: (-1) <= x_1.
+}
+Prove: (j + C[i]) <= (100000 + i).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (12ms) (66)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 56):
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 <= i) /\ (i < j).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100000).
+  (* Else *)
+  Have: 100000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) -> (i_2 <= C[i_2]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      ((j + C[i_2]) <= (100000 + i_2)))).
+  (* Invariant *)
+  Have: (x <= j) /\ (0 <= x).
+  (* Else *)
+  Have: j <= x.
+}
+Prove: (j + C[i]) <= (100000 + i).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (11ms) (46)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 61):
+Let x_2 = C[x].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(x_1) /\ is_sint32(x) /\
+      is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100000).
+  (* Else *)
+  Have: 100000 <= i.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 100000).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < j) -> (i_1 <= C[i_1]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < j) ->
+      ((j + C[i_1]) <= (100000 + i_1)))).
+  (* Invariant *)
+  Have: (x_1 <= j) /\ (0 <= x_1).
+  (* Else *)
+  Have: j <= x_1.
+  (* Invariant *)
+  Have: (x <= j) /\ (0 <= x).
+  (* Then *)
+  Have: x < j.
+}
+Prove: x <= x_2.
+Prover Alt-Ergo  returns Valid (Qed:6ms) (10ms) (51)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 29):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-examples_standard_partial_init_ground/array-examples_standard_partial_init_ground.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,126 @@
+[kernel] Parsing output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             4
+  Alt-Ergo :       4 (16ms-22ms-36ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c, line 5):
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 6).
+  (* Invariant *)
+  Have: (((x = 0) -> (y = 1))) /\ (((x = 1) -> (y = 2))) /\
+      (((x = 2) -> (y = 4))) /\ (((x = 3) -> (y = 8))) /\
+      (((x = 4) -> (y = 16))) /\ (((x = 5) -> (y = 32))) /\
+      (((x = 6) -> (y = 64))).
+  (* Then *)
+  Have: x <= 5.
+}
+Prove: to_uint32(1 + x) <= 6.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (29700)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (16ms) (60)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c, line 6):
+Let x_1 = to_uint32(1 + x).
+Let x_2 = to_uint32(2 * y).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 6).
+  (* Invariant *)
+  Have: (((x = 0) -> (y = 1))) /\ (((x = 1) -> (y = 2))) /\
+      (((x = 2) -> (y = 4))) /\ (((x = 3) -> (y = 8))) /\
+      (((x = 4) -> (y = 16))) /\ (((x = 5) -> (y = 32))) /\
+      (((x = 6) -> (y = 64))).
+  (* Then *)
+  Have: x <= 5.
+  (* Invariant *)
+  Have: x_1 <= 6.
+}
+Prove: (((x_1 = 0) -> (x_2 = 1))) /\ (((x_1 = 1) -> (x_2 = 2))) /\
+    (((x_1 = 2) -> (x_2 = 4))) /\ (((x_1 = 3) -> (x_2 = 8))) /\
+    (((x_1 = 4) -> (x_2 = 16))) /\ (((x_1 = 5) -> (x_2 = 32))) /\
+    (((x_1 = 6) -> (x_2 = 64))).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (36ms) (643)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid (0.65ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c, line 14):
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 6).
+  (* Invariant *)
+  Have: (((x = 0) -> (y = 1))) /\ (((x = 1) -> (y = 2))) /\
+      (((x = 2) -> (y = 4))) /\ (((x = 3) -> (y = 8))) /\
+      (((x = 4) -> (y = 16))) /\ (((x = 5) -> (y = 32))) /\
+      (((x = 6) -> (y = 64))).
+  (* Else *)
+  Have: 6 <= x.
+}
+Prove: (y % 3) != 0.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (18ms) (73)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c, line 7):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c, line 10):
+Let x_1 = to_uint32(1 + x).
+Let x_2 = to_uint32(2 * y).
+Assume {
+  Type: is_uint32(x) /\ is_uint32(y).
+  (* Invariant *)
+  Have: (0 <= x) /\ (x <= 6).
+  (* Invariant *)
+  Have: (((x = 0) -> (y = 1))) /\ (((x = 1) -> (y = 2))) /\
+      (((x = 2) -> (y = 4))) /\ (((x = 3) -> (y = 8))) /\
+      (((x = 4) -> (y = 16))) /\ (((x = 5) -> (y = 32))) /\
+      (((x = 6) -> (y = 64))).
+  (* Then *)
+  Have: x <= 5.
+  (* Invariant *)
+  Have: x_1 <= 6.
+  (* Invariant *)
+  Have: (((x_1 = 0) -> (x_2 = 1))) /\ (((x_1 = 1) -> (x_2 = 2))) /\
+      (((x_1 = 2) -> (x_2 = 4))) /\ (((x_1 = 3) -> (x_2 = 8))) /\
+      (((x_1 = 4) -> (x_2 = 16))) /\ (((x_1 = 5) -> (x_2 = 32))) /\
+      (((x_1 = 6) -> (x_2 = 64))).
+}
+Prove: x < x_1.
+Prover Alt-Ergo  returns Valid (Qed:5ms) (20ms) (106)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-acceleration_underapprox_1-2/loop-acceleration_underapprox_1-2.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

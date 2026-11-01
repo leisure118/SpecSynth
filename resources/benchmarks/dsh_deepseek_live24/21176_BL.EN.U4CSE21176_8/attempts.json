@@ -1,0 +1,22 @@
+[
+  {
+    "round": 1,
+    "verification": {
+      "status": "timeout",
+      "verified": false,
+      "message": "DeepSeek Harness CLI：官方 DeepSeek Harness 超过运行时限，已停止；已保留工具与错误记录。"
+    }
+  },
+  {
+    "round": 2,
+    "verification": {
+      "status": "verified",
+      "verified": true,
+      "verified_count": 8,
+      "error_count": 0,
+      "stdout": "[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c (with preprocessing)\n[wp] Running WP plugin...\n[rte:annot] annotating function Sqrt\n[rte:annot] annotating function main\n[wp] 8 goals scheduled\n[wp] Proved goals:    8 / 8\n  Qed:             5\n  Alt-Ergo :       1 (47ms)\n  Z3 4.8.12:       2 (80ms-90ms)\n------------------------------------------------------------\n  Function Sqrt\n------------------------------------------------------------\n\nGoal Post-condition (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 4) in 'Sqrt':\nLet r = of_f64(Sqrt_0).\nAssume {\n  (* Pre-condition *)\n  Have: (.0 <= of_f64(x)) /\\ is_finite_f64(x).\n  (* Call 'sqrt' *)\n  Have: (of_f64(sqrt_f64(x)) = r) /\\ (.0 <= r) /\\ is_finite_f64(Sqrt_0).\n}\nProve: of_f64(sqrt_f64(x)) = r.\nProver Z3 4.8.12 returns Valid (Qed:4ms) (90ms) (4014)\n\n------------------------------------------------------------\n\nGoal Assigns nothing in 'Sqrt':\nProve: true.\nProver Qed returns Valid\n\n------------------------------------------------------------\n\nGoal Assigns nothing in 'Sqrt' (1/2):\nProve: true.\nProver Qed returns Valid\n\n------------------------------------------------------------\n\nGoal Assigns nothing in 'Sqrt' (2/2):\nCall Result at line 8\nProve: true.\nProver Qed returns Valid (0.68ms)\n\n------------------------------------------------------------\n\nGoal Instance of 'Pre-condition 'finite_arg' in 'sqrt'' in 'Sqrt' at call 'sqrt' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 8)\n:\nProve: true.\nProver Qed returns Valid\n\n------------------------------------------------------------\n\nGoal Instance of 'Pre-condition 'arg_positive' in 'sqrt'' in 'Sqrt' at call 'sqrt' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 8)\n:\nProve: true.\nProver Qed returns Valid\n\n------------------------------------------------------------\n------------------------------------------------------------\n  Function main\n------------------------------------------------------------\n\nGoal Assertion (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 14):\nLet a = to_f64(9.0).\nLet r = of_f64(sqrt_f64(a)).\nAssume { (* Call 'Sqrt' *) Have: (r = of_f64(y)) /\\ is_finite_f64(a). }\nProve: r = of_f64(sqrt_f64(a)).\nProver Z3 4.8.12 returns Valid (Qed:1ms) (80ms) (3974)\n\n------------------------------------------------------------\n\nGoal Instance of 'Pre-condition (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 3) in 'Sqrt'' in 'main' at call 'Sqrt' (file resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c, line 13)\n:\nProve: is_finite_f64(to_f64(9.0)).\nProver Z3 4.8.12 returns Valid (80ms) (3942)\nProver Alt-Ergo  returns Valid (47ms) (224)\n\n------------------------------------------------------------\n[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_live24/21176_BL.EN.U4CSE21176_8/round-2/proof/21176_BL.EN.U4CSE21176_8.c:10: Warning: \n  No 'assigns' specification for function 'main'.\n  Callers assumptions might be imprecise.\n",
+      "stderr": "time=\"2026-11-01T14:17:46+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n",
+      "message": "Frama-C 证明目标 8/8"
+    }
+  }
+]

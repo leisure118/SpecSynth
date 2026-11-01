@@ -1,0 +1,152 @@
+[kernel] Parsing output/ops-4.6/autobench/238/238.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/autobench/238/238.acsl.c:19: Warning: 
+  Calling function unknown_int that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] [Timeout] typed_main_loop_invariant_2_preserved (Qed 10ms) (Z3)
+[wp] [Timeout] typed_main_assert (Qed 4ms) (Z3)
+[wp] Proved goals:    9 / 11
+  Qed:             7
+  Alt-Ergo :       2 (9ms-15ms)
+  Timeout:         2
+------------------------------------------------------------
+  Global
+------------------------------------------------------------
+
+Lemma odd_uint_succ:
+Prove: ((j_0 mod 2)=1) -> (0<=j_0) -> (j_0<=4294967295)
+       -> (((2+j_0) mod 4294967296)=(1+((1+j_0) mod 4294967296)))
+Prover Z3 4.15.4 returns Valid (23577)
+Prover Alt-Ergo  returns Valid (9ms) (211)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/238/238.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/238/238.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/238/238.acsl.c, line 31):
+Let x = to_uint32(1 + j).
+Let x_1 = j - 1.
+Assume {
+  Type: is_uint32(j_1) /\ is_uint32(j) /\ is_sint32(flag_0) /\
+      is_sint32(tmp_0_0) /\ is_uint32(x_1).
+  (* Goal *)
+  When: flag_0 != 0.
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= flag_0) /\ (flag_0 <= 2147483647).
+  (* Invariant *)
+  Have: (x_1 % 2) = 0.
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483647).
+  (* Then *)
+  Have: tmp_0_0 != 0.
+  (* Assertion *)
+  Have: x <= 4294967294.
+  If to_uint32(x % 2) = 0
+  Then { Have: to_uint32(2 + j) = j_1. }
+  Else { Have: x = j_1. }
+}
+Prove: (1 + x) = j_1.
+Prover Z3 4.15.4 returns Timeout (Qed:10ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:10ms) (30s)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/238/238.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (0.69ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/238/238.acsl.c, line 32):
+Let x = to_uint32(1 + j).
+Let x_1 = 1 + x.
+Let x_2 = x % 2.
+Let x_3 = j - 1.
+Assume {
+  Type: is_uint32(j) /\ is_sint32(flag_0) /\ is_sint32(tmp_0_0) /\
+      is_uint32(x_3) /\ is_uint32(x_1).
+  (* Goal *)
+  When: flag_0 != 0.
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= flag_0) /\ (flag_0 <= 2147483647).
+  (* Invariant *)
+  Have: (x_3 % 2) = 0.
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483647).
+  (* Then *)
+  Have: tmp_0_0 != 0.
+  (* Assertion *)
+  Have: x <= 4294967294.
+  Have: to_uint32(x_2) = 0.
+  Have: x_1 = to_uint32(2 + j).
+}
+Prove: x_2 = 0.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (31186)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (15ms) (511)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/238/238.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (0.85ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/238/238.acsl.c, line 39):
+Let x = j - 1.
+Assume {
+  Type: is_uint32(j) /\ is_sint32(flag_0) /\ is_sint32(tmp_0_0) /\
+      is_uint32(x).
+  (* Goal *)
+  When: flag_0 != 0.
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= flag_0) /\ (flag_0 <= 2147483647).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Call 'unknown_int' *)
+  Have: ((-2147483648) <= tmp_0_0) /\ (tmp_0_0 <= 2147483647).
+  (* Then *)
+  Have: tmp_0_0 != 0.
+}
+Prove: to_uint32(1 + j) <= 4294967294.
+Prover Z3 4.15.4 returns Timeout (Qed:4ms) (30s)
+Prover Alt-Ergo  returns Timeout (Qed:4ms) (30s)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/238/238.acsl.c, line 47):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/238/238.acsl.c, line 33) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/238/238.acsl.c, line 33) (2/2):
+Call Result at line 35
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/238/238.acsl.c:17: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

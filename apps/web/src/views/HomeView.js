@@ -1,55 +1,34 @@
-import { defineComponent, ref, computed, onMounted } from 'vue'
+import { defineComponent, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { listBenchmarks } from '../api.js'
 import { useAppStore } from '../stores/appStore.js'
-import CodeCompare from '../components/CodeCompare.js'
+import VerificationFlow from '../components/VerificationFlow.js'
 import ExampleCatalog from '../components/ExampleCatalog.js'
-import VerificationLoop from '../components/VerificationLoop.js'
 export default defineComponent({
-  components: { CodeCompare, ExampleCatalog, VerificationLoop },
-  setup() {
-    const store=useAppStore(), benchmarks=ref([]),benchmarkError=ref('')
-    async function loadBenchmarks(){benchmarkError.value='';try{benchmarks.value=(await listBenchmarks()).items}catch(e){benchmarkError.value=e.message}}
-    const overview=computed(()=>store.overviewViewModel)
-    const icons={
-      code:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5"/><path d="M16 7l5 5-5 5"/></svg>',
-      agent:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></svg>',
-      shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-2.9 7.6-7 9-4.1-1.4-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>',
-      runs:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V8"/><path d="M9 18V5"/><path d="M14 18v-7"/><path d="M19 18V9"/><path d="M3 21h18"/></svg>',
-      pass:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.5 9"/></svg>',
-      modes:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h7M4 12h11M4 17h5"/><circle cx="17" cy="7" r="2"/><circle cx="19" cy="17" r="2"/></svg>',
-      demo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h10l6 6v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M14 5v6h6"/><path d="M7 15h7"/></svg>'
-    }
-    const features=[
-      {title:'从已有代码开始',body:'载入 C 源文件或多文件工程，直接开启验证。',tag:'C / ACSL · 多文件',tone:'source',icon:icons.code},
-      {title:'Agent 编写规约',body:'根据验证反馈，迭代 requires、ensures 与循环不变式。',tag:'Agent loop · 迭代修复',tone:'spec',icon:icons.agent},
-      {title:'机器检查的证明',body:'证明状态来自验证器，结果与对应证据一起呈现。',tag:'Frama-C / WP · 证据链',tone:'proof',icon:icons.shield}
-    ]
-    const kpis=computed(()=>{
-      const h=overview.value?.headline
-      if(!h)return []
-      return [
-        {label:'累计验证任务',value:h.totalRuns,note:'本地运行记录',tone:'accent',icon:icons.runs},
-        {label:'通过任务',value:h.passCount,note:'带验证证据',tone:'jade',icon:icons.pass},
-        {label:'可用验证模式',value:h.liveReadyModes+' / 3',note:'单函数 · 终止性 · 多模块',tone:'',icon:icons.modes},
-        {label:'示例案例',value:h.demoCaseCount,note:'可直接回放',tone:'',icon:icons.demo}
-      ]
-    })
-    function particleStyle(n){return {left:((n*37)%94+3)+'%',top:((n*53)%82+6)+'%','--size':(2+(n%3))+'px','--dur':(11+(n%7)*2)+'s','--delay':(-(n%9)*1.6)+'s'}}
-    function spotlight(event){const el=event.currentTarget,r=el.getBoundingClientRect();el.style.setProperty('--mx',(event.clientX-r.left)+'px');el.style.setProperty('--my',(event.clientY-r.top)+'px')}
-    onMounted(()=>{store.fetchOverview();loadBenchmarks()})
-    return {benchmarks,benchmarkError,loadBenchmarks,store,features,kpis,particleStyle,spotlight,showDemo:()=>document.getElementById('demo')?.scrollIntoView({behavior:'smooth'}),overview,modes:{'rust-verify':'Rust / Verus 验证','rust-generate':'Rust 生成与验证',single:'单函数分析',termination:'终止性验证','inter-modular':'多模块分析'}}
-  },
-  template: `<div class="vf-home">
-    <section class="vf-hero">
-      <div class="vf-hero-atmosphere" aria-hidden="true"><i v-for="n in 16" :key="n" class="vf-particle" :style="particleStyle(n)"></i></div>
-      <div class="vf-hero-copy"><p class="vf-eyebrow">01 / 可信验证平台</p><h1>AI 赋能的<br>可信软件智能验证</h1><p class="vf-lead">通过自动规约生成与机器检查的证明，<br>将源代码转化为有验证依据的软件。</p><div class="vf-actions"><router-link class="vf-button primary" to="/projects">开始验证 <span>→</span></router-link><router-link class="vf-button" to="/projects">打开工作台</router-link><a class="vf-button ghost" href="#demo" @click.prevent="showDemo">查看示例 ↓</a></div>
-        <div class="vf-feature-grid"><article v-for="(f,i) in features" :key="f.title" :class="f.tone" @pointermove="spotlight"><div class="vf-feature-top"><div class="vf-feature-icon" aria-hidden="true" v-html="f.icon"></div><span class="vf-feature-index">0{{i+1}}</span></div><h3>{{f.title}}</h3><p>{{f.body}}</p><div class="vf-feature-foot"><span>{{f.tag}}</span><b>→</b></div></article></div>
-      </div>
-      <CodeCompare />
-    </section>
-    <div class="home-kpi" v-if="kpis.length" aria-label="平台概览"><article v-for="k in kpis" :key="k.label" :class="k.tone" @pointermove="spotlight"><div class="home-kpi-top"><span>{{k.label}}</span><i class="home-kpi-icon" aria-hidden="true" v-html="k.icon"></i></div><strong>{{k.value}}</strong><small>{{k.note}}</small></article></div>
-    <VerificationLoop />
-    <section class="vf-section"><p class="vf-eyebrow">03 / 验证结果</p><div class="vf-section-title"><div><h2>每个结果，都有证据。</h2><p class="vf-section-description">查看数据集实验通过率与平台任务结果；数据集 pass@1、pass@5 与单文件证明目标通过率分别展示。</p></div><router-link to="/projects" class="vf-button">全部项目 →</router-link></div><p v-if="store.error" role="alert" class="vf-error">{{store.error}} <button @click="store.fetchOverview()">重试</button></p><div class="vf-results-chart vf-dataset-results"><div class="vf-chart-heading"><span>BENCHMARK RESULTS · spec-bottomup</span><span>文件通过率 / %</span></div><p v-if="benchmarkError" class="vf-error" role="alert">{{benchmarkError}} <button @click="loadBenchmarks">重试加载数据集结果</button></p><p v-if="!benchmarks.length&&!benchmarkError">正在加载数据集实验结果…</p><div v-for="b in benchmarks" :key="b.id" class="vf-dataset-result-row"><router-link :to="'/benchmarks/'+b.id"><strong>{{b.name}}</strong><small>{{b.reported_total}} 个文件 · {{b.model}}</small></router-link><div class="vf-dataset-bars"><div v-for="metric in ['pass@1','pass@5']" :key="metric" class="vf-dataset-bar"><span>{{metric}}</span><div class="vf-bar-track"><div :style="{width:b.summary[metric].rate+'%'}"></div></div><b>{{b.summary[metric].rate.toFixed(1)}}%</b><small>{{b.summary[metric].passed}} / {{b.summary[metric].total}}</small></div></div></div><p class="vf-bench-caption">历史实验报告：违规 admit 按失败计。autobench 报告分母为 257，原始记录为 262；LiveFMBench 2024 为较早的 284 文件版本。点击数据集可查看逐文件证据。</p></div><div class="vf-results-chart" v-if="overview"><div class="vf-chart-heading"><span>LOCAL RESULTS</span><span>任务通过率 / %</span></div><div class="vf-chart-row" v-for="row in overview.modeRows" :key="row.mode"><div><strong>{{modes[row.mode]}}</strong><small>{{row.passCount}} / {{row.totalRuns}} 个任务 · {{row.liveRuns}} 次实际执行</small></div><div class="vf-bar-track"><div :style="{width:(row.totalRuns ? row.passCount/row.totalRuns*100 : 0)+'%'}"></div></div><b>{{row.totalRuns ? (row.passCount/row.totalRuns*100).toFixed(1)+'%' : '—'}}</b></div></div></section>
-    <section id="demo" class="vf-section"><p class="vf-eyebrow">04 / 案例工作台</p><h2>从一个案例开始。</h2><p class="vf-section-description">打开本地示例，查看源码、规约与运行日志。</p><ExampleCatalog :demos="overview?.demoCases||[]" toolbox /></section>
-  </div>`
+ components:{VerificationFlow,ExampleCatalog},
+ setup(){
+  const store=useAppStore(),benchmarks=ref([]),benchmarkError=ref(''),menuOpen=ref(false)
+  async function loadBenchmarks(){benchmarkError.value='';try{benchmarks.value=(await listBenchmarks()).items}catch(e){benchmarkError.value=e.message}}
+    let refreshTimer;onMounted(()=>{store.fetchOverview();loadBenchmarks();refreshTimer=setInterval(loadBenchmarks,10000)});onBeforeUnmount(()=>clearInterval(refreshTimer))
+    function section(id){menuOpen.value=false;document.getElementById(id)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})}
+  return {store,benchmarks,benchmarkError,loadBenchmarks,menuOpen,section,overview:computed(()=>store.overviewViewModel),modes:{'rust-verify':'Rust / Verus 验证','rust-generate':'Rust 生成与验证',single:'单函数分析',termination:'终止性验证','inter-modular':'多模块分析'}}
+ },
+ template:`<div class="prism-page cover-home">
+  <header class="site-header wrap"><router-link to="/" class="brand-lockup"><img src="/brand/favicon.svg" alt="" width="30" height="30"><strong>玄鉴</strong></router-link>
+   <nav class="nav-links" :class="{open:menuOpen}" id="home-navigation" aria-label="主页导航"><a href="#workflow" @click.prevent="section('workflow')">验证流程</a><router-link to="/projects">工作台</router-link></nav>
+   <div class="header-actions"><router-link to="/spectool" class="text-button">工具箱</router-link><router-link to="/projects" class="button primary small">进入工作台 ↗</router-link><button class="icon-button menu-button" aria-label="切换导航菜单" :aria-expanded="menuOpen" aria-controls="home-navigation" @click="menuOpen=!menuOpen">☰</button></div>
+  </header>
+  <section class="prism-hero" aria-labelledby="hero-title"><div class="hero-grid" aria-hidden="true"></div><div class="wrap hero-layout">
+   <div class="hero-copy"><div class="eyebrow"><span class="status-dot"></span>C / ACSL · RUST / VERUS</div><h1 id="hero-title">玄鉴<span>AI 赋能的可信软件智能验证</span></h1><p class="hero-statement">从意图到程序，<br>让结论<span>有证明可查。</span></p><p class="hero-description preserve-lines">连接自然语言、代码、规约与机器验证。<br>由 Agent 协助生成，让每一步结果都有据可查。</p><div class="button-row"><router-link to="/projects" class="button primary">进入工作台 ↗</router-link><a href="#demo" @click.prevent="section('demo')" class="button secondary">▷ 探索验证案例</a></div><div class="hero-footnote">C / ACSL <span class="note-sep">/</span> Rust / Verus <span class="note-sep">/</span> Agent · Model · Skill</div></div>
+   <div class="cover-hero-motion"><VerificationFlow /></div>
+   <div class="hero-bottom"><span class="micro-label">INTENT → CODE → SPEC → PROOF</span><a href="#workflow" @click.prevent="section('workflow')">继续探索 ↓</a><span class="micro-label">EVIDENCE BEFORE CONFIDENCE</span></div>
+  </div></section>
+  <div class="wrap"><div class="tech-strip"><span class="tech-caption">两种语言，一条验证链<br>连接完整的生成与验证工作流</span><div class="tech-logos"><span class="tech-logo">C / ACSL</span><span class="tech-logo">Frama-C / WP</span><span class="tech-logo">Rust / Verus</span><span class="tech-logo">Agent</span></div><span class="tech-note">ONE CONNECTED WORKFLOW →</span></div></div>
+  <section id="workflow" class="workflow-section wrap"><div class="section-heading"><div><span class="section-label">A CLEAR PATH TO PROOF</span><h2>两条路径，<br>同一份可检查的证据。</h2></div><p>从已有 C 源码开始，或用自然语言描述 Rust 任务。<br>让生成、验证与反馈在同一个工作台中完成。</p></div><div class="feature-row"><article class="feature"><span class="feature-number">01 / BRING YOUR TASK</span><h3>选择任务与项目</h3><p>新建 C 或 Rust 项目，上传源文件，或从数据集中选择自然语言与函数接口。</p></article><article class="feature"><span class="feature-number">02 / MAKE INTENT EXPLICIT</span><h3>组合 Agent、Model 与 Skill</h3><p>选择平台的 Agent 运行时与模型 API，使用 Skill 生成实现、规约及必要证明。</p></article><article class="feature"><span class="feature-number">03 / CHECK THE PROOF</span><h3>用验证器检查结果</h3><p>由 Frama-C / WP 或 Verus 检查证明目标，保留失败诊断、修复过程和最终结果。</p></article></div></section>
+  <section id="demo" class="workbench-section"><div class="wrap"><div class="section-heading"><div><span class="section-label">NOT A BLACK BOX</span><h2>打开案例，<br>查看代码与验证过程。</h2></div><p>C / ACSL 案例与 Rust / Verus 数据集，<br>都从这里进入你熟悉的工作台。</p></div><ExampleCatalog :demos="overview?.demoCases||[]" toolbox /></div></section>
+  <div class="wrap cover-results">    <section class="vf-section"><p class="vf-eyebrow">03 / VERIFICATION RESULTS</p><div class="vf-section-title"><div><h2>每一个结果，都有证据可查。</h2><p class="vf-section-description">比较不同 Agent、模型与 Skill 组合的文件验证通过率；pass@1、pass@5 与单文件证明目标通过率分别展示。</p></div><router-link to="/projects" class="vf-button">全部项目 →</router-link></div><p v-if="store.error" role="alert" class="vf-error">{{store.error}} <button @click="store.fetchOverview()">重试</button></p><div class="vf-results-chart vf-dataset-results"><div class="vf-chart-heading"><span>基准验证通过率</span><span>文件通过率 / %</span></div><p v-if="benchmarkError" class="vf-error" role="alert">{{benchmarkError}} <button @click="loadBenchmarks">重试加载数据集结果</button></p><p v-if="!benchmarks.length&&!benchmarkError">正在加载数据集实验结果…</p><div v-for="b in benchmarks" :key="b.id" class="vf-dataset-result-row"><router-link :to="'/benchmarks/'+b.id"><strong>{{b.name}}</strong><span class="vf-home-benchmark-combination">{{b.configuration_label}}</span><small>{{b.reported_total}} 个文件<span v-if="b.experiment_status"> · {{b.completed_count}} 已完成</span></small></router-link><div class="vf-dataset-bars"><div v-for="metric in ['pass@1','pass@5']" :key="metric" class="vf-dataset-bar"><span>{{metric}}</span><div class="vf-bar-track"><div :style="{width:(b.summary[metric].rate||0)+'%'}"></div></div><b>{{b.summary[metric].rate==null?(['blocked','paused'].includes(b.experiment_status)?'已暂停':'运行中'):b.summary[metric].rate.toFixed(1)+'%'}}</b><small>{{b.summary[metric].passed}} / {{b.summary[metric].total}}</small></div></div></div><p class="vf-bench-caption">统计口径：违规 admit 按失败计；超过第 5 轮才通过的文件不计入 pass@5。DeepSeek 组合的 autobench 报告分母为 257、原始记录为 262，Opus 组合为 257；LiveFMBench 2024 为 284 文件版本。点击数据集可查看逐文件证据。</p></div><div class="vf-results-chart" v-if="overview"><div class="vf-chart-heading"><span>LOCAL RESULTS</span><span>任务通过率 / %</span></div><div class="vf-chart-row" v-for="row in overview.modeRows" :key="row.mode"><div><strong>{{modes[row.mode]}}</strong><small>{{row.passCount}} / {{row.totalRuns}} 个任务 · {{row.liveRuns}} 次实际执行</small></div><div class="vf-bar-track"><div :style="{width:(row.totalRuns ? row.passCount/row.totalRuns*100 : 0)+'%'}"></div></div><b>{{row.totalRuns ? (row.passCount/row.totalRuns*100).toFixed(1)+'%' : '—'}}</b></div></div></section>
+</div>
+  <section class="principles wrap" id="principles"><div class="principle-statement"><span class="section-label">HUMAN INTENT. MACHINE EVIDENCE.</span><h2>Agent 提出候选。<br><span>验证器提供证据。</span></h2><p>验证通过，意味着代码满足当前检查的规约。<br>规约是否完整、是否表达真实需求，仍需审查。</p></div><div class="principle-list"><div><h3>过程可见</h3><p>查看生成阶段、诊断、修复与运行日志。</p></div><div><h3>任务可复现</h3><p>保留任务输入、模型配置、候选代码和验证结果。</p></div><div><h3>选择可控</h3><p>自由组合 Agent、模型 API 与 Skill。</p></div></div></section>
+  <section class="prism-cta"><div class="wrap"><span class="eyebrow">THE NEXT STEP IS A SMALL FUNCTION.</span><h2>从一项任务开始。</h2><router-link class="button white" to="/projects">进入工作台 ↗</router-link><span class="cta-outline" aria-hidden="true">玄鉴</span></div></section>
+  <footer class="site-footer wrap"><router-link to="/" class="brand-lockup"><strong>玄鉴</strong></router-link><p>C / ACSL · RUST / VERUS · PROOF MATTERS.</p><div class="footer-links"><router-link to="/projects">项目</router-link></div></footer>
+ </div>`
 })

@@ -1,0 +1,228 @@
+[kernel] Parsing output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c:56: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c:54: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: node*)
+[wp] output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c:53: Warning: 
+  Missing assigns clause (assigns 'everything' instead)
+[wp] 11 goals scheduled
+[wp] [Timeout] typed_main_assert_4 (Qed 15ms) (Alt-Ergo) (Stronger, 2 warnings)
+[wp] Proved goals:   10 / 11
+  Qed:             5
+  Alt-Ergo :       5 (8ms-11ms-16ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 51):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c:54: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 51):
+Prove: P_bounded_list(null, 2147483647, -2147483647).
+Prover Alt-Ergo  returns Valid (Qed:0.66ms) (8ms) (59)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 64):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c:54: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 65):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c:54: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 66):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c:54: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(max_1) /\ is_sint32(min_0) /\
+      is_sint32(min_1) /\ is_sint32(tmp_1_0) /\ is_sint32(v).
+  (* Invariant *)
+  Have: P_bounded_list(null, 2147483647, -2147483647).
+  (* Invariant *)
+  Have: P_bounded_list(l, min_1, max_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_1_0 != 0.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, l_1, 2).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v < min_1
+  Then { Have: v = min_0. }
+  Else { Have: min_1 = min_0. }
+  If max_1 < v
+  Then { Have: v = max_0. }
+  Else { Have: max_1 = max_0. }
+  (* Assertion *)
+  Have: min_0 <= v.
+  (* Assertion *)
+  Have: v <= max_0.
+}
+Prove: P_bounded_list(l, min_0, max_0).
+Prover Z3 4.15.4 returns Valid (Qed:15ms) (10ms) (118284)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (10ms) (103)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 67):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c:54: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: node*)
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(max_1) /\ is_sint32(min_0) /\
+      is_sint32(min_1) /\ is_sint32(tmp_1_0) /\ is_sint32(v).
+  (* Invariant *)
+  Have: P_bounded_list(null, 2147483647, -2147483647).
+  (* Invariant *)
+  Have: P_bounded_list(l_1, min_1, max_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_1_0 != 0.
+  (* Call 'malloc' *)
+  Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, l, 2).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+  If v < min_1
+  Then { Have: v = min_0. }
+  Else { Have: min_1 = min_0. }
+  If max_1 < v
+  Then { Have: v = max_0. }
+  Else { Have: max_1 = max_0. }
+  (* Assertion *)
+  Have: min_0 <= v.
+  (* Assertion *)
+  Have: v <= max_0.
+  (* Assertion *)
+  Have: P_bounded_list(l_1, min_0, max_0).
+}
+Prove: P_bounded_list(l, min_0, max_0).
+Prover Z3 4.15.4 returns Unknown (Qed:15ms)
+Prover Alt-Ergo  returns Timeout (Qed:15ms) (1')
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 71):
+Let x = Mint_0[shiftfield_F4_node_val(i)].
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(min_0) /\ is_sint32(x).
+  (* Invariant *)
+  Have: P_bounded_list(null, 2147483647, -2147483647).
+  (* Invariant *)
+  Have: P_bounded_list(i_1, min_0, max_0).
+  (* Invariant *)
+  Have: P_bounded_list(i, min_0, max_0).
+  (* Then *)
+  Have: null != i.
+  (* Assertion *)
+  Have: min_0 <= x.
+  (* Assertion *)
+  Have: x <= max_0.
+}
+Prove: P_bounded_list(Mptr_0[shiftfield_F4_node_next(i)], min_0, max_0).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (41)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 71):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 75):
+Let x = Mint_0[shiftfield_F4_node_val(i)].
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(min_0) /\ is_sint32(x).
+  (* Invariant *)
+  Have: P_bounded_list(null, 2147483647, -2147483647).
+  (* Invariant *)
+  Have: P_bounded_list(i_1, min_0, max_0).
+  (* Invariant *)
+  Have: P_bounded_list(i, min_0, max_0).
+  (* Then *)
+  Have: null != i.
+}
+Prove: min_0 <= x.
+Prover Alt-Ergo  returns Valid (Qed:3ms) (12ms) (60)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 76):
+Let x = Mint_0[shiftfield_F4_node_val(i)].
+Assume {
+  Type: is_sint32(max_0) /\ is_sint32(min_0) /\ is_sint32(x).
+  (* Invariant *)
+  Have: P_bounded_list(null, 2147483647, -2147483647).
+  (* Invariant *)
+  Have: P_bounded_list(i_1, min_0, max_0).
+  (* Invariant *)
+  Have: P_bounded_list(i, min_0, max_0).
+  (* Then *)
+  Have: null != i.
+  (* Assertion *)
+  Have: min_0 <= x.
+}
+Prove: x <= max_0.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (16ms) (60)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c, line 72):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/heap-data_min_max/heap-data_min_max.acsl.c:47: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

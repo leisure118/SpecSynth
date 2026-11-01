@@ -1,0 +1,185 @@
+[kernel] Parsing output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:             6
+  Alt-Ergo :       5 (8ms-11ms)
+------------------------------------------------------------
+  Function lower_bound_raw
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 4) in 'lower_bound_raw':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 5) in 'lower_bound_raw':
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < i_1).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] < val_0))).
+  If i_1 < n
+  Then { (* Then *) Have: val_0 <= Mint_0[shift_sint32(a, i_1)]. }
+}
+Prove: Mint_0[shift_sint32(a, i)] < val_0.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (123818)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (42)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 11):
+Let x = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(val_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x < val_0.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (94505)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (89)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 12):
+Let x = to_uint32(1 + i_1).
+Let x_1 = Mint_0[shift_sint32(a, i_1)].
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(n) /\ is_sint32(val_0) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] < val_0))).
+  (* Then *)
+  Have: i_1 < n.
+  (* Else *)
+  Have: x_1 < val_0.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: Mint_0[shift_sint32(a, i)] < val_0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (30ms) (361552)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (103)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 21):
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < i_1).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] < val_0))).
+  If i_1 < n
+  Then { (* Then *) Have: val_0 <= Mint_0[shift_sint32(a, i_1)]. }
+}
+Prove: Mint_0[shift_sint32(a, i)] < val_0.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (123778)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (42)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'lower_bound_raw':
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 16):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(val_0) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (n = 0) \/ valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 < val_0.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_sint32(a, i_1)] < val_0))).
+}
+Prove: i < x.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (11ms) (95)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live24/arepina_lower_bound_raw/arepina_lower_bound_raw.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------

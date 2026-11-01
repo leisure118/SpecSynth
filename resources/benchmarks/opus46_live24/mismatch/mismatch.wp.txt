@@ -1,0 +1,219 @@
+[kernel] Parsing output/ops-4.6/live24/mismatch/mismatch.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 12 goals scheduled
+[wp] Proved goals:   12 / 12
+  Qed:             6
+  Alt-Ergo :       5 (8ms-11ms)
+  Z3 4.15.4:       1
+------------------------------------------------------------
+  Function mismatch
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/mismatch/mismatch.acsl.c, line 38):
+Let x = Mint_0[shift_sint32(b, i)].
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, 0, b).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x = x_1.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (204315)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (98)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/mismatch/mismatch.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/mismatch/mismatch.acsl.c, line 39):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(b, i)].
+Let x_2 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, 0, b).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: P_Equal_1_(Mint_0, Mint_0, a, 0, x, b).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (11ms) (160)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/mismatch/mismatch.acsl.c, line 39):
+Assume {
+  Type: is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: P_Equal_1_(Mint_0, Mint_0, a, 0, 0, b).
+Prover Alt-Ergo  returns Valid (Qed:0.74ms) (8ms) (53)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/mismatch/mismatch.acsl.c, line 45):
+Let x = Mint_0[shift_sint32(b, i)].
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, 0, b).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Then *)
+  Have: x != x_1.
+}
+Prove: !P_Equal_2_(Mint_0, Mint_0, a, n, b).
+Prover Alt-Ergo  returns Valid (Qed:1ms) (9ms) (117)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/mismatch/mismatch.acsl.c, line 49):
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, 0, b).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, i, b).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_Equal_2_(Mint_0, Mint_0, a, i, b).
+Prover Z3 4.15.4 returns Valid (Qed:1ms)
+Prover Alt-Ergo  returns Valid (Qed:1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/mismatch/mismatch.acsl.c, line 40):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mismatch' (1/3):
+Effect at line 43
+Prove: true.
+Prover Qed returns Valid (0.55ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mismatch' (2/3):
+Effect at line 46
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mismatch' (3/3):
+Effect at line 50
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live24/mismatch/mismatch.acsl.c, line 43):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(b, i)].
+Let x_2 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, 0, b).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, i, b).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: P_Equal_1_(Mint_0, Mint_0, a, 0, x, b).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (20ms) (205387)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (11ms) (106)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live24/mismatch/mismatch.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (0.91ms)
+
+------------------------------------------------------------

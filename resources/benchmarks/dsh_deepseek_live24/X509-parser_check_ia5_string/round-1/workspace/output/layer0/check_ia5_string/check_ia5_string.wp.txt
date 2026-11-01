@@ -1,0 +1,260 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function check_ia5_string
+[wp] 15 goals scheduled
+[wp] [Timeout] typed_check_ia5_string_ensures_2 (Qed 12ms) (Z3 15s)
+[wp] [Timeout] typed_check_ia5_string_ensures (Qed 19ms) (Z3 15s)
+[wp] Proved goals:   13 / 15
+  Qed:             9
+  Alt-Ergo :       4 (44ms-47ms)
+  Timeout:         2
+------------------------------------------------------------
+  Function check_ia5_string
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 24) in 'check_ia5_string':
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i_1) /\ is_uint32(len_0) /\
+      is_sint32(ret_0) /\ is_sint32(ret_1).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < len_0).
+  (* Pre-condition *)
+  Have: (null != buf_0) /\ (0 < len_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= len_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_uint8(buf_0, i_2)] <= 127))).
+  If i_1 < len_0
+  Then {
+    Let a = shift_uint8(buf_0, i_1).
+    (* Assertion 'rte,mem_access' *)
+    Have: valid_rd(Malloc_0, a, 1).
+    (* Then *)
+    Have: 128 <= Mint_0[a].
+  }
+}
+Prove: Mint_0[shift_uint8(buf_0, i)] <= 127.
+Prover Z3 4.8.12 returns Timeout (Qed:19ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:19ms) (15s)
+
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 25) in 'check_ia5_string':
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(len_0) /\
+      is_sint32(ret_0) /\ is_sint32(ret_1).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (null != buf_0) /\ (0 < len_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= len_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_uint8(buf_0, i_1)] <= 127))).
+  If i < len_0
+  Then {
+    Let a = shift_uint8(buf_0, i).
+    (* Assertion 'rte,mem_access' *)
+    Have: valid_rd(Malloc_0, a, 1).
+    (* Then *)
+    Have: 128 <= Mint_0[a].
+  }
+}
+Prove: exists i_1 : Z. (0 <= i_1) /\ (i_1 < len_0) /\
+    (128 <= Mint_0[shift_uint8(buf_0, i_1)]).
+Prover Z3 4.8.12 returns Timeout (Qed:12ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:12ms) (15s)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 36):
+Let a = shift_uint8(buf_0, i).
+Let x = Mint_0[a].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(len_0) /\
+      is_uint8(x).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (null != buf_0) /\ (0 < len_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= len_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_uint8(buf_0, i_1)] <= 127))).
+  (* Then *)
+  Have: i < len_0.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x <= 127.
+}
+Prove: to_uint32(1 + i) <= len_0.
+Prover Alt-Ergo  returns Valid (Qed:8ms) (46ms) (93)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 36):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 37):
+Let x = to_uint32(1 + i_1).
+Let a = shift_uint8(buf_0, i_1).
+Let x_1 = Mint_0[a].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i_1) /\ is_uint32(len_0) /\
+      is_uint8(x_1).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Pre-condition *)
+  Have: (null != buf_0) /\ (0 < len_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= len_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_uint8(buf_0, i_2)] <= 127))).
+  (* Then *)
+  Have: i_1 < len_0.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_1 <= 127.
+  (* Invariant *)
+  Have: x <= len_0.
+}
+Prove: Mint_0[shift_uint8(buf_0, i)] <= 127.
+Prover Alt-Ergo  returns Valid (Qed:6ms) (47ms) (111)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 37):
+Prove: true.
+Prover Qed returns Valid (0.50ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 42):
+Let a = shift_uint8(buf_0, i).
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(len_0) /\
+      is_uint8(Mint_0[a]).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (null != buf_0) /\ (0 < len_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= len_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_uint8(buf_0, i_1)] <= 127))).
+  (* Then *)
+  Have: i < len_0.
+}
+Prove: valid_rd(Malloc_0, a, 1).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (46ms) (96)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 38):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (1/5):
+Effect at line 32
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (2/5):
+Effect at line 41
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (3/5):
+Effect at line 41
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (4/5):
+Effect at line 43
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_ia5_string' (5/5):
+Effect at line 47
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 41):
+Let x = to_uint32(1 + i).
+Let a = shift_uint8(buf_0, i).
+Let x_1 = Mint_0[a].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(len_0) /\
+      is_uint8(x_1).
+  (* Heap *)
+  Type: (region(buf_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (null != buf_0) /\ (0 < len_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(buf_0, 0), len_0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= len_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_uint8(buf_0, i_1)] <= 127))).
+  (* Then *)
+  Have: i < len_0.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_1 <= 127.
+  (* Invariant *)
+  Have: x <= len_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_uint8(buf_0, i_1)] <= 127))).
+}
+Prove: i < x.
+Prover Z3 4.8.12 returns Valid (Qed:8ms) (140ms) (105139)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (44ms) (99)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-1_u1yl18/workspace/.platform-proofs/tmpu6ifhyxd/candidate.c, line 41):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T16:12:50+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

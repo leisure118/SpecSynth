@@ -184,3 +184,17 @@ def test_contract_tool_rejects_forged_proof_claim(monkeypatch,tmp_path):
 def test_optional_subagent_configuration(model):
     assert assistants.AssistantConfig(agent='deepseek-harness',sub_model=model).sub_model==model
     assert assistants.AssistantConfig(agent='deepseek-harness').sub_model==''
+
+
+def test_harness_safe_cause_is_preserved_for_ui(monkeypatch,tmp_path):
+    from engine.nl2verus import dsh_cli
+    from engine.nl2verus.model_provider import ProviderError
+    from engine.autospec.src.config_manager import ConfigLoader
+    monkeypatch.setattr(ConfigLoader,'get_model_config',lambda *a:SimpleNamespace(model_name='model',base_url='http://private/v1',api_key='private-key'))
+    def fail(*a,**k):raise ProviderError('agent_delegation','子 Agent 未执行')
+    monkeypatch.setattr(dsh_cli,'generate',fail)
+    with pytest.raises(agent_runners.AgentCallError,match='子 Agent 未执行') as caught:
+        agent_runners._generate('deepseek-harness','task',tmp_path,200,'model')
+    assert caught.value.code=='agent_delegation'
+    evidence=json.loads((tmp_path/'harness-runtime.json').read_text())
+    assert evidence['code']=='agent_delegation' and 'private-key' not in json.dumps(evidence)

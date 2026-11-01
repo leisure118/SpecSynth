@@ -1,0 +1,327 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function bufs_differ
+[wp] 14 goals scheduled
+[wp] [Timeout] typed_bufs_differ_ensures_2 (Qed 9ms) (Z3 15s)
+[wp] [Timeout] typed_bufs_differ_ensures (Qed 14ms) (Z3 15s)
+[wp] Proved goals:   12 / 14
+  Qed:             6
+  Alt-Ergo :       6 (70ms-99ms)
+  Timeout:         2
+------------------------------------------------------------
+  Function bufs_differ
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 26) in 'bufs_differ':
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(bufs_differ_0) /\ is_sint32(ret_0).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  If i < n
+  Then {
+    Let a = shift_uint8(b2_0, i).
+    Let a_1 = shift_uint8(b1_0, i).
+    (* Assertion 'rte,mem_access' *)
+    Have: valid_rd(Malloc_0, a_1, 1).
+    (* Assertion 'rte,mem_access' *)
+    Have: valid_rd(Malloc_0, a, 1).
+    (* Then *)
+    Have: Mint_0[a] != Mint_0[a_1].
+    Have: bufs_differ_0 = 1.
+  }
+}
+Prove: P_bmatch(Mint_0, b1_0, b2_0, n) <-> (bufs_differ_0 = 0).
+Prover Z3 4.8.12 returns Timeout (Qed:14ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:14ms) (15s)
+
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 27) in 'bufs_differ':
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(bufs_differ_0) /\ is_sint32(ret_0).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  If i < n
+  Then {
+    Let a = shift_uint8(b2_0, i).
+    Let a_1 = shift_uint8(b1_0, i).
+    (* Assertion 'rte,mem_access' *)
+    Have: valid_rd(Malloc_0, a_1, 1).
+    (* Assertion 'rte,mem_access' *)
+    Have: valid_rd(Malloc_0, a, 1).
+    (* Then *)
+    Have: Mint_0[a] != Mint_0[a_1].
+    Have: bufs_differ_0 = 1.
+  }
+}
+Prove: (!P_bmatch(Mint_0, b1_0, b2_0, n)) <-> (bufs_differ_0 = 1).
+Prover Z3 4.8.12 returns Timeout (Qed:9ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:9ms) (15s)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 34):
+Let a = shift_uint8(b2_0, i).
+Let x = Mint_0[a].
+Let a_1 = shift_uint8(b1_0, i).
+Let x_1 = Mint_0[a_1].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(x_1) /\ is_uint8(x).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x = x_1.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Alt-Ergo  returns Valid (Qed:15ms) (99ms) (128)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 34):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 35):
+Let x = to_uint32(1 + i).
+Let a = shift_uint8(b2_0, i).
+Let x_1 = Mint_0[a].
+Let a_1 = shift_uint8(b1_0, i).
+Let x_2 = Mint_0[a_1].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(x_2) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: P_bmatch(Mint_0, b1_0, b2_0, x).
+Prover Alt-Ergo  returns Valid (Qed:10ms) (98ms) (216)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 35):
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(n).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: P_bmatch(Mint_0, b1_0, b2_0, 0).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (76ms) (62)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 40):
+Let a = shift_uint8(b1_0, i).
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(Mint_0[a]) /\ is_uint8(Mint_0[shift_uint8(b2_0, i)]).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+}
+Prove: valid_rd(Malloc_0, a, 1).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (75ms) (106)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 40):
+Let a = shift_uint8(b1_0, i).
+Let a_1 = shift_uint8(b2_0, i).
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(Mint_0[a]) /\ is_uint8(Mint_0[a_1]).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (77ms) (116)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 36):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (1/3):
+Effect at line 39
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (2/3):
+Effect at line 39
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bufs_differ' (3/3):
+Effect at line 41
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 39):
+Let x = to_uint32(1 + i).
+Let a = shift_uint8(b2_0, i).
+Let x_1 = Mint_0[a].
+Let a_1 = shift_uint8(b1_0, i).
+Let x_2 = Mint_0[a_1].
+Assume {
+  Type: is_uint8_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint8(x_2) /\ is_uint8(x_1).
+  (* Heap *)
+  Type: (region(b1_0.base) <= 0) /\ (region(b2_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b1_0, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_uint8(b2_0, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, 0).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, i).
+  (* Then *)
+  Have: i < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a, 1).
+  (* Else *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: P_bmatch(Mint_0, b1_0, b2_0, x).
+}
+Prove: i < x.
+Prover Z3 4.8.12 returns Valid (Qed:7ms) (210ms) (164179)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (70ms) (136)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-srcz0cb5/workspace/.platform-proofs/tmp2sbsmfsy/candidate.c, line 39):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T17:11:48+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

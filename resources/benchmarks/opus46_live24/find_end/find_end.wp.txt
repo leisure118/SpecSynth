@@ -1,0 +1,400 @@
+[kernel] Parsing output/ops-4.6/live24/find_end/find_end.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:             7
+  Alt-Ergo :      10 (6ms-11ms-20ms)
+------------------------------------------------------------
+  Axiomatic 'HasSubRange'
+------------------------------------------------------------
+
+Lemma HasSubRange_Sizes:
+Prove: (P_HasSubRange_1_ Mint_0 a_0 m_0 n_0 b_0 p_0) -> ((m_0+p_0)<=n_0)
+Prover Z3 4.15.4 returns Valid (10ms) (56857)
+Prover Alt-Ergo  returns Valid (6ms) (28)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function find_end
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 63):
+Let x = 1 + n.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint32(p) /\ is_uint32(r) /\
+      is_sint32(equal_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), p).
+  (* Then *)
+  Have: 0 < p.
+  (* Then *)
+  Have: p <= n.
+  (* Invariant *)
+  Have: p <= x.
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, x, p - 1, b, p).
+  (* Invariant *)
+  Have: (0 <= i) /\ ((i + p) <= x).
+  (* Invariant *)
+  Have: (r = n) \/ (r < i).
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, 1 + r, i + p - 1, b, p).
+  (* Then *)
+  Have: i <= to_uint32(n - p).
+  (* Call 'equal' *)
+  Have: P_Equal_2_(Mint_0, Mint_0, shift_sint32(a, i), p, b) <->
+      (equal_0 != 0).
+}
+Prove: (p + to_uint32(1 + i)) <= x.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (20ms) (210765)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (10ms) (136)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 63):
+Assume {
+  Type: is_uint32(n) /\ is_uint32(p).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), p).
+  (* Then *)
+  Have: 0 < p.
+  (* Then *)
+  Have: p <= n.
+}
+Prove: p <= (1 + n).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (10ms) (59728)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (30)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 64):
+Let x = to_uint32(1 + i).
+Let x_1 = 1 + n.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint32(p) /\ is_uint32(r) /\
+      is_uint32(r_1) /\ is_sint32(equal_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), p).
+  (* Then *)
+  Have: 0 < p.
+  (* Then *)
+  Have: p <= n.
+  (* Invariant *)
+  Have: p <= x_1.
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, x_1, p - 1, b, p).
+  (* Invariant *)
+  Have: (0 <= i) /\ ((i + p) <= x_1).
+  (* Invariant *)
+  Have: (r_1 = n) \/ (r_1 < i).
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, 1 + r_1, i + p - 1, b, p).
+  (* Then *)
+  Have: i <= to_uint32(n - p).
+  (* Call 'equal' *)
+  Have: P_Equal_2_(Mint_0, Mint_0, shift_sint32(a, i), p, b) <->
+      (equal_0 != 0).
+  If equal_0 != 0
+  Then { Have: r = i. }
+  Else { Have: r_1 = r. }
+  (* Invariant *)
+  Have: (p + x) <= x_1.
+}
+Prove: (r = n) \/ (r < x).
+Prover Alt-Ergo  returns Valid (Qed:9ms) (16ms) (185)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 65):
+Let x = to_uint32(1 + i).
+Let x_1 = 1 + n.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint32(p) /\ is_uint32(r) /\
+      is_uint32(r_1) /\ is_sint32(equal_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), p).
+  (* Then *)
+  Have: 0 < p.
+  (* Then *)
+  Have: p <= n.
+  (* Invariant *)
+  Have: p <= x_1.
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, x_1, p - 1, b, p).
+  (* Invariant *)
+  Have: (0 <= i) /\ ((i + p) <= x_1).
+  (* Invariant *)
+  Have: (r_1 = n) \/ (r_1 < i).
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, 1 + r_1, i + p - 1, b, p).
+  (* Then *)
+  Have: i <= to_uint32(n - p).
+  (* Call 'equal' *)
+  Have: P_Equal_2_(Mint_0, Mint_0, shift_sint32(a, i), p, b) <->
+      (equal_0 != 0).
+  If equal_0 != 0
+  Then { Have: r = i. }
+  Else { Have: r_1 = r. }
+  (* Invariant *)
+  Have: (p + x) <= x_1.
+  (* Invariant *)
+  Have: (r = n) \/ (r < x).
+}
+Prove: !P_HasSubRange_1_(Mint_0, a, 1 + r, p + x - 1, b, p).
+Prover Alt-Ergo  returns Valid (Qed:9ms) (20ms) (360)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 65):
+Let x = 1 + r.
+Assume {
+  Type: is_uint32(p) /\ is_uint32(r).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), r).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), p).
+  (* Then *)
+  Have: 0 < p.
+  (* Then *)
+  Have: p <= r.
+  (* Invariant *)
+  Have: p <= x.
+}
+Prove: !P_HasSubRange_1_(Mint_0, a, x, p - 1, b, p).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (41)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 75):
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n_1) /\ is_uint32(n) /\ is_uint32(n_2) /\
+      is_uint32(p_1) /\ is_uint32(p) /\ is_uint32(p_2) /\ is_uint32(r) /\
+      is_uint32(r_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), p).
+  If 0 < p
+  Then {
+    If p <= n
+    Then {
+      Let x = 1 + n.
+      Have: (ta_i_0=false) /\ (n = n_1) /\ (p = p_1) /\ (r_1 = n_1) /\
+          (r_1 = n).
+      (* Invariant *)
+      Have: p <= x.
+      (* Invariant *)
+      Have: !P_HasSubRange_1_(Mint_0, a, x, p - 1, b, p).
+      Have: (n_2 = n_1) /\ (n_2 = n) /\ (p_2 = p_1) /\ (p_2 = p).
+      (* Invariant *)
+      Have: (0 <= i) /\ ((i + p) <= x).
+      (* Invariant *)
+      Have: (r = n) \/ (r < i).
+      (* Invariant *)
+      Have: !P_HasSubRange_1_(Mint_0, a, 1 + r, i + p - 1, b, p).
+      (* Else *)
+      Have: to_uint32(n - p) < i.
+    }
+    Else { Have: r = n. }
+  }
+  Else { Have: r = n. }
+}
+Prove: !P_HasSubRange_1_(Mint_0, a, 1 + r, n, b, p).
+Prover Alt-Ergo  returns Valid (Qed:15ms) (11ms) (178)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 66) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 66) (2/2):
+Call Result at line 70
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_end' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_end' (2/2):
+Effect at line 69
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find_end':
+Effect at line 69
+Prove: true.
+Prover Qed returns Valid (0.72ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 69):
+Let x = to_uint32(1 + i).
+Let x_1 = 1 + n.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint32(p) /\ is_uint32(r) /\
+      is_uint32(r_1) /\ is_sint32(equal_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), p).
+  (* Then *)
+  Have: 0 < p.
+  (* Then *)
+  Have: p <= n.
+  (* Invariant *)
+  Have: p <= x_1.
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, x_1, p - 1, b, p).
+  (* Invariant *)
+  Have: (0 <= i) /\ ((i + p) <= x_1).
+  (* Invariant *)
+  Have: (r_1 = n) \/ (r_1 < i).
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, 1 + r_1, i + p - 1, b, p).
+  (* Then *)
+  Have: i <= to_uint32(n - p).
+  (* Call 'equal' *)
+  Have: P_Equal_2_(Mint_0, Mint_0, shift_sint32(a, i), p, b) <->
+      (equal_0 != 0).
+  If equal_0 != 0
+  Then { Have: r = i. }
+  Else { Have: r_1 = r. }
+  (* Invariant *)
+  Have: (p + x) <= x_1.
+  (* Invariant *)
+  Have: (r = n) \/ (r < x).
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, 1 + r, p + x - 1, b, p).
+}
+Prove: i < x.
+Prover Alt-Ergo  returns Valid (Qed:9ms) (12ms) (181)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 69):
+Let x = to_uint32(1 + i).
+Let x_1 = 1 + n.
+Let x_2 = i + p.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint32(p) /\ is_uint32(r) /\
+      is_uint32(r_1) /\ is_sint32(equal_0).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), p).
+  (* Then *)
+  Have: 0 < p.
+  (* Then *)
+  Have: p <= n.
+  (* Invariant *)
+  Have: p <= x_1.
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, x_1, p - 1, b, p).
+  (* Invariant *)
+  Have: (0 <= i) /\ (x_2 <= x_1).
+  (* Invariant *)
+  Have: (r_1 = n) \/ (r_1 < i).
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, 1 + r_1, i + p - 1, b, p).
+  (* Then *)
+  Have: i <= to_uint32(n - p).
+  (* Call 'equal' *)
+  Have: P_Equal_2_(Mint_0, Mint_0, shift_sint32(a, i), p, b) <->
+      (equal_0 != 0).
+  If equal_0 != 0
+  Then { Have: r = i. }
+  Else { Have: r_1 = r. }
+  (* Invariant *)
+  Have: (p + x) <= x_1.
+  (* Invariant *)
+  Have: (r = n) \/ (r < x).
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, 1 + r, p + x - 1, b, p).
+}
+Prove: x_2 <= n.
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (20ms) (212748)
+Prover Alt-Ergo  returns Valid (Qed:9ms) (13ms) (187)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'equal'' in 'find_end' at call 'equal' (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 70)
+:
+Let x = 1 + n.
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_uint32(p) /\ is_uint32(r).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(b.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(b, 0), p).
+  (* Then *)
+  Have: 0 < p.
+  (* Then *)
+  Have: p <= n.
+  (* Invariant *)
+  Have: p <= x.
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, x, p - 1, b, p).
+  (* Invariant *)
+  Have: (0 <= i) /\ ((i + p) <= x).
+  (* Invariant *)
+  Have: (r = n) \/ (r < i).
+  (* Invariant *)
+  Have: !P_HasSubRange_1_(Mint_0, a, 1 + r, i + p - 1, b, p).
+  (* Then *)
+  Have: i <= to_uint32(n - p).
+}
+Prove: valid_rd(Malloc_0, shift_sint32(a, i), p).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (114499)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (9ms) (102)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition 'valid' in 'equal'' in 'find_end' at call 'equal' (file output/ops-4.6/live24/find_end/find_end.acsl.c, line 70)
+:
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------

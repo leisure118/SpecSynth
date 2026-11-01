@@ -1,0 +1,879 @@
+[kernel] Parsing output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:121: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] Warning: No definition for 'all_wait_ge_one' interpreted as reads nothing
+[wp] Warning: No definition for 'list_len' interpreted as reads nothing
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:122: Warning: 
+  Cast with incompatible pointers types (source: sint8*)
+     (target: process_node*)
+[wp] output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:119: Warning: 
+  Missing assigns clause (assigns 'everything' instead)
+[wp] 37 goals scheduled
+[wp] [Timeout] typed_choose_next_loop_assigns_part3 (Qed 10ms) (Z3)
+[wp] Proved goals:   36 / 37
+  Qed:            19
+  Alt-Ergo :      15 (20ms-31ms)
+  Z3 4.15.4:       2 (850ms-10.3s)
+  Timeout:         1
+------------------------------------------------------------
+  Function append_to_queue
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 56) in 'append_to_queue':
+Let a = shiftfield_F4_process_node_next(n).
+Let a_1 = Mptr_0[q].
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(n)].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(n.base) <= 0) /\ (region(q.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, n, 3).
+  (* Pre-condition *)
+  Have: 0 < x.
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a_1).
+  (* Assertion *)
+  Have: P_all_wait_ge_one(Mptr_0[a <- a_1][q <- n][a]).
+}
+Prove: P_all_wait_ge_one(n).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (26ms) (121)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 61):
+Let a = Mptr_0[q].
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(n)].
+Let a_1 = shiftfield_F4_process_node_next(n).
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(n.base) <= 0) /\ (region(q.base) <= 0) /\ framed(Mptr_0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, n, 3).
+  (* Pre-condition *)
+  Have: 0 < x.
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a).
+}
+Prove: P_all_wait_ge_one(Mptr_0[a_1 <- a][q <- n][a_1]).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (28ms) (111)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 55) in 'append_to_queue' (1/2):
+Effect at line 59
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 55) in 'append_to_queue' (2/2):
+Effect at line 60
+Prove: true.
+Prover Qed returns Valid (0.80ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function check_queue
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 103):
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(n)].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(n_1.base) <= 0) /\ framed(Mptr_0).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(n_1).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(n).
+  (* Then *)
+  Have: null != n.
+  (* Assertion *)
+  Have: 0 < x.
+}
+Prove: P_all_wait_ge_one(Mptr_0[shiftfield_F4_process_node_next(n)]).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (23ms) (40)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 103):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 108):
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(n)].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: region(n_1.base) <= 0.
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(n_1).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(n).
+  (* Then *)
+  Have: null != n.
+}
+Prove: 0 < x.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (23ms) (52)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 104):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'check_queue':
+Effect at line 107
+Prove: true.
+Prover Qed returns Valid (0.94ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 107):
+Let a = Mptr_0[shiftfield_F4_process_node_next(n)].
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(n)].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(n_1.base) <= 0) /\ framed(Mptr_0).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(n_1).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(n).
+  (* Then *)
+  Have: null != n.
+  (* Assertion *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: P_all_wait_ge_one(a).
+}
+Prove: L_list_len(a) < L_list_len(n).
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (850ms) (3115808)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 107):
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(n)].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(n_1.base) <= 0) /\ framed(Mptr_0).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(n_1).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(n).
+  (* Then *)
+  Have: null != n.
+  (* Assertion *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: P_all_wait_ge_one(Mptr_0[shiftfield_F4_process_node_next(n)]).
+}
+Prove: 0 <= L_list_len(n).
+Prover Alt-Ergo  returns Valid (Qed:5ms) (24ms) (40)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function choose_next
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 67) in 'choose_next':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 74):
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(node_0)].
+Let a = Mptr_1[q].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ framed(Mptr_1) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(node_0).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, node_0, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(v).
+  (* Then *)
+  Have: null != node_0.
+  If x = 1
+  Then {
+    If null = prev_0
+    Then {
+      Have: Mptr_1[q
+              <- Mptr_1[q <- v][shiftfield_F4_process_node_next(node_0)]] =
+          Mptr_0.
+    }
+    Else {
+      Let m = Mptr_1[q <- v].
+      Have: m[shiftfield_F4_process_node_next(prev_0)
+              <- m[shiftfield_F4_process_node_next(node_0)]] = Mptr_0.
+    }
+  }
+  Else { Have: m = Mptr_0. }
+}
+Prove: P_all_wait_ge_one(Mptr_0[shiftfield_F4_process_node_next(node_0)]).
+Prover Alt-Ergo  returns Valid (Qed:25ms) (24ms) (85)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 74):
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 75):
+Let a = Mptr_0[shiftfield_F4_process_node_next(node_0)].
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(node_0)].
+Let a_1 = Mptr_1[q].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ framed(Mptr_1) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a_1).
+  (* Invariant *)
+  Have: (a_1 = null) \/ valid_rw(Malloc_0, a_1, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(node_0).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, node_0, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(v).
+  (* Then *)
+  Have: null != node_0.
+  If x = 1
+  Then {
+    If null = prev_0
+    Then {
+      Have: Mptr_1[q
+              <- Mptr_1[q <- v][shiftfield_F4_process_node_next(node_0)]] =
+          Mptr_0.
+    }
+    Else {
+      Let m = Mptr_1[q <- v].
+      Have: m[shiftfield_F4_process_node_next(prev_0)
+              <- m[shiftfield_F4_process_node_next(node_0)]] = Mptr_0.
+    }
+  }
+  Else { Have: m = Mptr_0. }
+  (* Invariant *)
+  Have: P_all_wait_ge_one(a).
+}
+Prove: (a = null) \/ valid_rw(Malloc_0, a, 3).
+Prover Alt-Ergo  returns Valid (Qed:23ms) (27ms) (81)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 75):
+Let a = Mptr_0[q].
+Assume {
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ framed(Mptr_0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a).
+}
+Prove: (a = null) \/ valid_rw(Malloc_0, a, 3).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (22ms) (36)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 76):
+Let a = Mptr_0[shiftfield_F4_process_node_next(node_0)].
+Let a_1 = Mptr_1[q].
+Assume {
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ framed(Mptr_1) /\ linked(Malloc_0).
+  (* Residual *)
+  When: Mint_0[shiftfield_F4_process_node_time_to_wait(node_0)] = 1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a_1).
+  (* Invariant *)
+  Have: (a_1 = null) \/ valid_rw(Malloc_0, a_1, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(node_0).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, node_0, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(v).
+  (* Then *)
+  Have: null != node_0.
+  If null = prev_0
+  Then {
+    Have: Mptr_1[q
+            <- Mptr_1[q <- v][shiftfield_F4_process_node_next(node_0)]] =
+        Mptr_0.
+  }
+  Else {
+    Let m = Mptr_1[q <- v].
+    Have: m[shiftfield_F4_process_node_next(prev_0)
+            <- m[shiftfield_F4_process_node_next(node_0)]] = Mptr_0.
+  }
+  (* Invariant *)
+  Have: P_all_wait_ge_one(a).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+}
+Prove: P_all_wait_ge_one(Mptr_0[q]).
+Prover Alt-Ergo  returns Valid (Qed:23ms) (21ms) (56)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 76):
+Prove: true.
+Prover Qed returns Valid (0.99ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 93):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 77) (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 77) (2/4):
+Effect at line 80
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 77) (3/4):
+Effect at line 86
+Let m = Mptr_0[q <- v].
+Let a = shiftfield_F4_process_node_next(prev_0).
+Let a_1 = shiftfield_F4_process_node_next(node_0).
+Let m_1 = m[a <- m[a_1]].
+Let a_2 = m_1[a_1].
+Let a_3 = Mptr_0[q].
+Assume {
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a_3).
+  (* Invariant *)
+  Have: (a_3 = null) \/ valid_rw(Malloc_0, a_3, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(node_0).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, node_0, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(v).
+  (* Then *)
+  Have: null != node_0.
+  (* Then *)
+  Have: Mint_0[shiftfield_F4_process_node_time_to_wait(node_0)] = 1.
+  (* Else *)
+  Have: null != prev_0.
+  (* Invariant *)
+  Have: P_all_wait_ge_one(a_2).
+  (* Invariant *)
+  Have: (a_2 = null) \/ valid_rw(Malloc_0, a_2, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(m_1[q]).
+}
+Prove: a = q.
+Prover Z3 4.15.4 returns Timeout (Qed:10ms) (25.9s)
+Prover Alt-Ergo  returns Timeout (Qed:10ms) (30s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 77) (4/4):
+Effect at line 88
+Let a = Mptr_0[q <- v][shiftfield_F4_process_node_next(node_0)].
+Let a_1 = shiftfield_F4_process_node_time_to_wait(node_0).
+Let x = Mint_0[a_1].
+Let a_2 = Mptr_0[q].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ framed(Mptr_0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_1, 1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a_2).
+  (* Invariant *)
+  Have: (a_2 = null) \/ valid_rw(Malloc_0, a_2, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(node_0).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, node_0, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(v).
+  (* Then *)
+  Have: null != node_0.
+  (* Else *)
+  Have: x != 1.
+  (* Invariant *)
+  Have: P_all_wait_ge_one(a).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+}
+Prove: a_1 = q.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10.3s) (34429387)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 80):
+Let a = Mptr_0[shiftfield_F4_process_node_next(node_0)].
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(node_0)].
+Let a_1 = Mptr_1[q].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ framed(Mptr_1) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a_1).
+  (* Invariant *)
+  Have: (a_1 = null) \/ valid_rw(Malloc_0, a_1, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(node_0).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, node_0, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(v).
+  (* Then *)
+  Have: null != node_0.
+  If x = 1
+  Then {
+    If null = prev_0
+    Then {
+      Have: Mptr_1[q
+              <- Mptr_1[q <- v][shiftfield_F4_process_node_next(node_0)]] =
+          Mptr_0.
+    }
+    Else {
+      Let m = Mptr_1[q <- v].
+      Have: m[shiftfield_F4_process_node_next(prev_0)
+              <- m[shiftfield_F4_process_node_next(node_0)]] = Mptr_0.
+    }
+  }
+  Else { Have: m = Mptr_0. }
+  (* Invariant *)
+  Have: P_all_wait_ge_one(a).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(Mptr_0[q]).
+}
+Prove: L_list_len(a) < L_list_len(node_0).
+Prover Alt-Ergo  returns Valid (Qed:36ms) (31ms) (97)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 80):
+Let a = Mptr_1[shiftfield_F4_process_node_next(node_0)].
+Let x = Mint_0[shiftfield_F4_process_node_time_to_wait(node_0)].
+Let a_1 = Mptr_0[q].
+Assume {
+  Type: is_sint32(x).
+  (* Heap *)
+  Type: (region(q.base) <= 0) /\ framed(Mptr_0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, q, 1).
+  (* Pre-condition *)
+  Have: P_all_wait_ge_one(a_1).
+  (* Invariant *)
+  Have: (a_1 = null) \/ valid_rw(Malloc_0, a_1, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(node_0).
+  (* Invariant *)
+  Have: valid_rw(Malloc_0, node_0, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(v).
+  (* Then *)
+  Have: null != node_0.
+  If x = 1
+  Then {
+    If null = prev_0
+    Then {
+      Have: Mptr_0[q
+              <- Mptr_0[q <- v][shiftfield_F4_process_node_next(node_0)]] =
+          Mptr_1.
+    }
+    Else {
+      Let m = Mptr_0[q <- v].
+      Have: m[shiftfield_F4_process_node_next(prev_0)
+              <- m[shiftfield_F4_process_node_next(node_0)]] = Mptr_1.
+    }
+  }
+  Else { Have: m = Mptr_1. }
+  (* Invariant *)
+  Have: P_all_wait_ge_one(a).
+  (* Invariant *)
+  Have: (a = null) \/ valid_rw(Malloc_0, a, 3).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(Mptr_1[q]).
+}
+Prove: 0 <= L_list_len(node_0).
+Prover Alt-Ergo  returns Valid (Qed:33ms) (28ms) (82)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 116):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:122: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*)
+   (target: process_node*)
+Assume {
+  Type: is_sint32(next_time_0) /\ is_sint32(next_time_1) /\
+      is_sint32(next_time_2) /\ is_sint32(tmp_4_0) /\ is_sint32(tmp_5_0) /\
+      is_sint32(unknown_0).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(null).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(queue_1).
+  (* Invariant *)
+  Have: 0 < next_time_2.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_5_0) /\ (tmp_5_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_5_0 != 0.
+  If next_time_2 <= 999
+  Then {
+    Have: (ta_tmp_4_0=false) /\ (next_time_2 = next_time_3) /\
+        (queue_1 = queue_2).
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= tmp_4_0) /\ (tmp_4_0 <= 2147483646).
+    If tmp_4_0 != 0
+    Then {
+      Have: next_time_3 = next_time_0.
+      (* Call 'unknown' *)
+      Have: ((-2147483648) <= new_id_0) /\ (new_id_0 <= 2147483646).
+      (* Call 'malloc' *)
+      Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+      (* Admit *)
+      Have: valid_rw(Malloc_0, new_process_0, 3).
+      (* Call 'unknown' *)
+      Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+      (* Call 'append_to_queue' *)
+      Have: P_all_wait_ge_one(queue_0).
+    }
+    Else {
+      Have: (next_time_3 = next_time_1) /\ (queue_2 = queue_3).
+      If 2 <= next_time_1
+      Then {
+        Have: (ta_p_0=false).
+        (* Call 'choose_next' *)
+        Have: P_all_wait_ge_one(queue_0).
+      }
+      Else { Have: queue_3 = queue_0. }
+    }
+  }
+  Else {
+    Have: (next_time_2 = next_time_1) /\ (queue_1 = queue_3).
+    If 2 <= next_time_1
+    Then {
+      Have: (ta_p_0=false).
+      (* Call 'choose_next' *)
+      Have: P_all_wait_ge_one(queue_0).
+    }
+    Else { Have: queue_3 = queue_0. }
+  }
+}
+Prove: P_all_wait_ge_one(queue_0).
+Prover Alt-Ergo  returns Valid (Qed:153ms) (23ms) (40)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 116):
+Prove: P_all_wait_ge_one(null).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (20ms) (16)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 117):
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:122: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*)
+   (target: process_node*)
+Assume {
+  Type: is_sint32(next_time_0) /\ is_sint32(next_time_1) /\
+      is_sint32(next_time_2) /\ is_sint32(next_time_3) /\
+      is_sint32(next_time_4) /\ is_sint32(tmp_4_0) /\ is_sint32(tmp_5_0) /\
+      is_sint32(unknown_0).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(null).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(queue_0).
+  (* Invariant *)
+  Have: 0 < next_time_4.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_5_0) /\ (tmp_5_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_5_0 != 0.
+  If next_time_4 <= 999
+  Then {
+    Have: (ta_tmp_4_0=false) /\ (next_time_4 = next_time_5) /\
+        (queue_0 = queue_1).
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= tmp_4_0) /\ (tmp_4_0 <= 2147483646).
+    If tmp_4_0 != 0
+    Then {
+      Have: next_time_5 = next_time_1.
+      (* Call 'unknown' *)
+      Have: ((-2147483648) <= new_id_0) /\ (new_id_0 <= 2147483646).
+      (* Call 'malloc' *)
+      Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+      (* Admit *)
+      Have: valid_rw(Malloc_0, new_process_0, 3).
+      (* Call 'unknown' *)
+      Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+      Have: (1 + next_time_1) = next_time_0.
+    }
+    Else {
+      Have: (next_time_5 = next_time_3) /\ (queue_1 = queue_2).
+      If 2 <= next_time_3
+      Then {
+        Have: (ta_p_0=false) /\ (next_time_3 = next_time_2).
+        Have: (1 + next_time_0) = next_time_2.
+      }
+      Else { Have: (next_time_3 = next_time_0) /\ (queue_2 = queue_3). }
+    }
+  }
+  Else {
+    Have: (next_time_4 = next_time_3) /\ (queue_0 = queue_2).
+    If 2 <= next_time_3
+    Then {
+      Have: (ta_p_0=false) /\ (next_time_3 = next_time_2).
+      Have: (1 + next_time_0) = next_time_2.
+    }
+    Else { Have: (next_time_3 = next_time_0) /\ (queue_2 = queue_3). }
+  }
+  (* Invariant *)
+  Have: P_all_wait_ge_one(queue_3).
+}
+Prove: 0 < next_time_0.
+Prover Alt-Ergo  returns Valid (Qed:162ms) (26ms) (72)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 117):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 51) in 'append_to_queue'' in 'main' at call 'append_to_queue' (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 126)
+:
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:122: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*)
+   (target: process_node*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 52) in 'append_to_queue'' in 'main' at call 'append_to_queue' (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 126)
+:
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:122: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*)
+   (target: process_node*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 53) in 'append_to_queue'' in 'main' at call 'append_to_queue' (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 126)
+:
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:122: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*)
+   (target: process_node*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 54) in 'append_to_queue'' in 'main' at call 'append_to_queue' (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 126)
+:
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:122: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*)
+   (target: process_node*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 65) in 'choose_next'' in 'main' at initialization of 'p' (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 128)
+:
+Prove: true.
+Prover Qed returns Valid (16ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 66) in 'choose_next'' in 'main' at initialization of 'p' (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 128)
+:
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 98) in 'check_queue'' in 'main' at call 'check_queue' (file output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c, line 132)
+:
+FRAMAC_SHARE/libc/stdlib.h:394: warning from wp:
+ - Warning: Ignored Hypothesis
+   Reason: Allocation, initialization and danglingness not yet implemented
+(allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:122: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*)
+   (target: process_node*)
+Assume {
+  Type: is_sint32(next_time_0) /\ is_sint32(next_time_1) /\
+      is_sint32(next_time_2) /\ is_sint32(tmp_4_0) /\ is_sint32(tmp_5_0) /\
+      is_sint32(unknown_0).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(null).
+  (* Invariant *)
+  Have: P_all_wait_ge_one(queue_1).
+  (* Invariant *)
+  Have: 0 < next_time_2.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_5_0) /\ (tmp_5_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_5_0 != 0.
+  If next_time_2 <= 999
+  Then {
+    Have: (ta_tmp_4_0=false) /\ (next_time_2 = next_time_3) /\
+        (queue_1 = queue_2).
+    (* Call 'unknown' *)
+    Have: ((-2147483648) <= tmp_4_0) /\ (tmp_4_0 <= 2147483646).
+    If tmp_4_0 != 0
+    Then {
+      Have: next_time_3 = next_time_0.
+      (* Call 'unknown' *)
+      Have: ((-2147483648) <= new_id_0) /\ (new_id_0 <= 2147483646).
+      (* Call 'malloc' *)
+      Have: ((!P_is_allocable(fc_heap_status_0, 16)) -> (null = malloc_0)).
+      (* Admit *)
+      Have: valid_rw(Malloc_0, new_process_0, 3).
+      (* Call 'unknown' *)
+      Have: ((-2147483648) <= unknown_0) /\ (unknown_0 <= 2147483646).
+      (* Call 'append_to_queue' *)
+      Have: P_all_wait_ge_one(queue_0).
+    }
+    Else {
+      Have: (next_time_3 = next_time_1) /\ (queue_2 = queue_3).
+      If 2 <= next_time_1
+      Then {
+        Have: (ta_p_0=false).
+        (* Call 'choose_next' *)
+        Have: P_all_wait_ge_one(queue_0).
+      }
+      Else { Have: queue_3 = queue_0. }
+    }
+  }
+  Else {
+    Have: (next_time_2 = next_time_1) /\ (queue_1 = queue_3).
+    If 2 <= next_time_1
+    Then {
+      Have: (ta_p_0=false).
+      (* Call 'choose_next' *)
+      Have: P_all_wait_ge_one(queue_0).
+    }
+    Else { Have: queue_3 = queue_0. }
+  }
+}
+Prove: P_all_wait_ge_one(queue_0).
+Prover Alt-Ergo  returns Valid (Qed:141ms) (25ms) (40)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function run_process
+------------------------------------------------------------
+
+Goal Assigns nothing in 'run_process':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:55: Warning: 
+  No \from specification for assigned pointer 'n->next'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:55: Warning: 
+  No \from specification for assigned pointer '*q'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:69: Warning: 
+  No 'assigns' specification for function 'choose_next'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/ops-4.6/live25/heap-data_process_queue/heap-data_process_queue.acsl.c:112: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

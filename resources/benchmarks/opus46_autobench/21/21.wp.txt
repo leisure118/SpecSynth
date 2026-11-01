@@ -1,0 +1,106 @@
+[kernel] Parsing output/ops-4.6/autobench/21/21.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:            12
+  Alt-Ergo :       1 (8ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/21/21.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/21/21.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/21/21.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/21/21.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/21/21.acsl.c, line 13):
+Let x_1 = 1 + x.
+Assume {
+  Type: is_sint32(m) /\ is_sint32(n) /\ is_sint32(x) /\ is_sint32(x_1).
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: 0 < m.
+  (* Invariant *)
+  Have: m <= x.
+  (* Invariant *)
+  Have: ((2 <= n) -> (m < n)).
+  (* Then *)
+  Have: x < n.
+}
+Prove: m <= x_1.
+Prover Alt-Ergo  returns Valid (Qed:8ms) (8ms) (14)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/21/21.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/21/21.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (8ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/21/21.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/21/21.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/21/21.acsl.c, line 15) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/21/21.acsl.c, line 15) (2/2):
+Call Result at line 19
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/autobench/21/21.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/autobench/21/21.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/21/21.acsl.c:4: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

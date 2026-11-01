@@ -109,21 +109,34 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
     entry = PACKAGE / 'lib/bin.js'
     task_root=ROOT/'runtime/harness-tasks' if output_format=='files' else None
     if task_root is not None:task_root.mkdir(parents=True,exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix='nl2verus-dsh-',dir=task_root) as folder:
+    from .harness_session import workspace_directory, current_session
+    with workspace_directory(task_root) as folder:
         base = Path(folder)
-        workspace = base / 'workspace'; workspace.mkdir()
-        home = base / 'home'; home.mkdir()
+        workspace = base / 'workspace'; workspace.mkdir(exist_ok=True)
+        home = base / 'home'; home.mkdir(exist_ok=True)
+        compact=output_format=='files' and os.environ.get('XUANJIAN_HARNESS_COMPACT')=='1'
+        effective_child=(sub_profile or profile) if compact else sub_profile
         config = base / 'provider.patch.yml'
-        config.write_text(json.dumps(patch_for(profile, workspace, sub_profile)), encoding='utf-8')
+        session=current_session() if output_format=='files' else None
+        patch=patch_for(profile, workspace, effective_child)
+        if session is not None:
+            patch += [{'id':'headless-runner','disabled':True},{'insert':[{'id':'platform-persistent-harness','name':str(ROOT/'engine/cli_plugins/persistent_harness.mjs')}]}]
+        config.write_text(json.dumps(patch), encoding='utf-8')
         config.chmod(0o600)
-        env = {k: v for k, v in os.environ.items() if k in ('PATH', 'TMPDIR', 'SYSTEMROOT', 'HTTPS_PROXY', 'HTTP_PROXY', 'NO_PROXY', 'SHELL')}
+        env = {k: v for k, v in os.environ.items() if k in ('PATH', 'TMPDIR', 'SYSTEMROOT', 'HTTPS_PROXY', 'HTTP_PROXY', 'NO_PROXY', 'SHELL', 'XUANJIAN_PROOF_CPUS', 'XUANJIAN_PROOF_CONCURRENCY')}
         user_home = Path.home()
         env.update(HOME=str(home), DSH_HOME=str(base / 'dsh-home'),
                    DSH_PLATFORM_KEY=profile.get('api_key') or 'not-required',
                    RUSTUP_HOME=os.environ.get('RUSTUP_HOME', str(user_home / '.rustup')),
                    CARGO_HOME=os.environ.get('CARGO_HOME', str(user_home / '.cargo')))
+        env['DSH_PACKAGE_JSON']=str(PACKAGE/'package.json')
         env['DSH_SUBAGENT_AUDIT']=str(workspace/'subagent-audit.jsonl')
-        if sub_profile:env['DSH_SUBAGENT_KEY']=sub_profile.get('api_key') or 'not-required'
+        env['DSH_REQUIRE_SUBAGENT']='1' if require_subagent else '0'
+        if compact:env['DSH_COMPACT_C']='1'
+        if artifact_dir is not None:
+            Path(artifact_dir).mkdir(parents=True,exist_ok=True)
+            env['DSH_PROGRESS_FILE']=str(Path(artifact_dir).resolve()/'live-progress.jsonl')
+        if effective_child:env['DSH_SUBAGENT_KEY']=effective_child.get('api_key') or 'not-required'
         verifier_command = [str(verus_path()), str(workspace / 'output.rs'), '--crate-type', 'lib', '--crate-name', 'submission']
         task = (prompt + '\n\nYou are running inside the official DeepSeek Harness. Use your real file tools to create output.rs in the current workspace. '
                 'Use the bash tool to execute this verifier command (arguments are shell quoted):\n' +
@@ -137,7 +150,7 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
             filename = 'answer.json'
             python = ROOT / '.venv/bin/python'
             verification_command = shlex.join([str(python if python.is_file() else Path(sys.executable)), str(ROOT / 'scripts/harness_verify_c.py'), str(workspace / 'answer.json')])
-            input_dir=workspace/'input';input_dir.mkdir()
+            input_dir=workspace/'input';input_dir.mkdir(exist_ok=True)
             try:
                 sources=json.JSONDecoder().raw_decode(prompt.split('Original source:\n',1)[1])[0]
                 for source in sources:
@@ -149,7 +162,7 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
             env['PYTHONPATH']=str(ROOT)
             # Give the isolated CLI only plugin discovery and the daemon socket,
             # never the developer's Docker registry credentials or contexts.
-            docker_config=workspace/'.docker';docker_config.mkdir()
+            docker_config=workspace/'.docker';docker_config.mkdir(exist_ok=True)
             plugin_dirs=[user_home/'.docker/cli-plugins',Path('/Applications/Docker.app/Contents/Resources/cli-plugins')]
             (docker_config/'config.json').write_text(json.dumps({'cliPluginsExtraDirs':[str(p) for p in plugin_dirs if p.is_dir()]}))
             env['DOCKER_CONFIG']=str(docker_config)
@@ -173,6 +186,8 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
                     'Never claim a subagent was launched without native tool evidence. Never reuse an unproved callee contract. '
                     'Platform proof policy overrides permissive admit/fallback examples: no new admit, assume, axiom or unproved fallback contracts. '
                     'Store contracts.json, per-function .acsl.c/.wp.txt and summary.json under output/. '
+                    'For a root function with no callers (such as main), a reusable function contract is optional: record its actual verification status in summary.json; do not repeatedly call save-contract if it has only loop annotations. '
+                    'Use synchronous bash calls for these small tools; do not start background jobs or poll. '
                     'Merge annotations back into the original project paths for answer.json, preserving original tokens and assertions. '
                     'Finish only after running the platform final verification command given above. Do not stop after writing a plan.')
         if sub_profile:
@@ -181,6 +196,21 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
                      'Ask it to return annotations or complete annotated source as plain text/JSON. The official runtime delivers its final answer to you automatically. '
                      'You, the main DeepSeek agent, must execute spec-split, tool-based injection, Frama-C verification, contract collection and repairs using that answer. '
                      'If the child fails, report the failure; never fabricate its output or replace its generation with your own.')
+        if compact:
+            from .c_compact import task_prompt
+            task=task_prompt(prompt)
+        repair=bool(session is not None and session.rounds and 'Previous candidate:\n' in prompt)
+        if repair:
+            require_subagent=False
+            env['DSH_REQUIRE_SUBAGENT']='0'
+            env['DSH_REPAIR_MODE']='1'
+            task=('REPAIR ONLY: continue this same case and existing annotations under the original Skill and proof policy. '
+                  'Do not restart specification generation, repeat planning/splitting, or launch another subagent. '
+                  'Use the existing candidate below as the baseline. Modify only annotations needed for the failed proof goals; '
+                  'retain all unrelated annotations and preserve original C tokens and assertions. '
+                  'Write the complete repaired files JSON to answer.json using the native write tool. '
+                  'Do not run an internal proof; the platform verifies the repaired candidate independently.\n'
+                  'Previous candidate:\n'+prompt.split('Previous candidate:\n',1)[1])
         cmd = [node, str(entry), '--profile', 'headless', '--patch', str(config), '--json', '-']
         def redact(value):
             for sensitive, replacement in [((sub_profile or {}).get('api_key'), '[REDACTED]'), ((sub_profile or {}).get('base_url'), '[SUBAGENT_ENDPOINT]'), (profile.get('api_key'), '[REDACTED]'), (profile['base_url'], '[MODEL_ENDPOINT]'), (str(base), '[TASK]')]:
@@ -188,19 +218,31 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
             value = re.sub(r'https?://[^\s<>"\\]+', '[URL]', value)
             return value
         timed_out = False
-        with tempfile.TemporaryFile() as out, tempfile.TemporaryFile() as err:
-            proc = subprocess.Popen(cmd, cwd=workspace, env=env, stdin=subprocess.PIPE, stdout=out, stderr=err, start_new_session=True)
+        (workspace/filename).unlink(missing_ok=True)
+        (workspace/'subagent-audit.jsonl').write_text('')
+        if session is not None:
+            identity=(profile['model'],profile['base_url'],profile.get('api_key'),json.dumps(effective_child,sort_keys=True))
             try:
-                proc.communicate(task.encode(), timeout=timeout)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL); proc.communicate()
-                timed_out = True
-            oversized = out.tell() > 2_000_000
-            out.seek(0); raw = out.read(2_000_000).decode('utf-8', errors='replace')
-            err.seek(0)
-            # Never publish reasoning from stderr; only bounded CLI diagnostics.
-            diagnostics = [redact(line)[:2000] for line in err.read(1_000_000).decode('utf-8', errors='replace').splitlines()
-                           if line.startswith('dsh:') and not line.startswith('dsh: reasoning:')][-5:]
+                raw=session.request(cmd,workspace,env,task,timeout,identity)
+            except TimeoutError as exc:
+                raw=getattr(exc,'raw','');timed_out=True
+            oversized=False;diagnostics=[]
+            exit_code=0 if not timed_out else -9
+        else:
+            with tempfile.TemporaryFile() as out, tempfile.TemporaryFile() as err:
+                proc = subprocess.Popen(cmd, cwd=workspace, env=env, stdin=subprocess.PIPE, stdout=out, stderr=err, start_new_session=True)
+                try:
+                    proc.communicate(task.encode(), timeout=timeout)
+                except subprocess.TimeoutExpired:
+                    os.killpg(proc.pid, signal.SIGKILL); proc.communicate()
+                    timed_out = True
+                oversized = out.tell() > 2_000_000
+                out.seek(0); raw = out.read(2_000_000).decode('utf-8', errors='replace')
+                err.seek(0)
+                # Never publish reasoning from stderr; only bounded CLI diagnostics.
+                diagnostics = [redact(line)[:2000] for line in err.read(1_000_000).decode('utf-8', errors='replace').splitlines()
+                               if line.startswith('dsh:') and not line.startswith('dsh: reasoning:')][-5:]
+            exit_code=proc.returncode
         result = parse_events(raw, redact, require_complete=False)
         native_events = result.pop('native_events')
         session_id = result.pop('session_id')
@@ -211,7 +253,7 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
                    'upstream': UPSTREAM, 'entrypoint_sha256': hashlib.sha256(entry.read_bytes()).hexdigest(),
                    'command': ['node', '@deepseek-ai/dsh/lib/bin.js', '--profile', 'headless', '--patch', '[PRIVATE_CONFIG]', '--json', '-'],
                    'session_id': session_id, 'sandbox': 'workspace-write', 'approval_policy': 'never',
-                   'exit_code': proc.returncode, 'terminal_reason': reason, 'diagnostics': diagnostics,
+                   'exit_code': exit_code, 'operation': 'repair' if repair else 'generate', 'process_reused': bool(session and session.rounds>1), 'session_transport': 'persistent-jsonl' if session else 'one-shot', 'terminal_reason': reason, 'diagnostics': diagnostics,
                    'events_kind': 'upstream-json-projection-without-thinking', 'events': native_events}
         def fail(code, message):
             error = ProviderError(code, message, usage=result['usage'])
@@ -221,7 +263,7 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
             raise error
         audit_file=workspace/'subagent-audit.jsonl'
         child_events=[json.loads(line) for line in audit_file.read_text().splitlines()] if audit_file.exists() else []
-        runtime.update(subagent_events=child_events,subagent_model=(sub_profile or profile)['model'],subagent_inherits_main=not bool(sub_profile))
+        runtime.update(subagent_events=child_events,subagent_model=(sub_profile or profile)['model'],subagent_inherits_main=not bool(sub_profile),workflow='compact-c-v1' if compact else 'standard')
         if artifact_dir is not None:
             evidence=Path(artifact_dir);evidence.mkdir(parents=True,exist_ok=True)
             (evidence/'harness-events.jsonl').write_text('\n'.join(json.dumps(e,ensure_ascii=False) for e in native_events))
@@ -241,7 +283,7 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
             fail('agent_output', '官方 Harness 事件输出超过限制，已保留部分事件。')
         if reason.get('kind') == 'max-tokens':
             fail('output_limit', '官方 DeepSeek Harness 输出预算已耗尽，尚未完成生成；这不是网络连接失败。')
-        if proc.returncode or not complete:
+        if exit_code or not complete:
             detail = str((reason.get('error') or {}).get('message') or '')[:1500]
             error_code = str((reason.get('error') or {}).get('code') or 'CLI_EXIT')[:100]
             if not detail and diagnostics: detail = diagnostics[-1]
@@ -249,7 +291,7 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
         if not result['agent_events']:
             fail('agent_tools', '官方 Harness 未执行工具，未将普通文本当作 Agent 工作结果。')
         if require_subagent and (not any(e.get('type')=='end' and e.get('stop_reason')=='completed' for e in child_events) or not any(e.get('tool')=='subagent' and e.get('status')=='completed' for e in result['agent_events'])):
-            fail('agent_delegation','原生 Sub-agent 未正常完成任务，未回退为主模型自行处理。')
+            fail('agent_delegation','所选子 Agent 未执行或未正常完成；主模型自行生成的候选不能替代子模型流程。请查看子 Agent 事件。')
         target = workspace / filename
         if target.is_symlink() or not target.is_file() or target.stat().st_size > MAX_CODE_BYTES:
             fail('agent_output', '官方 Harness 未创建有效的 output.rs 文件。')

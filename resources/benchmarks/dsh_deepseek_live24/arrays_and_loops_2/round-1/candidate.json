@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "arrays_and_loops_2.c",
+      "content": "/*@\n  requires n >= 1;\n  requires \\valid(a + (0..n-1));\n  assigns \\nothing;\n  ensures \\forall integer k; 0 <= k < n ==> \\result >= a[k];\n*/\nint arraymax(int* a, int n) {\n  int i = 1;\n  int max = a[0];\n  /*@\n    loop invariant 1 <= i <= n;\n    loop invariant \\forall integer k; 0 <= k < i ==> max >= a[k];\n    loop assigns i, max;\n    loop variant n - i;\n  */\n  while (i < n) {\n    if (max < a[i])\n    max = a[i];\n    i = i + 1;\n  }\n  //@ assert \\forall integer k;  0 <= k < n ==> max >=  a[k];\n  return max;\n}  \n"
+    }
+  ]
+}

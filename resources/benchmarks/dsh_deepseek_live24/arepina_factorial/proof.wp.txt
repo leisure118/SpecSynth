@@ -1,0 +1,102 @@
+Frama-C 证明目标 9/9
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/arepina_factorial/round-2/proof/arepina_factorial.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function factorial
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             5
+  Alt-Ergo :       4 (34ms-44ms)
+------------------------------------------------------------
+  Axiomatic 'Factorial'
+------------------------------------------------------------
+
+Lemma non_negative:
+Assume: 'step' 'nil'
+Prove: (0<=i_0) -> (0<(L_factorial i_0))
+Prover Z3 4.8.12 returns Valid (120ms) (23154)
+Prover Alt-Ergo  returns Valid (39ms) (22)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function factorial
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_factorial/round-2/proof/arepina_factorial.c, line 15) in 'factorial':
+Let x = factorial_0 * L_factorial(0).
+Assume {
+  Type: is_uint32(i) /\ is_uint64(factorial_0).
+  (* Invariant *)
+  Have: x = L_factorial(i).
+}
+Prove: x = factorial_0.
+Prover Z3 4.8.12 returns Valid (Qed:7ms) (90ms) (4388)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (34ms) (15)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_factorial/round-2/proof/arepina_factorial.c, line 22):
+Let x = f * L_factorial(i).
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(i) /\ is_uint64(f).
+  (* Invariant *)
+  Have: x = L_factorial(i_1).
+  (* Then *)
+  Have: i != 0.
+}
+Prove: (to_uint64(f * i) * L_factorial(to_uint32(i - 1))) = x.
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (130ms) (37200)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (42ms) (232)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_factorial/round-2/proof/arepina_factorial.c, line 22):
+Prove: true.
+Prover Qed returns Valid (0.73ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/arepina_factorial/round-2/proof/arepina_factorial.c, line 23) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/arepina_factorial/round-2/proof/arepina_factorial.c, line 23) (2/2):
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'factorial':
+Effect at line 26
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arepina_factorial/round-2/proof/arepina_factorial.c, line 26):
+Let x = to_uint32(i - 1).
+Let x_1 = f * L_factorial(i).
+Assume {
+  Type: is_uint32(i_1) /\ is_uint32(i) /\ is_uint64(f).
+  (* Invariant *)
+  Have: x_1 = L_factorial(i_1).
+  (* Then *)
+  Have: i != 0.
+  (* Invariant *)
+  Have: (to_uint64(f * i) * L_factorial(x)) = x_1.
+}
+Prove: x < i.
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (130ms) (37454)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (44ms) (313)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arepina_factorial/round-2/proof/arepina_factorial.c, line 26):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T19:40:36+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

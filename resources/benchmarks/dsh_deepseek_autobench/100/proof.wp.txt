@@ -1,0 +1,88 @@
+Frama-C 证明目标 10/10
+[kernel] Parsing resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[wp] 10 goals scheduled
+[wp] Proved goals:   10 / 10
+  Qed:             9
+  Alt-Ergo :       1 (30ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 9):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 10):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 15):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 16):
+Assume {
+  Type: is_sint32(n) /\ is_sint32(y) /\ is_sint32(1 + y) /\ is_sint32(n - y).
+  (* Pre-condition *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: y <= n.
+  (* Then *)
+  Have: y < n.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: y <= 2147483646.
+}
+Prove: y <= (2147483647 + n).
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (120ms) (35280)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (30ms) (23)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 19):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_autobench/100/round-1/proof/100.c:4: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T15:02:25+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

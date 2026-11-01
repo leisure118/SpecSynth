@@ -49,8 +49,25 @@ def write(record: dict) -> None:
     JsonStore._write_json(directory / (record["id"] + ".json"), record)
 
 
+def current(record: dict) -> dict:
+    version = record.get("active_version", record["versions"][-1]["version"])
+    return next(item for item in record["versions"] if item["version"] == version)
+
+
+def effective(record: dict, item: dict) -> dict:
+    # Agent compatibility is binding metadata, never a Skill text revision.
+    agents = record.get("agent_compatibility")
+    if agents and item["instructions"] == record["versions"][0]["instructions"]:
+        return {**item, "agents": agents}
+    return item
+
+
 def public(record: dict) -> dict:
-    return record["versions"][-1] | {"archived": record.get("archived", False)}
+    return {
+        key: value
+        for key, value in effective(record, current(record)).items()
+        if key != "instructions"
+    } | {"archived": record.get("archived", False)}
 
 
 def ensure_bundled_skills() -> list[dict]:
@@ -67,13 +84,15 @@ def ensure_bundled_skills() -> list[dict]:
                     "id": identifier,
                     "name": name,
                     "instructions": path.read_text(),
-                    "agents": ["deepseek-harness"],
+                    "agents": ["deepseek-harness", "codex", "claude-code"],
                     "enabled": True,
                     "version": 1,
                     "updated_at": utcnow().isoformat(),
                 }
                 write({"id": identifier, "versions": [snapshot], "archived": False})
-            refs.append({"id": identifier, "version": 1, "enabled": True})
+            record = read(identifier)
+            selected = current(record)
+            refs.append({"id": identifier, "version": selected["version"], "enabled": True})
     return refs
 
 
@@ -88,6 +107,8 @@ def list_skills() -> list[dict]:
 
 
 def create_skill(body: dict) -> dict:
+    if not body.get("instructions"):
+        raise SkillError("创建 Skill 需要由后端提供正文。")
     with _LOCK:
         identifier = uuid.uuid4().hex
         snapshot = {**body, "id": identifier, "version": 1, "updated_at": utcnow().isoformat()}
@@ -105,7 +126,7 @@ def get_skill(identifier: str, version: int | None = None) -> dict:
     found = next((item for item in record["versions"] if item["version"] == version), None)
     if not found:
         raise SkillNotFound("Skill 版本不存在。")
-    return found
+    return {key: value for key, value in effective(record, found).items() if key != "instructions"}
 
 
 def update_skill(identifier: str, body: dict) -> dict:
@@ -113,12 +134,20 @@ def update_skill(identifier: str, body: dict) -> dict:
         record = read(identifier)
         if record.get("archived"):
             raise SkillConflict("Skill 已归档。")
-        if body.get("version") != record["versions"][-1]["version"]:
+        selected = current(record)
+        if body.get("version") != selected["version"]:
             raise SkillConflict("Skill 已更新，请刷新后重试。")
-        snapshot = {**body, "id": identifier, "version": body["version"] + 1, "updated_at": utcnow().isoformat()}
+        snapshot = {
+            **body,
+            "instructions": body.get("instructions") or selected["instructions"],
+            "id": identifier,
+            "version": max(item["version"] for item in record["versions"]) + 1,
+            "updated_at": utcnow().isoformat(),
+        }
         snapshot.pop("version", None)
-        snapshot["version"] = body["version"] + 1
+        snapshot["version"] = max(item["version"] for item in record["versions"]) + 1
         record["versions"].append(snapshot)
+        record["active_version"] = snapshot["version"]
         write(record)
         return public(record)
 
@@ -133,13 +162,19 @@ def archive_skill(identifier: str) -> None:
 def resolve_assistant(config: AssistantConfig | None) -> AssistantConfig | None:
     if config is None:
         return None
-    if config.agent == "deepseek-harness" and not config.skills and not config.skill_refs:
+    if config.agent in ("deepseek-harness", "codex", "claude-code") and not config.skills and not config.skill_refs:
         config = config.model_copy(
             update={"skill_refs": [SkillReference(**ref) for ref in ensure_bundled_skills()]}
         )
+    if any(not skill.instructions for skill in config.skills):
+        raise SkillError("Skill 正文必须在后端绑定。")
     skills = [skill.model_dump() for skill in config.skills]
     for ref in config.skill_refs:
-        item = get_skill(ref.id, ref.version)
+        record = read(ref.id)
+        item = next((entry for entry in record["versions"] if entry["version"] == ref.version), None)
+        if item is None:
+            raise SkillNotFound("Skill 版本不存在。")
+        item = effective(record, item)
         skills.append(
             Skill(**{key: item[key] for key in ("id", "name", "instructions", "agents", "enabled")}).model_dump()
             | {"enabled": ref.enabled and item["enabled"]}

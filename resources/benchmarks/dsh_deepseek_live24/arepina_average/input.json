@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "arepina_average.c",
+      "content": "int average(int a, int b)\n{\n   int average = 0;\n\tint greater;\n\tint smaller;\n\tif (a > b) {\n\t   greater = a;\n\t   smaller = b;\n\t} else {\n\t   greater = b;\n\t   smaller = a;\n\t}\n\tif (a >= 0 && b >= 0) {\n\t   average = smaller + (greater - smaller) / 2;\n\t} else if (a < 0 && b < 0) {\n\t   average = greater + (smaller - greater) / 2;\n\t} else if ((a >= 0 && b <= 0) || (a <= 0 && b >= 0)) {\n\t   average = (a + b) / 2;\n\t}\n   return average;\n}\n#ifdef OUT_OF_TASK\n#include <stdio.h>\nint main(void)\n{\n   int a = average(3,30);\n   int b = average(-5,-20);\n   int c = average(7,-10);\n   int d = average(-2,15);\n   //@ assert a == 16;\n   //@ assert b == -13;\n   //@ assert c == -3;\n   //@ assert d == 8;\n   return 0;\n}\n#endif"
+    }
+  ],
+  "sha256": "3f45d5dd0a650c9eeec9b744bf7bc59ca7adf6d12a79935db474bcf372f0c444"
+}

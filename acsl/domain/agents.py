@@ -14,7 +14,7 @@ AgentId = Literal['default', 'codex', 'claude-code', 'deepseek-harness']
 class Skill(BaseModel):
     id: str = Field(min_length=1, max_length=80)
     name: str = Field(min_length=1, max_length=80)
-    instructions: str = Field(min_length=1, max_length=24000)
+    instructions: str = Field(default='', max_length=24000)
     agents: list[AgentId] = Field(default_factory=lambda: list(AGENTS), max_length=4)
     enabled: bool = True
 

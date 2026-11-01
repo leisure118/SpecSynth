@@ -1,0 +1,1 @@
+{"files":[{"path":"120.c","content":"int main() {\n  int i = 1;\n  int sn = 0;\n  \n  /*@\n    loop invariant 1 <= i <= 9;\n    loop invariant sn == i - 1;\n    loop assigns i, sn;\n    loop variant 9 - i;\n  */\n  while (i <= 8) {\n    i = i + 1;\n    sn = sn + 1;\n  }\n  // post-condition\n  if (sn != 8) {\n    //@ assert(sn == 0);\n  }\n}\n"}]}

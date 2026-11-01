@@ -14,8 +14,8 @@ from pydantic import BaseModel, Field, model_validator
 
 from acsl.adapters.github_import import GithubImport, GithubImportError, import_sources
 from acsl.adapters.storage import JsonStore, utcnow
-from acsl.application.agent_execution import initial_prompt
 from acsl.application.demo_cases import get_demo_case
+from acsl.application.privacy import public_payload
 from acsl.application.skills import SkillError, resolve_assistant
 from acsl.contracts.runs import RunRequest
 from acsl.domain.agents import AssistantConfig, compose_description
@@ -100,6 +100,7 @@ class ProjectRun(BaseModel):
     source_name: str = Field(default="", max_length=240)
     model_name: str = "qwen-turbo"
     timeout_sec: int = Field(default=200, ge=10, le=3600)
+    adaptive_timeout: bool = True
     execution: Literal["live", "replay"] = "live"
     verification_only: bool = False
     assistant: AssistantConfig | None = None
@@ -139,6 +140,18 @@ class ProjectService:
             return resolve_assistant(config)
         except SkillError as exc:
             raise ProjectValidation(str(exc)) from exc
+
+    @staticmethod
+    def _hydrate_private_skills(config, previous):
+        if config is None:
+            return None
+        saved = {item["id"]: item.get("instructions", "") for item in (previous or {}).get("skills", [])}
+        for skill in config.skills:
+            if not skill.instructions:
+                skill.instructions = saved.get(skill.id, "")
+                if not skill.instructions:
+                    raise ProjectValidation("此 Skill 缺少后端绑定的正文。")
+        return config
 
     def _read(self, project_id: str) -> dict:
         if not re.fullmatch(r"[a-f0-9]{32}", project_id):
@@ -342,13 +355,14 @@ class ProjectService:
         stream = io.BytesIO()
         with zipfile.ZipFile(stream, "w", zipfile.ZIP_DEFLATED) as bundle:
             for item in project["files"]:
-                bundle.writestr("source/" + item["path"], item["content"])
-            bundle.writestr("project.json", json.dumps(snapshot, ensure_ascii=False, indent=2))
+                bundle.writestr("source/" + item["path"], public_payload(item["content"]))
+            bundle.writestr("project.json", json.dumps(public_payload(snapshot), ensure_ascii=False, indent=2))
         return stream.getvalue(), f"project-{project_id}.zip"
 
     def save_assistant(self, project_id: str, body: AssistantConfig) -> dict:
         with self._lock:
             project = self._read(project_id)
+            body = self._hydrate_private_skills(body, project.get("assistant"))
             self._resolve_assistant(body)
             project["assistant"] = body.model_dump()
             self._write(project)
@@ -360,21 +374,17 @@ class ProjectService:
             raise ProjectConflict("源码已更新，请保存并重试。")
         if not any(item["path"] == body.entry_path for item in project["files"]):
             raise ProjectValidation("请选择项目中的文件。")
-        config = self._resolve_assistant(body.assistant or AssistantConfig(**project.get("assistant", {})))
+        config = self._resolve_assistant(
+            self._hydrate_private_skills(
+                body.assistant or AssistantConfig(**project.get("assistant", {})),
+                project.get("assistant"),
+            )
+        )
         if config.agent == "default":
             raise ProjectValidation("此接口用于外部 Agent 提示词预览。")
         if sum(len(item["content"].encode()) for item in project["files"]) > 512 * 1024:
             raise ProjectValidation("Agent 输入源码不能超过 512 KiB。")
-        return {
-            "prompt": initial_prompt(
-                project["files"],
-                body.mode,
-                body.description,
-                body.function_signature,
-                config.prompt(project.get("language", "C")),
-            ),
-            "provider_calls": 0,
-        }
+        return {"message": "Skill 正文与执行提示词仅由后端加载。", "provider_calls": 0}
 
     def _replay_case(self, project: dict, body: ProjectRun):
         example_id = (project.get("example") or {}).get("id")
@@ -431,6 +441,7 @@ class ProjectService:
                         file_id=upload["file_id"],
                         model_name=body.model_name,
                         timeout_sec=body.timeout_sec,
+                        adaptive_timeout=body.adaptive_timeout,
                         entry_path=body.entry_path,
                         verification_only=True,
                         max_repair_rounds=0,
@@ -457,6 +468,7 @@ class ProjectService:
                 body.assistant
                 or (AssistantConfig(**project["assistant"]) if project.get("assistant") else None)
             )
+            assistant_config = self._hydrate_private_skills(assistant_config, project.get("assistant"))
             assistant = self._resolve_assistant(assistant_config)
             if not rust and (assistant is None or assistant.agent in ("default", "deepseek-harness")) and body.model_name not in self.models():
                 raise ProjectValidation("Unknown model.")
@@ -540,6 +552,7 @@ class ProjectService:
                     demo_case_id=replay_case["id"] if replay_case else None,
                     model_name=body.model_name,
                     timeout_sec=body.timeout_sec,
+                    adaptive_timeout=body.adaptive_timeout,
                     entry_path=body.entry_path,
                     rust_workflow=workflow,
                     agent_instructions=instructions,

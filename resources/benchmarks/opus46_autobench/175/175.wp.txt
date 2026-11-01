@@ -1,0 +1,315 @@
+[kernel] Parsing output/ops-4.6/autobench/175/175.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/autobench/175/175.acsl.c:28: Warning: 
+  Calling function unknown1 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 17 goals scheduled
+[wp] Proved goals:   17 / 17
+  Qed:             9
+  Alt-Ergo :       8 (6ms-10ms-23ms)
+------------------------------------------------------------
+  Global
+------------------------------------------------------------
+
+Lemma mod2_pred:
+Assume: 'mod2_succ'
+Prove: ((n_0 mod 2)=0) -> (0<n_0) -> (((n_0-1) mod 2)=1)
+Prover Alt-Ergo  returns Valid (7ms) (87)
+
+------------------------------------------------------------
+
+Lemma mod2_succ:
+Prove: ((n_0 mod 2)=0) -> (0<=n_0) -> (((1+n_0) mod 2)=1)
+Prover Z3 4.15.4 returns Valid (19942)
+Prover Alt-Ergo  returns Valid (7ms) (80)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 20):
+Let x_3 = 1 + x_2 + y.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(y) /\ is_sint32(x_3).
+  (* Invariant *)
+  Have: 0 < x_2.
+  (* Invariant *)
+  Have: 0 < y.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Invariant *)
+  Have: ((x_2 + y) % 2) = 0.
+  (* Invariant *)
+  Have: (a % 2) = 1.
+  (* Then *)
+  Have: tmp_0 != 0.
+  If (x_3 % 2) = 1
+  Then { Have: x_2 = x. }
+  Else { Have: x_2 = x_1. Have: (1 + x_1) = x. }
+}
+Prove: 0 < x.
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (32024)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (6ms) (38)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 20):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 21):
+Let x_3 = 1 + x_2 + y_1.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(x_1) /\
+      is_sint32(x_2) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(1 + y_1) /\ is_sint32(x_3).
+  (* Invariant *)
+  Have: 0 < x_2.
+  (* Invariant *)
+  Have: 0 < y_1.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Invariant *)
+  Have: ((x_2 + y_1) % 2) = 0.
+  (* Invariant *)
+  Have: (a % 2) = 1.
+  (* Then *)
+  Have: tmp_0 != 0.
+  If (x_3 % 2) = 1
+  Then { Have: x_2 = x. Have: (2 + y_1) = y. }
+  Else { Have: (x_2 = x_1) /\ ((1 + y_1) = y). Have: (1 + x_1) = x. }
+  (* Invariant *)
+  Have: 0 < x.
+}
+Prove: 0 < y.
+Prover Z3 4.15.4 returns Valid (Qed:11ms) (10ms) (33194)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (6ms) (46)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 22):
+Let x_5 = a_1 % 2.
+Let x_6 = a_2 % 2.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(a_1) /\ is_sint32(a_2) /\
+      is_sint32(flag_0) /\ is_sint32(tmp_0) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(x_4) /\
+      is_sint32(y) /\ is_sint32(y_1) /\ is_sint32(y_2) /\ is_sint32(y_3) /\
+      is_sint32(y_4).
+  If flag_0 != 0
+  Then { Have: a_2 = 0. }
+  Else { Have: a_2 = 1. }
+  (* Invariant *)
+  Have: 0 <= a_2.
+  (* Invariant *)
+  Have: ((flag_0 != 0) -> (x_6 = 0)).
+  (* Invariant *)
+  Have: ((flag_0 = 0) -> (x_6 = 1)).
+  (* Invariant *)
+  Have: 0 < x_4.
+  (* Invariant *)
+  Have: 0 < y_4.
+  (* Invariant *)
+  Have: 0 <= a_1.
+  (* Invariant *)
+  Have: ((x_4 + y_4) % 2) = 0.
+  (* Invariant *)
+  Have: ((flag_0 != 0) -> (x_5 = 0)).
+  (* Invariant *)
+  Have: ((flag_0 = 0) -> (x_5 = 1)).
+  (* Then *)
+  Have: tmp_0 != 0.
+  If flag_0 != 0
+  Then {
+    Have: (x_4 = x_3) /\ (y_4 = y_2).
+    Have: (x_3 + y_2) = a.
+    Have: (1 + x_3) = x_2.
+  }
+  Else {
+    Have: (x_4 = x_2) /\ (y_4 = y_3).
+    Have: (1 + x_2 + y_3) = a.
+    Have: (1 + y_3) = y_2.
+  }
+  If (a % 2) = 1
+  Then { Have: (x_2 = x) /\ (y_2 = y_1). Have: (1 + y_1) = y. }
+  Else { Have: (x_2 = x_1) /\ (y_2 = y). Have: (1 + x_1) = x. }
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: 0 < y.
+}
+Prove: 0 <= a.
+Prover Z3 4.15.4 returns Valid (Qed:20ms) (10ms) (41694)
+Prover Alt-Ergo  returns Valid (Qed:20ms) (8ms) (71)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 23):
+Let x_5 = a_1 % 2.
+Let x_6 = a_2 % 2.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(a_1) /\ is_sint32(a_2) /\
+      is_sint32(flag_0) /\ is_sint32(tmp_0) /\ is_sint32(x) /\
+      is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint32(x_3) /\ is_sint32(x_4) /\
+      is_sint32(y) /\ is_sint32(y_1) /\ is_sint32(y_2) /\ is_sint32(y_3) /\
+      is_sint32(y_4).
+  If flag_0 != 0
+  Then { Have: a_2 = 0. }
+  Else { Have: a_2 = 1. }
+  (* Invariant *)
+  Have: 0 <= a_2.
+  (* Invariant *)
+  Have: ((flag_0 != 0) -> (x_6 = 0)).
+  (* Invariant *)
+  Have: ((flag_0 = 0) -> (x_6 = 1)).
+  (* Invariant *)
+  Have: 0 < x_4.
+  (* Invariant *)
+  Have: 0 < y_4.
+  (* Invariant *)
+  Have: 0 <= a_1.
+  (* Invariant *)
+  Have: ((x_4 + y_4) % 2) = 0.
+  (* Invariant *)
+  Have: ((flag_0 != 0) -> (x_5 = 0)).
+  (* Invariant *)
+  Have: ((flag_0 = 0) -> (x_5 = 1)).
+  (* Then *)
+  Have: tmp_0 != 0.
+  If flag_0 != 0
+  Then {
+    Have: (x_4 = x_3) /\ (y_4 = y_2).
+    Have: (x_3 + y_2) = a.
+    Have: (1 + x_3) = x_2.
+  }
+  Else {
+    Have: (x_4 = x_2) /\ (y_4 = y_3).
+    Have: (1 + x_2 + y_3) = a.
+    Have: (1 + y_3) = y_2.
+  }
+  If (a % 2) = 1
+  Then { Have: (x_2 = x) /\ (y_2 = y_1). Have: (1 + y_1) = y. }
+  Else { Have: (x_2 = x_1) /\ (y_2 = y). Have: (1 + x_1) = x. }
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: 0 < y.
+  (* Invariant *)
+  Have: 0 <= a.
+}
+Prove: ((x + y) % 2) = 0.
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (10ms) (56439)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (23ms) (646)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (0.79ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 24):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 25):
+Let x_1 = x + y.
+Let x_2 = 1 + x + y.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y) /\
+      is_sint32(1 + x) /\ is_sint32(1 + y) /\ is_sint32(x_2).
+  (* Residual *)
+  When: (x_2 % 2) != 1.
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: 0 < y.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Invariant *)
+  Have: (x_1 % 2) = 0.
+  (* Invariant *)
+  Have: (a % 2) = 1.
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Invariant *)
+  Have: (-1) <= x_1.
+  (* Invariant *)
+  Have: ((2 + x + y) % 2) = 0.
+}
+Prove: false.
+Prover Alt-Ergo  returns Valid (Qed:7ms) (12ms) (214)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/175/175.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/175/175.acsl.c, line 45):
+Let x_1 = 1 + a.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(flag_0) /\ is_sint32(x) /\ is_sint32(y) /\
+      is_sint32(x_1).
+  (* Residual *)
+  When: flag_0 != 0.
+  (* Invariant *)
+  Have: 0 < x.
+  (* Invariant *)
+  Have: 0 < y.
+  (* Invariant *)
+  Have: 0 <= a.
+  (* Invariant *)
+  Have: ((x + y) % 2) = 0.
+  (* Invariant *)
+  Have: (a % 2) = 0.
+}
+Prove: (x_1 % 2) = 1.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (31211)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (143)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/175/175.acsl.c, line 26) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/175/175.acsl.c, line 26) (2/2):
+Call Result at line 28
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/175/175.acsl.c:9: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

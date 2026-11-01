@@ -4,7 +4,6 @@ from __future__ import annotations
 import hashlib
 import json
 import threading
-from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
@@ -39,7 +38,7 @@ class BenchmarkRunRequest(BaseModel):
     model_name: str = Field(default="qwen-turbo", max_length=120)
     assistant: AssistantConfig = Field(default_factory=AssistantConfig)
     timeout_sec: int = Field(default=200, ge=10, le=3600)
-    max_repair_rounds: int = Field(default=0, ge=0, le=3)
+    max_repair_rounds: int = Field(default=3, ge=0, le=3)
     description: str = Field(default="", max_length=16000)
 
 
@@ -50,7 +49,6 @@ class BenchmarkCatalog:
     def catalog(self) -> dict:
         return {"items": json.loads((self.data_dir / "index.json").read_text())}
 
-    @lru_cache(maxsize=4)
     def snapshot(self, benchmark_id: str) -> dict:
         if benchmark_id not in {item["id"] for item in self.catalog()["items"]}:
             raise BenchmarkNotFound("基准不存在")
@@ -70,10 +68,16 @@ class BenchmarkCatalog:
         result = {key: value for key, value in row.items() if key != "artifacts"}
         for kind in ("source", "log"):
             relative = row["artifacts"].get(kind)
-            result[kind] = (self.data_dir / relative).read_text(errors="replace") if relative else None
+            result[kind] = (
+                (self.data_dir / relative).read_text(errors="replace")
+                if relative and (self.data_dir / relative).is_file()
+                else None
+            )
         original_relative = row["artifacts"].get("original_source")
         result["original_source"] = (
-            (self.data_dir / original_relative).read_text(errors="replace") if original_relative else None
+            (self.data_dir / original_relative).read_text(errors="replace")
+            if original_relative and (self.data_dir / original_relative).is_file()
+            else None
         )
         result["annotated_source"] = result["source"]
         if result["source"] is None:

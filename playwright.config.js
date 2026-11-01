@@ -2,6 +2,7 @@ const { defineConfig, devices } = require("@playwright/test");
 
 const browserChannel = process.env.PLAYWRIGHT_CHANNEL || undefined;
 const browserProfile = browserChannel === "msedge" ? devices["Desktop Edge"] : devices["Desktop Chrome"];
+const externalBaseURL = process.env.ACSL_AGENT_TEST_BASE_URL;
 const pythonCommand = process.env.ACSL_AGENT_PYTHON || "python";
 
 module.exports = defineConfig({
@@ -15,14 +16,14 @@ module.exports = defineConfig({
   workers: 1,
   reporter: [["list"], ["html", { open: "never", outputFolder: "runtime/playwright-report" }]],
   use: {
-    baseURL: "http://127.0.0.1:8000",
+    baseURL: externalBaseURL || "http://127.0.0.1:8000",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "off",
     ...(browserChannel ? { channel: browserChannel } : {}),
     ...browserProfile,
   },
-  webServer: {
+  webServer: externalBaseURL ? undefined : {
     command: `${pythonCommand} scripts/run_api.py`,
     url: "http://127.0.0.1:8000/api/v1/health",
     reuseExistingServer: true,

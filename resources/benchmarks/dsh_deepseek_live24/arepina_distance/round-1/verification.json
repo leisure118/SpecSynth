@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "verified": false,
+  "verified_count": 2,
+  "error_count": 1,
+  "stdout": "[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/arepina_distance/round-1/proof/arepina_distance.c (with preprocessing)\n[wp] Running WP plugin...\n[rte:annot] annotating function distance\n[wp] 3 goals scheduled\n[wp] [Timeout] typed_distance_ensures (Qed 12ms) (Z3 15s)\n[wp] Proved goals:    2 / 3\n  Qed:             2\n  Timeout:         1\n------------------------------------------------------------\n  Function distance\n------------------------------------------------------------\n\nGoal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_distance/round-1/proof/arepina_distance.c, line 3) in 'distance':\nAssume { Type: is_uint32(a) /\\ is_uint32(b). (* Residual *) When: a <= b. }\nProve: b != a.\nProver Z3 4.8.12 returns Timeout (Qed:12ms) (15s)\nProver Alt-Ergo  returns Timeout (Qed:12ms) (15s)\n\n------------------------------------------------------------\n\nGoal Assigns nothing in 'distance' (1/2):\nEffect at line 7\nProve: true.\nProver Qed returns Valid\n\n------------------------------------------------------------\n\nGoal Assigns nothing in 'distance' (2/2):\nEffect at line 7\nProve: true.\nProver Qed returns Valid (0.58ms)\n\n------------------------------------------------------------\n",
+  "stderr": "time=\"2026-11-01T19:25:27+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n",
+  "message": "Frama-C 证明目标 2/3"
+}

@@ -1,0 +1,281 @@
+[kernel] Parsing output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 31 goals scheduled
+[wp] Proved goals:   31 / 31
+  Qed:            28
+  Alt-Ergo :       3 (16ms-26ms-32ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 5):
+Let x = 2 * i.
+Let x_1 = j / 2.
+Let x_2 = -x_1.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(i - x_1) /\
+      is_sint32(1 + i - x_1).
+  (* Invariant *)
+  Have: x_1 <= i.
+  (* Invariant *)
+  Have: i <= (4 + x_1).
+  (* Then *)
+  Have: i <= (3 + x_1).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: (j % 2) = 0.
+  (* Invariant *)
+  Have: j <= 4.
+  (* Invariant *)
+  Have: j <= x.
+  (* Invariant *)
+  Have: x <= (6 + j).
+  (* Else *)
+  Have: 3 <= j.
+}
+Prove: x_1 <= (1 + i).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (16ms) (19)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 14):
+Let x = 2 * i.
+Let x_1 = j / 2.
+Let x_2 = 2 + j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + i) /\ is_sint32(x_2) /\
+      is_sint32(i - x_1).
+  (* Invariant *)
+  Have: x_1 <= i.
+  (* Invariant *)
+  Have: i <= (4 + x_1).
+  (* Then *)
+  Have: i <= (3 + x_1).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: (j % 2) = 0.
+  (* Invariant *)
+  Have: j <= 4.
+  (* Invariant *)
+  Have: j <= x.
+  (* Invariant *)
+  Have: x <= (6 + j).
+  (* Then *)
+  Have: j <= 2.
+  (* Assertion *)
+  Have: (-2) <= j.
+}
+Prove: (x_2 % 2) = 0.
+Prover Alt-Ergo  returns Valid (Qed:6ms) (31ms) (156)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 14):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 15):
+Prove: true.
+Prover Qed returns Valid (0.75ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.86ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 18):
+Let x = 2 + j.
+Let x_1 = 2 * i.
+Let x_2 = j / 2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + i) /\ is_sint32(x) /\
+      is_sint32(i - x_2).
+  (* Invariant *)
+  Have: x_2 <= i.
+  (* Invariant *)
+  Have: i <= (4 + x_2).
+  (* Then *)
+  Have: i <= (3 + x_2).
+  (* Invariant *)
+  Have: 0 <= j.
+  (* Invariant *)
+  Have: (j % 2) = 0.
+  (* Invariant *)
+  Have: j <= 4.
+  (* Invariant *)
+  Have: j <= x_1.
+  (* Invariant *)
+  Have: x_1 <= (6 + j).
+  (* Then *)
+  Have: j <= 2.
+  (* Assertion *)
+  Have: (-2) <= j.
+  (* Invariant *)
+  Have: (x % 2) = 0.
+}
+Prove: (x / 2) = (1 + x_2).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (32ms) (176)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 18):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 25):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 30):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 31):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 32):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 33):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 7) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 7) (2/2):
+Effect at line 22
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 19):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c, line 22):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-lit_bh2017-ex1-poly/loop-lit_bh2017-ex1-poly.acsl.c:2: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

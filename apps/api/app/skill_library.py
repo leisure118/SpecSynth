@@ -12,7 +12,7 @@ router = APIRouter(prefix="/api/v1/skills", tags=["skills"])
 
 class SkillBody(BaseModel):
     name: str = Field(min_length=1, max_length=80)
-    instructions: str = Field(min_length=1, max_length=24000)
+    instructions: str | None = Field(default=None, min_length=1, max_length=24000)
     agents: list[AgentId] = Field(default_factory=lambda: list(AGENTS), min_length=1, max_length=4)
     enabled: bool = True
     version: int | None = Field(default=None, ge=1)
@@ -32,7 +32,7 @@ def list_skills():
 
 @router.post("", status_code=201)
 def create_skill(body: SkillBody):
-    return skill_service.create_skill(body.model_dump(exclude={"version"}))
+    return _call(skill_service.create_skill, body.model_dump(exclude={"version"}))
 
 
 @router.get("/{identifier}")
@@ -57,3 +57,8 @@ def ensure_bundled_skills():
 
 def resolve_assistant(config: AssistantConfig | None):
     return skill_service.resolve_assistant(config)
+
+
+# Compatibility names for server-side callers that still import the API module.
+read = skill_service.read
+write = skill_service.write

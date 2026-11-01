@@ -1,0 +1,177 @@
+[kernel] Parsing output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c:25: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 13 goals scheduled
+[wp] Proved goals:   13 / 13
+  Qed:             9
+  Alt-Ergo :       4 (16ms-20ms)
+------------------------------------------------------------
+  Function hash_fun
+------------------------------------------------------------
+
+Goal Assigns nothing in 'hash_fun':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'hash_fun' (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'hash_fun' (2/2):
+Call Result at line 25
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 40):
+Let x = 100 + base_0.
+Let x_1 = Mint_0[shiftfield_F4_node_hash(list_0)].
+Assume {
+  Type: is_sint32(base_0) /\ is_sint32(base_1) /\ is_sint32(tmp_1_0) /\
+      is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: x_1 <= (99 + base_0).
+  (* Residual *)
+  When: base_0 <= 1000000.
+  (* Residual *)
+  When: base_0 < x_1.
+  (* Residual *)
+  When: 0 <= base_0.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= base_1) /\ (base_1 <= 2147483646).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, base_1, 100 + base_1).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0,
+          Mptr_0[shiftfield_F4_node_next(list_0)], base_0, x).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_1_0) /\ (tmp_1_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_1_0 != 0.
+  (* Call 'append_to_list' *)
+  Have: valid_rw(Malloc_0, list_0, 2).
+}
+Prove: P_all_in_range(Malloc_0, Mptr_0, Mint_0, list_0, base_0, x).
+Prover Alt-Ergo  returns Valid (Qed:36ms) (20ms) (109)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 40):
+Assume {
+  Type: is_sint32(base_0).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= base_0) /\ (base_0 <= 2147483646).
+}
+Prove: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, base_0, 100 + base_0).
+Prover Alt-Ergo  returns Valid (Qed:1ms) (16ms) (28)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 52):
+Let x = Mint_0[shiftfield_F4_node_hash(list_0)].
+Let x_1 = 100 + base_0.
+Assume {
+  Type: is_sint32(base_0) /\ is_sint32(base_1) /\ is_sint32(x).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= base_1) /\ (base_1 <= 2147483646).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, base_1, 100 + base_1).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, list_1, base_0, x_1).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, list_0, base_0, x_1).
+  (* Then *)
+  Have: null != list_0.
+  (* Assertion *)
+  Have: (base_0 <= x) /\ (x <= (99 + base_0)).
+}
+Prove: P_all_in_range(Malloc_0, Mptr_0, Mint_0,
+         Mptr_0[shiftfield_F4_node_next(list_0)], base_0, x_1).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (17ms) (58)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 56):
+Let x = 100 + base_0.
+Let x_1 = Mint_0[shiftfield_F4_node_hash(list_0)].
+Assume {
+  Type: is_sint32(base_0) /\ is_sint32(base_1) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: framed(Mptr_0) /\ linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= base_1) /\ (base_1 <= 2147483646).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, null, base_1, 100 + base_1).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, list_1, base_0, x).
+  (* Invariant *)
+  Have: P_all_in_range(Malloc_0, Mptr_0, Mint_0, list_0, base_0, x).
+  (* Then *)
+  Have: null != list_0.
+}
+Prove: (base_0 <= x_1) /\ (x_1 <= (99 + base_0)).
+Prover Alt-Ergo  returns Valid (Qed:4ms) (18ms) (73)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 41) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 41) (2/3):
+Call Result at line 43
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 41) (3/3):
+Call Result at line 46
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 53):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 28) in 'append_to_list'' in 'main' at call 'append_to_list' (file output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c, line 48)
+:
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c:29: Warning: 
+  No \from specification for assigned pointer '*list'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/ops-4.6/live25/heap-data_hash_fun/heap-data_hash_fun.acsl.c:36: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

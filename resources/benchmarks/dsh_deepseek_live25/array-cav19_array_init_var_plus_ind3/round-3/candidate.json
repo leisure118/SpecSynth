@@ -1,0 +1,10 @@
+{
+  "files": [
+    {
+      "path": "array-cav19_array_init_var_plus_ind3.c",
+      "content": "#include<limits.h>\n/*@\nassigns \\nothing;\nensures INT_MIN <= \\result < INT_MAX;\n*/\nint unknown();\nint N = 100000;\nint main()\n{\n  int i;\n  int j=0;\n  int a[N];\n  int x=unknown();\n  /*@\n    loop invariant 0 <= i <= N;\n    loop invariant j <= 0;\n    loop invariant \\forall integer t; 0 <= t < i ==> a[t] <= 0;\n    loop assigns i, j, x, a[0 .. N-1];\n    loop variant N - i;\n  */\n  for(i=0;i<N;i++){\n    x=unknown();\n    if(x) break;\n    a[i]=j;\n    j=j-i;\n  }\n  /*@\n    loop invariant 4 <= k <= i;\n    loop invariant \\forall integer t; 0 <= t < i ==> a[t] <= 0;\n    loop assigns k;\n    loop variant i - k;\n  */\n  for(int k=4;k<i;k++){\n    //@ assert(a[k] <= 0);\n  }\n  return 0;\n}\n"
+    }
+  ],
+  "origin": "interrupted-harness-draft",
+  "verified": false
+}

@@ -1,0 +1,79 @@
+[kernel] Parsing output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c:22: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: 
+  Allocation, initialization and danglingness not yet implemented
+  (allocation: \fresh{Old, Here}(\at(\result,wp:post),\at(size,wp:pre)))
+[wp] output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c:25: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c:21: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: S*)
+[wp] output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c:19: Warning: 
+  Missing assigns clause (assigns 'everything' instead)
+[wp] 6 goals scheduled
+[wp] Proved goals:    6 / 6
+  Qed:             5
+  Alt-Ergo :       1 (7ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 45):
+Let a_1 = a[i].
+Let a_2 = Mptr_0[shiftfield_F4_S_p(a_1)].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1).
+  (* Else *)
+  Have: 1000000 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000000).
+  (* Then *)
+  Have: i <= 999999.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_1, 2).
+  (* Then *)
+  Have: Mint_0[shiftfield_F4_S_n(a_1)] = 0.
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a_2, 1).
+}
+Prove: a_2 != null.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (70997)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (42)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c, line 38):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-lopstr16_base_case/array-lopstr16_base_case.acsl.c:16: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,888 @@
+[kernel] Parsing output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c:28: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 49 goals scheduled
+[kernel] output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c:71: 
+  enumerating 999 integers
+[wp] Proved goals:   49 / 49
+  Qed:            34
+  Alt-Ergo :       9 (6ms-8ms)
+  Z3 4.15.4:       6 (30ms-38ms-40ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 17):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 23):
+Prove: true.
+Prover Qed returns Valid (0.92ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 34):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 35):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(j) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i_1) /\ (0 <= i) /\ (i_1 <= i_3) /\ (i <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (A_1[i_5][i_4] = A[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (C_1[i_5][i_4] = C_2[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((0 <= i_4) ->
+      ((i_4 <= 999) -> (C_2[i_4][i_5] = A[i_5][i_4]))))).
+  (* Then *)
+  Have: i_3 <= 999.
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((i_5 != i_3) -> (C_2[i_4][i_5] = C[i_4][i_5])).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < j) ->
+      (C[i_4][i_3] = A[i_3][i_4]))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((0 <= i_4) ->
+      ((i_4 <= 999) -> (C[i_4][i_5] = A[i_5][i_4]))))).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+}
+Prove: C[i][i_1] = A[i_1][i].
+Prover Alt-Ergo  returns Valid (Qed:15ms) (8ms) (114)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 35):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 42):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 43):
+Let m = A[i].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= j).
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 999) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1000 <= i_3)) ->
+      (A_1[i_4][i_3] = A[i_4][i_3])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 999) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1000 <= i_3)) ->
+      (C_1[i_4][i_3] = C_2[i_4][i_3])))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_4 < i) -> ((0 <= i_3) ->
+      ((i_3 <= 999) -> (C_2[i_3][i_4] = A[i_4][i_3]))))).
+  (* Then *)
+  Have: i <= 999.
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((i_4 != i) -> (C_2[i_3][i_4] = C[i_3][i_4])).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < j) -> (C[i_3][i] = m[i_3]))).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_4 < i) -> ((0 <= i_3) ->
+      ((i_3 <= 999) -> (C[i_3][i_4] = A[i_4][i_3]))))).
+  (* Then *)
+  Have: j <= 999.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: C[j <- C[j][i <- m[j]]][i_1][i] = m[i_1].
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (10ms) (35671)
+Prover Alt-Ergo  returns Valid (Qed:10ms) (8ms) (107)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 44):
+Let m = A[i].
+Let m_1 = C[j <- C[j][i <- m[j]]].
+Assume {
+  Type: is_sint32(i_3) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_2) /\ (i_2 < i) /\ (0 <= i_1) /\ (i_1 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (A_1[i_5][i_4] = A[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (C_1[i_5][i_4] = C_2[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i) -> ((0 <= i_4) ->
+      ((i_4 <= 999) -> (C_2[i_4][i_5] = A[i_5][i_4]))))).
+  (* Then *)
+  Have: i <= 999.
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((i_5 != i) -> (C_2[i_4][i_5] = C[i_4][i_5])).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 < j) -> (C[i_4][i] = m[i_4]))).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i) -> ((0 <= i_4) ->
+      ((i_4 <= 999) -> (C[i_4][i_5] = A[i_5][i_4]))))).
+  (* Then *)
+  Have: j <= 999.
+  (* Invariant *)
+  Have: (-1) <= j.
+  (* Invariant *)
+  Have: forall i_4 : Z. ((0 <= i_4) -> ((i_4 <= j) ->
+      (m_1[i_4][i] = m[i_4]))).
+}
+Prove: m_1[i_1][i_2] = A[i_2][i_1].
+Prover Alt-Ergo  returns Valid (Qed:9ms) (8ms) (123)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 44):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 < i_3) /\ (0 <= i) /\ (i <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (A_1[i_5][i_4] = A[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (C_1[i_5][i_4] = C[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((0 <= i_4) ->
+      ((i_4 <= 999) -> (C[i_4][i_5] = A[i_5][i_4]))))).
+  (* Then *)
+  Have: i_3 <= 999.
+}
+Prove: C[i][i_1] = A[i_1][i].
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (47)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 55):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 56):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(j) /\
+      is_sint32(1 + i_4).
+  (* Goal *)
+  When: (0 <= i_1) /\ (0 <= i) /\ (i_1 <= 999) /\ (i <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (A_1[i_6][i_5] = A[i_6][i_5])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (C_1[i_6][i_5] = C[i_6][i_5])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((i_6 < i_3) -> ((0 <= i_5) ->
+      ((i_5 <= 999) -> (C[i_5][i_6] = A[i_6][i_5]))))).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 1000).
+  (* Then *)
+  Have: i_4 <= 999.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) -> (C[i_5][i_6] = A[i_6][i_5]))))).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_4.
+}
+Prove: C[i][i_1] = A[i_1][i].
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (34351)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (7ms) (85)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 56):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3).
+  (* Goal *)
+  When: (0 <= i_1) /\ (0 <= i) /\ (i_1 <= 999) /\ (i <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (A_1[i_5][i_4] = A[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((0 <= i_4) -> ((i_5 <= 999) ->
+      ((i_4 <= 999) ->
+      (((i_5 < 0) \/ (i_4 < 0) \/ (1000 <= i_5) \/ (1000 <= i_4)) ->
+      (C_1[i_5][i_4] = C[i_5][i_4])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_5,i_4 : Z. ((0 <= i_5) -> ((i_5 < i_3) -> ((0 <= i_4) ->
+      ((i_4 <= 999) -> (C[i_4][i_5] = A[i_5][i_4]))))).
+  (* Else *)
+  Have: 1000 <= i_3.
+}
+Prove: C[i][i_1] = A[i_1][i].
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (54)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 62):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 63):
+Let x = C[j][i_4].
+Let x_1 = A[i_4][j].
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i_4) /\ is_sint32(j) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_1) /\ (0 <= i) /\ (i_1 <= 999) /\ (i <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (A_1[i_6][i_5] = A[i_6][i_5])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (C_1[i_6][i_5] = C[i_6][i_5])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((i_6 < i_3) -> ((0 <= i_5) ->
+      ((i_5 <= 999) -> (C[i_5][i_6] = A[i_6][i_5]))))).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 1000).
+  (* Then *)
+  Have: i_4 <= 999.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) -> (C[i_5][i_6] = A[i_6][i_5]))))).
+  (* Then *)
+  Have: j <= 999.
+  (* Assertion *)
+  Have: x = x_1.
+  (* Invariant *)
+  Have: (-1) <= j.
+}
+Prove: C[i][i_1] = A[i_1][i].
+Prover Alt-Ergo  returns Valid (Qed:6ms) (8ms) (89)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 63):
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(i_4).
+  (* Goal *)
+  When: (0 <= i_1) /\ (0 <= i) /\ (i_1 <= 999) /\ (i <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (A_1[i_6][i_5] = A[i_6][i_5])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (C_1[i_6][i_5] = C[i_6][i_5])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((i_6 < i_3) -> ((0 <= i_5) ->
+      ((i_5 <= 999) -> (C[i_5][i_6] = A[i_6][i_5]))))).
+  (* Else *)
+  Have: 1000 <= i_3.
+  (* Invariant *)
+  Have: (0 <= i_4) /\ (i_4 <= 1000).
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) -> (C[i_5][i_6] = A[i_6][i_5]))))).
+  (* Then *)
+  Have: i_4 <= 999.
+}
+Prove: C[i][i_1] = A[i_1][i].
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (63)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 68):
+Let x = A[i][j].
+Let x_1 = C[j][i].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(j) /\
+      is_sint32(x) /\ is_sint32(x_1).
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 999) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1000 <= i_3)) ->
+      (A_1[i_4][i_3] = A[i_4][i_3])))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 999) ->
+      (((i_4 < 0) \/ (i_3 < 0) \/ (1000 <= i_4) \/ (1000 <= i_3)) ->
+      (C_1[i_4][i_3] = C[i_4][i_3])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((i_4 < i_2) -> ((0 <= i_3) ->
+      ((i_3 <= 999) -> (C[i_3][i_4] = A[i_4][i_3]))))).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000).
+  (* Then *)
+  Have: i <= 999.
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_4,i_3 : Z. ((0 <= i_4) -> ((0 <= i_3) -> ((i_4 <= 999) ->
+      ((i_3 <= 999) -> (C[i_3][i_4] = A[i_4][i_3]))))).
+  (* Then *)
+  Have: j <= 999.
+}
+Prove: x_1 = x.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (6ms) (64)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 18) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 18) (2/3):
+Effect at line 21
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(1 + i_2).
+  (* Goal *)
+  When: (0 <= i_3) /\ (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\ (0 <= i) /\
+      (0 <= i_1) /\ (i_3 <= 999) /\ (i_4 <= 999) /\ (i_5 <= 999) /\
+      (i_6 <= 999) /\ (i <= 999) /\ (i_1 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_8,i_7 : Z. ((0 <= i_8) -> ((0 <= i_7) -> ((i_8 <= 999) ->
+      ((i_7 <= 999) ->
+      (((i_8 < 0) \/ (i_7 < 0) \/ (1000 <= i_8) \/ (1000 <= i_7)) ->
+      (A[i_8][i_7] = A_1[i_8][i_7])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Then *)
+  Have: i_2 <= 999.
+  (* Loop assigns ... *)
+  Have: forall i_7 : Z. ((i_7 != i_2) -> (A_1[i_7] = A_2[i_7])).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: exists i_8,i_7 : Z. (i_8 <= i) /\ (i_7 <= i_1) /\ (0 <= i_8) /\
+    (i <= i_8) /\ (0 <= i_7) /\ (i_1 <= i_7) /\ (i_8 <= 999) /\ (i_7 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (40ms) (236477)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 18) (3/3):
+Effect at line 27
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_1) /\ (i <= 999) /\ (i_1 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((0 <= i_2) -> ((i_3 <= 999) ->
+      ((i_2 <= 999) ->
+      (((i_3 < 0) \/ (i_2 < 0) \/ (1000 <= i_3) \/ (1000 <= i_2)) ->
+      (A[i_3][i_2] = A_1[i_3][i_2])))))).
+  (* Invariant *)
+  Have: i <= 1000.
+  (* Loop assigns ... *)
+  Have: forall i_2 : Z. ((i_2 != i) -> (A_1[i_2] = A_2[i_2])).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: exists i_3,i_2 : Z. (i_3 <= i) /\ (i_2 <= i_1) /\ (0 <= i_3) /\
+    (i <= i_3) /\ (0 <= i_2) /\ (i_1 <= i_2) /\ (i_3 <= 999) /\ (i_2 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (30ms) (194996)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 24) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 24) (2/3):
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 24) (3/3):
+Call Result at line 28
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 36) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 36) (2/3):
+Effect at line 39
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i_3) /\ is_sint32(j) /\
+      is_sint32(1 + i_3).
+  (* Goal *)
+  When: (0 <= i_4) /\ (0 <= i_5) /\ (0 <= i_6) /\ (0 <= i_7) /\ (0 <= i) /\
+      (0 <= i_1) /\ (i_4 <= 999) /\ (i_5 <= 999) /\ (i_6 <= 999) /\
+      (i_7 <= 999) /\ (i <= 999) /\ (i_1 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_9,i_8 : Z. ((0 <= i_9) -> ((0 <= i_8) -> ((i_9 <= 999) ->
+      ((i_8 <= 999) ->
+      (((i_9 < 0) \/ (i_8 < 0) \/ (1000 <= i_9) \/ (1000 <= i_8)) ->
+      (A[i_9][i_8] = A_1[i_9][i_8])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_9,i_8 : Z. ((0 <= i_9) -> ((0 <= i_8) -> ((i_9 <= 999) ->
+      ((i_8 <= 999) ->
+      (((i_9 < 0) \/ (i_8 < 0) \/ (1000 <= i_9) \/ (1000 <= i_8)) ->
+      (C[i_9][i_8] = C_1[i_9][i_8])))))).
+  (* Invariant *)
+  Have: (0 <= i_3) /\ (i_3 <= 1000).
+  (* Invariant *)
+  Have: forall i_9,i_8 : Z. ((0 <= i_9) -> ((i_9 < i_3) -> ((0 <= i_8) ->
+      ((i_8 <= 999) -> (C_1[i_8][i_9] = A_1[i_9][i_8]))))).
+  (* Then *)
+  Have: i_3 <= 999.
+  (* Loop assigns ... *)
+  Have: forall i_9,i_8 : Z. ((i_9 != i_3) ->
+      (C_1[i_8][i_9] = C_2[i_8][i_9])).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_8 : Z. ((0 <= i_8) -> ((i_8 < j) ->
+      (C_2[i_8][i_3] = A_1[i_3][i_8]))).
+  (* Invariant *)
+  Have: forall i_9,i_8 : Z. ((0 <= i_9) -> ((i_9 < i_3) -> ((0 <= i_8) ->
+      ((i_8 <= 999) -> (C_2[i_8][i_9] = A_1[i_9][i_8]))))).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: (-1) <= i_3.
+  (* Invariant *)
+  Have: forall i_9,i_8 : Z. ((i_9 <= i_3) -> ((0 <= i_9) -> ((0 <= i_8) ->
+      ((i_8 <= 999) -> (C_2[i_8][i_9] = A_1[i_9][i_8]))))).
+}
+Prove: exists i_9,i_8 : Z. (i_9 <= i) /\ (i_8 <= i_1) /\ (0 <= i_9) /\
+    (i <= i_9) /\ (0 <= i_8) /\ (i_1 <= i_8) /\ (i_9 <= 999) /\ (i_8 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (40ms) (205802)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 36) (3/3):
+Effect at line 48
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i) /\ (0 <= i_3) /\ (0 <= i_4) /\ (0 <= i_1) /\ (i <= 999) /\
+      (i_3 <= 999) /\ (i_4 <= 999) /\ (i_1 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (A[i_6][i_5] = A_1[i_6][i_5])))))).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_2.
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (C[i_6][i_5] = C_1[i_6][i_5])))))).
+  (* Invariant *)
+  Have: i <= 1000.
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((i_6 < i) -> ((0 <= i_5) ->
+      ((i_5 <= 999) -> (C_1[i_5][i_6] = A_1[i_6][i_5]))))).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((i_6 != i) -> (C_1[i_5][i_6] = C_2[i_5][i_6])).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < j) ->
+      (C_2[i_5][i] = A_1[i][i_5]))).
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((i_6 < i) -> ((0 <= i_5) ->
+      ((i_5 <= 999) -> (C_2[i_5][i_6] = A_1[i_6][i_5]))))).
+  (* Else *)
+  Have: 1000 <= j.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((i_6 <= i) -> ((0 <= i_6) -> ((0 <= i_5) ->
+      ((i_5 <= 999) -> (C_2[i_5][i_6] = A_1[i_6][i_5]))))).
+}
+Prove: exists i_6,i_5 : Z. (i_5 <= i) /\ (i_6 <= i_1) /\ (0 <= i_6) /\
+    (i_1 <= i_6) /\ (0 <= i_5) /\ (i <= i_5) /\ (i_6 <= 999) /\ (i_5 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:9ms) (40ms) (208474)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 45) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 45) (2/3):
+Effect at line 48
+Let m = A_1[i_2].
+Let m_1 = C_2[j <- C_2[j][i_2 <- m[j]]].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(1 + j).
+  (* Goal *)
+  When: (0 <= i_2) /\ (0 <= i_3) /\ (0 <= i_4) /\ (0 <= i) /\ (i_2 <= 999) /\
+      (i_3 <= 999) /\ (i_4 <= 999) /\ (i <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (A[i_6][i_5] = A_1[i_6][i_5])))))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 1000).
+  (* Else *)
+  Have: 1000 <= i_1.
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((0 <= i_5) -> ((i_6 <= 999) ->
+      ((i_5 <= 999) ->
+      (((i_6 < 0) \/ (i_5 < 0) \/ (1000 <= i_6) \/ (1000 <= i_5)) ->
+      (C[i_6][i_5] = C_1[i_6][i_5])))))).
+  (* Invariant *)
+  Have: i_2 <= 1000.
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((i_6 < i_2) -> ((0 <= i_5) ->
+      ((i_5 <= 999) -> (C_1[i_5][i_6] = A_1[i_6][i_5]))))).
+  (* Loop assigns ... *)
+  Have: forall i_6,i_5 : Z. ((i_6 != i_2) ->
+      (C_1[i_5][i_6] = C_2[i_5][i_6])).
+  (* Invariant *)
+  Have: (0 <= j) /\ (j <= 1000).
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 < j) ->
+      (C_2[i_5][i_2] = m[i_5]))).
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((i_6 < i_2) -> ((0 <= i_5) ->
+      ((i_5 <= 999) -> (C_2[i_5][i_6] = A_1[i_6][i_5]))))).
+  (* Then *)
+  Have: j <= 999.
+  (* Invariant *)
+  Have: (-1) <= j.
+  (* Invariant *)
+  Have: forall i_5 : Z. ((0 <= i_5) -> ((i_5 <= j) ->
+      (m_1[i_5][i_2] = m[i_5]))).
+  (* Invariant *)
+  Have: forall i_6,i_5 : Z. ((0 <= i_6) -> ((i_6 < i_2) -> ((0 <= i_5) ->
+      ((i_5 <= 999) -> (m_1[i_5][i_6] = A_1[i_6][i_5]))))).
+}
+Prove: exists i_5 : Z. (i_5 <= i) /\ (0 <= i_5) /\ (i <= i_5) /\
+    (i_5 <= 999).
+Prover Z3 4.15.4 returns Valid (Qed:13ms) (40ms) (310912)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 45) (3/3):
+Effect at line 49
+Let x = j - 1.
+Let m = A_1[i_1].
+Let m_1 = C_2[x <- C_2[x][i_1 <- m[x]]].
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(x).
+  (* Goal *)
+  When: (0 < j) /\ (0 <= i_1) /\ (i_1 <= 999).
+  (* Loop assigns ... *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((0 <= i_2) -> ((i_3 <= 999) ->
+      ((i_2 <= 999) ->
+      (((i_3 < 0) \/ (i_2 < 0) \/ (1000 <= i_3) \/ (1000 <= i_2)) ->
+      (A[i_3][i_2] = A_1[i_3][i_2])))))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 1000).
+  (* Else *)
+  Have: 1000 <= i.
+  (* Loop assigns ... *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((0 <= i_2) -> ((i_3 <= 999) ->
+      ((i_2 <= 999) ->
+      (((i_3 < 0) \/ (i_2 < 0) \/ (1000 <= i_3) \/ (1000 <= i_2)) ->
+      (C[i_3][i_2] = C_1[i_3][i_2])))))).
+  (* Invariant *)
+  Have: i_1 <= 1000.
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((0 <= i_2) ->
+      ((i_2 <= 999) -> (C_1[i_2][i_3] = A_1[i_3][i_2]))))).
+  (* Loop assigns ... *)
+  Have: forall i_3,i_2 : Z. ((i_3 != i_1) ->
+      (C_1[i_2][i_3] = C_2[i_2][i_3])).
+  (* Invariant *)
+  Have: j <= 1001.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= j) ->
+      (C_2[i_2][i_1] = m[i_2]))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((0 <= i_2) ->
+      ((i_2 <= 999) -> (C_2[i_2][i_3] = A_1[i_3][i_2]))))).
+  (* Then *)
+  Have: j <= 1000.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < j) ->
+      (m_1[i_2][i_1] = m[i_2]))).
+  (* Invariant *)
+  Have: forall i_3,i_2 : Z. ((0 <= i_3) -> ((i_3 < i_1) -> ((0 <= i_2) ->
+      ((i_2 <= 999) -> (m_1[i_2][i_3] = A_1[i_3][i_2]))))).
+}
+Prove: exists i_2 : Z. (0 <= i_2) /\ (i_2 < j) /\ (i_2 <= 999) /\
+    (j <= (1 + i_2)).
+Prover Z3 4.15.4 returns Valid (Qed:10ms) (40ms) (251656)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 64):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 21):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 27):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 39):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 60):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 67):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c, line 67):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-multidimensional_transpose-u/array-multidimensional_transpose-u.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

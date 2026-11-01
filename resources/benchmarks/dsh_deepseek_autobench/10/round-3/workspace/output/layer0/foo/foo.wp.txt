@@ -1,0 +1,113 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c (with preprocessing)
+[kernel:typing:no-proto] runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c:28: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[kernel:annot:missing-spec] runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c:24: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] 7 goals scheduled
+[wp] [Timeout] typed_foo_loop_invariant_preserved (Qed 5ms) (Z3 15s)
+[wp] [Timeout] typed_foo_assert_rte_signed_overflow (Qed 2ms) (Z3 15s)
+[wp] [Timeout] typed_foo_assert_rte_signed_overflow_2 (Qed 6ms) (Z3 15s)
+[wp] Proved goals:    4 / 7
+  Qed:             4
+  Timeout:         3
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c, line 26):
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y).
+  (* Pre-condition *)
+  Have: (0 <= x) /\ (x <= 2).
+  (* Pre-condition *)
+  Have: (0 <= y) /\ (y <= 2).
+  (* Invariant *)
+  Have: (x != 4) \/ (y != 0).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: false.
+Prover Z3 4.8.12 returns Timeout (Qed:5ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:5ms) (15s)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c, line 29):
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(y) /\
+      is_sint32(y_1).
+  (* Pre-condition *)
+  Have: (0 <= x_1) /\ (x_1 <= 2).
+  (* Pre-condition *)
+  Have: (0 <= y_1) /\ (y_1 <= 2).
+  (* Invariant *)
+  Have: (x_1 != 4) \/ (y_1 != 0).
+  (* Invariant *)
+  Have: (x != 4) \/ (y != 0).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: x <= 2147483645.
+Prover Z3 4.8.12 returns Timeout (Qed:2ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:2ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c, line 30):
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(y) /\
+      is_sint32(y_1) /\ is_sint32(2 + x).
+  (* Pre-condition *)
+  Have: (0 <= x_1) /\ (x_1 <= 2).
+  (* Pre-condition *)
+  Have: (0 <= y_1) /\ (y_1 <= 2).
+  (* Invariant *)
+  Have: (x_1 != 4) \/ (y_1 != 0).
+  (* Invariant *)
+  Have: (x != 4) \/ (y != 0).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x <= 2147483645.
+}
+Prove: y <= 2147483645.
+Prover Z3 4.8.12 returns Timeout (Qed:6ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:6ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c, line 34):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c, line 27) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c, line 27) (2/2):
+Call Result at line 28
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c:15: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-bqgf4tjt/workspace/.platform-proofs/tmpiw34knvf/candidate.c:24: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T14:31:17+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

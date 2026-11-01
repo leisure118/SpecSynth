@@ -1,0 +1,100 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c (with preprocessing)
+[kernel:typing:no-proto] runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c:29: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[kernel:annot:missing-spec] runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c:20: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] 9 goals scheduled
+[wp] [Timeout] typed_main_assert_rte_signed_overflow (Qed 4ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_main_loop_invariant_2_preserved (Qed 5ms) (Alt-Ergo 15s)
+[wp] Proved goals:    7 / 9
+  Qed:             7
+  Timeout:         2
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c, line 25):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c, line 26):
+Assume {
+  Type: is_sint32(sn_0) /\ is_sint32(tmp_0) /\ is_sint32(1 + sn_0).
+  (* Invariant *)
+  Have: sn_0 != (-1).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: sn_0 <= 2147483646.
+}
+Prove: sn_0 != (-2).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:5ms) (15s)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c, line 26):
+Prove: true.
+Prover Qed returns Valid (0.60ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c, line 30):
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x).
+  (* Invariant *)
+  Have: x != (-1).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: x <= 2147483646.
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:4ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c, line 31):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c, line 35):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c, line 27) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c, line 27) (2/2):
+Call Result at line 29
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c:15: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-_bi8d6ow/workspace/.platform-proofs/tmpsayifphe/candidate.c:20: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T18:54:53+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

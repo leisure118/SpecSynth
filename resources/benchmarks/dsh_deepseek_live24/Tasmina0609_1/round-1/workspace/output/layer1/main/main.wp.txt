@@ -1,0 +1,28 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-i0qc6t9m/workspace/.platform-proofs/tmpu1b_6s40/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[wp] 1 goal scheduled
+[wp] Proved goals:    1 / 1
+  Qed:             0 (5ms)
+  Alt-Ergo :       1 (31ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-i0qc6t9m/workspace/.platform-proofs/tmpu1b_6s40/candidate.c, line 33):
+Assume {
+  Type: is_sint32(max_0).
+  (* Call 'max3' *)
+  Have: (10 <= max_0) /\ (20 <= max_0) /\ (30 <= max_0) /\
+      ((max_0 = 10) \/ (max_0 = 20) \/ (max_0 = 30)).
+}
+Prove: max_0 = 30.
+Prover Z3 4.8.12 returns Valid (Qed:5ms) (120ms) (34688)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (31ms) (18)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-i0qc6t9m/workspace/.platform-proofs/tmpu1b_6s40/candidate.c:28: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T15:57:13+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

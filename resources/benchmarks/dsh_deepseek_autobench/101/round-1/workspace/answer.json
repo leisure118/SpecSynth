@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "101.c",
+      "content": "void foo(int n) {\n  int x = 0;\n  \n  /*@\n    loop invariant x >= 0;\n    loop invariant x <= n || n < 0;\n    loop assigns x;\n    loop variant n - x;\n  */\n  while (x < n) {\n    x = x + 1;\n  }\n  // post-condition\n  if (x != n) {\n    //@ assert(n < 0);\n  }\n}\n"
+    }
+  ]
+}

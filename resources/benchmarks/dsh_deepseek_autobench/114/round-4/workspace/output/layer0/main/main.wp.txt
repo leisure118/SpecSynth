@@ -1,0 +1,87 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c (with preprocessing)
+[kernel:typing:no-proto] runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c:29: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[kernel:annot:missing-spec] runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c:20: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] 9 goals scheduled
+[wp] [Timeout] typed_main_assert_rte_signed_overflow (Qed 5ms) (Z3 15s)
+[wp] Proved goals:    8 / 9
+  Qed:             8
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c, line 25):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c, line 26):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c, line 26):
+Prove: true.
+Prover Qed returns Valid (0.61ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c, line 30):
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x).
+  (* Invariant *)
+  Have: 0 <= x.
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: x <= 2147483646.
+Prover Z3 4.8.12 returns Timeout (Qed:5ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:5ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c, line 31):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c, line 35):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c, line 27) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c, line 27) (2/2):
+Call Result at line 29
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c:15: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-gzummo0v/workspace/.platform-proofs/tmpue3041yk/candidate.c:20: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T18:23:58+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

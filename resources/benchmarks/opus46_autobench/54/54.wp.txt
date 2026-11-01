@@ -1,0 +1,98 @@
+[kernel] Parsing output/ops-4.6/autobench/54/54.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/autobench/54/54.acsl.c:16: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             6
+  Alt-Ergo :       2 (5ms-6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/54/54.acsl.c, line 11):
+Assume {
+  Type: is_sint32(c) /\ is_sint32(c_1) /\ is_sint32(n) /\ is_sint32(tmp_0_0).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: 0 <= c_1.
+  (* Invariant *)
+  Have: c_1 <= n.
+  (* Then *)
+  Have: tmp_0_0 != 0.
+  If n = c_1
+  Then { Have: c = 1. }
+  Else { Have: c_1 = c. }
+}
+Prove: 0 <= c.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (28623)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (6ms) (26)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/54/54.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/54/54.acsl.c, line 12):
+Assume {
+  Type: is_sint32(c) /\ is_sint32(c_1) /\ is_sint32(n) /\ is_sint32(tmp_0_0).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: 0 <= c_1.
+  (* Invariant *)
+  Have: c_1 <= n.
+  (* Then *)
+  Have: tmp_0_0 != 0.
+  If n = c_1
+  Then { Have: c = 1. }
+  Else { Have: c_1 = c. }
+  (* Invariant *)
+  Have: 0 <= c.
+}
+Prove: c <= n.
+Prover Z3 4.15.4 returns Valid (Qed:6ms) (28824)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (5ms) (28)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/54/54.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/54/54.acsl.c, line 28):
+Prove: true.
+Prover Qed returns Valid (0.70ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/54/54.acsl.c, line 13) (1/3):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/54/54.acsl.c, line 13) (2/3):
+Call Result at line 15
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/54/54.acsl.c, line 13) (3/3):
+Call Result at line 16
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/54/54.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

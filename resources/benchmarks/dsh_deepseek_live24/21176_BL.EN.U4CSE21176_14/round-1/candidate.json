@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "21176_BL.EN.U4CSE21176_14.c",
+      "content": "#include<limits.h>\n/*@\n  requires val != -2147483648;\n  assigns \\nothing;\n  ensures \\result == (val > 0 ? val : (val < 0 ? -val : 0));\n*/\nint check(int val){\nif(val>0)\nreturn val;\nelse if(val<0)\nreturn -val;\nelse\nreturn 0;\n}\nint main(){\nint x=4;\nint r=check(x);\n//@assert x==4;\n}"
+    }
+  ]
+}

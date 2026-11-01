@@ -1,0 +1,221 @@
+[kernel] Parsing output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:             9
+  Alt-Ergo :       5 (6ms-10ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 24):
+Let a = global(L_array_38).
+Assume {
+  (* Initializer *)
+  Init: Mint_0[shift_sint32(a, 0)] = 1.
+  (* Initializer *)
+  Init: Mint_0[shift_sint32(a, 1)] = 2.
+  (* Initializer *)
+  Init: Mint_0[shift_sint32(a, 2)] = 3.
+  (* Initializer *)
+  Init: Mint_0[shift_sint32(a, 3)] = 4.
+  (* Initializer *)
+  Init: Mint_0[shift_sint32(a, 4)] = 5.
+  (* Call 'search' *)
+  Have: (((forall i : Z. ((0 <= i) -> ((i <= 4) ->
+           (Mint_0[shift_sint32(a, i)] != 6)))) -> (null = p))) /\
+      (((null != p) ->
+       (exists i : Z. (shift_sint32(a, i) = p) /\ (0 <= i) /\ (i <= 4)))).
+}
+Prove: null = p.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (6ms) (46)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 4) in 'search'' in 'main' at initialization of 'p' (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 23)
+:
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function search
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 6) in 'search':
+Let a = shift_sint32(array_0, i).
+Let x = Mint_0[a].
+Assume {
+  Type: is_uint64(i) /\ is_uint64(length_0) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(array_0.base) <= 0) /\ linked(Malloc_0).
+  (* Residual *)
+  When: i < length_0.
+  (* Goal *)
+  When: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < length_0) ->
+      (Mint_0[shift_sint32(array_0, i_1)] != x))).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(array_0, 0), length_0).
+  (* Invariant *)
+  Have: 0 <= length_0.
+  (* Invariant *)
+  Have: 0 <= i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(array_0, i_1)] != x))).
+}
+Prove: a = null.
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (94513)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (8ms) (44)
+
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 7) in 'search':
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 11):
+Let x = Mint_0[shift_sint32(array_0, i)].
+Assume {
+  Type: is_sint32(element_0) /\ is_uint64(i) /\ is_uint64(length_0) /\
+      is_sint32(x).
+  (* Heap *)
+  Type: (region(array_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(array_0, 0), length_0).
+  (* Invariant *)
+  Have: 0 <= length_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= length_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(array_0, i_1)] != element_0))).
+  (* Then *)
+  Have: i < length_0.
+  (* Else *)
+  Have: x != element_0.
+}
+Prove: to_uint64(1 + i) <= length_0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (94387)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (77)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 11):
+Prove: true.
+Prover Qed returns Valid (0.66ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 12):
+Let x = to_uint64(1 + i_1).
+Let x_1 = Mint_0[shift_sint32(array_0, i_1)].
+Assume {
+  Type: is_sint32(element_0) /\ is_uint64(i_1) /\ is_uint64(length_0) /\
+      is_sint32(x_1).
+  (* Heap *)
+  Type: (region(array_0.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(array_0, 0), length_0).
+  (* Invariant *)
+  Have: 0 <= length_0.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= length_0).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(array_0, i_2)] != element_0))).
+  (* Then *)
+  Have: i_1 < length_0.
+  (* Else *)
+  Have: x_1 != element_0.
+  (* Invariant *)
+  Have: x <= length_0.
+}
+Prove: Mint_0[shift_sint32(array_0, i)] != element_0.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (125438)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (89)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'search' (1/3):
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'search' (2/3):
+Effect at line 17
+Prove: true.
+Prover Qed returns Valid (0.96ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'search' (3/3):
+Effect at line 19
+Prove: true.
+Prover Qed returns Valid (0.58ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 16):
+Let x = to_uint64(1 + i).
+Let x_1 = Mint_0[shift_sint32(array_0, i)].
+Assume {
+  Type: is_sint32(element_0) /\ is_uint64(i) /\ is_uint64(length_0) /\
+      is_sint32(x_1).
+  (* Heap *)
+  Type: (region(array_0.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(array_0, 0), length_0).
+  (* Invariant *)
+  Have: 0 <= length_0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= length_0).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(array_0, i_1)] != element_0))).
+  (* Then *)
+  Have: i < length_0.
+  (* Else *)
+  Have: x_1 != element_0.
+  (* Invariant *)
+  Have: x <= length_0.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_sint32(array_0, i_1)] != element_0))).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (95546)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (10ms) (83)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.87ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c:9: Warning: 
+  No 'assigns \result \from ...' specification for function 'search'returning pointer type.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] output/ops-4.6/live24/frama-c-wp-tutorial-en_18/frama-c-wp-tutorial-en_18.acsl.c:21: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

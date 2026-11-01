@@ -1,0 +1,81 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             8
+  Alt-Ergo :       1 (31ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c, line 9):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c, line 10):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c, line 10):
+Prove: true.
+Prover Qed returns Valid (0.51ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c, line 23):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(c) /\ is_sint32(k) /\ is_sint32(m).
+  (* Pre-condition *)
+  Have: 0 < c.
+  (* Invariant *)
+  Have: ((0 < k) -> (a <= m)).
+  (* Invariant *)
+  Have: (k <= c) /\ (0 <= k).
+  (* Else *)
+  Have: c <= k.
+}
+Prove: a <= m.
+Prover Z3 4.8.12 returns Valid (Qed:4ms) (120ms) (35411)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (31ms) (25)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-lx1knlw5/workspace/.platform-proofs/tmppxxl51rv/candidate.c:4: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T15:57:38+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

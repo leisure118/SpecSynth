@@ -1,0 +1,208 @@
+Frama-C 证明目标 14/14
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function arraymax
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:             9
+  Alt-Ergo :       5 (44ms-63ms)
+------------------------------------------------------------
+  Function arraymax
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 5) in 'arraymax':
+Let a_1 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(arraymax_0) /\ is_sint32(i_1) /\
+      is_sint32(n) /\ is_sint32(Mint_0[a_1]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Invariant *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= arraymax_0))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: Mint_0[shift_sint32(a, i)] <= arraymax_0.
+Prover Alt-Ergo  returns Valid (Qed:12ms) (50ms) (59)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 9):
+Let a_1 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32(n).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 < n.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Z3 4.8.12 returns Valid (Qed:1ms) (150ms) (77338)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (54ms) (59)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 11):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 11):
+Prove: true.
+Prover Qed returns Valid (0.73ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 12):
+Let a_1 = shift_sint32(a, i_1).
+Let x = Mint_0[a_1].
+Let a_2 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i_1) /\ is_sint32(max_0) /\
+      is_sint32(max_1) /\ is_sint32(n) /\ is_sint32(1 + i_1) /\
+      is_sint32(Mint_0[a_2]) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (i <= i_1) /\ (0 <= i).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, n).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Invariant *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= max_1))).
+  (* Then *)
+  Have: i_1 < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  If max_1 < x
+  Then { Have: x = max_0. }
+  Else { Have: max_1 = max_0. }
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= 2147483646.
+}
+Prove: Mint_0[shift_sint32(a, i)] <= max_0.
+Prover Alt-Ergo  returns Valid (Qed:20ms) (63ms) (164)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 12):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 17):
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32(max_0) /\
+      is_sint32(n) /\ is_sint32(Mint_0[a_1]) /\ is_sint32(Mint_0[a_2]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Invariant *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= n).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, i_1)] <= max_0))).
+  (* Then *)
+  Have: i < n.
+}
+Prove: valid_rd(Malloc_0, a_2, 1).
+Prover Z3 4.8.12 returns Valid (Qed:7ms) (150ms) (99407)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (45ms) (107)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 19):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 21):
+Let a_1 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i_1) /\ is_sint32(max_0) /\
+      is_sint32(n) /\ is_sint32(Mint_0[a_1]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < n).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, n).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Invariant *)
+  Have: 0 < n.
+  (* Invariant *)
+  Have: (0 < i_1) /\ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, i_2)] <= max_0))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: Mint_0[shift_sint32(a, i)] <= max_0.
+Prover Z3 4.8.12 returns Valid (Qed:6ms) (140ms) (87726)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (44ms) (59)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'arraymax':
+Effect at line 16
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 16):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arrays_and_loops_2/round-1/proof/arrays_and_loops_2.c, line 16):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T20:24:10+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

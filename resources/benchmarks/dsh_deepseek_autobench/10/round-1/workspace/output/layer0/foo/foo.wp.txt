@@ -1,0 +1,185 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c (with preprocessing)
+[kernel:typing:no-proto] runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c:35: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[kernel:annot:missing-spec] runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c:24: Warning: 
+  Neither code nor specification for function unknown, generating default assigns from the prototype
+[wp] 11 goals scheduled
+[wp] [Timeout] typed_foo_assert_rte_signed_overflow (Qed 3ms) (Z3 15s)
+[wp] [Timeout] typed_foo_assert_rte_signed_overflow_2 (Qed 3ms) (Z3 15s)
+[wp] Proved goals:    9 / 11
+  Qed:             6
+  Alt-Ergo :       3 (34ms-49ms)
+  Timeout:         2
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant 'diff' (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 28):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant 'diff' (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant 'grows' (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 32):
+Let x_1 = 2 + y.
+Let x_2 = x + y.
+Let x_3 = -y_1.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y_1) /\ is_sint32(y) /\
+      is_sint32(x_1) /\ is_sint32(x + y - y_1) /\ is_sint32(2 + x + y - y_1).
+  (* Pre-condition *)
+  Have: (0 <= x) /\ (x <= 2).
+  (* Pre-condition *)
+  Have: (0 <= y_1) /\ (y_1 <= 2).
+  (* Invariant 'mono' *)
+  Have: y_1 <= y.
+  (* Invariant 'grows' *)
+  Have: (0 <= y) /\ (y_1 <= x_2).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= (2147483645 + y_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: y <= 2147483645.
+  (* Invariant 'mono' *)
+  Have: y_1 <= x_1.
+}
+Prove: ((-2) <= y) /\ (y_1 <= (2 + x + y)).
+Prover Z3 4.8.12 returns Valid (Qed:6ms) (140ms) (37124)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (49ms) (50)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant 'grows' (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 32):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant 'mono' (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 30):
+Let x_1 = x + y_1.
+Let x_2 = 2 + y_1.
+Let x_3 = -y.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(x_2) /\ is_sint32(x + y_1 - y) /\ is_sint32(2 + x + y_1 - y).
+  (* Pre-condition *)
+  Have: (0 <= x) /\ (x <= 2).
+  (* Pre-condition *)
+  Have: (0 <= y) /\ (y <= 2).
+  (* Invariant 'mono' *)
+  Have: y <= y_1.
+  (* Invariant 'grows' *)
+  Have: (0 <= y_1) /\ (y <= x_1).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= (2147483645 + y).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: y_1 <= 2147483645.
+}
+Prove: y <= x_2.
+Prover Z3 4.8.12 returns Valid (Qed:6ms) (120ms) (36706)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (34ms) (21)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant 'mono' (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 30):
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 36):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y) /\ is_sint32(y_1) /\
+      is_sint32(x + y - y_1).
+  (* Pre-condition *)
+  Have: (y_1 <= x_1) /\ (x_1 <= (2 + y_1)).
+  (* Pre-condition *)
+  Have: (0 <= y) /\ (y <= 2).
+  (* Invariant 'mono' *)
+  Have: y <= y_1.
+  (* Invariant 'grows' *)
+  Have: (0 <= x) /\ (0 <= y_1).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: x <= 2147483645.
+Prover Z3 4.8.12 returns Timeout (Qed:3ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:3ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 37):
+Let x_1 = x + y_1.
+Assume {
+  Type: is_sint32(tmp_0) /\ is_sint32(x) /\ is_sint32(y_1) /\ is_sint32(y) /\
+      is_sint32(2 + x) /\ is_sint32(x + y_1 - y).
+  (* Pre-condition *)
+  Have: (y <= x_1) /\ (x_1 <= (2 + y)).
+  (* Pre-condition *)
+  Have: (0 <= y_1) /\ (y_1 <= 2).
+  (* Invariant 'mono' *)
+  Have: y_1 <= y.
+  (* Invariant 'grows' *)
+  Have: (0 <= x) /\ (0 <= y).
+  (* Then *)
+  Have: tmp_0 != 0.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x <= 2147483645.
+}
+Prove: y <= 2147483645.
+Prover Z3 4.8.12 returns Timeout (Qed:3ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:3ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 41):
+Let x_1 = x + y.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(y) /\ is_sint32(x_1).
+  (* Pre-condition *)
+  Have: (0 <= x_1) /\ (x_1 <= 2).
+  (* Pre-condition *)
+  Have: (0 <= y) /\ (y <= 2).
+  (* Invariant 'mono' *)
+  Have: y <= 0.
+  (* Invariant 'grows' *)
+  Have: 0 <= x.
+}
+Prove: x != 4.
+Prover Alt-Ergo  returns Valid (Qed:8ms) (39ms) (13)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 33) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c, line 33) (2/2):
+Call Result at line 35
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c:15: Warning: 
+  No 'assigns' specification for function 'unknown'.
+  Callers assumptions might be imprecise.
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-j7neslbh/workspace/.platform-proofs/tmp414mgj29/candidate.c:24: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T14:12:44+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

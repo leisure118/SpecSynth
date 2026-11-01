@@ -1,0 +1,58 @@
+[kernel] Parsing output/ops-4.6/live25/loop-invariants_bin-suffix-5/loop-invariants_bin-suffix-5.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/loop-invariants_bin-suffix-5/loop-invariants_bin-suffix-5.acsl.c:13: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 5 goals scheduled
+[wp] [Timeout] typed_main_loop_invariant_preserved (Qed 1ms) (Z3)
+[wp] Proved goals:    4 / 5
+  Qed:             4
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-invariants_bin-suffix-5/loop-invariants_bin-suffix-5.acsl.c, line 10):
+Assume {
+  Type: is_uint32(x) /\ is_sint32(tmp_0).
+  (* Invariant *)
+  Have: land(5, x) = 5.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= tmp_0) /\ (tmp_0 <= 2147483646).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: land(5, to_uint32(8 + x)) = 5.
+Prover Z3 4.15.4 returns Timeout (Qed:1ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:1ms) (15s)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-invariants_bin-suffix-5/loop-invariants_bin-suffix-5.acsl.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-invariants_bin-suffix-5/loop-invariants_bin-suffix-5.acsl.c, line 16):
+Prove: true.
+Prover Qed returns Valid (0.54ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-invariants_bin-suffix-5/loop-invariants_bin-suffix-5.acsl.c, line 11) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-invariants_bin-suffix-5/loop-invariants_bin-suffix-5.acsl.c, line 11) (2/2):
+Call Result at line 13
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-invariants_bin-suffix-5/loop-invariants_bin-suffix-5.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

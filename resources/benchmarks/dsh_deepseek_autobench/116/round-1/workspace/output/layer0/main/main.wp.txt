@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/Users/dijkstra/ACSL-Agent 2/acsl模块化验证/scripts/harness_verify_c.py", line 29, in <module>
+    main()
+    ~~~~^^
+  File "/Users/dijkstra/ACSL-Agent 2/acsl模块化验证/scripts/harness_verify_c.py", line 24, in main
+    check = verify_candidates(files, entry, 'inter-modular', Path(temporary), 30)
+  File "/Users/dijkstra/ACSL-Agent 2/acsl模块化验证/apps/api/app/agent_execution.py", line 77, in verify_candidates
+    with proof_slot(timeout) as remaining:
+         ~~~~~~~~~~^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.2/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/Users/dijkstra/ACSL-Agent 2/acsl模块化验证/apps/api/app/proof_limits.py", line 16, in proof_slot
+    handles=[(root/str(i)).open('a') for i in range(min(count,16))]
+             ~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.2/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted: '/Users/dijkstra/ACSL-Agent 2/acsl模块化验证/runtime/proof-slots/0'

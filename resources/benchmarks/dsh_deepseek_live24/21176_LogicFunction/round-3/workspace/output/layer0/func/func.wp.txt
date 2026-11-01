@@ -1,0 +1,77 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmps75b810k/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function func
+[wp] 5 goals scheduled
+[wp] [Timeout] typed_func_assert_rte_signed_overflow (Z3 15s)
+[wp] [Timeout] typed_func_assert_rte_signed_overflow_2 (Qed 1ms) (Z3 15s)
+[wp] [Timeout] typed_func_assert_rte_signed_overflow_3 (Qed 7ms) (Z3 15s)
+[wp] Proved goals:    2 / 5
+  Qed:             1
+  Alt-Ergo :       1 (51ms)
+  Timeout:         3
+------------------------------------------------------------
+  Function func
+------------------------------------------------------------
+
+Goal Post-condition (file runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmps75b810k/candidate.c, line 22) in 'func':
+Let x_1 = a * x.
+Let x_2 = 4 + x_1.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(x) /\ is_sint32(x_2).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 2147483647.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: to_sint32(x_1) <= 2147483643.
+}
+Prove: x_2 = L_ax_b(a, x, 4).
+Prover Z3 4.8.12 returns Valid (Qed:7ms) (140ms) (20513)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (51ms) (87)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmps75b810k/candidate.c, line 25):
+Assume { Type: is_sint32(a) /\ is_sint32(x). }
+Prove: (-2147483648) <= (a * x).
+Prover Z3 4.8.12 returns Timeout (15s)
+Prover Alt-Ergo  returns Timeout (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmps75b810k/candidate.c, line 25):
+Let x_1 = a * x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+}
+Prove: x_1 <= 2147483647.
+Prover Z3 4.8.12 returns Timeout (Qed:1ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:1ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-dxufsn1f/workspace/.platform-proofs/tmps75b810k/candidate.c, line 25):
+Let x_1 = a * x.
+Assume {
+  Type: is_sint32(a) /\ is_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= 2147483647.
+}
+Prove: to_sint32(x_1) <= 2147483643.
+Prover Z3 4.8.12 returns Timeout (Qed:7ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:7ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'func':
+Effect at line 25
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T14:41:40+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

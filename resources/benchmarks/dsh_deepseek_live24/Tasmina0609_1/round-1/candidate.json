@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Tasmina0609_1.c",
+      "content": "/*@\n  assigns \\nothing;\n  ensures \\result >= a;\n  ensures \\result >= b;\n  ensures \\result >= c;\n  ensures \\result == a || \\result == b || \\result == c;\n*/\nint max3(int a,int b,int c) {\n      int max;\n      if((a >= b) && (a >= c)) {\n        max = a;\n      }\n      else if((b >= a) && (b >= c)) {\n        max = b;\n      }\n      else if((c >= a) && (c >= b)) {\n        max = c;\n      }\n    return max;\n}\nint main(){\n    int a = 10;\n    int b = 20;\n    int c = 30;\n    int max = max3(a,b,c);\n    //@ assert max == 30;\n}"
+    }
+  ]
+}

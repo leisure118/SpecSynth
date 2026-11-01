@@ -1,0 +1,48 @@
+#include <assert.h>
+/*@ assigns \nothing; */
+int unknown1();
+/*@ assigns \nothing; */
+int unknown2();
+/*@ assigns \nothing; */
+int unknown3();
+/*@ assigns \nothing; */
+int unknown4();
+
+void main()
+{
+
+
+  int w = 1;
+  int z = 0;
+  int x = 0;
+  int y = 0;
+
+  /*@
+    loop invariant x == y;
+    loop invariant w % 2 == 1;
+    loop invariant z % 2 == 0;
+    loop invariant x >= 0;
+    loop invariant w >= 1;
+    loop invariant z >= 0;
+    loop assigns w, z, x, y;
+  */
+  while(unknown1()) {
+
+    /*@
+      loop invariant x == y;
+      loop invariant w % 2 == 1;
+      loop invariant z % 2 == 0;
+      loop invariant x >= 0;
+      loop assigns x, y;
+    */
+    while(unknown2()){
+      if(w%2 == 1) x++;
+      if(z%2 == 0) y++;
+    }
+    z = x + y;
+    w = z + 1;
+  }
+
+
+  //@ assert(x == y);
+}

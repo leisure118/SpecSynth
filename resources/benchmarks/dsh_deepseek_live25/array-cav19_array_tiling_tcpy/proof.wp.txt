@@ -1,0 +1,1375 @@
+Frama-C 证明目标 46/49
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c (with preprocessing)
+[kernel:typing:no-proto] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:9: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[wp] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 49 goals scheduled
+[wp] [Timeout] typed_main_assert_4 (Qed 8ms) (Alt-Ergo 15s) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_assert_3 (Qed 11ms) (Alt-Ergo 15s) (Stronger, 2 warnings)
+[wp] [Timeout] typed_main_assert_5 (Qed 10ms) (Alt-Ergo 15s) (Stronger, 2 warnings)
+[wp] Proved goals:   46 / 49
+  Qed:            31
+  Alt-Ergo :      15 (35ms-2.6s-15s)
+  Timeout:         3
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 10):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 11):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 13):
+Assume {
+  Type: is_sint32(S).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+}
+Prove: 0 < to_sint32(2 * S).
+Prover Z3 4.8.12 returns Valid (Qed:6ms) (130ms) (34590)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (35ms) (27)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 13):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 13):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 14):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 14):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 14):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 15):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Assume {
+  Type: is_sint32(S).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+}
+Prove: valid_rd(Malloc_0, shift_sint32(a, 0), x).
+Prover Z3 4.8.12 returns Unknown (Qed:11ms)
+Prover Alt-Ergo  returns Timeout (Qed:11ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 16):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Assume {
+  Type: is_sint32(S).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), x).
+}
+Prove: valid_rw(Malloc_0, shift_sint32(acopy_0, 0), x).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:8ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 17):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(acopy_0, 0).
+Let x = 2 * S.
+Let a_2 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32(S).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_2, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+}
+Prove: separated(a_2, x, a_1, x).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:10ms) (15s)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 18):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (23ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 18):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 19):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, i).
+Let a_2 = shift_sint32(acopy_0, i).
+Let x = 2 * S.
+Let x_1 = to_sint32(x).
+Let x_2 = -i.
+Let x_3 = to_sint32(x_1 - 1 - i).
+Let a_3 = shift_sint32(acopy_0, 0).
+Let a_4 = havoc(Mint_undef_0, Mint_0, a_3, x).
+Let a_5 = shift_sint32(a, 0).
+Let x_4 = x - 1 - i.
+Let a_6 = a_4[shift_sint32(acopy_0, x_4) <- a_4[shift_sint32(a, x_4)]].
+Let a_7 = a_6[a_2 <- a_6[a_1]].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32(1 + i) /\ is_sint32_chunk(a_4) /\ is_sint32_chunk(a_6) /\
+      is_sint32_chunk(a_7).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= i).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_5, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_3, x).
+  (* Assertion *)
+  Have: separated(a_5, x, a_3, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_4[shift_sint32(acopy_0, i_2)] = a_4[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < x) -> ((x <= (i + i_2)) ->
+      (a_4[shift_sint32(acopy_0, i_2)] = a_4[shift_sint32(a, i_2)]))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, x_3), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= (2147483647 + x_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= (2147483648 + i).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, x_3), 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_7[shift_sint32(acopy_0, i_1)] = a_7[shift_sint32(a, i_1)].
+Prover Alt-Ergo  returns Valid (Qed:21ms) (159ms) (1861)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 19):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 20):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(acopy_0, 0).
+Let x = 2 * S.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = -i.
+Let x_2 = x - 1 - i.
+Let a_3 = a_2[shift_sint32(acopy_0, x_2) <- a_2[shift_sint32(a, x_2)]].
+Let a_4 = shift_sint32(acopy_0, i).
+Let a_5 = shift_sint32(a, i).
+Let a_6 = a_3[a_4 <- a_3[a_5]].
+Let x_3 = to_sint32(x).
+Let x_4 = to_sint32(x_3 - 1 - i).
+Let a_7 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32(1 + i) /\ is_sint32_chunk(a_2) /\ is_sint32_chunk(a_3) /\
+      is_sint32_chunk(a_6).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (i_1 < x) /\ (x <= (1 + i_1 + i)).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_3.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_7, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_7, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < x) -> ((x <= (i + i_2)) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, x_4), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= (2147483647 + x_3).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_3 <= (2147483648 + i).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, x_4), 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_4, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_5, 1).
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i) -> ((0 <= i_2) ->
+      (a_6[shift_sint32(acopy_0, i_2)] = a_6[shift_sint32(a, i_2)]))).
+}
+Prove: a_6[shift_sint32(acopy_0, i_1)] = a_6[shift_sint32(a, i_1)].
+Prover Alt-Ergo  returns Valid (Qed:19ms) (123ms) (1202)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 20):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Let x_1 = to_sint32(x).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_3, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_3, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x <= (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i < S.
+}
+Prove: valid_rw(Malloc_0,
+         shift_sint32(acopy_0, to_sint32(x_1 - to_sint32(1 + i))), 1).
+Prover Alt-Ergo  returns Valid (Qed:14ms) (46ms) (121)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let x_1 = to_sint32(x).
+Let x_2 = to_sint32(1 + i).
+Let x_3 = to_sint32(x_1 - x_2).
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_3, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_3, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x <= (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, x_3), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= (2147483648 + x_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= (2147483647 + x_2).
+}
+Prove: valid_rd(Malloc_0, shift_sint32(a, x_3), 1).
+Prover Alt-Ergo  returns Valid (Qed:13ms) (52ms) (147)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let x_1 = to_sint32(x).
+Let x_2 = to_sint32(1 + i).
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_3, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_3, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x <= (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, to_sint32(x_1 - x_2)), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483646.
+}
+Prove: x_2 <= (2147483648 + x_1).
+Prover Z3 4.8.12 returns Valid (Qed:12ms) (140ms) (91820)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (46ms) (96)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = to_sint32(1 + i).
+Let x_1 = 2 * S.
+Let x_2 = to_sint32(x_1).
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x_1).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_2.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_3, x_1).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x_1).
+  (* Assertion *)
+  Have: separated(a_3, x_1, a_1, x_1).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x_1) -> ((x_1 <= (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, to_sint32(x_2 - x)), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x <= (2147483648 + x_2).
+}
+Prove: x_2 <= (2147483647 + x).
+Prover Alt-Ergo  returns Valid (Qed:15ms) (50ms) (82)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 25):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 26):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let x_1 = to_sint32(x).
+Let x_2 = to_sint32(1 + i).
+Let x_3 = to_sint32(x_1 - x_2).
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Let x_4 = x - 1 - i.
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32_chunk(a_2) /\
+      is_sint32_chunk(a_2[shift_sint32(acopy_0, x_4)
+                        <- a_2[shift_sint32(a, x_4)]]).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_3, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_3, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x <= (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, x_3), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= (2147483648 + x_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= (2147483647 + x_2).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, x_3), 1).
+}
+Prove: valid_rw(Malloc_0, shift_sint32(acopy_0, i), 1).
+Prover Alt-Ergo  returns Valid (Qed:17ms) (56ms) (220)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 26):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let x_1 = to_sint32(x).
+Let x_2 = to_sint32(1 + i).
+Let x_3 = to_sint32(x_1 - x_2).
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Let x_4 = x - 1 - i.
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32_chunk(a_2) /\
+      is_sint32_chunk(a_2[shift_sint32(acopy_0, x_4)
+                        <- a_2[shift_sint32(a, x_4)]]).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_1.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_3, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_3, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i <= S) /\ (0 <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x <= (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i < S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, x_3), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= (2147483648 + x_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_1 <= (2147483647 + x_2).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, x_3), 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, i), 1).
+}
+Prove: valid_rd(Malloc_0, shift_sint32(a, i), 1).
+Prover Alt-Ergo  returns Valid (Qed:16ms) (59ms) (239)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 24):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 28):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (16ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 28):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 29):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(acopy_0, 0).
+Let x = 2 * S.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = a_2[shift_sint32(acopy_0, i_1)].
+Let a_4 = a_2[shift_sint32(a, i_1)].
+Let a_5 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i_1) /\
+      is_sint32(i_2) /\ is_sint32(1 + i_1) /\ is_sint32_chunk(a_2) /\
+      is_sint32(a_4) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_5, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_5, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i_2 <= S) /\ (0 <= i_2).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i_2) ->
+      (a_2[shift_sint32(acopy_0, i_3)] = a_2[shift_sint32(a, i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 < x) -> ((x <= (i_2 + i_3)) ->
+      (a_2[shift_sint32(acopy_0, i_3)] = a_2[shift_sint32(a, i_3)]))).
+  (* Else *)
+  Have: S <= i_2.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < x) ->
+      (a_2[shift_sint32(acopy_0, i_3)] = a_2[shift_sint32(a, i_3)]))).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= x).
+  (* Then *)
+  Have: i_1 < x.
+  (* Assertion *)
+  Have: a_3 = a_4.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= 2147483646.
+  (* Invariant *)
+  Have: (-1) <= i_1.
+}
+Prove: a_2[shift_sint32(acopy_0, i)] = a_2[shift_sint32(a, i)].
+Prover Z3 4.8.12 returns Valid (Qed:18ms) (140ms) (95488)
+Prover Alt-Ergo  returns Valid (Qed:18ms) (46ms) (116)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 29):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i_1) /\
+      is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_3, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_3, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < x) -> ((x <= (i_1 + i_2)) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Else *)
+  Have: S <= i_1.
+}
+Prove: a_2[shift_sint32(acopy_0, i)] = a_2[shift_sint32(a, i)].
+Prover Alt-Ergo  returns Valid (Qed:13ms) (47ms) (107)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 33):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 33):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 34):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Let a_4 = a_2[shift_sint32(a, i)].
+Let a_5 = a_2[shift_sint32(acopy_0, i)].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32(i_1) /\ is_sint32_chunk(a_2) /\ is_sint32(a_4) /\
+      is_sint32(a_5).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_3, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_3, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < x) -> ((x <= (i_1 + i_2)) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= x).
+  (* Then *)
+  Have: i < x.
+}
+Prove: a_5 = a_4.
+Prover Alt-Ergo  returns Valid (Qed:14ms) (47ms) (96)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 33):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(acopy_0, 0).
+Let x = 2 * S.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = a_2[shift_sint32(acopy_0, i)].
+Let a_4 = a_2[shift_sint32(a, i)].
+Let a_5 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32(i_1) /\ is_sint32_chunk(a_2) /\ is_sint32(a_4) /\
+      is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < to_sint32(x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_5, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_5, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (i_1 <= S) /\ (0 <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 < x) -> ((x <= (i_1 + i_2)) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Else *)
+  Have: S <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_2[shift_sint32(acopy_0, i_2)] = a_2[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= x).
+  (* Then *)
+  Have: i < x.
+  (* Assertion *)
+  Have: a_3 = a_4.
+}
+Prove: i <= 2147483646.
+Prover Alt-Ergo  returns Valid (Qed:16ms) (38ms) (34)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 21) (1/4):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 21) (2/4):
+Effect at line 24
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 21) (3/4):
+Effect at line 25
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = -i.
+Let x_2 = x - i.
+Let a_3 = shift_sint32(acopy_0, x_2).
+Let a_4 = a_2[a_3 <- a_2[shift_sint32(a, x_2)]].
+Let x_3 = i - 1.
+Let a_5 = shift_sint32(acopy_0, x_3).
+Let a_6 = shift_sint32(a, x_3).
+Let a_7 = a_4[a_5 <- a_4[a_6]].
+Let x_4 = to_sint32(x).
+Let x_5 = to_sint32(x_4 - i).
+Let a_8 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32(x_3) /\ is_sint32_chunk(a_2) /\ is_sint32_chunk(a_4) /\
+      is_sint32_chunk(a_7).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_4.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_8, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_8, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + S)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x < (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i <= S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, x_5), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483647.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= (2147483648 + x_4).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_4 <= (2147483647 + i).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, x_5), 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_5, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_6, 1).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_7[shift_sint32(acopy_0, i_1)] = a_7[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x <= (i + i_1)) ->
+      (a_7[shift_sint32(acopy_0, i_1)] = a_7[shift_sint32(a, i_1)]))).
+}
+Prove: included(a_3, 1, a_1, x).
+Prover Alt-Ergo  returns Valid (Qed:22ms) (83ms) (340)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 21) (4/4):
+Effect at line 26
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * S.
+Let a_1 = shift_sint32(acopy_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = -i.
+Let x_2 = x - i.
+Let a_3 = a_2[shift_sint32(acopy_0, x_2) <- a_2[shift_sint32(a, x_2)]].
+Let x_3 = i - 1.
+Let a_4 = shift_sint32(acopy_0, x_3).
+Let a_5 = shift_sint32(a, x_3).
+Let a_6 = a_3[a_4 <- a_3[a_5]].
+Let x_4 = to_sint32(x).
+Let x_5 = to_sint32(x_4 - i).
+Let a_7 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(S) /\ is_sint32(i) /\
+      is_sint32(x_3) /\ is_sint32_chunk(a_2) /\ is_sint32_chunk(a_3) /\
+      is_sint32_chunk(a_6).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_4, 1).
+  (* Call 'unknown' *)
+  Have: (2 <= S) /\ (S <= 1073741822).
+  (* Assertion 'alloca_bounds' *)
+  Have: 0 < x_4.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-1073741824) <= S.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: S <= 1073741823.
+  (* Assertion *)
+  Have: valid_rd(Malloc_0, a_7, x).
+  (* Assertion *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Assertion *)
+  Have: separated(a_7, x, a_1, x).
+  (* Invariant *)
+  Have: 0 <= S.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + S)).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> (((2 + i_1) <= i) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x < (i + i_1)) ->
+      (a_2[shift_sint32(acopy_0, i_1)] = a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i <= S.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(acopy_0, x_5), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= 2147483647.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= (2147483648 + x_4).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_4 <= (2147483647 + i).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, x_5), 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_4, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_5, 1).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (a_6[shift_sint32(acopy_0, i_1)] = a_6[shift_sint32(a, i_1)]))).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i_1 < x) -> ((x <= (i + i_1)) ->
+      (a_6[shift_sint32(acopy_0, i_1)] = a_6[shift_sint32(a, i_1)]))).
+}
+Prove: included(a_4, 1, a_1, x).
+Prover Alt-Ergo  returns Valid (Qed:32ms) (85ms) (330)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 30):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 24):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 24):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 33):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c, line 33):
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:13: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:14: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_live25/array-cav19_array_tiling_tcpy/round-5/proof/array-cav19_array_tiling_tcpy.c:7: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T19:32:41+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

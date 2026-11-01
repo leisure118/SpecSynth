@@ -1,0 +1,465 @@
+Frama-C 证明目标 18/18
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function reverse
+[wp] 18 goals scheduled
+[wp] Proved goals:   18 / 18
+  Qed:             9
+  Alt-Ergo :       9 (38ms-74ms)
+------------------------------------------------------------
+  Function reverse
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 7) in 'reverse':
+Let a_1 = shift_sint32(res_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, size_0).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i_1) /\ is_sint32(size_0) /\
+      is_sint32(size_0 - 1) /\ is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < size_0).
+  (* Pre-condition *)
+  Have: 0 <= size_0.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, size_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, size_0).
+  (* Pre-condition *)
+  Have: separated(a_3, size_0, a_1, size_0).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= size_0.
+  (* Invariant *)
+  Have: (i_1 < size_0) /\ ((-1) <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 < i_2) -> ((i_2 < size_0) ->
+      (a_2[shift_sint32(a, size_0 - 1 - i_2)] =
+       a_2[shift_sint32(res_0, i_2)]))).
+  (* Else *)
+  Have: i_1 < 0.
+}
+Prove: a_2[shift_sint32(a, size_0 - 1 - i)] = a_2[shift_sint32(res_0, i)].
+Prover Z3 4.8.12 returns Valid (Qed:16ms) (150ms) (89793)
+Prover Alt-Ergo  returns Valid (Qed:16ms) (47ms) (75)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 18):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 13):
+Let x = -i.
+Let x_1 = to_sint32(1 + i_1 - i).
+Let a_1 = shift_sint32(res_0, i).
+Let a_2 = shift_sint32(res_0, 0).
+Let x_2 = 1 + i_1.
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_2, x_2).
+Let a_4 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32(i_1) /\
+      is_sint32(i - 1) /\ is_sint32(x_2) /\ is_sint32_chunk(a_3) /\
+      is_sint32_chunk(a_3[a_1 <- a_3[shift_sint32(a, i_1 - i)]]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (-1) <= i_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_4, x_2).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, x_2).
+  (* Pre-condition *)
+  Have: separated(a_4, x_2, a_2, x_2).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= i_1.
+  (* Invariant *)
+  Have: (i <= i_1) /\ ((-1) <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i < i_2) -> ((i_2 <= i_1) ->
+      (a_3[shift_sint32(a, i_1 - i_2)] = a_3[shift_sint32(res_0, i_2)]))).
+  (* Then *)
+  Have: 0 <= i.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= (2147483649 + i_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= (2147483646 + i).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= x_1.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, to_sint32(x_1 - 1)), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= i.
+}
+Prove: i <= x_2.
+Prover Z3 4.8.12 returns Valid (Qed:8ms) (140ms) (88077)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (38ms) (35)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 13):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 14):
+Let x = 1 + i.
+Let x_1 = -i_1.
+Let x_2 = to_sint32(1 + i - i_1).
+Let a_1 = shift_sint32(res_0, i_1).
+Let a_2 = shift_sint32(res_0, 0).
+Let a_3 = havoc(Mint_undef_0, Mint_0, a_2, x).
+Let a_4 = shift_sint32(a, 0).
+Let a_5 = a_3[a_1 <- a_3[shift_sint32(a, i - i_1)]].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(i_1 - 1) /\ is_sint32(x) /\ is_sint32_chunk(a_3) /\
+      is_sint32_chunk(a_5).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Goal *)
+  When: (i_1 <= i_2) /\ (i_2 <= i).
+  (* Pre-condition *)
+  Have: (-1) <= i.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_4, x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_2, x).
+  (* Pre-condition *)
+  Have: separated(a_4, x, a_2, x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= i.
+  (* Invariant *)
+  Have: (i_1 <= i) /\ ((-1) <= i_1).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_1 < i_3) -> ((i_3 <= i) ->
+      (a_3[shift_sint32(a, i - i_3)] = a_3[shift_sint32(res_0, i_3)]))).
+  (* Then *)
+  Have: 0 <= i_1.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_1, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= (2147483649 + i).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= (2147483646 + i_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= x_2.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, to_sint32(x_2 - 1)), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= i_1.
+  (* Invariant *)
+  Have: i_1 <= x.
+}
+Prove: a_5[shift_sint32(a, i - i_2)] = a_5[shift_sint32(res_0, i_2)].
+Prover Alt-Ergo  returns Valid (Qed:8ms) (74ms) (329)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 14):
+Prove: true.
+Prover Qed returns Valid (0.97ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 19):
+Let a_1 = shift_sint32(res_0, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, size_0).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32(size_0) /\
+      is_sint32(size_0 - 1) /\ is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: 0 <= size_0.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, size_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, size_0).
+  (* Pre-condition *)
+  Have: separated(a_3, size_0, a_1, size_0).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= size_0.
+  (* Invariant *)
+  Have: (i < size_0) /\ ((-1) <= i).
+  (* Invariant *)
+  Have: forall i_1 : Z. ((i < i_1) -> ((i_1 < size_0) ->
+      (a_2[shift_sint32(a, size_0 - 1 - i_1)] =
+       a_2[shift_sint32(res_0, i_1)]))).
+  (* Then *)
+  Have: 0 <= i.
+}
+Prove: valid_rw(Malloc_0, shift_sint32(res_0, i), 1).
+Prover Z3 4.8.12 returns Valid (Qed:11ms) (170ms) (130093)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (58ms) (109)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 19):
+Let x = to_sint32(1 + i - i_1).
+Let a_1 = shift_sint32(res_0, 0).
+Let x_1 = 1 + i.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x_1).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(x_1) /\ is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (-1) <= i.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, x_1).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x_1).
+  (* Pre-condition *)
+  Have: separated(a_3, x_1, a_1, x_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= i.
+  (* Invariant *)
+  Have: (i_1 <= i) /\ ((-1) <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 < i_2) -> ((i_2 <= i) ->
+      (a_2[shift_sint32(a, i - i_2)] = a_2[shift_sint32(res_0, i_2)]))).
+  (* Then *)
+  Have: 0 <= i_1.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(res_0, i_1), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= (2147483649 + i).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= (2147483646 + i_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= x.
+}
+Prove: valid_rd(Malloc_0, shift_sint32(a, to_sint32(x - 1)), 1).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (62ms) (142)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 19):
+Let a_1 = shift_sint32(res_0, 0).
+Let x = 1 + i_1.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32(i_1) /\
+      is_sint32(x) /\ is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (-1) <= i_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: separated(a_3, x, a_1, x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= i_1.
+  (* Invariant *)
+  Have: (i <= i_1) /\ ((-1) <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i < i_2) -> ((i_2 <= i_1) ->
+      (a_2[shift_sint32(a, i_1 - i_2)] = a_2[shift_sint32(res_0, i_2)]))).
+  (* Then *)
+  Have: 0 <= i.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(res_0, i), 1).
+}
+Prove: i <= (2147483649 + i_1).
+Prover Z3 4.8.12 returns Valid (Qed:5ms) (150ms) (85533)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (42ms) (22)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 19):
+Let a_1 = shift_sint32(res_0, 0).
+Let x = 1 + i.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(x) /\ is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (-1) <= i.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: separated(a_3, x, a_1, x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= i.
+  (* Invariant *)
+  Have: (i_1 <= i) /\ ((-1) <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 < i_2) -> ((i_2 <= i) ->
+      (a_2[shift_sint32(a, i - i_2)] = a_2[shift_sint32(res_0, i_2)]))).
+  (* Then *)
+  Have: 0 <= i_1.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(res_0, i_1), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= (2147483649 + i).
+}
+Prove: i <= (2147483646 + i_1).
+Prover Z3 4.8.12 returns Valid (Qed:6ms) (150ms) (85693)
+Prover Alt-Ergo  returns Valid (Qed:6ms) (47ms) (62)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 19):
+Let a_1 = shift_sint32(res_0, 0).
+Let x = 1 + i.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let a_3 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i_1) /\ is_sint32(i) /\
+      is_sint32(x) /\ is_sint32_chunk(a_2).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Pre-condition *)
+  Have: (-1) <= i.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_3, x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: separated(a_3, x, a_1, x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= i.
+  (* Invariant *)
+  Have: (i_1 <= i) /\ ((-1) <= i_1).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_1 < i_2) -> ((i_2 <= i) ->
+      (a_2[shift_sint32(a, i - i_2)] = a_2[shift_sint32(res_0, i_2)]))).
+  (* Then *)
+  Have: 0 <= i_1.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, shift_sint32(res_0, i_1), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= (2147483649 + i).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= (2147483646 + i_1).
+}
+Prove: (-2147483647) <= to_sint32(1 + i - i_1).
+Prover Alt-Ergo  returns Valid (Qed:6ms) (53ms) (80)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 18):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 15) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 15) (2/2):
+Effect at line 19
+Let a_1 = shift_sint32(res_0, 0).
+Let x = 1 + i_1.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = 1 + i.
+Let a_3 = shift_sint32(res_0, x_1).
+Let x_2 = -i.
+Let a_4 = a_2[a_3 <- a_2[shift_sint32(a, i_1 - 1 - i)]].
+Let x_3 = to_sint32(i_1 - i).
+Let a_5 = shift_sint32(a, 0).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_sint32(i) /\ is_sint32(i_1) /\
+      is_sint32(x_1) /\ is_sint32(x) /\ is_sint32_chunk(a_2) /\
+      is_sint32_chunk(a_4).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ (region(res_0.base) <= 0) /\
+      linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Pre-condition *)
+  Have: (-1) <= i_1.
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_5, x).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a_1, x).
+  (* Pre-condition *)
+  Have: separated(a_5, x, a_1, x).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= i_1.
+  (* Invariant *)
+  Have: (i < i_1) /\ ((-2) <= i).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i_2 <= i_1) -> (((2 + i) <= i_2) ->
+      (a_2[shift_sint32(a, i_1 - i_2)] = a_2[shift_sint32(res_0, i_2)]))).
+  (* Then *)
+  Have: (-1) <= i.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rw(Malloc_0, a_3, 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i <= (2147483648 + i_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: i_1 <= (2147483647 + i).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= x_3.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, to_sint32(x_3 - 1)), 1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((i < i_2) -> ((i_2 <= i_1) ->
+      (a_4[shift_sint32(a, i_1 - i_2)] = a_4[shift_sint32(res_0, i_2)]))).
+}
+Prove: included(a_3, 1, a_1, x).
+Prover Z3 4.8.12 returns Valid (Qed:11ms) (190ms) (210083)
+Prover Alt-Ergo  returns Valid (Qed:11ms) (63ms) (239)
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 6) in 'reverse' (1/2):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 6) in 'reverse' (2/2):
+Effect at line 18
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 18):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_live24/arepina_reverse/round-1/proof/arepina_reverse.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T19:56:54+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

@@ -1,0 +1,82 @@
+Frama-C 证明目标 9/9
+[kernel] Parsing resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[wp] 9 goals scheduled
+[wp] Proved goals:    9 / 9
+  Qed:             8
+  Alt-Ergo :       1 (32ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c, line 9):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c, line 9):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c, line 10):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c, line 10):
+Prove: true.
+Prover Qed returns Valid (0.56ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c, line 23):
+Assume {
+  Type: is_sint32(a) /\ is_sint32(c) /\ is_sint32(k) /\ is_sint32(m).
+  (* Pre-condition *)
+  Have: 0 < c.
+  (* Invariant *)
+  Have: ((0 < k) -> (a <= m)).
+  (* Invariant *)
+  Have: (k <= c) /\ (0 <= k).
+  (* Else *)
+  Have: c <= k.
+}
+Prove: a <= m.
+Prover Z3 4.8.12 returns Valid (Qed:4ms) (120ms) (35411)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (32ms) (25)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c, line 14):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_deepseek_autobench/109/round-1/proof/109.c:4: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T15:59:09+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

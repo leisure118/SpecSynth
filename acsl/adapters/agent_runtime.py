@@ -92,17 +92,10 @@ def _status(bucket):
     items = [{'id':'default','name':NAMES['default'],'ready':True,'installed':True,'authenticated':None,'message':'使用平台现有模型与验证流程。','model_policy':'platform'}]
     for agent in ('codex','claude-code'):
         path = executable(agent)
-        authenticated = False
-        if path:
-            try:
-                command = [path,'login','status'] if agent == 'codex' else [path,'auth','status']
-                code, stdout, stderr = run_process(command,cwd=ROOT_DIR,timeout=8)
-                authenticated = code == 0 if agent == 'codex' else code == 0 and json.loads(stdout).get('loggedIn') is True
-            except (OSError, ValueError, TimeoutError):
-                pass
-        items.append({'id':agent,'name':NAMES[agent],'installed':bool(path),'authenticated':authenticated,'ready':bool(path and authenticated),
-                      'message':'已检测到登录记录；真实连接将在任务执行时验证。' if authenticated else '请先在运行后端的账号下登录。' if path else '未找到可执行程序。',
-                      'model_policy':'runner','default_model':runner_default_model(agent),'models':runner_models(agent),'connection_verified':False})
+        model = deepseek_model()
+        items.append({'id':agent,'name':NAMES[agent],'installed':bool(path),'authenticated':None,'ready':bool(path and model),
+                      'message':'使用平台模型 API；实际连接在任务执行时验证。' if path and model else '请安装项目 CLI 并配置模型服务。',
+                      'model_policy':'platform','default_model':model,'models':get_available_models(),'connection_verified':False})
     model = deepseek_model()
     from engine.nl2verus.dsh_cli import installed
     cli_installed = installed() and bool(shutil.which('node'))
@@ -172,9 +165,19 @@ def agent_environment():
 def _generate(agent, prompt, directory: Path, timeout, model='',sub_model=''):
     """Only return a candidate; never treat runner success as verification success."""
     directory.mkdir(parents=True, exist_ok=True)
-    if agent == 'deepseek-harness':
+    if agent in ('codex','claude-code') and model in get_available_models():
+        from engine.c_agent_cli import generate as run_cli
+        from engine.autospec.src.config_manager import ConfigLoader
+        from engine.nl2verus.model_provider import ProviderError
+        config=ConfigLoader.get_model_config(model,str(MODELS_CONFIG_PATH))
+        try:
+            output=run_cli(agent,prompt,{'model':config.model_name,'base_url':config.base_url,'api_key':config.api_key},directory,timeout)
+        except ProviderError as exc:
+            error=AgentCallError(exc.safe_message);error.code=exc.code;raise error from None
+    elif agent == 'deepseek-harness':
         from engine.autospec.src.config_manager import ConfigLoader
         from engine.nl2verus.dsh_cli import generate as run_harness
+        from engine.nl2verus.model_provider import ProviderError
         model = model or deepseek_model()
         if not model:
             raise ValueError('请选择已配置的模型。')
@@ -189,10 +192,24 @@ def _generate(agent, prompt, directory: Path, timeout, model='',sub_model=''):
         try:
             from contextlib import nullcontext
             from engine.cli_model_transport import model_route
-            route=model_route(sub_profile,enabled=True) if sub_profile else nullcontext(None)
+            from engine.nl2verus.harness_session import current_session
+            session=current_session()
+            if session is not None and sub_profile:
+                route_key=json.dumps(sub_profile,sort_keys=True)
+                if route_key not in session.routes:
+                    session.routes[route_key]=session.resources.enter_context(model_route(sub_profile,enabled=True))
+                route=nullcontext(session.routes[route_key])
+            else:
+                route=model_route(sub_profile,enabled=True) if sub_profile else nullcontext(None)
             started=time.monotonic()
             with route as child_route:
                 result = run_harness(prompt, profile, timeout=max(1,timeout-(time.monotonic()-started)), output_format='files', artifact_dir=directory,sub_profile=child_route,require_subagent=True)
+        except ProviderError as exc:
+            details={'code':exc.code,'message':exc.safe_message,'agent_runtime':getattr(exc,'agent_runtime',{}),'agent_events':getattr(exc,'agent_events',[]),'provider_calls':getattr(exc,'provider_calls',0)}
+            (directory/'harness-runtime.json').write_text(json.dumps(details,ensure_ascii=False))
+            error=AgentCallError('DeepSeek Harness CLI：'+exc.safe_message)
+            error.code=exc.code
+            raise error from None
         except Exception:
             raise AgentCallError('官方 DeepSeek Harness CLI 执行失败，请检查运行时、网络和模型配置；未回退直连 API。') from None
         (directory/'harness-runtime.json').write_text(json.dumps({k:v for k,v in result.items() if k!='code'},ensure_ascii=False))

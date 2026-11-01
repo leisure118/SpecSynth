@@ -1,0 +1,949 @@
+[kernel] Parsing output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c (with preprocessing)
+[kernel:typing:no-proto] output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:64: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 53 goals scheduled
+[wp] Proved goals:   53 / 53
+  Qed:            40
+  Alt-Ergo :      13 (5ms-50ms-386ms)
+------------------------------------------------------------
+  Function bAnd
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 44) in 'bAnd':
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 52):
+Prove: true.
+Prover Qed returns Valid (0.63ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 53):
+Let a = shift_sint32(x, 0).
+Let x_1 = Mint_0[a].
+Let x_2 = 1 + i.
+Let x_3 = Mint_0[shift_sint32(x, i)].
+Let x_4 = L_band_range(Mint_0, x, 0, i).
+Let x_5 = land(x_4, x_3).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i) /\ is_sint32(x_2) /\ is_sint32(x_1) /\
+      is_sint32(x_3) /\ is_sint64(x_4) /\ is_sint64(x_5).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, N).
+  Have: x_1 = L_band_range(Mint_0, x, 0, 1).
+  (* Invariant *)
+  Have: 0 < N.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= N).
+  (* Then *)
+  Have: i < N.
+}
+Prove: L_band_range(Mint_0, x, 0, x_2) = x_5.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (165783)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (17ms) (345)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 53):
+Let a = shift_sint32(x, 0).
+Let x_1 = Mint_0[a].
+Assume {
+  Type: is_sint32(N) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: 0 < N.
+}
+Prove: x_1 = L_band_range(Mint_0, x, 0, 1).
+Prover Alt-Ergo  returns Valid (Qed:1ms) (11ms) (110)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 54):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bAnd' (1/4):
+Effect at line 50
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bAnd' (2/4):
+Effect at line 57
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bAnd' (3/4):
+Effect at line 57
+Prove: true.
+Prover Qed returns Valid (0.79ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'bAnd' (4/4):
+Effect at line 60
+Prove: true.
+Prover Qed returns Valid (0.74ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 57):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 66):
+Assume {
+  Type: is_sint32(N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+}
+Prove: (0 < N) /\ (N <= 4611686018427387903).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (5ms) (16)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 73):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 73):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.83ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 82):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 85):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 86):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 87):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(x, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, N).
+Let a_2 = a_1[a].
+Let a_3 = shift_sint32(x, 1).
+Let a_4 = a_1[a_3].
+Let a_5 = shift_sint32(x, i).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_1) /\ is_sint32(a_2) /\ is_sint32(a_4).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (i < N) /\ (2 <= i).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Else *)
+  Have: N <= i_1.
+}
+Prove: a_1[a <- a_4][a_3 <- a_2][a_5] = a_1[a_5].
+Prover Z3 4.15.4 returns Valid (Qed:7ms) (10ms) (123772)
+Prover Alt-Ergo  returns Valid (Qed:7ms) (9ms) (157)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 88):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(x, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, N).
+Let a_2 = shift_sint32(x, 1).
+Let a_3 = a_1[a_2].
+Let a_4 = a_1[a].
+Let a_5 = a_1[a <- a_3][a_2 <- a_4].
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i) /\ is_sint32(a_4) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (i <= N) /\ (0 <= i).
+  (* Else *)
+  Have: N <= i.
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_6 = shift_sint32(x, i_1) in ((i_1 < N) ->
+      ((2 <= i_1) -> (a_5[a_6] = a_1[a_6]))).
+}
+Prove: L_band_range(a_5, x, 0, N) = L_band_range(a_1, x, 0, N).
+Prover Alt-Ergo  returns Valid (Qed:7ms) (77ms) (2336)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 89):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(x, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, N).
+Let a_2 = shift_sint32(x, 1).
+Let a_3 = a_1[a_2].
+Let a_4 = a_1[a].
+Let a_5 = a_1[a <- a_3][a_2 <- a_4].
+Let x_1 = L_band_range(a_5, x, 0, N).
+Let x_2 = L_band_range(a_1, x, 0, N).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i) /\ is_sint32(a_4) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (i <= N) /\ (0 <= i).
+  (* Else *)
+  Have: N <= i.
+  (* Assertion *)
+  Have: forall i_1 : Z. let a_6 = shift_sint32(x, i_1) in ((i_1 < N) ->
+      ((2 <= i_1) -> (a_5[a_6] = a_1[a_6]))).
+  (* Assertion *)
+  Have: x_1 = x_2.
+}
+Prove: to_sint32(x_1) = to_sint32(x_2).
+Prover Z3 4.15.4 returns Valid (Qed:8ms) (10ms) (138267)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (8ms) (40)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 91):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 92):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 95):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 97):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (12ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 97):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 98):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(x, 0).
+Let a_1 = havoc(Mint_undef_1, Mint_0, a, N).
+Let a_2 = shift_sint32(x, 1).
+Let a_3 = a_1[a_2].
+Let a_4 = a_1[a].
+Let a_5 = a_1[a <- a_3][a_2 <- a_4].
+Let a_6 = havoc(Mint_undef_0, a_5, a, N - 1).
+Let x_1 = L_band_range(a_5, x, 0, N).
+Let x_2 = L_band_range(a_1, x, 0, N).
+Let x_3 = 1 + i.
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_3) /\
+      is_sint32(a_4) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (i_1 <= i) /\ (0 <= i_1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Else *)
+  Have: N <= i_2.
+  (* Call 'bAnd' *)
+  Have: to_sint32(x_1) = to_sint32(x_2).
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_7 = shift_sint32(x, i_3) in ((i_3 < N) ->
+      ((2 <= i_3) -> (a_5[a_7] = a_1[a_7]))).
+  (* Assertion *)
+  Have: x_1 = x_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i < N).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_6[shift_sint32(x, i_3)] = a_5[shift_sint32(x, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_7 = shift_sint32(x, i_3) in ((i_3 < N) ->
+      ((i <= i_3) -> (a_6[a_7] = a_5[a_7]))).
+  (* Then *)
+  Have: (2 + i) <= N.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_6[shift_sint32(x, i) <- a_6[shift_sint32(x, x_3)]]
+         [shift_sint32(x, i_1)] = a_5[shift_sint32(x, 1 + i_1)].
+Prover Alt-Ergo  returns Valid (Qed:19ms) (31ms) (787)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 98):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 99):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(x, 0).
+Let a_1 = havoc(Mint_undef_1, Mint_0, a, N).
+Let a_2 = shift_sint32(x, 1).
+Let a_3 = a_1[a_2].
+Let a_4 = a_1[a].
+Let a_5 = a_1[a <- a_3][a_2 <- a_4].
+Let a_6 = havoc(Mint_undef_0, a_5, a, N - 1).
+Let x_1 = 1 + i.
+Let a_7 = a_6[shift_sint32(x, i) <- a_6[shift_sint32(x, x_1)]].
+Let x_2 = L_band_range(a_5, x, 0, N).
+Let x_3 = L_band_range(a_1, x, 0, N).
+Let a_8 = shift_sint32(x, i_1).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_1) /\
+      is_sint32(a_4) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 < N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Else *)
+  Have: N <= i_2.
+  (* Call 'bAnd' *)
+  Have: to_sint32(x_2) = to_sint32(x_3).
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_9 = shift_sint32(x, i_3) in ((i_3 < N) ->
+      ((2 <= i_3) -> (a_5[a_9] = a_1[a_9]))).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i < N).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_6[shift_sint32(x, i_3)] = a_5[shift_sint32(x, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_9 = shift_sint32(x, i_3) in ((i_3 < N) ->
+      ((i <= i_3) -> (a_6[a_9] = a_5[a_9]))).
+  (* Then *)
+  Have: (2 + i) <= N.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((i_3 <= i) -> ((0 <= i_3) ->
+      (a_7[shift_sint32(x, i_3)] = a_5[shift_sint32(x, 1 + i_3)]))).
+}
+Prove: a_7[a_8] = a_5[a_8].
+Prover Alt-Ergo  returns Valid (Qed:16ms) (23ms) (528)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 99):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 107):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x_1 = 1 + i.
+Let a = shift_sint32(x, 0).
+Let a_1 = havoc(Mint_undef_1, Mint_0, a, N).
+Let a_2 = shift_sint32(x, 1).
+Let a_3 = a_1[a_2].
+Let a_4 = a_1[a].
+Let a_5 = a_1[a <- a_3][a_2 <- a_4].
+Let a_6 = havoc(Mint_undef_0, a_5, a, N - 1).
+Let x_2 = L_band_range(a_5, x, 0, N).
+Let x_3 = L_band_range(a_1, x, 0, N).
+Let a_7 = havoc(Mint_undef_1, Mint_0, a, x_1).
+Let a_8 = a_7[a_2].
+Let a_9 = a_7[a <- a_8][a_2 <- a_7[a]].
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(a_4) /\
+      is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i_1) /\ ((2 + i_1) <= N).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (i_2 <= N) /\ (0 <= i_2).
+  (* Else *)
+  Have: N <= i_2.
+  (* Call 'bAnd' *)
+  Have: to_sint32(x_2) = to_sint32(x_3).
+  (* Assertion *)
+  Have: forall i_3 : Z. let a_10 = shift_sint32(x, i_3) in ((i_3 < N) ->
+      ((2 <= i_3) -> (a_5[a_10] = a_1[a_10]))).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i < N).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < i) ->
+      (a_6[shift_sint32(x, i_3)] = a_5[shift_sint32(x, 1 + i_3)]))).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_10 = shift_sint32(x, i_3) in ((i_3 < N) ->
+      ((i <= i_3) -> (a_6[a_10] = a_5[a_10]))).
+  (* Else *)
+  Have: N <= x_1.
+}
+Prove: havoc(Mint_undef_0, a_9, a, i)[shift_sint32(x, i) <- a_8]
+         [shift_sint32(x, i_1)] = a_9[shift_sint32(x, 1 + i_1)].
+Prover Z3 4.15.4 returns Valid (Qed:17ms) (40ms) (448384)
+Prover Alt-Ergo  returns Valid (Qed:17ms) (28ms) (675)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 108):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 109):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(x, 0).
+Let x_1 = 1 + i.
+Let a_1 = havoc(Mint_undef_1, Mint_0, a, x_1).
+Let a_2 = shift_sint32(x, 1).
+Let a_3 = a_1[a_2].
+Let a_4 = a_1[a <- a_3][a_2 <- a_1[a]].
+Let a_5 = havoc(Mint_undef_0, a_4, a, i)[shift_sint32(x, i) <- a_3].
+Let a_6 = havoc(Mint_undef_1, Mint_0, a, N).
+Let a_7 = a_6[a_2].
+Let a_8 = a_6[a].
+Let a_9 = a_6[a <- a_7][a_2 <- a_8].
+Let a_10 = havoc(Mint_undef_0, a_9, a, N - 1).
+Let x_2 = L_band_range(a_9, x, 0, N).
+Let x_3 = L_band_range(a_6, x, 0, N).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(a_8) /\
+      is_sint32(a_7).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Else *)
+  Have: N <= i_1.
+  (* Call 'bAnd' *)
+  Have: to_sint32(x_2) = to_sint32(x_3).
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_11 = shift_sint32(x, i_2) in ((i_2 < N) ->
+      ((2 <= i_2) -> (a_9[a_11] = a_6[a_11]))).
+  (* Assertion *)
+  Have: x_2 = x_3.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i < N).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_10[shift_sint32(x, i_2)] = a_9[shift_sint32(x, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_11 = shift_sint32(x, i_2) in ((i_2 < N) ->
+      ((i <= i_2) -> (a_10[a_11] = a_9[a_11]))).
+  (* Else *)
+  Have: N <= x_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_5[shift_sint32(x, i_2)] = a_4[shift_sint32(x, 1 + i_2)]))).
+}
+Prove: L_band_range(a_5, x, 0, x_1) = L_band_range(a_4, x, 0, x_1).
+Prover Alt-Ergo  returns Valid (Qed:17ms) (386ms) (10620)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 110):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(x, 0).
+Let x_1 = 1 + i.
+Let a_1 = havoc(Mint_undef_1, Mint_0, a, x_1).
+Let a_2 = shift_sint32(x, 1).
+Let a_3 = a_1[a_2].
+Let a_4 = a_1[a <- a_3][a_2 <- a_1[a]].
+Let a_5 = havoc(Mint_undef_0, a_4, a, i)[shift_sint32(x, i) <- a_3].
+Let x_2 = L_band_range(a_5, x, 0, x_1).
+Let x_3 = L_band_range(a_4, x, 0, x_1).
+Let a_6 = havoc(Mint_undef_1, Mint_0, a, N).
+Let a_7 = a_6[a_2].
+Let a_8 = a_6[a].
+Let a_9 = a_6[a <- a_7][a_2 <- a_8].
+Let a_10 = havoc(Mint_undef_0, a_9, a, N - 1).
+Let x_4 = L_band_range(a_9, x, 0, N).
+Let x_5 = L_band_range(a_6, x, 0, N).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(a_8) /\
+      is_sint32(a_7).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Else *)
+  Have: N <= i_1.
+  (* Call 'bAnd' *)
+  Have: to_sint32(x_4) = to_sint32(x_5).
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_11 = shift_sint32(x, i_2) in ((i_2 < N) ->
+      ((2 <= i_2) -> (a_9[a_11] = a_6[a_11]))).
+  (* Assertion *)
+  Have: x_4 = x_5.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i < N).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_10[shift_sint32(x, i_2)] = a_9[shift_sint32(x, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_11 = shift_sint32(x, i_2) in ((i_2 < N) ->
+      ((i <= i_2) -> (a_10[a_11] = a_9[a_11]))).
+  (* Else *)
+  Have: N <= x_1.
+  (* Assertion *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_5[shift_sint32(x, i_2)] = a_4[shift_sint32(x, 1 + i_2)]))).
+  (* Assertion *)
+  Have: x_2 = x_3.
+}
+Prove: to_sint32(x_2) = to_sint32(x_3).
+Prover Alt-Ergo  returns Valid (Qed:18ms) (12ms) (51)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 112):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 113):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (11ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 114):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 74) (1/3):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 74) (2/3):
+Effect at line 77
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 74) (3/3):
+Call Result at line 79
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(x, 0).
+Let x_1 = i - 1.
+Let a_1 = shift_sint32(x, x_1).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i) /\ is_sint32(v) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_1, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= (1 + N)).
+  (* Then *)
+  Have: i <= N.
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= v) /\ (v <= 2147483646).
+}
+Prove: included(a_1, 1, a, N).
+Prover Z3 4.15.4 returns Valid (Qed:5ms) (10ms) (71577)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (9ms) (89)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 100) (1/3):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 100) (2/3):
+Effect at line 103
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 100) (3/3):
+Effect at line 104
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a = shift_sint32(x, 0).
+Let a_1 = havoc(Mint_undef_0, Mint_0, a, N).
+Let a_2 = shift_sint32(x, 1).
+Let a_3 = a_1[a_2].
+Let a_4 = a_1[a].
+Let a_5 = a_1[a <- a_3][a_2 <- a_4].
+Let x_1 = N - 1.
+Let a_6 = havoc(Mint_undef_1, a_5, a, x_1).
+Let x_2 = i - 1.
+Let a_7 = shift_sint32(x, x_2).
+Let a_8 = a_6[a_7 <- a_6[shift_sint32(x, i)]].
+Let x_3 = L_band_range(a_5, x, 0, N).
+Let x_4 = L_band_range(a_1, x, 0, N).
+Assume {
+  Type: is_sint32(N) /\ is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x_2) /\
+      is_sint32(a_4) /\ is_sint32(a_3).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_7, 1).
+  (* Call 'unknown' *)
+  Have: ((-2147483648) <= N) /\ (N <= 2147483646).
+  (* Then *)
+  Have: 2 <= N.
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < N) /\ (N <= 4611686018427387903).
+  (* Admit *)
+  Have: valid_rw(Malloc_0, a, N).
+  (* Invariant *)
+  Have: (i_1 <= N) /\ (0 <= i_1).
+  (* Else *)
+  Have: N <= i_1.
+  (* Call 'bAnd' *)
+  Have: to_sint32(x_3) = to_sint32(x_4).
+  (* Assertion *)
+  Have: forall i_2 : Z. let a_9 = shift_sint32(x, i_2) in ((i_2 < N) ->
+      ((2 <= i_2) -> (a_5[a_9] = a_1[a_9]))).
+  (* Assertion *)
+  Have: x_3 = x_4.
+  (* Invariant *)
+  Have: (0 < i) /\ (i <= N).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> (((2 + i_2) <= i) ->
+      (a_6[shift_sint32(x, i_2)] = a_5[shift_sint32(x, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_9 = shift_sint32(x, i_2) in ((i_2 < N) ->
+      ((i <= (1 + i_2)) -> (a_6[a_9] = a_5[a_9]))).
+  (* Then *)
+  Have: i < N.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i) ->
+      (a_8[shift_sint32(x, i_2)] = a_5[shift_sint32(x, 1 + i_2)]))).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_9 = shift_sint32(x, i_2) in ((i_2 < N) ->
+      ((i <= i_2) -> (a_8[a_9] = a_5[a_9]))).
+}
+Prove: included(a_7, 1, a, x_1).
+Prover Z3 4.15.4 returns Valid (Qed:19ms) (20ms) (175737)
+Prover Alt-Ergo  returns Valid (Qed:19ms) (35ms) (898)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 77):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 77):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 103):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 103):
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 41) in 'bAnd'' in 'main' at call 'bAnd' (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 81)
+:
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 42) in 'bAnd'' in 'main' at call 'bAnd' (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 81)
+:
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 41) in 'bAnd'' in 'main' at call 'bAnd' (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 90)
+:
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 42) in 'bAnd'' in 'main' at call 'bAnd' (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 90)
+:
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 41) in 'bAnd'' in 'main' at call 'bAnd' (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 111)
+:
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 42) in 'bAnd'' in 'main' at call 'bAnd' (file output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c, line 111)
+:
+output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:66: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+[wp] output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:46: Warning: 
+  Memory model hypotheses for function 'bAnd':
+  /*@ behavior wp_typed:
+        requires \separated(x + (..), &N); */
+  int bAnd(int x[N]);
+[wp:pedantic-assigns] output/ops-4.6/live25/array-crafted_bAnd5/array-crafted_bAnd5.acsl.c:62: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

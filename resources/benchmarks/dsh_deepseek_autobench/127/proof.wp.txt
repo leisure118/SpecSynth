@@ -1,0 +1,129 @@
+Frama-C 证明目标 11/11
+[kernel] Parsing resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function foo
+[wp] 11 goals scheduled
+[wp] Proved goals:   11 / 11
+  Qed:             8
+  Alt-Ergo :       3 (33ms-36ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 8):
+Let x = i + y.
+Let x_1 = -j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(y) /\
+      is_sint32(i + y - j) /\ is_sint32(i + y - 1 - j).
+  (* Pre-condition *)
+  Have: 0 <= i.
+  (* Pre-condition *)
+  Have: i <= (2147483647 + j).
+  (* Invariant *)
+  Have: j <= x.
+  (* Then *)
+  Have: x != j.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: j <= (2147483647 + i + y).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483647) <= y.
+}
+Prove: j < x.
+Prover Z3 4.8.12 returns Valid (Qed:8ms) (140ms) (35854)
+Prover Alt-Ergo  returns Valid (Qed:8ms) (34ms) (19)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 8):
+Prove: true.
+Prover Qed returns Valid (0.78ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 9):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 9):
+Prove: true.
+Prover Qed returns Valid (0.66ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 13):
+Let x = i + y.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(y) /\ is_sint32(i + y - j).
+  (* Pre-condition *)
+  Have: 0 <= i.
+  (* Pre-condition *)
+  Have: i <= (2147483647 + j).
+  (* Invariant *)
+  Have: j <= x.
+  (* Then *)
+  Have: x != j.
+}
+Prove: j <= (2147483647 + i + y).
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (130ms) (35355)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (36ms) (15)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 14):
+Let x = i + y.
+Let x_1 = -j.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(y) /\
+      is_sint32(i + y - j) /\ is_sint32(i + y - 1 - j).
+  (* Pre-condition *)
+  Have: 0 <= i.
+  (* Pre-condition *)
+  Have: i <= (2147483647 + j).
+  (* Invariant *)
+  Have: j <= x.
+  (* Then *)
+  Have: x != j.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: j <= (2147483647 + i + y).
+}
+Prove: (-2147483647) <= y.
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (120ms) (35736)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (33ms) (18)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 18):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 10):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'foo':
+Effect at line 12
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 12):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_deepseek_autobench/127/round-3/proof/127.c, line 12):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+time="2026-11-01T20:44:44+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

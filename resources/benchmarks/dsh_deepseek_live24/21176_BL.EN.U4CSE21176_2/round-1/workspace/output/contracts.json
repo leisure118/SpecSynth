@@ -1,0 +1,21 @@
+{
+  "foo": {
+    "layer": 0,
+    "signature": "int foo(int a,int b);",
+    "callees": [],
+    "contract": "/*@\n  requires -100 <= a <= 100;\n  requires -100 <= b <= 100;\n  assigns \\nothing;\n  ensures \\result == (a >= 0 ? a + 1 : a + b);\n*/",
+    "status": "pass",
+    "proved": "6/6",
+    "source": "output/layer0/foo/foo.acsl.c"
+  },
+  "main": {
+    "layer": 1,
+    "signature": "int main();",
+    "callees": [
+      "foo"
+    ],
+    "contract": null,
+    "status": "pending",
+    "proved": null
+  }
+}

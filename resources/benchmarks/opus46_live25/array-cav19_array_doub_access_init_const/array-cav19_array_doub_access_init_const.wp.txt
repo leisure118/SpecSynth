@@ -1,0 +1,266 @@
+[kernel] Parsing output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 19 goals scheduled
+[wp] Proved goals:   19 / 19
+  Qed:            15
+  Alt-Ergo :       4 (7ms-9ms-13ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 7):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 7):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 8):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let x = 2 * i.
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Let x_1 = 1 + x.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(1 + i).
+  (* Goal *)
+  When: (0 <= i_1) /\ (i_1 <= x_1).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < x) ->
+      (a_1[shift_sint32(a, i_2)] = 0))).
+  (* Then *)
+  Have: i <= 100000.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_1[shift_sint32(a, x) <- 0][shift_sint32(a, x_1) <- 0]
+         [shift_sint32(a, i_1)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:4ms) (10ms) (95525)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (13ms) (169)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 8):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 17):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 17):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 18):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Let a_2 = a_1[shift_sint32(a, i_2)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(1 + i_2) /\
+      is_sint32(a_2).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 200001).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100001).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 < (2 * i_1)) ->
+      (a_1[shift_sint32(a, i_3)] = 0))).
+  (* Else *)
+  Have: 100001 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 200001).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 <= i_3) -> ((i_3 <= 200001) ->
+      (a_1[shift_sint32(a, i_3)] = 0))).
+  (* Then *)
+  Have: i_2 <= 200000.
+  (* Assertion *)
+  Have: 0 <= a_2.
+  (* Invariant *)
+  Have: (-1) <= i_2.
+}
+Prove: a_1[shift_sint32(a, i)] = 0.
+Prover Alt-Ergo  returns Valid (Qed:4ms) (9ms) (73)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 18):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Assume {
+  Type: is_sint32(i_1).
+  (* Goal *)
+  When: (0 <= i) /\ (i <= 200001).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < (2 * i_1)) ->
+      (a_1[shift_sint32(a, i_2)] = 0))).
+  (* Else *)
+  Have: 100001 <= i_1.
+}
+Prove: a_1[shift_sint32(a, i)] = 0.
+Prover Z3 4.15.4 returns Valid (Qed:3ms) (10ms) (94479)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (7ms) (45)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 23):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 0), 200002).
+Let a_2 = a_1[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(a_2).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < (2 * i_1)) ->
+      (a_1[shift_sint32(a, i_2)] = 0))).
+  (* Else *)
+  Have: 100001 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 200001).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 <= 200001) ->
+      (a_1[shift_sint32(a, i_2)] = 0))).
+  (* Then *)
+  Have: i <= 200000.
+}
+Prove: 0 <= a_2.
+Prover Alt-Ergo  returns Valid (Qed:3ms) (8ms) (66)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 9) (1/4):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 9) (2/4):
+Effect at line 12
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 9) (3/4):
+Effect at line 13
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 9) (4/4):
+Effect at line 14
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 19):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 12):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 12):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 22):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c, line 22):
+output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:5: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/array-cav19_array_doub_access_init_const/array-cav19_array_doub_access_init_const.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

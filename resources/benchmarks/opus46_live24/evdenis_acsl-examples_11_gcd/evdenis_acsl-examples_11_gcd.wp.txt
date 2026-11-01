@@ -1,0 +1,77 @@
+[kernel] Parsing output/ops-4.6/live24/evdenis_acsl-examples_11_gcd/evdenis_acsl-examples_11_gcd.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             5
+  Alt-Ergo :       3 (7ms-11ms-19ms)
+------------------------------------------------------------
+  Function gcd_rec
+------------------------------------------------------------
+
+Goal Post-condition (file output/ops-4.6/live24/evdenis_acsl-examples_11_gcd/evdenis_acsl-examples_11_gcd.acsl.c, line 21) in 'gcd_rec':
+Assume {
+  Type: is_uint32(a) /\ is_uint32(b) /\ is_uint32(gcd_rec_0).
+  If b = 0
+  Then { Have: gcd_rec_0 = a. }
+  Else { (* Call 'gcd_rec' *) Have: L_gcd(b, to_uint32(a % b)) = gcd_rec_0. }
+}
+Prove: L_gcd(a, b) = gcd_rec_0.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (7ms) (86)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd_rec':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd_rec' (1/4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd_rec' (2/4):
+Effect at line 26
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd_rec' (3/4):
+Call Result at line 27
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'gcd_rec' (4/4):
+Effect at line 27
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Recursion variant:
+Call decreases at line 27
+Assume { Type: is_uint32(a) /\ is_uint32(b). (* Else *) Have: b != 0. }
+Prove: (0 <= b) /\ (to_uint32(a % b) < b).
+Prover Z3 4.15.4 returns Valid (10ms) (28693)
+Prover Alt-Ergo  returns Valid (7ms) (99)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/evdenis_acsl-examples_11_gcd/evdenis_acsl-examples_11_gcd.acsl.c, line 34):
+Let x = L_gcd(48, 18). Assume { Type: is_uint32(x). }
+Prove: x = 6.
+Prover Alt-Ergo  returns Valid (Qed:0.52ms) (19ms) (577)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live24/evdenis_acsl-examples_11_gcd/evdenis_acsl-examples_11_gcd.acsl.c:29: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

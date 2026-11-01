@@ -1,0 +1,13 @@
+{
+  "files": [
+    {
+      "path": "117.c",
+      "content": "int main() {\n  int sn = 0;\n  int x = 0;\n  \n  /*@\n    loop invariant 0 <= x;\n    loop invariant 0 <= sn;\n    loop invariant sn == x;\n    loop assigns x, sn;\n  */\n  while (unknown()) {\n    x = x + 1;\n    sn = sn + 1;\n  }\n  // post-condition\n  if (sn != -1) {\n    //@ assert(sn == x);\n  }\n}\n",
+      "ignore_me": [
+        "No preservable bound on x exists for this unbounded loop, so adding a bound like x <= 2147483646 would break invariant preservation and weaken the proof.",
+        "The simple invariants already prove the key assertion sn == x and all loop-correctness goals.",
+        "The only remaining RTE overflow goal is mathematically unprovable without an assumption, which constraints forbid."
+      ]
+    }
+  ]
+}

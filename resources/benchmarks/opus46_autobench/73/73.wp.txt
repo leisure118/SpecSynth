@@ -1,0 +1,69 @@
+[kernel] Parsing output/ops-4.6/autobench/73/73.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 7 goals scheduled
+[wp] Proved goals:    7 / 7
+  Qed:             6
+  Alt-Ergo :       1 (6ms)
+------------------------------------------------------------
+  Function foo
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/73/73.acsl.c, line 12):
+Let x = 36 * y.
+Assume {
+  Type: is_sint32(c) /\ is_sint32(tmp_0) /\ is_sint32(y) /\ is_sint32(x) /\
+      is_sint32(1 + c) /\ is_sint32(c + x).
+  (* Residual *)
+  When: c <= 35.
+  (* Pre-condition *)
+  Have: 127 <= y.
+  (* Invariant *)
+  Have: (0 <= c) /\ (c <= 36).
+  (* Then *)
+  Have: tmp_0 != 0.
+}
+Prove: (-1) <= c.
+Prover Alt-Ergo  returns Valid (Qed:3ms) (6ms) (16)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/73/73.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/autobench/73/73.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid (9ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/autobench/73/73.acsl.c, line 13):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/autobench/73/73.acsl.c, line 26):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/73/73.acsl.c, line 14) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/autobench/73/73.acsl.c, line 14) (2/2):
+Call Result at line 16
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/autobench/73/73.acsl.c:7: Warning: 
+  No 'assigns' specification for function 'foo'.
+  Callers assumptions might be imprecise.

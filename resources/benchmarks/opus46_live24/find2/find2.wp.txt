@@ -1,0 +1,219 @@
+[kernel] Parsing output/ops-4.6/live24/find2/find2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 14 goals scheduled
+[wp] Proved goals:   14 / 14
+  Qed:             6
+  Alt-Ergo :       8 (6ms-10ms)
+------------------------------------------------------------
+  Axiomatic 'SomeNone'
+------------------------------------------------------------
+
+Lemma NoneEqual_NotSomeEqual:
+Assume: 'NotSomeEqual_NoneEqual'
+Prove: (is_sint32 v_0) -> (P_NoneEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+       -> (not (P_SomeEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+Prover Alt-Ergo  returns Valid (7ms) (51)
+
+------------------------------------------------------------
+
+Lemma NotSomeEqual_NoneEqual:
+Prove: (is_sint32 v_0) -> (not (P_SomeEqual_1_ Mint_0 a_0 m_0 n_0 v_0))
+       -> (P_NoneEqual_1_ Mint_0 a_0 m_0 n_0 v_0)
+Prover Alt-Ergo  returns Valid (7ms) (51)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function find2
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/find2/find2.acsl.c, line 43):
+Let x = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, 0, v).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, i, v).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x != v.
+}
+Prove: to_uint32(1 + i) <= n.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (98618)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (8ms) (86)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/find2/find2.acsl.c, line 43):
+Prove: true.
+Prover Qed returns Valid (0.57ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live24/find2/find2.acsl.c, line 44):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, 0, v).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, i, v).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 != v.
+  (* Invariant *)
+  Have: x <= n.
+}
+Prove: P_NoneEqual_1_(Mint_0, a, 0, x, v).
+Prover Alt-Ergo  returns Valid (Qed:2ms) (10ms) (137)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live24/find2/find2.acsl.c, line 44):
+Assume {
+  Type: is_uint32(n) /\ is_sint32(v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+}
+Prove: P_NoneEqual_1_(Mint_0, a, 0, 0, v).
+Prover Alt-Ergo  returns Valid (8ms) (48)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/find2/find2.acsl.c, line 50):
+Let x = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(x).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, 0, x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, i, x).
+  (* Then *)
+  Have: i < n.
+}
+Prove: P_SomeEqual_2_(Mint_0, a, 1 + i, x).
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (98348)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (90)
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live24/find2/find2.acsl.c, line 54):
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, 0, v).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, i, v).
+  (* Else *)
+  Have: n <= i.
+}
+Prove: P_NoneEqual_2_(Mint_0, a, i, v).
+Prover Z3 4.15.4 returns Valid (Qed:1ms) (4189)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (6ms) (35)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live24/find2/find2.acsl.c, line 45):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find2' (1/3):
+Effect at line 48
+Prove: true.
+Prover Qed returns Valid (0.65ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find2' (2/3):
+Effect at line 51
+Prove: true.
+Prover Qed returns Valid (0.88ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'find2' (3/3):
+Effect at line 55
+Prove: true.
+Prover Qed returns Valid (0.65ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live24/find2/find2.acsl.c, line 48):
+Let x = to_uint32(1 + i).
+Let x_1 = Mint_0[shift_sint32(a, i)].
+Assume {
+  Type: is_uint32(i) /\ is_uint32(n) /\ is_sint32(v) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(a, 0), n).
+  (* Invariant *)
+  Have: 0 <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, 0, v).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= n).
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, i, v).
+  (* Then *)
+  Have: i < n.
+  (* Else *)
+  Have: x_1 != v.
+  (* Invariant *)
+  Have: x <= n.
+  (* Invariant *)
+  Have: P_NoneEqual_1_(Mint_0, a, 0, x, v).
+}
+Prove: i < x.
+Prover Z3 4.15.4 returns Valid (Qed:2ms) (10ms) (99513)
+Prover Alt-Ergo  returns Valid (Qed:2ms) (9ms) (96)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live24/find2/find2.acsl.c, line 48):
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------

@@ -25,7 +25,7 @@ async function replayAndOpenResult(page) {
 
 test('首页案例通过项目工作台完成回放',async({page})=>{
   await page.goto('/#/');
-  await expect(page.locator('.vf-hero h1')).toContainText('可信软件智能验证');
+  await expect(page.locator('#hero-title')).toContainText('可信软件智能验证');
   await expect(page.getByRole('navigation',{name:'主导航'}).getByText('任务启动')).toHaveCount(0);
   await replayAndOpenResult(page);
   await expect(page.getByRole('heading',{name:'证据链',exact:true})).toBeVisible();

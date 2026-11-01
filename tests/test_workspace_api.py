@@ -10,6 +10,8 @@ from apps.api.app import workspace
 
 @pytest.fixture
 def client(tmp_path, monkeypatch):
+    from acsl.infrastructure.settings import settings
+    monkeypatch.setattr(settings, 'runtime_dir', tmp_path / 'runtime')
     monkeypatch.setattr(workspace, 'PROJECTS_DIR', tmp_path / 'projects')
     monkeypatch.setattr(workspace, 'get_available_models', lambda: ['test-model'])
     snapshots = []
@@ -242,7 +244,7 @@ def test_archived_examples_are_not_reused_by_home_entry(client,monkeypatch):
     assert first['id']!=second['id'] and not second.get('archived')
 
 
-def test_external_prompt_preview_matches_initial_execution_prompt(client,monkeypatch):
+def test_external_prompt_preview_keeps_skill_bodies_server_side(client,monkeypatch):
     from apps.api.app import agent_execution
     from apps.api.app.assistants import AssistantConfig
     monkeypatch.setattr(agent_execution,'generate',lambda *a,**k:pytest.fail('offline preview must not call agent'))
@@ -251,5 +253,8 @@ def test_external_prompt_preview_matches_initial_execution_prompt(client,monkeyp
     response=client.post('/api/v1/projects/'+p['id']+'/agent-prompt',json={'revision':1,'entry_path':'src/main.c','description':'Keep semantics','assistant':config})
     assert response.status_code==200,response.text
     assert response.json()['provider_calls']==0
-    expected=agent_execution.initial_prompt(p['files'],'single','Keep semantics','',AssistantConfig(**config).prompt('C'))
-    assert response.json()['prompt']==expected
+    from apps.api.app.skill_library import resolve_assistant
+    expected=agent_execution.initial_prompt(p['files'],'single','Keep semantics','',resolve_assistant(AssistantConfig(**config)).prompt('C'))
+    assert 'prompt' not in response.json()
+    assert 'spec-bottomup —' not in response.text
+    assert 'spec-bottomup —' in expected

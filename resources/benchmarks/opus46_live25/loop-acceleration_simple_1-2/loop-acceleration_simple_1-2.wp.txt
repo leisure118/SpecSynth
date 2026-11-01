@@ -1,0 +1,96 @@
+[kernel] Parsing output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c (with preprocessing)
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             5
+  Alt-Ergo :       3 (21ms-25ms)
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c, line 4):
+Assume {
+  Type: is_uint32(x).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: x <= 268435456.
+  (* Then *)
+  Have: x <= 268435454.
+}
+Prove: (to_uint32(2 + x) % 2) = 0.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (25ms) (139)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c, line 4):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c, line 5):
+Let x_1 = to_uint32(2 + x).
+Assume {
+  Type: is_uint32(x).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: x <= 268435456.
+  (* Then *)
+  Have: x <= 268435454.
+  (* Invariant *)
+  Have: (x_1 % 2) = 0.
+}
+Prove: x_1 <= 268435456.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (22ms) (116)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c, line 5):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion (file output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c, line 12):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c, line 6):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c, line 9):
+Let x_1 = to_uint32(2 + x).
+Assume {
+  Type: is_uint32(x).
+  (* Invariant *)
+  Have: (x % 2) = 0.
+  (* Invariant *)
+  Have: x <= 268435456.
+  (* Then *)
+  Have: x <= 268435454.
+  (* Invariant *)
+  Have: (x_1 % 2) = 0.
+  (* Invariant *)
+  Have: x_1 <= 268435456.
+}
+Prove: x < x_1.
+Prover Alt-Ergo  returns Valid (Qed:2ms) (21ms) (111)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c, line 9):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] output/ops-4.6/live25/loop-acceleration_simple_1-2/loop-acceleration_simple_1-2.acsl.c:1: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.

@@ -1,0 +1,62 @@
+Frama-C 证明目标 7/7
+[kernel] Parsing resources/benchmarks/dsh_deepseek_live24/arepina_sign/round-2/proof/arepina_sign.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function spec_sign
+[wp] 7 goals scheduled
+[wp] Proved goals:    7 / 7
+  Qed:             6
+  Alt-Ergo :       1 (35ms)
+------------------------------------------------------------
+  Function spec_sign
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_sign/round-2/proof/arepina_sign.c, line 4) in 'spec_sign':
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_sign/round-2/proof/arepina_sign.c, line 5) in 'spec_sign':
+Prove: true.
+Prover Qed returns Valid (0.77ms)
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_sign/round-2/proof/arepina_sign.c, line 6) in 'spec_sign':
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_deepseek_live24/arepina_sign/round-2/proof/arepina_sign.c, line 7) in 'spec_sign':
+Let x_1 = spec_sign_0 + (if (x < 0) then 1 else 0).
+Assume {
+  Type: is_sint32(spec_sign_0) /\ is_sint32(x).
+  Have: if (0 < x) then (x_1 = 1) else (x_1 = 0).
+}
+Prove: (spec_sign_0 = (-1)) \/ (spec_sign_0 = 0) \/ (spec_sign_0 = 1).
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (140ms) (35241)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (35ms) (30)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arepina_sign/round-2/proof/arepina_sign.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file resources/benchmarks/dsh_deepseek_live24/arepina_sign/round-2/proof/arepina_sign.c, line 11):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'spec_sign':
+Effect at line 11
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+time="2026-11-01T20:06:54+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

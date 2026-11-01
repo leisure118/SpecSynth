@@ -43,6 +43,8 @@ test('benchmark three-column workspace supports file evidence and mobile panels'
  await expect(page.getByLabel('搜索基准文件')).toBeVisible();
 });
 test('single-case rerun opens configuration and displays saved real records',async({page})=>{
+ // Saved-run UI is tested with a fixed record, independent of local experiment history.
+ await page.route('**/api/v1/benchmarks/autobench_v2/runs?*',route=>route.fulfill({json:{items:[{task_id:'ui-regression-run',status:'pass',created_at:'2026-10-30T00:00:00Z',finished_at:'2026-10-30T00:00:01Z',origin:{action:'verify'},result:{source_code:'int main(){return 0;}',result_code:'int main(){return 0;}',proof_stats:{proved_goals:1,total_goals:1},logs:{raw:'1 goal proved'},engine_detail:{attempts:[]}}}]}}));
  await page.setViewportSize({width:1440,height:1000});
  await page.goto('/#/benchmarks/autobench_v2?file=103.c');
  await expect(page.getByRole('button',{name:'▷ 重新验证',exact:true})).toBeEnabled();

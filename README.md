@@ -225,3 +225,59 @@ C 工作台未保存 Agent 配置时默认选择官方 CLI；其默认模型为�
 C 工作台以 `deepseek-v4-flash-0731` 为主模型，Sub-agent 下拉框可选 `qwen35-4b-mix64`、`qwen35-9b-mix64`，空值继承主模型。官方 Harness 的原生 `subagent` 工具负责派发和结果回收，项目设置、执行快照和运行时元数据记录所选模型。子 Agent 采用独立上下文和固定路由；选择 Qwen 后不会静默改用 DeepSeek。默认总超时为 200 秒，覆盖主 Agent、子 Agent 和平台验证。
 
 私网 Qwen 服务可复用部署环境的 `XUANJIAN_QWEN_SSH_TARGET`、`XUANJIAN_QWEN_SSH_PORT`：平台只在任务期间建立临时本地转发，结束或超时自动关闭。现有 mix64 部署未开启自动工具调用解析，因此 Qwen 原生子 Agent 使用无工具的规约生成模式，返回文本/JSON；主 DeepSeek Agent 执行注入、WP 验证、合约收集与修复。子任务的官方生命周期 `stop_reason` 被单独记录，未正常结束时不将派发成功视为运行成功。
+
+
+## VeriFlow 界面迁移分支
+
+`feat/cover-veriflow` 使用 VeriFlow 的页面结构，接入本平台现有 C/Rust 功能，并采用 K 的炭黑、亮青与朱红主题。范围、复用来源、测试方式与环境限制见 [迁移说明](docs/COVER-VERIFLOW.md)。
+
+### C 项目的 Codex / Claude Code API 流程
+
+C 工作台选择 Codex 或 Claude Code 后，可直接使用平台配置的 `deepseek-v4-flash-0731`，无需个人 CLI 登录。Codex 使用 Responses API，Claude Code 使用 Anthropic Messages API；平台按协议规范化 Base URL。三个配套 Skill 的新版支持上述 CLI，切换 Agent 时保留相同指令并绑定适用版本，旧运行快照不变。
+
+两套官方 CLI 都获得仅针对当前输入项目的 Frama-C MCP 工具：`prepare_project` 执行切片与分层，`verify_candidate` 校验候选并执行真实 WP。平台仍在 CLI 结束后独立检查原始源码、断言和证明结果。默认总超时 200 秒，原生工具事件进入实时步骤列表。
+
+实测记录见 [LiveFMBench2024 CLI 接通验证](docs/validation/cli-deepseek-live24-2026-10-30.md)。
+
+### 导入 Claude Code + opus 4.6 + spec-skill 的已有结果
+
+执行 `python scripts/import_opus_benchmarks.py /path/to/ops-4.6`，源目录含 `live25`、`live24`、`autobench` 的 results.jsonl、可选 results.csv/report.md 以及逐文件 `.acsl.c`/`.wp.txt`。导入器只读取数据，不运行源目录代码，不调用模型。
+
+新记录使用 `opus46_live25`、`opus46_live24`、`opus46_autobench` 独立ID，保留原DeepSeek组合。原始C文件通过已导入的对应数据集严格文件名匹配，共享项目内源码副本；不依赖Downloads目录。原始数据集应先完成结果与源码导入，再导入Opus组合。两个组合均可在首页和项目卡片中按名称下方的配置标签辨别。
+
+pass@1/pass@5按有效通过且完成轮次分别为1/不超过5统计，0/0和cheat不计通过。源包live25有1个第6轮通过的文件，其最终状态保留通过，但不计入pass@5。Opus数据集验证窗口预填Claude Code、claude-opus-4-6和适用的spec-bottomup Skill版本；需用户手动提交才会执行新任务。
+
+### DeepSeek Harness 实时基准实验
+
+`XUANJIAN_HARNESS_COMPACT=1 XUANJIAN_PROOF_CONCURRENCY=2 XUANJIAN_PROOF_CPUS=2 python scripts/run_deepseek_benchmarks.py --workers 6 --timeout 600` 使用已配置的
+`deepseek-v4-flash-0731` 和固定版本 spec-skill，对 LiveFMBench 2025、2024 与 autobench
+的 901 个原始源码文件运行真实实验。三个数据集的待运行文件交错进入共享队列，最多6文件并发生成；本机最多同时执行2个证明容器，每个上限2核。每个文件最多五轮。
+先用 `--limit 3 --workers 1` 检查链路。重复启动会恢复未完成案例，进程锁避免重复实验。
+
+结果独立保存在 `resources/benchmarks/dsh_deepseek_*`，包含配置与 Skill 正文快照、源码哈希、
+每轮候选、CLI 工具事件、独立 Frama-C 证明日志。首页和数据集页面自动刷新；全部文件结束前
+不发布最终通过率。这里的 pass@k 指 k 轮外层 Harness 修复预算，每轮可能包含多次原生模型调用。
+三次连续服务异常将停止该批次，待运行文件不计为验证失败；无需改动既有 Claude 组合。
+
+精简C流程通过 `XUANJIAN_HARNESS_COMPACT=1` 启用：直接将完整输入、Skill正文、上轮候选和诊断交给原生文本子Agent，主Agent只保留委派与写入候选工具，避免轮询、重复切片和内部重复证明。平台始终独立检查原始程序/断言保留并执行最终Frama-C证明。超时留下的完整候选经同样的完整性检查后，只能作为未验证草稿供下一轮修复，不会因此计为通过。
+
+`execution-history.json` 与逐轮 `request.json` 记录流程版本变化。恢复既有批次时保留旧结果；混用流程的累计分数不能作为严格的同条件配置对照。
+
+### 项目验证的复杂文件预算
+
+项目工作台默认允许复杂 C 文件自动延长：多个循环、多个 C 文件或源码超过8 KiB时，
+将用户填写的总时限提高到至少600秒；更长的手动设置会保留。可取消勾选以严格使用填写的时限。
+这是项目任务生成与修复共用的总预算，不是批量实验的逐轮预算。实际预算及触发原因随任务保存，
+并为候选返回后的独立证明预留时间。
+
+Codex/Claude 的 Frama-C MCP 使用独立Docker配置，仅携带插件目录与连接设置，不复制注册表凭证。
+启动模型前检查Compose可用性；Docker环境错误按不可用处理，避免误记为C语法错误并反复修复。
+复杂候选的MCP证明上限90秒，工具通信上限120秒，仍须受项目总预算限制。
+
+### Harness 多轮修复会话
+
+C 项目任务和三数据集批量执行器现在按案例复用一个官方 Harness 进程、主会话和工作区；失败证明诊断作为后续消息进入同一会话，不再每轮启动 CLI。修复请求复用原始上下文，仅追加上一轮候选和诊断。模型及子模型配置在同一案例内固定，Qwen SSH 路由随案例保持，案例退出时统一释放。不同文件的会话隔离；超时终止该进程，下一轮重新建立。
+
+每轮仍保存候选、原生事件与独立证明结果；读取候选前删除旧 answer.json，避免旧候选误用。Skill 正文、原始 C 保留检查与最终独立 Frama-C 检查不变。旧实验结果不重算，暂停的批量实验需手动恢复。运行记录的 session_transport=persistent-jsonl 和 process_reused 标识复用情况。本地假模型已验证官方运行时连续两轮复用同一 PID/session；真实远程模型耗时改善尚需后续测量，进程启动开销减少不代表复杂证明必然通过。
+
+单案例默认最多追加修复 3 轮（首次生成 + 至多 3 次修复）；证明一旦通过立即结束。DeepSeek Harness 后续轮次由原主会话根据已有候选和失败诊断直接修复，不重新委派生成子 Agent。进度分别显示“启动官方 CLI”和“复用原会话修复规约”。生成失败且没有有效候选时停止，不用原始空规约重复生成冒充修复。暂停的历史批量实验及其统计配置保持原样。

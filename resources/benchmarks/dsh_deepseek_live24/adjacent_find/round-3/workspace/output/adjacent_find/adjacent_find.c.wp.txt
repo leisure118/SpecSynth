@@ -1,0 +1,266 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c (with preprocessing)
+[kernel:CERT:MSC:37] runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c:23: Warning: 
+  Body of function adjacent_find falls-through. Adding a return statement
+[wp] Running WP plugin...
+[rte:annot] annotating function adjacent_find
+[wp] 10 goals scheduled
+[wp] [Timeout] typed_adjacent_find_assert_rte_mem_access (Qed 7ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_adjacent_find_assert_rte_mem_access_2 (Qed 6ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_adjacent_find_assert (Qed 8ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_adjacent_find_assert_missing_return (Qed 20ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_adjacent_find_loop_variant_decrease (Qed 12ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_adjacent_find_loop_variant_positive (Qed 20ms) (Alt-Ergo 15s)
+[wp] Proved goals:    4 / 10
+  Qed:             2
+  Alt-Ergo :       2 (105ms-11.3s-15s)
+  Timeout:         6
+------------------------------------------------------------
+  Function adjacent_find
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 26):
+Let x = to_uint32(1 + i_1).
+Let a_1 = shift_sint32(a, x).
+Let x_1 = Mint_0[a_1].
+Let a_2 = shift_sint32(a, i_1).
+Let x_2 = Mint_0[a_2].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i_1) /\ is_uint32(n) /\
+      is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Goal *)
+  When: (0 <= i) /\ (i < x).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 <= i_2) -> ((i_2 < i_1) ->
+      (Mint_0[shift_sint32(a, 1 + i_2)] != Mint_0[shift_sint32(a, i_2)]))).
+  (* Then *)
+  Have: x < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Else *)
+  Have: x_1 != x_2.
+}
+Prove: Mint_0[shift_sint32(a, 1 + i)] != Mint_0[shift_sint32(a, i)].
+Prover Alt-Ergo  returns Valid (Qed:27ms) (109ms) (120)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 26):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 30):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, i).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(Mint_0[a_1]) /\ is_sint32(Mint_0[shift_sint32(a, x)]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x < n.
+}
+Prove: valid_rd(Malloc_0, a_1, 1).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:7ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,mem_access' (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 30):
+Let a_1 = shift_sint32(a, i).
+Let x = to_uint32(1 + i).
+Let a_2 = shift_sint32(a, x).
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(Mint_0[a_1]) /\ is_sint32(Mint_0[a_2]).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+}
+Prove: valid_rd(Malloc_0, a_2, 1).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:6ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 31):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, x).
+Let x_1 = Mint_0[a_1].
+Let a_2 = shift_sint32(a, i).
+Let x_2 = Mint_0[a_2].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Then *)
+  Have: x_1 = x_2.
+}
+Prove: P_HasEqualNeighbors(Mint_0, a, 2 + i).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:8ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 36):
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n_1) /\
+      is_uint32(n) /\ is_uint32(n_2) /\ is_uint32(retres_0).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  If 2 <= n
+  Then {
+    Have: n = n_1.
+    Have: (n_2 = n_1) /\ (n_2 = n).
+    (* Invariant *)
+    Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+        (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+    (* Else *)
+    Have: n <= to_uint32(1 + i).
+  }
+}
+Prove: !P_HasEqualNeighbors(Mint_0, a, n).
+Prover Alt-Ergo  returns Valid (Qed:22ms) (105ms) (146)
+
+------------------------------------------------------------
+
+Goal Assertion 'missing_return' (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 37):
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_uint32(n_1) /\ is_uint32(n_2) /\ is_uint32(retres_0).
+  (* Heap *)
+  Type: region(a.base) <= 0.
+  If 2 <= n_1
+  Then {
+    Have: n_1 = n.
+    Have: (n_2 = n) /\ (n_2 = n_1).
+    (* Invariant *)
+    Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+        (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+    (* Else *)
+    Have: n_1 <= to_uint32(1 + i).
+  }
+  (* Assertion *)
+  Have: !P_HasEqualNeighbors(Mint_0, a, n_1).
+}
+Prove: false.
+Prover Z3 4.8.12 returns Unknown (Qed:20ms)
+Prover Alt-Ergo  returns Timeout (Qed:20ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 25):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 29):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, x).
+Let x_1 = Mint_0[a_1].
+Let a_2 = shift_sint32(a, i).
+Let x_2 = Mint_0[a_2].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Else *)
+  Have: x_1 != x_2.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+}
+Prove: i < x.
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:12ms) (15s)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c, line 29):
+Let x = to_uint32(1 + i).
+Let a_1 = shift_sint32(a, x).
+Let x_1 = Mint_0[a_1].
+Let a_2 = shift_sint32(a, i).
+Let x_2 = Mint_0[a_2].
+Assume {
+  Type: is_sint32_chunk(Mint_0) /\ is_uint32(i) /\ is_uint32(n) /\
+      is_sint32(x_2) /\ is_sint32(x_1).
+  (* Heap *)
+  Type: (region(a.base) <= 0) /\ linked(Malloc_0).
+  (* Then *)
+  Have: 2 <= n.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < i) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: x < n.
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_2, 1).
+  (* Assertion 'rte,mem_access' *)
+  Have: valid_rd(Malloc_0, a_1, 1).
+  (* Else *)
+  Have: x_1 != x_2.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 <= i_1) -> ((i_1 < x) ->
+      (Mint_0[shift_sint32(a, 1 + i_1)] != Mint_0[shift_sint32(a, i_1)]))).
+}
+Prove: i < n.
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:20ms) (15s)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-x0oqttw7/workspace/.platform-proofs/tmp72i7gf37/candidate.c:21: Warning: 
+  No 'assigns' specification for function 'adjacent_find'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T18:58:02+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

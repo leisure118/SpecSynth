@@ -1,0 +1,212 @@
+[kernel] Parsing runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c (with preprocessing)
+[wp] Running WP plugin...
+[rte:annot] annotating function main
+[wp] 15 goals scheduled
+[wp] [Timeout] typed_main_assert_rte_signed_overflow_2 (Qed 3ms) (Z3 15s)
+[wp] Proved goals:   14 / 15
+  Qed:            10
+  Alt-Ergo :       3 (31ms-40ms)
+  Z3 4.8.12:       1 (130ms-15s)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 26):
+Prove: true.
+Prover Qed returns Valid (7ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 26):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 27):
+Let x = y * (y - 1).
+Let x_1 = x / 2.
+Let x_2 = y + x_1.
+Let x_3 = 1 + x_1.
+Assume {
+  Type: is_sint32(y) /\ is_sint32(1 + y) /\ is_sint32(x_3) /\
+      is_sint32(1 + y + x_1).
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 100000).
+  (* Invariant *)
+  Have: (-1) <= x.
+  (* Invariant *)
+  Have: y <= x_3.
+  (* Then *)
+  Have: y <= 99999.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483649) <= x_2.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: y <= 2147483646.
+  (* Invariant *)
+  Have: (-1) <= y.
+}
+Prove: 0 <= x_2.
+Prover Z3 4.8.12 returns Valid (Qed:5ms) (140ms) (37395)
+Prover Alt-Ergo  returns Valid (Qed:5ms) (40ms) (119)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 27):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 28):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 28):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 29):
+Let x = y * (y - 1).
+Let x_1 = x / 2.
+Let x_2 = y + x_1.
+Let x_3 = 1 + x_1.
+Let x_4 = 1 + y.
+Assume {
+  Type: is_sint32(y) /\ is_sint32(x_4) /\ is_sint32(x_3) /\
+      is_sint32(1 + y + x_1).
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 100000).
+  (* Invariant *)
+  Have: (-1) <= x.
+  (* Invariant *)
+  Have: y <= x_3.
+  (* Then *)
+  Have: y <= 99999.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483649) <= x_2.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x_2 <= 2147483646.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: y <= 2147483646.
+  (* Invariant *)
+  Have: (-1) <= y.
+  (* Invariant *)
+  Have: 0 <= x_2.
+}
+Prove: ((y * x_4) / 2) = x_2.
+Prover Z3 4.8.12 returns Valid (Qed:4ms) (130ms) (43249)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 29):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 33):
+Let x = y * (y - 1).
+Let x_1 = x / 2.
+Let x_2 = 1 + x_1.
+Assume {
+  Type: is_sint32(y) /\ is_sint32(x_2).
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 100000).
+  (* Invariant *)
+  Have: (-1) <= x.
+  (* Invariant *)
+  Have: y <= x_2.
+  (* Then *)
+  Have: y <= 99999.
+}
+Prove: (-2147483649) <= (y + x_1).
+Prover Z3 4.8.12 returns Valid (Qed:3ms) (120ms) (35307)
+Prover Alt-Ergo  returns Valid (Qed:3ms) (31ms) (27)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 33):
+Let x = y * (y - 1).
+Let x_1 = x / 2.
+Let x_2 = y + x_1.
+Let x_3 = 1 + x_1.
+Assume {
+  Type: is_sint32(y) /\ is_sint32(x_3).
+  (* Invariant *)
+  Have: (0 <= y) /\ (y <= 100000).
+  (* Invariant *)
+  Have: (-1) <= x.
+  (* Invariant *)
+  Have: y <= x_3.
+  (* Then *)
+  Have: y <= 99999.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483649) <= x_2.
+}
+Prove: x_2 <= 2147483646.
+Prover Z3 4.8.12 returns Timeout (Qed:3ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:3ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion 'rte,signed_overflow' (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 34):
+Let x_2 = -x_1.
+Let x_3 = x - x_1.
+Assume {
+  Type: is_sint32(x) /\ is_sint32(x_1) /\ is_sint32(x_3).
+  (* Invariant *)
+  Have: (x_1 <= x) /\ (x <= (100000 + x_1)).
+  (* Invariant *)
+  Have: 0 < x_1.
+  (* Invariant *)
+  Have: x <= (2 * x_1).
+  (* Invariant *)
+  Have: (1 + ((x_3 * (x - 1 - x_1)) / 2)) = x_1.
+  (* Then *)
+  Have: x <= (99999 + x_1).
+  (* Assertion 'rte,signed_overflow' *)
+  Have: (-2147483648) <= x.
+  (* Assertion 'rte,signed_overflow' *)
+  Have: x <= 2147483647.
+}
+Prove: x <= (2147483646 + x_1).
+Prover Alt-Ergo  returns Valid (Qed:3ms) (34ms) (37)
+
+------------------------------------------------------------
+
+Goal Assertion (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 37):
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 30):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 32):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c, line 32):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] runtime/harness-tasks/nl2verus-dsh-r__3jbhi/workspace/.platform-proofs/tmp41lixx77/candidate.c:18: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-01T13:36:16+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

@@ -7,6 +7,7 @@ import App from './App.js'
 import './main.css'
 import './workbench.css'
 import './veriformal.css'
+import './theme.css'
 
 const app = createApp(App)
 app.use(createPinia())

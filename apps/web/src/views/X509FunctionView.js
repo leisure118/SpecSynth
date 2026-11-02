@@ -15,7 +15,16 @@ export default defineComponent({
       </header>
       <main class="x509-function-page-body">
         <div v-if="loading" class="x509-function-loading">正在读取函数规约与源码…</div>
-        <el-alert v-else-if="errorText" :title="errorText" type="error" :closable="false" show-icon />
+        <div v-else-if="errorText" class="x509-function-state" role="alert">
+          <span class="x509-function-state-mark" aria-hidden="true">!</span>
+          <h2>函数详情暂不可用</h2>
+          <p>{{ errorText }}</p>
+          <p class="x509-function-state-hint">该页面依赖 X.509 案例的证明数据。数据尚未生成或后端不可用时，可先返回验证图谱查看其他函数。</p>
+          <div class="x509-function-state-actions">
+            <el-button type="primary" @click="loadFunction">重新加载</el-button>
+            <el-button @click="backToGraph">返回验证图谱</el-button>
+          </div>
+        </div>
         <div v-else-if="detail" class="x509-function-compare">
           <section class="x509-function-pane source">
             <div><span>UPSTREAM</span><h2>原始函数源码</h2><small>x509-parser-bench/{{ detail.source_path }}</small></div>
@@ -60,6 +69,6 @@ export default defineComponent({
 
     onMounted(loadFunction)
     watch(function () { return route.params.name }, loadFunction)
-    return { functionName: functionName, detail: detail, loading: loading, errorText: errorText, backToGraph: backToGraph }
+    return { functionName: functionName, detail: detail, loading: loading, errorText: errorText, loadFunction: loadFunction, backToGraph: backToGraph }
   },
 })

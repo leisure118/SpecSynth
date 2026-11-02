@@ -21,7 +21,7 @@ import {
 export default defineComponent({
   name: 'SpectoolView',
   components: { CodePreview: CodePreview },
-  template: `<div class="spectool-view spectool-studio"><header class="vf-workspace-header"><router-link to="/projects" class="vf-back"><span class="xuanjian-brand compact"><img class="xuanjian-symbol" src="/brand/favicon.svg" alt=""><span class="xuanjian-name">玄鉴<span class="xuanjian-sub">AI 赋能的可信软件智能验证</span></span></span></router-link><span class="vf-divider">/</span><h1 aria-label="spectool 工具箱">工具箱</h1><span class="vf-save-status">C / ACSL · 分步调试</span><router-link class="vf-button small" to="/projects">项目工作台 ↗</router-link></header><div class="spectool-studio-grid">
+  template: `<div class="spectool-view spectool-studio"><header class="vf-workspace-header"><router-link to="/projects" class="vf-back"><span class="xuanjian-brand compact"><img class="xuanjian-symbol" src="/brand/favicon.svg" alt=""><span class="xuanjian-name">玄鉴</span></span></router-link><span class="vf-divider">/</span><h1 aria-label="spectool 工具箱">工具箱</h1><span class="vf-save-status">C / ACSL · 分步调试</span><router-link class="vf-button small" to="/projects">项目工作台 ↗</router-link></header><div class="spectool-studio-grid">
         <aside class="spectool-sidebar" :class="{'mobile-active':toolPane==='files'}">
           <div class="tool-panel spectool-input-panel">
             <div class="panel-title-row">

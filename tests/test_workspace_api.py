@@ -258,3 +258,77 @@ def test_external_prompt_preview_keeps_skill_bodies_server_side(client,monkeypat
     assert 'prompt' not in response.json()
     assert 'spec-bottomup —' not in response.text
     assert 'spec-bottomup —' in expected
+
+def test_manual_revisions_are_separate_immutable_snapshots(client,monkeypatch):
+    p=project(client)
+    body={'name':p['name'],'language':'C','revision':p['revision'],'files':p['files']}
+    body['files'][0]['content']='int main(void) { /* human */ return 0; }'
+    saved=client.put('/api/v1/projects/'+p['id'],json=body)
+    assert saved.status_code==200,saved.text
+    v=saved.json();assert v['source_versions'][-1]['origin']=='human'
+    first=client.get('/api/v1/projects/'+p['id']+'/versions/2').json()
+    assert 'human' in first['files'][0]['content']
+    body.update(revision=v['revision']);body['files'][0]['content']='int main(void) { /* next human */ return 0; }'
+    assert client.put('/api/v1/projects/'+p['id'],json=body).status_code==200
+    assert client.get('/api/v1/projects/'+p['id']+'/versions/2').json()==first
+    assert client.get('/api/v1/projects/'+p['id']+'/versions/999').status_code==404
+    directory=workspace.PROJECTS_DIR/p['id']/'versions'/'v2'
+    assert (directory/'human'/'src'/'main.human.v2.c').is_file()
+
+def test_manual_continuation_submits_current_snapshot_and_previous_diagnostics(tmp_path,monkeypatch):
+    from acsl.application.projects import ProjectService,ProjectBody,ProjectRun
+    submissions=[];snapshots=[]
+    class Store:
+        def read_task(self,id):return None
+        def read_result(self,id):return {'logs':{'raw':'Goal invariant at line 3 is unproved'}}
+        def create_upload(self,name,payload):snapshots.append(payload.decode());return {'file_id':'snapshot'}
+    class Manager:
+        def submit(self,mode,payload):submissions.append(payload);return SimpleNamespace(task_id='continued',status='queued')
+    service=ProjectService(Manager(),Store(),projects_dir=tmp_path/'projects',models=lambda:['test-model'])
+    p=service.create_project(ProjectBody(name='Human',files=[{'path':'a.c','content':'int main(){ /* manual annotation */ return 0; }'}]))
+    p['runs']=[{'task_id':'previous','entry_path':'a.c','mode':'single','revision':1}];service._write(p)
+    service.run_project(p['id'],ProjectRun(revision=1,entry_path='a.c',model_name='test-model',resume_task_id='previous'))
+    assert 'manual annotation' in snapshots[0]
+    assert submissions[0].manual_context['parent_task_id']=='previous'
+    assert 'line 3' in submissions[0].manual_context['diagnostics']
+
+
+def test_identical_manual_saves_and_restores_reuse_snapshot(client):
+    p=project(client);url='/api/v1/projects/'+p['id']
+    body={'name':p['name'],'language':'C','revision':p['revision'],'files':p['files']}
+    unchanged=client.put(url,json=body).json()
+    assert unchanged['revision']==p['revision']
+    assert not unchanged.get('source_versions')
+    first='int main(void) { /* first human */ return 0; }'
+    body['files'][0]['content']=first
+    a=client.put(url,json=body).json()
+    body['revision']=a['revision'];body['files'][0]['content']='int main(void) { /* second human */ return 0; }'
+    b=client.put(url,json=body).json()
+    body['revision']=b['revision'];body['files'][0]['content']=first
+    restored=client.put(url,json=body).json()
+    assert len(restored['source_versions'])==2
+    assert restored['revision']==b['revision']+1
+    assert restored['current_human_revision']==a['revision']
+    body['revision']=restored['revision']
+    assert client.put(url,json=body).json()['revision']==restored['revision']
+    assert not (workspace.PROJECTS_DIR/p['id']/'versions'/('v'+str(restored['revision']))).exists()
+
+
+def test_cleanup_physically_deletes_duplicate_versions_and_keeps_old_links(client):
+    import json,shutil
+    from acsl.application.projects import ProjectService
+    p=project(client);url='/api/v1/projects/'+p['id']
+    body={'name':p['name'],'language':'C','revision':p['revision'],'files':p['files']}
+    body['files'][0]['content']='int main(void) { /* distinct */ return 0; }'
+    p=client.put(url,json=body).json()
+    root=workspace.PROJECTS_DIR/p['id'];shutil.copytree(root/'versions/v2',root/'versions/v3')
+    duplicate=dict(p['source_versions'][0],revision=3)
+    p['source_versions'].append(duplicate);p['revision']=3
+    (root/'project.json').write_text(json.dumps(p))
+    service=ProjectService(None,None,projects_dir=workspace.PROJECTS_DIR)
+    assert service.deduplicate_source_versions(p['id'])=={'deleted':1,'remaining':1}
+    assert not (root/'versions/v3').exists()
+    assert (root/'versions/v2/human.json').is_file()
+    assert len(client.get(url).json()['source_versions'])==1
+    assert client.get(url+'/versions/3').json()==client.get(url+'/versions/2').json()
+    assert service.deduplicate_source_versions(p['id'])['deleted']==0

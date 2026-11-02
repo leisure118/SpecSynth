@@ -10,5 +10,5 @@ export default defineComponent({
     watch(()=>route.params.id,async id=>{const token=++sequence;language.value='';error.value='';try{const p=await getProject(id);if(token===sequence)language.value=p.language}catch(e){if(token===sequence)error.value=e.message}},{immediate:true})
     return {language,error}
   },
-  template:`<RustWorkspaceView v-if="language==='Rust'"/><CWorkspaceView v-else-if="language"/><p v-else-if="error" role="alert" class="vf-error">{{error}}</p><p v-else class="vf-empty">正在打开工作台…</p>`
+  template: `<RustWorkspaceView v-if="language==='Rust'"/><CWorkspaceView v-else-if="language"/><p v-else-if="error" role="alert" class="vf-error">{{ $t(error) }}</p><p v-else class="vf-empty">{{ $t("正在打开工作台…") }}</p>`
 })

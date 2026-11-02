@@ -43,6 +43,7 @@ export function apply(ctx) {
         resetRound();
         if(process.env.DSH_REPAIR_MODE==='1'&&exec.name==='subagent')return 'Repair this existing candidate directly; do not launch another generation worker.';
         if(process.env.DSH_REQUIRE_SUBAGENT!=='1')return;
+        if(childCompleted&&exec.name==='subagent')return 'The worker has completed. Write its existing result to answer.json; do not generate again.';
         if(childCompleted)return;
         const writes=['write','edit','str_replace_editor','apply_patch'].includes(exec.name);
         const earlyProof=exec.name==='bash'&&/answer\.json|\.acsl\.c|harness_verify_c/.test(String(exec.arguments?.command||''));

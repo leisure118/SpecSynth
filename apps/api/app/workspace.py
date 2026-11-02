@@ -65,6 +65,10 @@ def create_workspace_router(manager, store, projects_dir=None):
     def get_project(project_id: str):
         return call(service.get_project, project_id)
 
+    @router.get("/{project_id}/versions/{revision}")
+    def source_version(project_id: str, revision: int):
+        return call(service.source_version,project_id,revision)
+
     @router.put("/{project_id}/generation-config")
     def save_generation_config(project_id: str, body: GenerationConfig):
         return call(service.save_generation_config, project_id, body)

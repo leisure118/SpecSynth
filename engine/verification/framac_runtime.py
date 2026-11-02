@@ -71,7 +71,7 @@ def _docker_service_ready(service: str) -> bool:
     try:
         completed = subprocess.run(
             ["docker", "compose", "run", "--rm", "-T", service, "sh", "-lc",
-             "command -v frama-c >/dev/null 2>&1 && command -v alt-ergo >/dev/null 2>&1 || command -v z3 >/dev/null 2>&1"],
+             "command -v frama-c >/dev/null 2>&1 && { command -v alt-ergo >/dev/null 2>&1 || command -v z3 >/dev/null 2>&1; }"],
             cwd=str(ROOT_DIR),
             text=True,
             capture_output=True,
@@ -141,11 +141,8 @@ def _include_dirs(paths: list[Path], workdir: Path) -> list[Path]:
 
 def _frama_c_args(paths: list[Path], timeout_sec: int, function: str | None, mode: str,
                   include_dirs: list[Path] | None = None, container_root: str | None = None) -> list[str]:
-    args = [
-        "frama-c", "-wp", "-wp-rte", "-wp-precond-weakening",
-        "-wp-prover", DEFAULT_PROVERS, "-wp-print",
-        "-wp-timeout", str(max(1, min(15, timeout_sec))),
-    ]
+    from .framac_options import wp_arguments
+    args = ['frama-c', *wp_arguments(max(1,min(15,timeout_sec)))]
     if mode == "termination":
         args += ["-wp-no-definitions-terminate", "-wp-no-declarations-terminate", "-wp-variant-with-terminates"]
     if function:
@@ -161,8 +158,10 @@ def _frama_c_args(paths: list[Path], timeout_sec: int, function: str | None, mod
 
 def _check_from_output(result_type: str, stdout: str, stderr: str, elapsed: float, timed_out: bool,
                        returncode: int | None, runner: str, runtime: str) -> dict[str, Any]:
+    from .framac_options import profile_metadata
+    profile=profile_metadata()
     if timed_out:
-        return {"status": "timeout", "verified": False, "verified_count": 0, "error_count": 0,
+        return {**profile,"status": "timeout", "verified": False, "verified_count": 0, "error_count": 0,
                 "stdout": stdout, "stderr": stderr, "elapsed_sec": round(elapsed, 3),
                 "returncode": returncode, "runner": runner, "runtime": runtime,
                 "message": "Frama-C 验证超时。"}
@@ -179,6 +178,7 @@ def _check_from_output(result_type: str, stdout: str, stderr: str, elapsed: floa
         proved, total = proved or 0, total or 0
         message = "Frama-C 未产生有效证明结果。"
     return {
+        **profile,
         "status": status,
         "verified": verified,
         "verified_count": int(proved or 0),
@@ -212,9 +212,12 @@ def run_candidate(files: list[dict[str, str]], entry: str, mode: str, timeout_se
     if not info["ready"]:
         return {"status": "unavailable", "verified": False, "verified_count": 0, "error_count": 0,
                 "stdout": "", "stderr": "", "runner": None, "runtime": None, "message": info["message"]}
+    from .diagnostics import attach_diagnostics
     if info["runtime"] == "host":
-        return _run_host(paths, workdir, mode, timeout_sec, function)
-    return _run_container(paths, workdir, mode, timeout_sec, function, info["service"], info["runtime"])
+        result = _run_host(paths, workdir, mode, timeout_sec, function)
+    else:
+        result = _run_container(paths, workdir, mode, timeout_sec, function, info["service"], info["runtime"])
+    return attach_diagnostics(result,files)
 
 
 def _run_host(paths: list[Path], workdir: Path, mode: str, timeout_sec: int, function: str | None) -> dict[str, Any]:

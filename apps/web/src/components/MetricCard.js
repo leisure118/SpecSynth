@@ -9,9 +9,9 @@ export default defineComponent({
   },
   template: `
     <div class="metric-hero-card" :class="'accent-' + accent">
-      <div class="metric-label">{{ title }}</div>
-      <div class="metric-value">{{ value }}</div>
-      <small v-if="note">{{ note }}</small>
+      <div class="metric-label">{{ $t(title) }}</div>
+      <div class="metric-value">{{ $t(value) }}</div>
+      <small v-if="note">{{ $t(note) }}</small>
     </div>
   `,
 })

@@ -133,6 +133,11 @@ class BenchmarkRunService:
             raise BenchmarkValidation("实验包未提供源码，不能重新验证此案例。")
         if len(input_source.encode()) > 256 * 1024:
             raise BenchmarkValidation("单案例源码不能超过 256 KiB。")
+        if body.action == 'verify':
+            from acsl.application.agent_execution import direct_verification_problem
+            problem = direct_verification_problem(input_source)
+            if problem:
+                raise BenchmarkValidation(problem)
         try:
             assistant = resolve_assistant(body.assistant)
         except SkillError as exc:

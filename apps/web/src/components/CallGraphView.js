@@ -10,12 +10,12 @@ export default defineComponent({
   template: `
     <div class="callgraph-view">
       <div ref="canvas" class="callgraph-canvas"></div>
-      <div class="callgraph-legend"><span><i class="verified-dot"></i>已验证</span><span><i class="failed-dot"></i>失败</span><span><i class="pending-dot"></i>未验证</span><span>滚轮缩放 · 拖拽平移 · 点击聚焦</span></div>
+      <div class="callgraph-legend"><span><i class="verified-dot"></i>{{ $t("已验证") }}</span><span><i class="failed-dot"></i>{{ $t("失败") }}</span><span><i class="pending-dot"></i>{{ $t("未验证") }}</span><span>{{ $t("滚轮缩放 · 拖拽平移 · 点击聚焦") }}</span></div>
       <div class="callgraph-panel" v-if="selected">
-        <strong>{{ selected.name }}</strong>
-        <span>函数 · {{ selected.statusText }}</span>
-        <span v-if="selected.module">定义于 {{ selected.module }}</span>
-        <span>关联调用 {{ selected.degree }} 条</span>
+        <strong>{{ $t(selected.name) }}</strong>
+        <span>{{ $t("函数 · ") }}{{ $t(selected.statusText) }}</span>
+        <span v-if="selected.module">{{ $t("定义于 ") }}{{ $t(selected.module) }}</span>
+        <span>{{ $t("关联调用 ") }}{{ $t(selected.degree) }}{{ $t(" 条") }}</span>
       </div>
     </div>
   `,

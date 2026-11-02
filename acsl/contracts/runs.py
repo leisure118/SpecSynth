@@ -40,6 +40,7 @@ class UploadResponse(BaseModel):
 
 
 class RunRequest(BaseModel):
+    manual_context: dict | None = None
     verification_only: bool = False
     benchmark_context: dict | None = None
     file_id: str | None = None

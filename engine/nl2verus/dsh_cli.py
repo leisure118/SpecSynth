@@ -218,7 +218,9 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
             value = re.sub(r'https?://[^\s<>"\\]+', '[URL]', value)
             return value
         timed_out = False
-        (workspace/filename).unlink(missing_ok=True)
+        # Keep the existing file in a persistent session: upstream write tools track it.
+        previous_output=(workspace/filename).stat().st_mtime_ns if (workspace/filename).is_file() else None
+        if session is None:(workspace/filename).unlink(missing_ok=True)
         (workspace/'subagent-audit.jsonl').write_text('')
         if session is not None:
             identity=(profile['model'],profile['base_url'],profile.get('api_key'),json.dumps(effective_child,sort_keys=True))
@@ -294,6 +296,8 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
             fail('agent_delegation','所选子 Agent 未执行或未正常完成；主模型自行生成的候选不能替代子模型流程。请查看子 Agent 事件。')
         target = workspace / filename
         if target.is_symlink() or not target.is_file() or target.stat().st_size > MAX_CODE_BYTES:
-            fail('agent_output', '官方 Harness 未创建有效的 output.rs 文件。')
+            fail('agent_output', f'主模型未完成候选交接：未写入有效的 {filename} 文件；验证器尚未执行。')
+        if session is not None and previous_output is not None and target.stat().st_mtime_ns==previous_output:
+            fail('agent_output','修复轮未更新候选文件，未使用上一轮文件冒充本轮输出。')
         code = _clean_code(target.read_text(), [profile.get('api_key')]) if output_format=='verus' else target.read_text()
         return dict(result, code=code, model_name=profile['model'], finish_reason='stop', agent_runtime=runtime)

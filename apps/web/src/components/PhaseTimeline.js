@@ -7,11 +7,11 @@ export default defineComponent({
       <div v-for="(phase, idx) in phases" :key="phase.key || idx" class="phase-item" :class="phase.status">
         <div class="phase-dot"></div>
         <div class="phase-body">
-          <div class="phase-label">{{ phaseLabel(phase.label) }}</div>
-          <div class="phase-detail" v-if="phase.detail">{{ phase.detail }}</div>
-          <div class="phase-time" v-if="phase.finished_at">{{ dur(phase.started_at, phase.finished_at) }}</div>
+          <div class="phase-label">{{ $t(phaseLabel(phase.label)) }}</div>
+          <div class="phase-detail" v-if="phase.detail">{{ $t(phase.detail) }}</div>
+          <div class="phase-time" v-if="phase.finished_at">{{ $t(dur(phase.started_at, phase.finished_at)) }}</div>
         </div>
-        <div class="phase-status-tag" :class="phase.status">{{ phaseStatus(phase.status) }}</div>
+        <div class="phase-status-tag" :class="phase.status">{{ $t(phaseStatus(phase.status)) }}</div>
       </div>
     </div>
   `,

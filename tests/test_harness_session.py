@@ -66,3 +66,30 @@ def test_repair_turn_uses_existing_candidate_without_new_worker(tmp_path,monkeyp
  assert 'Do not restart specification generation' in task
  assert env['DSH_REQUIRE_SUBAGENT']=='0'
  assert env['DSH_REPAIR_MODE']=='1'
+
+def test_repair_keeps_native_file_state_and_requires_fresh_write(tmp_path,monkeypatch):
+ from engine.nl2verus import dsh_cli
+ from engine.nl2verus.harness_session import Session
+ from engine.nl2verus.model_provider import ProviderError
+ import json
+ monkeypatch.setenv('XUANJIAN_HARNESS_COMPACT','1')
+ monkeypatch.setattr(dsh_cli,'installed',lambda:True)
+ observed=[]
+ def request(self,cmd,cwd,env,task,timeout,identity):
+  answer=cwd/'answer.json'
+  observed.append(answer.exists())
+  if self.rounds==0:answer.write_text(json.dumps({'files':[{'path':'a.c','content':'int main(){return 0;}'}]}))
+  self.rounds+=1
+  return '\n'.join(json.dumps(e) for e in [
+   {'type':'session','sessionId':'same'},
+   {'type':'tool_call','callId':'write','tool':'write'},
+   {'type':'tool_result','callId':'write','status':'completed'},
+   {'type':'final','reason':{'kind':'completed'}}])
+ monkeypatch.setattr(Session,'request',request)
+ profile={'model':'test','base_url':'http://localhost:1/v1','api_key':''}
+ with case_session():
+  dsh_cli.generate('Original source:\n[]',profile,artifact_dir=tmp_path/'first',output_format='files')
+  # A successful tool response alone is insufficient: the candidate must be updated.
+  with __import__('pytest').raises(ProviderError,match='未更新候选'):
+   dsh_cli.generate('Previous candidate:\nexisting\nVerifier diagnostics:\nfailed',profile,artifact_dir=tmp_path/'repair',output_format='files')
+ assert observed==[False,True]

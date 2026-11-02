@@ -130,3 +130,5 @@ export function getDatasetTree() { return request('/rust/dataset/tree') }
 export function getDatasetInput(id) { return request('/rust/dataset/tasks/'+encodeURIComponent(id)+'/input') }
 
 export function saveGenerationConfig(id,body) { return request('/projects/'+id+'/generation-config',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}) }
+
+export function getProjectVersion(id,revision){return request('/projects/'+encodeURIComponent(id)+'/versions/'+revision)}

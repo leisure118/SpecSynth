@@ -57,7 +57,7 @@ def deepseek_model():
     from dotenv import load_dotenv
     load_dotenv(ROOT_DIR/'.env', override=False)
     configured = os.getenv('DEEPSEEK_HARNESS_MODEL')
-    for name in ([configured] if configured else list(dict.fromkeys(['deepseek-v4-flash-0731']+get_available_models()))):
+    for name in ([configured] if configured else list(dict.fromkeys(['deepseek-v4.1-flash-1017','deepseek-v4-flash-0731']+get_available_models()))):
         if not name or (not configured and 'deepseek' not in name.lower()):
             continue
         try:
@@ -139,8 +139,17 @@ def agent_status(*, skill_refs=None):
         except (ValueError,OSError):configured=False
         sub_models.append({'id':name,'configured':configured,'transport':'ssh' if os.getenv('XUANJIAN_QWEN_SSH_TARGET') else 'direct'})
     for item in items:
-        if item['id']=='deepseek-harness':item['sub_models']=sub_models
-    return {'items':items,'defaults':{'agent':'deepseek-harness','model':'deepseek-v4-flash-0731','sub_model':'','timeout_sec':200,'skill_refs':list(skill_refs or [])}}
+        if item['id'] in ('codex','claude-code','deepseek-harness'):
+            item['sub_models']=sub_models
+            item['subagent_transport']='native' if item['id']=='deepseek-harness' else 'platform-api-worker'
+        if item['id']=='deepseek-harness':
+            item['configured_model']=os.getenv('DEEPSEEK_HARNESS_MODEL','deepseek-v4.1-flash-1017')
+            if item['configured_model']=='deepseek-v4.1-flash-1017':
+                item['model_provider']='bailian'
+                item['model_protocol']='openai-chat-completions'
+                item['message']='主模型通过阿里云百炼 API 调用；Harness 负责本地编排，候选仍由 Frama-C 独立验证。' if item['ready'] else '请在后端配置百炼 Base URL 和 API Key，再使用 DeepSeek-V4.1-Flash-1017。'
+                if not item['ready']:item['connection_verified']=False
+    return {'items':items,'defaults':{'agent':'deepseek-harness','model':os.getenv('DEEPSEEK_HARNESS_MODEL','deepseek-v4.1-flash-1017'),'sub_model':'','timeout_sec':200,'skill_refs':list(skill_refs or [])}}
 
 
 def require_agent(agent):
@@ -165,13 +174,31 @@ def agent_environment():
 def _generate(agent, prompt, directory: Path, timeout, model='',sub_model=''):
     """Only return a candidate; never treat runner success as verification success."""
     directory.mkdir(parents=True, exist_ok=True)
+    if sub_model and sub_model not in ('qwen35-4b-mix64','qwen35-9b-mix64'):raise ValueError('不支持的 Sub-agent 模型。')
+    if sub_model and agent in ('codex','claude-code') and model not in get_available_models():raise ValueError('选择子模型时，主模型也必须使用平台已配置模型。')
     if agent in ('codex','claude-code') and model in get_available_models():
         from engine.c_agent_cli import generate as run_cli
         from engine.autospec.src.config_manager import ConfigLoader
         from engine.nl2verus.model_provider import ProviderError
         config=ConfigLoader.get_model_config(model,str(MODELS_CONFIG_PATH))
         try:
-            output=run_cli(agent,prompt,{'model':config.model_name,'base_url':config.base_url,'api_key':config.api_key},directory,timeout)
+            main_profile={'model':config.model_name,'base_url':config.base_url,'api_key':config.api_key}
+            if sub_model and '\nPrevious candidate:\n' in prompt:
+                seed=json.JSONDecoder().raw_decode(prompt.split('\nPrevious candidate:\n',1)[1])[0]
+                output=run_cli(agent,prompt,main_profile,directory,timeout,subagent_candidate=seed)
+            elif sub_model:
+                from engine.cli_model_transport import model_route
+                from engine.verification.subagent_api import generate_specifications
+                child=ConfigLoader.get_model_config(sub_model,str(MODELS_CONFIG_PATH))
+                child_profile={'model':child.model_name,'base_url':child.base_url,'api_key':child.api_key}
+                started=time.monotonic()
+                with model_route(child_profile,enabled=True) as route:
+                    seed=generate_specifications(prompt,route,directory,min(120,max(1,timeout*.5)))
+                remaining=timeout-(time.monotonic()-started)
+                if remaining<1:raise ProviderError('agent_timeout','子模型完成时任务时间预算已耗尽。')
+                output=run_cli(agent,prompt,main_profile,directory,remaining,subagent_candidate=seed)
+            else:
+                output=run_cli(agent,prompt,main_profile,directory,timeout)
         except ProviderError as exc:
             error=AgentCallError(exc.safe_message);error.code=exc.code;raise error from None
     elif agent == 'deepseek-harness':

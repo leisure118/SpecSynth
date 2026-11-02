@@ -84,3 +84,13 @@ def test_original_input_for_rerun_is_saved_separately_from_annotations(runner):
     assert submissions[0].benchmark_context['source_kind']=='original-source'
     original=benchmarks.file_detail('autobench_v2','103.c')['original_source']
     assert uploads[0][1].decode()==original
+
+
+def test_submission_rejects_annotated_assumptions_before_creating_task(runner,monkeypatch):
+    from acsl.application.benchmarks import BenchmarkCatalog
+    client,submissions,uploads,tasks=runner
+    monkeypatch.setattr(BenchmarkCatalog,'file_detail',lambda *args:{'original_source':'int main(){return 0;}','source':'int main(){//@ admit 1;\nreturn 0;}','annotated_source':'int main(){//@ admit 1;\nreturn 0;}','status':'passed'})
+    response=client.post('/api/v1/benchmarks/live25/runs',json={'file':'a.c','action':'verify','source_variant':'annotated'})
+    assert response.status_code==422
+    assert 'admit' in response.json()['detail']
+    assert not submissions and not uploads

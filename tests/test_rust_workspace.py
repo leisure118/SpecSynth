@@ -49,8 +49,9 @@ def test_language_and_modes(system):
     assert client.post('/api/v1/projects',json={'name':'wrong','language':'Rust','files':[{'path':'a.c','content':'x'}]}).status_code==422
     assert client.post('/api/v1/projects',json={'name':'wrong','files':[{'path':'a.rs','content':'x'}]}).status_code==422
     url='/api/v1/projects/'+p['id']
-    assert client.put(url,json={'name':p['name'],'files':p['files'],'language':'Rust','revision':1}).status_code==200
-    assert client.post(url+'/runs',json={'revision':2,'entry_path':'src/lib.rs','mode':'single','model_name':'test'}).status_code==422
+    saved=client.put(url,json={'name':p['name'],'files':p['files'],'language':'Rust','revision':1})
+    assert saved.status_code==200
+    assert client.post(url+'/runs',json={'revision':saved.json()['revision'],'entry_path':'src/lib.rs','mode':'single','model_name':'test'}).status_code==422
     c=client.post('/api/v1/projects',json={'name':'C','files':[{'path':'a.c','content':'int a;'}]}).json()
     assert client.post('/api/v1/projects/'+c['id']+'/runs',json={'revision':1,'entry_path':'a.c','mode':'rust-verify'}).status_code==422
 

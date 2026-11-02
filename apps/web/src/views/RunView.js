@@ -11,30 +11,30 @@ export default defineComponent({
   components: { StatusChip: StatusChip, PhaseTimeline: PhaseTimeline },
   template: `
     <div class="page-shell run-view" v-loading="loading">
-      <h1>运行状态</h1>
+      <h1>{{ $t("运行状态") }}</h1>
       <template v-if="taskModel">
         <div class="run-meta-grid">
-          <div class="meta-item"><span class="meta-label">模式</span><span class="meta-value">{{ modeText(taskModel.mode) }}</span></div>
-          <div class="meta-item"><span class="meta-label">状态</span><span class="meta-value"><StatusChip :status="displayStatus" /></span></div>
-          <div class="meta-item" v-if="taskModel.modelName"><span class="meta-label">模型</span><span class="meta-value">{{ taskModel.modelName }}</span></div>
-          <div class="meta-item"><span class="meta-label">创建时间</span><span class="meta-value">{{ fmt(taskModel.createdAt) }}</span></div>
-          <div class="meta-item" v-if="taskModel.startedAt"><span class="meta-label">开始时间</span><span class="meta-value">{{ fmt(taskModel.startedAt) }}</span></div>
-          <div class="meta-item" v-if="taskModel.finishedAt"><span class="meta-label">完成时间</span><span class="meta-value">{{ fmt(taskModel.finishedAt) }}</span></div>
-          <div class="meta-item" v-if="taskModel.title"><span class="meta-label">标题</span><span class="meta-value">{{ taskModel.title }}</span></div>
+          <div class="meta-item"><span class="meta-label">{{ $t("模式") }}</span><span class="meta-value">{{ $t(modeText(taskModel.mode)) }}</span></div>
+          <div class="meta-item"><span class="meta-label">{{ $t("状态") }}</span><span class="meta-value"><StatusChip :status="displayStatus" /></span></div>
+          <div class="meta-item" v-if="taskModel.modelName"><span class="meta-label">{{ $t("模型") }}</span><span class="meta-value">{{ $t(taskModel.modelName) }}</span></div>
+          <div class="meta-item"><span class="meta-label">{{ $t("创建时间") }}</span><span class="meta-value">{{ $t(fmt(taskModel.createdAt)) }}</span></div>
+          <div class="meta-item" v-if="taskModel.startedAt"><span class="meta-label">{{ $t("开始时间") }}</span><span class="meta-value">{{ $t(fmt(taskModel.startedAt)) }}</span></div>
+          <div class="meta-item" v-if="taskModel.finishedAt"><span class="meta-label">{{ $t("完成时间") }}</span><span class="meta-value">{{ $t(fmt(taskModel.finishedAt)) }}</span></div>
+          <div class="meta-item" v-if="taskModel.title"><span class="meta-label">{{ $t("标题") }}</span><span class="meta-value">{{ $t(taskModel.title) }}</span></div>
         </div>
         <div class="progress-section">
-          <div class="progress-header"><span>进度</span><span>{{ taskModel.progress }}%</span></div>
+          <div class="progress-header"><span>{{ $t("进度") }}</span><span>{{ $t(taskModel.progress) }}{{ $t("%") }}</span></div>
           <div class="progress-bar"><div class="progress-fill" :class="pColor" :style="{ width: taskModel.progress + '%' }"></div></div>
         </div>
         <div class="phases-section" v-if="taskModel.phases && taskModel.phases.length">
-          <h2>阶段状态</h2>
+          <h2>{{ $t("阶段状态") }}</h2>
           <PhaseTimeline :phases="phaseRows" />
         </div>
-        <div class="run-message" v-if="isSettling"><el-alert title="本轮已产生失败信号，系统正在等待后续修复结果，请稍候刷新或保持当前页面。" type="warning" :closable="false" show-icon /></div>
-        <div class="run-message" v-if="taskModel.message"><el-alert :title="taskModel.message" type="info" :closable="false" show-icon /></div>
+        <div class="run-message" v-if="isSettling"><el-alert :title="$t(&quot;本轮已产生失败信号，系统正在等待后续修复结果，请稍候刷新或保持当前页面。&quot;)" type="warning" :closable="false" show-icon /></div>
+        <div class="run-message" v-if="taskModel.message"><el-alert :title="$t(taskModel.message)" type="info" :closable="false" show-icon /></div>
         <div class="run-actions">
-          <router-link v-if="taskModel.isTerminal && !isSettling" :to="'/result/' + taskModel.id" class="view-result-link el-button el-button--primary el-button--large">查看结果</router-link>
-          <div v-else class="polling-indicator"><span class="spinner-dot">\u27F3</span><span>{{ isSettling ? '正在等待后续轮次结果...' : '等待任务完成...' }}</span></div>
+          <router-link v-if="taskModel.isTerminal && !isSettling" :to="'/result/' + taskModel.id" class="view-result-link el-button el-button--primary el-button--large">{{ $t("查看结果") }}</router-link>
+          <div v-else class="polling-indicator"><span class="spinner-dot">{{ $t("⟳") }}</span><span>{{ $t(isSettling ? '正在等待后续轮次结果...' : '等待任务完成...') }}</span></div>
         </div>
       </template>
       <el-empty v-else-if="!loading" description="未找到任务" />
@@ -116,7 +116,7 @@ export default defineComponent({
       phaseRows: phaseRows,
       pColor: pColor,
       modeText: function (mode) { return ({ single: '单函数分析', termination: '终止性验证', 'inter-modular': '多模块分析' })[mode] || mode },
-      fmt: function (iso) { return iso ? new Date(iso).toLocaleString() : '\u2014' },
+      fmt: function (iso) { return iso ? new Date(iso).toLocaleString($locale) : '\u2014' },
     }
   },
 })

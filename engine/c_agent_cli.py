@@ -32,7 +32,7 @@ def project_event(agent,event):
     return rows
 
 
-def generate(agent,prompt,profile,directory,timeout=200):
+def generate(agent,prompt,profile,directory,timeout=200,*,subagent_candidate=None):
     profile=dict(profile)
     if agent=='claude-code':profile['base_url']=profile['base_url'].rstrip('/').removesuffix('/v1')
     directory=Path(directory).resolve();directory.mkdir(parents=True,exist_ok=True)
@@ -53,7 +53,9 @@ def generate(agent,prompt,profile,directory,timeout=200):
     verify=shlex.join([str(python),str(ROOT/'scripts/harness_verify_c.py'),str(workspace/'answer.json')])
     task=(prompt+'\nYou are the official '+agent+' CLI, using the platform model API. Original files are in input/. Use your real file tools to create answer.json with a files array of {path,content}, preserving each original path and ALL original C tokens and ACSL assertions. Only add valid ACSL contracts and loop annotations. Do not add admit/assume/axioms or false preconditions. Use the registered Frama-C MCP tool verify_candidate to run actual verification. Do not try to access Docker from shell tools. Write all loop clauses in ONE block /*@ loop invariant ...; loop assigns ...; loop variant ...; */ immediately before each loop, not separate //@ annotation blocks. Inspect actual Frama-C diagnostics and repair annotations if needed. Keep final candidates in answer.json. Do not install packages or access network from tools. If the verifier reports status unavailable, stop and report the environment error; never attempt to repair Docker or its configuration from shell tools. Finish once the actual verifier passes; do not reread unrelated files. The platform independently checks the output.')
     if 'Skill: spec-split' in prompt:
-        task += ('\nFor the attached three Skills, first call the MCP prepare_project tool to execute spec-split. Read the resulting stub/inline slices in output/. Apply spec-orchestrate bottom-up, with spec-bottomup annotation generation performed by this CLI using the selected DeepSeek model. Do not attempt to spawn an unavailable subagent or switch models. Use MCP verify_candidate for actual proof diagnostics. For these small projects, avoid shell-based tool discovery and use the provided native file and MCP tools directly. Preserve original requirements and report actual failures.')
+        task += ('\nFor the attached three Skills, first call the MCP prepare_project tool to execute spec-split. Read the resulting stub/inline slices in output/. Apply spec-orchestrate bottom-up, with spec-bottomup annotation generation using the provided API sub-agent candidate when present, otherwise this CLI and its selected model. Do not attempt to spawn an unavailable subagent or switch models. Use MCP verify_candidate for actual proof diagnostics. For these small projects, avoid shell-based tool discovery and use the provided native file and MCP tools directly. Preserve original requirements and report actual failures.')
+    if subagent_candidate is not None:
+        task+='\nThe platform has already delegated specification generation to the selected API sub-agent. Its validated candidate follows. Use this candidate as your starting point; inspect and repair its annotations rather than regenerate from scratch. Do not spawn another subagent. Preserve original requirements, use native tools to write answer.json, and execute the independent verification tool.\nSub-agent candidate:\n'+json.dumps({'files':subagent_candidate},ensure_ascii=False)
     env={k:v for k,v in os.environ.items() if k in ('PATH','TMPDIR','SYSTEMROOT','ACSL_AGENT_RUNTIME_ROOT','XUANJIAN_PROOF_CPUS','XUANJIAN_PROOF_CONCURRENCY')}
     env.update(HOME=str(home),CODEX_HOME=str(home),PYTHONPATH=str(ROOT),NL2VERUS_AGENT_KEY=profile['api_key'])
     from engine.docker_runtime import configure_docker
@@ -118,6 +120,9 @@ def generate(agent,prompt,profile,directory,timeout=200):
     child_tool_ids={b.get('id') for e in events if e.get('type')=='assistant' for b in e.get('message',{}).get('content',[]) if b.get('type')=='tool_use' and b.get('name')=='mcp__frama__verify_candidate'}
     mcp_executed=any(e.get('type')=='item.completed' and e.get('item',{}).get('type')=='mcp_tool_call' and e['item'].get('server')=='frama' and e['item'].get('tool')=='verify_candidate' and e['item'].get('status')=='completed' and not e['item'].get('error') for e in events) if agent=='codex' else any(b.get('type')=='tool_result' and b.get('tool_use_id') in child_tool_ids and not b.get('is_error') for e in events if e.get('type')=='user' for b in e.get('message',{}).get('content',[]))
     metadata={'native_verifier_executed':mcp_executed,'agent':agent,'model':profile['model'],'protocol':'responses' if agent=='codex' else 'anthropic','completed':completed,'exit_code':proc.returncode,'tool_events':tools,'elapsed_sec':round(time.monotonic()-started,2)}
+    child_runtime=directory/'subagent-runtime.json'
+    if child_runtime.is_file():metadata['subagent']=json.loads(child_runtime.read_text())
+    elif subagent_candidate is not None:metadata['subagent']={'transport':'existing-candidate','status':'reused'}
     (directory/'cli-runtime.json').write_text(json.dumps(metadata,ensure_ascii=False))
     if timed_out:raise ProviderError('agent_timeout',agent+' 超过任务时间限制；工具时间线和运行元数据已保留。')
     if proc.returncode or not completed:

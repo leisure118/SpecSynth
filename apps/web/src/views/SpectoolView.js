@@ -21,153 +21,153 @@ import {
 export default defineComponent({
   name: 'SpectoolView',
   components: { CodePreview: CodePreview },
-  template: `<div class="spectool-view spectool-studio"><header class="vf-workspace-header"><router-link to="/projects" class="vf-back"><span class="xuanjian-brand compact"><img class="xuanjian-symbol" src="/brand/favicon.svg" alt=""><span class="xuanjian-name">玄鉴</span></span></router-link><span class="vf-divider">/</span><h1 aria-label="spectool 工具箱">工具箱</h1><span class="vf-save-status">C / ACSL · 分步调试</span><router-link class="vf-button small" to="/projects">项目工作台 ↗</router-link></header><div class="spectool-studio-grid">
+  template: `<div class="spectool-view spectool-studio"><header class="vf-workspace-header"><router-link to="/projects" class="vf-back"><span class="xuanjian-brand compact"><img class="xuanjian-symbol" src="/brand/favicon.svg" alt=""><span class="xuanjian-name">{{ $t("玄鉴") }}</span></span></router-link><span class="vf-divider">{{ $t("/") }}</span><h1 :aria-label="$t(&quot;spectool 工具箱&quot;)">{{ $t("工具箱") }}</h1><span class="vf-save-status">{{ $t("C / ACSL · 分步调试") }}</span><router-link class="vf-button small" to="/projects">{{ $t("项目工作台 ↗") }}</router-link></header><div class="spectool-studio-grid">
         <aside class="spectool-sidebar" :class="{'mobile-active':toolPane==='files'}">
           <div class="tool-panel spectool-input-panel">
             <div class="panel-title-row">
               <div>
-                <span class="panel-kicker">SOURCE</span><h2>输入</h2>
+                <span class="panel-kicker">{{ $t("SOURCE") }}</span><h2>{{ $t("输入") }}</h2>
               </div>
-              <el-button link size="small" @click="refreshCapabilities" :loading="runningOp === 'capabilities'">刷新</el-button>
+              <el-button link size="small" @click="refreshCapabilities" :loading="runningOp === 'capabilities'">{{ $t("刷新") }}</el-button>
             </div>
             <div class="source-tabs">
-              <button type="button" class="source-tab" :class="{ active: uploadMode === 'file' }" :aria-pressed="uploadMode === 'file'" @click="uploadMode = 'file'">单文件</button>
-              <button type="button" class="source-tab" :class="{ active: uploadMode === 'bundle' }" :aria-pressed="uploadMode === 'bundle'" @click="uploadMode = 'bundle'">工程</button>
-              <button type="button" class="source-tab" :class="{ active: uploadMode === 'sample' }" :aria-pressed="uploadMode === 'sample'" @click="uploadMode = 'sample'">示例用例</button>
+              <button type="button" class="source-tab" :class="{ active: uploadMode === 'file' }" :aria-pressed="uploadMode === 'file'" @click="uploadMode = 'file'">{{ $t("单文件") }}</button>
+              <button type="button" class="source-tab" :class="{ active: uploadMode === 'bundle' }" :aria-pressed="uploadMode === 'bundle'" @click="uploadMode = 'bundle'">{{ $t("工程") }}</button>
+              <button type="button" class="source-tab" :class="{ active: uploadMode === 'sample' }" :aria-pressed="uploadMode === 'sample'" @click="uploadMode = 'sample'">{{ $t("示例用例") }}</button>
             </div>
             <div v-if="uploadMode === 'sample'" class="sample-case">
               <div class="sample-case-header">
                 <div>
-                  <strong>x509-parser</strong>
-                  <p>X509 Parser 调用图与验证结果</p>
+                  <strong>{{ $t("x509-parser") }}</strong>
+                  <p>{{ $t("X509 Parser 调用图与验证结果") }}</p>
                 </div>
-                <a class="sample-open-link" :href="sampleUrl" target="_blank" rel="noopener">新窗口打开</a>
+                <a class="sample-open-link" :href="sampleUrl" target="_blank" rel="noopener">{{ $t("新窗口打开") }}</a>
               </div>
 
             </div>
             <div v-if="uploadMode === 'file'" class="upload-zone compact-upload">
               <el-upload :auto-upload="false" :on-change="onFileSelect" :limit="1" accept=".c,.h" :show-file-list="true">
-                <el-button type="primary" plain :loading="runningOp === 'upload'">上传源码</el-button>
+                <el-button type="primary" plain :loading="runningOp === 'upload'">{{ $t("上传源码") }}</el-button>
               </el-upload>
             </div>
             <div v-if="uploadMode === 'bundle'" class="upload-zone compact-upload">
               <div class="bundle-actions">
                 <label class="el-button el-button--primary is-plain" :class="{ 'is-disabled': runningOp === 'upload' }">
-                  <span>上传目录</span>
+                  <span>{{ $t("上传目录") }}</span>
                   <input type="file" accept=".c,.h" multiple webkitdirectory directory style="display:none" @change="onBundleSelect" />
                 </label>
                 <label class="el-button el-button--primary is-plain" :class="{ 'is-disabled': runningOp === 'upload' }">
-                  <span>上传文件组</span>
+                  <span>{{ $t("上传文件组") }}</span>
                   <input type="file" accept=".c,.h" multiple style="display:none" @change="onBundleSelect" />
                 </label>
               </div>
             </div>
             <div class="demo-info" v-if="fileMeta">
-              <p>{{ fileMeta.filename }} · {{ fileMeta.entry_count || 1 }} 个文件</p>
+              <p>{{ fileMeta.filename }}{{ $t(" · ") }}{{ $t(fileMeta.entry_count || 1) }}{{ $t(" 个文件") }}</p>
               <div class="demo-info-tags">
-                <el-tag size="small" type="success">已载入</el-tag>
-                <el-tag size="small">{{ fileId }}</el-tag>
+                <el-tag size="small" type="success">{{ $t("已载入") }}</el-tag>
+                <el-tag size="small">{{ $t(fileId) }}</el-tag>
               </div>
             </div>
             <div class="spectool-env-grid" v-if="capabilities">
               <div v-for="tool in toolRows" :key="tool.key" class="env-row compact">
                 <span class="env-dot" :class="tool.ready ? 'ready' : 'off'"></span>
-                <span>{{ tool.label }}</span>
+                <span>{{ $t(tool.label) }}</span>
               </div>
             </div>
-            <p class="upload-hint fail-text" v-if="errorText">{{ errorText }}</p>
+            <p class="upload-hint fail-text" v-if="errorText">{{ $t(errorText) }}</p>
           </div>
 
           <div class="tool-panel spectool-function-panel" v-if="uploadMode !== 'sample'">
             <div class="panel-title-row">
               <div>
-                <span class="panel-kicker">TARGET</span><h2>文件与函数</h2>
+                <span class="panel-kicker">{{ $t("TARGET") }}</span><h2>{{ $t("文件与函数") }}</h2>
               </div>
-              <span class="count-pill">{{ functions.length }}</span>
+              <span class="count-pill">{{ $t(functions.length) }}</span>
             </div>
-            <el-select v-model="selectedRelativePath" placeholder="选择源码文件" style="width:100%" @change="extractCurrentFile" :disabled="!fileItems.length">
-              <el-option v-for="item in fileItems" :key="item.relative_path" :label="item.relative_path" :value="item.relative_path" />
+            <el-select v-model="selectedRelativePath" :placeholder="$t(&quot;选择源码文件&quot;)" style="width:100%" @change="extractCurrentFile" :disabled="!fileItems.length">
+              <el-option v-for="item in fileItems" :key="item.relative_path" :label="$t(item.relative_path)" :value="item.relative_path" />
             </el-select>
             <div class="tool-actions tight">
-              <el-button plain @click="extractCurrentFile" :disabled="!canUseFile" :loading="runningOp === 'extract'">提取当前</el-button>
-              <el-button plain @click="listProject" :disabled="!fileId" :loading="runningOp === 'list'">扫描工程</el-button>
+              <el-button plain @click="extractCurrentFile" :disabled="!canUseFile" :loading="runningOp === 'extract'">{{ $t("提取当前") }}</el-button>
+              <el-button plain @click="listProject" :disabled="!fileId" :loading="runningOp === 'list'">{{ $t("扫描工程") }}</el-button>
             </div>
-            <el-select v-model="selectedFunctionKey" filterable placeholder="选择函数" style="width:100%" :disabled="!functions.length" @change="syncSelectedFile">
-              <el-option v-for="fn in functions" :key="fnKey(fn)" :label="fnLabel(fn)" :value="fnKey(fn)" />
+            <el-select v-model="selectedFunctionKey" filterable :placeholder="$t(&quot;选择函数&quot;)" style="width:100%" :disabled="!functions.length" @change="syncSelectedFile">
+              <el-option v-for="fn in functions" :key="fnKey(fn)" :label="$t(fnLabel(fn))" :value="fnKey(fn)" />
             </el-select>
             <div class="function-list" v-if="functions.length">
               <button v-for="fn in functions" :key="fnKey(fn)" class="function-item" :class="{ active: selectedFunctionKey === fnKey(fn) }" @click="selectFunction(fn)">
-                <span>{{ fn.name }}</span>
-                <small>{{ fn.relative_path || selectedRelativePath }}:{{ fn.start_line || '-' }}</small>
+                <span>{{ $t(fn.name) }}</span>
+                <small>{{ $t(fn.relative_path || selectedRelativePath) }}{{ $t(":") }}{{ $t(fn.start_line || '-') }}</small>
               </button>
             </div>
           </div>
         </aside>
 
-<section class="spectool-studio-editor" :class="{'mobile-active':toolPane==='editor'}"><div class="spectool-studio-tabs"><button :class="{active:editorTab==='source'}" @click="editorTab='source'">{{selectedRelativePath||'源码预览'}}</button><button :class="{active:editorTab==='spec'}" @click="editorTab='spec'">规约编辑</button><button :class="{active:editorTab==='json'}" @click="editorTab='json'">JSON</button></div><template v-if="uploadMode==='sample'"><iframe class="spectool-studio-sample" :src="sampleUrl" title="x509-parser 验证结果" loading="lazy"></iframe></template><template v-else><div v-if="editorTab==='source'" class="spectool-studio-code"><CodePreview v-if="previewText" :code="previewText" maxHeight="100%"/><div v-else class="spectool-studio-empty"><div class="spectool-empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5"/><path d="M16 7l5 5-5 5"/><path d="M13 4l-2 16"/></svg></div><h2>从源码开始建立证明链</h2><p>上传 C 源码或工程，提取目标函数，然后在右侧依次完成切片、ACSL 生成与 Frama-C 检查。</p><div class="spectool-empty-steps"><div><b>01</b><strong>上传源码</strong><small>单文件 / 工程 / 示例</small></div><div><b>02</b><strong>选择函数</strong><small>提取与切片</small></div><div><b>03</b><strong>生成并验证</strong><small>ACSL · admit · WP</small></div></div><small>所有操作与工件会保留在右侧历史与输出中。</small></div></div><div v-if="editorTab==='json'" class="spectool-studio-code"><CodePreview v-if="jsonText" :code="jsonText" maxHeight="100%"/><div v-else class="spectool-studio-empty"><h2>暂无结构化输出</h2><p>操作产生的 JSON 会显示在这里。</p></div></div><div v-if="editorTab==='spec'" class="spectool-studio-spec">            <div class="tool-form spectool-contract-form">
-              <label class="spectool-editor-label">函数契约 <small>ACSL · 可手动调整</small></label>
-              <el-input v-model="contractText" type="textarea" :rows="5" placeholder="模型生成的 ACSL 函数契约，可人工微调" />
-              <label class="spectool-editor-label">循环规约 <small>JSON · 可手动调整</small></label>
-              <el-input v-model="loopSpecsText" type="textarea" :rows="4" placeholder='模型生成的循环规约 JSON，可人工微调' />
+<section class="spectool-studio-editor" :class="{'mobile-active':toolPane==='editor'}"><div class="spectool-studio-tabs"><button :class="{active:editorTab==='source'}" @click="editorTab='source'">{{ $t(selectedRelativePath||'源码预览') }}</button><button :class="{active:editorTab==='spec'}" @click="editorTab='spec'">{{ $t("规约编辑") }}</button><button :class="{active:editorTab==='json'}" @click="editorTab='json'">{{ $t("JSON") }}</button></div><template v-if="uploadMode==='sample'"><iframe class="spectool-studio-sample" :src="sampleUrl" :title="$t(&quot;x509-parser 验证结果&quot;)" loading="lazy"></iframe></template><template v-else><div v-if="editorTab==='source'" class="spectool-studio-code"><CodePreview v-if="previewText" :code="previewText" maxHeight="100%"/><div v-else class="spectool-studio-empty"><div class="spectool-empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5"/><path d="M16 7l5 5-5 5"/><path d="M13 4l-2 16"/></svg></div><h2>{{ $t("从源码开始建立证明链") }}</h2><p>{{ $t("上传 C 源码或工程，提取目标函数，然后在右侧依次完成切片、ACSL 生成与 Frama-C 检查。") }}</p><div class="spectool-empty-steps"><div><b>{{ $t("01") }}</b><strong>{{ $t("上传源码") }}</strong><small>{{ $t("单文件 / 工程 / 示例") }}</small></div><div><b>{{ $t("02") }}</b><strong>{{ $t("选择函数") }}</strong><small>{{ $t("提取与切片") }}</small></div><div><b>{{ $t("03") }}</b><strong>{{ $t("生成并验证") }}</strong><small>{{ $t("ACSL · admit · WP") }}</small></div></div><small>{{ $t("所有操作与工件会保留在右侧历史与输出中。") }}</small></div></div><div v-if="editorTab==='json'" class="spectool-studio-code"><CodePreview v-if="jsonText" :code="jsonText" maxHeight="100%"/><div v-else class="spectool-studio-empty"><h2>{{ $t("暂无结构化输出") }}</h2><p>{{ $t("操作产生的 JSON 会显示在这里。") }}</p></div></div><div v-if="editorTab==='spec'" class="spectool-studio-spec">            <div class="tool-form spectool-contract-form">
+              <label class="spectool-editor-label">{{ $t("函数契约 ") }}<small>{{ $t("ACSL · 可手动调整") }}</small></label>
+              <el-input v-model="contractText" type="textarea" :rows="5" :placeholder="$t(&quot;模型生成的 ACSL 函数契约，可人工微调&quot;)" />
+              <label class="spectool-editor-label">{{ $t("循环规约 ") }}<small>{{ $t("JSON · 可手动调整") }}</small></label>
+              <el-input v-model="loopSpecsText" type="textarea" :rows="4" :placeholder="$t(&quot;模型生成的循环规约 JSON，可人工微调&quot;)" />
               <div class="tool-actions tight end">
-                <el-button plain @click="resetEditors">清空</el-button>
-                <el-button plain @click="injectCurrent" :disabled="!canInject" :loading="runningOp === 'inject'">重新注入</el-button>
+                <el-button plain @click="resetEditors">{{ $t("清空") }}</el-button>
+                <el-button plain @click="injectCurrent" :disabled="!canInject" :loading="runningOp === 'inject'">{{ $t("重新注入") }}</el-button>
               </div>
             </div>
-</div></template><div class="vf-editor-status"><span>{{currentSourceLabel||'等待载入源码'}} · {{selectedFunctionName||'未选择函数'}}</span><span>C &nbsp; UTF-8</span></div></section><aside class="spectool-studio-results" :class="{'mobile-active':toolPane==='verify'}"><div class="spectool-studio-panel-heading"><strong>验证</strong><el-tag size="small" :type="verifyStateType">{{verifyStateLabel}}</el-tag></div><div class="spectool-studio-result-scroll"><template v-if="uploadMode!=='sample'"><div class="spectool-studio-model"><label>生成模型</label><el-select aria-label="工具箱生成模型" v-model="selectedModel" filterable placeholder="选择模型" :disabled="!modelList.length"><el-option v-for="m in modelList" :key="m" :label="m" :value="m"/></el-select></div>          <div class="tool-panel spectool-pipeline-panel">
+</div></template><div class="vf-editor-status"><span>{{ $t(currentSourceLabel||'等待载入源码') }}{{ $t(" · ") }}{{ $t(selectedFunctionName||'未选择函数') }}</span><span>{{ $t("C   UTF-8") }}</span></div></section><aside class="spectool-studio-results" :class="{'mobile-active':toolPane==='verify'}"><div class="spectool-studio-panel-heading"><strong>{{ $t("验证") }}</strong><el-tag size="small" :type="verifyStateType">{{ $t(verifyStateLabel) }}</el-tag></div><div class="spectool-studio-result-scroll"><template v-if="uploadMode!=='sample'"><div class="spectool-studio-model"><label>{{ $t("生成模型") }}</label><el-select :aria-label="$t(&quot;工具箱生成模型&quot;)" v-model="selectedModel" filterable :placeholder="$t(&quot;选择模型&quot;)" :disabled="!modelList.length"><el-option v-for="m in modelList" :key="m" :label="$t(m)" :value="m"/></el-select></div>          <div class="tool-panel spectool-pipeline-panel">
             <div class="panel-title-row">
               <div>
-                <span class="panel-kicker">VERIFICATION FLOW</span><h2>分步操作</h2>
+                <span class="panel-kicker">{{ $t("VERIFICATION FLOW") }}</span><h2>{{ $t("分步操作") }}</h2>
               </div>
-              <el-tag size="small" :type="currentSource ? 'success' : 'info'">{{ currentSource ? currentSourceLabel : '等待输出' }}</el-tag>
+              <el-tag size="small" :type="currentSource ? 'success' : 'info'">{{ $t(currentSource ? currentSourceLabel : '等待输出') }}</el-tag>
             </div>
             <div class="pipeline-context">
-              <span>{{ selectedFileLabel }}</span>
-              <strong>{{ pipelineStatusText }}</strong>
+              <span>{{ $t(selectedFileLabel) }}</span>
+              <strong>{{ $t(pipelineStatusText) }}</strong>
             </div>
             <div class="pipeline-grid">
               <div class="pipeline-step" :class="stepClass('extract-one')">
-                <span class="step-index">1</span>
+                <span class="step-index">{{ $t("1") }}</span>
                 <div class="step-body">
-                  <strong>函数</strong>
-                  <span>{{ selectedFunctionName || '未选择' }}</span>
+                  <strong>{{ $t("函数") }}</strong>
+                  <span>{{ $t(selectedFunctionName || '未选择') }}</span>
                 </div>
-                <el-button size="small" type="primary" plain @click="extractOne" :disabled="!selectedFunction" :loading="runningOp === 'extract-one'">提取</el-button>
+                <el-button size="small" type="primary" plain @click="extractOne" :disabled="!selectedFunction" :loading="runningOp === 'extract-one'">{{ $t("提取") }}</el-button>
               </div>
               <div class="pipeline-step" :class="stepClass('slice')">
-                <span class="step-index">2</span>
+                <span class="step-index">{{ $t("2") }}</span>
                 <div class="step-body">
-                  <strong>切片</strong>
-                  <span>{{ selectedFunctionName || '未选择' }}</span>
+                  <strong>{{ $t("切片") }}</strong>
+                  <span>{{ $t(selectedFunctionName || '未选择') }}</span>
                 </div>
                 <div class="step-buttons">
-                  <el-button size="small" plain @click="sliceProject('inline')" :disabled="!selectedFunction || !fileId" :loading="runningOp === 'slice-inline'">inline</el-button>
-                  <el-button size="small" plain @click="sliceProject('stub')" :disabled="!selectedFunction || !fileId" :loading="runningOp === 'slice-stub'">stub</el-button>
+                  <el-button size="small" plain @click="sliceProject('inline')" :disabled="!selectedFunction || !fileId" :loading="runningOp === 'slice-inline'">{{ $t("inline") }}</el-button>
+                  <el-button size="small" plain @click="sliceProject('stub')" :disabled="!selectedFunction || !fileId" :loading="runningOp === 'slice-stub'">{{ $t("stub") }}</el-button>
                 </div>
               </div>
               <div class="pipeline-step" :class="stepClass('inject')">
-                <span class="step-index">3</span>
+                <span class="step-index">{{ $t("3") }}</span>
                 <div class="step-body">
-                  <strong>ACSL</strong>
-                  <span>{{ selectedFunctionName ? selectedModel : '待选择函数' }}</span>
+                  <strong>{{ $t("ACSL") }}</strong>
+                  <span>{{ $t(selectedFunctionName ? selectedModel : '待选择函数') }}</span>
                 </div>
-                <el-button size="small" type="primary" @click="generateCurrent" :disabled="!canGenerate" :loading="runningOp === 'generate'">AI 生成</el-button>
+                <el-button size="small" type="primary" @click="generateCurrent" :disabled="!canGenerate" :loading="runningOp === 'generate'">{{ $t("AI 生成") }}</el-button>
               </div>
               <div class="pipeline-step" :class="stepClass('validate')">
-                <span class="step-index">4</span>
+                <span class="step-index">{{ $t("4") }}</span>
                 <div class="step-body">
-                  <strong>检查</strong>
-                  <span>{{ capabilityModel && capabilityModel.verifyReady ? 'admit / 容器 WP' : 'admit' }}</span>
+                  <strong>{{ $t("检查") }}</strong>
+                  <span>{{ $t(capabilityModel && capabilityModel.verifyReady ? 'admit / 容器 WP' : 'admit') }}</span>
                 </div>
                 <div class="step-buttons">
-                  <el-button size="small" plain @click="checkAdmit" :disabled="!canCheck" :loading="runningOp === 'admit'">admit</el-button>
-                  <el-button size="small" type="success" plain @click="verifyCurrent" :disabled="!canVerify" :loading="runningOp === 'verify'">WP</el-button>
+                  <el-button size="small" plain @click="checkAdmit" :disabled="!canCheck" :loading="runningOp === 'admit'">{{ $t("admit") }}</el-button>
+                  <el-button size="small" type="success" plain @click="verifyCurrent" :disabled="!canVerify" :loading="runningOp === 'verify'">{{ $t("WP") }}</el-button>
                 </div>
               </div>
             </div>
 
           </div>
-<section class="tool-panel"><div class="panel-title-row"><h2>结果摘要</h2><el-button link size="small" @click="locateCurrentFailures" :disabled="!canLocate" :loading="runningOp==='locate'">定位失败</el-button></div><div v-if="summaryRows.length" class="spectool-result-list"><div v-for="row in summaryRows" :key="row.key" class="spectool-result-row"><span>{{row.label}}</span><strong>{{row.value}}</strong></div></div><el-empty v-else description="暂无结果"/></section><section class="tool-panel"><div class="panel-title-row"><h2>操作历史</h2><span class="count-pill">{{history.length}}</span></div><div v-if="history.length" class="history-list"><button v-for="item in history" :key="item.id" class="history-item" :class="{active:activeHistoryId===item.id}" @click="activateHistory(item);editorTab='source'"><span>{{item.label}}</span><small>{{item.detail}}</small></button></div><el-empty v-else description="暂无历史"/></section><section class="tool-panel" v-if="fileId"><div class="panel-title-row"><h2>输出工件</h2><el-button link size="small" @click="refreshArtifacts" :loading="runningOp==='artifacts'">刷新</el-button></div><div v-if="artifacts.length" class="artifact-strip"><button v-for="artifact in artifacts" :key="artifact.artifact_id" class="artifact-chip" :class="{active:selectedArtifactId===artifact.artifact_id}" @click="previewArtifact(artifact);editorTab='source'"><span>{{artifact.artifact_id}}</span><small>{{formatSize(artifact.size)}}</small></button></div><el-empty v-else description="暂无工件"/></section></template><div v-else class="spectool-studio-sample-info"><h2>X509 验证示例</h2><p>中间区域展示已有调用图及验证结果。</p><p>如需执行分步操作，请切换左侧“单文件”或“工程”。</p></div><details class="spectool-studio-environment"><summary>运行环境</summary><div v-for="tool in toolRows" :key="tool.key" class="env-row compact"><span class="env-dot" :class="tool.ready?'ready':'off'"></span><span>{{tool.label}}</span></div></details></div></aside></div><nav class="vf-mobile-nav"><button v-for="p in [['files','文件'],['editor','代码与规约'],['verify','验证']]" :key="p[0]" @click="toolPane=p[0]" :class="{selected:toolPane===p[0]}">{{p[1]}}</button></nav></div>`,
+<section class="tool-panel"><div class="panel-title-row"><h2>{{ $t("结果摘要") }}</h2><el-button link size="small" @click="locateCurrentFailures" :disabled="!canLocate" :loading="runningOp==='locate'">{{ $t("定位失败") }}</el-button></div><div v-if="summaryRows.length" class="spectool-result-list"><div v-for="row in summaryRows" :key="row.key" class="spectool-result-row"><span>{{ $t(row.label) }}</span><strong>{{ $t(row.value) }}</strong></div></div><el-empty v-else description="暂无结果"/></section><section class="tool-panel"><div class="panel-title-row"><h2>{{ $t("操作历史") }}</h2><span class="count-pill">{{ $t(history.length) }}</span></div><div v-if="history.length" class="history-list"><button v-for="item in history" :key="item.id" class="history-item" :class="{active:activeHistoryId===item.id}" @click="activateHistory(item);editorTab='source'"><span>{{ $t(item.label) }}</span><small>{{ $t(item.detail) }}</small></button></div><el-empty v-else description="暂无历史"/></section><section class="tool-panel" v-if="fileId"><div class="panel-title-row"><h2>{{ $t("输出工件") }}</h2><el-button link size="small" @click="refreshArtifacts" :loading="runningOp==='artifacts'">{{ $t("刷新") }}</el-button></div><div v-if="artifacts.length" class="artifact-strip"><button v-for="artifact in artifacts" :key="artifact.artifact_id" class="artifact-chip" :class="{active:selectedArtifactId===artifact.artifact_id}" @click="previewArtifact(artifact);editorTab='source'"><span>{{ $t(artifact.artifact_id) }}</span><small>{{ $t(formatSize(artifact.size)) }}</small></button></div><el-empty v-else description="暂无工件"/></section></template><div v-else class="spectool-studio-sample-info"><h2>{{ $t("X509 验证示例") }}</h2><p>{{ $t("中间区域展示已有调用图及验证结果。") }}</p><p>{{ $t("如需执行分步操作，请切换左侧“单文件”或“工程”。") }}</p></div><details class="spectool-studio-environment"><summary>{{ $t("运行环境") }}</summary><div v-for="tool in toolRows" :key="tool.key" class="env-row compact"><span class="env-dot" :class="tool.ready?'ready':'off'"></span><span>{{ $t(tool.label) }}</span></div></details></div></aside></div><nav class="vf-mobile-nav"><button v-for="p in [['files','文件'],['editor','代码与规约'],['verify','验证']]" :key="p[0]" @click="toolPane=p[0]" :class="{selected:toolPane===p[0]}">{{ $t(p[1]) }}</button></nav></div>`,
   setup: function () {
     var toolPane=ref('editor'),editorTab=ref('source')
     var sourceFiles=ref({})

@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import io
+import hashlib
 import json
 import re
+import shutil
 import threading
 import uuid
 import zipfile
@@ -79,6 +81,7 @@ class ProjectBody(BaseModel):
 
 class ProjectSave(ProjectBody):
     revision: int = Field(ge=1)
+    parent_task_id: str | None = Field(default=None,max_length=100)
 
 
 class ProjectRename(BaseModel):
@@ -87,6 +90,7 @@ class ProjectRename(BaseModel):
 
 
 class ProjectRun(BaseModel):
+    resume_task_id: str | None = Field(default=None,max_length=100)
     revision: int = Field(ge=1)
     mode: Literal["single", "termination", "inter-modular", "rust-verify", "rust-generate"] = "single"
     entry_path: str
@@ -295,14 +299,83 @@ class ProjectService:
                 raise ProjectConflict("Project changed in another window. Reload before saving.")
             if body.language != project.get("language", "C"):
                 raise ProjectValidation("项目创建后不能更换语言。")
+            if body.parent_task_id and not any(r['task_id']==body.parent_task_id for r in project['runs']):
+                raise ProjectValidation('人工版本关联的 Agent 任务不属于当前项目。')
+            saved_files=[item.model_dump() for item in body.files]
+            canonical=lambda rows: sorted((f['path'],f['content']) for f in rows)
+            if canonical(saved_files)==canonical(project['files']):
+                if body.name!=project['name']:
+                    project.update(name=body.name,revision=project['revision']+1,updated_at=utcnow().isoformat())
+                    self._write(project)
+                return project
+            fingerprints=sorted((f['path'],hashlib.sha256(f['content'].encode()).hexdigest()) for f in saved_files)
+            previous=next((v for v in project.get('source_versions',[]) if sorted((f['path'],f['sha256']) for f in v['files'])==fingerprints),None)
+            if previous:
+                project.update(name=body.name,files=saved_files,revision=project['revision']+1,current_human_revision=previous['revision'],updated_at=utcnow().isoformat())
+                self._write(project)
+                return project
+            new_revision=project['revision']+1
+            version_dir=self.projects_dir/project_id/'versions'/f'v{new_revision}'
+            # Preserve the previous source too; snapshots are never compiled as extra project files.
+            version_dir.mkdir(parents=True,exist_ok=False)
+            JsonStore._write_json(version_dir/'before.json',{'revision':project['revision'],'files':project['files']})
+            saved_files=[item.model_dump() for item in body.files]
+            JsonStore._write_json(version_dir/'human.json',{'revision':new_revision,'origin':'human','parent_task_id':body.parent_task_id,'files':saved_files})
+            for item in body.files:
+                path=PurePosixPath(item.path)
+                target=version_dir/'human'/path.parent/(path.stem+f'.human.v{new_revision}'+path.suffix)
+                target.parent.mkdir(parents=True,exist_ok=True);target.write_text(item.content,encoding='utf-8')
+            project.setdefault('source_versions',[]).append({'revision':new_revision,'origin':'human','parent_task_id':body.parent_task_id,'created_at':utcnow().isoformat(),
+                'files':[{'path':f.path,'sha256':hashlib.sha256(f.content.encode()).hexdigest()} for f in body.files]})
             project.update(
                 name=body.name,
-                files=[item.model_dump() for item in body.files],
+                files=saved_files,
                 revision=project["revision"] + 1,
+                current_human_revision=new_revision,
                 updated_at=utcnow().isoformat(),
             )
             self._write(project)
         return project
+
+    def deduplicate_source_versions(self, project_id: str) -> dict:
+        """Remove exact duplicate human snapshots; retain revision aliases for old links."""
+        with self._lock:
+            project=self._read(project_id)
+            seen={};kept=[];duplicates=[]
+            aliases=dict(project.get('source_version_aliases',{}))
+            for version in sorted(project.get('source_versions',[]),key=lambda v:v['revision']):
+                revision=version['revision']
+                if not isinstance(revision,int) or revision<1:raise ProjectValidation('Invalid source revision')
+                directory=self.projects_dir/project_id/'versions'/f'v{revision}'
+                snapshot=directory/'human.json'
+                if not snapshot.is_file():
+                    kept.append(version);continue
+                data=JsonStore._read_json(snapshot)
+                key=tuple(sorted((f['path'],f['content']) for f in data['files']))
+                if key not in seen:
+                    seen[key]=revision;kept.append(version)
+                else:
+                    aliases[str(revision)]=seen[key];duplicates.append(directory)
+            if not duplicates:return {'deleted':0,'remaining':len(kept)}
+            for old,target in list(aliases.items()):
+                while str(target) in aliases:target=aliases[str(target)]
+                aliases[old]=target
+            project['source_versions']=kept
+            project['source_version_aliases']=aliases
+            current=project.get('current_human_revision',project['revision'])
+            project['current_human_revision']=aliases.get(str(current),current)
+            self._write(project)
+            for directory in duplicates:
+                if directory.is_symlink():directory.unlink()
+                else:shutil.rmtree(directory)
+            return {'deleted':len(duplicates),'remaining':len(kept)}
+
+    def source_version(self, project_id: str, revision: int) -> dict:
+        project=self._read(project_id)
+        revision=project.get('source_version_aliases',{}).get(str(revision),revision)
+        if not any(v['revision']==revision for v in project.get('source_versions',[])):
+            raise ProjectNotFound('人工版本不存在。')
+        return JsonStore._read_json(self.projects_dir/project_id/'versions'/f'v{revision}'/'human.json')
 
     def rename_project(self, project_id: str, body: ProjectRename) -> dict:
         with self._lock:
@@ -427,6 +500,14 @@ class ProjectService:
                     existing = self.store.read_task(prior["task_id"])
                     if existing and existing.status in ("queued", "running"):
                         raise ProjectConflict("This file already has an active verification in this mode.")
+            manual_context=None
+            if body.resume_task_id:
+                prior=next((r for r in project['runs'] if r['task_id']==body.resume_task_id and r['entry_path']==body.entry_path),None)
+                if not prior:raise ProjectValidation('继续验证的任务不属于当前文件。')
+                previous=self.store.read_result(body.resume_task_id)
+                if not previous:raise ProjectConflict('请等待原任务结束后继续验证。')
+                manual_context={'parent_task_id':body.resume_task_id,'input_revision':project['revision'],'input_origin':'human',
+                    'diagnostics':str((previous.get('logs') or {}).get('raw') or previous.get('summary',''))[-16000:]}
             if body.verification_only:
                 if rust or body.mode != "single":
                     raise ProjectValidation("仅验证仅支持 C 单文件模式。")
@@ -555,6 +636,7 @@ class ProjectService:
                     adaptive_timeout=body.adaptive_timeout,
                     entry_path=body.entry_path,
                     rust_workflow=workflow,
+                    manual_context=manual_context,
                     agent_instructions=instructions,
                     assistant=assistant.model_dump() if assistant else None,
                     description=body.description,

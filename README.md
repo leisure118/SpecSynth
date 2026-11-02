@@ -281,3 +281,37 @@ C 项目任务和三数据集批量执行器现在按案例复用一个官方 Ha
 每轮仍保存候选、原生事件与独立证明结果；读取候选前删除旧 answer.json，避免旧候选误用。Skill 正文、原始 C 保留检查与最终独立 Frama-C 检查不变。旧实验结果不重算，暂停的批量实验需手动恢复。运行记录的 session_transport=persistent-jsonl 和 process_reused 标识复用情况。本地假模型已验证官方运行时连续两轮复用同一 PID/session；真实远程模型耗时改善尚需后续测量，进程启动开销减少不代表复杂证明必然通过。
 
 单案例默认最多追加修复 3 轮（首次生成 + 至多 3 次修复）；证明一旦通过立即结束。DeepSeek Harness 后续轮次由原主会话根据已有候选和失败诊断直接修复，不重新委派生成子 Agent。进度分别显示“启动官方 CLI”和“复用原会话修复规约”。生成失败且没有有效候选时停止，不用原始空规约重复生成冒充修复。暂停的历史批量实验及其统计配置保持原样。
+
+### 前端界面语言
+
+右下角语言下拉支持简体中文和 English，默认中文，选择保存在当前浏览器的 `xuanjian.language` 中，页面和 Element Plus 弹窗组件即时切换。中英文文案集中维护于 `apps/web/src/i18n.js` 与 `apps/web/src/locales/en.json`。语言只影响显示，不改变后端数据、项目名称、源码、规约、Skill 正文和验证器原始日志；这些内容保留原文。无需调用翻译服务。
+
+### 原实验 Frama-C 命令对齐
+
+共享 C 验证默认使用 `ACSL_FRAMAC_PROFILE=original`：
+
+```sh
+frama-c -wp -wp-precond-weakening -wp-no-callee-precond -wp-prover Alt-Ergo,Z3 -wp-print -wp-timeout 15 file.acsl.c
+```
+
+参数顺序与原版 spectool 一致，超时按调用传入（原版工具默认 8 秒，Skill 示例使用 15 秒）；项目最终验证当前单目标上限 15 秒。项目输入路径、头文件搜索路径及终止性任务必要参数另行追加。原实验口径不额外生成 RTE 安全目标，并关闭调用方前置条件目标；它的通过率不能解释为完整运行时安全证明。`strict` 保留 RTE 与调用前置条件检查，结果记录 `verification_profile` 以区分统计口径。Skill 正文、原始 C、原始断言和不允许 admit 绕过的检查不改变。命令参数已对齐，求解器与 Frama-C 版本需另行匹配，不能承诺整个历史数据集逐项一致。
+
+### 百炼 DeepSeek 主模型
+
+主模型新增 `deepseek-v4.1-flash-1017`，使用 OpenAI-compatible Chat Completions API。后端复用私有 `aliyun_API_KEY`，单独设置 `BAILIAN_DEEPSEEK_BASE_URL` 为百炼控制台给出的完整 Base URL（北京地域标准地址为 `https://dashscope.aliyuncs.com/compatible-mode/v1`；如控制台提供专属工作空间地址，可通过该变量覆盖）。准备好后将 `DEEPSEEK_HARNESS_MODEL` 设为该模型 ID 并重新加载后端。未覆盖时使用官方北京标准地址，不回退旧的自部署主模型。
+
+Harness 是本地编排运行时，主模型的推理请求由其通过上述百炼 API 发出；指定的 Qwen 子模型仍使用自己原有的地址和密钥。未指定子模型时仍按界面约定跟随主模型。切换不会改写历史基准实验标签、历史通过率或 Skill 正文。密钥不写入 YAML、前端构建或可公开的模型元数据。
+
+Harness 子任务收尾：子 Agent 完成而 `answer.json` 尚未写入时，在同一主会话中至多追加一次候选落盘提示，不重新生成或启动新子 Agent。持久会话修复轮保留已有候选文件，避免官方工具的文件快照失效；本轮没有更新文件则明确拒绝沿用旧输出。缺少 C 候选时显示正确的 `answer.json` 文件名，并说明验证器尚未执行。
+
+### 人工规约与 Agent 协作
+
+C 项目工作台的“编辑 Agent 规约的人工副本”将候选载入可编辑区，原 Agent 任务工件不变。“保存人工版本”按项目修订号保存不可变 JSON 快照及 `.human.vN.c` 文件（位于 runtime 项目版本目录），历史版本可以单独查看；这些文件不加入项目的编译输入。保存使用修订号冲突检测，避免覆盖其他窗口。
+
+“保存并让 Agent 继续”提交当前人工文件的独立快照，关联本项目、本文件已完成的任务，并带上之前的验证诊断；Agent 在该版本上补充规约，最多追加修复 3 轮。它不直接改写运行中任务的输入，不会按每次键盘输入自动调用收费模型。“仅验证当前规约”只调用本地验证器。人工已存在的断言和约束仍需保留，Agent 不会通过删除人工要求来达成通过。
+
+证明输出的失败目标会生成结构化行号、文件及源码哈希；编辑器用红色行号和底色显示疑似位置，点击诊断跳转。任一求解器已证明的目标不会误标为失败。红色表示未证明或诊断位置，不等于已找到反例；源码编辑后隐藏旧位置，重新验证后更新。
+
+### C 项目的 Sub-agent 选择
+
+项目配置和基准文件重跑均可为 Codex、Claude Code、DeepSeek Harness 选择 `qwen35-4b-mix64` 或 `qwen35-9b-mix64`。DeepSeek Harness 使用原生子 Agent；Codex、Claude Code 使用平台 API 子 Agent 生成并校验候选，再交由主 Agent 检查和验证，主模型须选择平台已配置的 API 模型。两者留空时保留原有执行方式。API 子 Agent 失败时停止并保留诊断，不回退成主模型冒充子模型。后续修复沿用已有候选，不重复调用 API 子 Agent 生成；最终仍执行平台独立 Frama-C 检查。子模型元数据和候选保存在任务对应轮次的 `subagent-runtime.json`、`subagent-candidate.json` 中，不保存密钥。

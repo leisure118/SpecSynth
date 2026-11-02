@@ -1,4 +1,16 @@
 services:
+  # Verification-only service: reuse the installed toolchain image without model credentials.
+  verifier:
+    image: junjiehu1905/autospec:latest
+    platform: linux/amd64
+    cpus: ${XUANJIAN_PROOF_CPUS:-2.0}
+    working_dir: /app
+    environment:
+      PATH: /root/.opam/default/bin:/opt/clang/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    volumes:
+      - ./:/app
+    command: /bin/sh
+
   autospec:
     cpus: ${XUANJIAN_PROOF_CPUS:-0.0}
     image: junjiehu1905/autospec:latest

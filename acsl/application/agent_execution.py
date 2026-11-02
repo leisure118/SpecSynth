@@ -115,6 +115,10 @@ def execute_agent(manager,task,payload):
     proof_reserve=min(60,max(15,int(budget['effective_sec']*.15))) if not rust else 0
     attempts=[];candidate=files;diagnostic='';check={'status':'failed','verified':False,'message':'尚未验证'}
     prompt_base=base_prompt(files,task.mode,payload.description,payload.function_signature,payload.agent_instructions)
+    if payload.manual_context:
+        task.metadata['manual_context']=payload.manual_context
+        prompt_base+='\nContinue from the manually edited source below, not a fresh implementation. Preserve the human annotations and original assertions; fill missing proof annotations and repair failed goals where permitted. Do not remove requirements or introduce assumptions. Previous diagnostics refer to the earlier source version: relocate their goals against the current source instead of assuming old line numbers still match. Previous verifier diagnostics:\n'+str(payload.manual_context.get('diagnostics',''))[-16000:]
+
     for round_number in range(payload.max_repair_rounds+1):
         remaining=int(deadline-time.monotonic())
         if remaining<1:
@@ -131,7 +135,7 @@ def execute_agent(manager,task,payload):
             from contextlib import nullcontext
             with (progress.watch(directory/f'round-{round_number}',round_number,reuse=agent=='deepseek-harness' and round_number>0) if progress else nullcontext()):
                 produced=generate(agent,prompt,directory/f'round-{round_number}',max(1,remaining-proof_reserve),
-                                  payload.model_name, **({'sub_model':payload.assistant['sub_model']} if agent=='deepseek-harness' and payload.assistant.get('sub_model') else {}))
+                                  payload.model_name, **({'sub_model':payload.assistant['sub_model']} if agent in ('codex','claude-code','deepseek-harness') and payload.assistant.get('sub_model') else {}))
             runtime_file=directory/f'round-{round_number}'/'harness-runtime.json'
             if not runtime_file.is_file():runtime_file=directory/f'round-{round_number}'/'cli-runtime.json'
             if runtime_file.is_file():attempt['agent_runtime']=json.loads(runtime_file.read_text())
@@ -178,6 +182,13 @@ def execute_agent(manager,task,payload):
     return result
 
 
+def direct_verification_problem(source):
+    comments='\n'.join(''.join(m) for m in re.findall(r'/\*@([\s\S]*?)\*/|//@([^\n]*)',source))
+    if re.search(r'\b(?:admit|assume|axiom|axiomatic)\b',comments):
+        return '带规约代码含 admit/assume/axiom 等未证明假设，无法作为独立证明输入。请切换到原始源码重新生成规约，或在项目中修正前置条件；系统不会自动删除这些假设。'
+    return None
+
+
 def execute_verification_only(manager, task, payload):
     """Verify the submitted annotated source without any provider invocation."""
     upload=manager.store.read_upload(payload.file_id)
@@ -185,9 +196,9 @@ def execute_verification_only(manager, task, payload):
         raise ValueError('直接验证需要单个 C 源文件快照。')
     source=resolve_project_path(upload['stored_path']).read_text()
     entry=payload.entry_path
-    comments='\n'.join(''.join(m) for m in re.findall(r'/\*@([\s\S]*?)\*/|//@([^\n]*)',source))
-    if re.search(r'\b(?:admit|assume|axiom|axiomatic)\b',comments):
-        check={'status':'blocked','verified':False,'message':'源码包含 admit/assume/axiom 等假设，直接验证已阻止，不能计为通过。'}
+    problem=direct_verification_problem(source)
+    if problem:
+        check={'status':'blocked','verified':False,'message':problem}
     else:
         from engine.verification.framac_runtime import preflight
         ready,problem=preflight()

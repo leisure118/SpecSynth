@@ -102,15 +102,8 @@ def run_framac_with_wp(cfile, timeout=8, subprocess_timeout=SUBPROCESS_TIMEOUT, 
         raise FileNotFoundError("input C file not found: %s" % cfile)
 
     executable = binary or FRAMAC_BIN
-    cmd = [
-        executable, "-wp",
-        "-wp-rte",
-        "-wp-precond-weakening",
-        "-wp-prover", "Alt-Ergo,Z3",
-        "-wp-print",
-        "-wp-timeout", str(timeout),
-        cfile,
-    ]
+    from engine.verification.framac_options import wp_arguments
+    cmd = [executable, *wp_arguments(timeout), cfile]
 
     start = datetime.datetime.now()
     timed_out = False

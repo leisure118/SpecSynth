@@ -7,31 +7,31 @@ export default defineComponent({
     <div class="x509-function-page">
       <header class="x509-function-page-head">
         <div>
-          <span>FUNCTION EVIDENCE</span>
-          <h1>{{ detail ? detail.name : functionName }}</h1>
-          <p v-if="detail">{{ detail.signature }} · 证明目标 {{ detail.proved }}</p>
+          <span>{{ $t("FUNCTION EVIDENCE") }}</span>
+          <h1>{{ $t(detail ? detail.name : functionName) }}</h1>
+          <p v-if="detail">{{ $t(detail.signature) }}{{ $t(" · 证明目标 ") }}{{ $t(detail.proved) }}</p>
         </div>
-        <el-button size="large" @click="backToGraph">← 返回验证图谱</el-button>
+        <el-button size="large" @click="backToGraph">{{ $t("← 返回验证图谱") }}</el-button>
       </header>
       <main class="x509-function-page-body">
-        <div v-if="loading" class="x509-function-loading">正在读取函数规约与源码…</div>
+        <div v-if="loading" class="x509-function-loading">{{ $t("正在读取函数规约与源码…") }}</div>
         <div v-else-if="errorText" class="x509-function-state" role="alert">
-          <span class="x509-function-state-mark" aria-hidden="true">!</span>
-          <h2>函数详情暂不可用</h2>
-          <p>{{ errorText }}</p>
-          <p class="x509-function-state-hint">该页面依赖 X.509 案例的证明数据。数据尚未生成或后端不可用时，可先返回验证图谱查看其他函数。</p>
+          <span class="x509-function-state-mark" aria-hidden="true">{{ $t("!") }}</span>
+          <h2>{{ $t("函数详情暂不可用") }}</h2>
+          <p>{{ $t(errorText) }}</p>
+          <p class="x509-function-state-hint">{{ $t("该页面依赖 X.509 案例的证明数据。数据尚未生成或后端不可用时，可先返回验证图谱查看其他函数。") }}</p>
           <div class="x509-function-state-actions">
-            <el-button type="primary" @click="loadFunction">重新加载</el-button>
-            <el-button @click="backToGraph">返回验证图谱</el-button>
+            <el-button type="primary" @click="loadFunction">{{ $t("重新加载") }}</el-button>
+            <el-button @click="backToGraph">{{ $t("返回验证图谱") }}</el-button>
           </div>
         </div>
         <div v-else-if="detail" class="x509-function-compare">
           <section class="x509-function-pane source">
-            <div><span>UPSTREAM</span><h2>原始函数源码</h2><small>x509-parser-bench/{{ detail.source_path }}</small></div>
+            <div><span>{{ $t("UPSTREAM") }}</span><h2>{{ $t("原始函数源码") }}</h2><small>{{ $t("x509-parser-bench/") }}{{ $t(detail.source_path) }}</small></div>
             <pre><code>{{ detail.source }}</code></pre>
           </section>
           <section class="x509-function-pane verified">
-            <div><span>VERIFIED</span><h2>带 ACSL 规约的函数</h2><small>{{ detail.verified_source_path }}</small></div>
+            <div><span>{{ $t("VERIFIED") }}</span><h2>{{ $t("带 ACSL 规约的函数") }}</h2><small>{{ $t(detail.verified_source_path) }}</small></div>
             <pre><code>{{ detail.verified_source || detail.contract }}</code></pre>
           </section>
         </div>

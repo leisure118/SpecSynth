@@ -7,6 +7,7 @@ import App from './App.js'
 import './main.css'
 import './workbench.css'
 import './veriformal.css'
+import './ide.css'
 
 const app = createApp(App)
 app.use(createPinia())
@@ -18,3 +19,4 @@ import './styles/veriflow/home.css'
 import './styles/veriflow/home-overrides.css'
 import './styles/veriflow/projects.css'
 import './cover-veriflow.css'
+import './polish.css'

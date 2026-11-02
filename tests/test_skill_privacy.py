@@ -13,7 +13,8 @@ SECRET='Private Skill detailed instruction sentinel: never send this server body
 
 @pytest.fixture
 def system(tmp_path,monkeypatch):
-    monkeypatch.setattr(skill_library,'SKILLS_DIR',tmp_path/'skills')
+    from acsl.infrastructure.settings import settings
+    monkeypatch.setattr(settings,'runtime_dir',tmp_path/'runtime')
     monkeypatch.setattr(workspace,'PROJECTS_DIR',tmp_path/'projects')
     app=FastAPI();app.add_middleware(SkillPrivacyMiddleware);app.add_middleware(GZipMiddleware,minimum_size=1)
     app.include_router(skill_library.router)
@@ -46,7 +47,8 @@ def test_project_round_trip_and_zip_never_export_legacy_skill_body(system):
     metadata=response.json();metadata['skills'][0]['name']='Metadata edit'
     response=system.put('/api/v1/projects/'+p['id']+'/assistant',json=metadata)
     assert response.status_code==200 and SECRET not in response.text
-    assert workspace._read(p['id'])['assistant']['skills'][0]['instructions']==SECRET
+    saved=json.loads((workspace.PROJECTS_DIR/p['id']/'project.json').read_text())
+    assert saved['assistant']['skills'][0]['instructions']==SECRET
     response=system.get('/api/v1/projects/'+p['id']);assert SECRET not in response.text
     response=system.get('/api/v1/projects/'+p['id']+'/export')
     with zipfile.ZipFile(io.BytesIO(response.content)) as archive:

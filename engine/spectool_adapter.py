@@ -4,6 +4,7 @@ import json
 import os
 import re
 import shlex
+import shutil
 import subprocess
 import sys
 import time
@@ -58,6 +59,10 @@ class SpectoolCapabilities:
     veri_clang_container: bool = False
     alt_ergo_container: bool = False
     z3_container: bool = False
+    frama_c_local: bool = False
+    veri_clang_local: bool = False
+    alt_ergo_local: bool = False
+    z3_local: bool = False
     verify_runner: str | None = None
     container_service: str | None = None
 
@@ -67,7 +72,12 @@ class SpectoolCapabilities:
 
     @property
     def verify_ready(self) -> bool:
-        return self.package_available and self.frama_c and (self.alt_ergo or self.z3) and self.verify_runner == "container"
+        return (
+            self.package_available
+            and self.verify_runner in {"host", "container"}
+            and self.frama_c
+            and (self.alt_ergo or self.z3)
+        )
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -85,10 +95,10 @@ class SpectoolCapabilities:
             },
             "tool_sources": {
                 "local": {
-                    "frama_c": False,
-                    "veri_clang": False,
-                    "alt_ergo": False,
-                    "z3": False,
+                    "frama_c": self.frama_c_local,
+                    "veri_clang": self.veri_clang_local,
+                    "alt_ergo": self.alt_ergo_local,
+                    "z3": self.z3_local,
                 },
                 "container": {
                     "frama_c": self.frama_c_container,
@@ -106,23 +116,44 @@ def ensure_spectool_dirs() -> None:
     OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
+def _local_tool_probe() -> dict[str, bool]:
+    configured = (os.getenv("SPECTOOL_FRAMAC", "") or "").strip()
+    if configured:
+        frama_c = Path(configured).exists() or shutil.which(configured) is not None
+    else:
+        frama_c = shutil.which("frama-c") is not None
+    return {
+        "frama_c": frama_c,
+        "veri_clang": shutil.which("veri-clang") is not None,
+        "alt_ergo": shutil.which("alt-ergo") is not None,
+        "z3": shutil.which("z3") is not None,
+    }
+
+
 def capabilities() -> SpectoolCapabilities:
     container = _container_tool_probe()
     container_tools = container["tools"]
+    local = _local_tool_probe()
+    host_verify_ready = local["frama_c"] and (local["alt_ergo"] or local["z3"])
     container_verify_ready = container_tools["frama_c"] and (container_tools["alt_ergo"] or container_tools["z3"])
+    verify_runner = "host" if host_verify_ready else "container" if container_verify_ready else None
     return SpectoolCapabilities(
         package_available=_IMPORT_ERROR is None,
         package_dir=str(SPECTOOL_PACKAGE_DIR),
-        frama_c=container_tools["frama_c"],
-        veri_clang=container_tools["veri_clang"],
-        alt_ergo=container_tools["alt_ergo"],
-        z3=container_tools["z3"],
+        frama_c=local["frama_c"] or container_tools["frama_c"],
+        veri_clang=local["veri_clang"] or container_tools["veri_clang"],
+        alt_ergo=local["alt_ergo"] or container_tools["alt_ergo"],
+        z3=local["z3"] or container_tools["z3"],
         frama_c_container=container_tools["frama_c"],
         veri_clang_container=container_tools["veri_clang"],
         alt_ergo_container=container_tools["alt_ergo"],
         z3_container=container_tools["z3"],
-        verify_runner="container" if container_verify_ready else None,
-        container_service=container["service"] if container_verify_ready else None,
+        frama_c_local=local["frama_c"],
+        veri_clang_local=local["veri_clang"],
+        alt_ergo_local=local["alt_ergo"],
+        z3_local=local["z3"],
+        verify_runner=verify_runner,
+        container_service=container["service"] if verify_runner == "container" else None,
     )
 
 
@@ -566,11 +597,33 @@ def verify(file_id: str, relative_path: str | None = None, timeout_sec: int = 8,
 
 
 def _run_wp(source_path: Path, timeout_sec: int) -> tuple[dict[str, Any], str, str | None]:
+    # Shared spectool verification prefers host Frama-C. AutoSpec's image is
+    # never required here; set SPECTOOL_VERIFY_RUNNER=container to force the
+    # dedicated/legacy container probe explicitly.
+    runner = (os.getenv("SPECTOOL_VERIFY_RUNNER", "auto") or "auto").strip().lower()
+    if runner in {"auto", "host"}:
+        configured = (os.getenv("SPECTOOL_FRAMAC", "") or "").strip()
+        binary = configured if configured and (Path(configured).exists() or shutil.which(configured)) else shutil.which("frama-c")
+        if binary:
+            try:
+                raw = framac.run_framac_with_wp(
+                    str(source_path),
+                    timeout_sec,
+                    subprocess_timeout=max(30, min(framac.SUBPROCESS_TIMEOUT, timeout_sec * 10)),
+                    binary=binary,
+                )
+                return raw, "host", None
+            except FileNotFoundError:
+                if runner == "host":
+                    raise RuntimeError("本机 Frama-C 不可用。") from None
+        elif runner == "host":
+            raise RuntimeError("未检测到本机 Frama-C。请安装 Frama-C 或改用专用验证容器。")
+
     container = _container_tool_probe()
     service = container.get("service")
     tools = container.get("tools", {})
     if not service or not tools.get("frama_c") or not (tools.get("alt_ergo") or tools.get("z3")):
-        raise RuntimeError("Frama-C/WP is unavailable because no spectool verification container is ready.")
+        raise RuntimeError("Frama-C/WP is unavailable because no local or containerized verifier is ready.")
     return _run_framac_in_container(source_path, timeout_sec, service), "container", service
 
 

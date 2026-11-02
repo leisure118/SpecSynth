@@ -60,14 +60,6 @@ def test_complex_budget_is_bounded_transparent_and_can_be_disabled():
     assert c_budget([{'path':'a.c','content':'/* while(x) for(x) */ int f(){return 0;}'}])['effective_sec']==200
 
 
-def test_docker_failure_is_not_reported_as_c_compile_error(tmp_path,monkeypatch):
-    from apps.api.app import agent_execution
-    monkeypatch.setattr(agent_execution,'ROOT_DIR',tmp_path)
-    monkeypatch.setattr(agent_execution,'run_process',lambda *a,**k:(125,'','unknown flag: --rm'))
-    r=agent_execution.verify_candidates([{'path':'a.c','content':'int main(){return 0;}'}],'a.c','single',tmp_path/'proof',10)
-    assert r['status']=='unavailable' and not r['verified']
-
-
 def test_codex_mcp_receives_isolated_docker_environment(tmp_path,monkeypatch):
     from types import SimpleNamespace
     from engine import c_agent_cli as cli

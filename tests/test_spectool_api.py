@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -68,11 +69,38 @@ def test_spectool_capabilities_and_extract() -> None:
     assert "int sum_to(int n)" in one.json()["source"]
 
 
-def test_spectool_verify_uses_container_runner() -> None:
+def test_spectool_verify_prefers_host_runner() -> None:
     file_id = upload_sample()
-    with patch("engine.spectool_adapter._container_tool_probe") as probe, patch(
-        "engine.spectool_adapter._run_framac_in_container"
-    ) as runner:
+    raw = {
+        "result_type": "Pass_1_1",
+        "stdout": "[wp] Proved goals:    1 / 1\n",
+        "stderr": "",
+        "elapsed_sec": 0.01,
+        "returncode": 0,
+        "timed_out": False,
+    }
+    with patch("engine.spectool_adapter.shutil.which", return_value="/usr/bin/frama-c"), patch(
+        "engine.spectool_adapter.framac.run_framac_with_wp", return_value=raw
+    ) as runner, patch("engine.spectool_adapter._container_tool_probe") as probe:
+        response = client.post(
+            "/api/v1/spectool/verify",
+            json={"file_id": file_id, "relative_path": "sample.c", "timeout_sec": 1},
+        )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["result"] == "Pass"
+    assert payload["runner"] == "host"
+    assert payload["container_service"] is None
+    runner.assert_called_once()
+    probe.assert_not_called()
+
+
+def test_spectool_verify_uses_container_runner_when_forced() -> None:
+    file_id = upload_sample()
+    with patch.dict(os.environ, {"SPECTOOL_VERIFY_RUNNER": "container"}), patch(
+        "engine.spectool_adapter._container_tool_probe"
+    ) as probe, patch("engine.spectool_adapter._run_framac_in_container") as runner:
         probe.return_value = {
             "service": "autospec",
             "tools": {"frama_c": True, "veri_clang": True, "alt_ergo": True, "z3": True},
@@ -99,8 +127,25 @@ def test_spectool_verify_uses_container_runner() -> None:
     runner.assert_called_once()
 
 
+def test_spectool_capabilities_prefer_host_when_available() -> None:
+    with patch("engine.spectool_adapter._local_tool_probe") as local, patch(
+        "engine.spectool_adapter._container_tool_probe"
+    ) as probe:
+        local.return_value = {"frama_c": True, "veri_clang": False, "alt_ergo": True, "z3": True}
+        probe.return_value = {"service": None, "tools": {"frama_c": False, "veri_clang": False, "alt_ergo": False, "z3": False}}
+        payload = client.get("/api/v1/spectool/capabilities").json()
+
+    assert payload["verify_ready"] is True
+    assert payload["verify_runner"] == "host"
+    assert payload["container_service"] is None
+    assert payload["tool_sources"]["local"]["frama_c"] is True
+
+
 def test_spectool_capabilities_report_container_verify_runner() -> None:
-    with patch("engine.spectool_adapter._container_tool_probe") as probe:
+    with patch("engine.spectool_adapter._local_tool_probe") as local, patch(
+        "engine.spectool_adapter._container_tool_probe"
+    ) as probe:
+        local.return_value = {"frama_c": False, "veri_clang": False, "alt_ergo": False, "z3": False}
         probe.return_value = {
             "service": "autospec",
             "tools": {"frama_c": True, "veri_clang": True, "alt_ergo": True, "z3": True},

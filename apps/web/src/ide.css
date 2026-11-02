@@ -1,0 +1,215 @@
+/* Shared IDE surface and workspace density.
+   The editor stays dark like a real desktop IDE; surrounding chrome follows the
+   charcoal/cyan product theme from veriformal.css and the VeriFlow sheets. */
+
+:root {
+  --workspace-gutter: clamp(22px, 2.2vw, 42px);
+}
+
+.vf-workspace,
+.vf-workspace.vf-benchmark-studio {
+  padding: 0 var(--workspace-gutter) 12px;
+}
+
+.vf-workspace-header {
+  height: 56px;
+  min-height: 56px;
+  margin-bottom: 9px;
+  padding: 0 2px;
+  gap: 12px;
+}
+
+.vf-workspace-grid {
+  grid-template-columns: 236px minmax(0, 1fr) 372px;
+  gap: 10px;
+}
+
+.vf-workspace.vf-benchmark-studio.vf-reference-studio .vf-benchmark-columns {
+  grid-template-columns: 236px minmax(0, 1fr) 350px;
+  gap: 10px;
+}
+
+.vf-editor-tabs { height: 42px; min-height: 42px; }
+.vf-editor-toolbar { min-height: 42px; padding: 6px 12px; }
+.vf-editor-status { min-height: 26px; padding: 4px 13px; }
+
+/* IDE-grade editor surface: syntax + spec regions over a transparent textarea. */
+.ide-editor {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: #111417;
+  color: #d8dee9;
+}
+.ide-editor:focus-within { box-shadow: inset 0 0 0 1px rgba(34, 211, 238, .4); }
+.ide-gutter {
+  width: 46px;
+  flex-shrink: 0;
+  overflow: hidden;
+  padding-right: 9px;
+  border-right: 1px solid #273036;
+  background: #0c0f11;
+  text-align: right;
+  user-select: none;
+}
+.ide-gutter-inner {
+  padding-top: 18px;
+  font: 11.5px/24px var(--mono);
+  color: #59666d;
+}
+.ide-gutter-inner > div { height: 24px; }
+.ide-gutter-inner > div.spec { color: #67e8f9; }
+.ide-gutter-inner > div.proof { color: #f0b45e; }
+.ide-gutter-inner > div.exec { color: #7b8991; }
+.ide-code { position: relative; flex: 1; min-width: 0; min-height: 0; overflow: hidden; }
+.ide-highlight { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ide-highlight-inner {
+  min-width: max-content;
+  padding: 18px 20px 100px 16px;
+  font: 14px/24px var(--mono);
+  will-change: transform;
+}
+.ide-line {
+  min-width: 100%;
+  width: max-content;
+  height: 24px;
+  padding-right: 48px;
+  white-space: pre;
+}
+.ide-line.spec { background: rgba(34, 211, 238, .075); box-shadow: inset 2px 0 #22d3ee; }
+.ide-line.proof { background: rgba(240, 180, 94, .075); box-shadow: inset 2px 0 #d69a42; }
+.ide-line.exec { background: transparent; }
+.ide-line code { font: inherit; color: inherit; white-space: pre; }
+.ide-code textarea {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 18px 20px 100px 16px;
+  border: 0;
+  outline: 0;
+  resize: none;
+  overflow: auto;
+  background: transparent;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  caret-color: #e5f7fb;
+  font: 14px/24px var(--mono);
+  tab-size: 4;
+  white-space: pre;
+}
+.ide-code textarea[readonly] { caret-color: transparent; }
+.ide-code textarea::selection { background: rgba(34, 211, 238, .26); color: transparent; }
+.ide-code textarea:focus-visible { outline: 0; }
+.ide-code textarea::-webkit-scrollbar { width: 11px; height: 11px; }
+.ide-code textarea::-webkit-scrollbar-track { background: #0c0f11; }
+.ide-code textarea::-webkit-scrollbar-thumb { border: 2px solid #0c0f11; border-radius: 999px; background: #354249; }
+.ide-code textarea::-webkit-scrollbar-thumb:hover { background: #46555d; }
+.ide-code textarea::-webkit-scrollbar-corner { background: #0c0f11; }
+.ide-editor .tok-keyword { color: #7dd3fc; }
+.ide-editor .tok-type { color: #93c5fd; }
+.ide-editor .tok-number { color: #86efac; }
+.ide-editor .tok-string { color: #fca5a5; }
+.ide-editor .tok-literal { color: #fbbf24; }
+.ide-editor .tok-op { color: #94a3b8; }
+.ide-editor .tok-comment { color: #6fa391; }
+.ide-editor .tok-spec-comment { color: #a5b4fc; }
+.ide-editor .tok-spec-keyword { color: #67e8f9; font-weight: 600; }
+
+.vf-verus-legend { display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: var(--text-sec); white-space: nowrap; }
+.vf-verus-legend i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+.vf-verus-legend .spec { background: #67e8f9; }
+.vf-verus-legend .exec { background: #bfe0d5; }
+.vf-verus-legend .proof { background: #e8c17b; }
+
+/* Compact verification rail. */
+.vf-verification-body { padding: 12px; font-size: 12.5px; line-height: 1.6; }
+.vf-verification-heading { min-height: 44px; }
+.vf-right-tabs { height: 40px; }
+.vf-verification-target { padding: 8px 12px; }
+.vf-task-message { margin: 8px 0 10px; font-size: 12px; line-height: 1.65; }
+.vf-phase { padding: 9px 0; }
+.vf-proof-summary { margin-top: 11px; padding: 15px 14px; }
+.vf-proof-summary h3 { font-size: 19px; }
+.vf-proof-summary > strong { margin: 10px 0 3px; font-size: 38px; }
+.vf-proof-summary p { margin: 6px 0; font-size: 12px; }
+.vf-proof-summary .vf-button { margin-top: 9px; }
+.vf-live-agent-feedback { margin: 9px 0; padding: 10px 12px; font-size: 12px; }
+.vf-live-agent-feedback > summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; list-style: none; }
+.vf-live-agent-feedback > summary::-webkit-details-marker { display: none; }
+.vf-live-agent-feedback > summary strong { font-size: 12px; }
+.vf-live-agent-feedback > summary span { color: var(--text-sec); font-size: 10.5px; }
+.vf-live-agent-feedback > p { margin: 9px 0 6px; font-size: 11px; }
+.vf-live-agent-feedback ol { display: grid; gap: 4px; margin: 7px 0 0; padding-left: 18px; }
+.vf-live-agent-feedback li { font-size: 11px; line-height: 1.55; }
+.vf-hierarchy-results { margin-top: 10px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 10px; background: #fafafa; }
+.vf-hierarchy-results > summary { cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text); }
+.vf-hierarchy-results > p { margin: 8px 0 0; font-size: 11px; }
+
+/* Benchmark studio follows the same IDE and rail density. */
+.vf-benchmark-editor > .ide-editor { flex: 1; min-height: 0; border: 0; border-radius: 0; }
+.vf-benchmark-editor > .vf-editor-status { flex-shrink: 0; }
+.br-rerun-history,
+.br-history {
+  max-height: none;
+  margin-bottom: 9px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fafafa;
+}
+.br-rerun-history > summary,
+.br-history > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 11px;
+  cursor: pointer;
+  list-style: none;
+}
+.br-rerun-history > summary::-webkit-details-marker,
+.br-history > summary::-webkit-details-marker { display: none; }
+.br-rerun-history > summary::before,
+.br-history > summary::before { content: '›'; margin-right: 4px; color: var(--text); }
+.br-rerun-history[open] > summary::before,
+.br-history[open] > summary::before { transform: rotate(90deg); }
+.br-rerun-history > summary > span,
+.br-history > summary > span { color: var(--text-sec); font-size: 10.5px; }
+.br-details-body { max-height: 210px; overflow: auto; padding: 0 7px 7px; }
+.br-reset { margin: 0 3px 6px; border: 0; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; }
+.br-details-body .br-history-item { width: 100%; }
+
+@media (min-width: 2100px) {
+  .vf-workspace-grid,
+  .vf-rust-workspace { grid-template-columns: 270px minmax(0, 1fr) 400px; }
+  .vf-workspace.vf-benchmark-studio.vf-reference-studio .vf-benchmark-columns { grid-template-columns: 270px minmax(0, 1fr) 380px; }
+}
+@media (max-width: 1600px) {
+  .vf-workspace-grid,
+  .vf-rust-workspace { grid-template-columns: 220px minmax(0, 1fr) 350px; }
+  .vf-workspace.vf-benchmark-studio.vf-reference-studio .vf-benchmark-columns { grid-template-columns: 220px minmax(0, 1fr) 330px; }
+}
+@media (max-width: 1350px) {
+  .vf-workspace-grid,
+  .vf-rust-workspace { grid-template-columns: 200px minmax(0, 1fr) 320px; }
+  .vf-workspace.vf-benchmark-studio.vf-reference-studio .vf-benchmark-columns { grid-template-columns: 200px minmax(0, 1fr) 310px; }
+}
+@media (max-width: 900px) {
+  .vf-workspace,
+  .vf-workspace.vf-benchmark-studio { padding: 0 10px 10px; }
+}
+@media (max-width: 640px) {
+  .vf-reference-studio .vf-benchmark-editor-tab { height: auto; min-height: 46px; flex-wrap: wrap; gap: 6px; padding: 6px; }
+  .vf-reference-studio .br-code-tab { width: 100%; max-width: 100%; }
+  .br-editor-actions { width: 100%; flex-wrap: nowrap; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+  .br-editor-actions button,
+  .br-editor-actions select { flex-shrink: 0; padding: 6px 8px; font-size: 11px; white-space: nowrap; }
+  .vf-editor-toolbar { flex-wrap: wrap; gap: 6px; }
+  .vf-workspace-actions { width: 100%; flex-wrap: nowrap; overflow-x: auto; }
+  .vf-workspace-actions .vf-button { flex-shrink: 0; white-space: nowrap; }
+}

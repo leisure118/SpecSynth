@@ -11,9 +11,9 @@ test('Skill page displays metadata and edits it without fetching or resubmitting
  });
  await page.goto('/#/skills');
  await expect(page.getByRole('heading',{name:/spec-bottomup/})).toBeVisible();
- await expect(page.getByText('正文仅在后端加载')).toBeVisible();
+ await expect(page.getByText('正文不下发浏览器')).toBeVisible();
  await expect(page.locator('textarea')).toHaveCount(0);
- await page.getByRole('button',{name:'编辑',exact:true}).click();
+ await page.getByRole('button',{name:'编辑元数据',exact:true}).click();
  await page.getByLabel('Skill 名称',{exact:true}).fill('规约生成');
  await page.getByRole('button',{name:'保存新版本',exact:true}).click();
  await expect(page.getByRole('heading',{name:/规约生成/})).toBeVisible();

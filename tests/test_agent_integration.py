@@ -5,12 +5,15 @@ import subprocess
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from apps.api.app import skill_library, assistants, agent_execution, agent_runners, rust
+from apps.api.app import skill_library, assistants, rust
+from acsl.application import skills as skill_service
+from acsl.application import agent_execution
+from acsl.adapters import agent_runtime as agent_runners
 from engine.integration import legacy_adapters
 
 @pytest.fixture
 def library(tmp_path,monkeypatch):
-    monkeypatch.setattr(skill_library,'SKILLS_DIR',tmp_path/'skills')
+    monkeypatch.setattr(skill_service,'skills_dir',lambda: tmp_path/'skills')
     app=FastAPI();app.include_router(skill_library.router)
     return TestClient(app)
 
@@ -70,15 +73,14 @@ def test_process_timeout_reaps_child_group(tmp_path):
         agent_runners.run_process(['/bin/sh','-c','sleep 20'],cwd=tmp_path,timeout=1)
 
 
-def test_runner_success_without_proof_is_not_pass(monkeypatch,tmp_path):
-    monkeypatch.setattr(agent_execution,'ROOT_DIR',tmp_path)
-    monkeypatch.setattr(agent_execution,'run_process',lambda *a,**kw:(0,'No verification performed',''))
-    check=agent_execution.verify_candidates([{'path':'main.c','content':'int main(void){return 0;}'}],'main.c','single',tmp_path/'proof',10)
+def test_runner_success_without_proof_is_not_pass():
+    from engine.verification import framac_runtime
+    check = framac_runtime._check_from_output('Invalid', 'No verification performed', '', 0.01, False, 0, 'host', 'host')
     assert not check['verified'] and check['status']=='compile_error'
 
 
 def test_github_import_does_not_execute_source_and_skips_symlinks(monkeypatch,tmp_path):
-    from apps.api.app import project_import
+    from acsl.adapters import github_import as project_import
     monkeypatch.setattr(project_import,'RUNTIME_DIR',tmp_path)
     def clone(args,**kwargs):
         root=Path(args[-1]);(root/'src').mkdir(parents=True)
@@ -90,8 +92,7 @@ def test_github_import_does_not_execute_source_and_skips_symlinks(monkeypatch,tm
     data,origin=project_import.import_sources(project_import.GithubImport(repository='https://github.com/example/repo',language='Rust'))
     assert data['files']==[{'path':'src/main.rs','content':'fn main() {}'}]
     assert origin['repository']=='example/repo'
-    from fastapi import HTTPException
-    with pytest.raises(HTTPException):
+    with pytest.raises(ValueError):
         project_import.import_sources(project_import.GithubImport(repository='https://elsewhere.invalid/repo'))
 
 
@@ -173,7 +174,7 @@ def test_contract_tool_rejects_forged_proof_claim(monkeypatch,tmp_path):
     source=tmp_path/'leaf.acsl.c'
     source.write_text('/* === Target: leaf === */\n/*@ assigns \\nothing; ensures \\result==1; */\nint leaf(void) { return 0; }')
     db=tmp_path/'contracts.json';db.write_text(json.dumps({'leaf':{'contract':None,'status':'pending'}}))
-    monkeypatch.setattr(agent_execution,'verify_candidates',lambda *a,**k:{'verified':False})
+    monkeypatch.setattr('engine.verification.framac_runtime.run_candidate',lambda *a,**k:{'verified':False})
     with pytest.raises(SystemExit):
         save_contract.run(SimpleNamespace(acsl=str(source),db=str(db),func='leaf',proved='999/999'))
     assert json.loads(db.read_text())['leaf']['status']=='pending'

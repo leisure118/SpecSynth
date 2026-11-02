@@ -18,11 +18,11 @@ def get_config():
     if os.environ.get('NL2VERUS_CONFIG') or original.SETTINGS_PATH.is_file():
         return original.get_config()
     from engine.autospec.src.config_manager import ConfigLoader
-    from apps.api.app.config import get_available_models, MODELS_CONFIG_PATH
+    from acsl.infrastructure.settings import get_available_models, settings
     models = {}
     for name in get_available_models():
         try:
-            model = ConfigLoader.get_model_config(name, str(MODELS_CONFIG_PATH))
+            model = ConfigLoader.get_model_config(name, str(settings.models_config_path))
             if model.base_url and model.api_key:
                 models[name] = model
         except (ValueError, OSError):

@@ -105,15 +105,14 @@ def run(args):
         fail("function '%s' not found in %s" % (func_name, args.db))
 
     # Never promote an agent's --proved claim into a reusable contract.
-    from apps.api.app.agent_execution import verify_candidates
-    from apps.api.app.config import ROOT_DIR
+    from engine.verification.framac_runtime import run_candidate
     from pathlib import Path
     import tempfile
     if re.search(r'\b(?:admit|assume|axiom|axiomatic)\b',source):
         fail('Unproved assumptions cannot enter the contract library')
     proof_root=Path.cwd()/'.platform-proofs';proof_root.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory(dir=proof_root) as folder:
-        proof=verify_candidates([{'path':'candidate.c','content':source}], 'candidate.c','single',Path(folder),40)
+        proof=run_candidate([{'path':'candidate.c','content':source}], 'candidate.c','single',Path(folder),40)
     if not proof.get('verified'):
         fail('Contract rejected: actual Frama-C verification did not pass')
     args.proved=str(proof['verified_count'])+'/'+str(proof['verified_count'])

@@ -10,7 +10,8 @@ test('VeriFlow layout keeps the dual-track animation and existing feature routes
  await page.getByRole('link',{name:'验证流程',exact:true}).click();
  expect(new URL(page.url()).hash).toBe('#/');
  await expect(page.locator('#workflow')).toBeInViewport();
- await page.locator('#home-navigation').getByRole('link',{name:'数据集',exact:true}).click();
+ await page.locator('#home-navigation').getByRole('link',{name:'工作台',exact:true}).click();
+ await page.locator('a[href="#/datasets/nl2vbench"]').first().click();
  await expect(page.getByRole('heading',{name:'NL2VBENCH',exact:true})).toBeVisible();
  expect(errors).toEqual([]);
 });

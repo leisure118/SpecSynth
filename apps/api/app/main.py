@@ -13,9 +13,9 @@ from fastapi.staticfiles import StaticFiles
 
 from engine import spectool_adapter
 
-from .config import APP_NAME, WEB_DIR, ensure_runtime_dirs, get_allowed_origins, get_available_models
-from .demo_cases import list_demo_cases
-from .schemas import (
+from acsl.infrastructure.settings import APP_NAME, WEB_DIR, ensure_runtime_dirs, get_allowed_origins, get_available_models
+from acsl.application.demo_cases import list_demo_cases
+from acsl.contracts.runs import (
     HealthResponse,
     RunCreateResponse,
     RunRequest,
@@ -29,8 +29,8 @@ from .schemas import (
     SpectoolVerifyRequest,
     UploadResponse,
 )
-from .service import RunManager
-from .storage import JsonStore
+from acsl.application.runs.manager import RunManager
+from acsl.adapters.storage import JsonStore
 from .workspace import create_workspace_router
 
 ensure_runtime_dirs()
@@ -141,8 +141,10 @@ def health() -> HealthResponse:
 
 @app.get('/api/v1/agents')
 def agents():
-    from .agent_runners import agent_status
-    return agent_status()
+    from acsl.adapters.agent_runtime import agent_status
+    from acsl.application.skills import ensure_bundled_skills
+
+    return agent_status(skill_refs=ensure_bundled_skills())
 
 
 @app.get("/api/v1/models")
@@ -439,7 +441,8 @@ def get_visualization(task_id: str) -> dict:
 app.include_router(create_workspace_router(manager, store))
 from .rust import router as rust_router
 app.include_router(rust_router)
-from .skill_library import router as skill_router, ensure_bundled_skills
+from .skill_library import router as skill_router
+from acsl.application.skills import ensure_bundled_skills
 ensure_bundled_skills()
 app.include_router(skill_router)
 from .benchmarks import router as benchmark_router

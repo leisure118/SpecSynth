@@ -17,4 +17,10 @@
 
 ## 检查
 
-前端修改运行 `npm run build:web` 和 `node tests/workspace-render.cjs`。项目工作台与 API 修改运行 `python -m pytest tests/test_workspace_api.py tests/test_api_demo.py -q`。这些回归检查不代表真实模型与 Docker 全链路验证成功。
+前端修改运行 `npm run build:web` 和 `node tests/workspace-render.cjs`。后端修改运行完整回归：
+
+```sh
+.venv/bin/python -m pytest -q
+```
+
+其中 `tests/test_architecture.py` 会检查分层依赖，`tests/test_application_services.py` 直接测试应用服务。外部 x509/OpenHarmony 数据集未安装时，对应测试会自动跳过。这些回归检查不代表真实模型与 Docker 全链路验证成功。

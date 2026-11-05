@@ -13,7 +13,7 @@ def client(tmp_path, monkeypatch):
     from acsl.infrastructure.settings import settings
     monkeypatch.setattr(settings, 'runtime_dir', tmp_path / 'runtime')
     monkeypatch.setattr(workspace, 'PROJECTS_DIR', tmp_path / 'projects')
-    monkeypatch.setattr(workspace, 'get_available_models', lambda: ['test-model'])
+    monkeypatch.setattr(workspace, 'get_available_models', lambda: ['test-model','deepseek-test'])
     snapshots = []
     submissions = []
     tasks = {}
@@ -71,7 +71,7 @@ def test_run_uses_snapshot_and_records_revision(client):
         'revision':1,'mode':'inter-modular','entry_path':'src/main.c','model_name':'test-model'})
     assert response.status_code == 201
     assert client.snapshots == [(f['path'],f['content'].encode()) for f in p['files']]
-    p['files'][0]['content']='changed'
+    p['files'][0]['content']='/*@ ensures \\result==0; */ '+p['files'][0]['content']
     assert client.put('/api/v1/projects/'+p['id'],json={'name':p['name'],'revision':1,'files':p['files']}).status_code == 200
     assert client.snapshots[0][1] == b'int main(void) { return 0; }'
     saved=client.get('/api/v1/projects/'+p['id']).json()
@@ -133,7 +133,7 @@ def test_example_import_reuses_original_and_preserves_edited_project(client,monk
     assert p['files']==[{'path':'sample.c','content':case['source_code']}]
     assert p['example']['execution_mode']=='replay' and p['runs']==[]
     assert client.post('/api/v1/projects/from-demo',json={'demo_case_id':'example'}).json()['id']==p['id']
-    edited=[{'path':'sample.c','content':'int f(void) { return 2; }'}]
+    edited=[{'path':'sample.c','content':'/*@ ensures \\result==1; */ '+case['source_code']}]
     client.put('/api/v1/projects/'+p['id'],json={'name':p['name'],'revision':1,'files':edited})
     new=client.post('/api/v1/projects/from-demo',json={'demo_case_id':'example'}).json()
     assert new['id']!=p['id'] and new['files'][0]['content']==case['source_code']
@@ -151,7 +151,7 @@ def test_project_replay_requires_matching_original_source_and_records_history(cl
     assert client.submissions[0][1].demo_case_id=='example'
     assert client.get('/api/v1/projects/'+p['id']).json()['runs'][0]['execution']=='replay'
     client.tasks['task-1'].status='pass'
-    files=[{'path':'sample.c','content':'int changed(void){return 42;}'}]
+    files=[{'path':'sample.c','content':'/*@ ensures \\result==1; */ '+p['files'][0]['content']}]
     client.put('/api/v1/projects/'+p['id'],json={'name':p['name'],'files':files,'revision':1})
     assert client.post(endpoint,json=body|{'revision':2}).status_code==422
     assert client.post(endpoint,json=body|{'revision':2,'execution':'live'}).status_code==201
@@ -262,13 +262,13 @@ def test_external_prompt_preview_keeps_skill_bodies_server_side(client,monkeypat
 def test_manual_revisions_are_separate_immutable_snapshots(client,monkeypatch):
     p=project(client)
     body={'name':p['name'],'language':'C','revision':p['revision'],'files':p['files']}
-    body['files'][0]['content']='int main(void) { /* human */ return 0; }'
+    body['files'][0]['content']='int main(void) { /*@ assert 1; // human\n */ return 0; }'
     saved=client.put('/api/v1/projects/'+p['id'],json=body)
     assert saved.status_code==200,saved.text
     v=saved.json();assert v['source_versions'][-1]['origin']=='human'
     first=client.get('/api/v1/projects/'+p['id']+'/versions/2').json()
     assert 'human' in first['files'][0]['content']
-    body.update(revision=v['revision']);body['files'][0]['content']='int main(void) { /* next human */ return 0; }'
+    body.update(revision=v['revision']);body['files'][0]['content']='int main(void) { /*@ assert 2; // next human\n */ return 0; }'
     assert client.put('/api/v1/projects/'+p['id'],json=body).status_code==200
     assert client.get('/api/v1/projects/'+p['id']+'/versions/2').json()==first
     assert client.get('/api/v1/projects/'+p['id']+'/versions/999').status_code==404
@@ -299,10 +299,10 @@ def test_identical_manual_saves_and_restores_reuse_snapshot(client):
     unchanged=client.put(url,json=body).json()
     assert unchanged['revision']==p['revision']
     assert not unchanged.get('source_versions')
-    first='int main(void) { /* first human */ return 0; }'
+    first='int main(void) { /*@ assert 1; */ return 0; }'
     body['files'][0]['content']=first
     a=client.put(url,json=body).json()
-    body['revision']=a['revision'];body['files'][0]['content']='int main(void) { /* second human */ return 0; }'
+    body['revision']=a['revision'];body['files'][0]['content']='int main(void) { /*@ assert 2; */ return 0; }'
     b=client.put(url,json=body).json()
     body['revision']=b['revision'];body['files'][0]['content']=first
     restored=client.put(url,json=body).json()
@@ -319,7 +319,7 @@ def test_cleanup_physically_deletes_duplicate_versions_and_keeps_old_links(clien
     from acsl.application.projects import ProjectService
     p=project(client);url='/api/v1/projects/'+p['id']
     body={'name':p['name'],'language':'C','revision':p['revision'],'files':p['files']}
-    body['files'][0]['content']='int main(void) { /* distinct */ return 0; }'
+    body['files'][0]['content']='int main(void) { /*@ assert 1; */ return 0; }'
     p=client.put(url,json=body).json()
     root=workspace.PROJECTS_DIR/p['id'];shutil.copytree(root/'versions/v2',root/'versions/v3')
     duplicate=dict(p['source_versions'][0],revision=3)
@@ -332,3 +332,62 @@ def test_cleanup_physically_deletes_duplicate_versions_and_keeps_old_links(clien
     assert len(client.get(url).json()['source_versions'])==1
     assert client.get(url+'/versions/3').json()==client.get(url+'/versions/2').json()
     assert service.deduplicate_source_versions(p['id'])['deleted']==0
+
+
+def test_user_can_edit_only_annotations_not_existing_source(client):
+    p=project(client);url='/api/v1/projects/'+p['id']
+    body={'name':p['name'],'revision':p['revision'],'files':p['files']}
+    body['files'][0]['content']='int main(void) { return 1; }'
+    assert client.put(url,json=body).status_code==422
+    assert client.get(url).json()['revision']==1
+    body['files'][0]['content']='/*@ ensures \\result==0; */ int main(void) { return 0; }'
+    assert client.put(url,json=body).status_code==200
+
+
+def test_verifast_uses_shared_task_api_and_snapshots_all_headers(client):
+    p=project(client)
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={
+        'revision':1,'entry_path':'src/main.c','verification_tool':'verifast','verification_only':True,'model_name':'not-a-model'})
+    assert response.status_code==201,response.text
+    mode,payload=client.submissions[-1]
+    assert mode=='single' and payload.verification_only
+    assert payload.verification_tool=='verifast' and payload.assistant is None
+    assert len(client.snapshots)==2
+    saved=client.get('/api/v1/projects/'+p['id']).json()
+    assert saved['runs'][0]['verification_tool']=='verifast'
+    assert saved['files']==p['files']
+
+
+def test_verifast_rejects_unsupported_modes(client):
+    p=project(client)
+    for mode in ('termination','inter-modular'):
+        r=client.post('/api/v1/projects/'+p['id']+'/runs',json={
+            'revision':1,'entry_path':'src/main.c','verification_tool':'verifast','mode':mode})
+        assert r.status_code==422
+    assert not client.submissions
+
+
+@pytest.mark.parametrize('agent',['codex','claude-code','deepseek-harness'])
+def test_verifast_generation_keeps_selected_agent_and_model(client,monkeypatch,agent):
+    from acsl.adapters import agent_runtime
+    monkeypatch.setattr(agent_runtime,'require_agent',lambda _:None)
+    monkeypatch.setattr(workspace,'get_available_models',lambda:['deepseek-test'])
+    p=project(client)
+    r=client.post('/api/v1/projects/'+p['id']+'/runs',json={
+        'revision':1,'entry_path':'src/main.c','verification_tool':'verifast','model_name':'deepseek-test',
+        'assistant':{'agent':agent,'sub_model':'qwen35-9b-mix64'},'description':'Prove return value','max_repair_rounds':3})
+    assert r.status_code==201,r.text
+    _,payload=client.submissions[-1]
+    assert payload.verification_tool=='verifast' and not payload.verification_only
+    assert payload.assistant['agent']==agent and payload.assistant['sub_model']=='qwen35-9b-mix64'
+    assert payload.model_name=='deepseek-test' and payload.max_repair_rounds==3
+    assert client.get('/api/v1/projects/'+p['id']).json()['runs'][0]['verification_tool']=='verifast'
+
+
+def test_project_remembers_selected_verifier_without_altering_sources_or_history(client):
+    p=project(client)
+    r=client.put('/api/v1/projects/'+p['id']+'/verification-tool',json={'verification_tool':'verifast'})
+    assert r.status_code==200
+    saved=client.get('/api/v1/projects/'+p['id']).json()
+    assert saved['verification_tool']=='verifast' and saved['files']==p['files'] and saved['runs']==[]
+    assert client.put('/api/v1/projects/'+p['id']+'/verification-tool',json={'verification_tool':'unknown'}).status_code==422

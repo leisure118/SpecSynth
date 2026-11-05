@@ -1,0 +1,15 @@
+```json
+{
+  "patches": [
+    {
+      "path": "array-cav19_array_tiling_tcpy.c",
+      "before_line": 16,
+      "annotation": "/*@ loop invariant 0 <= i <= S;
+loop invariant \\forall integer j; 0 <= j < i ==> acopy[j] == a[j];
+loop invariant \\forall integer j; S <= j < 2*S ==> acopy[j] == a[j];
+loop assigns i, acopy[0 .. 2*S-1];
+loop variant S - i;*/"
+    }
+  ]
+}
+```

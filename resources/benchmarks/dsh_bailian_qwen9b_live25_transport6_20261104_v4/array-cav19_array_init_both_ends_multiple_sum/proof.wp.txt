@@ -1,0 +1,18 @@
+Frama-C 未产生有效证明结果。
+[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25_transport6_20261104_v4/array-cav19_array_init_both_ends_multiple_sum/round-5/proof/array-cav19_array_init_both_ends_multiple_sum.c (with preprocessing)
+[kernel] resources/benchmarks/dsh_bailian_qwen9b_live25_transport6_20261104_v4/array-cav19_array_init_both_ends_multiple_sum/round-5/proof/array-cav19_array_init_both_ends_multiple_sum.c:22: 
+  syntax error:
+  Location: between lines 22 and 24, before or at token: ghost
+  20    	loop invariant \forall integer j; 0 <= j < i ==> b[N-1-j] == j;
+  21    	loop assigns i, b[0 .. N-1];
+  
+  22    	loop variant N - i;
+  23    */
+  24    //@ ghost int \at(a[0], Here);
+  
+  25      for (i=0;i<N;i++) {
+  26        b[N-i-1]=i;
+[kernel] Frama-C aborted: invalid user input.
+
+time="2026-11-04T19:00:15+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+

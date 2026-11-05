@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "array-cav19_array_init_pair_sum_const.c",
+      "content": "int main()\n{\n  int i;\n  int N=100000;\n  int a[N];\n  int b[N];\n  int c[N];\n/*@ loop invariant 0 <= i <= 100000;\n    loop invariant \\forall integer k; 0 <= k < i ==> a[k] == 1 && b[k] == 2;\n    loop assigns i, a[0 .. 99999], b[0 .. 99999];\n    loop variant 100000 - i;\n*/\n  for(i=0;i<N;i++) {\n    a[i]=1;\n    b[i]=2;\n  }\n/*@ loop invariant 0 <= i <= 100000;\n    loop invariant \\forall integer k; 0 <= k < i ==> c[k] == a[k] + b[k];\n    loop invariant \\forall integer k; 0 <= k < 100000 ==> a[k] == 1 && b[k] == 2;\n    loop invariant \\forall integer k; 0 <= k < i ==> c[k] == 3;\n    loop assigns i, c[0 .. 99999];\n    loop variant 100000 - i;\n*/\n  for(i=0;i<N;i++){\n    c[i]=a[i]+b[i];\n  }\n/*@ loop invariant 1 <= i <= 100000;\n    loop invariant \\forall integer k; 0 <= k < 100000 ==> c[k] == 3;\n    loop assigns i;\n    loop variant 100000 - i;\n*/\n  for(i=1;i<N;i++){\n    //@ assert(c[i] >= 3);\n  }\n  return 0;\n}\n"
+    }
+  ]
+}

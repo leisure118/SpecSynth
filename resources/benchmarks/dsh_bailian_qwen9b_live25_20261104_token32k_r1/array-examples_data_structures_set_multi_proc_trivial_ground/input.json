@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "array-examples_data_structures_set_multi_proc_trivial_ground.c",
+      "content": "#include<limits.h>\n/*@\nassigns \\nothing;\nensures INT_MIN <= \\result < INT_MAX;\n*/\nint unknown();\n#include <assert.h>\n#define SIZE 100000\nint insert( int set [] , int size , int value ) {\n  set[ size ] = value;\n  return size + 1;\n}\nint elem_exists( int set [ ] , int size , int value ) {\n  int i;\n  for ( i = 0 ; i < size ; i++ ) {\n    if ( set[ i ] == value ) return 1;\n  }\n  return 0;\n}\nint main( ) {\n  int n = 0;\n  int set[ SIZE ];\n  int x;\n  int y;\n\tfor (x = 0; x < SIZE; x++)\n\t{\n\t  set[x] = unknown();\n\t}\n  for ( x = 0 ; x < n ; x++ ) {\n    for ( y = x + 1 ; y < n ; y++ ) {\n      //@ assert(set[ x ] != set[ y ]  );\n    }\n  }\n  int values[ SIZE ];\n  int v;\n\tfor (v = 0; v < SIZE; v++)\n\t{\n\t  values[v] = unknown();\n\t}\n  for ( v = 0 ; v < SIZE ; v++ ) {\n    if ( elem_exists( set , n , values[ v ] ) ) {\n      n = insert( set , n , values[ v ] );\n    }\n    for ( x = 0 ; x < n ; x++ ) {\n      for ( y = x + 1 ; y < n ; y++ ) {\n        //@ assert(set[ x ] != set[ y ]  );\n      }\n    }\n  }\n  for ( x = 0 ; x < n ; x++ ) {\n    for ( y = x + 1 ; y < n ; y++ ) {\n      //@ assert(set[ x ] != set[ y ]  );\n    }\n  }\n  return 0;\n}\n"
+    }
+  ],
+  "sha256": "3f3b677aff2d506ace0f3063458f9d06307d3ea2c50ba629cc9fc6b5893fc41a"
+}

@@ -1,4 +1,20 @@
 services:
+  verifast:
+    image: acsl-verifast:26.10
+    build:
+      context: ./docker/verifast
+    platform: linux/amd64
+    profiles: [verifast]
+    cpus: ${XUANJIAN_PROOF_CPUS:-2.0}
+    mem_limit: 2g
+    network_mode: none
+    read_only: true
+    tmpfs:
+      - /tmp
+    working_dir: /work
+    volumes:
+      - ./runtime/verifast:/work
+
   # Verification-only service: reuse the installed toolchain image without model credentials.
   verifier:
     image: junjiehu1905/autospec:latest

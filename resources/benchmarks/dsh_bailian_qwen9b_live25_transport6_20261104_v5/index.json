@@ -1,0 +1,275 @@
+{
+  "benchmark": {
+    "id": "dsh_bailian_qwen9b_live25_transport6_20261104_v5",
+    "dataset_id": "live25",
+    "name": "LiveFMBench 2025 · 6文件规约补丁复测",
+    "language": "C / ACSL",
+    "model": "deepseek-v4.1-flash-1017",
+    "agent": "deepseek-harness",
+    "skill": "spec-bottomup",
+    "skill_family": "spec-skill",
+    "configuration_label": "DeepSeek Harness CLI + deepseek-v4.1-flash-1017 + qwen35-9b-mix64 + spec-skill",
+    "sub_model": "qwen35-9b-mix64",
+    "run_tag": "small10-acsl-patches-v1",
+    "final_metric": "pass@5",
+    "date": "2026-11-04",
+    "experiment_status": "completed",
+    "reported_total": 6,
+    "indexed_total": 6,
+    "original_source_count": 6,
+    "flagged_count": 0,
+    "description": "10个定向样例：覆盖历史通过、源码改动、token超限、ACSL语法和证明目标未通过；不代表全集通过率。",
+    "notice": "最多5次候选，pass@1/pass@5沿用历史定义。主模型输出统计仅取主会话使用记录；原生子模型直接交接仅在有效JSON输出时生效。",
+    "summary": {
+      "pass@1": {
+        "passed": 0,
+        "total": 6,
+        "rate": 0.0
+      },
+      "pass@5": {
+        "passed": 1,
+        "total": 6,
+        "rate": 16.7
+      }
+    },
+    "completed_count": 6,
+    "passed_count": 1,
+    "updated_at": "2026-11-04T11:06:57.773578+00:00"
+  },
+  "items": [
+    {
+      "id": "array-cav19_array_init_pair_sum_const",
+      "path": "array-cav19_array_init_pair_sum_const.c",
+      "original_filename": "array-cav19_array_init_pair_sum_const.c",
+      "original_path": "array-cav19_array_init_pair_sum_const.c",
+      "original_sha256": "871ae3e3fcc33ddcaf525753a42ead9b614defda7e2363001ca515d374a0f6cb",
+      "status": "failed",
+      "raw_status": "failed",
+      "round": 5,
+      "proved": 29,
+      "total": 32,
+      "goal_rate": 90.6,
+      "tokens": 73165,
+      "elapsed_sec": 211.71,
+      "error": "Frama-C 证明目标 29/32，仍有目标未证明",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_init_pair_sum_const.c",
+        "log": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_init_pair_sum_const/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_init_pair_sum_const/candidate.acsl.c"
+      },
+      "baseline": {
+        "benchmark_id": "dsh_bailian_qwen9b_live25_small10_patches_20261104_v1",
+        "status": "failed",
+        "round": 5,
+        "error": "DeepSeek Harness CLI：主 Agent 单次输出达到 32768 tokens 上限，尚未完成候选；不是网络或账户余额错误。",
+        "main_output_tokens": 100797,
+        "main_input_tokens_uncached": 43996,
+        "main_calls": 8,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "failure_stage": "proof",
+      "token_usage": {
+        "main_output_tokens": 2765,
+        "main_input_tokens_uncached": 13568,
+        "main_calls": 12,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-cav19_array_tiling_tcpy",
+      "path": "array-cav19_array_tiling_tcpy.c",
+      "original_filename": "array-cav19_array_tiling_tcpy.c",
+      "original_path": "array-cav19_array_tiling_tcpy.c",
+      "original_sha256": "2695372613da56d745042d21c18079d5a34dcb2ad2db8c4be587c59da7341220",
+      "status": "failed",
+      "raw_status": "failed",
+      "round": 5,
+      "proved": 27,
+      "total": 32,
+      "goal_rate": 84.4,
+      "tokens": 29454,
+      "elapsed_sec": 176.09,
+      "error": "Frama-C 证明目标 27/32，仍有目标未证明",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_tiling_tcpy.c",
+        "log": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_tiling_tcpy/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_tiling_tcpy/candidate.acsl.c"
+      },
+      "baseline": {
+        "benchmark_id": "dsh_bailian_qwen9b_live25_small10_patches_20261104_v1",
+        "status": "failed",
+        "round": 1,
+        "error": "DeepSeek Harness CLI：未提交新的规约补丁；不会使用上一轮候选冒充本轮输出。",
+        "main_output_tokens": 1577,
+        "main_input_tokens_uncached": 4713,
+        "main_calls": 5,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "failure_stage": "proof",
+      "token_usage": {
+        "main_output_tokens": 1577,
+        "main_input_tokens_uncached": 10213,
+        "main_calls": 6,
+        "automatic_handoffs": 1
+      }
+    },
+    {
+      "id": "array-crafted_bor1",
+      "path": "array-crafted_bor1.c",
+      "original_filename": "array-crafted_bor1.c",
+      "original_path": "array-crafted_bor1.c",
+      "original_sha256": "9f38805c5f06906aa89fa94944bc4ff73db04c5c664b0377ec1a689a74d5bbc6",
+      "status": "failed",
+      "raw_status": "compile_error",
+      "round": 5,
+      "proved": 0,
+      "total": 0,
+      "goal_rate": null,
+      "tokens": 44110,
+      "elapsed_sec": 123.94,
+      "error": "Frama-C 未产生有效证明结果。",
+      "artifacts": {
+        "original_source": "live25/original/array-crafted_bor1.c",
+        "log": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-crafted_bor1/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-crafted_bor1/candidate.acsl.c"
+      },
+      "baseline": {
+        "benchmark_id": "dsh_bailian_qwen9b_live25_small10_patches_20261104_v1",
+        "status": "failed",
+        "round": 5,
+        "error": "DeepSeek Harness CLI：主 Agent 单次输出达到 32768 tokens 上限，尚未完成候选；不是网络或账户余额错误。",
+        "main_output_tokens": 133609,
+        "main_input_tokens_uncached": 10432,
+        "main_calls": 7,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "failure_stage": "specification_syntax",
+      "token_usage": {
+        "main_output_tokens": 4056,
+        "main_input_tokens_uncached": 12662,
+        "main_calls": 7,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-cav19_array_init_both_ends_multiple_sum",
+      "path": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "original_filename": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "original_path": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "original_sha256": "21299837e72225f8b358d5417cda86a10a2a2d0c5c97c87d07cd777089b26df2",
+      "status": "failed",
+      "raw_status": "compile_error",
+      "round": 5,
+      "proved": 0,
+      "total": 0,
+      "goal_rate": null,
+      "tokens": 52816,
+      "elapsed_sec": 127.22,
+      "error": "Frama-C 未产生有效证明结果。",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_init_both_ends_multiple_sum.c",
+        "log": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_init_both_ends_multiple_sum/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_init_both_ends_multiple_sum/candidate.acsl.c"
+      },
+      "baseline": {
+        "benchmark_id": "dsh_bailian_qwen9b_live25_small10_patches_20261104_v1",
+        "status": "failed",
+        "round": 5,
+        "error": "DeepSeek Harness CLI：主 Agent 单次输出达到 32768 tokens 上限，尚未完成候选；不是网络或账户余额错误。",
+        "main_output_tokens": 84845,
+        "main_input_tokens_uncached": 26954,
+        "main_calls": 7,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "failure_stage": "specification_syntax",
+      "token_usage": {
+        "main_output_tokens": 2903,
+        "main_input_tokens_uncached": 11513,
+        "main_calls": 9,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-cav19_array_init_nondet_vars",
+      "path": "array-cav19_array_init_nondet_vars.c",
+      "original_filename": "array-cav19_array_init_nondet_vars.c",
+      "original_path": "array-cav19_array_init_nondet_vars.c",
+      "original_sha256": "6a0b8c53956c3d043332013e5d4856ef995e5f76989c49ca19e98c891744f884",
+      "status": "failed",
+      "raw_status": "failed",
+      "round": 5,
+      "proved": 21,
+      "total": 22,
+      "goal_rate": 95.5,
+      "tokens": 24780,
+      "elapsed_sec": 99.39,
+      "error": "Frama-C 证明目标 21/22，仍有目标未证明",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_init_nondet_vars.c",
+        "log": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_init_nondet_vars/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_init_nondet_vars/candidate.acsl.c"
+      },
+      "baseline": {
+        "benchmark_id": "dsh_bailian_qwen9b_live25_small10_patches_20261104_v1",
+        "status": "failed",
+        "round": 2,
+        "error": "DeepSeek Harness CLI：官方 Harness 未执行工具，未将普通文本当作 Agent 工作结果。",
+        "main_output_tokens": 9397,
+        "main_input_tokens_uncached": 4357,
+        "main_calls": 4,
+        "automatic_handoffs": 1
+      },
+      "workflow": "compact-c-v1",
+      "failure_stage": "proof",
+      "token_usage": {
+        "main_output_tokens": 1009,
+        "main_input_tokens_uncached": 7387,
+        "main_calls": 7,
+        "automatic_handoffs": 1
+      }
+    },
+    {
+      "id": "array-crafted_zero_sum_const3",
+      "path": "array-crafted_zero_sum_const3.c",
+      "original_filename": "array-crafted_zero_sum_const3.c",
+      "original_path": "array-crafted_zero_sum_const3.c",
+      "original_sha256": "7ca85881f45db9abc003e8b5467b1e246dd8695d9d77d463625edac9039684a9",
+      "status": "passed",
+      "raw_status": "verified",
+      "round": 2,
+      "proved": 64,
+      "total": 64,
+      "goal_rate": 100.0,
+      "tokens": 7654,
+      "elapsed_sec": 38.11,
+      "error": "",
+      "artifacts": {
+        "original_source": "live25/original/array-crafted_zero_sum_const3.c",
+        "log": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-crafted_zero_sum_const3/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-crafted_zero_sum_const3/candidate.acsl.c"
+      },
+      "baseline": {
+        "benchmark_id": "dsh_bailian_qwen9b_live25_small10_patches_20261104_v1",
+        "status": "failed",
+        "round": 1,
+        "error": "DeepSeek Harness CLI：未提交新的规约补丁；不会使用上一轮候选冒充本轮输出。",
+        "main_output_tokens": 1291,
+        "main_input_tokens_uncached": 12551,
+        "main_calls": 5,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "failure_stage": "none",
+      "token_usage": {
+        "main_output_tokens": 764,
+        "main_input_tokens_uncached": 2538,
+        "main_calls": 4,
+        "automatic_handoffs": 1
+      }
+    }
+  ]
+}

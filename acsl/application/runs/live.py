@@ -199,6 +199,11 @@ class RunLiveMixin:
         )
 
     def _run_live(self, task: RunTask, payload: RunRequest) -> dict:
+        if payload.verification_tool=="verifast" and not payload.verification_only and (not payload.assistant or payload.assistant.get("agent")=="default"):
+            raise ValueError("VeriFast 规约生成需要选择 Agent。")
+        if payload.verification_tool == "verifast" and payload.verification_only:
+            from acsl.application.verifier_execution import execute_verifast
+            return execute_verifast(self, task, payload)
         if payload.verification_only:
             from acsl.application.agent_execution import execute_verification_only
             return execute_verification_only(self, task, payload)

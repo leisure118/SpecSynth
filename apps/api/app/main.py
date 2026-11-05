@@ -6,6 +6,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 from fastapi.responses import FileResponse
@@ -32,6 +33,9 @@ from acsl.contracts.runs import (
 from acsl.application.runs.manager import RunManager
 from acsl.adapters.storage import JsonStore
 from .workspace import create_workspace_router
+
+from .verifast import router as verifast_router
+from .verification import router as verification_router
 
 ensure_runtime_dirs()
 store = JsonStore()
@@ -116,6 +120,9 @@ def _x509_function_details(function_name: str) -> dict:
 
 app = FastAPI(title=APP_NAME, version="0.1.0")
 from .skill_privacy import SkillPrivacyMiddleware, private_artifact
+app.include_router(verifast_router)
+app.include_router(verification_router)
+
 app.add_middleware(SkillPrivacyMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(
@@ -391,6 +398,39 @@ def get_run(task_id: str) -> RunTask:
     if task is None:
         raise HTTPException(status_code=404, detail="Task not found.")
     return task
+
+
+class RunFeedbackBody(BaseModel):
+    text: str = Field(min_length=1,max_length=4000)
+
+
+@app.get('/api/v1/runs/{task_id}/terminal')
+def get_run_terminal(task_id: str):
+    from acsl.application.terminal import native_terminal
+    task=store.read_task(task_id)
+    if task is None:raise HTTPException(404,'Task not found.')
+    return native_terminal(task)
+
+
+@app.get('/api/v1/runs/{task_id}/interaction')
+def get_run_interaction(task_id: str):
+    from acsl.application.run_interaction import messages
+    from acsl.infrastructure.settings import resolve_project_path
+    task=store.read_task(task_id)
+    if task is None:raise HTTPException(404,'Task not found.')
+    return {'items':messages(resolve_project_path(task.task_dir))}
+
+
+@app.post('/api/v1/runs/{task_id}/interaction')
+def send_run_interaction(task_id: str,body: RunFeedbackBody):
+    from acsl.application.run_interaction import enqueue
+    from acsl.infrastructure.settings import resolve_project_path
+    task=store.read_task(task_id)
+    if task is None:raise HTTPException(404,'Task not found.')
+    if str(getattr(task.status,'value',task.status)) not in ('running','queued'):raise HTTPException(409,'任务已结束，请通过人工编辑后继续验证。')
+    if task.metadata.get('agent') not in ('codex','claude-code','deepseek-harness'):raise HTTPException(409,'当前任务不支持运行中补充指令。')
+    try:return enqueue(resolve_project_path(task.task_dir),body.text)
+    except ValueError as exc:raise HTTPException(422,str(exc)) from None
 
 
 @app.get("/api/v1/runs/{task_id}/result", response_model=RunResult)

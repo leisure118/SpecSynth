@@ -30,6 +30,13 @@ def verification_diagnostics(stdout, files):
         f=find_source(match[1])
         if f and 1<=int(match[2])<=len(f['content'].splitlines()):
             locations.append({'path':f['path'],'line':int(match[2]),'severity':'error','kind':'syntax','message':match[0][:700],'certainty':'reported'})
+    # Parser errors often place the message on indented lines after a Warning.
+    for match in re.finditer(r'([^\s:]+\.(?:c|h)):(\d+)(?::\d+)?:([^\n]*(?:\n[ \t]+[^\n]*){0,4})',stdout):
+        body=match[3]
+        if not re.search(r'syntax error|invalid operands|unbound logic|type error|parse error',body,re.I):continue
+        f=find_source(match[1]);line=int(match[2])
+        if f and 1<=line<=len(f['content'].splitlines()):
+            locations.append({'path':f['path'],'line':line,'severity':'error','kind':'type' if 'invalid operands' in body else 'syntax','message':body.strip()[:700],'certainty':'reported'})
     unique={(d['path'],d['line'],d['message']):d for d in locations}
     return list(unique.values())[:200]
 

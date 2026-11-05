@@ -1,0 +1,29 @@
+{
+  "verification_profile": "original",
+  "rte_checks": false,
+  "callee_precondition_checks": false,
+  "status": "failed",
+  "verified": false,
+  "verified_count": 1,
+  "error_count": 1,
+  "stdout": "[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c (with preprocessing)\n[wp] Running WP plugin...\n[wp] Warning: Missing RTE guards\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c:5: Warning: \n  Cast with incompatible pointers types (source: sint32*) (target: sint8*)\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c:10: Warning: \n  Missing assigns clause (assigns 'everything' instead)\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c:6: Warning: \n  Missing assigns clause (assigns 'everything' instead)\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c:5: Warning: \n  Cast with incompatible pointers types (source: sint8*) (target: sint32*)\n[wp] 2 goals scheduled\n[wp] [Timeout] typed_main_assert (Qed 5ms) (Z3 15s) (Stronger)\n[wp] Proved goals:    1 / 2\n  Qed:             1\n  Timeout:         1\n------------------------------------------------------------\n  Function main\n------------------------------------------------------------\n\nGoal Assertion 'alloca_bounds' (file resources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c, line 5):\nProve: true.\nProver Qed returns Valid (2ms)\n\n------------------------------------------------------------\n\nGoal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c, line 11):\nresources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c:5: warning from Typed Model:\n - Warning: Hide \\result\n   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)\nLet x = Mint_0[shift_sint32(a, i)].\nAssume {\n  Type: is_sint32(N) /\\ is_sint32(N_1) /\\ is_sint32(i) /\\ is_sint32(i_1) /\\\n      is_sint32(x).\n  (* Else *)\n  Have: N_1 < i_1.\n  (* Then *)\n  Have: i <= (2 * N).\n}\nProve: 0 <= x.\nProver Z3 4.8.12 returns Timeout (Qed:5ms) (15s)\nProver Alt-Ergo  returns Timeout (Qed:5ms) (15s)\n\n------------------------------------------------------------\n[wp:pedantic-assigns] resources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c:1: Warning: \n  No 'assigns' specification for function 'main'.\n  Callers assumptions might be imprecise.\n",
+  "stderr": "time=\"2026-11-03T23:40:41+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n",
+  "elapsed_sec": 16.981,
+  "returncode": 0,
+  "runner": "verifier",
+  "runtime": "container",
+  "message": "Frama-C 证明目标 1/2，仍有目标未证明",
+  "diagnostics": [
+    {
+      "path": "array-cav19_array_doub_access_init_const.c",
+      "line": 11,
+      "severity": "error",
+      "kind": "unproved",
+      "message": "Goal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c, line 11):\nresources/benchmarks/dsh_bailian_qwen9b_live25/array-cav19_array_doub_access_init_const/round-1/proof/array-cav19_array_doub_access_init_const.c:5: warning from Typed Model:\n - Warning: Hide \\result\n   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)\nLet x = Mint_0[shift_sint32(a, i)].\nAssume {\n  Type: is_sint32(N) /\\ is_sint32(N_1) /\\ is_sint32(i) /\\ is_sint32(i_1) /\\\n      is_sint32(x).\n  (* Else *)\n  Have: N_1 < i_1.\n  (* Then *)\n  Have: i <= (2 * N).\n}\nProve: 0 <= x.\nProver Z3 4.8.1",
+      "certainty": "possible"
+    }
+  ],
+  "source_hashes": {
+    "array-cav19_array_doub_access_init_const.c": "0df396b383e582e3699539e03da5a1e74e0cb6a0fbeae149826a7b42e7e56ab4"
+  }
+}

@@ -292,5 +292,229 @@
     "passed_count": 22,
     "updated_at": "2026-11-01T12:45:11.246622+00:00",
     "paused_at": "2026-11-01T12:45:11.237817+00:00"
+  },
+  {
+    "id": "dsh_bailian_qwen9b_live25",
+    "dataset_id": "live25",
+    "name": "LiveFMBench 2025",
+    "language": "C / ACSL",
+    "model": "deepseek-v4.1-flash-1017",
+    "agent": "deepseek-harness",
+    "skill": "spec-bottomup",
+    "skill_family": "spec-skill",
+    "configuration_label": "DeepSeek Harness CLI + deepseek-v4.1-flash-1017 + qwen35-9b-mix64 + spec-skill",
+    "sub_model": "qwen35-9b-mix64",
+    "date": "2026-11-03",
+    "experiment_status": "blocked",
+    "reported_total": 360,
+    "indexed_total": 360,
+    "original_source_count": 360,
+    "flagged_count": 0,
+    "description": "DeepSeek Harness 主模型使用百炼 DeepSeek-V4.1-Flash-1017，Qwen35-9B-mix64 生成规约，平台独立执行 Frama-C WP。",
+    "notice": "最多5次候选（首次生成+最多4次修复）；任意一次独立证明完全通过即计入pass@5，首次候选通过同时计入pass@1。0/0不计通过。",
+    "summary": {
+      "pass@1": {
+        "passed": 3,
+        "total": 360,
+        "rate": null
+      },
+      "pass@5": {
+        "passed": 5,
+        "total": 360,
+        "rate": null
+      }
+    },
+    "completed_count": 16,
+    "passed_count": 5,
+    "updated_at": "2026-11-03T15:58:45.936383+00:00",
+    "final_metric": "pass@5"
+  },
+  {
+    "id": "dsh_bailian_qwen9b_live25_20261104_token32k_r1",
+    "dataset_id": "live25",
+    "name": "LiveFMBench 2025",
+    "language": "C / ACSL",
+    "model": "deepseek-v4.1-flash-1017",
+    "agent": "deepseek-harness",
+    "skill": "spec-bottomup",
+    "skill_family": "spec-skill",
+    "configuration_label": "DeepSeek Harness CLI + deepseek-v4.1-flash-1017 + qwen35-9b-mix64 + spec-skill",
+    "sub_model": "qwen35-9b-mix64",
+    "run_tag": "20261104_token32k_r1",
+    "final_metric": "pass@5",
+    "date": "2026-11-04",
+    "experiment_status": "paused",
+    "reported_total": 360,
+    "indexed_total": 360,
+    "original_source_count": 360,
+    "flagged_count": 0,
+    "description": "DeepSeek Harness 主模型使用百炼 DeepSeek-V4.1-Flash-1017，Qwen35-9B-mix64 生成规约，平台独立执行 Frama-C WP。",
+    "notice": "本实验最多5次候选（首次生成+4次修复），pass@5为本次预算下最终结果。pass@k表示在k轮外层Harness生成与修复内通过，每轮包含多次原生模型和工具调用。实时实验；未完成前不显示最终通过率。首次生成及最多4轮修复，原始源码、Skill快照、候选与证明日志独立保存；0/0不计通过。",
+    "summary": {
+      "pass@1": {
+        "passed": 7,
+        "total": 360,
+        "rate": null
+      },
+      "pass@5": {
+        "passed": 13,
+        "total": 360,
+        "rate": null
+      }
+    },
+    "completed_count": 41,
+    "passed_count": 13,
+    "updated_at": "2026-11-04T06:54:23.467297+00:00",
+    "paused_at": "2026-11-04T06:54:23.466830+00:00"
+  },
+  {
+    "id": "dsh_bailian_qwen9b_live25_small10_20261104_v1",
+    "dataset_id": "live25",
+    "name": "LiveFMBench 2025 · 10文件小测试",
+    "language": "C / ACSL",
+    "model": "deepseek-v4.1-flash-1017",
+    "agent": "deepseek-harness",
+    "skill": "spec-bottomup",
+    "skill_family": "spec-skill",
+    "configuration_label": "DeepSeek Harness CLI + deepseek-v4.1-flash-1017 + qwen35-9b-mix64 + spec-skill",
+    "sub_model": "qwen35-9b-mix64",
+    "run_tag": "small10-auto-handoff-v1",
+    "final_metric": "pass@5",
+    "date": "2026-11-04",
+    "experiment_status": "completed",
+    "reported_total": 10,
+    "indexed_total": 10,
+    "original_source_count": 10,
+    "flagged_count": 0,
+    "description": "10个定向样例：覆盖历史通过、源码改动、token超限、ACSL语法和证明目标未通过；不代表全集通过率。",
+    "notice": "最多5次候选，pass@1/pass@5沿用历史定义。主模型输出统计仅取主会话使用记录；原生子模型直接交接仅在有效JSON输出时生效。",
+    "summary": {
+      "pass@1": {
+        "passed": 1,
+        "total": 10,
+        "rate": 10.0
+      },
+      "pass@5": {
+        "passed": 3,
+        "total": 10,
+        "rate": 30.0
+      }
+    },
+    "completed_count": 10,
+    "passed_count": 3,
+    "updated_at": "2026-11-04T08:36:32.546669+00:00",
+    "paused_at": "2026-11-04T06:54:23.466830+00:00"
+  },
+  {
+    "id": "dsh_bailian_qwen9b_live25_small10_patches_20261104_v1",
+    "dataset_id": "live25",
+    "name": "LiveFMBench 2025 · 10文件规约补丁复测",
+    "language": "C / ACSL",
+    "model": "deepseek-v4.1-flash-1017",
+    "agent": "deepseek-harness",
+    "skill": "spec-bottomup",
+    "skill_family": "spec-skill",
+    "configuration_label": "DeepSeek Harness CLI + deepseek-v4.1-flash-1017 + qwen35-9b-mix64 + spec-skill",
+    "sub_model": "qwen35-9b-mix64",
+    "run_tag": "small10-acsl-patches-v1",
+    "final_metric": "pass@5",
+    "date": "2026-11-04",
+    "experiment_status": "completed",
+    "reported_total": 10,
+    "indexed_total": 10,
+    "original_source_count": 10,
+    "flagged_count": 0,
+    "description": "10个定向样例：覆盖历史通过、源码改动、token超限、ACSL语法和证明目标未通过；不代表全集通过率。",
+    "notice": "最多5次候选，pass@1/pass@5沿用历史定义。主模型输出统计仅取主会话使用记录；原生子模型直接交接仅在有效JSON输出时生效。",
+    "summary": {
+      "pass@1": {
+        "passed": 1,
+        "total": 10,
+        "rate": 10.0
+      },
+      "pass@5": {
+        "passed": 2,
+        "total": 10,
+        "rate": 20.0
+      }
+    },
+    "completed_count": 10,
+    "passed_count": 2,
+    "updated_at": "2026-11-04T10:29:26.284109+00:00",
+    "paused_at": "2026-11-04T06:54:23.466830+00:00"
+  },
+  {
+    "id": "dsh_bailian_qwen9b_live25_transport6_20261104_v4",
+    "dataset_id": "live25",
+    "name": "LiveFMBench 2025 · 6文件规约补丁复测",
+    "language": "C / ACSL",
+    "model": "deepseek-v4.1-flash-1017",
+    "agent": "deepseek-harness",
+    "skill": "spec-bottomup",
+    "skill_family": "spec-skill",
+    "configuration_label": "DeepSeek Harness CLI + deepseek-v4.1-flash-1017 + qwen35-9b-mix64 + spec-skill",
+    "sub_model": "qwen35-9b-mix64",
+    "run_tag": "small10-acsl-patches-v1",
+    "final_metric": "pass@5",
+    "date": "2026-11-04",
+    "experiment_status": "completed",
+    "reported_total": 6,
+    "indexed_total": 6,
+    "original_source_count": 6,
+    "flagged_count": 0,
+    "description": "10个定向样例：覆盖历史通过、源码改动、token超限、ACSL语法和证明目标未通过；不代表全集通过率。",
+    "notice": "最多5次候选，pass@1/pass@5沿用历史定义。主模型输出统计仅取主会话使用记录；原生子模型直接交接仅在有效JSON输出时生效。",
+    "summary": {
+      "pass@1": {
+        "passed": 0,
+        "total": 6,
+        "rate": 0.0
+      },
+      "pass@5": {
+        "passed": 0,
+        "total": 6,
+        "rate": 0.0
+      }
+    },
+    "completed_count": 6,
+    "passed_count": 0,
+    "updated_at": "2026-11-04T11:01:13.510170+00:00"
+  },
+  {
+    "id": "dsh_bailian_qwen9b_live25_transport6_20261104_v5",
+    "dataset_id": "live25",
+    "name": "LiveFMBench 2025 · 6文件规约补丁复测",
+    "language": "C / ACSL",
+    "model": "deepseek-v4.1-flash-1017",
+    "agent": "deepseek-harness",
+    "skill": "spec-bottomup",
+    "skill_family": "spec-skill",
+    "configuration_label": "DeepSeek Harness CLI + deepseek-v4.1-flash-1017 + qwen35-9b-mix64 + spec-skill",
+    "sub_model": "qwen35-9b-mix64",
+    "run_tag": "small10-acsl-patches-v1",
+    "final_metric": "pass@5",
+    "date": "2026-11-04",
+    "experiment_status": "completed",
+    "reported_total": 6,
+    "indexed_total": 6,
+    "original_source_count": 6,
+    "flagged_count": 0,
+    "description": "10个定向样例：覆盖历史通过、源码改动、token超限、ACSL语法和证明目标未通过；不代表全集通过率。",
+    "notice": "最多5次候选，pass@1/pass@5沿用历史定义。主模型输出统计仅取主会话使用记录；原生子模型直接交接仅在有效JSON输出时生效。",
+    "summary": {
+      "pass@1": {
+        "passed": 0,
+        "total": 6,
+        "rate": 0.0
+      },
+      "pass@5": {
+        "passed": 1,
+        "total": 6,
+        "rate": 16.7
+      }
+    },
+    "completed_count": 6,
+    "passed_count": 1,
+    "updated_at": "2026-11-04T11:06:57.773578+00:00"
   }
 ]

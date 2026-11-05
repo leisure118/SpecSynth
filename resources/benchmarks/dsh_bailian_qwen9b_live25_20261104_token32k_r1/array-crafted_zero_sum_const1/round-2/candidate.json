@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "array-crafted_zero_sum_const1.c",
+      "content": "#include<stdlib.h>\n/*@\n\tassigns \\nothing;\n\tensures 1 < \\result < 100000;\n*/\nint unknown();\nlong SIZE;\nconst int MAX = 100000;\nint main()\n{\n\tSIZE = unknown();\n\tif(SIZE > 1 && SIZE < MAX)\n\t{\n\t\tint i;\n\t\tlong *a = malloc(sizeof(long)*SIZE);\n\t\tlong sum=0;\n\t\t/*@\n\t\t  loop invariant 0 <= i <= SIZE;\n\t\t  loop invariant \\forall integer j; 0 <= j < i ==> a[j] == 1;\n\t\t  loop assigns i, a[0 .. SIZE - 1];\n\t\t  loop variant SIZE - i;\n\t\t*/\n\t\tfor(i = 0; i < SIZE; i++ )\n\t\t{\n\t\t\ta[i] = 1;\n\t\t}\n\t\t/*@\n\t\t  loop invariant 0 <= i <= SIZE;\n\t\t  loop invariant sum == i;\n\t\t  loop invariant \\forall integer j; 0 <= j < SIZE ==> a[j] == 1;\n\t\t  loop assigns i, sum;\n\t\t  loop variant SIZE - i;\n\t\t*/\n\t\tfor(i = 0; i < SIZE; i++ )\n\t\t{\n\t\t\tsum = sum + a[i];\n\t\t}\n\t\t/*@\n\t\t  loop invariant 0 <= i <= SIZE;\n\t\t  loop invariant sum == SIZE - i;\n\t\t  loop invariant \\forall integer j; 0 <= j < SIZE ==> a[j] == 1;\n\t\t  loop assigns i, sum;\n\t\t  loop variant SIZE - i;\n\t\t*/\n\t\tfor(i = 0; i < SIZE; i++)\n\t\t{\n\t\t\tsum = sum - a[i];\n\t\t}\n\t\t//@ assert(sum == 0);\n\t}\n\treturn 1;\n}"
+    }
+  ]
+}

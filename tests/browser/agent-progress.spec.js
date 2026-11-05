@@ -13,6 +13,7 @@ test('C verification polls real steps and shows green completed dots while later
   await route.fulfill({json:body});
  });
  await page.goto('/#/projects/'+id);
+ await page.locator('.vf-compact-progress summary').click();
  const panel=page.getByRole('region',{name:'实时验证步骤'});
  await expect(panel).toBeVisible();
  await expect(panel.getByRole('img',{name:'已完成'}).first()).toHaveCSS('background-color','rgb(22, 163, 106)');

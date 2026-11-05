@@ -1,0 +1,20 @@
+{
+  "verification_profile": "original",
+  "rte_checks": false,
+  "callee_precondition_checks": false,
+  "status": "compile_error",
+  "verified": false,
+  "verified_count": 0,
+  "error_count": 0,
+  "stdout": "[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_tiling_tcpy/round-1/proof/array-cav19_array_tiling_tcpy.c (with preprocessing)\n[kernel] resources/benchmarks/dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_tiling_tcpy/round-1/proof/array-cav19_array_tiling_tcpy.c:17: \n  syntax error:\n  Location: between lines 17 and 19, before or at token: int\n  15    loop invariant \\forall integer j; 0 <= j < i ==> acopy[2*S - (j+1)] == a[2*S - (j+1)] && acopy[j] == a[j];\n  16    loop assigns i, acopy[0 .. 2*S-1];\n  \n  17    loop variant S - i;\n  18    */\n  19      int acopy[2*S];\n  \n  20      for(i=0;i < S;i++) {\n  21        acopy[2*S - (i+1)] = a[2*S - (i+1)];\n[kernel] Frama-C aborted: invalid user input.\n",
+  "stderr": "time=\"2026-11-04T19:02:30+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n\n",
+  "elapsed_sec": 0.931,
+  "returncode": 1,
+  "runner": "verifier",
+  "runtime": "container",
+  "message": "Frama-C 未产生有效证明结果。",
+  "diagnostics": [],
+  "source_hashes": {
+    "array-cav19_array_tiling_tcpy.c": "58668605b9536d30b763f13275cc0ff9fc110c60faca7d6f59b342917956a99b"
+  }
+}

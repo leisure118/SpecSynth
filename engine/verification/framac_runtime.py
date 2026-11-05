@@ -157,9 +157,9 @@ def _frama_c_args(paths: list[Path], timeout_sec: int, function: str | None, mod
 
 
 def _check_from_output(result_type: str, stdout: str, stderr: str, elapsed: float, timed_out: bool,
-                       returncode: int | None, runner: str, runtime: str) -> dict[str, Any]:
+                       returncode: int | None, runner: str, runtime: str, command: list[str] | None = None) -> dict[str, Any]:
     from .framac_options import profile_metadata
-    profile=profile_metadata()
+    profile={**profile_metadata(),'verifier_command':list(command or [])}
     if timed_out:
         return {**profile,"status": "timeout", "verified": False, "verified_count": 0, "error_count": 0,
                 "stdout": stdout, "stderr": stderr, "elapsed_sec": round(elapsed, 3),
@@ -235,14 +235,14 @@ def _run_host(paths: list[Path], workdir: Path, mode: str, timeout_sec: int, fun
     except subprocess.TimeoutExpired as exc:
         stdout = exc.stdout if isinstance(exc.stdout, str) else (exc.stdout or b"").decode("utf-8", "replace")
         stderr = exc.stderr if isinstance(exc.stderr, str) else (exc.stderr or b"").decode("utf-8", "replace")
-        return _check_from_output("Invalid", stdout, stderr, time.monotonic() - started, True, None, "host", "host")
+        return _check_from_output("Invalid", stdout, stderr, time.monotonic() - started, True, None, "host", "host", args)
     except FileNotFoundError:
         return {"status": "unavailable", "verified": False, "verified_count": 0, "error_count": 0,
                 "stdout": "", "stderr": "", "runner": "host", "runtime": "host",
                 "message": "未检测到本机 Frama-C。"}
     stdout, stderr = completed.stdout or "", completed.stderr or ""
     return _check_from_output(get_result_type(stdout), stdout, stderr,
-                              time.monotonic() - started, False, completed.returncode, "host", "host")
+                              time.monotonic() - started, False, completed.returncode, "host", "host", args)
 
 
 def _container_path(path: Path) -> str:
@@ -270,11 +270,11 @@ def _run_container(paths: list[Path], workdir: Path, mode: str, timeout_sec: int
     except subprocess.TimeoutExpired as exc:
         stdout = exc.stdout if isinstance(exc.stdout, str) else (exc.stdout or b"").decode("utf-8", "replace")
         stderr = exc.stderr if isinstance(exc.stderr, str) else (exc.stderr or b"").decode("utf-8", "replace")
-        return _check_from_output("Invalid", stdout, stderr, time.monotonic() - started, True, None, service, runtime)
+        return _check_from_output("Invalid", stdout, stderr, time.monotonic() - started, True, None, service, runtime, args)
     except FileNotFoundError:
         return {"status": "unavailable", "verified": False, "verified_count": 0, "error_count": 0,
                 "stdout": "", "stderr": "", "runner": service, "runtime": runtime,
                 "message": "未检测到 Docker。"}
     stdout, stderr = completed.stdout or "", completed.stderr or ""
     return _check_from_output(get_result_type(stdout), stdout, stderr,
-                              time.monotonic() - started, False, completed.returncode, service, runtime)
+                              time.monotonic() - started, False, completed.returncode, service, runtime, args)

@@ -3,7 +3,7 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const { compile } = require('@vue/compiler-dom');
 const root = path.resolve(__dirname, '../apps/web/src');
-for (const file of ['App.js','views/HomeView.js','views/ProjectsView.js','views/WorkspaceView.js','views/RustWorkspaceView.js','views/CWorkspaceView.js','components/CodeEditor.js','components/VerusRunProgress.js','components/DatasetExplorer.js','components/ExampleCatalog.js','components/AgentConfig.js','views/DatasetView.js','views/SkillsView.js','views/BenchmarkView.js','views/SpectoolView.js']) {
+for (const file of ['App.js','views/HomeView.js','views/ProjectsView.js','views/WorkspaceView.js','views/RustWorkspaceView.js','views/CWorkspaceView.js','components/CodeEditor.js','components/AgentTerminal.js','components/VerusRunProgress.js','components/DatasetExplorer.js','components/ExampleCatalog.js','components/AgentConfig.js','views/DatasetView.js','views/SkillsView.js','views/BenchmarkView.js','views/SpectoolView.js']) {
   const source = fs.readFileSync(path.join(root, file), 'utf8');
   const start = source.indexOf('template:') + 'template:'.length;
   const template = Function('return ' + source.slice(start, source.lastIndexOf('`') + 1))();
@@ -32,5 +32,15 @@ for (const file of ['App.js','views/HomeView.js','views/ProjectsView.js','views/
   assert.deepEqual(matchingRuns(runs,'new.c','single'), []);
   assert.equal(isRunning('running'), true);
   assert.equal(isRunning('pass'), false);
+  const metricsSource=fs.readFileSync(path.join(root,'verificationMetrics.js'),'utf8');
+  const {verificationMetric}=await import('data:text/javascript;base64,'+Buffer.from(metricsSource).toString('base64'));
+  const historical={status:'Pass',engine_detail:{verifier:'VeriFast',verification:{message:'0 errors found (3 statements verified)'}},proof_stats:{proved_goals:1,total_goals:1}};
+  assert.equal(verificationMetric(historical).value,'3 / 3');
+  assert.equal(verificationMetric(historical).label,'语句验证');
+  assert.equal(verificationMetric({...historical,engine_detail:{verifier:'VeriFast',verification:{verified_statements:0}}}).value,'0');
+  assert.equal(verificationMetric({engine_detail:{verifier:'VeriFast'},proof_stats:{proved_goals:1,total_goals:1}}).value,'—');
+  assert.equal(verificationMetric({...historical,status:'Fail'}).value,'3 / —');
+  assert.equal(verificationMetric({...historical,engine_detail:{verifier:'VeriFast',verification:{verified:false,verified_statements:3}}}).value,'3 / —');
+  assert.equal(verificationMetric({proof_stats:{proved_goals:6,total_goals:7}}).value,'6 / 7');
   console.log('Runtime templates and per-file task isolation passed.');
 })().catch(error => { console.error(error); process.exitCode = 1; });

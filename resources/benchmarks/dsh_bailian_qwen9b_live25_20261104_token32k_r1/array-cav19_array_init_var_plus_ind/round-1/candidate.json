@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "array-cav19_array_init_var_plus_ind.c",
+      "content": "#include<limits.h>\n/*@\nassigns \\nothing;\nensures INT_MIN <= \\result < INT_MAX;\n*/\nint unknown();\nint N = 100000;\nint main()\n{\n  int i;\n  int j=0;\n  int a[N];\n  int x=unknown();\n  /*@\n    loop invariant 0 <= i <= N;\n    loop invariant j >= 0;\n    loop invariant \\forall integer m; 0 <= m < i ==> a[m] >= 0;\n    loop assigns i, j, x, a[0 .. N-1];\n    loop variant N - i;\n  */\n  for(i=0;i<N;i++){\n    x=unknown();\n    if(x) break;\n    a[i]=j;\n    j=j+i;\n  }\n  /*@\n    loop invariant 1 <= k <= i + 1;\n    loop invariant 0 <= i <= N;\n    loop invariant \\forall integer m; 0 <= m < i ==> a[m] >= 0;\n    loop assigns k;\n    loop variant i - k + 1;\n  */\n  for(int k=1;k<i;k++){\n    //@ assert(a[k]>=0);\n  }\n  return 0;\n}\n"
+    }
+  ]
+}

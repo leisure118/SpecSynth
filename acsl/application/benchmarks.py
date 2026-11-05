@@ -32,6 +32,7 @@ class BenchmarkValidation(BenchmarkError):
 
 
 class BenchmarkRunRequest(BaseModel):
+    verification_tool: Literal["framac", "verifast"] = "framac"
     file: str = Field(min_length=1, max_length=240)
     action: Literal["verify", "generate"] = "verify"
     source_variant: Literal["original", "annotated"] = "annotated"
@@ -133,16 +134,18 @@ class BenchmarkRunService:
             raise BenchmarkValidation("实验包未提供源码，不能重新验证此案例。")
         if len(input_source.encode()) > 256 * 1024:
             raise BenchmarkValidation("单案例源码不能超过 256 KiB。")
-        if body.action == 'verify':
+        if body.action == 'verify' and body.verification_tool == 'framac':
             from acsl.application.agent_execution import direct_verification_problem
             problem = direct_verification_problem(input_source)
             if problem:
                 raise BenchmarkValidation(problem)
         try:
-            assistant = resolve_assistant(body.assistant)
+            assistant = resolve_assistant(body.assistant, verification_tool=body.verification_tool)
         except SkillError as exc:
             raise BenchmarkValidation(str(exc)) from exc
         if body.action == "generate":
+            if body.verification_tool=="verifast" and assistant.agent=="default":
+                raise BenchmarkValidation("请为 VeriFast 选择 Agent。")
             if original["status"] == "flagged" and input_kind == "imported-annotated-source":
                 raise BenchmarkValidation("此历史源码存在违规假设，请先在项目工作台清理规约；本页不自动修改历史输入。")
             if assistant.agent in ("default", "deepseek-harness") and body.model_name not in settings_module.get_available_models():
@@ -178,6 +181,7 @@ class BenchmarkRunService:
                 max_repair_rounds=body.max_repair_rounds,
                 verification_only=body.action == "verify",
                 benchmark_context=context,
+                verification_tool=body.verification_tool,
             )
             task = self.manager.submit("single", payload)
         return {"task_id": task.task_id, "status": task.status, "benchmark": context}

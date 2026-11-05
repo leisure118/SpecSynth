@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "array-examples_sanfoundry_02_ground.c",
+      "content": "#include<limits.h>\n/*@\nassigns \\nothing;\nensures INT_MIN <= \\result < INT_MAX;\n*/\nint unknown();\n#include <assert.h>\n#define MAX 100000 \nint main()\n{\n    int array[MAX];\n    int i;\n    int largest1;\n    int largest2;\n    int temp;\n\t\tfor(i = 0; i < MAX; i++) \n\t\t{\n\t\t  array[i] = unknown();\n\t\t}\n    largest1 = array[0];\n    largest2 = array[1];\n    if (largest1 < largest2)\n    {\n        temp = largest1;\n        largest1 = largest2;\n        largest2 = temp;\n    }\n    for (i = 2; i < MAX;  i++)\n    {\n        if (array[i] >= largest1)\n        {\n            largest2 = largest1;\n            largest1 = array[i];\n        }\n        else if (array[i] > largest2)\n        {\n            largest2 = array[i];\n        }\n    }\n    int x;\n    for( x = 0 ; x < MAX ; x++ ) {\n      //@ assert(array[ x ] <= largest1  );\n    }\n    for( x = 0 ; x < MAX ; x++ ) {\n      //@ assert(array[x] <= largest2 || array[x] == largest1  );\n    }\n  return 0;\n}\n"
+    }
+  ],
+  "sha256": "535201863955c336a8d06ed052b9dfb79b9f09b4eb84b980a1c35f28680cf280"
+}

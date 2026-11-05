@@ -1,3 +1,4 @@
+import {verificationMetric} from '../verificationMetrics.js'
 import { defineStore } from 'pinia'
 import { getRun, getRunResult, getRunArtifacts, getArtifactContent } from '../api.js'
 
@@ -283,6 +284,8 @@ function buildResultViewModel(result, task, artifacts) {
     { key: 'llm_time', title: 'LLM 用时', value: (timingStats.llm_time_sec || 0).toFixed(1) + 's', note: '', accent: 'primary' },
     { key: 'iterations', title: '迭代次数', value: String(timingStats.iteration_count || 0), note: '', accent: 'primary' },
   ]
+  const nativeMetric=verificationMetric(result)
+  if(nativeMetric.isVerifast)metrics[0]={key:'proof',title:nativeMetric.label,value:String(nativeMetric.value),note:nativeMetric.note,accent:result.status==='Pass'?'pass':'warning'}
   if (timingStats.tokens_usage) {
     metrics.push({ key: 'tokens', title: 'Token 用量', value: formatNumber(timingStats.tokens_usage), note: '', accent: 'primary' })
   }

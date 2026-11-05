@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "array-cav19_array_tiling_tcpy.c",
+      "content": "#include<limits.h>\n/*@\nassigns \\nothing;\nensures 1 < \\result < INT_MAX/2;\n*/\nint unknown();\nint main()\n{\n  int S=unknown();\n  //@ assert(S>1);\n  //@ assert(S < 1073741823);\n  int i;\n  int a[2*S];\n  int acopy[2*S];\n  for(i=0;i < S;i++) {\n    acopy[2*S - (i+1)] = a[2*S - (i+1)];\n    acopy[i] = a[i];\n  }\n  for(i=0;i<2*S;i++){\n    //@ assert(acopy[i] == a[i]);\n  }\n  return 0;\n}\n"
+    }
+  ],
+  "sha256": "2695372613da56d745042d21c18079d5a34dcb2ad2db8c4be587c59da7341220"
+}

@@ -29,15 +29,27 @@ def installed():
         return False
 
 
+def output_limits(profile):
+    """Independent budgets: main orchestration vs a 32K-context deployed worker."""
+    def limit(name,default,maximum):
+        value=int(os.getenv(name,str(default)))
+        if not 1024<=value<=maximum:raise ValueError(name+' 超出支持的输出预算范围。')
+        return value
+    main=limit('XUANJIAN_HARNESS_MAIN_MAX_TOKENS',32768 if profile['model']=='deepseek-v4.1-flash-1017' else 8192,65536)
+    child=limit('XUANJIAN_HARNESS_SUB_MAX_TOKENS',8192,16384)
+    return main,child
+
+
 def patch_for(profile, workspace, sub_profile=None):
+    main_limit,child_limit=output_limits(profile)
     route = {'api': 'openai-completions', 'baseURL': profile['base_url'],
-             'apiKeyEnv': 'DSH_PLATFORM_KEY', 'defaultMaxTokens': 8192,
+             'apiKeyEnv': 'DSH_PLATFORM_KEY', 'defaultMaxTokens': main_limit,
              'retryPolicy': {'mode': 'normal', 'maxRetries': 0},
              'compat': {'thinkingFormat': 'deepseek'},
-             'models': [{'id': profile['model'], 'contextWindow': 1048576, 'maxTokens': 8192}]}
+             'models': [{'id': profile['model'], 'contextWindow': 1048576, 'maxTokens': main_limit}]}
     providers={'platform-api':route}
     if sub_profile:
-        providers['platform-subagent']={**route,'baseURL':sub_profile['base_url'],'apiKeyEnv':'DSH_SUBAGENT_KEY','compat':{},'models':[{'id':sub_profile['model'],'contextWindow':32768,'maxTokens':8192}]}
+        providers['platform-subagent']={**route,'defaultMaxTokens':child_limit,'baseURL':sub_profile['base_url'],'apiKeyEnv':'DSH_SUBAGENT_KEY','compat':{},'models':[{'id':sub_profile['model'],'contextWindow':int(os.getenv('XUANJIAN_QWEN_CONTEXT_WINDOW','16384' if sub_profile['model']=='qwen35-9b-mix64' else '32768')),'maxTokens':child_limit}]}
     return [
         {'id': 'agent-default-model', 'config': {'provider': 'platform-api', 'model': profile['model']}},
         {'id': 'llm-pi-ai', 'config': {'providers': providers}},
@@ -107,7 +119,9 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
     if not node or not installed():
         raise ProviderError('agent_missing', '官方 DeepSeek Harness CLI 未安装，请运行安装脚本。')
     entry = PACKAGE / 'lib/bin.js'
-    task_root=ROOT/'runtime/harness-tasks' if output_format=='files' else None
+    verifast=output_format=='verifast-files'
+    files_format=output_format in ('files','verifast-files')
+    task_root=ROOT/'runtime/harness-tasks' if files_format else None
     if task_root is not None:task_root.mkdir(parents=True,exist_ok=True)
     from .harness_session import workspace_directory, current_session
     with workspace_directory(task_root) as folder:
@@ -115,12 +129,27 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
         workspace = base / 'workspace'; workspace.mkdir(exist_ok=True)
         home = base / 'home'; home.mkdir(exist_ok=True)
         compact=output_format=='files' and os.environ.get('XUANJIAN_HARNESS_COMPACT')=='1'
-        effective_child=(sub_profile or profile) if compact else sub_profile
+        effective_child=(sub_profile or profile) if (compact or verifast) else sub_profile
         config = base / 'provider.patch.yml'
-        session=current_session() if output_format=='files' else None
+        session=current_session() if files_format else None
         patch=patch_for(profile, workspace, effective_child)
         if session is not None:
             patch += [{'id':'headless-runner','disabled':True},{'insert':[{'id':'platform-persistent-harness','name':str(ROOT/'engine/cli_plugins/persistent_harness.mjs')}]}]
+        if verifast:
+            from engine.verification.worker_contract import thinking_policy
+            policy=thinking_policy()
+            for item in patch:
+                if item.get('id')=='llm-pi-ai':
+                    for role,key in [('main','platform-api'),('worker','platform-subagent')]:
+                        provider=item['config']['providers'].get(key)
+                        if not provider:continue
+                        model=provider['models'][0]['id']
+                        provider.update(reasoning='low' if policy[role]=='on' else 'off',compat={'thinkingFormat':'qwen' if model=='deepseek-v4.1-flash-1017' else 'qwen-chat-template','supportsReasoningEffort':False,'supportsDeveloperRole':False})
+                        for spec in provider['models']:
+                            spec['reasoningEfforts']={'off':None,'low':'low'}
+                            if role=='worker':spec.update(maxTokens=min(spec['maxTokens'],4096),contextWindow=max(2048,spec['contextWindow']-1024))
+                        if role=='worker':provider['defaultMaxTokens']=min(provider['defaultMaxTokens'],4096)
+                if item.get('id')=='tool-subagent':item['config']['agentOptions']['reasoningEffort']='low' if policy['worker']=='on' else 'off'
         config.write_text(json.dumps(patch), encoding='utf-8')
         config.chmod(0o600)
         env = {k: v for k, v in os.environ.items() if k in ('PATH', 'TMPDIR', 'SYSTEMROOT', 'HTTPS_PROXY', 'HTTP_PROXY', 'NO_PROXY', 'SHELL', 'XUANJIAN_PROOF_CPUS', 'XUANJIAN_PROOF_CONCURRENCY')}
@@ -129,10 +158,13 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
                    DSH_PLATFORM_KEY=profile.get('api_key') or 'not-required',
                    RUSTUP_HOME=os.environ.get('RUSTUP_HOME', str(user_home / '.rustup')),
                    CARGO_HOME=os.environ.get('CARGO_HOME', str(user_home / '.cargo')))
+        env['DSH_VERIFICATION_TOOL']='verifast' if verifast else 'framac'
         env['DSH_PACKAGE_JSON']=str(PACKAGE/'package.json')
         env['DSH_SUBAGENT_AUDIT']=str(workspace/'subagent-audit.jsonl')
         env['DSH_REQUIRE_SUBAGENT']='1' if require_subagent else '0'
-        if compact:env['DSH_COMPACT_C']='1'
+        if compact:
+            env['DSH_COMPACT_C']='1'
+            env['DSH_AUTO_HANDOFF']='1' if os.getenv('XUANJIAN_HARNESS_AUTO_HANDOFF','1')=='1' else '0'
         if artifact_dir is not None:
             Path(artifact_dir).mkdir(parents=True,exist_ok=True)
             env['DSH_PROGRESS_FILE']=str(Path(artifact_dir).resolve()/'live-progress.jsonl')
@@ -145,11 +177,12 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
                 'Do not install packages or access the network from tools. Never use assume/admit/external_body. '
                 'Finish within 6 model steps if possible. Keep the final complete Verus source in output.rs. '
                 'The platform independently validates this file; your own success claims do not determine Pass. Return the complete source only.')
+        spec_patches=False
         filename = 'output.rs'
-        if output_format == 'files':
+        if files_format:
             filename = 'answer.json'
             python = ROOT / '.venv/bin/python'
-            verification_command = shlex.join([str(python if python.is_file() else Path(sys.executable)), str(ROOT / 'scripts/harness_verify_c.py'), str(workspace / 'answer.json')])
+            verification_command = shlex.join([str(python if python.is_file() else Path(sys.executable)), str(ROOT / 'scripts/harness_verify_c.py'), str(workspace / 'answer.json')]+(['--tool','verifast'] if verifast else []))
             input_dir=workspace/'input';input_dir.mkdir(exist_ok=True)
             try:
                 sources=json.JSONDecoder().raw_decode(prompt.split('Original source:\n',1)[1])[0]
@@ -196,9 +229,23 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
                      'Ask it to return annotations or complete annotated source as plain text/JSON. The official runtime delivers its final answer to you automatically. '
                      'You, the main DeepSeek agent, must execute spec-split, tool-based injection, Frama-C verification, contract collection and repairs using that answer. '
                      'If the child fails, report the failure; never fabricate its output or replace its generation with your own.')
+        if verifast:
+            task=(prompt+'\nYou are the official DeepSeek Harness. Use native file tools to write answer.json with all files as {path,content}. '
+                  'Generate only VeriFast separation-logic annotations: requires/ensures after each function signature, and invariant after each loop header. '
+                  'Preserve original C code and assertions. No ACSL loop/assigns/\\result syntax, no Frama-C/spectool commands. '
+                  'Do not introduce assume/admit, false preconditions or unproved lemmas. '
+                  'Use bash only for the exact platform VeriFast verification command: '+verification_command+
+                  '\nRead actual diagnostics and repair annotations only. Never claim proof success without tool evidence. '
+                  'Do not access files outside the workspace except the verifier toolchain, install packages or use network tools. '
+                  'Keep final full-files JSON in answer.json. The platform independently verifies it.')
+            if require_subagent:
+                task+='\nUse the native subagent tool for annotation generation, including the complete source and VeriFast rules in its task. The child returns text JSON only, cannot use tools, and must not claim verification. Use its candidate and run the verification command yourself. If the child fails, report failure instead of fabricating its answer.'
+        # Multi-function input needs the dependency workflow, rather than the single-case compact path.
+        if 'Platform source classification: acsl-bottom-up.' in prompt:
+            compact=False
         if compact:
             from .c_compact import task_prompt
-            task=task_prompt(prompt)
+            task=task_prompt(prompt,auto_handoff=env.get('DSH_AUTO_HANDOFF')=='1')
         repair=bool(session is not None and session.rounds and 'Previous candidate:\n' in prompt)
         if repair:
             require_subagent=False
@@ -211,6 +258,58 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
                   'Write the complete repaired files JSON to answer.json using the native write tool. '
                   'Do not run an internal proof; the platform verifies the repaired candidate independently.\n'
                   'Previous candidate:\n'+prompt.split('Previous candidate:\n',1)[1])
+        if files_format and sources and os.getenv('XUANJIAN_HARNESS_SPEC_PATCHES','1')=='1':
+            from engine.verification.spec_patches import patch_contract
+            from engine.verification.worker_contract import thinking_policy
+            policy=thinking_policy()
+            spec_patches=True
+            env.update(DSH_SPEC_PATCHES='1',DSH_AUTO_HANDOFF='1',DSH_PATCH_PYTHON=str(ROOT/'.venv/bin/python'))
+            for entry_patch in patch:
+                if entry_patch.get('id')=='llm-pi-ai':
+                    worker=entry_patch['config']['providers'].get('platform-subagent')
+                    if worker:
+                        worker['defaultMaxTokens']=min(worker['defaultMaxTokens'],4096)
+                        worker_format='qwen' if worker['models'][0]['id']=='deepseek-v4.1-flash-1017' else 'qwen-chat-template'
+                        worker.update(reasoning='low' if policy['worker']=='on' else 'off',compat={'thinkingFormat':worker_format,'supportsReasoningEffort':False,'supportsDeveloperRole':False})
+                        for worker_model in worker['models']:
+                            # Native token estimation omits some gateway/template overhead.
+                            # Reserve context space rather than trimming pinned Skills or source.
+                            worker_model.update(maxTokens=min(worker_model['maxTokens'],4096),contextWindow=max(2048,worker_model['contextWindow']-1024),reasoningEfforts={'off':None,'low':'low'})
+                    main=entry_patch['config']['providers']['platform-api']
+                    if profile['model']=='deepseek-v4.1-flash-1017':
+                        main.update(reasoning='low' if policy['main']=='on' else 'off',compat={'thinkingFormat':'qwen','supportsReasoningEffort':False,'supportsDeveloperRole':False})
+                        for model in main['models']:model['reasoningEfforts']={'off':None,'low':'low'}
+            for child_patch in patch:
+                if child_patch.get('id')=='tool-subagent':child_patch['config']['agentOptions']['reasoningEffort']='low' if policy['worker']=='on' else 'off'
+            patch += [{'insert':[{'id':'platform-spec-patch-tools','name':str(ROOT/'engine/cli_plugins/spec_patch_tools.mjs')}]}]
+            config.write_text(json.dumps(patch),encoding='utf-8')
+            context=patch_contract(sources,verification_tool='verifast' if verifast else 'framac')
+            (workspace/'.platform-originals.json').write_text(json.dumps(sources,ensure_ascii=False),encoding='utf-8')
+            pinned=prompt.split('Original source:\n',1)[0].replace('Return ONLY JSON with a files array of {path, content}. Return every input file using its original path.', 'Return only ACSL annotations and original insertion line numbers.')
+            from engine.verification.worker_contract import worker_prompt
+            (workspace/'.platform-worker-task.txt').write_text(worker_prompt(pinned,sources,verification_tool='verifast' if verifast else 'framac'),encoding='utf-8')
+            (workspace/'.platform-worker-task.txt').chmod(0o600)
+            if repair:
+                from engine.verification.spec_patches import recover_patch_candidate
+                prior=recover_patch_candidate(workspace)
+                diagnostics=prompt.split('Verifier diagnostics:\n',1)[-1][-6000:]
+                map_file=workspace/'patch-line-map.json'
+                mapping=json.loads(map_file.read_text()) if map_file.is_file() else []
+                reported={int(n) for n in re.findall(r'(?:"line"\s*:\s*|line\s+)(\d+)',diagnostics)}
+                relevant_map=[r for r in mapping if r['generated_line'] in reported][:16]
+                task=('REPAIR ANNOTATION PATCHES ONLY. Do not restart specification generation or launch another child. '
+                      'Use submit_spec_patches with the complete revised patch set, retaining unrelated valid patches. '
+                      'Do not call write/read/bash or output complete source. The platform merges patches into immutable originals and verifies independently. '
+                      'For unproved goals, use the exact proof obligations and line mapping below; do not invent assumptions.\n'+context+
+                      '\nPrevious generated patches:\n'+json.dumps(prior,ensure_ascii=False)+'\nVerifier diagnostics:\n'+diagnostics+'\nLine map (generated line -> original line / patch index):\n'+json.dumps(relevant_map,ensure_ascii=False))
+            else:
+                task=('Call delegate_spec with {} exactly once. The platform injects all original source and unchanged pinned Skill instructions into the native worker. '
+                      'Do not analyze or rewrite source, repeat Skills, create plans, poll or write files. End your turn and wait for the runtime delivery. '
+                      'The platform saves the worker annotation patches automatically. After successful delivery, finish with a brief acknowledgement. '
+                      'If its JSON formatting is invalid, use inspect_worker_result and submit_spec_patches to normalize only the existing worker annotations with original line numbers. Do not regenerate or rewrite source. If the child fails or supplied no usable annotations, report failure.')
+            # A fresh per-round receipt is required; old output must never masquerade as a new repair.
+            receipt=workspace/'candidate-patches.json'
+            if receipt.exists():receipt.unlink()
         cmd = [node, str(entry), '--profile', 'headless', '--patch', str(config), '--json', '-']
         def redact(value):
             for sensitive, replacement in [((sub_profile or {}).get('api_key'), '[REDACTED]'), ((sub_profile or {}).get('base_url'), '[SUBAGENT_ENDPOINT]'), (profile.get('api_key'), '[REDACTED]'), (profile['base_url'], '[MODEL_ENDPOINT]'), (str(base), '[TASK]')]:
@@ -223,13 +322,18 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
         if session is None:(workspace/filename).unlink(missing_ok=True)
         (workspace/'subagent-audit.jsonl').write_text('')
         if session is not None:
-            identity=(profile['model'],profile['base_url'],profile.get('api_key'),json.dumps(effective_child,sort_keys=True))
+            identity=(profile['model'],profile['base_url'],profile.get('api_key'),json.dumps(effective_child,sort_keys=True),json.dumps(policy,sort_keys=True) if spec_patches else '')
+            diagnostics=[]
             try:
                 raw=session.request(cmd,workspace,env,task,timeout,identity)
             except TimeoutError as exc:
                 raw=getattr(exc,'raw','');timed_out=True
-            oversized=False;diagnostics=[]
-            exit_code=0 if not timed_out else -9
+            except RuntimeError as exc:
+                raw=getattr(exc,'raw','')
+                stderr_file=workspace/'.platform-cli-stderr.log'
+                if stderr_file.exists():diagnostics=[redact(stderr_file.read_text(errors='replace')[-3500:])]
+            oversized=False
+            exit_code=-9 if timed_out else session.proc.poll() if session.proc is not None and session.proc.poll() is not None else 0
         else:
             with tempfile.TemporaryFile() as out, tempfile.TemporaryFile() as err:
                 proc = subprocess.Popen(cmd, cwd=workspace, env=env, stdin=subprocess.PIPE, stdout=out, stderr=err, start_new_session=True)
@@ -255,6 +359,10 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
                    'upstream': UPSTREAM, 'entrypoint_sha256': hashlib.sha256(entry.read_bytes()).hexdigest(),
                    'command': ['node', '@deepseek-ai/dsh/lib/bin.js', '--profile', 'headless', '--patch', '[PRIVATE_CONFIG]', '--json', '-'],
                    'session_id': session_id, 'sandbox': 'workspace-write', 'approval_policy': 'never',
+                   'auto_child_handoff':env.get('DSH_AUTO_HANDOFF')=='1','candidate_protocol':('verifast-patches-v1' if verifast else 'acsl-patches-v1') if spec_patches else 'full-files',
+                   'verification_tool':'verifast' if verifast else 'framac' if files_format else 'verus','thinking_policy':policy if (spec_patches or verifast) else 'provider-default',
+                   'worker_context_reserve_tokens':1024 if spec_patches else 0,
+                   'output_budget':{'main_max_tokens':output_limits(profile)[0],'sub_max_tokens':min(output_limits(profile)[1],4096) if spec_patches else output_limits(profile)[1]},
                    'exit_code': exit_code, 'operation': 'repair' if repair else 'generate', 'process_reused': bool(session and session.rounds>1), 'session_transport': 'persistent-jsonl' if session else 'one-shot', 'terminal_reason': reason, 'diagnostics': diagnostics,
                    'events_kind': 'upstream-json-projection-without-thinking', 'events': native_events}
         def fail(code, message):
@@ -266,6 +374,31 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
         audit_file=workspace/'subagent-audit.jsonl'
         child_events=[json.loads(line) for line in audit_file.read_text().splitlines()] if audit_file.exists() else []
         runtime.update(subagent_events=child_events,subagent_model=(sub_profile or profile)['model'],subagent_inherits_main=not bool(sub_profile),workflow='compact-c-v1' if compact else 'standard')
+        patch_problem=None
+        if spec_patches and complete and not timed_out:
+            try:
+                from engine.verification.spec_patches import parse_patch_json,merge_spec_patches,patch_line_map,candidate_quality
+                receipt=workspace/'candidate-patches.json'
+                if receipt.is_symlink() or not receipt.is_file() or receipt.stat().st_size>262144:
+                    worker_final=workspace/'.platform-worker-final.txt'
+                    if not repair and worker_final.is_file() and not worker_final.is_symlink() and worker_final.stat().st_size<=1048576:
+                        from engine.verification.worker_contract import missing_receipt_message
+                        raise ValueError(missing_receipt_message(worker_final.read_text(),sources,verification_tool='verifast' if verifast else 'framac'))
+                    raise ValueError('未提交新的规约补丁；不会使用上一轮候选冒充本轮输出。')
+                patches=parse_patch_json(receipt.read_text())
+                quality=candidate_quality(sources,patches,verification_tool='verifast' if verifast else 'framac')
+                if not quality['annotation_nonempty'] and (verifast or quality.get('uncovered_loops_estimate')):raise ValueError('未生成实际规约：不能用空 patches 代替缺少不变量的循环规约。')
+                runtime['candidate_quality']=quality
+                (workspace/'candidate-quality.json').write_text(json.dumps(quality,ensure_ascii=False))
+                merged=merge_spec_patches(sources,patches,verification_tool='verifast' if verifast else 'framac')
+                from acsl.application.agent_execution import validate_candidates
+                validate_candidates(sources,merged,False,sources[0]['path'],'single')
+                (workspace/'answer.json').write_text(json.dumps({'files':merged},ensure_ascii=False))
+                (workspace/'patch-line-map.json').write_text(json.dumps(patch_line_map(sources,patches,verification_tool='verifast' if verifast else 'framac'),ensure_ascii=False))
+                runtime['patch_count']=len(patches['patches'])
+                runtime['candidate_origin']='platform-merged-immutable-source'
+            except (ValueError,KeyError,TypeError,OSError) as exc:
+                patch_problem=str(exc)
         if artifact_dir is not None:
             evidence=Path(artifact_dir);evidence.mkdir(parents=True,exist_ok=True)
             (evidence/'harness-events.jsonl').write_text('\n'.join(json.dumps(e,ensure_ascii=False) for e in native_events))
@@ -284,7 +417,7 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
         if oversized:
             fail('agent_output', '官方 Harness 事件输出超过限制，已保留部分事件。')
         if reason.get('kind') == 'max-tokens':
-            fail('output_limit', '官方 DeepSeek Harness 输出预算已耗尽，尚未完成生成；这不是网络连接失败。')
+            fail('output_limit', f'主 Agent 单次输出达到 {output_limits(profile)[0]} tokens 上限，尚未完成候选；不是网络或账户余额错误。')
         if exit_code or not complete:
             detail = str((reason.get('error') or {}).get('message') or '')[:1500]
             error_code = str((reason.get('error') or {}).get('code') or 'CLI_EXIT')[:100]
@@ -292,8 +425,9 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
             fail('agent_failed', '官方 DeepSeek Harness 执行失败（' + error_code + '）' + ('：' + detail if detail else '；请展开 CLI 诊断。'))
         if not result['agent_events']:
             fail('agent_tools', '官方 Harness 未执行工具，未将普通文本当作 Agent 工作结果。')
-        if require_subagent and (not any(e.get('type')=='end' and e.get('stop_reason')=='completed' for e in child_events) or not any(e.get('tool')=='subagent' and e.get('status')=='completed' for e in result['agent_events'])):
+        if require_subagent and (not any(e.get('type')=='end' and e.get('stop_reason')=='completed' for e in child_events) or not any(e.get('tool') in ('subagent','delegate_spec') and e.get('status')=='completed' for e in result['agent_events'])):
             fail('agent_delegation','所选子 Agent 未执行或未正常完成；主模型自行生成的候选不能替代子模型流程。请查看子 Agent 事件。')
+        if patch_problem:fail('agent_output',patch_problem)
         target = workspace / filename
         if target.is_symlink() or not target.is_file() or target.stat().st_size > MAX_CODE_BYTES:
             fail('agent_output', f'主模型未完成候选交接：未写入有效的 {filename} 文件；验证器尚未执行。')

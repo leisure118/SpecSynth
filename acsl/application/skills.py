@@ -15,7 +15,8 @@ from acsl.domain.agents import AGENTS, AssistantConfig, Skill, SkillReference
 from acsl.infrastructure.settings import settings
 
 _LOCK = threading.RLock()
-BUNDLED_SKILLS = ("spec-split", "spec-orchestrate", "spec-bottomup")
+ACSL_SKILLS = ("spec-split", "spec-orchestrate", "spec-bottomup")
+BUNDLED_SKILLS = (*ACSL_SKILLS, "spec-verifast")
 
 
 class SkillError(Exception):
@@ -70,7 +71,7 @@ def public(record: dict) -> dict:
     } | {"archived": record.get("archived", False)}
 
 
-def ensure_bundled_skills() -> list[dict]:
+def ensure_bundled_skills(verification_tool: str = "framac") -> list[dict]:
     """Import portable user-provided skills once; never overwrite edited versions."""
     refs = []
     with _LOCK:
@@ -92,7 +93,8 @@ def ensure_bundled_skills() -> list[dict]:
                 write({"id": identifier, "versions": [snapshot], "archived": False})
             record = read(identifier)
             selected = current(record)
-            refs.append({"id": identifier, "version": selected["version"], "enabled": True})
+            if (name == "spec-verifast") == (verification_tool == "verifast"):
+                refs.append({"id": identifier, "version": selected["version"], "enabled": True})
     return refs
 
 
@@ -159,12 +161,12 @@ def archive_skill(identifier: str) -> None:
         write(record)
 
 
-def resolve_assistant(config: AssistantConfig | None) -> AssistantConfig | None:
+def resolve_assistant(config: AssistantConfig | None, verification_tool: str = "framac") -> AssistantConfig | None:
     if config is None:
         return None
     if config.agent in ("deepseek-harness", "codex", "claude-code") and not config.skills and not config.skill_refs:
         config = config.model_copy(
-            update={"skill_refs": [SkillReference(**ref) for ref in ensure_bundled_skills()]}
+            update={"skill_refs": [SkillReference(**ref) for ref in ensure_bundled_skills(verification_tool)]}
         )
     if any(not skill.instructions for skill in config.skills):
         raise SkillError("Skill 正文必须在后端绑定。")
@@ -179,6 +181,17 @@ def resolve_assistant(config: AssistantConfig | None) -> AssistantConfig | None:
             Skill(**{key: item[key] for key in ("id", "name", "instructions", "agents", "enabled")}).model_dump()
             | {"enabled": ref.enabled and item["enabled"]}
         )
+    if verification_tool == "verifast":
+        # Replace only the built-in ACSL workflow in the execution snapshot.
+        # User-authored Skills and every original library version stay untouched.
+        acsl_ids = {uuid.uuid5(uuid.NAMESPACE_URL, "xuanjian:skills:" + name).hex for name in ACSL_SKILLS}
+        needs_verifast = any(item["id"] in acsl_ids and item.get("enabled", True) for item in skills)
+        skills = [item for item in skills if item["id"] not in acsl_ids]
+        if needs_verifast:
+            ref = ensure_bundled_skills("verifast")[0]
+            if not any(item["id"] == ref["id"] for item in skills):
+                item = effective(read(ref["id"]), current(read(ref["id"])))
+                skills.append(Skill(**{key: item[key] for key in ("id", "name", "instructions", "agents", "enabled")}).model_dump())
     # Clear references in the executable snapshot; the project retains pinned bindings.
     return AssistantConfig(
         agent=config.agent,

@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "array-crafted_bor1.c",
+      "content": "#include<limits.h>\n/*@\nassigns \\nothing;\nensures INT_MIN <= \\result < INT_MAX;\n*/\nint unknown();\n#define N 100\n#define fun bor\n#include <assert.h>\n/*@\n\trequires \\valid_read(x+(0 .. N-1));\n\trequires N > 0;\n\tensures 0 <= \\result <= INT_MAX;\n\tensures (x[0] & \\result) == x[0];\n\tassigns \\nothing;\n*/\nint bor (int x[N])\n{\n  int i;\n  long long res;\n  res = x[0];\n/*@\n\tloop invariant 1 <= i <= N;\n\tloop invariant 0 <= res <= INT_MAX;\n\tloop invariant (x[0] & res) == x[0];\n\tloop invariant \\valid_read(x+(0 .. N-1));\n\tloop assigns i, res;\n\tloop variant N - i;\n*/\n  for (i = 1; i < N; i++) {\n    res = res | x[i];\n  }\n  return res;\n}\nint main ()\n{\n  int x[N];\n  int temp;\n  int ret;\n  int ret2;\n  int ret5;\n  for (int i = 0; i < N; i++) {\n    x[i] = unknown();\n  }\n/*@\n\tassert 0 <= ret <= INT_MAX;\n\tassert (x[0] & ret) == x[0];\n*/\n  ret = fun(x);\n/*@\n\tassert x[0] == \\at(x[1],Pre) && x[1] == \\at(x[0],Pre);\n*/\n  temp=x[0];x[0] = x[1]; x[1] = temp;\n/*@\n\tassert 0 <= ret2 <= INT_MAX;\n\tassert (x[0] & ret2) == x[0];\n*/\n  ret2 = fun(x);\n  temp=x[0];\n  for(int i =0 ; i<N-1; i++){\n     x[i] = x[i+1];\n  }\n  x[N-1] = temp;\n/*@\n\tassert 0 <= ret5 <= INT_MAX;\n\tassert (x[0] & ret5) == x[0];\n*/\n  ret5 = fun(x);\n  //@ assert !(ret != ret2 || ret !=ret5);\n  return 1;\n}\n"
+    }
+  ]
+}

@@ -84,12 +84,17 @@ class ProjectSave(ProjectBody):
     parent_task_id: str | None = Field(default=None,max_length=100)
 
 
+class VerificationToolConfig(BaseModel):
+    verification_tool: Literal["framac", "verifast"]
+
+
 class ProjectRename(BaseModel):
     name: str = Field(min_length=1, max_length=120)
     revision: int = Field(ge=1)
 
 
 class ProjectRun(BaseModel):
+    verification_tool: Literal["framac", "verifast"] = "framac"
     resume_task_id: str | None = Field(default=None,max_length=100)
     revision: int = Field(ge=1)
     mode: Literal["single", "termination", "inter-modular", "rust-verify", "rust-generate"] = "single"
@@ -139,9 +144,9 @@ class ProjectService:
         self._lock = threading.RLock()
 
     @staticmethod
-    def _resolve_assistant(config):
+    def _resolve_assistant(config, verification_tool="framac"):
         try:
-            return resolve_assistant(config)
+            return resolve_assistant(config, verification_tool=verification_tool)
         except SkillError as exc:
             raise ProjectValidation(str(exc)) from exc
 
@@ -302,6 +307,12 @@ class ProjectService:
             if body.parent_task_id and not any(r['task_id']==body.parent_task_id for r in project['runs']):
                 raise ProjectValidation('人工版本关联的 Agent 任务不属于当前项目。')
             saved_files=[item.model_dump() for item in body.files]
+            if project.get('language','C')=='C':
+                from engine.verification.spec_edit import only_spec_changes
+                incoming={f['path']:f['content'] for f in saved_files}
+                for old in project['files']:
+                    if old['path'] not in incoming or not only_spec_changes(old['content'],incoming[old['path']]):
+                        raise ProjectValidation('仅允许修改规约，不能修改或删除原始 C 源码：'+old['path'])
             canonical=lambda rows: sorted((f['path'],f['content']) for f in rows)
             if canonical(saved_files)==canonical(project['files']):
                 if body.name!=project['name']:
@@ -432,6 +443,14 @@ class ProjectService:
             bundle.writestr("project.json", json.dumps(public_payload(snapshot), ensure_ascii=False, indent=2))
         return stream.getvalue(), f"project-{project_id}.zip"
 
+    def save_verification_tool(self, project_id: str, body: VerificationToolConfig) -> dict:
+        with self._lock:
+            project=self._read(project_id)
+            if project.get('language')=='Rust':raise ProjectValidation('Rust 项目使用 Verus。')
+            project['verification_tool']=body.verification_tool
+            self._write(project)
+        return {'verification_tool':body.verification_tool}
+
     def save_assistant(self, project_id: str, body: AssistantConfig) -> dict:
         with self._lock:
             project = self._read(project_id)
@@ -490,6 +509,9 @@ class ProjectService:
             entry = next((item for item in project["files"] if item["path"] == body.entry_path), None)
             if not entry or not entry["path"].endswith(".rs" if rust else ".c"):
                 raise ProjectValidation("请选择与项目语言匹配的源文件。")
+            if body.verification_tool == "verifast" and (rust or body.mode != "single" or body.execution != "live"):
+                raise ProjectValidation("VeriFast 当前支持 C 单文件规约生成与验证。")
+            project['verification_tool']=body.verification_tool
             replay_case = None
             if body.execution == "replay":
                 replay_case = self._replay_case(project, body)
@@ -508,6 +530,23 @@ class ProjectService:
                 if not previous:raise ProjectConflict('请等待原任务结束后继续验证。')
                 manual_context={'parent_task_id':body.resume_task_id,'input_revision':project['revision'],'input_origin':'human',
                     'diagnostics':str((previous.get('logs') or {}).get('raw') or previous.get('summary',''))[-16000:]}
+            if body.verification_tool == "verifast" and body.verification_only:
+                if rust or body.mode != "single" or body.execution != "live":
+                    raise ProjectValidation("VeriFast 当前支持 C 文件直接验证。")
+                from engine.verification.verifast_runtime import validate_files
+                try:
+                    validate_files(project["files"], body.entry_path)
+                except ValueError as exc:
+                    raise ProjectValidation(str(exc)) from exc
+                upload = self.store.create_bundle_upload([{"relative_path":f["path"],"payload":f["content"].encode()} for f in project["files"]])
+                task = self.manager.submit("single", RunRequest(file_id=upload["file_id"], entry_path=body.entry_path,
+                    verification_tool="verifast", verification_only=True, timeout_sec=body.timeout_sec, adaptive_timeout=False))
+                project["runs"].append({"task_id": task.task_id, "revision": project["revision"],
+                    "entry_path": body.entry_path, "mode": "single", "execution": "live", "verification_tool": "verifast",
+                    "verification_only": True, "assistant": None, "skill_refs": [], "created_at": utcnow().isoformat()})
+                project["updated_at"] = utcnow().isoformat()
+                self._write(project)
+                return {"task_id": task.task_id, "status": task.status, "revision": project["revision"]}
             if body.verification_only:
                 if rust or body.mode != "single":
                     raise ProjectValidation("仅验证仅支持 C 单文件模式。")
@@ -550,7 +589,7 @@ class ProjectService:
                 or (AssistantConfig(**project["assistant"]) if project.get("assistant") else None)
             )
             assistant_config = self._hydrate_private_skills(assistant_config, project.get("assistant"))
-            assistant = self._resolve_assistant(assistant_config)
+            assistant = self._resolve_assistant(assistant_config, verification_tool=body.verification_tool)
             if not rust and (assistant is None or assistant.agent in ("default", "deepseek-harness")) and body.model_name not in self.models():
                 raise ProjectValidation("Unknown model.")
             if body.mode == "rust-generate" and not body.description.strip():
@@ -572,6 +611,8 @@ class ProjectService:
                     raise ProjectValidation(str(exc)) from exc
                 if body.rag_enabled:
                     raise ProjectValidation("外部 Agent 暂不使用内置 RAG，请关闭 RAG。")
+            if body.verification_tool == "verifast" and (not assistant or assistant.agent == "default"):
+                raise ProjectValidation("请为 VeriFast 规约生成选择 Codex、Claude Code 或 DeepSeek Harness。")
             instructions = assistant.prompt(project.get("language", "C")) if assistant and not replay_case else ""
             workflow = None
             if body.mode == "rust-generate" and (not assistant or assistant.agent == "default"):
@@ -637,6 +678,7 @@ class ProjectService:
                     entry_path=body.entry_path,
                     rust_workflow=workflow,
                     manual_context=manual_context,
+                    verification_tool=body.verification_tool,
                     agent_instructions=instructions,
                     assistant=assistant.model_dump() if assistant else None,
                     description=body.description,
@@ -650,6 +692,7 @@ class ProjectService:
                     "revision": project["revision"],
                     "entry_path": body.entry_path,
                     "mode": body.mode,
+                    "verification_tool": body.verification_tool,
                     "execution": body.execution,
                     "assistant": assistant.model_dump() if assistant else None,
                     "skill_refs": [ref.model_dump() for ref in assistant_config.skill_refs] if assistant_config else [],

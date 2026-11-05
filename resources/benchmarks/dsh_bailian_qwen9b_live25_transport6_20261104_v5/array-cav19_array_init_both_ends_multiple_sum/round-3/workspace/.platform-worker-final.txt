@@ -1,0 +1,21 @@
+```json
+{
+  "patches": [
+    {
+      "path": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "before_line": 4,
+      "annotation": "loop invariant 0 <= i <= N;\nloop invariant \\forall integer j; 0 <= j < i ==> a[j] == j;\nloop assigns i, a[0 .. N-1];\nloop variant N - i;"
+    },
+    {
+      "path": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "before_line": 11,
+      "annotation": "loop invariant 0 <= i <= N;\nloop invariant \\forall integer j; 0 <= j < N ==> a[j] == j;\nloop invariant \\forall integer j; 0 <= j < i ==> b[N-j-1] == j;\nloop assigns i, b[0 .. N-1];\nloop variant N - i;"
+    },
+    {
+      "path": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "before_line": 14,
+      "annotation": "loop invariant 0 <= i <= N;\nloop invariant \\forall integer j; 0 <= j < N ==> a[j] == j;\nloop invariant \\forall integer j; 0 <= j < N ==> b[N-j-1] == j;\nloop invariant sum == 0;\nloop invariant sum >= 2*(0..N-1)\nloop assigns i, sum;\nloop variant N - i;"
+    }
+  ]
+}
+```

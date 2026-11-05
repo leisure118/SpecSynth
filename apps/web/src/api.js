@@ -132,3 +132,18 @@ export function getDatasetInput(id) { return request('/rust/dataset/tasks/'+enco
 export function saveGenerationConfig(id,body) { return request('/projects/'+id+'/generation-config',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}) }
 
 export function getProjectVersion(id,revision){return request('/projects/'+encodeURIComponent(id)+'/versions/'+revision)}
+
+export function getRunInteraction(id){return request('/runs/'+id+'/interaction')}
+export function sendRunInteraction(id,text){return request('/runs/'+id+'/interaction',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})})}
+
+export function getVerifastCapabilities(){return request('/verifast/capabilities')}
+export function verifyVerifast(payload){return request('/verifast/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})}
+export function listVerifastRuns(){return request('/verifast/runs')}
+export function getVerifastRun(id){return request('/verifast/runs/'+encodeURIComponent(id))}
+export function getVerifastInput(id){return request('/verifast/runs/'+encodeURIComponent(id)+'/input')}
+
+export function verifyWithTool(payload){return request('/verification/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})}
+
+export function saveVerificationTool(id,verification_tool){return request('/projects/'+encodeURIComponent(id)+'/verification-tool',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({verification_tool})})}
+
+export function getRunTerminal(id){return request('/runs/'+encodeURIComponent(id)+'/terminal')}

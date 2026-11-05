@@ -1,0 +1,10 @@
+{
+  "files": [
+    {
+      "path": "array-crafted_bAnd2.c",
+      "content": "#include<limits.h>\n/*@\nassigns \\nothing;\nensures INT_MIN <= \\result < INT_MAX;\n*/\nint unknown();\n#define N 1000\n#define fun bAnd\n#include <assert.h>\nint bAnd (int x[N])\n{\n  int i;\n  long long res;\n  res = x[0];\n  for (i = 1; i < N; i++) {\n    res = res & x[i];\n  }\n  //@ loop invariant 1 <= i <= N;\n  //@ loop invariant \\forall integer j; 0 <= j < i ==> (res & x[j]) == res;\n  //@ loop invariant \\forall integer k; ( \\forall integer j; 0 <= j < i ==> (k & x[j]) == k ) ==> (k & res) == k;\n  //@ loop assigns i, res;\n  //@ loop variant N - i;\n  /*\n  Specifically ensures that res is the bitwise AND of ALL elements in x[0..N-1].\n  The above loop invariants capture this: res starts as x[0], then ANDs with each x[i],\n  and the invariant (k & res) == k for common k ensures res is unique and perm-invariant.\n  */\n  return res;\n}\nint main ()\n{\n  int x[N];\n  int temp;\n  int ret;\n  int ret2;\n  int ret5;\n  for (int i = 0; i < N; i++) {\n    x[i] = unknown();\n  }\n  /*\n  Loop invariant 0 <= i <= N;\n  Loop assigns i, x[0..N-1];\n  Loop variant N - i;\n  */\n  ret = fun(x);\n  temp=x[0];x[0] = x[1]; x[1] = temp;\n  ret2 = fun(x);\n  temp=x[0];\n  for(int i =0 ; i<N-1; i++){\n     x[i] = x[i+1];\n  }\n  x[N-1] = temp;\n  /*\n  Loop invariant 0 <= i <= N-1;\n  Loop invariant the multiset of values in x[0..N-1] is unchanged from before rotation;\n  Loop invariant \\forall integer k; 0 <= k < i ==> x[k] == temp_old;  (where temp_old was initial x[0])\n  Loop assigns i, x[0..N-1];\n  Loop variant N-1 - i;\n  */\n  ret5 = fun(x);\n  /*\n  The assertion follows from the bAnd contract: ret, ret2, ret5 all represent the AND of all elements,\n  and since bAnd's result is independent of array permutation (due to the AND semantics and the contract's uniqueness clause),\n  ret == ret2 == ret5.\n  */\n  //@ assert !(ret != ret2 || ret !=ret5);\n  return 1;\n}"
+    }
+  ],
+  "origin": "interrupted-harness-draft",
+  "verified": false
+}

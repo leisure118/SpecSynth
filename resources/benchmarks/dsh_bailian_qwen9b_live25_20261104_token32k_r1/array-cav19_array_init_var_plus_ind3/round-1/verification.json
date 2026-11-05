@@ -1,0 +1,29 @@
+{
+  "verification_profile": "original",
+  "rte_checks": false,
+  "callee_precondition_checks": false,
+  "status": "failed",
+  "verified": false,
+  "verified_count": 1,
+  "error_count": 1,
+  "stdout": "[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c (with preprocessing)\n[kernel:typing:no-proto] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c:13: Warning: \n  Calling function unknown that is declared without prototype.\n  Its formals will be inferred from actual arguments\n[wp] Running WP plugin...\n[wp] Warning: Missing RTE guards\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c:12: Warning: \n  Cast with incompatible pointers types (source: sint32*) (target: sint8*)\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c:20: Warning: \n  Missing assigns clause (assigns 'everything' instead)\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c:14: Warning: \n  Missing assigns clause (assigns 'everything' instead)\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c:12: Warning: \n  Cast with incompatible pointers types (source: sint8*) (target: sint32*)\n[wp] 2 goals scheduled\n[wp] [Timeout] typed_main_assert (Qed 14ms) (Z3 15s) (Stronger)\n[wp] Proved goals:    1 / 2\n  Qed:             1\n  Timeout:         1\n------------------------------------------------------------\n  Function main\n------------------------------------------------------------\n\nGoal Assertion 'alloca_bounds' (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c, line 12):\nProve: true.\nProver Qed returns Valid (3ms)\n\n------------------------------------------------------------\n\nGoal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c, line 21):\nresources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c:12: warning from Typed Model:\n - Warning: Hide \\result\n   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)\nLet x = Mint_0[shift_sint32(a, k)].\nAssume {\n  Type: is_sint32(N) /\\ is_sint32(i) /\\ is_sint32(i_1) /\\ is_sint32(k) /\\\n      is_sint32(unknown_0) /\\ is_sint32(unknown_1) /\\ is_sint32(x).\n  (* Call 'unknown' *)\n  Have: ((-2147483648) <= unknown_1) /\\ (unknown_1 <= 2147483646).\n  If i_1 < N\n  Then {\n    (* Call 'unknown' *)\n    Have: ((-2147483648) <= unknown_0) /\\ (unknown_0 <= 2147483646).\n    (* Then *)\n    Have: unknown_0 != 0.\n  }\n  (* Then *)\n  Have: k < i.\n}\nProve: x <= 0.\nProver Z3 4.8.12 returns Timeout (Qed:14ms) (15s)\nProver Alt-Ergo  returns Timeout (Qed:14ms) (15s)\n\n------------------------------------------------------------\n[wp:pedantic-assigns] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c:8: Warning: \n  No 'assigns' specification for function 'main'.\n  Callers assumptions might be imprecise.\n",
+  "stderr": "time=\"2026-11-04T13:30:58+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n",
+  "elapsed_sec": 16.792,
+  "returncode": 0,
+  "runner": "verifier",
+  "runtime": "container",
+  "message": "Frama-C 证明目标 1/2，仍有目标未证明",
+  "diagnostics": [
+    {
+      "path": "array-cav19_array_init_var_plus_ind3.c",
+      "line": 21,
+      "severity": "error",
+      "kind": "unproved",
+      "message": "Goal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c, line 21):\nresources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_var_plus_ind3/round-1/proof/array-cav19_array_init_var_plus_ind3.c:12: warning from Typed Model:\n - Warning: Hide \\result\n   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)\nLet x = Mint_0[shift_sint32(a, k)].\nAssume {\n  Type: is_sint32(N) /\\ is_sint32(i) /\\ is_sint32(i_1) /\\ is_sint32(k) /\\\n      is_sint32(unknown_0) /\\ is_sint32(unknown_1) /\\ is_sint32(x).\n  (* Call 'unknown' *)\n  H",
+      "certainty": "possible"
+    }
+  ],
+  "source_hashes": {
+    "array-cav19_array_init_var_plus_ind3.c": "be13a023163a75250077a0c06a7db0f44a61634f8c30f3f1a30f394d66b458dc"
+  }
+}

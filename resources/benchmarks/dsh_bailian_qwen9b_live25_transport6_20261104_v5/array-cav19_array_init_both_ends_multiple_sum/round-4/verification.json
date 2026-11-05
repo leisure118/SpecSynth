@@ -1,0 +1,20 @@
+{
+  "verification_profile": "original",
+  "rte_checks": false,
+  "callee_precondition_checks": false,
+  "status": "compile_error",
+  "verified": false,
+  "verified_count": 0,
+  "error_count": 0,
+  "stdout": "[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_init_both_ends_multiple_sum/round-4/proof/array-cav19_array_init_both_ends_multiple_sum.c (with preprocessing)\n[kernel] resources/benchmarks/dsh_bailian_qwen9b_live25_transport6_20261104_v5/array-cav19_array_init_both_ends_multiple_sum/round-4/proof/array-cav19_array_init_both_ends_multiple_sum.c:12: \n  syntax error:\n  Location: between lines 12 and 14\n  10      loop invariant \\forall integer j; 0 <= j < i ==> a[j] == j;\n  11      loop assigns i, a[0 .. N-1];\n  \n  12      loop variant N - i;\n  13    */\n  14      /*@ assert a_sep: \\separated(a, b); */\n  \n  15      for (i=0;i<N;i++) {\n  16        a[i] = i;\n[kernel] Frama-C aborted: invalid user input.\n",
+  "stderr": "time=\"2026-11-04T19:06:20+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n\n",
+  "elapsed_sec": 0.99,
+  "returncode": 1,
+  "runner": "verifier",
+  "runtime": "container",
+  "message": "Frama-C 未产生有效证明结果。",
+  "diagnostics": [],
+  "source_hashes": {
+    "array-cav19_array_init_both_ends_multiple_sum.c": "1398225a01b976a0866aa8fb961d96c8def95dfb7fb8b98580856513462f33ee"
+  }
+}

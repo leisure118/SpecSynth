@@ -93,3 +93,45 @@ def test_repair_keeps_native_file_state_and_requires_fresh_write(tmp_path,monkey
   with __import__('pytest').raises(ProviderError,match='未更新候选'):
    dsh_cli.generate('Previous candidate:\nexisting\nVerifier diagnostics:\nfailed',profile,artifact_dir=tmp_path/'repair',output_format='files')
  assert observed==[False,True]
+
+
+def test_bridge_error_is_reported_immediately_instead_of_waiting_for_timeout():
+    import time,json
+    from engine.nl2verus.harness_session import Session
+    session=Session()
+    session.lines.put(json.dumps({'type':'error','message':'upstream rejected configuration'})+'\n')
+    import pytest
+    with pytest.raises(RuntimeError) as caught:
+        session._read(time.monotonic()+600,'bridge_done')
+    assert 'upstream rejected configuration' in caught.value.raw
+
+
+def test_verifast_harness_preserves_session_with_verifast_patch_workflow(tmp_path,monkeypatch):
+ from engine.nl2verus import dsh_cli
+ from engine.nl2verus.harness_session import Session
+ monkeypatch.setattr(dsh_cli,'installed',lambda:True)
+ captured=[]
+ def request(self,cmd,cwd,env,task,timeout,identity):
+  captured.append((task,dict(env)))
+  assert env['DSH_SPEC_PATCHES']=='1' and env['DSH_VERIFICATION_TOOL']=='verifast'
+  assert 'DSH_COMPACT_C' not in env
+  worker=(cwd/'.platform-worker-task.txt').read_text();assert 'VERIFAST ANNOTATION PATCH PROTOCOL' in worker
+  assert 'loop assigns ...' not in worker
+  (cwd/'candidate-patches.json').write_text(json.dumps({'patches':[{'path':'a.c','before_line':1,'before_column':8,'annotation':'//@ requires true;\n//@ ensures result == 0;'}]}))
+  (cwd/'answer.json').write_text(json.dumps({'files':[{'path':'a.c','content':'int f(){return 0;}'}]}))
+  self.rounds+=1
+  return '\n'.join(json.dumps(e) for e in [
+   {'type':'session','sessionId':'vf-session'},
+   {'type':'tool_call','callId':'w1','tool':'write'},
+   {'type':'tool_result','callId':'w1','status':'completed'},
+   {'type':'final','reason':{'kind':'completed'}}])
+ monkeypatch.setattr(Session,'request',request)
+ prompt='Platform verification tool: VeriFast\nOriginal source:\n'+json.dumps([{'path':'a.c','content':'int f(){return 0;}'}])
+ with case_session():
+  a=dsh_cli.generate(prompt,{'model':'test','base_url':'http://localhost:1/v1','api_key':''},artifact_dir=tmp_path/'first',output_format='verifast-files')
+  b=dsh_cli.generate(prompt+'\nPrevious candidate:\nEXISTING-ANNOTATIONS\nVerifier diagnostics:\nFAILED-GOAL',{'model':'test','base_url':'http://localhost:1/v1','api_key':''},artifact_dir=tmp_path/'repair',output_format='verifast-files')
+ assert a['agent_runtime']['verification_tool']=='verifast'
+ assert b['agent_runtime']['process_reused'] and b['agent_runtime']['operation']=='repair'
+ assert a['agent_runtime']['candidate_protocol']=='verifast-patches-v1'
+ assert 'delegate_spec' in captured[0][0]
+ assert 'submit_spec_patches' in captured[1][0] and 'FAILED-GOAL' in captured[1][0]

@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "content": "int N = 100000;\nint main()\n{\n  int a[N];\n  int b[N];\n  int i;\n  int sum=0;\n  /*@\n    loop invariant 0 <= i <= N;\n    loop invariant \\forall integer j; 0 <= j < i ==> a[j] == j;\n    loop assigns i, a[0 .. N-1];\n    loop variant N - i;\n  */\n  for (i=0;i<N;i++) {\n    a[i] = i;\n  }\n  /*@\n    loop invariant 0 <= i <= N;\n    loop invariant \\forall integer j; 0 <= j < i ==> b[N-1-j] == j;\n    loop assigns i, b[0 .. N-1];\n    loop variant N - i;\n  */\n  for (i=0;i<N;i++) {\n    b[N-i-1]=i;\n  }\n  /*@\n    loop invariant 0 <= i <= N;\n    loop invariant \\forall integer j; 0 <= j < N ==> a[j] == j;\n    loop invariant \\forall integer j; 0 <= j < N ==> b[N-1-j] == j;\n    loop invariant sum == 0;\n    loop assigns i, sum;\n    loop variant N - i;\n  */\n  for (i=0;i<N;i++) {\n    //@ assert a[i] == i;\n    //@ assert b[N-i-1] == i;\n    sum=sum+(a[i]-b[N-i-1]);\n  }\n  //@assert(sum == 0);\n  return 0;\n}"
+    }
+  ]
+}

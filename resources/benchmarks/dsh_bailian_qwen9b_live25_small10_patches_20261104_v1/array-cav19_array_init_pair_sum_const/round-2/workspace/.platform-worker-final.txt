@@ -1,0 +1,16 @@
+I need to generate ACSL annotations for the loops in this file. Let me analyze the program structure:
+
+1. There are 3 VLA arrays (a, b, c) of size N=100000
+2. Loop 1 (lines 8-11): Writes to a[i] and b[i]
+3. Loop 2 (lines 12-14): Reads a[i] and b[i], writes to c[i]
+4. Loop 3 (lines 15-17): Only contains assertions about c[i]
+
+For proper ACSL verification, I need to:
+1. Add \separated declarations for the multiple VLA arrays
+2. Add loop invariants that carry the knowledge between loops
+3. Ensure all \forall quantifiers over integer types (to avoid overflow)
+
+Let me create the patches:
+</think>
+
+{"patches":[{"path":"array-cav19_array_init_pair_sum_const.c","before_line":4,"annotation":"@{\n  admits N >= 0;\n}","role":"contract"},{"path":"array-cav19_array_init_pair_sum_const.c","before_line":5,"annotation":"@{\n  assigns \\nothing;\n}","role":"contract"},{"path":"array-cav19_array_init_pair_sum_const.c","before_line":8,"annotation":"/*@\n  loop invariant 0 <= i <= N;\n  loop invariant \\forall integer j; 0 <= j < i ==> a[j] == 1;\n  loop invariant \\forall integer j; 0 <= j < i ==> b[j] == 2;\n  loop assigns i, a[0 .. N-1], b[0 .. N-1];\n  loop variant N - i;\n*/","role":"loop"},{"path":"array-cav19_array_init_pair_sum_const.c","before_line":12,"annotation":"/*@\n  loop invariant 0 <= i <= N;\n  loop invariant \\forall integer j; 0 <= j < i ==> c[j] == a[j] + b[j];\n  loop assigns i, c[0 .. N-1];\n  loop variant N - i;\n*/","role":"loop"},{"path":"array-cav19_array_init_pair_sum_const.c","before_line":15,"annotation":"/*@\n  loop invariant 1 <= i <= N;\n  loop invariant \\forall integer j; 0 <= j < i ==> c[j] >= 3;\n  loop assigns i;\n  loop variant N - i;\n*/","role":"loop"}]}

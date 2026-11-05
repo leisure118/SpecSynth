@@ -1,0 +1,29 @@
+{
+  "verification_profile": "original",
+  "rte_checks": false,
+  "callee_precondition_checks": false,
+  "status": "failed",
+  "verified": false,
+  "verified_count": 0,
+  "error_count": 1,
+  "stdout": "[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum3/round-1/proof/array-crafted_mapsum3.c (with preprocessing)\n[kernel:typing:no-proto] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum3/round-1/proof/array-crafted_mapsum3.c:28: Warning: \n  Calling function unknown that is declared without prototype.\n  Its formals will be inferred from actual arguments\n[wp] Running WP plugin...\n[wp] Warning: Missing RTE guards\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum3/round-1/proof/array-crafted_mapsum3.c:34: Warning: \n  Missing assigns clause (assigns 'everything' instead)\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum3/round-1/proof/array-crafted_mapsum3.c:27: Warning: \n  Missing assigns clause (assigns 'everything' instead)\n[wp] 1 goal scheduled\n[wp] [Timeout] typed_main_assert (Qed 10ms) (Z3 15s)\n[wp] Proved goals:    0 / 1\n  Qed:             0 (10ms)\n  Timeout:         1\n------------------------------------------------------------\n  Function main\n------------------------------------------------------------\n\nGoal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum3/round-1/proof/array-crafted_mapsum3.c, line 39):\nAssume {\n  Type: is_sint32(i) /\\ is_sint32(i_1) /\\ is_sint32(ret_0) /\\\n      is_sint32(ret2_0) /\\ is_sint32(ret5_0).\n  (* Else *)\n  Have: 10000 <= i.\n  (* Else *)\n  Have: 9999 <= i_1.\n}\nProve: (ret2_0 = ret_0) /\\ (ret5_0 = ret_0).\nProver Z3 4.8.12 returns Timeout (Qed:10ms) (15s)\nProver Alt-Ergo  returns Timeout (Qed:10ms) (15s)\n\n------------------------------------------------------------\n[wp:pedantic-assigns] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum3/round-1/proof/array-crafted_mapsum3.c:10: Warning: \n  No 'assigns' specification for function 'mapsum'.\n  Callers assumptions might be imprecise.\n[wp:pedantic-assigns] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum3/round-1/proof/array-crafted_mapsum3.c:20: Warning: \n  No 'assigns' specification for function 'main'.\n  Callers assumptions might be imprecise.\n",
+  "stderr": "time=\"2026-11-04T14:22:05+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n",
+  "elapsed_sec": 16.82,
+  "returncode": 0,
+  "runner": "verifier",
+  "runtime": "container",
+  "message": "Frama-C 证明目标 0/1，仍有目标未证明",
+  "diagnostics": [
+    {
+      "path": "array-crafted_mapsum3.c",
+      "line": 39,
+      "severity": "error",
+      "kind": "unproved",
+      "message": "Goal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum3/round-1/proof/array-crafted_mapsum3.c, line 39):\nAssume {\n  Type: is_sint32(i) /\\ is_sint32(i_1) /\\ is_sint32(ret_0) /\\\n      is_sint32(ret2_0) /\\ is_sint32(ret5_0).\n  (* Else *)\n  Have: 10000 <= i.\n  (* Else *)\n  Have: 9999 <= i_1.\n}\nProve: (ret2_0 = ret_0) /\\ (ret5_0 = ret_0).\nProver Z3 4.8.12 returns Timeout (Qed:10ms) (15s)\nProver Alt-Ergo  returns Timeout (Qed:10ms) (15s)",
+      "certainty": "possible"
+    }
+  ],
+  "source_hashes": {
+    "array-crafted_mapsum3.c": "2229b8b57746e7d7ce7b06f26aa3ed7431f289510d66fad014fe78d1307c8576"
+  }
+}

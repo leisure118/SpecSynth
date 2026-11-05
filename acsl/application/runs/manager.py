@@ -188,7 +188,7 @@ class RunManager(RunLiveMixin, RunRecoveryMixin, RunResultMixin, RunCollectionMi
             task_dir=project_relative_path(task_dir),
             phases=phases,
             capabilities=capabilities.as_dict(),
-            metadata={"worker_pid": os.getpid(), "assistant": payload.assistant, "agent_instructions": payload.agent_instructions, "benchmark": payload.benchmark_context, "verification_only": payload.verification_only},
+            metadata={"worker_pid": os.getpid(), "assistant": payload.assistant, "agent_instructions": payload.agent_instructions, "benchmark": payload.benchmark_context, "verification_only": payload.verification_only, "verification_tool": payload.verification_tool},
         )
         self.store.create_task(task)
         if payload.benchmark_context:

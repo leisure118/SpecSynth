@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "array-crafted_xor1.c",
+      "content": "#include<limits.h>\n/*@\nassigns \\nothing;\nensures INT_MIN <= \\result < INT_MAX;\n*/\nint unknown();\n#define N 100\n#define fun xor\n#include <assert.h>\nint xor (int x[N])\n{\n  int i;\n  long long res;\n  res = x[0];\n  for (i = 1; i < N; i++) {\n    res = res ^ x[i];\n  }\n  return res;\n}\nint main ()\n{\n  int x[N];\n  int temp;\n  int ret;\n  int ret2;\n  int ret5;\n  for (int i = 0; i < N; i++) {\n    x[i] = unknown();\n  }\n  ret = fun(x);\n  temp=x[0];x[0] = x[1]; x[1] = temp;\n  ret2 = fun(x);\n  temp=x[0];\n  for(int i =0 ; i<N-1; i++){\n     x[i] = x[i+1];\n  }\n  x[N-1] = temp;\n  ret5 = fun(x);\n  //@ assert !(ret != ret2 || ret !=ret5);\n  return 1;\n}"
+    }
+  ]
+}

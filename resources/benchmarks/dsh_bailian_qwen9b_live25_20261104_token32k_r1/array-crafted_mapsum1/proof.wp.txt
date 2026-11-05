@@ -1,0 +1,354 @@
+Frama-C 证明目标 28/31，仍有目标未证明
+[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c (with preprocessing)
+[kernel:typing:no-proto] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c:60: Warning: 
+  Calling function unknown that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] 31 goals scheduled
+[wp] [Timeout] typed_mapsum_ensures (Qed 9ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_main_loop_invariant_4_preserved (Qed 15ms) (Alt-Ergo 15s)
+[wp] [Timeout] typed_main_assert (Qed 22ms) (Alt-Ergo 15s)
+[wp] Proved goals:   28 / 31
+  Qed:            25
+  Alt-Ergo :       3 (50ms-15s)
+  Timeout:         3
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 55):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 55):
+Prove: true.
+Prover Qed returns Valid (0.93ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 66):
+Prove: true.
+Prover Qed returns Valid (13ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 66):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 67):
+Let a = global(L_x_55).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_2].
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, 100)[a_1 <- x][a_2
+            <- Mint_undef_1[a_1]].
+Let a_4 = havoc(Mint_undef_0, a_3, a_1, 99).
+Let x_1 = 1 + i.
+Let a_5 = shift_sint32(a, i_1).
+Assume {
+  Type: is_sint32(i_2) /\ is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Goal *)
+  When: (i < i_1) /\ (i_1 <= 99).
+  (* Invariant *)
+  Have: (0 <= i_2) /\ (i_2 <= 100).
+  (* Else *)
+  Have: 100 <= i_2.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 99).
+  (* Invariant *)
+  Have: forall i_3 : Z. let a_6 = shift_sint32(a, i_3) in ((i <= i_3) ->
+      ((i_3 <= 99) -> (a_4[a_6] = a_3[a_6]))).
+  (* Invariant *)
+  Have: L_mapsum_total(a_4, a_1) = L_mapsum_total(a_3, a_1).
+  (* Then *)
+  Have: i <= 98.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: a_4[shift_sint32(a, i) <- a_4[shift_sint32(a, x_1)]][a_5] = a_3[a_5].
+Prover Alt-Ergo  returns Valid (Qed:15ms) (349ms) (1019)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 67):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 68):
+Let a = global(L_x_55).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = shift_sint32(a, 1).
+Let x = Mint_undef_1[a_2].
+Let a_3 = havoc(Mint_undef_1, Mint_0, a_1, 100)[a_1 <- x][a_2
+            <- Mint_undef_1[a_1]].
+Let a_4 = havoc(Mint_undef_0, a_3, a_1, 99).
+Let x_1 = 1 + i.
+Let a_5 = a_4[shift_sint32(a, i) <- a_4[shift_sint32(a, x_1)]].
+Let x_2 = L_mapsum_total(a_3, a_1).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 100).
+  (* Else *)
+  Have: 100 <= i_1.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 99).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = shift_sint32(a, i_2) in ((i <= i_2) ->
+      ((i_2 <= 99) -> (a_4[a_6] = a_3[a_6]))).
+  (* Invariant *)
+  Have: L_mapsum_total(a_4, a_1) = x_2.
+  (* Then *)
+  Have: i <= 98.
+  (* Invariant *)
+  Have: (-1) <= i.
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = shift_sint32(a, i_2) in ((i < i_2) ->
+      ((i_2 <= 99) -> (a_5[a_6] = a_3[a_6]))).
+}
+Prove: L_mapsum_total(a_5, a_1) = x_2.
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:15ms) (15s)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 68):
+Prove: true.
+Prover Qed returns Valid (10ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 77):
+Let a = global(L_x_55).
+Let a_1 = shift_sint32(a, 0).
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, 100).
+Let a_3 = shift_sint32(a, 1).
+Let x = Mint_undef_0[a_3].
+Let a_4 = a_2[a_1 <- x][a_3 <- Mint_undef_0[a_1]].
+Let a_5 = havoc(Mint_undef_1, a_4, a_1, 99).
+Let x_1 = L_mapsum_total(a_4, a_1).
+Let x_2 = to_sint32(L_mapsum_total(a_2, a_1)).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(i_1) /\ is_sint32(x).
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100).
+  (* Else *)
+  Have: 100 <= i.
+  (* Invariant *)
+  Have: (0 <= i_1) /\ (i_1 <= 99).
+  (* Invariant *)
+  Have: forall i_2 : Z. let a_6 = shift_sint32(a, i_2) in ((i_1 <= i_2) ->
+      ((i_2 <= 99) -> (a_5[a_6] = a_4[a_6]))).
+  (* Invariant *)
+  Have: L_mapsum_total(a_5, a_1) = x_1.
+  (* Else *)
+  Have: 99 <= i_1.
+}
+Prove: (to_sint32(x_1) = x_2) /\
+    (to_sint32(L_mapsum_total(a_5[shift_sint32(a, 99) <- x], a_1)) = x_2).
+Prover Z3 4.8.12 returns Failed
+out of memory
+Prover Alt-Ergo  returns Timeout (Qed:22ms) (15s)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 56):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 69) (1/2):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 69) (2/2):
+Effect at line 73
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 59):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 59):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 72):
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 72):
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 29) in 'mapsum'' in 'main' at call 'mapsum' (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 62)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 29) in 'mapsum'' in 'main' at call 'mapsum' (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 64)
+:
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Instance of 'Pre-condition (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 29) in 'mapsum'' in 'main' at call 'mapsum' (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 76)
+:
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+------------------------------------------------------------
+  Function mapsum
+------------------------------------------------------------
+
+Goal Post-condition (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 31) in 'mapsum':
+Assume {
+  Type: is_sint32(i) /\ is_sint64(L_mapsum_spec(Mint_0, x, i)).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(x, 0), 100).
+  (* Invariant *)
+  Have: L_mapsum_spec(Mint_0, x, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100).
+  (* Else *)
+  Have: 100 <= i.
+}
+Prove: to_sint32(L_mapsum_spec(Mint_0, x, 100))
+         = to_sint32(L_mapsum_total(Mint_0, x)).
+Prover Z3 4.8.12 returns Failed
+Unknown error
+Prover Alt-Ergo  returns Timeout (Qed:9ms) (15s)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 38):
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 38):
+Prove: true.
+Prover Qed returns Valid (0.82ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 39):
+Let x_1 = 1 + i.
+Let x_2 = Mint_0[shift_sint32(x, i)].
+Let x_3 = L_mapsum_spec(Mint_0, x, i).
+Let x_4 = i + x_3 + x_2.
+Assume {
+  Type: is_sint32(i) /\ is_sint32(x_1) /\ is_sint32(x_2) /\ is_sint64(x_3) /\
+      is_sint64(x_4).
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(x, 0), 100).
+  (* Invariant *)
+  Have: L_mapsum_spec(Mint_0, x, 0) = 0.
+  (* Invariant *)
+  Have: (0 <= i) /\ (i <= 100).
+  (* Then *)
+  Have: i <= 99.
+  (* Invariant *)
+  Have: (-1) <= i.
+}
+Prove: x_4 = L_mapsum_spec(Mint_0, x, x_1).
+Prover Z3 4.8.12 returns Valid (Qed:4ms) (150ms) (97002)
+Prover Alt-Ergo  returns Valid (Qed:4ms) (57ms) (168)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 39):
+Assume {
+  (* Heap *)
+  Type: (region(x.base) <= 0) /\ linked(Malloc_0).
+  (* Pre-condition *)
+  Have: valid_rd(Malloc_0, shift_sint32(x, 0), 100).
+}
+Prove: L_mapsum_spec(Mint_0, x, 0) = 0.
+Prover Z3 4.8.12 returns Valid (Qed:1ms) (140ms) (81203)
+Prover Alt-Ergo  returns Valid (Qed:1ms) (50ms) (82)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 40):
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (1/4):
+Effect at line 37
+Prove: true.
+Prover Qed returns Valid (0.61ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (2/4):
+Effect at line 43
+Prove: true.
+Prover Qed returns Valid (0.52ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (3/4):
+Effect at line 43
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Assigns nothing in 'mapsum' (4/4):
+Effect at line 46
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 43):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c, line 43):
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_mapsum1/round-5/proof/array-crafted_mapsum1.c:48: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-04T14:20:12+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

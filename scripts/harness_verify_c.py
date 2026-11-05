@@ -15,13 +15,14 @@ def main():
     from pathlib import PurePosixPath
     for item in files:
         path = PurePosixPath(item['path'])
-        if path.is_absolute() or '..' in path.parts or not str(path).endswith(('.c', '.h')):
+        if path.is_absolute() or '..' in path.parts or not str(path).endswith(('.c', '.h','.gh')):
             raise ValueError('Invalid candidate path')
     entry = next(f['path'] for f in files if f['path'].endswith('.c'))
     folder = Path(sys.argv[1]).resolve().parent / '.platform-proofs'
     folder.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=folder) as temporary:
-        check = verify_candidates(files, entry, 'inter-modular', Path(temporary), 30)
+        tool='verifast' if sys.argv[2:]==['--tool','verifast'] else 'framac'
+        check = verify_candidates(files, entry, 'single' if tool=='verifast' else 'inter-modular', Path(temporary), 30,verification_tool=tool)
         print(json.dumps(check, ensure_ascii=False))
 
 

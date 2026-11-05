@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "content": "/*@\n\trequires N >= 0;\n\tassigns \\nothing;\n*/\nint N = 100000;\nint main()\n{\n/*@\n\tloop invariant 0 <= i <= N;\n\tloop invariant \\forall integer j; 0 <= j < i ==> a[j] == j;\n\tloop assigns i, a[0 .. N-1];\n\tloop variant N - i;\n*/\n  int a[N];\n  int b[N];\n  int i;\n  int sum=0;\n  for (i=0;i<N;i++) {\n    a[i] = i;\n  }\n/*@\n\tloop invariant 0 <= i <= N;\n\tloop invariant \\forall integer j; 0 <= j < N ==> a[j] == j;\n\tloop invariant \\forall integer j; 0 <= j < i ==> b[N-j-1] == j;\n\tloop assigns i, b[0 .. N-1];\n\tloop variant N - i;\n*/\n  for (i=0;i<N;i++) {\n    b[N-i-1]=i;\n  }\n/*@\n\tloop invariant 0 <= i <= N;\n\tloop invariant \\forall integer j; 0 <= j < N ==> a[j] == j;\n\tloop invariant \\forall integer j; 0 <= j < N ==> b[N-j-1] == j;\n\tloop invariant \\forall integer j; 0 <= j < i ==> sum >= 0;\n\tloop assigns i, sum;\n\tloop variant N - i;\n*/\n  for (i=0;i<N;i++) {\n    sum=sum+(a[i]-b[N-i-1]);\n  }\n  //@assert(sum == 0);\n  return 0;\n}\n"
+    }
+  ]
+}

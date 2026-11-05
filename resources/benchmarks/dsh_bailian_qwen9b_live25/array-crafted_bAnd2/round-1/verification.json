@@ -1,0 +1,20 @@
+{
+  "verification_profile": "original",
+  "rte_checks": false,
+  "callee_precondition_checks": false,
+  "status": "compile_error",
+  "verified": false,
+  "verified_count": 0,
+  "error_count": 0,
+  "stdout": "[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25/array-crafted_bAnd2/round-1/proof/array-crafted_bAnd2.c (with preprocessing)\n[kernel] resources/benchmarks/dsh_bailian_qwen9b_live25/array-crafted_bAnd2/round-1/proof/array-crafted_bAnd2.c:18: \n  syntax error:\n  Location: between lines 18 and 19\n  16        res = res & x[i];\n  17      }\n  \n  18      //@ loop invariant 1 <= i <= N;\n  19      //@ loop invariant \\forall integer j; 0 <= j < i ==> (res & x[j]) == res;\n  \n  20      //@ loop invariant \\forall integer k; ( \\forall integer j; 0 <= j < i ==> (k & x[j]) == k ) ==> (k & res) == k;\n  21      //@ loop assigns i, res;\n[kernel] Frama-C aborted: invalid user input.\n",
+  "stderr": "time=\"2026-11-03T23:57:41+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n\n",
+  "elapsed_sec": 0.857,
+  "returncode": 1,
+  "runner": "verifier",
+  "runtime": "container",
+  "message": "Frama-C 未产生有效证明结果。",
+  "diagnostics": [],
+  "source_hashes": {
+    "array-crafted_bAnd2.c": "e3692106d35303469c6837e2b3a24f1ec25c9fe25359b2d9dacd10d570075081"
+  }
+}

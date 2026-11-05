@@ -100,7 +100,7 @@ def _status(bucket):
     from engine.nl2verus.dsh_cli import installed
     cli_installed = installed() and bool(shutil.which('node'))
     items.append({'id':'deepseek-harness','name':NAMES['deepseek-harness'],'installed':cli_installed,'authenticated':None,'ready':bool(model and cli_installed),
-                  'message':'官方 DeepSeek Harness CLI；凭证已配置，候选由 Frama-C 独立验证。' if model and cli_installed else '请运行 python3 scripts/install_agent_runtime.py 安装官方 CLI。' if not cli_installed else '请配置 DeepSeek 模型服务与凭证。',
+                  'message':'官方 DeepSeek Harness CLI；凭证已配置，候选由所选验证工具独立验证。' if model and cli_installed else '请运行 python3 scripts/install_agent_runtime.py 安装官方 CLI。' if not cli_installed else '请配置 DeepSeek 模型服务与凭证。',
                   'model_policy':'platform','default_model':model})
     return items
 
@@ -147,7 +147,7 @@ def agent_status(*, skill_refs=None):
             if item['configured_model']=='deepseek-v4.1-flash-1017':
                 item['model_provider']='bailian'
                 item['model_protocol']='openai-chat-completions'
-                item['message']='主模型通过阿里云百炼 API 调用；Harness 负责本地编排，候选仍由 Frama-C 独立验证。' if item['ready'] else '请在后端配置百炼 Base URL 和 API Key，再使用 DeepSeek-V4.1-Flash-1017。'
+                item['message']='主模型通过阿里云百炼 API 调用；Harness 负责本地编排，候选仍由所选验证工具独立验证。' if item['ready'] else '请在后端配置百炼 Base URL 和 API Key，再使用 DeepSeek-V4.1-Flash-1017。'
                 if not item['ready']:item['connection_verified']=False
     return {'items':items,'defaults':{'agent':'deepseek-harness','model':os.getenv('DEEPSEEK_HARNESS_MODEL','deepseek-v4.1-flash-1017'),'sub_model':'','timeout_sec':200,'skill_refs':list(skill_refs or [])}}
 
@@ -171,7 +171,7 @@ def agent_environment():
     return env
 
 
-def _generate(agent, prompt, directory: Path, timeout, model='',sub_model=''):
+def _generate(agent, prompt, directory: Path, timeout, model='',sub_model='',verification_tool='framac'):
     """Only return a candidate; never treat runner success as verification success."""
     directory.mkdir(parents=True, exist_ok=True)
     if sub_model and sub_model not in ('qwen35-4b-mix64','qwen35-9b-mix64'):raise ValueError('不支持的 Sub-agent 模型。')
@@ -185,7 +185,7 @@ def _generate(agent, prompt, directory: Path, timeout, model='',sub_model=''):
             main_profile={'model':config.model_name,'base_url':config.base_url,'api_key':config.api_key}
             if sub_model and '\nPrevious candidate:\n' in prompt:
                 seed=json.JSONDecoder().raw_decode(prompt.split('\nPrevious candidate:\n',1)[1])[0]
-                output=run_cli(agent,prompt,main_profile,directory,timeout,subagent_candidate=seed)
+                output=run_cli(agent,prompt,main_profile,directory,timeout,subagent_candidate=seed,**({'verification_tool':verification_tool} if verification_tool!='framac' else {}))
             elif sub_model:
                 from engine.cli_model_transport import model_route
                 from engine.verification.subagent_api import generate_specifications
@@ -193,12 +193,12 @@ def _generate(agent, prompt, directory: Path, timeout, model='',sub_model=''):
                 child_profile={'model':child.model_name,'base_url':child.base_url,'api_key':child.api_key}
                 started=time.monotonic()
                 with model_route(child_profile,enabled=True) as route:
-                    seed=generate_specifications(prompt,route,directory,min(120,max(1,timeout*.5)))
+                    seed=generate_specifications(prompt,route,directory,min(120,max(1,timeout*.5)),**({'verification_tool':verification_tool} if verification_tool!='framac' else {}))
                 remaining=timeout-(time.monotonic()-started)
                 if remaining<1:raise ProviderError('agent_timeout','子模型完成时任务时间预算已耗尽。')
-                output=run_cli(agent,prompt,main_profile,directory,remaining,subagent_candidate=seed)
+                output=run_cli(agent,prompt,main_profile,directory,remaining,subagent_candidate=seed,**({'verification_tool':verification_tool} if verification_tool!='framac' else {}))
             else:
-                output=run_cli(agent,prompt,main_profile,directory,timeout)
+                output=run_cli(agent,prompt,main_profile,directory,timeout,**({'verification_tool':verification_tool} if verification_tool!='framac' else {}))
         except ProviderError as exc:
             error=AgentCallError(exc.safe_message);error.code=exc.code;raise error from None
     elif agent == 'deepseek-harness':
@@ -230,7 +230,7 @@ def _generate(agent, prompt, directory: Path, timeout, model='',sub_model=''):
                 route=model_route(sub_profile,enabled=True) if sub_profile else nullcontext(None)
             started=time.monotonic()
             with route as child_route:
-                result = run_harness(prompt, profile, timeout=max(1,timeout-(time.monotonic()-started)), output_format='files', artifact_dir=directory,sub_profile=child_route,require_subagent=True)
+                result = run_harness(prompt, profile, timeout=max(1,timeout-(time.monotonic()-started)), output_format='verifast-files' if verification_tool=='verifast' else 'files', artifact_dir=directory,sub_profile=child_route,require_subagent=True)
         except ProviderError as exc:
             details={'code':exc.code,'message':exc.safe_message,'agent_runtime':getattr(exc,'agent_runtime',{}),'agent_events':getattr(exc,'agent_events',[]),'provider_calls':getattr(exc,'provider_calls',0)}
             (directory/'harness-runtime.json').write_text(json.dumps(details,ensure_ascii=False))
@@ -283,9 +283,9 @@ def _generate(agent, prompt, directory: Path, timeout, model='',sub_model=''):
     return output['files']
 
 
-def generate(agent,prompt,directory,timeout,model='',sub_model=''):
+def generate(agent,prompt,directory,timeout,model='',sub_model='',verification_tool='framac'):
     try:
-        output=_generate(agent,prompt,directory,timeout,model,sub_model=sub_model) if sub_model else _generate(agent,prompt,directory,timeout,model)
+        output=_generate(agent,prompt,directory,timeout,model,**({'sub_model':sub_model} if sub_model else {}),**({'verification_tool':verification_tool} if verification_tool!='framac' else {}))
     except Exception:
         record_agent_connection(agent,False)
         raise

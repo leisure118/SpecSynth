@@ -1,0 +1,3 @@
+```json
+{"patches":[{"path": "array-cav19_array_init_nondet_vars.c", "before_line": 13, "annotation": "/*@\n  int n = unknown2();\n  int j = unknown1();\n  int a[n];\n  int i;\n  @loop invariant 1 <= i <= n;\n  @loop invariant \\forall integer k; 0 <= k < i ==> a[k] >= k+2;\n  @loop assigns i, a[0 .. n-1];\n  @loop variant n - i;\n*/\n{\n  int i;\n  int j=unknown1();\n  int n=unknown2();\n  int a[n];\n  for(i=1;i<n;i++) {\n    int k=unknown1();\n    a[i]=i+j+k;\n  }\n  for(i=1;i<n;i++) {\n    assert(a[i]>=(i+2));\n  }\n  return 0;\n}"}]
+```

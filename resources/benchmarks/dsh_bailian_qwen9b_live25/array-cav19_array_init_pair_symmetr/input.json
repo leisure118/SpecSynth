@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "array-cav19_array_init_pair_symmetr.c",
+      "content": "/*@\n  assigns \\nothing;\n  ensures -100000 < \\result < 100000;\n*/\nint unknown();\nint N = 100000;\nint main()\n{\n  int i;\n  int a[N];\n  int b[N];\n  int c[N];\n  int x= unknown();\n  for(i=0;i<N;i++) {\n    x = unknown();\n    //@ assert (x > -100000 && x < 100000);\n    a[i]=x;\n    b[i]=-x;\n  }\n  for(i=0;i<N;i++){\n    c[i]=a[i]+b[i];\n  }\n  for(i=1;i<N;i++){\n    //@ assert(c[i] == 0);\n  }\n  return 0;\n}\n"
+    }
+  ],
+  "sha256": "e6a7f81fc2294cfa214c035cfbda1ed5e4d3f7c49c1a8452a39ba0069021e85c"
+}

@@ -1,0 +1,415 @@
+Frama-C 证明目标 25/26，仍有目标未证明
+[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c (with preprocessing)
+[kernel:typing:no-proto] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:15: Warning: 
+  Calling function unknown1 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[kernel:typing:no-proto] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:16: Warning: 
+  Calling function unknown2 that is declared without prototype.
+  Its formals will be inferred from actual arguments
+[wp] Running WP plugin...
+[wp] Warning: Missing RTE guards
+[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: Warning: 
+  Cast with incompatible pointers types (source: sint32*) (target: sint8*)
+[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: Warning: 
+  Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+[wp] 26 goals scheduled
+[wp] [Timeout] typed_main_assert_alloca_bounds (Qed 4ms) (Z3 15s)
+[wp] Proved goals:   25 / 26
+  Qed:            20
+  Alt-Ergo :       5 (52ms-60ms)
+  Timeout:         1
+------------------------------------------------------------
+  Function main
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 17):
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Assertion 'alloca_bounds' (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 18):
+Assume {
+  Type: is_sint32(j) /\ is_sint32(n).
+  (* Call 'unknown1' *)
+  Have: (0 < j) /\ (j <= 9999).
+  (* Call 'unknown2' *)
+  Have: ((-2147483648) <= n) /\ (n <= 99999).
+}
+Prove: (0 < n) /\ (n <= 4611686018427387903).
+Prover Z3 4.8.12 returns Timeout (Qed:4ms) (15s)
+Prover Alt-Ergo  returns Timeout (Qed:4ms) (15s)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 19):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (1ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 21):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 21):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 22):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 22):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 23):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 1), n - 1).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(n) /\
+      is_sint32(1 + i_1).
+  (* Goal *)
+  When: (0 < i) /\ (i <= i_1).
+  (* Call 'unknown1' *)
+  Have: (0 < j) /\ (j <= 9999).
+  (* Call 'unknown2' *)
+  Have: ((-2147483648) <= n) /\ (n <= 99999).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < n) /\ (n <= 4611686018427387903).
+  (* Invariant *)
+  Have: 0 < i_1.
+  (* Invariant *)
+  Have: (i_1 = 1) \/ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 < i_2) -> ((i_2 < i_1) ->
+      ((2 + i_2) <= a_1[shift_sint32(a, i_2)]))).
+  (* Then *)
+  Have: i_1 < n.
+  (* Call 'unknown1' *)
+  Have: (0 < k) /\ (k <= 9999).
+}
+Prove: (2 + i)
+         <= a_1[shift_sint32(a, i_1) <- i_1 + j + k][shift_sint32(a, i)].
+Prover Z3 4.8.12 returns Valid (Qed:15ms) (200ms) (392955)
+Prover Alt-Ergo  returns Valid (Qed:15ms) (55ms) (141)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 23):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (0.90ms)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 29):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 33):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (5ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 33):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 34):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 34):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (2ms)
+
+------------------------------------------------------------
+
+Goal Preservation of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 35):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 1), n - 1).
+Let a_2 = a_1[shift_sint32(a, i_2)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i_2) /\ is_sint32(j) /\ is_sint32(n) /\
+      is_sint32(1 + i_2) /\ is_sint32(a_2).
+  (* Goal *)
+  When: (0 < i) /\ (i < n).
+  (* Call 'unknown1' *)
+  Have: (0 < j) /\ (j <= 9999).
+  (* Call 'unknown2' *)
+  Have: ((-2147483648) <= n) /\ (n <= 99999).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < n) /\ (n <= 4611686018427387903).
+  (* Invariant *)
+  Have: 0 < i_1.
+  (* Invariant *)
+  Have: (i_1 = 1) \/ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 < i_3) -> ((i_3 < i_1) ->
+      ((2 + i_3) <= a_1[shift_sint32(a, i_3)]))).
+  (* Else *)
+  Have: n <= i_1.
+  (* Invariant *)
+  Have: forall i_3 : Z. ((0 < i_3) -> ((i_3 < n) ->
+      ((2 + i_3) <= a_1[shift_sint32(a, i_3)]))).
+  (* Invariant *)
+  Have: 0 < i_2.
+  (* Invariant *)
+  Have: (i_2 = 1) \/ (i_2 <= n).
+  (* Then *)
+  Have: i_2 < n.
+  (* Assertion *)
+  Have: (2 + i_2) <= a_2.
+}
+Prove: (2 + i) <= a_1[shift_sint32(a, i)].
+Prover Z3 4.8.12 returns Valid (Qed:12ms) (150ms) (89118)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (52ms) (100)
+
+------------------------------------------------------------
+
+Goal Establishment of Invariant (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 35):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 1), n - 1).
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(j) /\ is_sint32(n).
+  (* Goal *)
+  When: (0 < i) /\ (i < n).
+  (* Call 'unknown1' *)
+  Have: (0 < j) /\ (j <= 9999).
+  (* Call 'unknown2' *)
+  Have: ((-2147483648) <= n) /\ (n <= 99999).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < n) /\ (n <= 4611686018427387903).
+  (* Invariant *)
+  Have: 0 < i_1.
+  (* Invariant *)
+  Have: (i_1 = 1) \/ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 < i_2) -> ((i_2 < i_1) ->
+      ((2 + i_2) <= a_1[shift_sint32(a, i_2)]))).
+  (* Else *)
+  Have: n <= i_1.
+}
+Prove: (2 + i) <= a_1[shift_sint32(a, i)].
+Prover Alt-Ergo  returns Valid (Qed:9ms) (53ms) (82)
+
+------------------------------------------------------------
+
+Goal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 40):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = havoc(Mint_undef_0, Mint_0, shift_sint32(a, 1), n - 1).
+Let a_2 = a_1[shift_sint32(a, i)].
+Assume {
+  Type: is_sint32(i_1) /\ is_sint32(i) /\ is_sint32(j) /\ is_sint32(n) /\
+      is_sint32(a_2).
+  (* Call 'unknown1' *)
+  Have: (0 < j) /\ (j <= 9999).
+  (* Call 'unknown2' *)
+  Have: ((-2147483648) <= n) /\ (n <= 99999).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < n) /\ (n <= 4611686018427387903).
+  (* Invariant *)
+  Have: 0 < i_1.
+  (* Invariant *)
+  Have: (i_1 = 1) \/ (i_1 <= n).
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 < i_2) -> ((i_2 < i_1) ->
+      ((2 + i_2) <= a_1[shift_sint32(a, i_2)]))).
+  (* Else *)
+  Have: n <= i_1.
+  (* Invariant *)
+  Have: forall i_2 : Z. ((0 < i_2) -> ((i_2 < n) ->
+      ((2 + i_2) <= a_1[shift_sint32(a, i_2)]))).
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: (i = 1) \/ (i <= n).
+  (* Then *)
+  Have: i < n.
+}
+Prove: (2 + i) <= a_2.
+Prover Alt-Ergo  returns Valid (Qed:12ms) (53ms) (76)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 24) (1/4):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 24) (2/4):
+Effect at line 27
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 24) (3/4):
+Call Result at line 28
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (3ms)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 24) (4/4):
+Effect at line 30
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Let a_1 = shift_sint32(a, 1).
+Let x = n - 1.
+Let a_2 = havoc(Mint_undef_0, Mint_0, a_1, x).
+Let x_1 = i - 1.
+Let a_3 = shift_sint32(a, x_1).
+Assume {
+  Type: is_sint32(i) /\ is_sint32(j) /\ is_sint32(k) /\ is_sint32(n) /\
+      is_sint32(x_1).
+  (* Heap *)
+  Type: linked(Malloc_0).
+  (* Goal *)
+  When: !invalid(Malloc_0, a_3, 1).
+  (* Call 'unknown1' *)
+  Have: (0 < j) /\ (j <= 9999).
+  (* Call 'unknown2' *)
+  Have: ((-2147483648) <= n) /\ (n <= 99999).
+  (* Assertion 'alloca_bounds' *)
+  Have: (0 < n) /\ (n <= 4611686018427387903).
+  (* Invariant *)
+  Have: 2 <= i.
+  (* Invariant *)
+  Have: (i = 2) \/ (i <= (1 + n)).
+  (* Invariant *)
+  Have: forall i_1 : Z. let x_2 = 2 + i_1 in ((0 < i_1) -> ((x_2 <= i) ->
+      (x_2 <= a_2[shift_sint32(a, i_1)]))).
+  (* Then *)
+  Have: i <= n.
+  (* Call 'unknown1' *)
+  Have: (0 < k) /\ (k <= 9999).
+  (* Invariant *)
+  Have: 0 < i.
+  (* Invariant *)
+  Have: forall i_1 : Z. ((0 < i_1) -> ((i_1 < i) ->
+      ((2 + i_1) <= a_2[a_3 <- i + j + k - 1][shift_sint32(a, i_1)]))).
+}
+Prove: included(a_3, 1, a_1, x).
+Prover Z3 4.8.12 returns Valid (Qed:12ms) (160ms) (129752)
+Prover Alt-Ergo  returns Valid (Qed:12ms) (60ms) (150)
+
+------------------------------------------------------------
+
+Goal Loop assigns (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 36):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 27):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 27):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+
+Goal Decreasing of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 39):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (4ms)
+
+------------------------------------------------------------
+
+Goal Positivity of Loop variant at loop (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c, line 39):
+resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:18: warning from Typed Model:
+ - Warning: Hide \result
+   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint32*)
+Prove: true.
+Prover Qed returns Valid (6ms)
+
+------------------------------------------------------------
+[wp:pedantic-assigns] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-cav19_array_init_nondet_vars/round-5/proof/array-cav19_array_init_nondet_vars.c:12: Warning: 
+  No 'assigns' specification for function 'main'.
+  Callers assumptions might be imprecise.
+
+time="2026-11-04T13:24:41+08:00" level=warning msg="Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."

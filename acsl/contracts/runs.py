@@ -40,6 +40,7 @@ class UploadResponse(BaseModel):
 
 
 class RunRequest(BaseModel):
+    verification_tool: Literal["framac", "verifast"] = "framac"
     manual_context: dict | None = None
     verification_only: bool = False
     benchmark_context: dict | None = None
@@ -101,8 +102,8 @@ class RunCreateResponse(BaseModel):
 
 
 class ProofStats(BaseModel):
-    scope: Literal["proof-goals", "files", "invariants", "termination-goals"] = "proof-goals"
-    unit: Literal["goals", "files", "items"] = "goals"
+    scope: Literal["proof-goals", "files", "invariants", "termination-goals", "compilation-unit"] = "proof-goals"
+    unit: Literal["goals", "files", "items", "units"] = "goals"
     proved_goals: int = 0
     total_goals: int = 0
     timeout_goals: int = 0

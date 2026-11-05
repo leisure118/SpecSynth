@@ -16,6 +16,7 @@ from acsl.application.projects import (
     ProjectBody,
     ProjectError,
     ProjectRename,
+    VerificationToolConfig,
     ProjectRun,
     ProjectSave,
     ProjectService,
@@ -98,6 +99,10 @@ def create_workspace_router(manager, store, projects_dir=None):
             media_type="application/zip",
             headers={"Content-Disposition": f'attachment; filename="{filename}"'},
         )
+
+    @router.put("/{project_id}/verification-tool")
+    def save_verification_tool(project_id: str, body: VerificationToolConfig):
+        return call(service.save_verification_tool,project_id,body)
 
     @router.put("/{project_id}/assistant")
     def save_assistant(project_id: str, body: AssistantConfig):

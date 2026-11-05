@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "array-cav19_array_tiling_tcpy.c",
+      "content": "/* TODO: Add a proper loop invariant, loop assigns, and loop variant */\n\n#include<limits.h>\n\n/*@\n\tassigns \\nothing;\n\tensures 1 < \\result < INT_MAX/2;\n*/\nint unknown();\n\nint main()\n{\n\tint S = unknown();\n\t//@ assert(S > 1);\n\t//@ assert(S < 1073741823);\n\tint i;\n\tint a[2*S];\n\tint acopy[2*S];\n\n\t/* TODO: Add a proper loop invariant, loop assigns, and loop variant */\n\tfor(i = 0; i < S; i++) {\n\t\tacopy[2*S - (i+1)] = a[2*S - (i+1)];\n\t\tacopy[i] = a[i];\n\t}\n\n\t/* TODO: Add a proper loop invariant, loop assigns, and loop variant */\n\tfor(i = 0; i < 2*S; i++) {\n\t\t//@ assert(acopy[i] == a[i]);\n\t}\n\n\treturn 0;\n}\n"
+    }
+  ]
+}

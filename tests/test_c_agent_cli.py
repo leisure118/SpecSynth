@@ -70,7 +70,7 @@ def test_codex_mcp_receives_isolated_docker_environment(tmp_path,monkeypatch):
         returncode=0
         def __init__(self,args,**kw):
             seen['args']=args;seen['env']=kw['env'];self.out=kw['stdout']
-            (Path(kw['cwd'])/'answer.json').write_text(json.dumps({'files':files}))
+            (Path(kw['cwd'])/'answer.json').write_text(json.dumps({'patches':[]}))
         def communicate(self,payload,timeout):
             events=[{'type':'item.completed','item':{'type':'mcp_tool_call','id':'p','server':'frama','tool':'verify_candidate','status':'completed','result':{'content':[{'type':'text','text':'{"verified":true}'}]}}},{'type':'turn.completed'}]
             self.out.write(('\n'.join(map(json.dumps,events))+'\n').encode())
@@ -81,3 +81,21 @@ def test_codex_mcp_receives_isolated_docker_environment(tmp_path,monkeypatch):
     assert any(s.startswith('mcp_servers.frama.env.DOCKER_CONFIG=') for s in args)
     assert any(s.startswith('mcp_servers.frama.env.PYTHONPATH=') for s in args)
     assert not any(s.startswith('mcp_servers.frama.env.NL2VERUS_AGENT_KEY=') for s in args)
+
+
+def test_verifast_mcp_runs_verifast_without_acsl_slicing(tmp_path):
+    from engine.verification.verifast_runtime import binary
+    import pytest
+    if not binary():pytest.skip('Native VeriFast not installed')
+    work=tmp_path/'vf';work.mkdir()
+    source='int f(int x)\n//@ requires true;\n//@ ensures result == x;\n{return x;}\n'
+    original='int f(int x)\n{return x;}\n'
+    manifest=tmp_path/'original.json';manifest.write_text(json.dumps([{'path':'a.c','content':original}]))
+    (work/'answer.json').write_text(json.dumps({'files':[{'path':'a.c','content':source}]}))
+    request={'jsonrpc':'2.0','id':1,'method':'tools/call','params':{'name':'verify_candidate','arguments':{}}}
+    run=subprocess.run([sys.executable,str(ROOT/'scripts/c_verifier_mcp.py'),str(work),str(manifest),'verifast'],input=json.dumps(request)+'\n',capture_output=True,text=True,check=True)
+    reply=json.loads(run.stdout)['result']
+    assert not reply.get('isError'),reply
+    assert json.loads(reply['content'][0]['text'])['verified'] is True
+    full=json.loads((work/'platform-verification.json').read_text())
+    assert full['tool']=='verifast' and 'frama-c' not in full['command_text']

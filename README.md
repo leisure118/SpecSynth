@@ -315,3 +315,65 @@ C 项目工作台的“编辑 Agent 规约的人工副本”将候选载入可�
 ### C 项目的 Sub-agent 选择
 
 项目配置和基准文件重跑均可为 Codex、Claude Code、DeepSeek Harness 选择 `qwen35-4b-mix64` 或 `qwen35-9b-mix64`。DeepSeek Harness 使用原生子 Agent；Codex、Claude Code 使用平台 API 子 Agent 生成并校验候选，再交由主 Agent 检查和验证，主模型须选择平台已配置的 API 模型。两者留空时保留原有执行方式。API 子 Agent 失败时停止并保留诊断，不回退成主模型冒充子模型。后续修复沿用已有候选，不重复调用 API 子 Agent 生成；最终仍执行平台独立 Frama-C 检查。子模型元数据和候选保存在任务对应轮次的 `subagent-runtime.json`、`subagent-candidate.json` 中，不保存密钥。
+
+### Harness 输出预算
+
+百炼 `deepseek-v4.1-flash-1017` 主模型默认单次输出上限为32768 tokens，其他主模型保持8192。可通过 `XUANJIAN_HARNESS_MAIN_MAX_TOKENS`（1024–65536）调整；部署 Qwen 的子模型独立使用 `XUANJIAN_HARNESS_SUB_MAX_TOKENS`（默认8192，最大16384），不继承主模型上限。每次调用的 `agent_runtime.output_budget` 记录实际配置；输出上限并非任务次数预算，也不保证所有复杂任务不会再超限。Live25新实验将 `output_limit` 归为单案例失败，不触发连续服务故障熔断；断网等真实服务故障继续保留保护停止。原始 Skill 内容不变，候选仍须独立证明。
+
+### 主 Agent 减少转写与重复诊断
+
+紧凑 C 流程默认启用 `XUANJIAN_HARNESS_AUTO_HANDOFF=1`：仅在原生子 Agent 正常完成且最终文本含有效 files JSON 时，平台原子保存 answer.json，不再要求主模型转写完整候选；内容仍经过原始源码保护和独立 Frama-C 检查。无效或非JSON输出保留原交接流程，不将失败子模型输出当作候选。修复输入由摘要、诊断行及未证明目标构成，上限5000字符，完整日志仍保存在后端。已有暂停实验的进程不受新代码影响，需要新进程才使用新策略；不同策略下的实验结果应分开统计。
+
+### C/ACSL 规约补丁协议（默认）
+
+C 补丁模式下，主模型和子模型的思考开关独立配置：`XUANJIAN_HARNESS_MAIN_THINKING=off`、`XUANJIAN_HARNESS_WORKER_THINKING=on` 为当前默认策略。百炼通过 `enable_thinking`、部署的 Qwen 通过 `chat_template_kwargs.enable_thinking` 显式传递开关，均使用服务支持的 `system` 消息角色。思考与最终规约共用原有输出上限，不承诺独立的思考额度，不扩大上下文或证明预算。子模型预留 1024 tokens 的服务端模板开销，原生运行器可在余下窗口内缩减本次输出预算；不截断源码或固定 Skill。这是独立的实验配置变化，记录在 `thinking_policy`，比较结果时应保留该条件。官方 CLI、原生子 Agent 与同案例常驻会话保持使用，Skill 文件不变。
+
+原始 Skill 正文作为不改写的参考材料保留；外围适配层明确平台承担工具执行、验证、存储与报告，子模型只提交具体规约，不得返回执行成功摘要。首轮记录非空生成情况、循环不变量覆盖估计、静态语法检查与独立证明结果。循环覆盖是启发式结构指标，不是证明；对本来已有规约的输入和不含循环的简单输入不一律禁止空补丁。
+
+交接先校验补丁格式、原始路径、行号与源码保护，再生成收据；无效补丁直接向工具反馈具体错误，允许在当前轮纠正。仅规范化单个补丁对象或补丁数组的 JSON 外壳，不补写模型未生成的规约，也不采纳思考标签内的草稿。修复轮漏调用提交工具时只提醒一次；运行器错误立即结束等待，不拖到超时。没有本轮有效补丁的失败不得复用上一轮 `answer.json`。
+
+实验逐项记录 `failure_stage`，区分证明未通过、模型未产生有效候选和基础设施异常；这些状态均不能算验证通过。原始 pass@1/pass@5 分母和独立证明条件不变，不把交接失败排除后计算成更高通过率。
+
+
+`XUANJIAN_HARNESS_SPEC_PATCHES=1` 时，C 候选只接受 `{"patches":[{"path":"main.c","before_line":8,"annotation":"/*@ loop invariant ...; */"}]}`。行号针对原始源码，平台保存不可变输入并合并规约，模型不能返回或覆盖 C 源码。每轮返回完整的生成规约集合以替换上轮补丁，原始断言与原始规约仍受保护。平台校验路径、行号、ACSL 注释边界、源码词法一致性和证明绕过标记；无效补丁可在剩余轮数内修复，不重新生成程序。
+
+DeepSeek Harness 的 `delegate_spec` 在后端注入完整、未改动的 Skill 和原始行号，主 Agent 只发送空参数委派。子模型成功时保存补丁；若仅输出格式不符，`inspect_worker_result` 仅提供原有注释与源码行号供归一化，不能替代失败子模型重新生成。修复通过 `submit_spec_patches` 提交，不依赖官方文件工具的读写追踪，因此不存在平台自动写入文件后 CLI 无权覆盖的问题。Codex/Claude 的 C 流程及平台 Qwen API worker 同样使用补丁协议。最终完整带规约源码由平台生成，仍独立执行 Frama-C。
+
+`candidate-patches.json` 保存补丁，`patch-line-map.json` 映射验证器行号到原始行号与补丁索引。完整日志留在后端，模型只接收相关失败公式与诊断。当前部署的 Qwen35-9B-mix64 服务返回16K上下文上限，客户端同步该值；补丁模式将子模型输出预算封顶4096 tokens。原始 Frama-C 参数和证明标准不变；位运算或内存模型目标仍可能需要进一步证明分析，补丁协议本身不保证所有样例通过。
+
+
+### VeriFast 验证工具
+
+项目工作台、基准文件验证弹窗和工具箱共用原有文件、规约编辑、配置、结果、日志与历史界面，只提交不同的 `verification_tool`。项目与基准任务统一进入现有 `/runs` 生命周期；后端选择 Frama-C 或 VeriFast 适配器。VeriFast 支持选择 Codex、Claude Code 或 DeepSeek Harness，以及主模型和可选子模型，生成 VeriFast 规约后独立验证；失败反馈最多追加修复 3 轮。也保留不调用模型的直接验证；结果以编译单元状态展示，不伪装成 Frama-C proof-goals，也不修改历史基准汇总。每次提交保存独立快照，源码锁定，仅允许编辑规约。
+
+验证工具选择按项目持久化，刷新页面保持不变。DeepSeek Harness 的补丁协议按所选工具区分 ACSL 和 VeriFast；VeriFast 支持原始行号与列号插入，确保不变式位于循环条件之后、左花括号之前。明确的 `@@ … @@` 注释伪分隔符仅做有记录的格式补全，不改表达式，不修改 C 源码，仍须经过所选工具的独立验证。
+
+VeriFast 结果卡使用“语句验证”指标。完整验证通过且原生已验证语句数 N 大于 0 时，以 N/N 表示该成功运行；它不是 Frama-C 证明目标数。失败时不推算分母；零语句显示 0，避免把 0/0 解释为证明通过。编译单元的 1/1 不作为语句数。历史结果可从原始验证摘要中读取该数量。编辑器根据所选工具插入 ACSL 块或 VeriFast 的 `//@` 注释；两者均锁定原始 C 代码。
+
+VeriFast 使用自己的分离逻辑规约，例如 `//@ requires ...;`、`//@ ensures ...;`、`//@ invariant ...;`，不能直接把 ACSL 当作 VeriFast 规约。本入口验证 C 编译单元；`-c` 不进行链接检查，外部函数和头文件的合约是依赖前提，不表示整个程序及所有依赖实现均已证明。Skill 文件保持原文，后端在执行适配层明确指定 VeriFast 语法和验证器，不执行其中的 ACSL 注入或 Frama-C 命令。项目必须选择明确的输入条件与验证目标；生成成功不等于验证通过。
+
+安装固定的官方 26.10 发行包（Python 3.12+，当前支持 Apple Silicon macOS 和 Linux x86_64）：
+
+```bash
+python scripts/install_verifast.py
+```
+
+发行包下载到项目 `runtime/tools/verifast/`，安装器核验固定 SHA-256。已有安装可通过 `VERIFAST_BINARY` 指定可执行文件；`VERIFAST_RUNTIME=auto` 默认优先本机安装，也可设置 `host` 或 `container`。无需把开发机绝对路径写入服务器配置。
+
+服务器容器部署：
+
+```bash
+docker compose --profile verifast build verifast
+```
+
+也可通过 `--build-arg BASE_IMAGE=ubuntu:22.04` 选择 Ubuntu 22.04 基础镜像；该 Linux 容器运行路径已做真实通过与失败验证。
+
+后端设置 `VERIFAST_RUNTIME=container`，并确保可调用 Docker。镜像固定为 `acsl-verifast:26.10`，仅挂载 `runtime/verifast` 快照目录；运行时禁用网络、根文件系统只读，不传入模型服务密钥。构建时需要访问基础镜像仓库和 GitHub 官方发行包。
+
+验收使用 `verifast -safe_mode -enforce_annotations -c -json -I <快照目录>`，仅白名单标准库和上传的头文件，不添加忽略溢出、忽略类型、允许假设或跳过失败的选项。JSON 模式的进程退出码不足以判断证明成功，必须检查 `VeriFast-Json` 的结构化 `success` 结果。平台另行拦截输入中的 `assume/admit` 注释，不把未证明假设计为通过。命令、结果、源码 SHA-256 与原始日志保存在 `runtime/verifast/<id>/`。
+
+统一直接验证接口：`POST /api/v1/verification/verify`（`verification_tool: framac | verifast`、`files`、`entry`、`timeout_sec`）。项目与基准任务在原提交接口中增加同名 `verification_tool` 字段。
+
+兼容接口：`GET /api/v1/verifast/capabilities`，`POST /api/v1/verifast/verify`（`files`、`entry`、`timeout_sec`），`GET /api/v1/verifast/runs`，以及单条记录的结果、`input`、`log` 接口。
+
+Agent 终端通过 `/api/v1/runs/{task_id}/terminal` 读取该任务的原生 CLI 命令与工具输出，与平台“过程”步骤分开显示；支持展开、命令详情、复制及日志下载。命令不执行于浏览器；补充指令继续在修复边界应用。规约编辑允许逐字删除注释符号，未闭合的注释须补全或整条删除后再保存；原始 C 代码仍由前后端共同锁定。

@@ -1,0 +1,410 @@
+{
+  "benchmark": {
+    "id": "dsh_bailian_qwen9b_live25_small10_20261104_v1",
+    "dataset_id": "live25",
+    "name": "LiveFMBench 2025 · 10文件小测试",
+    "language": "C / ACSL",
+    "model": "deepseek-v4.1-flash-1017",
+    "agent": "deepseek-harness",
+    "skill": "spec-bottomup",
+    "skill_family": "spec-skill",
+    "configuration_label": "DeepSeek Harness CLI + deepseek-v4.1-flash-1017 + qwen35-9b-mix64 + spec-skill",
+    "sub_model": "qwen35-9b-mix64",
+    "run_tag": "small10-auto-handoff-v1",
+    "final_metric": "pass@5",
+    "date": "2026-11-04",
+    "experiment_status": "completed",
+    "reported_total": 10,
+    "indexed_total": 10,
+    "original_source_count": 10,
+    "flagged_count": 0,
+    "description": "10个定向样例：覆盖历史通过、源码改动、token超限、ACSL语法和证明目标未通过；不代表全集通过率。",
+    "notice": "最多5次候选，pass@1/pass@5沿用历史定义。主模型输出统计仅取主会话使用记录；原生子模型直接交接仅在有效JSON输出时生效。",
+    "summary": {
+      "pass@1": {
+        "passed": 1,
+        "total": 10,
+        "rate": 10.0
+      },
+      "pass@5": {
+        "passed": 3,
+        "total": 10,
+        "rate": 30.0
+      }
+    },
+    "completed_count": 10,
+    "passed_count": 3,
+    "updated_at": "2026-11-04T08:36:32.546669+00:00",
+    "paused_at": "2026-11-04T06:54:23.466830+00:00"
+  },
+  "items": [
+    {
+      "id": "array-cav19_array_doub_access_init_const",
+      "path": "array-cav19_array_doub_access_init_const.c",
+      "original_filename": "array-cav19_array_doub_access_init_const.c",
+      "original_path": "array-cav19_array_doub_access_init_const.c",
+      "original_sha256": "22be18e21ce9de32b1134ac7ddc2117a5da85906931c772a580b8ed53803cd24",
+      "status": "passed",
+      "raw_status": "verified",
+      "round": 1,
+      "proved": 19,
+      "total": 19,
+      "goal_rate": 100.0,
+      "tokens": 76846,
+      "elapsed_sec": 32.31,
+      "error": "",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_doub_access_init_const.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_doub_access_init_const/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_doub_access_init_const/candidate.acsl.c"
+      },
+      "baseline": {
+        "status": "passed",
+        "round": 3,
+        "error": "",
+        "main_output_tokens": 8956,
+        "main_input_tokens_uncached": 16777,
+        "main_calls": 9,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 2367,
+        "main_input_tokens_uncached": 4335,
+        "main_calls": 5,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-cav19_array_tiling_poly6",
+      "path": "array-cav19_array_tiling_poly6.c",
+      "original_filename": "array-cav19_array_tiling_poly6.c",
+      "original_path": "array-cav19_array_tiling_poly6.c",
+      "original_sha256": "18d03971f3e6cb2652a81234988a6459c480bcc775d68a5bba2514bb38458605",
+      "status": "failed",
+      "raw_status": "blocked",
+      "round": 1,
+      "proved": 0,
+      "total": 0,
+      "goal_rate": null,
+      "tokens": 45302,
+      "elapsed_sec": 37.29,
+      "error": "C Agent 只能添加规约，不能修改原始程序语义。",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_tiling_poly6.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_tiling_poly6/proof.wp.txt"
+      },
+      "baseline": {
+        "status": "passed",
+        "round": 1,
+        "error": "",
+        "main_output_tokens": 15560,
+        "main_input_tokens_uncached": 16472,
+        "main_calls": 5,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 2095,
+        "main_input_tokens_uncached": 2503,
+        "main_calls": 3,
+        "automatic_handoffs": 1
+      }
+    },
+    {
+      "id": "array-cav19_array_init_pair_sum_const",
+      "path": "array-cav19_array_init_pair_sum_const.c",
+      "original_filename": "array-cav19_array_init_pair_sum_const.c",
+      "original_path": "array-cav19_array_init_pair_sum_const.c",
+      "original_sha256": "871ae3e3fcc33ddcaf525753a42ead9b614defda7e2363001ca515d374a0f6cb",
+      "status": "failed",
+      "raw_status": "blocked",
+      "round": 3,
+      "proved": 0,
+      "total": 0,
+      "goal_rate": null,
+      "tokens": 262177,
+      "elapsed_sec": 387.82,
+      "error": "候选包含新增的证明绕过语句或未验证逻辑声明。",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_init_pair_sum_const.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_init_pair_sum_const/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_init_pair_sum_const/candidate.acsl.c"
+      },
+      "baseline": {
+        "status": "failed",
+        "round": 5,
+        "error": "Frama-C 未产生有效证明结果。",
+        "main_output_tokens": 66338,
+        "main_input_tokens_uncached": 82536,
+        "main_calls": 13,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 31666,
+        "main_input_tokens_uncached": 41071,
+        "main_calls": 9,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-cav19_array_tiling_tcpy",
+      "path": "array-cav19_array_tiling_tcpy.c",
+      "original_filename": "array-cav19_array_tiling_tcpy.c",
+      "original_path": "array-cav19_array_tiling_tcpy.c",
+      "original_sha256": "2695372613da56d745042d21c18079d5a34dcb2ad2db8c4be587c59da7341220",
+      "status": "failed",
+      "raw_status": "failed",
+      "round": 5,
+      "proved": 24,
+      "total": 26,
+      "goal_rate": 92.3,
+      "tokens": 568112,
+      "elapsed_sec": 482.07,
+      "error": "Frama-C 证明目标 24/26，仍有目标未证明",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_tiling_tcpy.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_tiling_tcpy/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_tiling_tcpy/candidate.acsl.c"
+      },
+      "baseline": {
+        "status": "failed",
+        "round": 1,
+        "error": "C Agent 只能添加规约，不能修改原始程序语义。",
+        "main_output_tokens": 3925,
+        "main_input_tokens_uncached": 7586,
+        "main_calls": 7,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 54616,
+        "main_input_tokens_uncached": 64728,
+        "main_calls": 13,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-crafted_bAnd2",
+      "path": "array-crafted_bAnd2.c",
+      "original_filename": "array-crafted_bAnd2.c",
+      "original_path": "array-crafted_bAnd2.c",
+      "original_sha256": "437a770b675ac35cb6239e2c90c49068d1b0cdcf3a161f9a59b632de3464647f",
+      "status": "failed",
+      "raw_status": "blocked",
+      "round": 3,
+      "proved": 0,
+      "total": 0,
+      "goal_rate": null,
+      "tokens": 548647,
+      "elapsed_sec": 773.55,
+      "error": "C Agent 只能添加规约，不能修改原始程序语义。",
+      "artifacts": {
+        "original_source": "live25/original/array-crafted_bAnd2.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-crafted_bAnd2/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-crafted_bAnd2/candidate.acsl.c"
+      },
+      "baseline": {
+        "status": "failed",
+        "round": 5,
+        "error": "DeepSeek Harness CLI：主 Agent 单次输出达到 32768 tokens 上限，尚未完成候选；不是网络或账户余额错误。",
+        "main_output_tokens": 173721,
+        "main_input_tokens_uncached": 65271,
+        "main_calls": 10,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 109253,
+        "main_input_tokens_uncached": 79008,
+        "main_calls": 11,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-crafted_bAnd4",
+      "path": "array-crafted_bAnd4.c",
+      "original_filename": "array-crafted_bAnd4.c",
+      "original_path": "array-crafted_bAnd4.c",
+      "original_sha256": "4726ca8e1f1d67b851c48d569419376d629fc0b5252a6a37c74fb2f2bc19f597",
+      "status": "failed",
+      "raw_status": "failed",
+      "round": 5,
+      "proved": 27,
+      "total": 29,
+      "goal_rate": 93.1,
+      "tokens": 648345,
+      "elapsed_sec": 513.02,
+      "error": "Frama-C 证明目标 27/29，仍有目标未证明",
+      "artifacts": {
+        "original_source": "live25/original/array-crafted_bAnd4.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-crafted_bAnd4/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-crafted_bAnd4/candidate.acsl.c"
+      },
+      "baseline": {
+        "status": "failed",
+        "round": 1,
+        "error": "DeepSeek Harness CLI：主 Agent 单次输出达到 32768 tokens 上限，尚未完成候选；不是网络或账户余额错误。",
+        "main_output_tokens": 52073,
+        "main_input_tokens_uncached": 28386,
+        "main_calls": 4,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 57185,
+        "main_input_tokens_uncached": 69432,
+        "main_calls": 14,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-crafted_bor1",
+      "path": "array-crafted_bor1.c",
+      "original_filename": "array-crafted_bor1.c",
+      "original_path": "array-crafted_bor1.c",
+      "original_sha256": "9f38805c5f06906aa89fa94944bc4ff73db04c5c664b0377ec1a689a74d5bbc6",
+      "status": "failed",
+      "raw_status": "blocked",
+      "round": 1,
+      "proved": 0,
+      "total": 0,
+      "goal_rate": null,
+      "tokens": 140683,
+      "elapsed_sec": 342.33,
+      "error": "C Agent 只能添加规约，不能修改原始程序语义。",
+      "artifacts": {
+        "original_source": "live25/original/array-crafted_bor1.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-crafted_bor1/proof.wp.txt"
+      },
+      "baseline": {
+        "status": "failed",
+        "round": 1,
+        "error": "C Agent 只能添加规约，不能修改原始程序语义。",
+        "main_output_tokens": 36166,
+        "main_input_tokens_uncached": 12576,
+        "main_calls": 5,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 44437,
+        "main_input_tokens_uncached": 19190,
+        "main_calls": 5,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-cav19_array_init_both_ends_multiple_sum",
+      "path": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "original_filename": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "original_path": "array-cav19_array_init_both_ends_multiple_sum.c",
+      "original_sha256": "21299837e72225f8b358d5417cda86a10a2a2d0c5c97c87d07cd777089b26df2",
+      "status": "error",
+      "raw_status": "unavailable",
+      "round": 2,
+      "proved": 0,
+      "total": 0,
+      "goal_rate": null,
+      "tokens": 111842,
+      "elapsed_sec": 187.38,
+      "error": "DeepSeek Harness CLI：修复轮未更新候选文件，未使用上一轮文件冒充本轮输出。",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_init_both_ends_multiple_sum.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_init_both_ends_multiple_sum/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_init_both_ends_multiple_sum/candidate.acsl.c"
+      },
+      "baseline": {
+        "status": "failed",
+        "round": 5,
+        "error": "Frama-C 证明目标 37/38，仍有目标未证明",
+        "main_output_tokens": 55413,
+        "main_input_tokens_uncached": 76182,
+        "main_calls": 14,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 21492,
+        "main_input_tokens_uncached": 23287,
+        "main_calls": 12,
+        "automatic_handoffs": 1
+      }
+    },
+    {
+      "id": "array-cav19_array_init_nondet_vars",
+      "path": "array-cav19_array_init_nondet_vars.c",
+      "original_filename": "array-cav19_array_init_nondet_vars.c",
+      "original_path": "array-cav19_array_init_nondet_vars.c",
+      "original_sha256": "6a0b8c53956c3d043332013e5d4856ef995e5f76989c49ca19e98c891744f884",
+      "status": "passed",
+      "raw_status": "verified",
+      "round": 2,
+      "proved": 26,
+      "total": 26,
+      "goal_rate": 100.0,
+      "tokens": 182725,
+      "elapsed_sec": 198.89,
+      "error": "",
+      "artifacts": {
+        "original_source": "live25/original/array-cav19_array_init_nondet_vars.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_init_nondet_vars/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-cav19_array_init_nondet_vars/candidate.acsl.c"
+      },
+      "baseline": {
+        "status": "failed",
+        "round": 5,
+        "error": "Frama-C 证明目标 25/26，仍有目标未证明",
+        "main_output_tokens": 17256,
+        "main_input_tokens_uncached": 60495,
+        "main_calls": 12,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 17262,
+        "main_input_tokens_uncached": 21847,
+        "main_calls": 7,
+        "automatic_handoffs": 0
+      }
+    },
+    {
+      "id": "array-crafted_zero_sum_const3",
+      "path": "array-crafted_zero_sum_const3.c",
+      "original_filename": "array-crafted_zero_sum_const3.c",
+      "original_path": "array-crafted_zero_sum_const3.c",
+      "original_sha256": "7ca85881f45db9abc003e8b5467b1e246dd8695d9d77d463625edac9039684a9",
+      "status": "passed",
+      "raw_status": "verified",
+      "round": 2,
+      "proved": 64,
+      "total": 64,
+      "goal_rate": 100.0,
+      "tokens": 152331,
+      "elapsed_sec": 202.24,
+      "error": "",
+      "artifacts": {
+        "original_source": "live25/original/array-crafted_zero_sum_const3.c",
+        "log": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-crafted_zero_sum_const3/proof.wp.txt",
+        "source": "dsh_bailian_qwen9b_live25_small10_20261104_v1/array-crafted_zero_sum_const3/candidate.acsl.c"
+      },
+      "baseline": {
+        "status": "failed",
+        "round": 1,
+        "error": "候选包含新增的证明绕过语句或未验证逻辑声明。",
+        "main_output_tokens": 9092,
+        "main_input_tokens_uncached": 12609,
+        "main_calls": 5,
+        "automatic_handoffs": 0
+      },
+      "workflow": "compact-c-v1",
+      "token_usage": {
+        "main_output_tokens": 7401,
+        "main_input_tokens_uncached": 15906,
+        "main_calls": 7,
+        "automatic_handoffs": 0
+      }
+    }
+  ]
+}

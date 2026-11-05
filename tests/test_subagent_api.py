@@ -32,7 +32,7 @@ def test_api_worker_validates_candidate_and_redacts_secrets(monkeypatch,tmp_path
         body=json.loads(request.content)
         assert body['model']=='qwen35-9b-mix64'
         files=FILES if scenario!='changed_source' else [{'path':'main.c','content':'int main(){return 1;}'}]
-        return httpx.Response(503 if scenario=='http_error' else 200,json={'choices':[{'finish_reason':'length' if scenario=='length' else 'stop','message':{'content':json.dumps({'files':files})}}]})
+        return httpx.Response(503 if scenario=='http_error' else 200,json={'choices':[{'finish_reason':'length' if scenario=='length' else 'stop','message':{'content':json.dumps({'patches':[]} if scenario!='changed_source' else {'patches':[{'path':'main.c','before_line':1,'annotation':'return 1;'}]})}}]})
     monkeypatch.setattr(subagent_api.httpx,'Client',lambda **kwargs:client(transport=httpx.MockTransport(respond),**kwargs))
     prompt='Original source:\n'+json.dumps(FILES)
     profile={'model':'qwen35-9b-mix64','base_url':'https://example.invalid/v1','api_key':'secret-test-key'}
@@ -41,3 +41,17 @@ def test_api_worker_validates_candidate_and_redacts_secrets(monkeypatch,tmp_path
         with pytest.raises(ProviderError):subagent_api.generate_specifications(prompt,profile,tmp_path,10)
     assert 'secret-test-key' not in ''.join(p.read_text() for p in tmp_path.iterdir())
     assert json.loads((tmp_path/'subagent-runtime.json').read_text())['status']==('completed' if scenario=='success' else 'failed')
+
+
+def test_verifast_worker_uses_full_files_without_acsl_patch_rules(monkeypatch,tmp_path):
+    client=httpx.Client
+    code='int main()\n//@ requires true;\n//@ ensures result == 0;\n{return 0;}'
+    def respond(request):
+        body=json.loads(request.content)
+        assert 'VeriFast' in body['messages'][0]['content']
+        assert 'ACSL annotation patches' not in body['messages'][0]['content']
+        return httpx.Response(200,json={'choices':[{'finish_reason':'stop','message':{'content':json.dumps({'files':[{'path':'main.c','content':code}]})}}]})
+    monkeypatch.setattr(subagent_api.httpx,'Client',lambda **kwargs:client(transport=httpx.MockTransport(respond),**kwargs))
+    result=subagent_api.generate_specifications('Platform verification tool: VeriFast\nOriginal source:\n'+json.dumps(FILES),{'model':'qwen35-9b-mix64','base_url':'https://example.invalid/v1','api_key':'test-secret'},tmp_path,10,verification_tool='verifast')
+    assert result[0]['content']==code
+    assert json.loads((tmp_path/'subagent-runtime.json').read_text())['candidate_protocol']=='verifast-patches-v1'

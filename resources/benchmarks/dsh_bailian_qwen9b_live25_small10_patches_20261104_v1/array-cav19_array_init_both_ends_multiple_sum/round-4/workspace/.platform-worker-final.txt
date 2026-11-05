@@ -1,0 +1,13 @@
+Looking at this task, I need to prove the assertion `sum == 0` where:
+- `a[i] = i` for `0 <= i < N`
+- `b[N-i-1] = i` for `0 <= i < N`, which means `b[j] = N-1-j` for `0 <= j < N`
+- `sum = sum + (a[i] - b[N-i-1])` for each iteration
+
+So `a[i] - b[N-i-1] = i - (N-1-(N-i-1)) = i - i = 0`
+
+Each iteration of the final loop adds 0 to sum, so sum remains 0.
+
+I need to generate ACSL annotations for this.
+</think>
+
+{"patches":[{"path": "array-cav19_array_init_both_ends_multiple_sum.c", "before_line": 8, "annotation": "/*@\n  loop invariant 0 <= i <= N;\n  loop invariant \\forall integer j; 0 <= j < i ==> a[j] == j;\n  loop assigns i, a[0 .. N-1];\n  loop variant N - i;\n*/\nfor (i=0;i<N;i++) {\n  a[i] = i;\n}\n\n/*@\n  loop invariant 0 <= i <= N;\n  loop invariant \\forall integer j; 0 <= j < N ==> a[j] == j;\n  loop invariant \\forall integer j; 0 <= j < i ==> b[N-j-1] == j;\n  loop assigns i, b[0 .. N-1];\n  loop variant N - i;\n*/\nfor (i=0;i<N;i++) {\n  b[N-i-1]=i;\n}\n\n/*@\n  loop invariant 0 <= i <= N;\n  loop invariant \\forall integer j; 0 <= j < N ==> a[j] == j;\n  loop invariant \\forall integer j; 0 <= j < N ==> b[j] == N-1-j;\n  loop invariant sum == 0;\n  loop assigns i, sum;\n  loop variant N - i;\n*/\nfor (i=0;i<N;i++) {\n  sum=sum+(a[i]-b[N-i-1]);\n}\n\n//@assert(sum == 0);\n"}]

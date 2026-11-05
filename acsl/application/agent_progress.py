@@ -21,6 +21,9 @@ class AgentProgress:
             self.state['steps'].append(step)
             self.state['steps']=self.state['steps'][-80:]
         step.update(status=event['status'],detail=event.get('detail',''))
+        from acsl.application.terminal import safe_terminal_text
+        for key in ('command','output'):
+            if event.get(key):step[key]=safe_terminal_text(str(event[key]))
         if event['status']!='running':step['finished_at']=event.get('at') or utcnow().isoformat()
         running=[s for s in self.state['steps'] if s['status']=='running']
         self.state['current']=running[-1]['label'] if running else '等待主 Agent 下一步' if event['status']=='completed' else step['label']+'失败'

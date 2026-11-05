@@ -43,8 +43,8 @@ export function apply(ctx){
         while(true){await agent.whenIdle();const seq=agent.session.seq;if(!await ctx.get('subagents')?.waitForChildren(agent)&&agent.status==='idle'&&agent.session.seq===seq)break;}
         // A model turn ending is not the application handoff completing.
         // Continue once in the same session; never relaunch a worker or invent its output.
-        if(request.require_subagent&&childCompleted&&!existsSync(resolve(process.cwd(),'answer.json'))){
-          agent.followup(createUserMessage({content:[{type:'text',text:'The specification worker has completed and its result is already in this session. The required answer.json file is missing. Complete the handoff now: use the native write tool to save the worker result as answer.json with the complete files array. Do not launch any subagent, regenerate annotations, run a verifier, or merely paste code in chat. Preserve the worker output and original program.'}],source:{kind:'user'}}));
+        if((request.repair||(request.require_subagent&&childCompleted))&&!existsSync(resolve(process.cwd(),process.env.DSH_SPEC_PATCHES==='1'?'candidate-patches.json':'answer.json'))){
+          agent.followup(createUserMessage({content:[{type:'text',text:process.env.DSH_SPEC_PATCHES==='1'?(request.repair?'The repair turn ended without a new patch receipt. Submit the existing revised annotations NOW using submit_spec_patches, as one complete patches array with complete annotation comment delimiters for the selected verification tool and original line numbers. Do not analyze again, launch a child or return prose. If no repair is possible, report inability.':'The worker has finished but its patch receipt is missing. Call inspect_worker_result to see its existing final annotations and original line numbers, then submit only those annotations with submit_spec_patches. Do not regenerate annotations or write C source. Normalize formatting only. If the worker supplied no usable annotations, report failure.'):'The specification worker has completed and its result is already in this session. The required answer.json file is missing. Complete the handoff now: use the native write tool to save the worker result as answer.json with the complete files array. Do not launch any subagent, regenerate annotations, run a verifier, or merely paste code in chat. Preserve the worker output and original program.'}],source:{kind:'user'}}));
           await agent.whenIdle();
         }
         await ctx.get('sessions').flush(agent.session);
@@ -55,5 +55,5 @@ export function apply(ctx){
     }
     ctx.get('appExit')(0);
   }
-  run().catch(()=>{process.stdout.write(JSON.stringify({type:'error',message:'Persistent Harness runtime failed'})+'\n');ctx.get('appExit')(1)});
+  run().catch(error=>{process.stdout.write(JSON.stringify({type:'error',code:error?.code||'HARNESS_RUNTIME_ERROR',message:String(error?.message||'Persistent Harness runtime failed').slice(0,2000)})+'\n');ctx.get('appExit')(1)});
 }

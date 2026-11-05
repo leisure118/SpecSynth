@@ -28,3 +28,18 @@ def test_bailian_endpoint_defaults_to_documented_beijing_service(monkeypatch):
  cfg=ConfigLoader.get_model_config('deepseek-v4.1-flash-1017',str(CONFIG))
  assert cfg.base_url=='https://dashscope.aliyuncs.com/compatible-mode/v1'
  assert cfg.model_name=='deepseek-v4.1-flash-1017'
+
+
+def test_main_and_child_output_limits_are_independent(tmp_path,monkeypatch):
+ monkeypatch.delenv('XUANJIAN_HARNESS_MAIN_MAX_TOKENS',raising=False)
+ monkeypatch.delenv('XUANJIAN_HARNESS_SUB_MAX_TOKENS',raising=False)
+ profile={'model':'deepseek-v4.1-flash-1017','base_url':'https://example.invalid/v1','api_key':'private'}
+ child={'model':'qwen35-9b-mix64','base_url':'http://worker.invalid/v1','api_key':'private'}
+ patch=patch_for(profile,tmp_path,child)
+ providers=next(p for p in patch if p.get('id')=='llm-pi-ai')['config']['providers']
+ assert providers['platform-api']['defaultMaxTokens']==32768
+ assert providers['platform-api']['models'][0]['maxTokens']==32768
+ assert providers['platform-subagent']['defaultMaxTokens']==8192
+ assert providers['platform-subagent']['models'][0]['maxTokens']==8192
+ monkeypatch.setenv('XUANJIAN_HARNESS_MAIN_MAX_TOKENS','0')
+ with pytest.raises(ValueError):patch_for(profile,tmp_path,child)

@@ -1,0 +1,29 @@
+{
+  "verification_profile": "original",
+  "rte_checks": false,
+  "callee_precondition_checks": false,
+  "status": "failed",
+  "verified": false,
+  "verified_count": 0,
+  "error_count": 1,
+  "stdout": "[kernel] Parsing resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c (with preprocessing)\n[kernel:typing:no-proto] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c:11: Warning: \n  Calling function unknown that is declared without prototype.\n  Its formals will be inferred from actual arguments\n[wp] Running WP plugin...\n[wp] Warning: Missing RTE guards\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c:25: Warning: \n  Missing assigns clause (assigns 'everything' instead)\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c:21: Warning: \n  Missing assigns clause (assigns 'everything' instead)\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c:17: Warning: \n  Missing assigns clause (assigns 'everything' instead)\n[wp] FRAMAC_SHARE/libc/stdlib.h:394: Warning: \n  Allocation, initialization and danglingness not yet implemented\n  (allocation: \\fresh{Old, Here}(\\at(\\result,wp:post),\\at(size,wp:pre)))\n[wp] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c:15: Warning: \n  Cast with incompatible pointers types (source: sint8*) (target: sint64*)\n[wp] 1 goal scheduled\n[wp] [Timeout] typed_main_assert (Qed 10ms) (Z3 15s) (Stronger, 2 warnings)\n[wp] Proved goals:    0 / 1\n  Qed:             0 (10ms)\n  Timeout:         1\n------------------------------------------------------------\n  Function main\n------------------------------------------------------------\n\nGoal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c, line 29):\nresources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c:15: warning from Typed Model:\n - Warning: Hide \\result\n   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)\nFRAMAC_SHARE/libc/stdlib.h:394: warning from wp:\n - Warning: Ignored Hypothesis\n   Reason: Allocation, initialization and danglingness not yet implemented\n(allocation: \\fresh{Old, Here}(\\at(\\result,wp:post),\\at(size,wp:pre)))\nAssume {\n  Type: is_sint32(SIZE_0) /\\ is_sint32(i) /\\ is_sint32(i_1) /\\\n      is_sint32(i_2) /\\ is_sint64(SIZE_1) /\\ is_sint64(SIZE_2) /\\\n      is_sint64(SIZE_3) /\\ is_sint64(sum_0).\n  (* Heap *)\n  Type: is_sint32(fc_heap_status_0).\n  (* Call 'unknown' *)\n  Have: (2 <= SIZE_0) /\\ (SIZE_0 <= 99999).\n  (* Call 'malloc' *)\n  Have: ((!P_is_allocable(fc_heap_status_0, to_uint64(8 * to_uint64(SIZE_0)))) ->\n      (null = malloc_0)).\n  (* Else *)\n  Have: SIZE_3 <= i_2.\n  (* Else *)\n  Have: SIZE_2 <= i_1.\n  (* Else *)\n  Have: SIZE_1 <= i.\n}\nProve: sum_0 = 0.\nProver Z3 4.8.12 returns Timeout (Qed:10ms) (15s)\nProver Alt-Ergo  returns Timeout (Qed:10ms) (15s)\n\n------------------------------------------------------------\n[wp:pedantic-assigns] resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c:9: Warning: \n  No 'assigns' specification for function 'main'.\n  Callers assumptions might be imprecise.\n",
+  "stderr": "time=\"2026-11-04T14:39:48+08:00\" level=warning msg=\"Found orphan containers ([qwen35-ft-live24-live25]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n",
+  "elapsed_sec": 16.502,
+  "returncode": 0,
+  "runner": "verifier",
+  "runtime": "container",
+  "message": "Frama-C 证明目标 0/1，仍有目标未证明",
+  "diagnostics": [
+    {
+      "path": "array-crafted_zero_sum_const1.c",
+      "line": 29,
+      "severity": "error",
+      "kind": "unproved",
+      "message": "Goal Assertion (file resources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c, line 29):\nresources/benchmarks/dsh_bailian_qwen9b_live25_20261104_token32k_r1/array-crafted_zero_sum_const1/round-1/proof/array-crafted_zero_sum_const1.c:15: warning from Typed Model:\n - Warning: Hide \\result\n   Reason: Cast with incompatible pointers types (source: sint8*) (target: sint64*)\nFRAMAC_SHARE/libc/stdlib.h:394: warning from wp:\n - Warning: Ignored Hypothesis\n   Reason: Allocation, initialization and danglingness not yet implemented\n(allocation: \\fresh{Old, Here}(\\at(\\result,wp:post),\\at(size,wp:pre)))\nAssume {\n  Type",
+      "certainty": "possible"
+    }
+  ],
+  "source_hashes": {
+    "array-crafted_zero_sum_const1.c": "01cd3ff066fe216643b3bdf494adc89b87885a4859f4687514ad71f035964386"
+  }
+}

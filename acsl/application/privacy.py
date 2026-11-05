@@ -19,6 +19,8 @@ PRIVATE_KEYS = {
 }
 PRIVATE_ARTIFACT_MARKERS = (
     "skill.md",
+    ".platform-worker-task",
+    ".platform-worker-final",
     "skill-snapshot",
     "skill_snapshot",
     "prompt",

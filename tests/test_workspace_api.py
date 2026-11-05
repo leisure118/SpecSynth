@@ -391,3 +391,23 @@ def test_project_remembers_selected_verifier_without_altering_sources_or_history
     saved=client.get('/api/v1/projects/'+p['id']).json()
     assert saved['verification_tool']=='verifast' and saved['files']==p['files'] and saved['runs']==[]
     assert client.put('/api/v1/projects/'+p['id']+'/verification-tool',json={'verification_tool':'unknown'}).status_code==422
+
+
+@pytest.mark.parametrize('case_id',['openharmony_circle_center_x','openharmony_circle_radius','openharmony_rect_edges'])
+def test_openharmony_workspace_defaults_to_preset_without_agent_or_model(client,monkeypatch,case_id):
+    case=example(monkeypatch);case['id']=case_id
+    p=client.post('/api/v1/projects/from-demo',json={'demo_case_id':case_id}).json()
+    monkeypatch.setattr('acsl.adapters.agent_runtime.require_agent',lambda *args:pytest.fail('Must not start Agent'))
+    body={'revision':1,'entry_path':'sample.c','mode':'single','model_name':'offline-no-model','assistant':{'agent':'deepseek-harness'}}
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json=body)
+    assert response.status_code==201,response.text
+    payload=client.submissions[-1][1]
+    assert payload.demo_case_id==case_id and payload.assistant is None and not payload.agent_instructions
+    saved=client.get('/api/v1/projects/'+p['id']).json()
+    assert saved['runs'][-1]['execution']=='replay'
+    # Modified inputs cannot silently use old answers or fall back to a model.
+    client.tasks[response.json()['task_id']].status='pass'
+    client.put('/api/v1/projects/'+p['id'],json={'name':p['name'],'revision':1,'files':[{'path':'sample.c','content':'/*@ requires true; */\nint f(void) { return 1; }'}]})
+    response=client.post('/api/v1/projects/'+p['id']+'/runs',json={**body,'revision':2})
+    assert response.status_code==422 and '未调用模型' in response.text
+    assert len(client.submissions)==1

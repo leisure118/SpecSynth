@@ -509,6 +509,15 @@ class ProjectService:
             entry = next((item for item in project["files"] if item["path"] == body.entry_path), None)
             if not entry or not entry["path"].endswith(".rs" if rust else ".c"):
                 raise ProjectValidation("请选择与项目语言匹配的源文件。")
+            preset_ids = {"openharmony_circle_center_x", "openharmony_circle_radius", "openharmony_rect_edges"}
+            if (project.get("example") or {}).get("id") in preset_ids:
+                if body.verification_tool != "framac":
+                    raise ProjectValidation("OpenHarmony 预置答案使用 ACSL / Frama-C，请选择 Frama-C；不会调用模型重新生成。")
+                try:
+                    self._replay_case(project, body)
+                except ProjectValidation as exc:
+                    raise ProjectValidation("OpenHarmony 仅对未修改的原始案例返回预置答案；当前文件或模式与案例不符，未调用模型。") from exc
+                body = body.model_copy(update={"execution": "replay"})
             if body.verification_tool == "verifast" and (rust or body.mode != "single" or body.execution != "live"):
                 raise ProjectValidation("VeriFast 当前支持 C 单文件规约生成与验证。")
             project['verification_tool']=body.verification_tool
@@ -589,8 +598,8 @@ class ProjectService:
                 or (AssistantConfig(**project["assistant"]) if project.get("assistant") else None)
             )
             assistant_config = self._hydrate_private_skills(assistant_config, project.get("assistant"))
-            assistant = self._resolve_assistant(assistant_config, verification_tool=body.verification_tool)
-            if not rust and (assistant is None or assistant.agent in ("default", "deepseek-harness")) and body.model_name not in self.models():
+            assistant = None if replay_case else self._resolve_assistant(assistant_config, verification_tool=body.verification_tool)
+            if not replay_case and not rust and (assistant is None or assistant.agent in ("default", "deepseek-harness")) and body.model_name not in self.models():
                 raise ProjectValidation("Unknown model.")
             if body.mode == "rust-generate" and not body.description.strip():
                 raise ProjectValidation("请输入自然语言任务。")

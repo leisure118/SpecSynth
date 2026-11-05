@@ -1,379 +1,200 @@
-# ACSL AGENT
+# 玄鉴（ACSL AGENT）
 
-ACSL AGENT 是一个面向 C 程序的形式化规约自动生成与验证系统。当前提交版聚焦三个主模块：
+面向 C / Rust 的形式化规约生成与验证平台。用户导入源码，选择 Agent、模型、Skill 和验证工具，由平台保存候选、执行独立验证，并根据诊断修复规约。
 
-- `single`：单函数分析
-- `termination`：终止性验证
-- `inter-modular`：多模块分析
-- `spectool`：工具箱，支持函数提取、工程切片、大模型生成 ACSL、`admit` 检查与 Frama-C/WP 验证
+C 工作台支持 Frama-C / WP 和 VeriFast，复用文件管理、编辑器、运行配置、终端、日志和历史记录；Rust 工作台使用 Verus。界面支持简体中文与 English 切换。
 
-## 目录说明
+## 主要功能
 
-```text
-ACSLAgent/
-├─ apps/         前端与 FastAPI 接口层
-├─ acsl/         分层后端：domain / contracts / application / adapters / infrastructure
-├─ configs/      模型与 demo 配置
-├─ engine/       规约生成、验证与终止性分析引擎
-├─ resources/    演示样例与静态资源
-├─ scripts/      启动与辅助脚本
-├─ tests/        测试脚本
-├─ README.md
-├─ requirements.txt
-├─ package.json
-├─ docker-compose.unified.yml
-└─ Dockerfile.unified
-```
+| 能力 | 当前支持 |
+| --- | --- |
+| 项目管理 | 导入、新建、文件管理、独立输入快照与运行历史 |
+| C / ACSL | 函数契约、循环规约生成与 Frama-C / WP 验证；单文件、终止性及多模块工作流 |
+| C / VeriFast | 单文件规约生成、修复和直接验证；使用 VeriFast 分离逻辑规约 |
+| Rust / Verus | Rust 代码验证，以及根据需求生成候选并反馈修复 |
+| Agent 与模型 | 分别配置 Codex、Claude Code、DeepSeek Harness；支持主模型与可选子模型 |
+| 人工协作 | 锁定 C 源码、编辑规约、保存不同的人工版本、版本对比、让 Agent 继续修复 |
+| 运行反馈 | 实时步骤、原生 Agent 命令与工具输出、日志、工件和疑似错误行定位 |
+| 工具箱 | 函数提取、切片、规约生成与注入、规约检查及验证 |
 
-后端依赖方向：`apps/api`（HTTP）→ `acsl.application`（用例）→ `acsl.domain`；外部能力通过 `acsl.adapters` 接入，`engine/` 只保存语言算法与验证实现。分层规则由 `tests/test_architecture.py` 检查。
+Agent 负责执行与编排，模型负责生成内容，Skill 提供任务规则，验证器给出证明结果。这些配置相互独立；模型返回“通过”不会被当作验证证据。
 
-## 架构总览
+## 快速启动
 
-平台采用 **共享运行内核 + 语言能力包** 的结构，C / Rust 共用编排、事件、规约、配置、评测与前端工作台；语言差异收敛到语言能力层。
+以下命令在本仓库根目录执行，即包含本 README 的 `acsl模块化验证/` 目录。
 
-```mermaid
-flowchart LR
-  E["工作台 · 数据集 · 工具箱"] --> K["共享内核<br/>编排 · 事件 · 规约"]
-  K --> L["C / Rust 语言能力"]
-  K --> A["Agent / 模型"]
-  L --> V["验证器"]
-  K -. legacy .-> X["AutoSpec"]
+### 1. 准备依赖
 
-  classDef core fill:#eef0ff,stroke:#4b5bd6,stroke-width:2px,color:#111
-  class K core
-```
+- Python 3.13 或以上，建议使用虚拟环境。
+- Node.js 24.9 或以上、npm；官方 Agent 运行时需要该版本。
+- 按任务安装 Frama-C / WP、VeriFast 或 Verus。
+- 只有使用容器验证或旧 AutoSpec 工作流时才需要 Docker；使用本机验证器时无需启动 Docker。
 
-完整的当前模块、验证路径与重构重点见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
-
-## 环境要求
-
-- Python `3.13.x`
-- Node.js `18+`
-- Docker Desktop
-
-根目录 `.env.example` 给出了环境变量模板。实际运行时需按所选模型平台配置密钥。
-
-## 启动方式
-
-安装依赖：
-
-```powershell
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt
-npm install
-```
-
-拉取镜像：
-
-```powershell
-docker pull junjiehu1905/autospec:latest
-docker pull junjiehu1905/termination_analysis:latest
-```
-
-启动服务：
-
-```powershell
-python scripts/run_api.py
-```
-
-C 工作台的“仅验证”会优先使用本机 `frama-c` + `alt-ergo`/`z3`，不需要 AutoSpec 镜像；完整的 AutoSpec 生成流水线仍使用对应镜像。共享验证器的运行时选择见 `.env.example` 中的 `ACSL_VERIFIER_RUNTIME`。
-
-访问地址：
-
-```text
-http://127.0.0.1:8000/
-```
-
-如需重建前端静态资源：
-
-```powershell
+npm ci
 npm run build:web
 ```
 
-## 功能说明
+Windows 下使用 `.venv\Scripts\Activate.ps1` 激活环境。
 
-### single
+### 2. 配置模型与 Agent
 
-对单个 C 文件生成 ACSL 函数契约与循环不变式，并执行形式化验证，输出验证状态与相关工件。
-
-### termination
-
-在部分正确性基础上生成 `loop variant`，完成终止性验证，并输出阶段性结果与证明证据。
-
-### inter-modular
-
-对多 `.c/.h` 文件工程执行跨模块分析，合并翻译单元后完成规约生成、验证与结果恢复。
-
-## spectool 集成
-
-`spectool` 的核心逻辑已迁入 `engine/spectool_core/`，并通过现有 FastAPI 服务暴露为 `/api/v1/spectool/*` 接口。前端导航中的“spectool”页面提供独立工具工作台，不影响原有 `single`、`termination` 和 `inter-modular` 任务链。
-
-`spectool` 现在支持直接调用大模型生成 ACSL。页面中选择源码文件、函数和模型后，可通过“AI 生成”或“大模型生成并注入”自动生成函数契约与循环规约，并复用原有注入器生成带 ACSL 的源码。模型列表来自 `configs/models_config.yaml`，密钥按对应平台从 `.env` 中读取，例如 `qwen-turbo` 使用 `aliyun_API_KEY`。
-
-### 服务器部署的模型与网络配置
-
-项目不再默认连接开发电脑的代理、SSH 转发或 Docker Desktop 宿主机地址。复制 `.env.example` 并填写服务器配置：
-
-- `XUANJIAN_AGENT_PROXY` 默认留空，直接访问模型服务；确实需要代理时填写服务器可达的代理地址。
-- 微调模型使用对应的 `QWEN35_*_API_BASE_URL`；Docker 服务使用对应的 `QWEN35_*_DOCKER_BASE_URL`，填写容器可达的模型服务地址（以 `/v1` 结尾）。未配置地址的微调模型不能调用。
-- 前后端同源部署无需额外跨域配置；分开部署时，在 `ACSL_AGENT_ALLOWED_ORIGINS` 中填写实际前端域名，多个以逗号分隔。
-- Codex、Claude Code 的程序和认证，以及验证器，需要在服务器单独安装与配置。
-
-模型选项及模型名保持不变。历史微调服务尚未证实加载 LoRA 权重；模型服务可访问、模型生成的规约通过验证，均不等于已确认微调权重生效。
-
-spectool 的验证器固定使用 Docker 容器，不检测也不调用本机的 `frama-c`、`Alt-Ergo`、`Z3` 或 `veri-clang`。后端会探测现有 `docker-compose.yml` 中的 `autospec`、`termination` 服务，并在容器内执行 Frama-C/WP；上传与输出目录通过仓库挂载映射到容器内 `/app/runtime/spectool/`。可用状态可通过 `GET /api/v1/spectool/capabilities` 查询，其中 `verify_runner` 就绪时固定为 `container`，`container_service` 会显示实际服务名。
-
-环境变量 `SPECTOOL_VERIFY_CONTAINER_SERVICES` 可调整容器探测与执行顺序，默认值为 `autospec,termination`。`SPECTOOL_FRAMAC`、`SPECTOOL_VERI_CLANG` 不参与 spectool 验证器选择。
-
-## 运行产物
-
-任务结果统一写入：
-
-```text
-runtime/runs/<task_id>/
-```
-
-其中包括：
-
-- `task.json`
-- `result.json`
-- `artifacts/`
-
-## 说明
-
-- 本提交版源码包仅包含作品主体代码、配置、样例与脚本。
-- 外部依赖、运行缓存和历史产物不包含在本目录中。
-- 结果判定以系统实际生成的验证工件与 Frama-C/WP 输出为准。
-
-
-## 历史基准实验结果
-
-项目页提供 LiveFMBench 2025、LiveFMBench 2024 和 autobench 的实验结果入口。导入快照与源码、日志位于 `resources/benchmarks/`，随项目部署，不依赖下载目录。接口为 `/api/v1/benchmarks`、`/api/v1/benchmarks/{id}` 和 `/api/v1/benchmarks/{id}/file?file=...`；前端支持通过 `#/benchmarks/{id}?file=...` 直接定位文件。
-
-汇总采用实验包 scripts 中的修正版报告（违规 admit 按失败计），逐文件目标通过率采用 results.csv。autobench 原始清单为 262 条、报告分母为 257，页面分别显示，保留全部记录；LiveFMBench 2024 为较早的 284 文件版本。历史结果不会自动触发模型调用或重新验证。更新快照可执行 `python scripts/import_benchmark_results.py <实验包目录>`。
-
-
-### 原始基准源码
-
-基准工作台已附带原始 C 源码，独立保存于 `resources/benchmarks/<id>/original/`，不覆盖实验规约代码或历史分数。可在代码区切换“原始源码 / 实验规约代码”，重跑配置会记录选中的输入版本。重新导入实验结果后，执行 `python scripts/import_benchmark_sources.py <dataset_test目录>` 补充原始源码索引。导入器按唯一文件名匹配，并兼容文件名中的直引号/弯引号差异；不会用近似文件名误配未找到的案例。
-
-
-### Rust 工作台：Codex 与第三方 API
-
-Rust 项目中选择「Agent API 生成与验证」，再独立选择 Agent、已配置模型与 Skill。Codex 使用平台独立运行时和 Responses API，不读取本机 Codex 登录信息。第三方端点必须实际支持 `/v1/responses`（包括流式响应）；只支持 Chat Completions 的端点可选择模型直连或官方 DeepSeek Harness CLI；Claude Code 则需要 Anthropic Messages 协议。
-
-通过「＋ API 模型」添加多个服务配置；下拉框选择的配置决定实际 Base URL、Model ID、协议与认证方式。使用「编辑当前 API」可以修改当前配置；编辑时 API Key 留空保留原值，明确切换「无需认证」会清除原密钥。Base URL 可填 `/v1`，完整的 `/chat/completions` 或 `/responses` 地址也会规范化为 Base URL。私有配置保存在忽略提交的 `runtime/generation-models.json`。
-
-可将 Responses 配置设为默认模型，新 Rust 任务即默认使用 Codex 和该模型；已有任务保留之前的明确选择。默认英文 Skill 在 `skills/verus/verus-baseline/SKILL.md`，每次生成与修复都会加载其指令，并在运行记录中保存内容快照。RAG 仍需另行配置 embedding；生成结果由实际 Verus 验证器判断是否通过。
-
-Rust 工作台的右侧分为运行、配置、历史三个页签。生成提交后自动切换至运行页；时间线记录准备、生成、Verus 检查及每轮修复的实际起止时间。完成后自动打开结果代码，并展示验证项、错误数、退出码、验证耗时和可展开的诊断。旧记录没有阶段时间时显示「—」，不推算阶段耗时。Skill 使用单选列表，旧内置短提示词不再作为可选 Skill 展示。
-
-NL2VBench 文件浏览器按文件名前缀组织全部任务，VeriCoding 与 VerusBench 包含二级目录。目录接口只返回文件元数据，任务输入接口仅返回自然语言与函数接口。点击任务会打开输入标签；生成结果在独立代码标签自动显示，支持标签切换与关闭。关闭全部标签后显示任务选择引导，也可通过上传 TXT、Markdown、JSON、Rust 文件或新建自定义任务开始。
-
-配置页使用右侧完整可用高度，只有内容实际超出时才滚动。常规模型面板不直接展示 API 地址，地址在编辑配置窗口查看。提交新运行后立即显示本次任务，历史文件的浏览不会替换进行中的进度。生成文件沿用数据集任务名或上传文件名（例如 `VerusBench_Diffy_brs1.verus.rs`），重复输出使用序号区分；原始文件名同时写入运行记录和生成产物。
-
-### Rust Agent 的可迁移安装与部署
-
-Rust/Verus 工作台使用项目管理的官方 Agent 运行时，不依赖开发者的全局 CLI 或个人登录记录：Codex SDK/CLI、Claude Agent SDK 内附的 Claude Code CLI、DeepSeek 官方 `dsh`。依赖版本和完整性由 `configs/agent-runtime/package-lock.json` 与 `configs/deepseek-runtime/package-lock.json` 锁定。可执行文件按部署机器的操作系统和 CPU 架构安装，因此不把一台 Mac 的二进制直接提交为所有服务器的依赖。
-
-同事更新代码后，本机部署执行（需要 Node.js >=24.9 和已安装的 Python 依赖）：
+首次部署复制模板，在后端填写模型服务地址和密钥；已有 `.env` 时直接编辑，保留现有配置。
 
 ```sh
+cp -n .env.example .env
 python scripts/install_agent_runtime.py
 python scripts/install_agent_runtime.py --check
 ```
 
-Docker 使用更新后的统一镜像构建流程，自动安装三套运行时和固定版本 Verus。CLI 位于 `/opt/acsl-agent/agents`，不会被 `./runtime:/app/runtime` 数据卷遮住。镜像构建排除本机 runtime、.env 和 tools/verus，避免复制私人配置、历史任务及错误架构的二进制。默认使用 Linux amd64，因为固定 Verus 发布包没有 Linux arm64 版本。
+安装脚本按部署机器的系统和架构安装项目独立的官方 Agent 运行时，不依赖开发者电脑的全局 CLI。`--check` 只检查依赖，不会调用模型，也不代表模型接口和验证器已就绪。
+
+仅使用“直接验证已有规约”或预置答案时，无需配置生成模型或安装 Agent 运行时。
+
+### 3. 准备验证器
+
+| 验证器 | 本机运行 | 容器运行 |
+| --- | --- | --- |
+| Frama-C / WP | 安装 `frama-c` 和 Alt-Ergo / Z3，并使后端能够找到它们 | 拉取下方镜像，使用 Compose 的 `verifier` 服务 |
+| VeriFast | 执行 `python scripts/install_verifast.py` | 构建 Compose 的 `verifast` 服务 |
+| Verus | 安装 `rustup`、`curl` 后执行 `python scripts/install_verus.py` | 统一镜像可在构建时安装固定版本 |
+
+共享 Frama-C 验证默认优先选择本机工具，否则探测专用验证容器。容器模式需要 Docker 服务处于运行状态：
 
 ```sh
-docker compose -f docker-compose.unified.yml up -d --build
-docker compose -f docker-compose.unified.yml exec acsl-agent python scripts/install_agent_runtime.py --check
+docker compose pull verifier
 ```
 
-部署管理员在服务器的 `.env` 配置一次模型服务，网页用户通过后端共享调用，无需自行安装 CLI 或登录厂商账号：
-
-```dotenv
-NL2VERUS_MODEL_BASE_URL=http://YOUR_MODEL_SERVER:8888/v1
-NL2VERUS_MODEL_ID=deepseek-v4-flash-0731
-NL2VERUS_MODEL_NAME=deepseek-v4-flash
-NL2VERUS_MODEL_AUTH_MODE=none
-NL2VERUS_MODEL_API_KEY=
-NL2VERUS_MODEL_PROTOCOLS=chat,responses,anthropic
-```
-
-只有服务实际支持的协议才能列入 `NL2VERUS_MODEL_PROTOCOLS`。DeepSeek Harness 走 Chat Completions，Codex 走 Responses，Claude Code 走 Messages；它们使用同一个 Model ID，但不能把接口协议仅靠修改名称混用。服务器必须能访问模型地址，开发机能访问内网服务不代表公网服务器也能访问。需要密钥时将 AUTH_MODE 设为 api_key，在服务器填写密钥，不提交到 Git。
-
-环境变量配置会自动作为部署模型出现，不要求复制个人的 `runtime/generation-models.json`；也可以由管理员在页面配置，存入服务器 runtime 数据卷。该文件不是源码，也不是 CLI。`--check` 只检查依赖，既不代表 API 已连通，也不代表 Verus 已就绪。
-
-官方 Harness 的 Agent 循环由上游 CLI 执行。Claude Code 通过官方 SDK 启动随项目安装的原生 CLI，允许任务目录内的 Read/Write/Edit，以及任务中指定的 Verus Bash 命令；没有改成平台自己调用模型的循环。所有最终输出仍由平台独立 Verus 检查。失败也保存脱敏身份、会话、退出原因和工具事件，不会退回直连 API。输出预算耗尽与网络/API 失败分别报告。
-
-在 Rust 项目中选择 Agent、已配置模型与 Skill 后，可点击「保存为项目默认」。这些选择由项目接口保存，其他浏览器刷新也能加载；保存不会修改源码版本。选中的 Skill 正文作为任务指令上下文传入，当前不声称官方 CLI 的原生 Skill 加载工具已执行。
-
-C/ACSL 与 Rust/Verus 共用上述运行时目录；C 项目仍保留独立的模型与 Skill 设置，原生 Qwen 子模型使用下文的路由配置。多人公网服务的用户认证、队列配额和任务隔离也不由安装脚本提供。
-
-### C 项目：官方 DeepSeek Harness CLI
-
-C 项目验证配置选择「DeepSeek Harness CLI」，并选择已配置的模型和项目 Skill。平台使用与 Rust 工作台相同的官方 `@deepseek-ai/dsh` 固定版本运行时，分层编排与 Sub-agent 派发均由官方 Harness 承载，原来的 Python 自建模型循环已移除。已有项目的 `hierarchical-c` 设置读取时自动迁移为标准 CLI 流程。
-
-运行 `python3 scripts/install_agent_runtime.py` 安装项目隔离运行时，重启后端并刷新网页。CLI 在隔离任务目录中通过真实工具生成候选与调用 Frama-C，平台随后独立检查源码 token、原始断言与 Frama-C 证明结果。运行记录保存官方事件和工具调用证据；执行失败不会回退为直连 API。
-
-C 工作台未保存 Agent 配置时默认选择官方 CLI；其默认模型为部署的 `deepseek-v4-flash-0731`。首次选择时自动绑定 `spec-split`、`spec-orchestrate`、`spec-bottomup` 的固定版本；运行快照包含完整 Skill 内容。官方 CLI 获得平台提供的 `engine.harness_spectool` 工具入口，执行切片、分层、合约填充、注解注入和容器验证。中间目录与官方事件保存在每轮 `agent` 工件内。工具保存合约前重新执行 Frama-C，不信任模型自报的 `--proved`。
-
-### 统一 CLI 目录与原生 Sub-agent
-
-全部运行时集中在 `runtime/cli/`：`deepseek/` 保存官方 Harness，`agents/` 保存隔离 SDK 和配套二进制，`codex/`、`claude/` 可分别放入后续导入的 `codex`、`claude` 可执行文件。统一调用入口是 `python3 runtime/cli/run.py deepseek|codex|claude [参数]`；安装入口仍为 `python3 scripts/install_agent_runtime.py`。
-
-C 工作台以 `deepseek-v4-flash-0731` 为主模型，Sub-agent 下拉框可选 `qwen35-4b-mix64`、`qwen35-9b-mix64`，空值继承主模型。官方 Harness 的原生 `subagent` 工具负责派发和结果回收，项目设置、执行快照和运行时元数据记录所选模型。子 Agent 采用独立上下文和固定路由；选择 Qwen 后不会静默改用 DeepSeek。默认总超时为 200 秒，覆盖主 Agent、子 Agent 和平台验证。
-
-私网 Qwen 服务可复用部署环境的 `XUANJIAN_QWEN_SSH_TARGET`、`XUANJIAN_QWEN_SSH_PORT`：平台只在任务期间建立临时本地转发，结束或超时自动关闭。现有 mix64 部署未开启自动工具调用解析，因此 Qwen 原生子 Agent 使用无工具的规约生成模式，返回文本/JSON；主 DeepSeek Agent 执行注入、WP 验证、合约收集与修复。子任务的官方生命周期 `stop_reason` 被单独记录，未正常结束时不将派发成功视为运行成功。
-
-
-## VeriFlow 界面迁移分支
-
-`feat/cover-veriflow` 使用 VeriFlow 的页面结构，接入本平台现有 C/Rust 功能，并采用 K 的炭黑、亮青与朱红主题。范围、复用来源、测试方式与环境限制见 [迁移说明](docs/COVER-VERIFLOW.md)。
-
-### C 项目的 Codex / Claude Code API 流程
-
-C 工作台选择 Codex 或 Claude Code 后，可直接使用平台配置的 `deepseek-v4-flash-0731`，无需个人 CLI 登录。Codex 使用 Responses API，Claude Code 使用 Anthropic Messages API；平台按协议规范化 Base URL。三个配套 Skill 的新版支持上述 CLI，切换 Agent 时保留相同指令并绑定适用版本，旧运行快照不变。
-
-两套官方 CLI 都获得仅针对当前输入项目的 Frama-C MCP 工具：`prepare_project` 执行切片与分层，`verify_candidate` 校验候选并执行真实 WP。平台仍在 CLI 结束后独立检查原始源码、断言和证明结果。默认总超时 200 秒，原生工具事件进入实时步骤列表。
-
-实测记录见 [LiveFMBench2024 CLI 接通验证](docs/validation/cli-deepseek-live24-2026-10-30.md)。
-
-### 导入 Claude Code + opus 4.6 + spec-skill 的已有结果
-
-执行 `python scripts/import_opus_benchmarks.py /path/to/ops-4.6`，源目录含 `live25`、`live24`、`autobench` 的 results.jsonl、可选 results.csv/report.md 以及逐文件 `.acsl.c`/`.wp.txt`。导入器只读取数据，不运行源目录代码，不调用模型。
-
-新记录使用 `opus46_live25`、`opus46_live24`、`opus46_autobench` 独立ID，保留原DeepSeek组合。原始C文件通过已导入的对应数据集严格文件名匹配，共享项目内源码副本；不依赖Downloads目录。原始数据集应先完成结果与源码导入，再导入Opus组合。两个组合均可在首页和项目卡片中按名称下方的配置标签辨别。
-
-pass@1/pass@5按有效通过且完成轮次分别为1/不超过5统计，0/0和cheat不计通过。源包live25有1个第6轮通过的文件，其最终状态保留通过，但不计入pass@5。Opus数据集验证窗口预填Claude Code、claude-opus-4-6和适用的spec-bottomup Skill版本；需用户手动提交才会执行新任务。
-
-### DeepSeek Harness 实时基准实验
-
-`XUANJIAN_HARNESS_COMPACT=1 XUANJIAN_PROOF_CONCURRENCY=2 XUANJIAN_PROOF_CPUS=2 python scripts/run_deepseek_benchmarks.py --workers 6 --timeout 600` 使用已配置的
-`deepseek-v4-flash-0731` 和固定版本 spec-skill，对 LiveFMBench 2025、2024 与 autobench
-的 901 个原始源码文件运行真实实验。三个数据集的待运行文件交错进入共享队列，最多6文件并发生成；本机最多同时执行2个证明容器，每个上限2核。每个文件最多五轮。
-先用 `--limit 3 --workers 1` 检查链路。重复启动会恢复未完成案例，进程锁避免重复实验。
-
-结果独立保存在 `resources/benchmarks/dsh_deepseek_*`，包含配置与 Skill 正文快照、源码哈希、
-每轮候选、CLI 工具事件、独立 Frama-C 证明日志。首页和数据集页面自动刷新；全部文件结束前
-不发布最终通过率。这里的 pass@k 指 k 轮外层 Harness 修复预算，每轮可能包含多次原生模型调用。
-三次连续服务异常将停止该批次，待运行文件不计为验证失败；无需改动既有 Claude 组合。
-
-精简C流程通过 `XUANJIAN_HARNESS_COMPACT=1` 启用：直接将完整输入、Skill正文、上轮候选和诊断交给原生文本子Agent，主Agent只保留委派与写入候选工具，避免轮询、重复切片和内部重复证明。平台始终独立检查原始程序/断言保留并执行最终Frama-C证明。超时留下的完整候选经同样的完整性检查后，只能作为未验证草稿供下一轮修复，不会因此计为通过。
-
-`execution-history.json` 与逐轮 `request.json` 记录流程版本变化。恢复既有批次时保留旧结果；混用流程的累计分数不能作为严格的同条件配置对照。
-
-### 项目验证的复杂文件预算
-
-项目工作台默认允许复杂 C 文件自动延长：多个循环、多个 C 文件或源码超过8 KiB时，
-将用户填写的总时限提高到至少600秒；更长的手动设置会保留。可取消勾选以严格使用填写的时限。
-这是项目任务生成与修复共用的总预算，不是批量实验的逐轮预算。实际预算及触发原因随任务保存，
-并为候选返回后的独立证明预留时间。
-
-Codex/Claude 的 Frama-C MCP 使用独立Docker配置，仅携带插件目录与连接设置，不复制注册表凭证。
-启动模型前检查Compose可用性；Docker环境错误按不可用处理，避免误记为C语法错误并反复修复。
-复杂候选的MCP证明上限90秒，工具通信上限120秒，仍须受项目总预算限制。
-
-### Harness 多轮修复会话
-
-C 项目任务和三数据集批量执行器现在按案例复用一个官方 Harness 进程、主会话和工作区；失败证明诊断作为后续消息进入同一会话，不再每轮启动 CLI。修复请求复用原始上下文，仅追加上一轮候选和诊断。模型及子模型配置在同一案例内固定，Qwen SSH 路由随案例保持，案例退出时统一释放。不同文件的会话隔离；超时终止该进程，下一轮重新建立。
-
-每轮仍保存候选、原生事件与独立证明结果；读取候选前删除旧 answer.json，避免旧候选误用。Skill 正文、原始 C 保留检查与最终独立 Frama-C 检查不变。旧实验结果不重算，暂停的批量实验需手动恢复。运行记录的 session_transport=persistent-jsonl 和 process_reused 标识复用情况。本地假模型已验证官方运行时连续两轮复用同一 PID/session；真实远程模型耗时改善尚需后续测量，进程启动开销减少不代表复杂证明必然通过。
-
-单案例默认最多追加修复 3 轮（首次生成 + 至多 3 次修复）；证明一旦通过立即结束。DeepSeek Harness 后续轮次由原主会话根据已有候选和失败诊断直接修复，不重新委派生成子 Agent。进度分别显示“启动官方 CLI”和“复用原会话修复规约”。生成失败且没有有效候选时停止，不用原始空规约重复生成冒充修复。暂停的历史批量实验及其统计配置保持原样。
-
-### 前端界面语言
-
-右下角语言下拉支持简体中文和 English，默认中文，选择保存在当前浏览器的 `xuanjian.language` 中，页面和 Element Plus 弹窗组件即时切换。中英文文案集中维护于 `apps/web/src/i18n.js` 与 `apps/web/src/locales/en.json`。语言只影响显示，不改变后端数据、项目名称、源码、规约、Skill 正文和验证器原始日志；这些内容保留原文。无需调用翻译服务。
-
-### 原实验 Frama-C 命令对齐
-
-共享 C 验证默认使用 `ACSL_FRAMAC_PROFILE=original`：
+VeriFast 安装器下载固定的 26.10 官方发行包并校验 SHA-256，当前提供 macOS Apple Silicon 与 Linux x86_64 安装路径。容器方式为：
 
 ```sh
-frama-c -wp -wp-precond-weakening -wp-no-callee-precond -wp-prover Alt-Ergo,Z3 -wp-print -wp-timeout 15 file.acsl.c
-```
-
-参数顺序与原版 spectool 一致，超时按调用传入（原版工具默认 8 秒，Skill 示例使用 15 秒）；项目最终验证当前单目标上限 15 秒。项目输入路径、头文件搜索路径及终止性任务必要参数另行追加。原实验口径不额外生成 RTE 安全目标，并关闭调用方前置条件目标；它的通过率不能解释为完整运行时安全证明。`strict` 保留 RTE 与调用前置条件检查，结果记录 `verification_profile` 以区分统计口径。Skill 正文、原始 C、原始断言和不允许 admit 绕过的检查不改变。命令参数已对齐，求解器与 Frama-C 版本需另行匹配，不能承诺整个历史数据集逐项一致。
-
-### 百炼 DeepSeek 主模型
-
-主模型新增 `deepseek-v4.1-flash-1017`，使用 OpenAI-compatible Chat Completions API。后端复用私有 `aliyun_API_KEY`，单独设置 `BAILIAN_DEEPSEEK_BASE_URL` 为百炼控制台给出的完整 Base URL（北京地域标准地址为 `https://dashscope.aliyuncs.com/compatible-mode/v1`；如控制台提供专属工作空间地址，可通过该变量覆盖）。准备好后将 `DEEPSEEK_HARNESS_MODEL` 设为该模型 ID 并重新加载后端。未覆盖时使用官方北京标准地址，不回退旧的自部署主模型。
-
-Harness 是本地编排运行时，主模型的推理请求由其通过上述百炼 API 发出；指定的 Qwen 子模型仍使用自己原有的地址和密钥。未指定子模型时仍按界面约定跟随主模型。切换不会改写历史基准实验标签、历史通过率或 Skill 正文。密钥不写入 YAML、前端构建或可公开的模型元数据。
-
-Harness 子任务收尾：子 Agent 完成而 `answer.json` 尚未写入时，在同一主会话中至多追加一次候选落盘提示，不重新生成或启动新子 Agent。持久会话修复轮保留已有候选文件，避免官方工具的文件快照失效；本轮没有更新文件则明确拒绝沿用旧输出。缺少 C 候选时显示正确的 `answer.json` 文件名，并说明验证器尚未执行。
-
-### 人工规约与 Agent 协作
-
-C 项目工作台的“编辑 Agent 规约的人工副本”将候选载入可编辑区，原 Agent 任务工件不变。“保存人工版本”按项目修订号保存不可变 JSON 快照及 `.human.vN.c` 文件（位于 runtime 项目版本目录），历史版本可以单独查看；这些文件不加入项目的编译输入。保存使用修订号冲突检测，避免覆盖其他窗口。
-
-“保存并让 Agent 继续”提交当前人工文件的独立快照，关联本项目、本文件已完成的任务，并带上之前的验证诊断；Agent 在该版本上补充规约，最多追加修复 3 轮。它不直接改写运行中任务的输入，不会按每次键盘输入自动调用收费模型。“仅验证当前规约”只调用本地验证器。人工已存在的断言和约束仍需保留，Agent 不会通过删除人工要求来达成通过。
-
-证明输出的失败目标会生成结构化行号、文件及源码哈希；编辑器用红色行号和底色显示疑似位置，点击诊断跳转。任一求解器已证明的目标不会误标为失败。红色表示未证明或诊断位置，不等于已找到反例；源码编辑后隐藏旧位置，重新验证后更新。
-
-### C 项目的 Sub-agent 选择
-
-项目配置和基准文件重跑均可为 Codex、Claude Code、DeepSeek Harness 选择 `qwen35-4b-mix64` 或 `qwen35-9b-mix64`。DeepSeek Harness 使用原生子 Agent；Codex、Claude Code 使用平台 API 子 Agent 生成并校验候选，再交由主 Agent 检查和验证，主模型须选择平台已配置的 API 模型。两者留空时保留原有执行方式。API 子 Agent 失败时停止并保留诊断，不回退成主模型冒充子模型。后续修复沿用已有候选，不重复调用 API 子 Agent 生成；最终仍执行平台独立 Frama-C 检查。子模型元数据和候选保存在任务对应轮次的 `subagent-runtime.json`、`subagent-candidate.json` 中，不保存密钥。
-
-### Harness 输出预算
-
-百炼 `deepseek-v4.1-flash-1017` 主模型默认单次输出上限为32768 tokens，其他主模型保持8192。可通过 `XUANJIAN_HARNESS_MAIN_MAX_TOKENS`（1024–65536）调整；部署 Qwen 的子模型独立使用 `XUANJIAN_HARNESS_SUB_MAX_TOKENS`（默认8192，最大16384），不继承主模型上限。每次调用的 `agent_runtime.output_budget` 记录实际配置；输出上限并非任务次数预算，也不保证所有复杂任务不会再超限。Live25新实验将 `output_limit` 归为单案例失败，不触发连续服务故障熔断；断网等真实服务故障继续保留保护停止。原始 Skill 内容不变，候选仍须独立证明。
-
-### 主 Agent 减少转写与重复诊断
-
-紧凑 C 流程默认启用 `XUANJIAN_HARNESS_AUTO_HANDOFF=1`：仅在原生子 Agent 正常完成且最终文本含有效 files JSON 时，平台原子保存 answer.json，不再要求主模型转写完整候选；内容仍经过原始源码保护和独立 Frama-C 检查。无效或非JSON输出保留原交接流程，不将失败子模型输出当作候选。修复输入由摘要、诊断行及未证明目标构成，上限5000字符，完整日志仍保存在后端。已有暂停实验的进程不受新代码影响，需要新进程才使用新策略；不同策略下的实验结果应分开统计。
-
-### C/ACSL 规约补丁协议（默认）
-
-C 补丁模式下，主模型和子模型的思考开关独立配置：`XUANJIAN_HARNESS_MAIN_THINKING=off`、`XUANJIAN_HARNESS_WORKER_THINKING=on` 为当前默认策略。百炼通过 `enable_thinking`、部署的 Qwen 通过 `chat_template_kwargs.enable_thinking` 显式传递开关，均使用服务支持的 `system` 消息角色。思考与最终规约共用原有输出上限，不承诺独立的思考额度，不扩大上下文或证明预算。子模型预留 1024 tokens 的服务端模板开销，原生运行器可在余下窗口内缩减本次输出预算；不截断源码或固定 Skill。这是独立的实验配置变化，记录在 `thinking_policy`，比较结果时应保留该条件。官方 CLI、原生子 Agent 与同案例常驻会话保持使用，Skill 文件不变。
-
-原始 Skill 正文作为不改写的参考材料保留；外围适配层明确平台承担工具执行、验证、存储与报告，子模型只提交具体规约，不得返回执行成功摘要。首轮记录非空生成情况、循环不变量覆盖估计、静态语法检查与独立证明结果。循环覆盖是启发式结构指标，不是证明；对本来已有规约的输入和不含循环的简单输入不一律禁止空补丁。
-
-交接先校验补丁格式、原始路径、行号与源码保护，再生成收据；无效补丁直接向工具反馈具体错误，允许在当前轮纠正。仅规范化单个补丁对象或补丁数组的 JSON 外壳，不补写模型未生成的规约，也不采纳思考标签内的草稿。修复轮漏调用提交工具时只提醒一次；运行器错误立即结束等待，不拖到超时。没有本轮有效补丁的失败不得复用上一轮 `answer.json`。
-
-实验逐项记录 `failure_stage`，区分证明未通过、模型未产生有效候选和基础设施异常；这些状态均不能算验证通过。原始 pass@1/pass@5 分母和独立证明条件不变，不把交接失败排除后计算成更高通过率。
-
-
-`XUANJIAN_HARNESS_SPEC_PATCHES=1` 时，C 候选只接受 `{"patches":[{"path":"main.c","before_line":8,"annotation":"/*@ loop invariant ...; */"}]}`。行号针对原始源码，平台保存不可变输入并合并规约，模型不能返回或覆盖 C 源码。每轮返回完整的生成规约集合以替换上轮补丁，原始断言与原始规约仍受保护。平台校验路径、行号、ACSL 注释边界、源码词法一致性和证明绕过标记；无效补丁可在剩余轮数内修复，不重新生成程序。
-
-DeepSeek Harness 的 `delegate_spec` 在后端注入完整、未改动的 Skill 和原始行号，主 Agent 只发送空参数委派。子模型成功时保存补丁；若仅输出格式不符，`inspect_worker_result` 仅提供原有注释与源码行号供归一化，不能替代失败子模型重新生成。修复通过 `submit_spec_patches` 提交，不依赖官方文件工具的读写追踪，因此不存在平台自动写入文件后 CLI 无权覆盖的问题。Codex/Claude 的 C 流程及平台 Qwen API worker 同样使用补丁协议。最终完整带规约源码由平台生成，仍独立执行 Frama-C。
-
-`candidate-patches.json` 保存补丁，`patch-line-map.json` 映射验证器行号到原始行号与补丁索引。完整日志留在后端，模型只接收相关失败公式与诊断。当前部署的 Qwen35-9B-mix64 服务返回16K上下文上限，客户端同步该值；补丁模式将子模型输出预算封顶4096 tokens。原始 Frama-C 参数和证明标准不变；位运算或内存模型目标仍可能需要进一步证明分析，补丁协议本身不保证所有样例通过。
-
-
-### VeriFast 验证工具
-
-项目工作台、基准文件验证弹窗和工具箱共用原有文件、规约编辑、配置、结果、日志与历史界面，只提交不同的 `verification_tool`。项目与基准任务统一进入现有 `/runs` 生命周期；后端选择 Frama-C 或 VeriFast 适配器。VeriFast 支持选择 Codex、Claude Code 或 DeepSeek Harness，以及主模型和可选子模型，生成 VeriFast 规约后独立验证；失败反馈最多追加修复 3 轮。也保留不调用模型的直接验证；结果以编译单元状态展示，不伪装成 Frama-C proof-goals，也不修改历史基准汇总。每次提交保存独立快照，源码锁定，仅允许编辑规约。
-
-验证工具选择按项目持久化，刷新页面保持不变。DeepSeek Harness 的补丁协议按所选工具区分 ACSL 和 VeriFast；VeriFast 支持原始行号与列号插入，确保不变式位于循环条件之后、左花括号之前。明确的 `@@ … @@` 注释伪分隔符仅做有记录的格式补全，不改表达式，不修改 C 源码，仍须经过所选工具的独立验证。
-
-VeriFast 结果卡使用“语句验证”指标。完整验证通过且原生已验证语句数 N 大于 0 时，以 N/N 表示该成功运行；它不是 Frama-C 证明目标数。失败时不推算分母；零语句显示 0，避免把 0/0 解释为证明通过。编译单元的 1/1 不作为语句数。历史结果可从原始验证摘要中读取该数量。编辑器根据所选工具插入 ACSL 块或 VeriFast 的 `//@` 注释；两者均锁定原始 C 代码。
-
-VeriFast 使用自己的分离逻辑规约，例如 `//@ requires ...;`、`//@ ensures ...;`、`//@ invariant ...;`，不能直接把 ACSL 当作 VeriFast 规约。本入口验证 C 编译单元；`-c` 不进行链接检查，外部函数和头文件的合约是依赖前提，不表示整个程序及所有依赖实现均已证明。Skill 文件保持原文，后端在执行适配层明确指定 VeriFast 语法和验证器，不执行其中的 ACSL 注入或 Frama-C 命令。项目必须选择明确的输入条件与验证目标；生成成功不等于验证通过。
-
-安装固定的官方 26.10 发行包（Python 3.12+，当前支持 Apple Silicon macOS 和 Linux x86_64）：
-
-```bash
-python scripts/install_verifast.py
-```
-
-发行包下载到项目 `runtime/tools/verifast/`，安装器核验固定 SHA-256。已有安装可通过 `VERIFAST_BINARY` 指定可执行文件；`VERIFAST_RUNTIME=auto` 默认优先本机安装，也可设置 `host` 或 `container`。无需把开发机绝对路径写入服务器配置。
-
-服务器容器部署：
-
-```bash
 docker compose --profile verifast build verifast
 ```
 
-也可通过 `--build-arg BASE_IMAGE=ubuntu:22.04` 选择 Ubuntu 22.04 基础镜像；该 Linux 容器运行路径已做真实通过与失败验证。
+随后在 `.env` 设置 `VERIFAST_RUNTIME=container`。本机安装则保留 `auto`，或显式使用 `host`。其他安装位置可通过 `VERIFAST_BINARY` 指定。
 
-后端设置 `VERIFAST_RUNTIME=container`，并确保可调用 Docker。镜像固定为 `acsl-verifast:26.10`，仅挂载 `runtime/verifast` 快照目录；运行时禁用网络、根文件系统只读，不传入模型服务密钥。构建时需要访问基础镜像仓库和 GitHub 官方发行包。
+### 4. 启动服务
 
-验收使用 `verifast -safe_mode -enforce_annotations -c -json -I <快照目录>`，仅白名单标准库和上传的头文件，不添加忽略溢出、忽略类型、允许假设或跳过失败的选项。JSON 模式的进程退出码不足以判断证明成功，必须检查 `VeriFast-Json` 的结构化 `success` 结果。平台另行拦截输入中的 `assume/admit` 注释，不把未证明假设计为通过。命令、结果、源码 SHA-256 与原始日志保存在 `runtime/verifast/<id>/`。
+```sh
+python scripts/run_api.py
+```
 
-统一直接验证接口：`POST /api/v1/verification/verify`（`verification_tool: framac | verifast`、`files`、`entry`、`timeout_sec`）。项目与基准任务在原提交接口中增加同名 `verification_tool` 字段。
+默认访问：<http://127.0.0.1:8000/>，接口文档：<http://127.0.0.1:8000/docs>。
 
-兼容接口：`GET /api/v1/verifast/capabilities`，`POST /api/v1/verifast/verify`（`files`、`entry`、`timeout_sec`），`GET /api/v1/verifast/runs`，以及单条记录的结果、`input`、`log` 接口。
+需要使用其他端口，例如当前本地工作环境的 8010：
 
-Agent 终端通过 `/api/v1/runs/{task_id}/terminal` 读取该任务的原生 CLI 命令与工具输出，与平台“过程”步骤分开显示；支持展开、命令详情、复制及日志下载。命令不执行于浏览器；补充指令继续在修复边界应用。规约编辑允许逐字删除注释符号，未闭合的注释须补全或整条删除后再保存；原始 C 代码仍由前后端共同锁定。
+```sh
+python -m uvicorn apps.api.app.main:app --host 127.0.0.1 --port 8010
+```
+
+前端由同一服务托管。修改前端后重新执行 `npm run build:web` 并刷新页面；修改后端或模型环境配置后重新启动服务。
+
+## 模型与运行配置
+
+完整变量以 [.env.example](.env.example) 为准，模型目录位于 [configs/models_config.yaml](configs/models_config.yaml)。
+
+| 配置 | 用途 |
+| --- | --- |
+| `aliyun_API_KEY` | 百炼模型的后端密钥 |
+| `BAILIAN_DEEPSEEK_BASE_URL`、`DEEPSEEK_HARNESS_MODEL` | DeepSeek Harness 主模型的服务地址与模型 ID |
+| `QWEN35_4B_MIX64_API_BASE_URL`、`QWEN35_9B_MIX64_API_BASE_URL` | 已部署 Qwen 子模型的接口地址，以 `/v1` 结尾 |
+| `QWEN_MIX64_API_KEY` | mix64 子模型服务的接口密钥 |
+| 对应的 `QWEN35_*_DOCKER_BASE_URL` | 容器可访问的模型服务地址 |
+| `ACSL_VERIFIER_RUNTIME` | Frama-C 运行方式：`auto`、`host`、`container` |
+| `ACSL_FRAMAC_PROFILE` | Frama-C 验证参数口径：`original` 或 `strict` |
+| `VERIFAST_RUNTIME`、`VERIFAST_BINARY` | VeriFast 运行方式及可选可执行文件路径 |
+| `VERUS_EXECUTABLE` | 已有 Verus 可执行文件的位置 |
+
+当前百炼主模型配置项为 `deepseek-v4.1-flash-1017`；子模型可选已部署的 `qwen35-4b-mix64` 或 `qwen35-9b-mix64`。模型 ID、接口地址和鉴权必须与实际部署一致，主模型与子模型使用各自配置。
+
+不同 Agent 对接口协议的要求不同：DeepSeek Harness 使用 Chat Completions，Codex 使用 Responses，Claude Code 使用 Anthropic Messages。服务必须实际支持所选协议，不能只改模型名称。Rust 工作台也可通过 API 模型配置添加服务，私有配置保存在 `runtime/generation-models.json`；环境变量部署方式见 `.env.example` 中的 `NL2VERUS_MODEL_*`。
+
+密钥仅放在后端 `.env` 或私有运行配置中，不写入前端源码。服务器与容器必须能够访问配置地址；开发机可访问的内网地址不一定在部署环境可用。同源部署无需额外跨域配置，分离部署时设置 `ACSL_AGENT_ALLOWED_ORIGINS`。
+
+## 使用流程
+
+1. 创建或导入项目，选择需要验证的文件。
+2. C 项目选择 Frama-C / WP 或 VeriFast；Rust 项目使用 Verus。
+3. 对没有规约的输入，选择 Agent、主模型、可选子模型与 Skill，提交生成并验证任务；已有规约可直接验证，不调用模型。
+4. 在右侧查看过程、Agent 终端、日志和验证结果。每次提交保存独立输入，不覆盖已有任务。
+5. 验证失败后根据日志和疑似错误行修复，也可保存人工版本并让 Agent 继续。
+
+### 规约编辑与修复
+
+C 工作台仅允许修改规约，前后端共同检查原始 C 源码是否保持不变。可以删除规约注释符号，但未闭合的注释必须补全或完整删除后再保存。
+
+“编辑 Agent 规约的人工副本”保留原 Agent 产物；只有内容不同的人工版本才保留。“保存并让 Agent 继续”提交人工版本的独立快照，不会按每次输入自动调用模型。“仅验证当前规约”只执行验证器。
+
+单案例默认最多追加 3 轮修复，通过后立即结束。DeepSeek Harness 在同一案例内复用官方 CLI 会话，修复已有补丁，不重新派发全量生成。格式错误但有具体规约内容的补丁会进入有界修复，不能当作已验证候选。
+
+任务默认总时限约 200 秒，覆盖生成、修复和独立验证。启用复杂文件自动延长时，多循环、多 C 文件或源码超过 8 KiB 等情况可提高到至少 600 秒；实际预算记录在任务中。总时限与单个证明目标的求解时限不同。
+
+### Skill 选择
+
+| 验证路线 | 内置 Skill |
+| --- | --- |
+| C / Frama-C | `spec-split`、`spec-orchestrate`、`spec-bottomup` |
+| C / VeriFast | `spec-verifast · v1` |
+| Rust / Verus | `skills/verus/verus-baseline/SKILL.md` |
+
+VeriFast 任务在执行快照中以新 Skill 替换内置 ACSL 工作流，原版 Skill 和自定义 Skill 保持不变。VeriFast 版本保留自底向上的分析方法，使用独立的分离逻辑语法、权限规则和插入位置；不能直接套用 ACSL。
+
+新版本和案例说明见 [spec-verifast/SKILL.md](resources/skills/spec-verifast/SKILL.md) 与 [案例验证说明](resources/skills/spec-verifast/references/case-validation.md)。案例回归验证的是补丁与真实验证器链路，不代表模型生成成功率。
+
+## 验证结果的含义
+
+- 最终结果依据本次验证器输出和实际工件，生成成功、工具交接完成和证明通过是不同状态。
+- Frama-C 展示证明目标数。默认 `original` 参数沿用原有口径，不额外生成 RTE 安全目标，并关闭调用方前置条件目标；通过不能解释为完整运行时安全证明。需要更严格检查时使用 `strict`，不同口径的结果应区分。
+- VeriFast 完整验证成功且报告 N 条已验证语句时显示 `N/N`，这是语句统计，不是 Frama-C 证明目标数；失败不推算分母。当前使用 `-safe_mode -enforce_annotations -c -json` 验收 C 编译单元，`-c` 不执行链接检查，也不代表所有外部依赖实现已证明。
+- VeriFast 与 ACSL 的契约语法、内存模型和规约位置不同。复杂递归谓词、需要新增 lemma 的任务等仍有适配限制，具体见新 Skill 的案例说明。
+- 超时、工具不可用、无有效候选和未证明均不能计为通过。红色行号表示诊断或疑似未证明位置，不等于已经找到程序反例；源码变更后应重新验证。
+
+## 项目结构与运行产物
+
+```text
+acsl模块化验证/
+├── apps/             Vue 前端、FastAPI 接口与服务装配
+├── acsl/             领域、应用用例、适配器与基础设施
+├── engine/           规约补丁、Agent 协议与验证器实现
+├── configs/          模型、示例和 Agent 依赖锁定配置
+├── resources/skills/ 内置 C Skill 及 VeriFast 案例
+├── skills/verus/     Rust / Verus Skill
+├── docker/           独立验证器镜像构建文件
+├── scripts/          启动、安装与构建脚本
+├── tests/            后端与浏览器测试
+├── docs/             专题文档
+└── runtime/          本机运行数据与安装的工具，不提交到 Git
+```
+
+| 位置 | 内容 |
+| --- | --- |
+| `runtime/projects/` | 项目文件、配置及人工版本 |
+| `runtime/runs/<task_id>/` | `task.json`、`result.json`、输入快照和任务工件 |
+| `runtime/verifast/<id>/` | VeriFast 输入、命令、源码哈希、原始日志和结果 |
+| `runtime/skills/` | Skill 版本记录 |
+| `runtime/cli/` | 项目管理的 Agent 运行时 |
+| `runtime/generation-models.json` | 私有 API 模型配置 |
+
+迁移服务时保留 `.env` 和必要的 `runtime/` 数据；CLI 与验证器按目标机器重新安装，不直接复制不同系统或架构的二进制。
+
+## 部署与开发
+
+统一服务镜像使用 [docker-compose.unified.yml](docker-compose.unified.yml)：
+
+```sh
+docker compose -f docker-compose.unified.yml up -d --build
+```
+
+该镜像按 Linux amd64 构建，Agent 运行时安装在持久化数据卷之外，`runtime/` 用于保存运行数据。VeriFast 不由此镜像自动安装，需另外准备并配置可用的运行时。部署模型地址使用服务器或容器可达的地址；对外多人使用还需补充用户认证、配额和任务隔离。
+
+后端按 `apps/api → acsl.application → acsl.domain / adapters` 分层，验证器通过独立适配器接入。结构说明见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)，Rust 专题见 [docs/RUST-WORKFLOW.md](docs/RUST-WORKFLOW.md) 与 [docs/verus-generation.md](docs/verus-generation.md)。
+
+后端测试需另外安装 `pytest`；浏览器测试需准备 Playwright 浏览器及相应测试依赖。修改文档无需启动模型实验，验证工具相关测试则需要对应的真实工具链。
+
+```sh
+python -m pytest tests/test_architecture.py tests/test_workspace_api.py tests/test_verifier_dispatch.py -q
+npm run build:web
+```

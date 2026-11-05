@@ -1,5 +1,5 @@
 """Install a checksum-pinned official VeriFast distribution in project runtime."""
-import hashlib,json,platform,tarfile,tempfile,urllib.request
+import argparse,hashlib,json,platform,tarfile,tempfile,urllib.request
 from pathlib import Path
 VERSION='26.10'
 ASSETS={
@@ -8,9 +8,12 @@ ASSETS={
 }
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1]/'runtime/tools/verifast')
+    args=parser.parse_args()
     system=(platform.system(),platform.machine())
     if system not in ASSETS:raise SystemExit('Use the linux/amd64 Docker service for this platform.')
-    asset,digest=ASSETS[system];root=Path(__file__).resolve().parents[1]/'runtime/tools/verifast';root.mkdir(parents=True,exist_ok=True)
+    asset,digest=ASSETS[system];root=args.root.expanduser().resolve();root.mkdir(parents=True,exist_ok=True)
     target=root/('verifast-'+VERSION)
     if (target/'bin/verifast').is_file():print(target/'bin/verifast');return
     url=f'https://github.com/verifast/verifast/releases/download/{VERSION}/verifast-{VERSION}-{asset}.tar.gz'

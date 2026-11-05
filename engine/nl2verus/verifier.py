@@ -97,6 +97,9 @@ def verifier_info() -> dict[str, object]:
         }
 
 
+from engine.verification.report import reported
+
+@reported("verus")
 def verify_code(code: str, timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS, *, files: list[dict] | None = None, entry_path: str = "submission.rs") -> dict[str, object]:
     executable = verus_path()
     if not executable.is_file():
@@ -129,9 +132,10 @@ def verify_code(code: str, timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS, *, fi
             target.write_text(item["content"], encoding="utf-8")
         source_path.parent.mkdir(parents=True, exist_ok=True)
         source_path.write_bytes(encoded)
+        command=[str(executable), str(source_path), "--crate-type", "lib", "--crate-name", "submission"]
         try:
             completed = _run_process(
-                [str(executable), str(source_path), "--crate-type", "lib", "--crate-name", "submission"],
+                command,
                 timeout=max(1, min(timeout_seconds, 3600)),
             )
         except subprocess.TimeoutExpired as error:
@@ -143,6 +147,7 @@ def verify_code(code: str, timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS, *, fi
             if isinstance(stderr, bytes):
                 stderr = stderr.decode("utf-8", errors="replace")
             return {
+                "command": command,
                 "status": "timeout",
                 "verified": False,
                 "exit_code": None,
@@ -175,6 +180,7 @@ def verify_code(code: str, timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS, *, fi
         status = "no_checks"
         message = "没有实际验证项（0 verified），请检查是否包含待验证的 Verus 函数或证明。"
     return {
+        "command": command,
         "status": status,
         "verified": verified,
         "exit_code": completed.returncode,

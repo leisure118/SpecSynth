@@ -60,7 +60,8 @@ def test_complex_budget_is_bounded_transparent_and_can_be_disabled():
     assert c_budget([{'path':'a.c','content':'/* while(x) for(x) */ int f(){return 0;}'}])['effective_sec']==200
 
 
-def test_codex_mcp_receives_isolated_docker_environment(tmp_path,monkeypatch):
+def test_codex_mcp_receives_native_verifier_environment(tmp_path,monkeypatch):
+    monkeypatch.setenv('ACSL_VERIFIER_RUNTIME','host')
     from types import SimpleNamespace
     from engine import c_agent_cli as cli
     files=[{'path':'main.c','content':'int main(){return 0;}'}];seen={}
@@ -78,12 +79,14 @@ def test_codex_mcp_receives_isolated_docker_environment(tmp_path,monkeypatch):
     result=cli.generate('codex','Original source:\n'+json.dumps(files),{'model':'test','base_url':'http://example.invalid/v1','api_key':'secret'},tmp_path/'agent',10)
     assert result['files']==files
     args=seen['args']
-    assert any(s.startswith('mcp_servers.frama.env.DOCKER_CONFIG=') for s in args)
+    assert not any(s.startswith('mcp_servers.frama.env.DOCKER_CONFIG=') for s in args)
+    assert any(s.startswith('mcp_servers.frama.env.ACSL_VERIFIER_RUNTIME=') and 'host' in s for s in args)
     assert any(s.startswith('mcp_servers.frama.env.PYTHONPATH=') for s in args)
     assert not any(s.startswith('mcp_servers.frama.env.NL2VERUS_AGENT_KEY=') for s in args)
 
 
-def test_verifast_mcp_runs_verifast_without_acsl_slicing(tmp_path):
+def test_verifast_mcp_runs_verifast_without_acsl_slicing(tmp_path,monkeypatch):
+    monkeypatch.setenv("VERIFAST_RUNTIME","host")
     from engine.verification.verifast_runtime import binary
     import pytest
     if not binary():pytest.skip('Native VeriFast not installed')

@@ -4,12 +4,13 @@ from datetime import datetime
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field, model_validator
+from acsl.contracts.verification import VerificationReport
 
 
 RunMode = Literal["single", "termination", "inter-modular", "batch", "rust-verify", "rust-generate"]
-RunStatus = Literal["queued", "running", "pass", "fail", "invalid", "timeout", "unavailable"]
+RunStatus = Literal["queued", "running", "pass", "fail", "invalid", "timeout", "unavailable", "cancelled"]
 PhaseStatus = Literal["pending", "running", "completed", "failed", "skipped"]
-ResultStatus = Literal["Pass", "Fail", "Invalid", "Timeout", "Unavailable"]
+ResultStatus = Literal["Pass", "Fail", "Invalid", "Timeout", "Unavailable", "Cancelled"]
 
 
 class PhaseState(BaseModel):
@@ -193,6 +194,7 @@ class SplitOutput(BaseModel):
 
 
 class RunResult(BaseModel):
+    verification: VerificationReport | None = None
     task_id: str
     mode: RunMode
     status: ResultStatus

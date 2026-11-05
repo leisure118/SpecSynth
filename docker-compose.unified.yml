@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.unified
       args:
+        INSTALL_VERIFAST: ${ACSL_AGENT_INSTALL_VERIFAST:-1}
         INSTALL_VERUS: ${ACSL_AGENT_INSTALL_VERUS:-1}
         BASE_IMAGE: ${ACSL_AGENT_BASE_IMAGE:-python:3.13-slim}
         APT_MIRROR: ${ACSL_AGENT_APT_MIRROR:-}
@@ -21,6 +22,9 @@ services:
     environment:
       ACSL_AGENT_RUNTIME_ROOT: /opt/acsl-agent/agents
       ACSL_AGENT_LOCAL_TOOLCHAIN: "1"
+      ACSL_VERIFIER_RUNTIME: host
+      VERIFAST_RUNTIME: host
+      VERIFAST_BINARY: /opt/acsl-agent/tools/verifast/verifast-26.10/bin/verifast
       ACSL_AGENT_ALLOWED_ORIGINS: ${ACSL_AGENT_ALLOWED_ORIGINS:-}
       QWEN_MIX64_API_KEY: ${QWEN_MIX64_API_KEY:-}
       DEEPSEEK_ORCHESTRATOR_BASE_URL: ${DEEPSEEK_ORCHESTRATOR_BASE_URL:-}

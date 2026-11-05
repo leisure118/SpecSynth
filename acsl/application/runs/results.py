@@ -118,7 +118,13 @@ class RunResultMixin:
             else _classify_failure(logs.get("raw", ""), result_code=result_code, context=task.mode)
         )
         normalized_proof = proof_stats or _normalize_proof_stats()
+        from engine.verification.report import normalize_verification
+        detail = engine_detail or {}
+        check = detail.get('verification')
+        tool = {'VeriFast':'verifast','Verus':'verus'}.get(detail.get('verifier'), 'framac')
+        verification = normalize_verification(check, tool) if isinstance(check,dict) else None
         return RunResult(
+            verification=verification,
             task_id=task.task_id,
             mode=task.mode,
             status=status,

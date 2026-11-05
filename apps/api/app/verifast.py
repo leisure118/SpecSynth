@@ -37,7 +37,9 @@ def capabilities():return runtime.capabilities()
 
 
 @router.post('/verify')
-def verify(body:VerificationRequest):return runtime.verify([f.model_dump() for f in body.files],body.entry,body.timeout_sec)
+def verify(body:VerificationRequest):
+    result=runtime.verify([f.model_dump() for f in body.files],body.entry,body.timeout_sec)
+    return {**result,'verification':result.get('report')}
 
 
 @router.get('/runs')

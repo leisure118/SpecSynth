@@ -137,7 +137,9 @@ def execute_agent(manager,task,payload):
     if progress:progress.update({'id':'source-routing','label':'识别源文件与选择工作流','status':'completed','detail':route['label']+' · '+entry})
     budget=c_budget(files,payload.timeout_sec,getattr(payload,'adaptive_timeout',True)) if not rust else {'requested_sec':payload.timeout_sec or 200,'effective_sec':payload.timeout_sec or 200,'adaptive':False,'reasons':[]}
     task.metadata['time_budget']=budget;store.write_task(task)
-    deadline=time.monotonic()+budget['effective_sec']
+    from acsl.infrastructure.task_control import current,checkpoint
+    if current():current().set_timeout(budget['effective_sec'])
+    deadline=current().deadline if current() else time.monotonic()+budget['effective_sec']
     proof_reserve=min(60,max(15,int(budget['effective_sec']*.15))) if not rust else 0
     attempts=[];candidate=files;diagnostic='';check={'status':'failed','verified':False,'message':'尚未验证'}
     prompt_base=base_prompt(files,task.mode,payload.description,payload.function_signature,payload.agent_instructions,verification_tool=payload.verification_tool)
@@ -147,6 +149,7 @@ def execute_agent(manager,task,payload):
         prompt_base+='\nContinue from the manually edited source below, not a fresh implementation. Preserve the human annotations and original assertions; fill missing proof annotations and repair failed goals where permitted. Do not remove requirements or introduce assumptions. Previous diagnostics refer to the earlier source version: relocate their goals against the current source instead of assuming old line numbers still match. Previous verifier diagnostics:\n'+str(payload.manual_context.get('diagnostics',''))[-16000:]
 
     for round_number in range(payload.max_repair_rounds+1):
+        checkpoint()
         remaining=int(deadline-time.monotonic())
         if remaining<1:
             check={'status':'timeout','verified':False,'message':'任务总超时，已停止修复。'};break
@@ -171,6 +174,7 @@ def execute_agent(manager,task,payload):
             runtime_file=directory/f'round-{round_number}'/'harness-runtime.json'
             if not runtime_file.is_file():runtime_file=directory/f'round-{round_number}'/'cli-runtime.json'
             if runtime_file.is_file():attempt['agent_runtime']=json.loads(runtime_file.read_text())
+            checkpoint()
             candidate=validate_candidates(files,produced,rust,entry,task.mode)
             attempt['code']=next(f['content'] for f in candidate if f['path']==entry)
             if progress:progress.update({'id':'candidate','label':'平台检查源码与原始断言','status':'completed'})

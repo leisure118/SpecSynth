@@ -404,6 +404,16 @@ class RunFeedbackBody(BaseModel):
     text: str = Field(min_length=1,max_length=4000)
 
 
+@app.post('/api/v1/runs/{task_id}/cancel')
+def cancel_run(task_id: str):
+    try:
+        task=manager.cancel(task_id)
+    except KeyError:
+        raise HTTPException(404,'任务不存在。') from None
+    return {'task_id':task_id,'status':task.status,'cancel_requested':task.status in ('queued','running'),
+            'message':'停止后续步骤；正在执行的调用可能到返回或自身超时后才结束。'}
+
+
 @app.get('/api/v1/runs/{task_id}/terminal')
 def get_run_terminal(task_id: str):
     from acsl.application.terminal import native_terminal

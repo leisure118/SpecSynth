@@ -1,5 +1,12 @@
 // VeriFast reports verified statements, not a total number of proof obligations.
 export function verificationMetric(result){
+ const report=result?.verification
+ if(report?.schema_version===1){
+  const m=report.metric||{},count=Number.isInteger(m.verified)?m.verified:null,total=Number.isInteger(m.total)?m.total:null
+  const vf=report.tool==='verifast',complete=report.verified&&report.outcome==='verified'
+  return {isVerifast:vf,value:vf?(count==null?'—':count===0?'0':complete?count+' / '+count:count+' / —'):(count??'—')+' / '+(total??'—'),
+   label:vf?'语句验证':report.tool==='verus'?'验证项':'证明目标',note:vf?(complete?'完整验证通过 · 已验证语句':'VeriFast 未报告语句总数'):m.unit,count}
+ }
  const check=result?.engine_detail?.verification||{},stats=result?.proof_stats||{}
  const isVerifast=result?.engine_detail?.verifier==='VeriFast'||check.tool==='verifast'||result?.engine==='VeriFast'
  if(isVerifast){

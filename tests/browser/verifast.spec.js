@@ -95,8 +95,8 @@ test('VeriFast shows native statement count and inserts VeriFast annotations whi
   const editor=page.getByRole('textbox',{name:'C 源代码编辑器',exact:true});
   await page.getByRole('button',{name:'仅验证当前规约',exact:true}).click();
   await expect(page.locator('.vf-proof-summary h3')).toHaveText('通过');
-  await expect(page.locator('.vf-proof-summary>strong')).toHaveText('3 / 3');
-  await expect(page.locator('.vf-proof-summary>small')).toContainText('语句验证');
+  await expect(page.locator('.vf-proof-summary .vf-verification-metric>strong')).toHaveText('3 / 3');
+  await expect(page.locator('.vf-proof-summary .vf-verification-metric>small')).toContainText('语句验证');
   await editor.fill(code.replace('return count','return 0'));
   await expect(editor).toHaveValue(code);
   await expect(page.locator('.vf-spec-edit-warning')).toHaveText('仅允许修改 VeriFast 规约，原始源码已锁定。');

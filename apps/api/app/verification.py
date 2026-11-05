@@ -23,4 +23,5 @@ def verify(body:ToolVerificationRequest):
             settings.runtime_dir.mkdir(parents=True,exist_ok=True)
             with tempfile.TemporaryDirectory(prefix='direct-proof-',dir=settings.runtime_dir) as directory:
                 result=framac_runtime.run_candidate(files,body.entry,'single',remaining,Path(directory))
-    return {**result,'verification_tool':body.verification_tool,'result':'通过' if result.get('verified') else '未通过'}
+    from engine.verification.report import normalize_verification
+    return {**result,'verification':result.get('report') or normalize_verification(result,body.verification_tool,files),'verification_tool':body.verification_tool,'result':'通过' if result.get('verified') else '未通过'}

@@ -155,7 +155,7 @@ def test_api_agent_selection_and_skills_are_persisted(system,monkeypatch,tmp_pat
     profiles.save_profile({'id':'experiment','name':'Experiment','model':'model-under-test','protocol':'chat','base_url':'https://example.com/v1','api_key':'PRIVATE-KEY-DO-NOT-RECORD'})
     seen=[]
     monkeypatch.setattr(dsh_cli,'installed',lambda:True)
-    monkeypatch.setattr(dsh_cli,'generate',lambda prompt,profile:seen.append((prompt,True)) or {'code':GOOD,'finish_reason':'stop','model_name':profile['model'],'agent_events':[{'tool':'verify_verus','status':'verified'}],'provider_calls':2})
+    monkeypatch.setattr(dsh_cli,'generate',lambda prompt,profile,timeout=240:seen.append((prompt,0 < timeout <= 240)) or {'code':GOOD,'finish_reason':'stop','model_name':profile['model'],'agent_events':[{'tool':'verify_verus','status':'verified'}],'provider_calls':2})
     def verify(code,timeout):
         return {'status':'verified','verified':True,'verified_count':1,'error_count':0,'message':'verified','stdout':'1 verified, 0 errors','stderr':'','exit_code':0,'verus_version':verifier.VERUS_VERSION}
     monkeypatch.setattr(rust_execution,'WorkflowRuns',lambda **kwargs:WorkflowRuns(**kwargs,verify=verify,verifier_status=lambda:{'available':True,'version':verifier.VERUS_VERSION}))
@@ -310,7 +310,8 @@ def test_official_cli_failure_keeps_identity_and_tool_evidence(system,monkeypatc
     monkeypatch.setattr(platform_provider,'get_config',lambda:platform_provider.PlatformConfig({}))
     monkeypatch.setattr(dsh_cli,'installed',lambda:True)
     profiles.save_profile({'id':'official','name':'DeepSeek','model':'test-model','protocol':'chat','base_url':'http://models.internal/v1','auth_mode':'none','api_key':''})
-    def generate(*args):
+    def generate(*args,timeout=240):
+        assert 0 < timeout <= 240
         error=ProviderError('output_limit','官方 DeepSeek Harness 输出预算已耗尽。')
         error.agent_runtime={'name':'DeepSeek Harness','version':'0.2.1-rc.5','session_id':'failed-official-session','terminal_reason':{'kind':'max-tokens'}}
         error.agent_events=[{'tool':'write','status':'completed'}];error.provider_calls=3

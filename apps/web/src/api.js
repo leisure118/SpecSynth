@@ -147,3 +147,5 @@ export function verifyWithTool(payload){return request('/verification/verify',{m
 export function saveVerificationTool(id,verification_tool){return request('/projects/'+encodeURIComponent(id)+'/verification-tool',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({verification_tool})})}
 
 export function getRunTerminal(id){return request('/runs/'+encodeURIComponent(id)+'/terminal')}
+
+export function cancelRun(id) { return request('/runs/'+encodeURIComponent(id)+'/cancel',{method:'POST'}) }

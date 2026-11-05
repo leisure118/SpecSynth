@@ -28,7 +28,7 @@ Agent 负责执行与编排，模型负责生成内容，Skill 提供任务规�
 - Python 3.13 或以上，建议使用虚拟环境。
 - Node.js 24.9 或以上、npm；官方 Agent 运行时需要该版本。
 - 按任务安装 Frama-C / WP、VeriFast 或 Verus。
-- 只有使用容器验证或旧 AutoSpec 工作流时才需要 Docker；使用本机验证器时无需启动 Docker。
+- 本机 C 实验使用 Docker Desktop / Docker Engine；服务器直接安装验证器，不需要 Docker。
 
 ```sh
 python3 -m venv .venv
@@ -56,30 +56,18 @@ python scripts/install_agent_runtime.py --check
 
 ### 3. 准备验证器
 
-| 验证器 | 本机运行 | 容器运行 |
-| --- | --- | --- |
-| Frama-C / WP | 安装 `frama-c` 和 Alt-Ergo / Z3，并使后端能够找到它们 | 拉取下方镜像，使用 Compose 的 `verifier` 服务 |
-| VeriFast | 执行 `python scripts/install_verifast.py` | 构建 Compose 的 `verifast` 服务 |
-| Verus | 安装 `rustup`、`curl` 后执行 `python scripts/install_verus.py` | 统一镜像可在构建时安装固定版本 |
+| 验证器 | 服务器本机准备方式 |
+| --- | --- |
+| Frama-C / WP | 安装 `frama-c`、Alt-Ergo 和 Z3，配置服务账号的 PATH |
+| VeriFast | `python scripts/install_verifast.py`，下载并校验固定官方发行包 |
+| Verus | 准备 rustup 和 curl 后执行 `python scripts/install_verus.py` |
 
-共享 Frama-C 验证默认优先选择本机工具，否则探测专用验证容器。容器模式需要 Docker 服务处于运行状态：
-
-```sh
-docker compose pull verifier
-```
-
-VeriFast 安装器下载固定的 26.10 官方发行包并校验 SHA-256，当前提供 macOS Apple Silicon 与 Linux x86_64 安装路径。容器方式为：
-
-```sh
-docker compose --profile verifast build verifast
-```
-
-随后在 `.env` 设置 `VERIFAST_RUNTIME=container`。本机安装则保留 `auto`，或显式使用 `host`。其他安装位置可通过 `VERIFAST_BINARY` 指定。
+本机 C 实验选择 `local` 配置，Frama-C 与 VeriFast 使用 Docker；服务器选择 `server` 配置，直接调用安装好的工具，缺失时报告不可用，不回退 Docker。已有 VeriFast 和 Verus 安装可通过 `VERIFAST_BINARY`、`VERUS_EXECUTABLE` 指定位置。
 
 ### 4. 启动服务
 
 ```sh
-python scripts/run_api.py
+python scripts/run_api.py --profile local
 ```
 
 默认访问：<http://127.0.0.1:8000/>，接口文档：<http://127.0.0.1:8000/docs>。
@@ -87,7 +75,7 @@ python scripts/run_api.py
 需要使用其他端口，例如当前本地工作环境的 8010：
 
 ```sh
-python -m uvicorn apps.api.app.main:app --host 127.0.0.1 --port 8010
+python scripts/run_api.py --profile local --host 127.0.0.1 --port 8010
 ```
 
 前端由同一服务托管。修改前端后重新执行 `npm run build:web` 并刷新页面；修改后端或模型环境配置后重新启动服务。
@@ -103,7 +91,7 @@ python -m uvicorn apps.api.app.main:app --host 127.0.0.1 --port 8010
 | `QWEN35_4B_MIX64_API_BASE_URL`、`QWEN35_9B_MIX64_API_BASE_URL` | 已部署 Qwen 子模型的接口地址，以 `/v1` 结尾 |
 | `QWEN_MIX64_API_KEY` | mix64 子模型服务的接口密钥 |
 | 对应的 `QWEN35_*_DOCKER_BASE_URL` | 容器可访问的模型服务地址 |
-| `ACSL_VERIFIER_RUNTIME` | Frama-C 运行方式：`auto`、`host`、`container` |
+| `ACSL_VERIFIER_RUNTIME` | Frama-C 本机运行，默认 `host` |
 | `ACSL_FRAMAC_PROFILE` | Frama-C 验证参数口径：`original` 或 `strict` |
 | `VERIFAST_RUNTIME`、`VERIFAST_BINARY` | VeriFast 运行方式及可选可执行文件路径 |
 | `VERUS_EXECUTABLE` | 已有 Verus 可执行文件的位置 |
@@ -182,13 +170,16 @@ acsl模块化验证/
 
 ## 部署与开发
 
-统一服务镜像使用 [docker-compose.unified.yml](docker-compose.unified.yml)：
+同一份代码使用两套工具位置配置，不复制两份业务实现：
 
-```sh
-docker compose -f docker-compose.unified.yml up -d --build
-```
+| 场景 | 启动命令 | C 验证器位置 |
+| --- | --- | --- |
+| 本机实验 | `python scripts/run_api.py --profile local` | Docker 容器 |
+| 服务器部署 | `python scripts/run_api.py --profile server` | 服务器直接安装的可执行文件 |
 
-该镜像按 Linux amd64 构建，Agent 运行时安装在持久化数据卷之外，`runtime/` 用于保存运行数据。VeriFast 不由此镜像自动安装，需另外准备并配置可用的运行时。部署模型地址使用服务器或容器可达的地址；对外多人使用还需补充用户认证、配额和任务隔离。
+本机实验需先启动 Docker，Frama-C 使用 `docker compose pull verifier` 准备镜像，VeriFast 使用 `docker compose --profile verifast build verifast` 构建镜像。CLI 仍在启动 API 的机器上运行，Rust / Verus 保持现有原生执行路径。工具位置配置位于 `configs/runtime/`，不包含模型密钥；显式 profile 会覆盖 `.env` 的工具选择，不覆盖模型地址与密钥。
+
+服务器使用 `python scripts/check_server.py --profile server` 检查依赖，再由系统服务托管 `python scripts/run_api.py --profile server`。完整步骤见 [服务器部署说明](docs/SERVER-DEPLOYMENT.md)。
 
 后端按 `apps/api → acsl.application → acsl.domain / adapters` 分层，验证器通过独立适配器接入。结构说明见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)，Rust 专题见 [docs/RUST-WORKFLOW.md](docs/RUST-WORKFLOW.md) 与 [docs/verus-generation.md](docs/verus-generation.md)。
 

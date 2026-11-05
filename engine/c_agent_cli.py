@@ -76,19 +76,8 @@ def generate(agent,prompt,profile,directory,timeout=200,*,subagent_candidate=Non
         if subagent_candidate is not None:task+='\nStart from this selected sub-agent candidate and repair it, do not regenerate:\n'+json.dumps({'files':subagent_candidate},ensure_ascii=False)
     env={k:v for k,v in os.environ.items() if k in ('PATH','TMPDIR','SYSTEMROOT','ACSL_AGENT_RUNTIME_ROOT','XUANJIAN_PROOF_CPUS','XUANJIAN_PROOF_CONCURRENCY')}
     env.update(HOME=str(home),CODEX_HOME=str(home),PYTHONPATH=str(ROOT),NL2VERUS_AGENT_KEY=profile['api_key'])
-    mcp_env={}
-    if verifast:
-        from engine.docker_runtime import configure_docker
-        mcp_env=configure_docker(workspace,env)
-        mcp_env.update({key:os.environ[key] for key in ('VERIFAST_RUNTIME','VERIFAST_BINARY','DOCKER_HOST') if key in os.environ})
-    else:
-        from engine.docker_runtime import configure_docker
-        mcp_env=configure_docker(workspace,env)
-        try:
-            probe=subprocess.run(['docker','compose','version'],env=env,cwd=ROOT,capture_output=True,timeout=10)
-            if probe.returncode:raise ProviderError('agent_tools','Docker Compose 不可用；已在调用模型前停止，请检查验证器运行环境。')
-        except (OSError,subprocess.TimeoutExpired):
-            raise ProviderError('agent_tools','无法启动 Docker Compose；已在调用模型前停止。') from None
+    from engine.verification.environment import verifier_environment
+    mcp_env=verifier_environment(workspace,env,'verifast' if verifast else 'framac')
     if agent=='codex':
         args=command('codex')+['exec','--json','--ignore-user-config','--ignore-rules','--skip-git-repo-check','--ephemeral','--sandbox','workspace-write','--model',profile['model'],
           '-c','model_provider="platform"','-c','model_providers.platform.name="Platform API"','-c','model_providers.platform.base_url='+json.dumps(profile['base_url']),

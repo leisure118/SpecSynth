@@ -148,10 +148,10 @@ def _sdk_generate(agent,prompt,profile,timeout=240):
     return {'code':_clean_code(code,[profile['api_key']]),'model_name':profile['model'],'usage':result.get('usage',{}),'finish_reason':'stop'}
 
 
-def _chat_generate(prompt,profile):
+def _chat_generate(prompt,profile,timeout=120):
     from openai import OpenAI, omit
     try:
-        with OpenAI(api_key=profile.get('api_key') or 'not-required',base_url=profile['base_url'],timeout=120,max_retries=0,
+        with OpenAI(api_key=profile.get('api_key') or 'not-required',base_url=profile['base_url'],timeout=timeout,max_retries=0,
                     **({'default_headers':{'Authorization':omit}} if profile.get('auth_mode')=='none' else {})) as client:
             response=client.chat.completions.create(model=profile['model'],messages=[{'role':'user','content':prompt}],max_tokens=8192)
             choice=response.choices[0]
@@ -177,7 +177,9 @@ def make_runner(payload,runner_class):
         prompt=augment(prompt,selected)
         if agent!='direct' or not profile.get('legacy'):
             prompt+='\nReturn complete Verus Rust source only. Preserve the task semantics; no assume/admit/external_body.'
-        result=(provider.generate_code(prompt,model_id,snapshot=snapshot) if agent=='direct' and profile.get('legacy') else _sdk_generate(agent,prompt,profile) if agent=='codex' else claude_generate(prompt,profile) if agent=='claude' else dsh_generate(prompt,profile) if agent=='deepseek-harness' else _chat_generate(prompt,profile))
+        from acsl.infrastructure.task_control import remaining
+        timeout=remaining(240)
+        result=(provider.generate_code(prompt,model_id,snapshot=snapshot) if agent=='direct' and profile.get('legacy') else _sdk_generate(agent,prompt,profile,timeout=timeout) if agent=='codex' else claude_generate(prompt,profile,timeout=timeout) if agent=='claude' else dsh_generate(prompt,profile,timeout=timeout) if agent=='deepseek-harness' else _chat_generate(prompt,profile,timeout=timeout))
         result['effective_prompt']=prompt
         return result
     def status(*,snapshot):

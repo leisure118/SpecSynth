@@ -21,6 +21,8 @@ def test_shared_verification_endpoint_dispatches_only_selected_adapter(monkeypat
         r=client.post('/api/v1/verification/verify',json={**body,'verification_tool':tool})
         assert r.status_code==200
         assert r.json()['verification_tool']==tool
+        assert r.json()['verification']['schema_version']==1
+        assert r.json()['verification']['tool']==tool
         assert calls[-1][0]==tool
     assert len(calls)==2
     assert client.post('/api/v1/verification/verify',json={**body,'verification_tool':'unknown'}).status_code==422

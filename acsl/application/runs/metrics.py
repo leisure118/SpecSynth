@@ -137,6 +137,7 @@ def _phase_metrics(task: RunTask) -> list[dict]:
 
 def _status_to_task_status(status: str) -> str:
     mapping = {
+        "Cancelled": "cancelled",
         "Pass": "pass",
         "Fail": "fail",
         "Invalid": "invalid",

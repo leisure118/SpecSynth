@@ -193,15 +193,8 @@ def generate(prompt, profile, timeout=240, *, output_format="verus", artifact_di
             except (IndexError,ValueError,KeyError,TypeError):
                 sources=[]
             env['PYTHONPATH']=str(ROOT)
-            # Give the isolated CLI only plugin discovery and the daemon socket,
-            # never the developer's Docker registry credentials or contexts.
-            docker_config=workspace/'.docker';docker_config.mkdir(exist_ok=True)
-            plugin_dirs=[user_home/'.docker/cli-plugins',Path('/Applications/Docker.app/Contents/Resources/cli-plugins')]
-            (docker_config/'config.json').write_text(json.dumps({'cliPluginsExtraDirs':[str(p) for p in plugin_dirs if p.is_dir()]}))
-            env['DOCKER_CONFIG']=str(docker_config)
-            docker_socket=user_home/'.docker/run/docker.sock'
-            if os.environ.get('DOCKER_HOST'):env['DOCKER_HOST']=os.environ['DOCKER_HOST']
-            elif docker_socket.exists():env['DOCKER_HOST']='unix://'+str(docker_socket)
+            from engine.verification.environment import verifier_environment
+            verifier_environment(workspace,env,'verifast' if verifast else 'framac')
             tool_command=shlex.join([str(python if python.is_file() else Path(sys.executable)), '-m', 'engine.harness_spectool'])
             task = (prompt + '\n\nYou are inside the official DeepSeek Harness CLI. Use real file tools to write the candidate C/header files in this workspace, preserving their relative paths. '
                     'Write answer.json with the candidate files, then use bash to run the platform Frama-C verification tool: ' + verification_command + '\nInspect the actual diagnostics and update the candidate as needed. '

@@ -15,7 +15,7 @@ def binary():
 
 
 def capabilities():
-    mode=os.getenv('VERIFAST_RUNTIME','auto').strip().lower()
+    mode=os.getenv('VERIFAST_RUNTIME','host').strip().lower()
     if mode not in ('auto','host','container'):return {'ready':False,'runtime':None,'message':'VERIFAST_RUNTIME must be auto, host or container'}
     exe=binary()
     if exe and mode!='container':
@@ -89,6 +89,9 @@ def bypass_diagnostics(files):
     return diagnostics
 
 
+from engine.verification.report import reported
+
+@reported("verifast")
 def verify(files,entry,timeout=200):
     validate_files(files,entry)
     identifier=uuid.uuid4().hex;directory=settings.runtime_dir/'verifast'/identifier;source=directory/'source';source.mkdir(parents=True)
@@ -135,6 +138,8 @@ def verify(files,entry,timeout=200):
             except OSError:result.update(status='unavailable',message='VeriFast 运行器启动失败，请检查安装和运行环境。')
         result['elapsed_sec']=round(time.monotonic()-started,3)
     result['display_log']=result.get('command_text','')+'\n'+result['message']+'\n'+'\n'.join(f"{d['path']}:{d['line']}:{d['column']}: {d['message']}" for d in result['diagnostics'])+'\n'+result.get('stderr','')
+    from .report import normalize_verification
+    result['report']=normalize_verification(result,'verifast',files)
     (directory/'result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
     (directory/'verification.log').write_text(result.get('stdout','')+'\n'+result.get('stderr',''))
     return result

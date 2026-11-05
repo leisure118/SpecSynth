@@ -79,7 +79,7 @@ def test_spectool_verify_prefers_host_runner() -> None:
         "returncode": 0,
         "timed_out": False,
     }
-    with patch("engine.spectool_adapter.shutil.which", return_value="/usr/bin/frama-c"), patch(
+    with patch.dict(os.environ, {"SPECTOOL_VERIFY_RUNNER":"host"}), patch("engine.spectool_adapter.shutil.which", return_value="/usr/bin/frama-c"), patch(
         "engine.spectool_adapter.framac.run_framac_with_wp", return_value=raw
     ) as runner, patch("engine.spectool_adapter._container_tool_probe") as probe:
         response = client.post(
@@ -128,7 +128,7 @@ def test_spectool_verify_uses_container_runner_when_forced() -> None:
 
 
 def test_spectool_capabilities_prefer_host_when_available() -> None:
-    with patch("engine.spectool_adapter._local_tool_probe") as local, patch(
+    with patch.dict(os.environ, {"SPECTOOL_VERIFY_RUNNER":"host"}), patch("engine.spectool_adapter._local_tool_probe") as local, patch(
         "engine.spectool_adapter._container_tool_probe"
     ) as probe:
         local.return_value = {"frama_c": True, "veri_clang": False, "alt_ergo": True, "z3": True}
@@ -142,7 +142,7 @@ def test_spectool_capabilities_prefer_host_when_available() -> None:
 
 
 def test_spectool_capabilities_report_container_verify_runner() -> None:
-    with patch("engine.spectool_adapter._local_tool_probe") as local, patch(
+    with patch.dict(os.environ, {"SPECTOOL_VERIFY_RUNNER":"container"}), patch("engine.spectool_adapter._local_tool_probe") as local, patch(
         "engine.spectool_adapter._container_tool_probe"
     ) as probe:
         local.return_value = {"frama_c": False, "veri_clang": False, "alt_ergo": False, "z3": False}

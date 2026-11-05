@@ -7,6 +7,7 @@ import time
 from pathlib import PurePosixPath
 
 from acsl.adapters.storage import utcnow
+from acsl.infrastructure.task_control import checkpoint, TaskCancelled
 from acsl.infrastructure.settings import resolve_project_path
 from engine.nl2verus import agents, verifier
 from engine.nl2verus.b3_runner import candidate_problem, verify_b3_candidate
@@ -64,6 +65,10 @@ def execute_rust(manager, task, payload):
                 workflow = runner.submit(WorkflowRunRequest(**{k:v for k,v in payload.rust_workflow.items() if k in WorkflowRunRequest.model_fields}))
                 saved_revision = None
                 while True:
+                    try:checkpoint()
+                    except (TaskCancelled,TimeoutError):
+                        runner.cancel(workflow['id'])
+                        raise
                     workflow = runner.get(workflow['id'])
                     # Persist only changed revisions; polling must not rewrite large prompts repeatedly.
                     if workflow['revision'] != saved_revision:
@@ -79,6 +84,12 @@ def execute_rust(manager, task, payload):
                     time.sleep(0.3)
             finally:
                 runner.close()
+                if workflow and workflow.get('id'):
+                    workflow=runner.get(workflow['id'])
+                    workflow['selection']={k:v for k,v in payload.rust_workflow.items() if k in ('agent_id','skill_ids','skill_snapshot','model_profile','sample_id','source_name')}
+                    task.metadata['rust_workflow']=workflow
+                    store.write_text_artifact(task.task_id,'workflow','rounds.json',json.dumps(workflow,ensure_ascii=False,indent=2))
+                    store.write_task(task)
             attempts = workflow['attempts']
             result_code = next((a['code'] for a in reversed(attempts) if a.get('code')), '')
             check = (attempts[-1].get('verification') if attempts else None) or {
@@ -93,6 +104,8 @@ def execute_rust(manager, task, payload):
             else:
                 check = verify_b3_candidate(source, verify=lambda code: verifier.verify_code(
                     code, payload.timeout_sec or 120, files=files, entry_path=entry['path']))
+    except (TaskCancelled,TimeoutError):
+        raise
     except (verifier.VerifierUnavailableError, FileNotFoundError, OSError) as error:
         check = {'status': 'unavailable', 'verified': False, 'message': str(error)}
     except ValueError as error:

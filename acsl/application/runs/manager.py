@@ -18,6 +18,7 @@ from pathlib import Path
 from statistics import mean
 
 from acsl.adapters.storage import JsonStore, utcnow
+from acsl.infrastructure.task_control import TaskCancelled
 from acsl.application.demo_cases import extract_specifications, get_demo_case, list_demo_cases
 from acsl.contracts.runs import ArtifactItem, PhaseState, RunRequest, RunResult, RunTask
 from acsl.infrastructure.settings import (
@@ -79,6 +80,7 @@ from .results import RunResultMixin
 class RunManager(RunLiveMixin, RunRecoveryMixin, RunResultMixin, RunCollectionMixin):
     def __init__(self, store: JsonStore) -> None:
         self.store = store
+        self._lifecycle_lock=threading.RLock()
         self._run_slots=threading.BoundedSemaphore(max(1,min(8,int(os.getenv('ACSL_AGENT_MAX_WORKERS','2')))))
         self.capabilities = detect_live_capabilities()
 
@@ -205,12 +207,12 @@ class RunManager(RunLiveMixin, RunRecoveryMixin, RunResultMixin, RunCollectionMi
         if task is None:
             return None, None
         result = self.store.read_result(task_id)
-        if ((task.mode.startswith("rust-") or task.metadata.get("benchmark")) and task.status in {"queued", "running"}
+        if (task.engine == "live" and task.status in {"queued", "running"}
                 and task.metadata.get("worker_pid") != os.getpid() and result is None):
             # Never retry a model request after backend restart. Preserve any
             # completed rounds and make the interrupted state explicit.
             task.status = "unavailable"
-            task.message = "服务已重启，本次基准重跑中断；已保存输入与工件，请手动重新提交。" if task.metadata.get("benchmark") else "服务已重启，本次 Rust 验证中断；已完成的轮次保留，请手动重新提交。"
+            task.message = "服务已重启，本次基准重跑中断；已保存输入与工件，请手动重新提交。" if task.metadata.get("benchmark") else "服务已重启，本次验证中断；输入与已完成工件保留，请手动重新提交。"
             task.finished_at = utcnow()
             self._fail_remaining_phases(task, task.message)
             self.store.write_task(task)
@@ -219,7 +221,7 @@ class RunManager(RunLiveMixin, RunRecoveryMixin, RunResultMixin, RunCollectionMi
             result = self._build_result(task, status="Unavailable", summary=task.message,
                 source_code="", result_code=next((a.get("code", "") for a in reversed(attempts) if a.get("code")), ""),
                 command=None, logs={"raw": task.message}, specifications={},
-                engine_detail={"language": "Rust", "attempts": attempts, "workflow": snapshot})
+                engine_detail={"language": "Rust" if task.mode.startswith("rust-") else "C", "attempts": attempts, "workflow": snapshot})
             self.store.write_result(task_id, result)
         if result is not None and task.status in {"queued", "running"}:
             self._sync_task_with_result(task, result)
@@ -283,13 +285,43 @@ class RunManager(RunLiveMixin, RunRecoveryMixin, RunResultMixin, RunCollectionMi
                 recovered += 1
         return recovered
 
+    def cancel(self, task_id):
+        with self._lifecycle_lock:
+            task=self.store.read_task(task_id)
+            if task is None:raise KeyError(task_id)
+            if task.status in ('queued','running'):
+                directory=resolve_project_path(task.task_dir);directory.mkdir(parents=True,exist_ok=True)
+                (directory/'cancel.requested').touch(exist_ok=True)
+            return task
+
+    def _finish_task(self,task,result):
+        with self._lifecycle_lock:
+            if (resolve_project_path(task.task_dir)/'cancel.requested').is_file():
+                result.update(status='Cancelled',summary='任务已取消，已返回的产物已保留。')
+                if result.get('verification'):result['verification'].update(outcome='cancelled',verified=False)
+            task.status=_status_to_task_status(result['status'])
+            task.message=result['summary'];task.finished_at=utcnow();task.updated_at=utcnow()
+            if task.status in ('cancelled','timeout'):
+                self._fail_remaining_phases(task,task.message)
+                state=task.metadata.get('agent_progress') or {}
+                state['current']=task.message
+                for step in state.get('steps',[]):
+                    if step.get('status')=='running':step.update(status='failed',detail=task.message,finished_at=task.finished_at.isoformat())
+            self.store.write_result(task.task_id,result);self.store.write_task(task)
+
     def _execute_with_slot(self,task_id,payload):
-        with self._run_slots:
-            self._execute(task_id,payload)
+        while not self._run_slots.acquire(timeout=.2):
+            task=self.store.read_task(task_id)
+            if task is None:return
+            if (resolve_project_path(task.task_dir)/'cancel.requested').is_file():
+                self._execute(task_id,payload)
+                return
+        try:self._execute(task_id,payload)
+        finally:self._run_slots.release()
 
     def _execute(self, task_id: str, payload: RunRequest) -> None:
         task = self.store.read_task(task_id)
-        if task is None:
+        if task is None or task.status not in ("queued","running"):
             return
         task.status = "running"
         task.started_at = utcnow()
@@ -297,14 +329,25 @@ class RunManager(RunLiveMixin, RunRecoveryMixin, RunResultMixin, RunCollectionMi
         self.store.write_task(task)
 
         try:
-            result = self._run_replay(task) if task.engine == "replay" else self._run_live(task, payload)
-            task.status = _status_to_task_status(result["status"])
-            task.message = result["summary"]
-            task.finished_at = utcnow()
-            task.updated_at = utcnow()
-            self.store.write_result(task.task_id, result)
-            self.store.write_task(task)
-        except subprocess.TimeoutExpired as exc:
+            from acsl.infrastructure.task_control import task_scope
+            with task_scope(resolve_project_path(task.task_dir), payload.timeout_sec or 200) as control:
+                control.checkpoint()
+                result = self._run_replay(task) if task.engine == "replay" else self._run_live(task, payload)
+                # Retain returned artifacts, but do not report success after cancellation.
+                if control.cancelled():
+                    result.update(status='Cancelled',summary='任务已取消，已返回的产物已保留。')
+                    if result.get('verification'):result['verification'].update(outcome='cancelled',verified=False)
+                elif time.monotonic() >= control.deadline:
+                    result.update(status='Timeout',summary='任务总预算已耗尽，已返回的产物已保留。')
+                    if result.get('verification'):result['verification'].update(outcome='timeout',verified=False)
+            self._finish_task(task,result)
+        except TaskCancelled as exc:
+            task.status='cancelled';task.message=str(exc);task.finished_at=utcnow();task.updated_at=utcnow()
+            self._fail_remaining_phases(task,str(exc))
+            result=self._build_result(task,status='Cancelled',summary=str(exc),source_code='',result_code='',command=None,
+                logs={'summary':[str(exc)],'raw':str(exc)},specifications={})
+            self._finish_task(task,result)
+        except (subprocess.TimeoutExpired, TimeoutError) as exc:
             task.status = "timeout"
             task.message = str(exc)
             task.finished_at = utcnow()
@@ -330,7 +373,7 @@ class RunManager(RunLiveMixin, RunRecoveryMixin, RunResultMixin, RunCollectionMi
                     "actionable_hint": "Reduce sample size or extend the timeout only after removing noisy candidates.",
                 },
             )
-            self.store.write_result(task.task_id, result)
+            self._finish_task(task,result)
         except Exception as exc:  # noqa: BLE001
             task.status = "fail"
             task.message = str(exc)
@@ -350,7 +393,7 @@ class RunManager(RunLiveMixin, RunRecoveryMixin, RunResultMixin, RunCollectionMi
                 highlights=["execution failure"],
                 failure_excerpt=str(exc),
             )
-            self.store.write_result(task.task_id, result)
+            self._finish_task(task,result)
 
     def _sync_task_with_result(self, task: RunTask, result: dict) -> None:
         task.status = _status_to_task_status(result["status"])

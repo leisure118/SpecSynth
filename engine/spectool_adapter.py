@@ -131,10 +131,11 @@ def _local_tool_probe() -> dict[str, bool]:
 
 
 def capabilities() -> SpectoolCapabilities:
-    container = _container_tool_probe()
+    mode=(os.getenv("SPECTOOL_VERIFY_RUNNER","host") or "host").strip().lower()
+    container = _container_tool_probe() if mode in ('auto','container') else {"service":None,"tools":dict.fromkeys(('frama_c','veri_clang','alt_ergo','z3'),False)}
     container_tools = container["tools"]
     local = _local_tool_probe()
-    host_verify_ready = local["frama_c"] and (local["alt_ergo"] or local["z3"])
+    host_verify_ready = mode != "container" and local["frama_c"] and (local["alt_ergo"] or local["z3"])
     container_verify_ready = container_tools["frama_c"] and (container_tools["alt_ergo"] or container_tools["z3"])
     verify_runner = "host" if host_verify_ready else "container" if container_verify_ready else None
     return SpectoolCapabilities(
@@ -600,7 +601,7 @@ def _run_wp(source_path: Path, timeout_sec: int) -> tuple[dict[str, Any], str, s
     # Shared spectool verification prefers host Frama-C. AutoSpec's image is
     # never required here; set SPECTOOL_VERIFY_RUNNER=container to force the
     # dedicated/legacy container probe explicitly.
-    runner = (os.getenv("SPECTOOL_VERIFY_RUNNER", "auto") or "auto").strip().lower()
+    runner = (os.getenv("SPECTOOL_VERIFY_RUNNER", "host") or "host").strip().lower()
     if runner in {"auto", "host"}:
         configured = (os.getenv("SPECTOOL_FRAMAC", "") or "").strip()
         binary = configured if configured and (Path(configured).exists() or shutil.which(configured)) else shutil.which("frama-c")
@@ -617,7 +618,7 @@ def _run_wp(source_path: Path, timeout_sec: int) -> tuple[dict[str, Any], str, s
                 if runner == "host":
                     raise RuntimeError("本机 Frama-C 不可用。") from None
         elif runner == "host":
-            raise RuntimeError("未检测到本机 Frama-C。请安装 Frama-C 或改用专用验证容器。")
+            raise RuntimeError("未检测到本机 Frama-C。请在服务器安装 Frama-C 并配置可执行文件路径。")
 
     container = _container_tool_probe()
     service = container.get("service")

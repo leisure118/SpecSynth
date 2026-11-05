@@ -1,6 +1,10 @@
+import VerificationDiagnostics from './VerificationDiagnostics.js'
+import VerificationMetric from './VerificationMetric.js'
+import RunControls from './RunControls.js'
 import { defineComponent, computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { progressStages, stageLabel, stageDescription, statusLabel, secondsBetween, duration } from '../verusProgress.js'
 export default defineComponent({
+  components:{VerificationDiagnostics,VerificationMetric,RunControls},
   props:{task:Object,result:Object},
   emits:['open-code'],
   setup(props){
@@ -12,19 +16,19 @@ export default defineComponent({
     const rounds=computed(()=>workflow.value.attempts||props.result?.engine_detail?.attempts||[])
     const stages=computed(()=>{const rows=progressStages(workflow.value,active.value);return rows.length?rows:(props.task?.phases||[]).filter(p=>p.status!=='pending').map(p=>({phase:p.key==='verus'?'verifying':p.key,message:p.detail,started_at:p.started_at,finished_at:p.finished_at,state:p.status==='running'?'active':p.status==='failed'?'error':'done'}))})
     const elapsed=computed(()=>duration(secondsBetween(workflow.value.created_at||props.task?.created_at,workflow.value.finished_at||(!active.value?props.task?.updated_at:null),now.value)))
-    const heading=computed(()=>active.value?({preparing:'准备任务',generating:'模型生成中',verifying:'Verus 验证中',repairing:'自动修复中'}[workflow.value.phase]||(props.task?.phases?.some(p=>p.key==='verus'&&p.status==='running')?'Verus 验证中':'任务排队中')):props.result?({Pass:'Verus 验证通过',Fail:'Verus 验证未通过',Invalid:'代码检查未通过',Timeout:'Verus 验证超时',Unavailable:'运行未完成'}[props.result.status]||props.result.status):'等待运行结果')
+    const heading=computed(()=>active.value?({preparing:'准备任务',generating:'模型生成中',verifying:'Verus 验证中',repairing:'自动修复中'}[workflow.value.phase]||(props.task?.phases?.some(p=>p.key==='verus'&&p.status==='running')?'Verus 验证中':'任务排队中')):props.result?({Pass:'Verus 验证通过',Fail:'Verus 验证未通过',Invalid:'代码检查未通过',Timeout:'Verus 验证超时',Unavailable:'运行未完成',Cancelled:'任务已取消'}[props.result.status]||props.result.status):'等待运行结果')
     const verification=computed(()=>props.result?.engine_detail?.verification||null)
     const diagnostics=computed(()=>[verification.value?.stdout,verification.value?.stderr].filter(Boolean).join('\n')||props.result?.logs?.raw||'')
     const usage=computed(()=>rounds.value.reduce((sum,r)=>sum+(r.usage?.total_tokens||0),0))
     return {now,workflow,active,rounds,stages,elapsed,heading,verification,diagnostics,usage,stageLabel,stageDescription,statusLabel,duration,secondsBetween}
   },
   template: `<section class="vf-run-progress" :aria-label="$t(&quot;运行进度与验证结果&quot;)">
-    <header class="vf-progress-heading" :class="{active,passed:result?.status==='Pass',failed:result&&result.status!=='Pass'}"><span class="vf-progress-icon">{{ $t(active?'◌':result?.status==='Pass'?'✓':'!') }}</span><div><h3 aria-live="polite">{{ $t(heading) }}</h3><p>{{ $t(active?'已运行':'总耗时') }} {{ $t(elapsed) }}<template v-if="workflow.repair_rounds">{{ $t(" · 修复 ") }}{{ $t(workflow.repair_rounds) }}{{ $t(" 轮") }}</template></p></div></header>
+    <RunControls :task="task"/><header class="vf-progress-heading" :class="{active,passed:result?.status==='Pass',failed:result&&result.status!=='Pass'}"><span class="vf-progress-icon">{{ $t(active?'◌':result?.status==='Pass'?'✓':'!') }}</span><div><h3 aria-live="polite">{{ $t(heading) }}</h3><p>{{ $t(active?'已运行':'总耗时') }} {{ $t(elapsed) }}<template v-if="workflow.repair_rounds">{{ $t(" · 修复 ") }}{{ $t(workflow.repair_rounds) }}{{ $t(" 轮") }}</template></p></div></header>
     <p v-if="workflow.selection?.agent_id" class="vf-progress-hint">{{ $t({'codex':'Codex','deepseek-harness':active||rounds.some(r=>r.agent_runtime||r.error?.startsWith('官方 DeepSeek Harness'))?'DeepSeek Harness CLI':'平台自建 Harness（历史记录）',direct:'模型直连',claude:'Claude Code'}[workflow.selection.agent_id]||workflow.selection.agent_id) }}{{ $t(" · ") }}{{ $t(workflow.selection.model_profile?.name||workflow.model_id) }}</p><p v-if="active" class="vf-progress-message">{{ $t(workflow.message||task.message||'任务已提交，等待执行。') }}</p>
     <p v-if="active&&['generating','repairing'].includes(workflow.phase)" class="vf-progress-hint">{{ $t("正在等待模型返回完整代码，随后自动交给 Verus 检查。") }}</p>
     <div v-if="active" class="vf-live-indicator" role="progressbar" :aria-label="$t(heading)"><span></span></div>
-    <div v-if="result" class="vf-verification-result" :class="{passed:result.status==='Pass'}"><p>{{ $t(result.summary) }}</p><div class="vf-result-metrics"><span v-if="result.proof_stats?.total_goals"><strong>{{ $t(result.proof_stats.proved_goals) }}{{ $t(" / ") }}{{ $t(result.proof_stats.total_goals) }}</strong>{{ $t(" 验证项通过") }}</span><span v-if="verification?.error_count!=null"><strong>{{ $t(verification.error_count) }}</strong>{{ $t(" 错误") }}</span><span v-if="verification?.elapsed_ms!=null"><strong>{{ $t((verification.elapsed_ms/1000).toFixed(2)) }}{{ $t("s") }}</strong>{{ $t(" 验证耗时") }}</span></div><small>{{ $t("Verus ") }}{{ $t(result.engine_detail?.version||workflow.verus_version) }}<template v-if="verification?.exit_code!=null">{{ $t(" · 退出码 ") }}{{ $t(verification.exit_code) }}</template></small></div>
-    <div class="vf-progress-section-title"><strong>{{ $t("执行过程") }}</strong><span>{{ $t(stages.length) }}{{ $t(" 个阶段") }}</span></div>
+    <div v-if="result" class="vf-verification-result" :class="{passed:result.status==='Pass'}"><p>{{ $t(result.summary) }}</p><div class="vf-result-metrics"><VerificationMetric :result="result" compact/><span v-if="verification?.error_count!=null"><strong>{{ $t(verification.error_count) }}</strong>{{ $t(" 错误") }}</span><span v-if="verification?.elapsed_ms!=null"><strong>{{ $t((verification.elapsed_ms/1000).toFixed(2)) }}{{ $t("s") }}</strong>{{ $t(" 验证耗时") }}</span></div><small>{{ $t("Verus ") }}{{ $t(result.engine_detail?.version||workflow.verus_version) }}<template v-if="verification?.exit_code!=null">{{ $t(" · 退出码 ") }}{{ $t(verification.exit_code) }}</template></small></div>
+    <VerificationDiagnostics :diagnostics="result?.verification?.diagnostics||verification?.diagnostics||[]"/><div class="vf-progress-section-title"><strong>{{ $t("执行过程") }}</strong><span>{{ $t(stages.length) }}{{ $t(" 个阶段") }}</span></div>
     <ol class="vf-stage-list"><li v-for="(stage,i) in stages" :key="i" :class="stage.state"><span class="vf-stage-dot">{{ $t(stage.state==='active'?'◌':stage.state==='error'?'!':stage.state==='warning'?'!':'✓') }}</span><div><strong>{{ $t(stageLabel(stage.phase,stage.round)) }}</strong><small>{{ $t(stageDescription(stage)) }}</small></div><time>{{ $t(stage.started_at?duration(secondsBetween(stage.started_at,stage.finished_at,now)):'—') }}</time></li></ol>
     <p v-if="!stages.length" class="vf-progress-hint">{{ $t("等待执行器接收任务…") }}</p>
     <details v-if="diagnostics" class="vf-run-details"><summary>{{ $t("Verus 输出与诊断") }}</summary><pre>{{diagnostics}}</pre></details>

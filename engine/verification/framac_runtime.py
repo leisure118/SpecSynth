@@ -7,9 +7,9 @@ workbench's verify-only action -- must not depend on that image.
 
 Selection order for the shared flows:
 
-  auto (default)  host Frama-C when available, otherwise a dedicated verifier
+  auto            explicitly enable host-first/container fallback using a dedicated verifier
                   container (ACSL_VERIFIER_SERVICE, default ``verifier``)
-  host            require host Frama-C
+  host (default)  require server-local Frama-C
   container       require the dedicated verifier container
   legacy          explicitly use the AutoSpec container (AutoSpec workflow only)
 
@@ -43,8 +43,8 @@ _PROBE_TTL_SEC = max(int(os.getenv("ACSL_VERIFIER_CACHE_TTL", "30") or "30"), 0)
 
 
 def requested_runtime() -> str:
-    value = (os.getenv(RUNTIME_ENV, "auto") or "auto").strip().lower()
-    return value if value in {"auto", "host", "container", "legacy"} else "auto"
+    value = (os.getenv(RUNTIME_ENV, "host") or "host").strip().lower()
+    return value if value in {"auto", "host", "container", "legacy"} else "host"
 
 
 def framac_binary() -> str | None:
@@ -115,7 +115,7 @@ def runtime_info(*, force: bool = False) -> dict[str, Any]:
 
     if not info["ready"] and mode in {"auto", "host"}:
         if not tools["frama_c"]:
-            info["message"] = "未检测到本机 Frama-C。请安装 Frama-C，或配置专用验证容器。"
+            info["message"] = "未检测到本机 Frama-C。请在服务器安装 Frama-C 并配置服务账号的 PATH。"
         elif not (tools["alt_ergo"] or tools["z3"]):
             info["message"] = "本机 Frama-C 已安装，但未检测到 Alt-Ergo 或 Z3。"
         elif mode == "host":
@@ -193,6 +193,9 @@ def _check_from_output(result_type: str, stdout: str, stderr: str, elapsed: floa
     }
 
 
+from engine.verification.report import reported
+
+@reported("framac")
 def run_candidate(files: list[dict[str, str]], entry: str, mode: str, timeout_sec: int,
                   workdir: Path, function: str | None = None) -> dict[str, Any]:
     """Write candidates and run Frama-C/WP through the selected runtime."""

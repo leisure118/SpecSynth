@@ -50,6 +50,8 @@ RUN if [ -n "$APT_MIRROR" ]; then \
         make \
         git \
         ripgrep \
+        z3 \
+        libgmp10 libgomp1 libstdc++6 \
         bubblewrap \
         ca-certificates \
         curl \
@@ -77,6 +79,15 @@ ENV ACSL_AGENT_RUNTIME_ROOT=/opt/acsl-agent/agents
 COPY --from=agent-runtime /opt/acsl-agent/agents /opt/acsl-agent/agents
 RUN python scripts/install_agent_runtime.py --check \
     && npm run build:web
+
+# Server-owned verifier, outside the mutable runtime data mount.
+ARG INSTALL_VERIFAST=1
+ENV VERIFAST_BINARY=/opt/acsl-agent/tools/verifast/verifast-26.10/bin/verifast
+ENV VERIFAST_RUNTIME=host
+ENV ACSL_VERIFIER_RUNTIME=host
+RUN if [ "$INSTALL_VERIFAST" = "1" ]; then \
+        python scripts/install_verifast.py --root /opt/acsl-agent/tools/verifast; \
+    fi
 
 # The fixed Verus release is installed for this image's architecture, not copied
 # from a developer's macOS runtime. Linux arm64 needs a separately supplied build.

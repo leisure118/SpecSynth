@@ -4,6 +4,8 @@ from __future__ import annotations
 from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
+from contextvars import copy_context
+from acsl.infrastructure.task_control import checkpoint, remaining, TaskCancelled
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -157,7 +159,7 @@ class WorkflowRuns:
             self._active = run_id
             snapshot = deepcopy(run)
             try:
-                self._executor.submit(self._execute, run_id, request.model_copy(deep=True), model_id, config)
+                self._executor.submit(copy_context().run, self._execute, run_id, request.model_copy(deep=True), model_id, config)
             except Exception:
                 self._finish(run_id, "tool_error", "无法启动后台任务；没有发出模型请求。")
                 self._active = None
@@ -232,6 +234,10 @@ class WorkflowRuns:
             self._update(run_id, status="running")
             self._stage(run_id, "preparing", "准备任务、Skill 与提示词")
             self._execute_steps(run_id, request, model_id, config)
+        except TaskCancelled:
+            self.cancel(run_id);self._finish(run_id,'cancelled','任务已取消。')
+        except TimeoutError:
+            self._finish(run_id,'timeout','任务总预算耗尽。')
         except Exception as error:
             phase = self.get(run_id)["phase"]
             self._finish(run_id, "provider_error" if phase in {"preparing", "generating", "repairing"} else "tool_error",
@@ -260,6 +266,7 @@ class WorkflowRuns:
         self._update(run_id, preparation=preparation, prompt=prompt, retrieval=retrieval)
         limit = request.max_repair_rounds if request.repair_enabled else 0
         for round_number in range(limit + 1):
+            checkpoint()
             with self._lock:
                 run = self._runs[run_id]
                 if run["cancel_requested"]:
@@ -276,9 +283,12 @@ class WorkflowRuns:
             self._stage(run_id, 'generating' if round_number == 0 else 'repairing',
                         '正在调用模型生成 Verus' if round_number == 0 else f'根据验证诊断修复 · 第 {round_number} 轮', round_number)
             try:
+                checkpoint()
                 generated = self._generate(prompt, model_id, snapshot=config)
                 if not isinstance(generated, dict) or not isinstance(generated.get("code"), str):
                     raise ValueError("Invalid provider result")
+            except (TaskCancelled,TimeoutError):
+                raise
             except Exception as error:
                 message = _safe_error(error, "generating")
                 from .model_provider import ProviderError
@@ -315,7 +325,10 @@ class WorkflowRuns:
                 self._stage(run_id, "verifying", "正在运行 Verus 验证" + (f" · 修复 {round_number} 后" if round_number else " · 首次候选"), round_number)
                 self._attempt_update(run_id, round_number, status="verifying")
             try:
-                verification = verify_b3_candidate(code, verify=lambda value: self._verify(value, request.timeout_seconds))
+                checkpoint()
+                verification = verify_b3_candidate(code, verify=lambda value: self._verify(value, max(1,int(remaining(request.timeout_seconds)))))
+            except (TaskCancelled,TimeoutError):
+                raise
             except Exception as error:
                 message = _safe_error(error, "verifying")
                 self._attempt_update(run_id, round_number, status="tool_error", error=message, finished_at=_now())

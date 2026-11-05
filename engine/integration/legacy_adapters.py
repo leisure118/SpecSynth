@@ -17,7 +17,7 @@ _CAPABILITIES_CACHE_TTL_SEC = max(int(os.getenv("ACSL_AGENT_CAPABILITIES_CACHE_T
 
 
 def _local_toolchain_mode() -> bool:
-    return os.getenv("ACSL_AGENT_LOCAL_TOOLCHAIN", "0") == "1"
+    return os.getenv("ACSL_AGENT_LOCAL_TOOLCHAIN", "1") == "1"
 
 
 @dataclass(frozen=True)
@@ -37,9 +37,11 @@ class LiveCapabilities:
     veri_clang_container: bool
     autospec_container: bool
     termination_container: bool
+    gcc_local: bool = False
 
     @property
     def single_available(self) -> bool:
+        if self.local_toolchain_mode:return self.python and self.frama_c_local and self.veri_clang_local
         return (
             self.python
             and self.docker
@@ -51,6 +53,7 @@ class LiveCapabilities:
 
     @property
     def termination_available(self) -> bool:
+        if self.local_toolchain_mode:return self.python and self.frama_c_local and self.gcc_local
         return (
             self.python
             and self.docker
@@ -122,7 +125,7 @@ class LiveCapabilities:
         if self.local_toolchain_mode:
             if not self.frama_c_local:
                 details.append("未检测到本地 Frama-C。")
-            if not self.termination_container:
+            if not self.gcc_local:
                 details.append("未检测到本地 gcc（termination 阶段需要）。")
             return details
         if not self.docker:
@@ -233,7 +236,7 @@ def detect_live_capabilities(*, force: bool = False) -> LiveCapabilities:
 
     has_python = shutil.which("python") is not None or shutil.which("python3") is not None
     local_mode = _local_toolchain_mode()
-    has_docker = shutil.which("docker") is not None
+    has_docker = not local_mode and shutil.which("docker") is not None
     has_docker_compose = has_docker and _run_probe(["docker", "compose", "version"], timeout=30)
     has_docker_daemon = has_docker_compose and _run_probe(["docker", "info"], timeout=30)
     frama_c_local = shutil.which("frama-c") is not None
@@ -246,19 +249,7 @@ def detect_live_capabilities(*, force: bool = False) -> LiveCapabilities:
     autospec_container = False
     termination_container = False
 
-    if local_mode:
-        # Local-toolchain mode is designed for unified container deployment.
-        # We satisfy existing capability flags using in-container binaries.
-        has_docker = True
-        has_docker_compose = True
-        has_docker_daemon = True
-        autospec_image = veri_clang_local and frama_c_local
-        termination_image = frama_c_local and gcc_local
-        autospec_container = autospec_image
-        termination_container = termination_image
-        veri_clang_container = autospec_container
-        frama_c_container = autospec_container or termination_container
-    elif has_docker_daemon:
+    if not local_mode and has_docker_daemon:
         autospec_image = _run_probe(["docker", "image", "inspect", "junjiehu1905/autospec:latest"])
         termination_image = _run_probe(["docker", "image", "inspect", "junjiehu1905/termination_analysis:latest"])
         if autospec_image:
@@ -297,6 +288,7 @@ def detect_live_capabilities(*, force: bool = False) -> LiveCapabilities:
 
     capabilities = LiveCapabilities(
         local_toolchain_mode=local_mode,
+        gcc_local=gcc_local,
         python=has_python,
         docker=has_docker,
         docker_compose=has_docker_compose,

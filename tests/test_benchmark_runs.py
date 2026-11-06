@@ -13,6 +13,9 @@ def runner():
         def list_tasks(self,limit=20): return list(tasks.values())
         def create_upload(self,name,payload):
             uploads.append((name,payload));return {'file_id':'snapshot'}
+        def create_bundle_upload(self,files):
+            uploads.extend((f["relative_path"],f["payload"]) for f in files)
+            return {"file_id":"snapshot"}
     class Manager:
         def ensure_materialized(self,id):return tasks[id],None
         def submit(self,mode,payload):
@@ -94,3 +97,14 @@ def test_submission_rejects_annotated_assumptions_before_creating_task(runner,mo
     assert response.status_code==422
     assert 'admit' in response.json()['detail']
     assert not submissions and not uploads
+
+
+def test_verifast_catalog_rerun_bundles_upstream_headers(runner):
+    client, submissions, uploads, _ = runner
+    result = client.post('/api/v1/benchmarks/verifast_c_26_10/runs', json={
+        'file': 'examples/arraylist.c', 'action': 'verify', 'source_variant': 'annotated',
+        'verification_tool': 'verifast',
+    })
+    assert result.status_code == 201, result.text
+    assert submissions[0].entry_path == 'examples/arraylist.c'
+    assert {path for path, _ in uploads} >= {'examples/arraylist.c', 'examples/arraylist.h'}

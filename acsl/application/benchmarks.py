@@ -70,7 +70,7 @@ class BenchmarkCatalog:
         for kind in ("source", "log"):
             relative = row["artifacts"].get(kind)
             result[kind] = (
-                (self.data_dir / relative).read_text(errors="replace")
+                (self.data_dir / relative).read_bytes().decode("utf-8", errors="replace")
                 if relative and (self.data_dir / relative).is_file()
                 else None
             )
@@ -169,7 +169,24 @@ class BenchmarkRunService:
         with self._lock:
             if any(row["status"] in ("queued", "running") for row in self.history(benchmark_id, body.file)):
                 raise BenchmarkConflict("此案例已有运行中的任务，请等待完成。")
-            upload = self.store.create_upload(body.file, input_source.encode())
+            dependencies = original.get("dependency_paths", [])
+            if original.get("verification_tool") == "verifast" and (dependencies or "/" in body.file):
+                from engine.verification.verifast_runtime import validate_files
+
+                source_root = (self.catalog.data_dir / benchmark_id / "sources").resolve()
+                files = [{"path": body.file, "content": input_source}]
+                for path in dependencies:
+                    dependency = (source_root / path).resolve()
+                    if not dependency.is_relative_to(source_root):
+                        raise BenchmarkValidation("Invalid benchmark dependency path")
+                    files.append({"path": path, "content": dependency.read_bytes().decode("utf-8")})
+                validate_files(files, body.file)
+                upload = self.store.create_bundle_upload([
+                    {"relative_path": item["path"], "payload": item["content"].encode()}
+                    for item in files
+                ])
+            else:
+                upload = self.store.create_upload(body.file, input_source.encode())
             payload = RunRequest(
                 file_id=upload["file_id"],
                 entry_path=body.file,

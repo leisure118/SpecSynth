@@ -10,9 +10,9 @@ def execute_verifast(manager, task, payload):
     upload = manager.store.read_upload(payload.file_id)
     if not upload:
         raise ValueError('缺少源码快照。')
-    files = ([{'path': f['relative_path'], 'content': resolve_project_path(f['stored_path']).read_text()}
+    files = ([{'path': f['relative_path'], 'content': resolve_project_path(f['stored_path']).read_bytes().decode("utf-8")}
               for f in upload['manifest']] if upload.get('kind') == 'bundle' else
-             [{'path': payload.entry_path, 'content': resolve_project_path(upload['stored_path']).read_text()}])
+             [{'path': payload.entry_path, 'content': resolve_project_path(upload['stored_path']).read_bytes().decode("utf-8")}])
     source = next(f['content'] for f in files if f['path'] == payload.entry_path)
     manager._advance_phase(task, 'formal_verifying', 'running', 'VeriFast 正在验证当前文件规约')
     with proof_slot(payload.timeout_sec or 200) as remaining:
